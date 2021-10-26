@@ -7,7 +7,6 @@
 #include "Project.h"
 
 namespace basecross {
-
 	//--------------------------------------------------------------------------------------
 	//	ゲームステージクラス実体
 	//--------------------------------------------------------------------------------------
@@ -26,17 +25,15 @@ namespace basecross {
 		PtrMultiLight->SetDefaultLighting();
 	}
 
-
-
 	void GameStage::OnCreate() {
 		try {
 			//ビューとライトの作成
 			CreateViewLight();
+			AddGameObject<Debug>();
 		}
 		catch (...) {
 			throw;
 		}
 	}
-
 }
 //end basecross
