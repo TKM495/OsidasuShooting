@@ -81,18 +81,20 @@ HWND InitInstance(HINSTANCE hInstance, int nCmdShow, bool isFullScreen, int iCli
 	else {
 		//ウインドウのサイズ調整
 		RECT rc = { 0, 0, iClientWidth, iClientHeight };
-		AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, FALSE);
+		//最大化ボタンとサイズ変更境界を持たないオーバーラップウインドウ
+		DWORD ws = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX;
+		AdjustWindowRect(&rc, ws, FALSE);
 		//ウインドウの作成
 		hWnd = CreateWindow(
 			pClassName,				// 登録されているクラス名
 			pWndTitle,				// ウインドウ名
-			WS_OVERLAPPEDWINDOW,	// ウインドウスタイル（オーバーラップウインドウを作成）
+			ws,						// ウインドウスタイル
 			CW_USEDEFAULT,			//位置はWindowsに任せる
 			CW_USEDEFAULT,			//位置はWindowsに任せる
 			rc.right - rc.left,		//幅指定
 			rc.bottom - rc.top,		//高さ指定
-			nullptr,					// 親ウインドウのハンドル（なし）
-			nullptr,					// メニューや子ウインドウのハンドル
+			nullptr,				// 親ウインドウのハンドル（なし）
+			nullptr,				// メニューや子ウインドウのハンドル
 			hInstance,				// アプリケーションインスタンスのハンドル
 			nullptr					// ウインドウの作成データ
 		);
@@ -225,7 +227,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 
 	//ウインドウの幅と高さ
 	int iClientWidth = 1280;
-	int iClientHeight = 800;
+	int iClientHeight = 720;
 	// フルスクリーンにするかどうかの判定
 	// コマンドラインに/fが設定されていたらフルスクリーンにする
 	bool isFullScreen = false;

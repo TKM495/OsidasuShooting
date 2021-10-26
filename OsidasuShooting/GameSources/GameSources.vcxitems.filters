@@ -13,6 +13,9 @@
     <Filter Include="Debug">
       <UniqueIdentifier>{9c482938-c028-4b48-9abd-6e406b768003}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utility">
+      <UniqueIdentifier>{1a13b8fa-a2d5-4baf-ac14-594626b86fb1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -25,6 +28,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)DebugClass\Debug.h">
       <Filter>Debug</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\Utility.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
@@ -36,6 +42,9 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)DebugClass\Debug.cpp">
       <Filter>Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\Utility.cpp">
+      <Filter>Utility</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
