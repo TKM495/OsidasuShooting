@@ -31,7 +31,14 @@
 *.out
 *.app
 
+*.pdb
+*.user
+
 .vs/
-Debug/
+Debug/*
 Temp/
-Release/
+Release/*
+
+# Effekseer関連ファイルのみ例外とする
+!Libs/lib/Debug/Effekseer**.lib
+!Libs/lib/Release/Effekseer**.lib
