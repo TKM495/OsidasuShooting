@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Project.h"
+#include "Effekseer/EfkEffect.h"
 
 namespace basecross {
 	EfkEffectResource::EfkEffectResource(const wstring& path)

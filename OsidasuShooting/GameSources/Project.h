@@ -10,7 +10,4 @@
 #include "DebugClass/Debug.h"
 #include "Utility/Utility.h"
 
-#include "Effekseer/EfkInterface.h"
-#include "Effekseer/EfkObject.h"
-#include "Effekseer/EfkComponent.h"
-#include "Effekseer/EfkData.h"
+#include "Effekseer/EfkEffect.h"

@@ -17,10 +17,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)DebugClass\Debug.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DebugClass\DebugCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkComponent.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkData.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkEffect.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkEffectResource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkInterface.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkObj.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Scene.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\GameStage.h" />
@@ -31,10 +30,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)DebugClass\Debug.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)DebugClass\DebugCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkComponent.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkData.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkEffectResource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkInterface.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkObj.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Scene.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\GameStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TestObject.cpp" />

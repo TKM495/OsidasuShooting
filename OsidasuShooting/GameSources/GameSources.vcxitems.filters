@@ -43,22 +43,19 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkInterface.h">
       <Filter>Effekseer</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkObj.h">
-      <Filter>Effekseer</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)TestObject.h">
       <Filter>DebugClass\TestObject</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)DebugClass\DebugCamera.h">
       <Filter>DebugClass\DebugCamera</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkObject.h">
-      <Filter>Effekseer</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkComponent.h">
       <Filter>Effekseer</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkData.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkEffectResource.h">
+      <Filter>Effekseer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkEffect.h">
       <Filter>Effekseer</Filter>
     </ClInclude>
   </ItemGroup>
@@ -79,22 +76,16 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkInterface.cpp">
       <Filter>Effekseer</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkObj.cpp">
-      <Filter>Effekseer</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)TestObject.cpp">
       <Filter>DebugClass\TestObject</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)DebugClass\DebugCamera.cpp">
       <Filter>DebugClass\DebugCamera</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkObject.cpp">
-      <Filter>Effekseer</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkComponent.cpp">
       <Filter>Effekseer</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkData.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkEffectResource.cpp">
       <Filter>Effekseer</Filter>
     </ClCompile>
   </ItemGroup>

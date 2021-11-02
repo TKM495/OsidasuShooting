@@ -1,15 +1,15 @@
 #pragma once
 #include "stdafx.h"
-#include "Effekseer/EfkData.h"
+#include "Effekseer/EfkEffect.h"
 
 namespace basecross {
 	class EfkComponent : public Component {
 		/**
-		 * @brief ãƒãƒ¼ã‚ºã‚’ã©ã†ã™ã‚‹ã‹
+		 * @brief ƒ|[ƒY‚ğ‚Ç‚¤‚·‚é‚©
 		 */
 		enum class PauseState {
-			Play,	// å†ç”Ÿ
-			Stop	// ä¸€æ™‚åœæ­¢
+			Play,	// Ä¶
+			Stop	// ˆê’â~
 		};
 
 		EffectRef m_effectData;

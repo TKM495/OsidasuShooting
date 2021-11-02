@@ -1,5 +1,6 @@
 #pragma once
 #include "stdafx.h"
+#include "Effekseer/EfkEffect.h"
 
 namespace basecross {
 	class EfkEffectResource :public BaseResource {

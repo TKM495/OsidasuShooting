@@ -4,82 +4,11 @@
 */
 
 #include "stdafx.h"
-#include "Project.h"
+#include "Effekseer/EfkEffect.h"
 #include <uchar.h>
 using namespace Effekseer;
 
 namespace basecross {
-	//--------------------------------------------------------------------------------------
-	// Effekseerのエフェクトファイルの管理クラス
-	//--------------------------------------------------------------------------------------
-	EfkEffect::EfkEffect(const shared_ptr<EfkInterface>& iface, const wstring& filename) :
-		m_FileName(filename),
-		m_EfkInterface(iface),
-		m_Effect(nullptr)
-	{
-		if (m_FileName == L"") {
-			throw BaseException(
-				L"エフェクトファイル名が空白です。",
-				L"if (m_FileName == L\"\")",
-				L"EfkEffect::EfkEffect()"
-			);
-		}
-		// エフェクトの読み込み
-		m_Effect = Effect::Create(iface->m_Manager, (const char16_t*)m_FileName.c_str());
-
-		if (m_Effect == nullptr) {
-			// ここで例外を出すとなぜか落ちる
-			throw BaseException(
-				L"エフェクトの生成に失敗しました。",
-				L"if (m_Effect == nullptr)",
-				L"EfkEffect::EfkEffect()"
-			);
-		}
-	}
-	EfkEffect::~EfkEffect() {
-		m_Effect.Reset();
-	}
-
-	void EfkEffect::OnCreate() {
-	}
-
-	//--------------------------------------------------------------------------------------
-	// EffekseerのPlayオブジェクトクラス
-	//--------------------------------------------------------------------------------------
-	EfkPlay::EfkPlay(const shared_ptr<EfkEffect>& effect, const bsm::Vec3& Emitter) :
-		m_Handle(-1)
-	{
-		try {
-			auto iface = effect->m_EfkInterface.lock();
-			if (iface) {
-				m_Handle = iface->m_Manager->Play(effect->m_Effect, Emitter.x, Emitter.y, Emitter.z);
-				m_EfkInterface = iface;
-				//Debug::GetInstance()->Log(Util::IntToWStr(m_Handle));
-			}
-		}
-		catch (...) {
-			throw;
-		}
-	}
-
-	EfkPlay::~EfkPlay() {
-		StopEffect();
-	}
-
-	void EfkPlay::AddLocation(const bsm::Vec3& Location) {
-		auto shptr = m_EfkInterface.lock();
-		if (shptr && m_Handle != -1) {
-			shptr->m_Manager->AddLocation(m_Handle, ::Effekseer::Vector3D(Location.x, Location.y, Location.z));
-		}
-	}
-
-	void EfkPlay::StopEffect() {
-		auto shptr = m_EfkInterface.lock();
-		if (shptr && m_Handle != -1) {
-			shptr->m_Manager->StopEffect(m_Handle);
-		}
-	}
-
 	//--------------------------------------------------------------------------------------
 	// Effekseerのインターフェイス
 	//--------------------------------------------------------------------------------------
