@@ -2,10 +2,10 @@
 #include "Effekseer/EfkEffect.h"
 
 namespace basecross {
-	void EfkComponent::OnCreate() {
-	}
-
-	void EfkComponent::OnUpdate() {
+	EfkComponent::EfkComponent(const shared_ptr<GameObject>& gameObjectPtr)
+		: Component(gameObjectPtr), m_handle(-1), m_playSpeed(1)
+	{
+		m_manager = EfkInterface::GetInstance()->GetManager();
 	}
 
 	void EfkComponent::SetEffectResource(const wstring& key) {
@@ -15,31 +15,23 @@ namespace basecross {
 		m_effectData = effectRes->GetEffectData();
 	}
 
-	//void EfkComponent::AddEffectResource(const wstring& key){}
-
 	void EfkComponent::Play() {
-		auto iface = EfkInterface::GetInstance();
-		if (iface) {
-			auto manager = iface->GetManager();
-			manager->StopEffect(m_handle);
-			m_handle = manager->Play(m_effectData, 0.0f, 0.0f, 0.0f);
-			Debug::GetInstance()->Log(Util::IntToWStr(m_handle));
-		}
+		Stop();
+		m_handle = m_manager->Play(m_effectData, 0.0f, 0.0f, 0.0f);
+		m_manager->SetSpeed(m_handle, m_playSpeed);
+		Debug::GetInstance()->Log(Util::IntToWStr(m_handle));
 	}
-	//void EfkComponent::Play(const wstring& Key) {
-	//}
 
 	void EfkComponent::Stop() {
-		//auto shptr = m_EfkInterface.lock();
-		//if (shptr && m_Handle != -1) {
-		//	shptr->m_Manager->StopEffect(m_Handle);
-		//}
+		if (m_handle != -1) {
+			m_manager->StopEffect(m_handle);
+		}
 	}
-	void EfkComponent::Pause(PauseState state) {
+	void EfkComponent::Pause() {
+		m_manager->SetPaused(m_handle, !m_manager->GetPaused(m_handle));
 	}
 
-	void EfkComponent::SetPlaySpeed(int speed) {
-	}
-	void EfkComponent::SetRotation(Vec3 rot) {
+	void EfkComponent::SetPlaySpeed(float speed) {
+		m_playSpeed = speed;
 	}
 }
