@@ -76,19 +76,19 @@ namespace basecross {
 		 *
 		 * @param text ログとして出す文字列
 		 */
-		void Log(wstring text);
+		void Log(const wstring& text);
 		/**
 		 * @brief 警告のログを出力
 		 *
 		 * @param text ログとして出す文字列
 		 */
-		void WarningLog(wstring text);
+		void WarningLog(const wstring& text);
 		/**
 		 * @brief エラーのログを出力
 		 *
 		 * @param text ログとして出す文字列
 		 */
-		void ErrorLog(wstring text);
+		void ErrorLog(const wstring& text);
 
 		/**
 		 * @brief Debugのインスタンスを取得
