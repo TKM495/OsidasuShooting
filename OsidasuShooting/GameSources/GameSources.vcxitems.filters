@@ -10,11 +10,14 @@
     <Filter Include="Stage\GameStage">
       <UniqueIdentifier>{fada3c95-3477-4735-9e02-e6e15deeeb71}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Debug">
-      <UniqueIdentifier>{9c482938-c028-4b48-9abd-6e406b768003}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Utility">
       <UniqueIdentifier>{1a13b8fa-a2d5-4baf-ac14-594626b86fb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effekseer">
+      <UniqueIdentifier>{3405a118-2563-4875-991a-ef2fcec3faf8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DebugClass">
+      <UniqueIdentifier>{3a517626-971a-4fb5-9f05-997cab10addd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -25,11 +28,23 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Scene.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)DebugClass\Debug.h">
-      <Filter>Debug</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\Utility.h">
       <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkInterface.h">
+      <Filter>Effekseer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkComponent.h">
+      <Filter>Effekseer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkEffectResource.h">
+      <Filter>Effekseer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkEffect.h">
+      <Filter>Effekseer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)DebugClass\Debug.h">
+      <Filter>DebugClass</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -40,11 +55,20 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Scene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)DebugClass\Debug.cpp">
-      <Filter>Debug</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\Utility.cpp">
       <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkInterface.cpp">
+      <Filter>Effekseer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkComponent.cpp">
+      <Filter>Effekseer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkEffectResource.cpp">
+      <Filter>Effekseer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)DebugClass\Debug.cpp">
+      <Filter>DebugClass</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -69,13 +69,13 @@ namespace basecross {
 		m_ssComp->SetText(wstr);
 	}
 
-	void Debug::Log(wstring text) {
+	void Debug::Log(const wstring& text) {
 		m_logData.push_back(ConvertingToLogData(Type::Normal, text));
 	}
-	void Debug::WarningLog(wstring text) {
+	void Debug::WarningLog(const wstring& text) {
 		m_logData.push_back(ConvertingToLogData(Type::Warning, text));
 	}
-	void Debug::ErrorLog(wstring text) {
+	void Debug::ErrorLog(const wstring& text) {
 		m_logData.push_back(ConvertingToLogData(Type::Error, text));
 	}
 
