@@ -11,3 +11,6 @@
 #include "Utility/Utility.h"
 
 #include "Effekseer/EfkInterface.h"
+#include "Effekseer/EfkObject.h"
+#include "Effekseer/EfkComponent.h"
+#include "Effekseer/EfkData.h"

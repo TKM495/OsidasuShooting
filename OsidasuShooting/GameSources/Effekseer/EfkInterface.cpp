@@ -28,7 +28,7 @@ namespace basecross {
 		m_Effect = Effect::Create(iface->m_Manager, (const char16_t*)m_FileName.c_str());
 
 		if (m_Effect == nullptr) {
-			// ここで例外を出すと落ちる
+			// ここで例外を出すとなぜか落ちる
 			throw BaseException(
 				L"エフェクトの生成に失敗しました。",
 				L"if (m_Effect == nullptr)",
@@ -54,6 +54,7 @@ namespace basecross {
 			if (iface) {
 				m_Handle = iface->m_Manager->Play(effect->m_Effect, Emitter.x, Emitter.y, Emitter.z);
 				m_EfkInterface = iface;
+				//Debug::GetInstance()->Log(Util::IntToWStr(m_Handle));
 			}
 		}
 		catch (...) {
@@ -82,19 +83,38 @@ namespace basecross {
 	//--------------------------------------------------------------------------------------
 	// Effekseerのインターフェイス
 	//--------------------------------------------------------------------------------------
-	EfkInterface::EfkInterface() :
-		ObjectInterface(),
+	// 静的メンバ変数の実体
+	shared_ptr<EfkInterface> EfkInterface::m_ownInstance;
+
+	shared_ptr<EfkInterface> EfkInterface::GetInstance() {
+		if (m_ownInstance.get() == 0)
+		{
+			throw BaseException(
+				L"EfkInterfaceが生成されていません",
+				L"if (m_ownInstance.get() == 0)",
+				L"EfkInterface::GetInstance()"
+			);
+		}
+		return m_ownInstance;
+	}
+
+	EfkInterface::EfkInterface(const shared_ptr<Stage>& stage)
+		:GameObject(stage),
 		m_Manager(nullptr),
 		m_Renderer(nullptr)
 	{}
-	EfkInterface::~EfkInterface() {
-		// 先にエフェクト管理用インスタンスを破棄
-		m_Manager.Reset();
-		// 次に描画用インスタンスを破棄
-		m_Renderer.Reset();
-	}
+	EfkInterface::~EfkInterface() {}
 
 	void EfkInterface::OnCreate() {
+		if (m_ownInstance != NULL) {
+			throw BaseException(
+				L"Debugが複数生成されました",
+				L"if (m_ownInstance != NULL)",
+				L"Debug::OnCreate()"
+			);
+		}
+		m_ownInstance = GetThis<EfkInterface>();
+
 		//デバイスの取得
 		auto Dev = App::GetApp()->GetDeviceResources();
 		auto pDx11Device = Dev->GetD3DDevice();
@@ -125,6 +145,10 @@ namespace basecross {
 	}
 
 	void EfkInterface::OnDraw() {
+		auto& camera = GetStage()->GetView()->GetTargetCamera();
+		SetViewProj(camera->GetViewMatrix(), camera->GetProjMatrix());
+		// 要検証
+		SetDrawLayer(1);
 		// エフェクトの描画開始処理を行う。
 		m_Renderer->BeginRendering();
 

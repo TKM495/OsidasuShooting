@@ -96,15 +96,16 @@ namespace basecross {
 	/**
 	 * @brief Effekseerのインターフェイス
 	 */
-	class EfkInterface : public ObjectInterface, public ShapeInterface {
+	class EfkInterface : public GameObject {
 		// Effekseerのマネージャーポインタ
 		ManagerRef m_Manager;
 		EffekseerRenderer::RendererRef m_Renderer;
-
+		// 自身のインスタンス
+		static shared_ptr<EfkInterface> m_ownInstance;
 		friend class EfkPlay;
 		friend class EfkEffect;
 	public:
-		EfkInterface();
+		EfkInterface(const shared_ptr<Stage>& stage);
 		virtual ~EfkInterface();
 
 		/**
@@ -118,6 +119,12 @@ namespace basecross {
 		virtual void OnCreate() override;
 		virtual void OnUpdate()override;
 		virtual void OnDraw()override;
+
+		static shared_ptr<EfkInterface> GetInstance();
+
+		ManagerRef GetManager() {
+			return m_Manager;
+		}
 	};
 }
 //end basecross
