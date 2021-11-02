@@ -21,6 +21,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkInterface.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Scene.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Block.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Player.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\StageObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\GameStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\Utility.h" />
   </ItemGroup>
@@ -30,6 +33,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkEffectResource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkInterface.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Scene.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Block.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Player.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\StageObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\GameStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\Utility.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />

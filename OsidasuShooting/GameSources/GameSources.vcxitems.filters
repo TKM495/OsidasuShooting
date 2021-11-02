@@ -19,6 +19,12 @@
     <Filter Include="DebugClass">
       <UniqueIdentifier>{3a517626-971a-4fb5-9f05-997cab10addd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="StageObject">
+      <UniqueIdentifier>{d34aa44d-fef4-4a73-83db-e1c9a2a8794c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StageObject\Player">
+      <UniqueIdentifier>{758079ae-d728-4e1c-ad2e-025e95cf9ff4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -46,6 +52,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)DebugClass\Debug.h">
       <Filter>DebugClass</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Player.h">
+      <Filter>StageObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\StageObject.h">
+      <Filter>StageObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
@@ -69,6 +81,12 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)DebugClass\Debug.cpp">
       <Filter>DebugClass</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Player.cpp">
+      <Filter>StageObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\StageObject.cpp">
+      <Filter>StageObject</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

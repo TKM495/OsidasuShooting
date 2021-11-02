@@ -11,3 +11,6 @@
 #include "Utility/Utility.h"
 
 #include "Effekseer/EfkEffect.h"
+
+#include "StageObject/StageObject.h"
+#include "StageObject/Player.h"
