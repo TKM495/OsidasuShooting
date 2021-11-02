@@ -9,12 +9,10 @@
 using namespace Effekseer;
 
 namespace basecross {
-	//--------------------------------------------------------------------------------------
-	// Effekseerのインターフェイス
-	//--------------------------------------------------------------------------------------
 	// 静的メンバ変数の実体
 	shared_ptr<EfkInterface> EfkInterface::m_ownInstance;
 
+	// インスタンスの取得
 	shared_ptr<EfkInterface> EfkInterface::GetInstance() {
 		if (m_ownInstance.get() == 0)
 		{
@@ -37,9 +35,9 @@ namespace basecross {
 	void EfkInterface::OnCreate() {
 		if (m_ownInstance != NULL) {
 			throw BaseException(
-				L"Debugが複数生成されました",
+				L"EfkInterfaceが複数生成されました",
 				L"if (m_ownInstance != NULL)",
-				L"Debug::OnCreate()"
+				L"EfkInterface::OnCreate()"
 			);
 		}
 		m_ownInstance = GetThis<EfkInterface>();
@@ -66,6 +64,8 @@ namespace basecross {
 		m_Manager->SetModelLoader(m_Renderer->CreateModelLoader());
 		m_Manager->SetMaterialLoader(m_Renderer->CreateMaterialLoader());
 		m_Manager->SetCurveLoader(Effekseer::MakeRefPtr<Effekseer::CurveLoader>());
+		// レイヤーを前面に（要修正）
+		SetDrawLayer(1);
 	}
 
 	void  EfkInterface::OnUpdate() {
@@ -74,10 +74,10 @@ namespace basecross {
 	}
 
 	void EfkInterface::OnDraw() {
+		// ビューと射影行列を設定
 		auto& camera = GetStage()->GetView()->GetTargetCamera();
 		SetViewProj(camera->GetViewMatrix(), camera->GetProjMatrix());
-		// 要検証
-		SetDrawLayer(1);
+
 		// エフェクトの描画開始処理を行う。
 		m_Renderer->BeginRendering();
 
@@ -96,7 +96,7 @@ namespace basecross {
 		}
 	}
 
-	void  EfkInterface::SetViewProj(const bsm::Mat4x4& view, const bsm::Mat4x4& proj) {
+	void EfkInterface::SetViewProj(const bsm::Mat4x4& view, const bsm::Mat4x4& proj) {
 		Effekseer::Matrix44 v, p;
 		Mat4x4ToMatrix44(view, v);
 		Mat4x4ToMatrix44(proj, p);

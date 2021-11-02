@@ -5,8 +5,6 @@
 
 #include "stdafx.h"
 #include "Project.h"
-#include "TestObject.h"
-#include "DebugClass/DebugCamera.h"
 
 namespace basecross {
 	//--------------------------------------------------------------------------------------
@@ -17,7 +15,7 @@ namespace basecross {
 		const Vec3 at(0.0f);
 		auto PtrView = CreateView<SingleView>();
 		//ビューのカメラの設定
-		auto PtrCamera = ObjectFactory::Create<DebugCamera>();
+		auto PtrCamera = ObjectFactory::Create<Camera>();
 		PtrView->SetCamera(PtrCamera);
 		PtrCamera->SetEye(eye);
 		PtrCamera->SetAt(at);
@@ -29,22 +27,9 @@ namespace basecross {
 
 	void GameStage::OnCreate() {
 		try {
-			//ObjectFactory::Create<EfkInterface>(GetThis<GameStage>());
-			AddGameObject<EfkInterface>();
-			wstring DataDir;
-			App::GetApp()->GetDataDirectory(DataDir);
-			wstring TestEffectStr = DataDir + L"Effects\\test.efk";
-
-			EfkEffectResource::RegisterEffectResource(L"Test", TestEffectStr);
-
 			//ビューとライトの作成
 			CreateViewLight();
-
 			AddGameObject<Debug>();
-
-			AddGameObject<TestObject>();
-
-			AddGameObject<Block>(Vec3(0.0f, -1.5f, 0.0f), Vec3(10.0f, 1.0f, 10.0f));
 		}
 		catch (...) {
 			throw;

@@ -17,13 +17,7 @@
       <UniqueIdentifier>{3405a118-2563-4875-991a-ef2fcec3faf8}</UniqueIdentifier>
     </Filter>
     <Filter Include="DebugClass">
-      <UniqueIdentifier>{9c482938-c028-4b48-9abd-6e406b768003}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DebugClass\TestObject">
-      <UniqueIdentifier>{a429c052-400d-4165-b753-95a1eb5ee6d6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DebugClass\DebugCamera">
-      <UniqueIdentifier>{eae78110-5d2c-459e-8a50-5107639edbc0}</UniqueIdentifier>
+      <UniqueIdentifier>{3a517626-971a-4fb5-9f05-997cab10addd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -34,20 +28,11 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Scene.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)DebugClass\Debug.h">
-      <Filter>DebugClass</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\Utility.h">
       <Filter>Utility</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkInterface.h">
       <Filter>Effekseer</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)TestObject.h">
-      <Filter>DebugClass\TestObject</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)DebugClass\DebugCamera.h">
-      <Filter>DebugClass\DebugCamera</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkComponent.h">
       <Filter>Effekseer</Filter>
@@ -58,6 +43,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkEffect.h">
       <Filter>Effekseer</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)DebugClass\Debug.h">
+      <Filter>DebugClass</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
@@ -67,26 +55,20 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Scene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)DebugClass\Debug.cpp">
-      <Filter>DebugClass</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\Utility.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkInterface.cpp">
       <Filter>Effekseer</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)TestObject.cpp">
-      <Filter>DebugClass\TestObject</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)DebugClass\DebugCamera.cpp">
-      <Filter>DebugClass\DebugCamera</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkComponent.cpp">
       <Filter>Effekseer</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkEffectResource.cpp">
       <Filter>Effekseer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)DebugClass\Debug.cpp">
+      <Filter>DebugClass</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
