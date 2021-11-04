@@ -24,13 +24,7 @@ namespace basecross {
 	}
 
 	void Debug::OnCreate() {
-		if (m_ownInstance != NULL) {
-			throw BaseException(
-				L"Debugが複数生成されました",
-				L"if (m_ownInstance != NULL)",
-				L"Debug::OnCreate()"
-			);
-		}
+		m_ownInstance = nullptr;
 		m_ownInstance = GetThis<Debug>();
 
 		SetDrawLayer(10);
@@ -40,7 +34,7 @@ namespace basecross {
 			// 文字列の表示領域の背景色を変更
 			m_ssComp->SetBackColor(Col4(0.0f, 0.0f, 0.0f, 0.2));
 		// 文字列表示領域のサイズを変更
-		m_ssComp->SetTextRect(Rect2D<float>(10, 10, 300, 400));
+		m_ssComp->SetTextRect(Rect2D<float>(10, 10, 500, 400));
 		m_ssComp->SetText(L"");
 	}
 

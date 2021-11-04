@@ -67,7 +67,6 @@ namespace basecross {
 			m_isDisplayForCount(true),
 			m_isShowBackground(false)
 		{}
-
 		void OnCreate();
 		void OnUpdate();
 
