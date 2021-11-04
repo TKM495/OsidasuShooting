@@ -27,6 +27,11 @@ namespace basecross {
 			//ビューとライトの作成
 			CreateViewLight();
 			AddGameObject<Debug>();
+			Debug::GetInstance()->Log(L"CurrentStage : DebugStage");
+			Debug::GetInstance()->Log(L"W → WatanabeStage");
+			Debug::GetInstance()->Log(L"S → SatoStage");
+			Debug::GetInstance()->Log(L"J → JONYMDStage");
+			Debug::GetInstance()->Log(L"M → GameStage");
 		}
 		catch (...) {
 			throw;
@@ -34,5 +39,15 @@ namespace basecross {
 	}
 
 	void DebugStage::OnUpdate() {
+		const auto& app = App::GetApp();
+		const auto& keyState = app->GetInputDevice().GetKeyState();
+		if (keyState.m_bPressedKeyTbl['W'])
+			PostEvent(0.0f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToWatanabeStage");
+		else if (keyState.m_bPressedKeyTbl['S'])
+			PostEvent(0.0f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToSatoStage");
+		else if (keyState.m_bPressedKeyTbl['J'])
+			PostEvent(0.0f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToJONYMDStage");
+		else if (keyState.m_bPressedKeyTbl['M'])
+			PostEvent(0.0f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToGameStage");
 	}
 }

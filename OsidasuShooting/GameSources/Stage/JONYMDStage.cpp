@@ -27,6 +27,7 @@ namespace basecross {
 			//ビューとライトの作成
 			CreateViewLight();
 			AddGameObject<Debug>();
+			Debug::GetInstance()->Log(L"CurrentStage : JONYMDStage");
 		}
 		catch (...) {
 			throw;
