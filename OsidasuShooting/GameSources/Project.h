@@ -14,3 +14,6 @@
 
 #include "StageObject/StageObject.h"
 #include "StageObject/Player.h"
+#include "StageObject/Block.h"
+
+#include "Component/PhysicalBehavior.h"

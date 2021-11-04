@@ -14,7 +14,9 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\PhysicalBehavior.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DebugClass\Debug.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)DebugClass\DebugCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkComponent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkEffect.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkEffectResource.h" />
@@ -28,7 +30,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\Utility.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\PhysicalBehavior.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)DebugClass\Debug.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)DebugClass\DebugCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkComponent.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkEffectResource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkInterface.cpp" />

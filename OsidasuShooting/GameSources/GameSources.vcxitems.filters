@@ -13,9 +13,6 @@
     <Filter Include="Utility">
       <UniqueIdentifier>{1a13b8fa-a2d5-4baf-ac14-594626b86fb1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Effekseer">
-      <UniqueIdentifier>{3405a118-2563-4875-991a-ef2fcec3faf8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="DebugClass">
       <UniqueIdentifier>{3a517626-971a-4fb5-9f05-997cab10addd}</UniqueIdentifier>
     </Filter>
@@ -24,6 +21,21 @@
     </Filter>
     <Filter Include="StageObject\Player">
       <UniqueIdentifier>{758079ae-d728-4e1c-ad2e-025e95cf9ff4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StageObject\Block">
+      <UniqueIdentifier>{dbd40ea9-3aac-4391-8942-b535ef0b1167}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SettingClass">
+      <UniqueIdentifier>{2a813064-ecad-4ada-8552-8f102e86d3ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component">
+      <UniqueIdentifier>{81af0442-a588-42fb-a099-1115307a51ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effekseer">
+      <UniqueIdentifier>{3405a118-2563-4875-991a-ef2fcec3faf8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\PhysicalBehavior">
+      <UniqueIdentifier>{94090a19-3d33-4272-a653-1628a734fbbf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -55,8 +67,17 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Player.h">
       <Filter>StageObject\Player</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Block.h">
+      <Filter>StageObject\Block</Filter>
+    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\StageObject.h">
       <Filter>StageObject</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)DebugClass\DebugCamera.h">
+      <Filter>DebugClass</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\PhysicalBehavior.h">
+      <Filter>Component\PhysicalBehavior</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -85,8 +106,17 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Player.cpp">
       <Filter>StageObject\Player</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Block.cpp">
+      <Filter>StageObject\Block</Filter>
+    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\StageObject.cpp">
       <Filter>StageObject</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)DebugClass\DebugCamera.cpp">
+      <Filter>DebugClass</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\PhysicalBehavior.cpp">
+      <Filter>Component\PhysicalBehavior</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
