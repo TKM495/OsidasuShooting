@@ -26,3 +26,6 @@
 #include "Effekseer/EfkInterface.h"
 #include "Effekseer/EfkEffectResource.h"
 #include "Effekseer/EfkComponent.h"
+
+#include "DebugClass/Debug.h"
+#include "Utility/Utility.h"

@@ -5,6 +5,7 @@
 
 #include "stdafx.h"
 #include "Project.h"
+#include "DebugClass/DebugCamera.h"
 
 namespace basecross {
 	void WatanabeStage::CreateViewLight() {
@@ -12,7 +13,7 @@ namespace basecross {
 		const Vec3 at(0.0f);
 		auto PtrView = CreateView<SingleView>();
 		//ビューのカメラの設定
-		auto PtrCamera = ObjectFactory::Create<Camera>();
+		auto PtrCamera = ObjectFactory::Create<DebugCamera>();
 		PtrView->SetCamera(PtrCamera);
 		PtrCamera->SetEye(eye);
 		PtrCamera->SetAt(at);
@@ -24,10 +25,19 @@ namespace basecross {
 
 	void WatanabeStage::OnCreate() {
 		try {
+			AddGameObject<EfkInterface>();
+			wstring DataDir;
+			App::GetApp()->GetDataDirectory(DataDir);
+			wstring TestEffectStr = DataDir + L"Effects\\";
+			EfkEffectResource::RegisterEffectResource(L"Bullet", TestEffectStr + L"Bullet.efk");
+
 			//ビューとライトの作成
 			CreateViewLight();
 			AddGameObject<Debug>();
 			Debug::GetInstance()->Log(L"CurrentStage : WatanabeStage");
+
+			AddGameObject<Player>(TransformData());
+			AddGameObject<Block>(TransformData(Vec3(0.0f, -1.5f, 0.0f), Vec3(10.0f, 1.0f, 10.0f)));
 		}
 		catch (...) {
 			throw;
