@@ -15,6 +15,16 @@ namespace basecross {
 		Effekseer::ManagerRef m_manager;
 		// 再生速度
 		float m_playSpeed;
+		// スケール
+		Vec3 m_scale;
+		//回転
+		Vec3 m_rotation;
+		/**
+		 * @brief 再生しているかどうか
+		 *
+		 * @return 再生している:true/再生していない:false
+		 */
+		bool IsPlaying();
 	public:
 		EfkComponent(const shared_ptr<GameObject>& gameObjectPtr);
 		~EfkComponent() {}
@@ -55,5 +65,26 @@ namespace basecross {
 		 * @param speed 再生速度（デフォルトは1）
 		 */
 		void SetPlaySpeed(float speed = 1.0f);
+
+		/**
+		 * @brief 回転をセット（deg）
+		 *
+		 * @param rotation 回転量
+		 */
+		void SetRotation(const Vec3& rotation);
+
+		/**
+		 * @brief スケールをセット
+		 *
+		 * @param scale スケール
+		 */
+		void SetScale(const Vec3& scale);
+
+		/**
+		 * @brief エフェクトの位置をずらす
+		 *
+		 * @param position ずらす量
+		 */
+		void AddLocation(const Vec3& position);
 	};
 }

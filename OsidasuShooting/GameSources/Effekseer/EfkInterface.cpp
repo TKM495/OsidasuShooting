@@ -5,8 +5,6 @@
 
 #include "stdafx.h"
 #include "Effekseer/EfkEffect.h"
-#include <uchar.h>
-using namespace Effekseer;
 
 namespace basecross {
 	// Ã“Iƒƒ“ƒo•Ï”‚ÌÀ‘Ì
