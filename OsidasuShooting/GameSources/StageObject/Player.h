@@ -16,9 +16,11 @@ namespace basecross {
 	};
 
 	class Player :public StageObject {
+		// ˆÚ“®‘¬“xi‚Ç‚¿‚ç‚©‚Æ‚¢‚¤‚Æ‚©‚¯‚é—Íj
+		float m_moveSpeed;
 	public:
 		Player(const shared_ptr<Stage>& stage, const TransformData& transData)
-			:StageObject(stage)
+			:StageObject(stage), m_moveSpeed(20.0f)
 		{
 			m_transformData = transData;
 		}

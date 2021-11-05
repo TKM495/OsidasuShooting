@@ -64,13 +64,44 @@ namespace basecross {
 	}
 
 	void Debug::Log(const wstring& text) {
-		m_logData.push_back(ConvertingToLogData(Type::Normal, text));
+		RegisterLog(text);
 	}
-	void Debug::WarningLog(const wstring& text) {
-		m_logData.push_back(ConvertingToLogData(Type::Warning, text));
+
+	void Debug::Log(int value) {
+		RegisterLog(Util::IntToWStr(value));
 	}
-	void Debug::ErrorLog(const wstring& text) {
-		m_logData.push_back(ConvertingToLogData(Type::Error, text));
+
+	void Debug::Log(float value) {
+		RegisterLog(Util::FloatToWStr(value));
+	}
+
+	void Debug::Log(const Vec2& value) {
+		wstring text(
+			L"X : " + Util::FloatToWStr(value.x) + L" " +
+			L"Y : " + Util::FloatToWStr(value.y));
+		RegisterLog(text);
+	}
+
+	void Debug::Log(const Vec3& value) {
+		wstring text(
+			L"X : " + Util::FloatToWStr(value.x) + L" " +
+			L"Y : " + Util::FloatToWStr(value.y) + L" " +
+			L"Z : " + Util::FloatToWStr(value.z));
+		RegisterLog(text);
+	}
+
+	void Debug::RegisterLog(const wstring& text) {
+		m_logData.push_back(GetNowTimeString() + L" " + text + L"\n");
+	}
+
+	wstring Debug::GetNowTimeString() {
+		time_t now = time(NULL);
+		struct tm pnow;
+		localtime_s(&pnow, &now);
+		wstring hour = Util::IntToWStr(pnow.tm_hour);
+		wstring min = Util::IntToWStr(pnow.tm_min);
+		wstring sec = Util::IntToWStr(pnow.tm_sec);
+		return L"[" + hour + L":" + min + L":" + sec + L"]";
 	}
 
 	wstring Debug::GetSystemInfo() {
@@ -105,35 +136,6 @@ namespace basecross {
 			border += L"-";
 		}
 		return border + L"\n";
-	}
-
-	wstring Debug::ConvertingToLogData(Type type, wstring text) {
-		wstring typeString = L"";
-		switch (type)
-		{
-		case Type::Normal:
-			typeString = L"[Normal]";
-			break;
-		case Type::Warning:
-			typeString = L"[Warning]";
-			break;
-		case Type::Error:
-			typeString = L"[Error]";
-			break;
-		default:
-			break;
-		}
-		return GetNowTimeString() + L" " + typeString + L" " + text + L"\n";;
-	}
-
-	wstring Debug::GetNowTimeString() {
-		time_t now = time(NULL);
-		struct tm pnow;
-		localtime_s(&pnow, &now);
-		wstring hour = Util::IntToWStr(pnow.tm_hour);
-		wstring min = Util::IntToWStr(pnow.tm_min);
-		wstring sec = Util::IntToWStr(pnow.tm_sec);
-		return L"[" + hour + L":" + min + L":" + sec + L"]";
 	}
 }
 //end basecross

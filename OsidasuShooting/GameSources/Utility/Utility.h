@@ -108,6 +108,15 @@ namespace basecross {
 		 * @return Col4（0～1）
 		 */
 		Col4 ConvertColorZeroToOne(Col4 color);
+
+		/**
+		 * @brief ベクトルの長さを変更する
+		 *
+		 * @param vector 変更したいベクトル
+		 * @param length 指定する長さ
+		 * @return 長さがlengthのベクトル
+		 */
+		Vec3 ChangeVectorLength(const Vec3& vector, float length);
 	}
 }
 //end basecross
