@@ -43,4 +43,10 @@ namespace basecross {
 			throw;
 		}
 	}
+
+	void WatanabeStage::OnUpdate() {
+		const auto& keyState = App::GetApp()->GetInputDevice().GetKeyState();
+		if (keyState.m_bPressedKeyTbl['R'])
+			PostEvent(0.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToWatanabeStage");
+	}
 }

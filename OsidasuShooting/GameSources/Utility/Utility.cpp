@@ -113,5 +113,11 @@ namespace basecross {
 		Col4 ConvertColorZeroToOne(Col4 color) {
 			return color / 255;
 		}
+
+		Vec3 ChangeVectorLength(const Vec3& vector, float length) {
+			auto vec = vector;
+			auto normalizedVec = vec.normalize();
+			return normalizedVec * length;
+		}
 	}
 }

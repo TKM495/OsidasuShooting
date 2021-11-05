@@ -16,5 +16,6 @@ namespace basecross {
 		virtual ~WatanabeStage() {}
 		//‰Šú‰»
 		virtual void OnCreate()override;
+		void OnUpdate()override;
 	};
 }
