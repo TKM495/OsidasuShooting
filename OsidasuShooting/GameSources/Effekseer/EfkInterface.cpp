@@ -5,8 +5,6 @@
 
 #include "stdafx.h"
 #include "Effekseer/EfkEffect.h"
-#include <uchar.h>
-using namespace Effekseer;
 
 namespace basecross {
 	// 静的メンバ変数の実体
@@ -33,13 +31,7 @@ namespace basecross {
 	EfkInterface::~EfkInterface() {}
 
 	void EfkInterface::OnCreate() {
-		if (m_ownInstance != NULL) {
-			throw BaseException(
-				L"EfkInterfaceが複数生成されました",
-				L"if (m_ownInstance != NULL)",
-				L"EfkInterface::OnCreate()"
-			);
-		}
+		m_ownInstance = nullptr;
 		m_ownInstance = GetThis<EfkInterface>();
 
 		//デバイスの取得

@@ -1,16 +1,13 @@
 /*!
-@file GameStage.cpp
-@brief ゲームステージ実体
+@file   SatoStage.cpp
+@brief
 */
 
 #include "stdafx.h"
 #include "Project.h"
 
 namespace basecross {
-	//--------------------------------------------------------------------------------------
-	//	ゲームステージクラス実体
-	//--------------------------------------------------------------------------------------
-	void GameStage::CreateViewLight() {
+	void SatoStage::CreateViewLight() {
 		const Vec3 eye(0.0f, 5.0f, -5.0f);
 		const Vec3 at(0.0f);
 		auto PtrView = CreateView<SingleView>();
@@ -25,16 +22,15 @@ namespace basecross {
 		PtrMultiLight->SetDefaultLighting();
 	}
 
-	void GameStage::OnCreate() {
+	void SatoStage::OnCreate() {
 		try {
 			//ビューとライトの作成
 			CreateViewLight();
 			AddGameObject<Debug>();
-			Debug::GetInstance()->Log(L"CurrentStage : GameStage");
+			Debug::GetInstance()->Log(L"CurrentStage : SatoStage");
 		}
 		catch (...) {
 			throw;
 		}
 	}
 }
-//end basecross
