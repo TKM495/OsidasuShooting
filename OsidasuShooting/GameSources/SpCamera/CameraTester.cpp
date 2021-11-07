@@ -14,17 +14,18 @@ namespace basecross {
 
 	void TargetObj::OnCreate()
 	{
-		auto ptrDraw = AddComponent<BcPNTBoneModelDraw>();
+		auto ptrDraw = AddComponent<PNTStaticDraw>();
 		ptrDraw->SetMeshResource(L"DEFAULT_CUBE");
 
 		auto ptrTrans = GetComponent<Transform>();
 		ptrTrans->SetScale(1,1,1);
-		ptrTrans->SetRotation(0, 0, 0);
+		ptrTrans->SetRotation(0, 20, 0);
 		ptrTrans->SetPosition(0,0,0);
 	}
 
 	void TargetObj::OnUpdate()
 	{
+		
 	}
 
 }
