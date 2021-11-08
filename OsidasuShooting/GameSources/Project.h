@@ -1,25 +1,25 @@
 /*!
 @file Project.h
-@brief ƒRƒ“ƒeƒ“ƒc—p‚Ìƒwƒbƒ_‚ğ‚Ü‚Æ‚ß‚é
+@brief ã‚³ãƒ³ãƒ†ãƒ³ãƒ„ç”¨ã®ãƒ˜ãƒƒãƒ€ã‚’ã¾ã¨ã‚ã‚‹
 */
 
 #pragma once
 
-// Šî–{
+// åŸºæœ¬
 #include "Scene.h"
 #include "Stage/DebugStage.h"
 #include "Stage/GameStage.h"
 #include "Stage/WatanabeStage.h"
 #include "Stage/SatoStage.h"
 #include "Stage/JONYMDStage.h"
-// ‚»‚Ì‘¼
+// ãã®ä»–
 #include "DebugClass/Debug.h"
 #include "Utility/Utility.h"
 #include "Utility/BombPredictionLine.h"
 #include "Effekseer/EfkEffect.h"
-// ƒXƒe[ƒWƒIƒuƒWƒFƒNƒg
+// ã‚¹ãƒ†ãƒ¼ã‚¸ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 #include "StageObject/StageObject.h"
 #include "StageObject/Player.h"
 #include "StageObject/Block.h"
-// ƒRƒ“ƒ|[ƒlƒ“ƒg
+// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
 #include "Component/PhysicalBehavior.h"

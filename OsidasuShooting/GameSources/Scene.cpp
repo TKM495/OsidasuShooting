@@ -1,6 +1,6 @@
 /*!
 @file Scene.cpp
-@brief ƒV[ƒ“À‘Ì
+@brief ã‚·ãƒ¼ãƒ³å®Ÿä½“
 */
 
 #include "stdafx.h"
@@ -8,15 +8,15 @@
 
 namespace basecross {
 	//--------------------------------------------------------------------------------------
-	///	ƒQ[ƒ€ƒV[ƒ“
+	///	ã‚²ãƒ¼ãƒ ã‚·ãƒ¼ãƒ³
 	//--------------------------------------------------------------------------------------
 	void Scene::OnCreate() {
 		try {
-			//ƒNƒŠƒA‚·‚éF‚ğİ’è
+			//ã‚¯ãƒªã‚¢ã™ã‚‹è‰²ã‚’è¨­å®š
 			Col4 Col(0.0f, 0.0f, 0.0f, 1.0f);
 			SetClearColor(Col);
-			//©•ª©g‚ÉƒCƒxƒ“ƒg‚ğ‘—‚é
-			//‚±‚ê‚É‚æ‚èŠeƒXƒe[ƒW‚âƒIƒuƒWƒFƒNƒg‚ªCreate‚ÉƒV[ƒ“‚ÉƒAƒNƒZƒX‚Å‚«‚é
+			//è‡ªåˆ†è‡ªèº«ã«ã‚¤ãƒ™ãƒ³ãƒˆã‚’é€ã‚‹
+			//ã“ã‚Œã«ã‚ˆã‚Šå„ã‚¹ãƒ†ãƒ¼ã‚¸ã‚„ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒCreateæ™‚ã«ã‚·ãƒ¼ãƒ³ã«ã‚¢ã‚¯ã‚»ã‚¹ã§ãã‚‹
 			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToDebugStage");
 		}
 		catch (...) {
@@ -28,11 +28,11 @@ namespace basecross {
 	}
 
 	void Scene::OnEvent(const shared_ptr<Event>& event) {
-		// ƒfƒoƒbƒOƒXƒe[ƒW
+		// ãƒ‡ãƒãƒƒã‚°ã‚¹ãƒ†ãƒ¼ã‚¸
 		if (event->m_MsgStr == L"ToDebugStage") {
 			ResetActiveStage<DebugStage>();
 		}
-		// ƒQ[ƒ€ƒXƒe[ƒW
+		// ã‚²ãƒ¼ãƒ ã‚¹ãƒ†ãƒ¼ã‚¸
 		else if (event->m_MsgStr == L"ToGameStage") {
 			ResetActiveStage<GameStage>();
 		}
@@ -45,7 +45,7 @@ namespace basecross {
 		else if (event->m_MsgStr == L"ToJONYMDStage") {
 			ResetActiveStage<JONYMDStage>();
 		}
-		//ƒQ[ƒ€I—¹
+		//ã‚²ãƒ¼ãƒ çµ‚äº†
 		else if (event->m_MsgStr == L"ToExit") {
 			PostQuitMessage(0);
 		}
