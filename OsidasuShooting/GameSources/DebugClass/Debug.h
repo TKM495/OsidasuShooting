@@ -9,14 +9,6 @@
 namespace basecross {
 	class Debug :public GameObject {
 	private:
-		/**
-		 * @brief ログの種類
-		 */
-		enum class Type {
-			Normal,		// 通常
-			Warning,	// 警告
-			Error		// エラー
-		};
 		// ログのデータ本体
 		vector<wstring> m_logData;
 		// 表示するログの最初のインデックス
@@ -27,13 +19,11 @@ namespace basecross {
 		static shared_ptr<Debug> m_ownInstance;
 
 		/**
-		 * @brief ログデータに変換
+		 * @brief ログを登録
 		 *
-		 * @param type	タイプ
 		 * @param text	テキスト
-		 * @return 1行分のログの文字列
 		 */
-		wstring ConvertingToLogData(Type type, wstring text);
+		void RegisterLog(const wstring& test);
 		/**
 		 * @brief 現在の時間を文字列で取得
 		 *
@@ -67,28 +57,39 @@ namespace basecross {
 			m_isDisplayForCount(true),
 			m_isShowBackground(false)
 		{}
-
 		void OnCreate();
 		void OnUpdate();
 
 		/**
-		 * @brief 通常のログを出力
+		 * @brief ログを出力
 		 *
 		 * @param text ログとして出す文字列
 		 */
-		void Log(wstring text);
+		void Log(const wstring& text);
 		/**
-		 * @brief 警告のログを出力
+		 * @brief ログを出力
 		 *
-		 * @param text ログとして出す文字列
+		 * @param value ログとして出力する値
 		 */
-		void WarningLog(wstring text);
+		void Log(int value);
 		/**
-		 * @brief エラーのログを出力
+		 * @brief ログを出力
 		 *
-		 * @param text ログとして出す文字列
+		 * @param value ログとして出力する値
 		 */
-		void ErrorLog(wstring text);
+		void Log(float value);
+		/**
+		 * @brief ログを出力
+		 *
+		 * @param value ログとして出力する値
+		 */
+		void Log(const Vec2& value);
+		/**
+		 * @brief ログを出力
+		 *
+		 * @param value ログとして出力する値
+		 */
+		void Log(const Vec3& value);
 
 		/**
 		 * @brief Debugのインスタンスを取得

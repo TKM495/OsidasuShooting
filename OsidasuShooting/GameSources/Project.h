@@ -1,28 +1,25 @@
 /*!
 @file Project.h
-@brief �R���e���c�p�̃w�b�_���܂Ƃ߂�
+@brief コンテンツ用のヘッダをまとめる
 */
 
 #pragma once
 
+// 基本
 #include "Scene.h"
+#include "Stage/DebugStage.h"
 #include "Stage/GameStage.h"
+#include "Stage/WatanabeStage.h"
+#include "Stage/SatoStage.h"
+#include "Stage/JONYMDStage.h"
+// その他
 #include "DebugClass/Debug.h"
 #include "Utility/Utility.h"
-
-
-
-
-// Releted With JONY MD
-
-//Stage
-#include "JonyStage.h";
-//Stage...end
-
-
-#include "ListsOfVariable.h";//Empty GameObject
-
-#include "Target.h";
-#include "Obstacles.h";
-#include "Obstacles2.h";
-// Releted With JONY MD...end
+#include "Utility/BombPredictionLine.h"
+#include "Effekseer/EfkEffect.h"
+// ステージオブジェクト
+#include "StageObject/StageObject.h"
+#include "StageObject/Player.h"
+#include "StageObject/Block.h"
+// コンポーネント
+#include "Component/PhysicalBehavior.h"
