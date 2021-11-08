@@ -3,9 +3,9 @@
 
 namespace basecross {
 
-	void ListsOfVariable::OnCreate()
-	{
-		//auto drawComp = AddComponent <BcPNTStaticDraw>();
-		//drawComp->SetMeshResource(L"DEFAULT_CUBE");
-	}
+	//void ListsOfVariable::OnCreate()
+	//{
+	//	//auto drawComp = AddComponent <BcPNTStaticDraw>();
+	//	//drawComp->SetMeshResource(L"DEFAULT_CUBE");
+	//}
 }
