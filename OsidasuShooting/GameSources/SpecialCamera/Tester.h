@@ -8,14 +8,14 @@
 
 namespace basecross {
 
-	// �ǐՂ̑Ώ�
-	class TargetObj : public GameObject {
-	public:
-		TargetObj(const shared_ptr<Stage>& stage);
-		virtual ~TargetObj() {};
-		void OnCreate() override;
-		void OnUpdate() override;
-	};
+	//// �ǐՂ̑Ώ�
+	//class TargetObj : public GameObject {
+	//public:
+	//	TargetObj(const shared_ptr<Stage>& stage);
+	//	virtual ~TargetObj() {};
+	//	void OnCreate() override;
+	//	void OnUpdate() override;
+	//};
 
 }
 //end basecross

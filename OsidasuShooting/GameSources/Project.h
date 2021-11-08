@@ -20,7 +20,5 @@
 #include "StageObject/StageObject.h"
 #include "StageObject/Player.h"
 #include "StageObject/Block.h"
-#include "SpCamera/CameraTester.h"
-#include "SpCamera/SpecialCamera.h"
 // コンポーネント
 #include "Component/PhysicalBehavior.h"

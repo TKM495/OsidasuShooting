@@ -22,15 +22,29 @@ namespace basecross {
 		PtrMultiLight->SetDefaultLighting();
 	}
 
+	void SatoStage::SetPlayer()
+	{
+		auto player = AddGameObject<Player>(TransformData());
+		SetSharedGameObject(L"Player", player);
+		AddGameObject<Block>(TransformData(Vec3(0.0f, -1.5f, 0.0f), Vec3(10.0f, 1.0f, 10.0f)));
+
+	}
+
+
 	void SatoStage::OnCreate() {
 		try {
+			AddGameObject<EfkInterface>();
+			wstring DataDir;
+			App::GetApp()->GetDataDirectory(DataDir);
+			wstring TestEffectStr = DataDir + L"Effects\\";
+			EfkEffectResource::RegisterEffectResource(L"Bullet", TestEffectStr + L"Bullet.efk");
+
 			//ビューとライトの作成
 			CreateViewLight();
 			AddGameObject<Debug>();
 			Debug::GetInstance()->Log(L"CurrentStage : SatoStage");
 
-			auto player = AddGameObject<TargetObj>();
-			SetSharedGameObject(L"Player", player);
+			SetPlayer();
 
 			AddGameObject<SpecialCamera>();
 

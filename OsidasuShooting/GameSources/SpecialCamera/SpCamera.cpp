@@ -27,7 +27,7 @@ namespace basecross {
 	// プレイヤーの位置を取得する
 	void SpecialCamera::PlayerTrans()
 	{
-		auto ptrPlayer = GetStage()->GetSharedGameObject<TargetObj>(L"Player");
+		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");
 		auto playerTrans = ptrPlayer->GetComponent<Transform>();
 		m_playerPos = playerTrans->GetPosition();
 		m_playerRot = playerTrans->GetRotation();
