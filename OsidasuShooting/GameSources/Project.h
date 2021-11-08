@@ -15,6 +15,7 @@
 // その他
 #include "DebugClass/Debug.h"
 #include "Utility/Utility.h"
+#include "Utility/BombPredictionLine.h"
 #include "Effekseer/EfkEffect.h"
 // ステージオブジェクト
 #include "StageObject/StageObject.h"
