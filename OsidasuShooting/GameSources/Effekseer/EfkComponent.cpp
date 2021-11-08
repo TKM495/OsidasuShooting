@@ -1,3 +1,8 @@
+/*!
+@file   EfkComponent.cpp
+@brief  Effekseerを使用するためのコンポーネントの実体
+*/
+
 #include "stdafx.h"
 #include "Effekseer/EfkEffect.h"
 
