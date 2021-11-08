@@ -73,8 +73,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)DebugClass\Debug.h">
       <Filter>DebugClass</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)SpCamera\CameraTester.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)SpCamera\SpecialCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\DebugStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\JONYMDStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\SatoStage.h" />
@@ -82,6 +80,10 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Block.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Player.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\StageObject.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\PhysicalBehavior.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)DebugClass\DebugCamera.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SpecialCamera\Tester.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
@@ -106,8 +108,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)DebugClass\Debug.cpp">
       <Filter>DebugClass</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)SpCamera\CameraTester.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)SpCamera\SpecialCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\DebugStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\JONYMDStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\SatoStage.cpp" />
@@ -115,5 +115,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Block.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Player.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\StageObject.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\PhysicalBehavior.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)DebugClass\DebugCamera.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)SpecialCamera\Tester.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.cpp" />
   </ItemGroup>
 </Project>
