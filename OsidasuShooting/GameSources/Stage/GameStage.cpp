@@ -29,7 +29,11 @@ namespace basecross {
 		try {
 			//ビューとライトの作成
 			CreateViewLight();
-			AddGameObject<Debug>();
+			//AddGameObject<Debug>();
+
+
+			AddGameObject<Target>();
+			AddGameObject<Obstacles2>();
 		}
 		catch (...) {
 			throw;
