@@ -67,7 +67,7 @@ namespace basecross {
 		trans->SetRotation(m_playerRot);
 
 		m_cameraPos[0] = m_playerPos + Vec3(-2, 1, 1);
-		m_cameraPos[1] = m_playerPos + Vec3(-1.5f, -1, -2);
+		m_cameraPos[1] = m_playerPos + Vec3(-1.5f, -0.2f, -2);
 
 		trans->SetPosition(m_cameraPos[0]);
 	}
