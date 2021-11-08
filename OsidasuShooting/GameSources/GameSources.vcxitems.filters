@@ -34,17 +34,26 @@
     <Filter Include="Component\PhysicalBehavior">
       <UniqueIdentifier>{94090a19-3d33-4272-a653-1628a734fbbf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Stage\WatanabeStage">
-      <UniqueIdentifier>{4188ce3a-c531-4343-8584-3a51a19c40f5}</UniqueIdentifier>
+    <Filter Include="Stage\Debug">
+      <UniqueIdentifier>{0b48198d-7a75-46bf-b604-a58437fc621e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Stage\SatoStage">
-      <UniqueIdentifier>{d0b88534-eaa2-4fee-9df7-afbc0f4748a0}</UniqueIdentifier>
+    <Filter Include="Stage\Debug\DebugStage">
+      <UniqueIdentifier>{a8bbd0dd-127e-4e1f-9dce-ef2c50fcf49a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Stage\JONYMDStage">
+    <Filter Include="Stage\Debug\JONYMDStage">
       <UniqueIdentifier>{8a91563b-325e-4b2f-b86a-479803bb1458}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Stage\DebugStage">
-      <UniqueIdentifier>{a8bbd0dd-127e-4e1f-9dce-ef2c50fcf49a}</UniqueIdentifier>
+    <Filter Include="Stage\Debug\SatoStage">
+      <UniqueIdentifier>{d0b88534-eaa2-4fee-9df7-afbc0f4748a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage\Debug\WatanabeStage">
+      <UniqueIdentifier>{4188ce3a-c531-4343-8584-3a51a19c40f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage\TitleStage">
+      <UniqueIdentifier>{37669de7-443d-44c2-abc3-d958d1e09273}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage\ResultStage">
+      <UniqueIdentifier>{fba10ab4-90e4-4631-a2d0-bafda26cb34f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -74,16 +83,16 @@
       <Filter>DebugClass</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\DebugStage.h">
-      <Filter>Stage\DebugStage</Filter>
+      <Filter>Stage\Debug\DebugStage</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\JONYMDStage.h">
-      <Filter>Stage\JONYMDStage</Filter>
+      <Filter>Stage\Debug\JONYMDStage</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\SatoStage.h">
-      <Filter>Stage\SatoStage</Filter>
+      <Filter>Stage\Debug\SatoStage</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage.h">
-      <Filter>Stage\WatanabeStage</Filter>
+      <Filter>Stage\Debug\WatanabeStage</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Block.h">
       <Filter>StageObject\Block</Filter>
@@ -105,6 +114,12 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\LinePoint.h">
       <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Stage\TitleStage.h">
+      <Filter>Stage\TitleStage</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Stage\ResultStage.h">
+      <Filter>Stage\ResultStage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -131,16 +146,16 @@
       <Filter>DebugClass</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\DebugStage.cpp">
-      <Filter>Stage\DebugStage</Filter>
+      <Filter>Stage\Debug\DebugStage</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\JONYMDStage.cpp">
-      <Filter>Stage\JONYMDStage</Filter>
+      <Filter>Stage\Debug\JONYMDStage</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\SatoStage.cpp">
-      <Filter>Stage\SatoStage</Filter>
+      <Filter>Stage\Debug\SatoStage</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage.cpp">
-      <Filter>Stage\WatanabeStage</Filter>
+      <Filter>Stage\Debug\WatanabeStage</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Block.cpp">
       <Filter>StageObject\Block</Filter>
@@ -162,6 +177,12 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\LinePoint.cpp">
       <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Stage\TitleStage.cpp">
+      <Filter>Stage\TitleStage</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Stage\ResultStage.cpp">
+      <Filter>Stage\ResultStage</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

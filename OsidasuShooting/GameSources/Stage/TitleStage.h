@@ -1,18 +1,18 @@
 /*!
-@file GameStage.h
-@brief ゲームステージ
+@file   TitleStage.h
+@brief  タイトルステージ
 */
 
 #pragma once
 #include "stdafx.h"
 
 namespace basecross {
-	class GameStage : public Stage {
+	class TitleStage :public Stage {
 		// ビューの作成
 		void CreateViewLight();
 	public:
-		GameStage() :Stage() {}
-		~GameStage() {}
+		TitleStage() :Stage() {}
+		~TitleStage() {}
 
 		void OnCreate()override;
 		void OnUpdate()override;

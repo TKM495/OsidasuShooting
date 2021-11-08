@@ -1,13 +1,13 @@
 /*!
-@file GameStage.cpp
-@brief ゲームステージ実体
+@file   ResultStage.cpp
+@brief  リザルトステージ実体
 */
 
 #include "stdafx.h"
 #include "Project.h"
 
 namespace basecross {
-	void GameStage::CreateViewLight() {
+	void ResultStage::CreateViewLight() {
 		const Vec3 eye(0.0f, 5.0f, -5.0f);
 		const Vec3 at(0.0f);
 		auto PtrView = CreateView<SingleView>();
@@ -22,18 +22,18 @@ namespace basecross {
 		PtrMultiLight->SetDefaultLighting();
 	}
 
-	void GameStage::OnCreate() {
+	void ResultStage::OnCreate() {
 		try {
 			//ビューとライトの作成
 			CreateViewLight();
 			AddGameObject<Debug>();
-			Debug::GetInstance()->Log(L"CurrentStage : GameStage");
+			Debug::GetInstance()->Log(L"CurrentStage : ResultStage");
 		}
 		catch (...) {
 			throw;
 		}
 	}
 
-	void GameStage::OnUpdate() {
+	void ResultStage::OnUpdate() {
 	}
 }
