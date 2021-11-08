@@ -27,6 +27,11 @@ namespace basecross {
 		AddGameObject<TitleSprite>(L"Title", false,
 			Vec2(256.0f, 50.0f), Vec2(0.0f, 50.0f));
 	}
+	void TitleStage::AddPushAButtonSprite()
+	{
+		AddGameObject<PushAButtonSprite>(L"PushAButton", false,
+			Vec2(256.0f, 50.0f), Vec2(0.0f, 50.0f));
+	}
 
 
 	void TitleStage::OnCreate() {
@@ -39,6 +44,7 @@ namespace basecross {
 			Debug::GetInstance()->Log(L"B : Exit");
 
 			AddTitleSprite();
+			AddPushAButtonSprite();
 		}
 		catch (...) {
 			throw;

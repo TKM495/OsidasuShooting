@@ -11,6 +11,7 @@ namespace basecross {
 		// ƒrƒ…[‚Ìì¬
 		void CreateViewLight();
 		void AddTitleSprite();
+		void AddPushAButtonSprite();
 	public:
 		TitleStage() :Stage() {}
 		~TitleStage() {}
