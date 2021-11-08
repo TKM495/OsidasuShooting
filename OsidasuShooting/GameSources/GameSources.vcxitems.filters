@@ -73,33 +73,15 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)DebugClass\Debug.h">
       <Filter>DebugClass</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Stage\DebugStage.h">
-      <Filter>Stage\DebugStage</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Stage\JONYMDStage.h">
-      <Filter>Stage\JONYMDStage</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Stage\SatoStage.h">
-      <Filter>Stage\SatoStage</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage.h">
-      <Filter>Stage\WatanabeStage</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Block.h">
-      <Filter>StageObject\Block</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Player.h">
-      <Filter>StageObject\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)DebugClass\DebugCamera.h">
-      <Filter>DebugClass</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Component\PhysicalBehavior.h">
-      <Filter>Component\PhysicalBehavior</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\StageObject.h">
-      <Filter>StageObject</Filter>
-    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SpCamera\CameraTester.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SpCamera\SpecialCamera.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Stage\DebugStage.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Stage\JONYMDStage.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Stage\SatoStage.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Block.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Player.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\StageObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
@@ -124,32 +106,14 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)DebugClass\Debug.cpp">
       <Filter>DebugClass</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Stage\DebugStage.cpp">
-      <Filter>Stage\DebugStage</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Stage\JONYMDStage.cpp">
-      <Filter>Stage\JONYMDStage</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Stage\SatoStage.cpp">
-      <Filter>Stage\SatoStage</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage.cpp">
-      <Filter>Stage\WatanabeStage</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Block.cpp">
-      <Filter>StageObject\Block</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Player.cpp">
-      <Filter>StageObject\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)DebugClass\DebugCamera.cpp">
-      <Filter>DebugClass</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Component\PhysicalBehavior.cpp">
-      <Filter>Component\PhysicalBehavior</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\StageObject.cpp">
-      <Filter>StageObject</Filter>
-    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SpCamera\CameraTester.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)SpCamera\SpecialCamera.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Stage\DebugStage.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Stage\JONYMDStage.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Stage\SatoStage.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Block.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Player.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\StageObject.cpp" />
   </ItemGroup>
 </Project>

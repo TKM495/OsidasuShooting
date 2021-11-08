@@ -28,6 +28,12 @@ namespace basecross {
 			CreateViewLight();
 			AddGameObject<Debug>();
 			Debug::GetInstance()->Log(L"CurrentStage : SatoStage");
+
+			auto player = AddGameObject<TargetObj>();
+			SetSharedGameObject(L"Player", player);
+
+			AddGameObject<SpecialCamera>();
+
 		}
 		catch (...) {
 			throw;
