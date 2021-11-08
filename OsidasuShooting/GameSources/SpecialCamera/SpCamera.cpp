@@ -5,6 +5,7 @@
 
 #include "stdafx.h"
 #include "Project.h"
+#include "SpecialCamera/SpCamera.h" // Project.h‚É’Ç‰Á‚µ‚ÄA‚±‚±‚ğíœ‚µ‚Ä‚­‚¾‚³‚¢
 
 namespace basecross {
 	SpecialCamera::SpecialCamera(const shared_ptr<Stage>& stage)
