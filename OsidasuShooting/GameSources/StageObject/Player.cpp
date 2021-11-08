@@ -15,14 +15,13 @@ namespace basecross {
 		AddComponent<Gravity>();
 		AddComponent<CollisionSphere>();
 
-		auto efkComp = AddComponent<EfkComponent>();
-		efkComp->SetEffectResource(L"Bullet");
-		efkComp->SetScale(Vec3(1.0f));
 		ObjectSetUp();
 		//ステートマシンの構築
 		m_stateMachine.reset(new StateMachine<Player>(GetThis<Player>()));
 		//初期ステートの設定
 		m_stateMachine->ChangeState(PlayerBulletModeState::Instance());
+
+		AddTag(L"Player");
 	}
 
 	void Player::OnUpdate() {
@@ -64,11 +63,9 @@ namespace basecross {
 	}
 	void Player::BulletLaunch() {
 		const auto& cntlPad = App::GetApp()->GetInputDevice().GetControlerVec()[0];
-		auto efkComp = GetComponent<EfkComponent>();
 		// 本来はスティックを倒すと発射されるようにする
 		if (cntlPad.wPressedButtons & XINPUT_GAMEPAD_A)
-			efkComp->Play();
-		efkComp->AddLocation(Vec3(0.0f, 0.0f, 1.0f));
+			GetStage()->AddGameObject<Bullet>(GetTransform()->GetPosition(), Vec3(0.0f, 0.0f, 1.0f));
 	}
 	void Player::BombAim() {
 		const auto& cntlPad = App::GetApp()->GetInputDevice().GetControlerVec()[0];
@@ -107,7 +104,6 @@ namespace basecross {
 
 		Obj->BulletAim();
 		Obj->BulletLaunch();
-		Debug::GetInstance()->Log(L"Bullet");
 		if (cntlPad.bRightTrigger > 128.0f) {
 			Obj->GetStateMachine()->ChangeState(PlayerBombModeState::Instance());
 		}
@@ -124,7 +120,6 @@ namespace basecross {
 	}
 	void PlayerBombModeState::Execute(const shared_ptr<Player>& Obj) {
 		const auto& cntlPad = App::GetApp()->GetInputDevice().GetControlerVec()[0];
-		Debug::GetInstance()->Log(L"Bomb");
 		Obj->BombAim();
 		if (cntlPad.bRightTrigger < 128.0f) {
 			Obj->GetStateMachine()->ChangeState(PlayerBulletModeState::Instance());

@@ -55,6 +55,12 @@
     <Filter Include="Stage\ResultStage">
       <UniqueIdentifier>{fba10ab4-90e4-4631-a2d0-bafda26cb34f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="StageObject\Bullet">
+      <UniqueIdentifier>{19751d65-f1d8-4c81-b147-55380dbdaedc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Setting">
+      <UniqueIdentifier>{1e986d81-5165-4176-8b67-2176ae11a0f4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -121,6 +127,14 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\ResultStage.h">
       <Filter>Stage\ResultStage</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Bullet.h">
+      <Filter>StageObject\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.h">
+      <Filter>Setting</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SpecialCamera\Tester.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
@@ -184,5 +198,13 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\ResultStage.cpp">
       <Filter>Stage\ResultStage</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Bullet.cpp">
+      <Filter>StageObject\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.cpp">
+      <Filter>Setting</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)SpecialCamera\Tester.cpp" />
   </ItemGroup>
 </Project>

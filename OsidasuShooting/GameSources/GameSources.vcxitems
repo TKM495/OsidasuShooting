@@ -25,7 +25,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Scene.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SpecialCamera\Tester.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Block.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Bullet.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Player.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\StageObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\DebugStage.h" />
@@ -49,7 +51,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Scene.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SpecialCamera\Tester.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Block.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Bullet.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Player.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\StageObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\DebugStage.cpp" />

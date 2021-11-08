@@ -25,7 +25,7 @@ namespace basecross {
 	void EfkComponent::Play() {
 		// 前回のエフェクトを停止
 		Stop();
-		auto pos = GetGameObject()->GetComponent<Transform>()->GetPosition();
+		auto pos = GetGameObjectPosition();
 		// 再生
 		m_handle = m_manager->Play(m_effectData, pos.x, pos.y, pos.z);
 		// ハンドルがないと設定できないのでここで再生速度を設定
@@ -67,5 +67,16 @@ namespace basecross {
 
 	bool EfkComponent::IsPlaying() {
 		return (m_handle != -1);
+	}
+
+	void EfkComponent::SyncPosition() {
+		if (!IsPlaying())
+			return;
+		auto parentPosition = GetGameObjectPosition();
+		m_manager->SetLocation(m_handle, parentPosition.x, parentPosition.y, parentPosition.z);
+	}
+
+	Vec3 EfkComponent::GetGameObjectPosition() {
+		return GetGameObject()->GetComponent<Transform>()->GetPosition();
 	}
 }

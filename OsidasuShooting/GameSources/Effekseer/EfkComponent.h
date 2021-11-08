@@ -30,6 +30,12 @@ namespace basecross {
 		 * @return 再生している:true/再生していない:false
 		 */
 		bool IsPlaying();
+		/**
+		 * @brief ゲームオブジェクトの位置を取得
+		 *
+		 * @return ゲームオブジェクトの位置
+		 */
+		Vec3 GetGameObjectPosition();
 	public:
 		EfkComponent(const shared_ptr<GameObject>& gameObjectPtr);
 		~EfkComponent() {}
@@ -84,6 +90,11 @@ namespace basecross {
 		 * @param scale スケール
 		 */
 		void SetScale(const Vec3& scale);
+
+		/**
+		 * @brief 位置の同期
+		 */
+		void SyncPosition();
 
 		/**
 		 * @brief エフェクトの位置をずらす
