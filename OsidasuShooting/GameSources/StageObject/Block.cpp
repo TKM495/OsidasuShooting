@@ -1,3 +1,8 @@
+/*!
+@file   Block.cpp
+@brief  ブロッククラスの実体
+*/
+
 #include "stdafx.h"
 #include "Project.h"
 

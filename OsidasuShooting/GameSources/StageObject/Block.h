@@ -1,3 +1,8 @@
+/*!
+@file   Block.h
+@brief  ブロッククラス
+*/
+
 #pragma once
 #include "stdafx.h"
 #include "StageObject.h"

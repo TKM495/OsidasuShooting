@@ -31,8 +31,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\DebugStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\GameStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\JONYMDStage.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Stage\ResultStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\SatoStage.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Stage\TitleStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\BombPredictionLine.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\LinePoint.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\Utility.h" />
   </ItemGroup>
   <ItemGroup>
@@ -51,8 +55,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\DebugStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\GameStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\JONYMDStage.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Stage\ResultStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\SatoStage.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Stage\TitleStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\BombPredictionLine.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\LinePoint.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\Utility.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
   </ItemGroup>

@@ -28,10 +28,10 @@ namespace basecross {
 			CreateViewLight();
 			AddGameObject<Debug>();
 			Debug::GetInstance()->Log(L"CurrentStage : DebugStage");
+			Debug::GetInstance()->Log(L"M Å® Main");
 			Debug::GetInstance()->Log(L"W Å® WatanabeStage");
 			Debug::GetInstance()->Log(L"S Å® SatoStage");
 			Debug::GetInstance()->Log(L"J Å® JONYMDStage");
-			Debug::GetInstance()->Log(L"M Å® GameStage");
 		}
 		catch (...) {
 			throw;
@@ -48,6 +48,6 @@ namespace basecross {
 		else if (keyState.m_bPressedKeyTbl['J'])
 			PostEvent(0.0f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToJONYMDStage");
 		else if (keyState.m_bPressedKeyTbl['M'])
-			PostEvent(0.0f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToGameStage");
+			PostEvent(0.0f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToTitleStage");
 	}
 }

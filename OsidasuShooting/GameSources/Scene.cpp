@@ -32,10 +32,24 @@ namespace basecross {
 		if (event->m_MsgStr == L"ToDebugStage") {
 			ResetActiveStage<DebugStage>();
 		}
+		// タイトルステージ
+		else if (event->m_MsgStr == L"ToTitleStage") {
+			ResetActiveStage<TitleStage>();
+		}
 		// ゲームステージ
 		else if (event->m_MsgStr == L"ToGameStage") {
 			ResetActiveStage<GameStage>();
 		}
+		// リザルトステージ
+		else if (event->m_MsgStr == L"ToResultStage") {
+			ResetActiveStage<ResultStage>();
+		}
+		// 終了
+		else if (event->m_MsgStr == L"ToExit") {
+			PostQuitMessage(0);
+		}
+
+		// 以下制作用ステージ
 		else if (event->m_MsgStr == L"ToWatanabeStage") {
 			ResetActiveStage<WatanabeStage>();
 		}
@@ -45,7 +59,7 @@ namespace basecross {
 		else if (event->m_MsgStr == L"ToJONYMDStage") {
 			ResetActiveStage<JONYMDStage>();
 		}
-		//ゲーム終了
+		// ゲーム終了
 		else if (event->m_MsgStr == L"ToExit") {
 			PostQuitMessage(0);
 		}

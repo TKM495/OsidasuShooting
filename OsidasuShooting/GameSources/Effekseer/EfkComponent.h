@@ -1,3 +1,8 @@
+/*!
+@file   EfkComponent.h
+@brief  Effekseerを使用するためのコンポーネント
+*/
+
 #pragma once
 #include "stdafx.h"
 #include "Effekseer/EfkEffect.h"
