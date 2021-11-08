@@ -7,6 +7,16 @@
 #include "Project.h"
 
 namespace basecross {
+
+	void Scene::GetAppTexture()
+	{
+		auto& app = App::GetApp();
+
+		wstring tpath = app->GetDataDirWString() + L"Sprite/";
+		app->RegisterTexture(L"Title", tpath + L"Title.png");
+		app->RegisterTexture(L"PushAButton", tpath + L"PushAButton.png");
+	}
+
 	//--------------------------------------------------------------------------------------
 	///	ゲームシーン
 	//--------------------------------------------------------------------------------------
@@ -18,6 +28,7 @@ namespace basecross {
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる
 			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToDebugStage");
+			GetAppTexture();
 		}
 		catch (...) {
 			throw;

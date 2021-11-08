@@ -25,5 +25,7 @@
 #include "StageObject/Block.h"
 #include "SpecialCamera/SpCamera.h"
 #include "StageObject/Bullet.h"
+//UI
+#include "UIs/TitleSprite.h"
 // コンポーネント
 #include "Component/PhysicalBehavior.h"

@@ -21,6 +21,13 @@ namespace basecross {
 		//デフォルトのライティングを指定
 		PtrMultiLight->SetDefaultLighting();
 	}
+	
+	void TitleStage::AddTitleSprite()
+	{
+		AddGameObject<TitleSprite>(L"Title", false,
+			Vec2(256.0f, 50.0f), Vec2(0.0f, 50.0f));
+	}
+
 
 	void TitleStage::OnCreate() {
 		try {
@@ -30,6 +37,8 @@ namespace basecross {
 			Debug::GetInstance()->Log(L"CurrentStage : TitleStage");
 			Debug::GetInstance()->Log(L"A : GameStart");
 			Debug::GetInstance()->Log(L"B : Exit");
+
+			AddTitleSprite();
 		}
 		catch (...) {
 			throw;

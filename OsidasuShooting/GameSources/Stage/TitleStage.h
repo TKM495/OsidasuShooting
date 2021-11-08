@@ -10,6 +10,7 @@ namespace basecross {
 	class TitleStage :public Stage {
 		// ƒrƒ…[‚Ìì¬
 		void CreateViewLight();
+		void AddTitleSprite();
 	public:
 		TitleStage() :Stage() {}
 		~TitleStage() {}
