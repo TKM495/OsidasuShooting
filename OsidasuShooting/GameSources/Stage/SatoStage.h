@@ -15,6 +15,8 @@ namespace basecross {
 		SatoStage() :Stage() {}
 		virtual ~SatoStage() {}
 		//‰Šú‰»
+
+		void SetPlayer();
 		virtual void OnCreate()override;
 	};
 }
