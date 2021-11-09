@@ -130,6 +130,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\BombPredictionLine.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\LinePoint.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
@@ -196,5 +197,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\BombPredictionLine.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\LinePoint.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.cpp" />
   </ItemGroup>
 </Project>

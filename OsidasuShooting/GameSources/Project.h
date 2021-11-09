@@ -27,5 +27,6 @@
 #include "StageObject/Bullet.h"
 //UI
 #include "UIs/TitleSprite.h"
+#include "UIs/NumberSprite.h"
 // コンポーネント
 #include "Component/PhysicalBehavior.h"

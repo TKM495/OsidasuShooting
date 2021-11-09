@@ -15,6 +15,8 @@ namespace basecross {
 		wstring tpath = app->GetDataDirWString() + L"Sprite/";
 		app->RegisterTexture(L"Title", tpath + L"Title.png");
 		app->RegisterTexture(L"PushAButton", tpath + L"PushAButton.png");
+
+		app->RegisterTexture(L"Number", tpath + L"Number.png");
 	}
 
 	//--------------------------------------------------------------------------------------
