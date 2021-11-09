@@ -8,6 +8,8 @@
 
 namespace basecross {
 	void Player::OnCreate() {
+		GetStage()->SetSharedGameObject(L"Player", GetThis<Player>());
+
 		auto drawComp = AddComponent<PNTStaticDraw>();
 		drawComp->SetMeshResource(L"DEFAULT_SPHERE");
 
@@ -57,6 +59,7 @@ namespace basecross {
 	}
 
 	void Player::SpecialSkill() {
+		GetStage()->AddGameObject<SpecialCamera>();
 	}
 
 	void Player::BulletAim() {
@@ -92,31 +95,37 @@ namespace basecross {
 		line.SetActive(false);
 	}
 
+	// 弾の照準や発射状態（デフォルト）
 #pragma region PlayerBulletModeState
 	shared_ptr<PlayerBulletModeState> PlayerBulletModeState::Instance() {
 		static shared_ptr<PlayerBulletModeState> instance(new PlayerBulletModeState);
 		return instance;
 	}
 	void PlayerBulletModeState::Enter(const shared_ptr<Player>& Obj) {
+		Debug::GetInstance()->Log(L"BulletMode");
 	}
 	void PlayerBulletModeState::Execute(const shared_ptr<Player>& Obj) {
 		const auto& cntlPad = App::GetApp()->GetInputDevice().GetControlerVec()[0];
-
 		Obj->BulletAim();
 		Obj->BulletLaunch();
 		if (cntlPad.bRightTrigger > 128.0f) {
 			Obj->GetStateMachine()->ChangeState(PlayerBombModeState::Instance());
 		}
+		if (cntlPad.wButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER &&
+			cntlPad.wButtons & XINPUT_GAMEPAD_LEFT_SHOULDER)
+			Obj->GetStateMachine()->ChangeState(PlayerSpecialSkillModeState::Instance());
 	}
 	void PlayerBulletModeState::Exit(const shared_ptr<Player>& Obj) {}
 #pragma endregion
 
+	// 爆弾の照準や発射状態
 #pragma region PlayerBombModeState
 	shared_ptr<PlayerBombModeState> PlayerBombModeState::Instance() {
 		static shared_ptr<PlayerBombModeState> instance(new PlayerBombModeState);
 		return instance;
 	}
 	void PlayerBombModeState::Enter(const shared_ptr<Player>& Obj) {
+		Debug::GetInstance()->Log(L"BombMode");
 	}
 	void PlayerBombModeState::Execute(const shared_ptr<Player>& Obj) {
 		const auto& cntlPad = App::GetApp()->GetInputDevice().GetControlerVec()[0];
@@ -127,6 +136,22 @@ namespace basecross {
 	}
 	void PlayerBombModeState::Exit(const shared_ptr<Player>& Obj) {
 		Obj->BombLaunch();
+	}
+#pragma endregion
+
+	// 必殺技発動状態
+#pragma region PlayerSpecialSkillModeState
+	shared_ptr<PlayerSpecialSkillModeState> PlayerSpecialSkillModeState::Instance() {
+		static shared_ptr<PlayerSpecialSkillModeState> instance(new PlayerSpecialSkillModeState);
+		return instance;
+	}
+	void PlayerSpecialSkillModeState::Enter(const shared_ptr<Player>& Obj) {
+		Debug::GetInstance()->Log(L"SpecialSkillMode");
+		Obj->SpecialSkill();
+	}
+	void PlayerSpecialSkillModeState::Execute(const shared_ptr<Player>& Obj) {
+	}
+	void PlayerSpecialSkillModeState::Exit(const shared_ptr<Player>& Obj) {
 	}
 #pragma endregion
 }

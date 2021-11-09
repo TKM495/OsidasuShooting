@@ -25,6 +25,14 @@ namespace basecross {
 			//クリアする色を設定
 			Col4 Col(0.0f, 0.0f, 0.0f, 1.0f);
 			SetClearColor(Col);
+
+			//リソースの読み込み
+			auto& app = App::GetApp();
+			auto dir = app->GetDataDirWString();
+			//テクスチャ
+			auto path = dir + L"Textures/";
+			app->RegisterTexture(L"Wall", path + L"wall.jpg");
+
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる
 			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToDebugStage");

@@ -26,7 +26,6 @@ namespace basecross {
 		unique_ptr<StateMachine<Player>> m_stateMachine;
 		void Move();
 		void JumpAndHover();
-		void SpecialSkill();
 	public:
 		Player(const shared_ptr<Stage>& stage, const TransformData& transData)
 			:StageObject(stage), m_moveSpeed(20.0f), line(stage, 10, 2.0f)
@@ -48,8 +47,10 @@ namespace basecross {
 		void BombAim();
 		void BulletLaunch();
 		void BombLaunch();
+		void SpecialSkill();
 	};
 
+	// 弾の照準や発射状態（デフォルト）
 	class PlayerBulletModeState : public ObjState<Player> {
 		PlayerBulletModeState() {}
 	public:
@@ -59,10 +60,21 @@ namespace basecross {
 		virtual void Exit(const shared_ptr<Player>& Obj)override;
 	};
 
+	// 爆弾の照準や発射状態
 	class PlayerBombModeState : public ObjState<Player> {
 		PlayerBombModeState() {}
 	public:
 		static shared_ptr<PlayerBombModeState> Instance();
+		virtual void Enter(const shared_ptr<Player>& Obj)override;
+		virtual void Execute(const shared_ptr<Player>& Obj)override;
+		virtual void Exit(const shared_ptr<Player>& Obj)override;
+	};
+
+	// 必殺技発動状態
+	class PlayerSpecialSkillModeState : public ObjState<Player> {
+		PlayerSpecialSkillModeState() {}
+	public:
+		static shared_ptr<PlayerSpecialSkillModeState> Instance();
 		virtual void Enter(const shared_ptr<Player>& Obj)override;
 		virtual void Execute(const shared_ptr<Player>& Obj)override;
 		virtual void Exit(const shared_ptr<Player>& Obj)override;
