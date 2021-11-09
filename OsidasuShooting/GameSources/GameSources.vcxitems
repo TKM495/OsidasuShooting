@@ -21,11 +21,11 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkEffect.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkEffectResource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkInterface.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ListsOfVariable.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Scene.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SpecialCamera\Tester.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Block.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Bullet.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Player.h" />
@@ -37,6 +37,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\SatoStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\TitleStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\BombPredictionLine.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\LinePoint.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\Utility.h" />
@@ -48,10 +49,10 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkComponent.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkEffectResource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkInterface.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ListsOfVariable.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Scene.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SpecialCamera\Tester.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Block.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Bullet.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Player.cpp" />
@@ -63,6 +64,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\SatoStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\TitleStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\BombPredictionLine.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\LinePoint.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\Utility.cpp" />

@@ -115,12 +115,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\StageObject.h">
       <Filter>StageObject</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\BombPredictionLine.h">
-      <Filter>Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\LinePoint.h">
-      <Filter>Utility</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\TitleStage.h">
       <Filter>Stage\TitleStage</Filter>
     </ClInclude>
@@ -130,11 +124,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Bullet.h">
       <Filter>StageObject\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.h">
-      <Filter>Setting</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SpecialCamera\Tester.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ListsOfVariable.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\BombPredictionLine.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\LinePoint.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
@@ -186,12 +181,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\StageObject.cpp">
       <Filter>StageObject</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\BombPredictionLine.cpp">
-      <Filter>Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\LinePoint.cpp">
-      <Filter>Utility</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\TitleStage.cpp">
       <Filter>Stage\TitleStage</Filter>
     </ClCompile>
@@ -201,10 +190,11 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Bullet.cpp">
       <Filter>StageObject\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.cpp">
-      <Filter>Setting</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SpecialCamera\Tester.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ListsOfVariable.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\BombPredictionLine.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\LinePoint.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.cpp" />
   </ItemGroup>
 </Project>
