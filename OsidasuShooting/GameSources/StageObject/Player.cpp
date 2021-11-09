@@ -8,6 +8,8 @@
 
 namespace basecross {
 	void Player::OnCreate() {
+		GetStage()->SetSharedGameObject(L"Player", GetThis<Player>());
+
 		auto drawComp = AddComponent<PNTStaticDraw>();
 		drawComp->SetMeshResource(L"DEFAULT_SPHERE");
 
@@ -28,6 +30,7 @@ namespace basecross {
 		Move();
 		JumpAndHover();
 		m_stateMachine->Update();
+		SpecialSkill();
 	}
 
 	void Player::OnCollisionEnter(shared_ptr<GameObject>& other) {
@@ -57,6 +60,10 @@ namespace basecross {
 	}
 
 	void Player::SpecialSkill() {
+		const auto& cntlPad = App::GetApp()->GetInputDevice().GetControlerVec()[0];
+		if (cntlPad.wButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER &&
+			cntlPad.wButtons & XINPUT_GAMEPAD_LEFT_SHOULDER)
+			GetStage()->AddGameObject<SpecialCamera>();
 	}
 
 	void Player::BulletAim() {
