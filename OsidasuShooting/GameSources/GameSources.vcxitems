@@ -21,11 +21,10 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkEffect.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkEffectResource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkInterface.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)ListsOfVariable.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Scene.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)SpecialCamera\Tester.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Block.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Bullet.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Player.h" />
@@ -49,10 +48,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkComponent.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkEffectResource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkInterface.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)ListsOfVariable.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Scene.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)SpecialCamera\Tester.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Block.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Bullet.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Player.cpp" />

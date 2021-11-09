@@ -61,6 +61,15 @@
     <Filter Include="Setting">
       <UniqueIdentifier>{1e986d81-5165-4176-8b67-2176ae11a0f4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Camera">
+      <UniqueIdentifier>{e087748a-aaa5-4b76-a7e9-2d358afb8684}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{226133df-9ac4-492c-9877-025e693e752a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\TitleSprite">
+      <UniqueIdentifier>{add3088f-01cd-4bc8-b9ea-cf30cfcaaded}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -124,12 +133,21 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Bullet.h">
       <Filter>StageObject\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)SpecialCamera\Tester.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)ListsOfVariable.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\BombPredictionLine.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\LinePoint.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\BombPredictionLine.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\LinePoint.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.h">
+      <Filter>Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.h">
+      <Filter>UI\TitleSprite</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.h">
+      <Filter>Setting</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
@@ -190,11 +208,20 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Bullet.cpp">
       <Filter>StageObject\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)SpecialCamera\Tester.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)ListsOfVariable.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\BombPredictionLine.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\LinePoint.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\BombPredictionLine.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\LinePoint.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.cpp">
+      <Filter>UI\TitleSprite</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.cpp">
+      <Filter>Setting</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
