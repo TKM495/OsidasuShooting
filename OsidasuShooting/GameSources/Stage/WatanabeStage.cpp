@@ -36,8 +36,16 @@ namespace basecross {
 			AddGameObject<Debug>();
 			Debug::GetInstance()->Log(L"CurrentStage : WatanabeStage");
 
-			AddGameObject<Player>(TransformData());
-			AddGameObject<Block>(TransformData(Vec3(0.0f, -1.5f, 0.0f), Vec3(10.0f, 1.0f, 10.0f)));
+			GameObjecttCSVBuilder builder;
+			builder.Register<Block>(L"Block");
+			auto dir = App::GetApp()->GetDataDirWString();
+			auto path = dir + L"Csv/Stage";
+			path += L".csv";
+
+			builder.Build(GetThis<Stage>(), path);
+
+			AddGameObject<Player>(TransformData(Vec3(0.0f, 1.0f, 0.0f)));
+			//AddGameObject<Block>(TransformData(Vec3(0.0f, -1.5f, 0.0f), Vec3(10.0f, 1.0f, 10.0f)));
 		}
 		catch (...) {
 			throw;
