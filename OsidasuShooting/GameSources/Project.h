@@ -18,6 +18,7 @@
 #include "DebugClass/Debug.h"
 #include "Utility/Utility.h"
 #include "Utility/BombPredictionLine.h"
+#include "Utility/GroundingDecision.h"
 #include "Effekseer/EfkEffect.h"
 // ステージオブジェクト
 #include "StageObject/StageObject.h"

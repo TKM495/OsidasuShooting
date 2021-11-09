@@ -21,7 +21,10 @@ namespace basecross {
 		float m_moveSpeed;
 		// 予測線表示クラス
 		BombPredictionLine line;
+		// 爆弾の着弾ポイント
 		Vec3 m_bombPoint;
+		// ジャンプ速度
+		Vec3 m_jumpVerocity;
 		//ステートマシーン
 		unique_ptr<StateMachine<Player>> m_stateMachine;
 		void Move();
@@ -29,7 +32,7 @@ namespace basecross {
 	public:
 		Player(const shared_ptr<Stage>& stage, const TransformData& transData)
 			:StageObject(stage), m_moveSpeed(20.0f), line(stage, 10, 2.0f)
-			, m_bombPoint(Vec3(0.0f))
+			, m_bombPoint(Vec3(0.0f)), m_jumpVerocity(Vec3(0.0f, 10.0f, 0.0f))
 		{
 			m_transformData = transData;
 		}
@@ -37,7 +40,9 @@ namespace basecross {
 		void OnCreate()override;
 		void OnUpdate()override;
 
-		void OnCollisionEnter(shared_ptr<GameObject>& other);
+		void OnCollisionEnter(shared_ptr<GameObject>& other)override;
+		void OnCollisionExcute(shared_ptr<GameObject>& other)override;
+		void OnCollisionExit(shared_ptr<GameObject>& other)override;
 
 		const unique_ptr<StateMachine<Player>>& GetStateMachine() {
 			return m_stateMachine;

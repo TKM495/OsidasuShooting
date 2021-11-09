@@ -12,6 +12,10 @@ namespace basecross {
 
 		auto drawComp = AddComponent<PNTStaticDraw>();
 		drawComp->SetMeshResource(L"DEFAULT_SPHERE");
+		drawComp->SetOwnShadowActive(true);
+
+		auto shadowComp = AddComponent<Shadowmap>();
+		shadowComp->SetMeshResource(L"DEFAULT_SPHERE");
 
 		AddComponent<PhysicalBehavior>();
 		AddComponent<Gravity>();
@@ -33,6 +37,19 @@ namespace basecross {
 	}
 
 	void Player::OnCollisionEnter(shared_ptr<GameObject>& other) {
+		//Debug::GetInstance()->Log(L"test");
+		//auto aabb = other->GetComponent<Collision>()->GetWrappedAABB();
+		//auto pos = GetTransform()->GetPosition();
+
+		//if (HitTest::SEGMENT_AABB(pos, pos + Vec3(0.0f, -1.0f, 0.0f), aabb))
+		//	Debug::GetInstance()->Log(L"°");
+		//else
+		//	Debug::GetInstance()->Log(L"•Ç");
+	}
+
+	void Player::OnCollisionExcute(shared_ptr<GameObject>& other) {
+	}
+	void Player::OnCollisionExit(shared_ptr<GameObject>& other) {
 	}
 
 	void Player::Move() {
@@ -56,6 +73,10 @@ namespace basecross {
 	}
 
 	void Player::JumpAndHover() {
+		const auto& cntlPad = App::GetApp()->GetInputDevice().GetControlerVec()[0];
+		auto flg = GroundingDecision::Calculate(GetTransform()->GetPosition());
+		if (cntlPad.bLeftTrigger > 128.0f && flg)
+			GetComponent<Gravity>()->StartJump(m_jumpVerocity);
 	}
 
 	void Player::SpecialSkill() {
