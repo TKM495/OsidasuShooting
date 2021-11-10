@@ -148,6 +148,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.h">
       <Filter>Setting</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\GroundingDecision.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
@@ -222,6 +225,9 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.cpp">
       <Filter>Setting</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\GroundingDecision.cpp">
+      <Filter>Utility</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

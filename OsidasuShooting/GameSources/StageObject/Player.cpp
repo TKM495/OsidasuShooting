@@ -12,27 +12,40 @@ namespace basecross {
 
 		auto drawComp = AddComponent<PNTStaticDraw>();
 		drawComp->SetMeshResource(L"DEFAULT_SPHERE");
+		drawComp->SetOwnShadowActive(true);
+
+		auto shadowComp = AddComponent<Shadowmap>();
+		shadowComp->SetMeshResource(L"DEFAULT_SPHERE");
 
 		AddComponent<PhysicalBehavior>();
 		AddComponent<Gravity>();
 		AddComponent<CollisionSphere>();
 
 		ObjectSetUp();
-		//ステートマシンの構築
-		m_stateMachine.reset(new StateMachine<Player>(GetThis<Player>()));
-		//初期ステートの設定
-		m_stateMachine->ChangeState(PlayerBulletModeState::Instance());
+		// 武器ステートマシンの構築
+		m_weaponStateMachine.reset(new StateMachine<Player>(GetThis<Player>()));
+		// 武器の初期ステートの設定
+		m_weaponStateMachine->ChangeState(PlayerBulletModeState::Instance());
 
+		// ジャンプ＆ホバー
+		m_jumpAndHoverStateMachine.reset(new StateMachine<Player>(GetThis<Player>()));
+		m_jumpAndHoverStateMachine->ChangeState(PlayerJumpState::Instance());
+
+		// タグの追加
 		AddTag(L"Player");
 	}
 
 	void Player::OnUpdate() {
 		Move();
-		JumpAndHover();
-		m_stateMachine->Update();
+		m_weaponStateMachine->Update();
+		m_jumpAndHoverStateMachine->Update();
 	}
 
 	void Player::OnCollisionEnter(shared_ptr<GameObject>& other) {
+	}
+	void Player::OnCollisionExcute(shared_ptr<GameObject>& other) {
+	}
+	void Player::OnCollisionExit(shared_ptr<GameObject>& other) {
 	}
 
 	void Player::Move() {
@@ -55,7 +68,24 @@ namespace basecross {
 		physicalComp->Move(moveVec, m_moveSpeed);
 	}
 
-	void Player::JumpAndHover() {
+	void Player::Jump() {
+		GetComponent<Gravity>()->StartJump(m_jumpVerocity);
+	}
+
+	void Player::Hover() {
+		if (m_currentHoverTime < 0.0f)
+			return;
+		GetComponent<Gravity>()->SetGravityVerocityZero();
+		m_currentHoverTime -= App::GetApp()->GetElapsedTime();
+	}
+
+	void Player::HoverTimeRecovery() {
+		if (m_hoverTime > m_currentHoverTime) {
+			m_currentHoverTime += App::GetApp()->GetElapsedTime();
+		}
+		else {
+			m_currentHoverTime = m_hoverTime;
+		}
 	}
 
 	void Player::SpecialSkill() {
@@ -95,25 +125,24 @@ namespace basecross {
 		line.SetActive(false);
 	}
 
+	// 武器用ステート
 	// 弾の照準や発射状態（デフォルト）
 #pragma region PlayerBulletModeState
 	shared_ptr<PlayerBulletModeState> PlayerBulletModeState::Instance() {
 		static shared_ptr<PlayerBulletModeState> instance(new PlayerBulletModeState);
 		return instance;
 	}
-	void PlayerBulletModeState::Enter(const shared_ptr<Player>& Obj) {
-		Debug::GetInstance()->Log(L"BulletMode");
-	}
+	void PlayerBulletModeState::Enter(const shared_ptr<Player>& Obj) {}
 	void PlayerBulletModeState::Execute(const shared_ptr<Player>& Obj) {
 		const auto& cntlPad = App::GetApp()->GetInputDevice().GetControlerVec()[0];
 		Obj->BulletAim();
 		Obj->BulletLaunch();
 		if (cntlPad.bRightTrigger > 128.0f) {
-			Obj->GetStateMachine()->ChangeState(PlayerBombModeState::Instance());
+			Obj->GetWeaponStateMachine()->ChangeState(PlayerBombModeState::Instance());
 		}
 		if (cntlPad.wButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER &&
 			cntlPad.wButtons & XINPUT_GAMEPAD_LEFT_SHOULDER)
-			Obj->GetStateMachine()->ChangeState(PlayerSpecialSkillModeState::Instance());
+			Obj->GetWeaponStateMachine()->ChangeState(PlayerSpecialSkillModeState::Instance());
 	}
 	void PlayerBulletModeState::Exit(const shared_ptr<Player>& Obj) {}
 #pragma endregion
@@ -124,14 +153,12 @@ namespace basecross {
 		static shared_ptr<PlayerBombModeState> instance(new PlayerBombModeState);
 		return instance;
 	}
-	void PlayerBombModeState::Enter(const shared_ptr<Player>& Obj) {
-		Debug::GetInstance()->Log(L"BombMode");
-	}
+	void PlayerBombModeState::Enter(const shared_ptr<Player>& Obj) {}
 	void PlayerBombModeState::Execute(const shared_ptr<Player>& Obj) {
 		const auto& cntlPad = App::GetApp()->GetInputDevice().GetControlerVec()[0];
 		Obj->BombAim();
 		if (cntlPad.bRightTrigger < 128.0f) {
-			Obj->GetStateMachine()->ChangeState(PlayerBulletModeState::Instance());
+			Obj->GetWeaponStateMachine()->ChangeState(PlayerBulletModeState::Instance());
 		}
 	}
 	void PlayerBombModeState::Exit(const shared_ptr<Player>& Obj) {
@@ -146,12 +173,84 @@ namespace basecross {
 		return instance;
 	}
 	void PlayerSpecialSkillModeState::Enter(const shared_ptr<Player>& Obj) {
-		Debug::GetInstance()->Log(L"SpecialSkillMode");
 		Obj->SpecialSkill();
 	}
 	void PlayerSpecialSkillModeState::Execute(const shared_ptr<Player>& Obj) {
 	}
 	void PlayerSpecialSkillModeState::Exit(const shared_ptr<Player>& Obj) {
 	}
+#pragma endregion
+
+	// ジャンプとホバー用のステート
+	// 移動
+#pragma region PlayerMoveState
+	shared_ptr<PlayerMoveState> PlayerMoveState::Instance() {
+		static shared_ptr<PlayerMoveState> instance(new PlayerMoveState);
+		return instance;
+	}
+	void PlayerMoveState::Enter(const shared_ptr<Player>& Obj) {
+		Debug::GetInstance()->Log(L"MoveState");
+	}
+	void PlayerMoveState::Execute(const shared_ptr<Player>& Obj) {
+	}
+	void PlayerMoveState::Exit(const shared_ptr<Player>& Obj) {}
+#pragma endregion
+	// ジャンプ
+#pragma region PlayerJumpState
+	shared_ptr<PlayerJumpState> PlayerJumpState::Instance() {
+		static shared_ptr<PlayerJumpState> instance(new PlayerJumpState);
+		return instance;
+	}
+	void PlayerJumpState::Enter(const shared_ptr<Player>& Obj) {
+		const auto& cntlPad = App::GetApp()->GetInputDevice().GetControlerVec()[0];
+		if (cntlPad.bLeftTrigger > 128.0f) {
+			m_isPushedLeftTrigger = true;
+		}
+		Debug::GetInstance()->Log(L"Jump");
+	}
+	void PlayerJumpState::Execute(const shared_ptr<Player>& Obj) {
+		const auto& cntlPad = App::GetApp()->GetInputDevice().GetControlerVec()[0];
+		if (cntlPad.bLeftTrigger > 128.0f) {
+			if (!m_isPushedLeftTrigger) {
+				Obj->Jump();
+				Obj->GetJumpAndHoverStateMachine()->ChangeState(PlayerHoverState::Instance());
+			}
+		}
+		else {
+			m_isPushedLeftTrigger = false;
+		}
+		Obj->HoverTimeRecovery();
+	}
+	void PlayerJumpState::Exit(const shared_ptr<Player>& Obj) {}
+#pragma endregion
+	// ホバー
+#pragma region PlayerHoverState
+	shared_ptr<PlayerHoverState> PlayerHoverState::Instance() {
+		static shared_ptr<PlayerHoverState> instance(new PlayerHoverState);
+		return instance;
+	}
+	void PlayerHoverState::Enter(const shared_ptr<Player>& Obj) {
+		const auto& cntlPad = App::GetApp()->GetInputDevice().GetControlerVec()[0];
+		if (cntlPad.bLeftTrigger > 128.0f) {
+			m_isPushedLeftTrigger = true;
+		}
+		Debug::GetInstance()->Log(L"Hover");
+		m_groundingDecision.SetRadius(Obj->GetTransform()->GetScale());
+	}
+	void PlayerHoverState::Execute(const shared_ptr<Player>& Obj) {
+		const auto& cntlPad = App::GetApp()->GetInputDevice().GetControlerVec()[0];
+		if (cntlPad.bLeftTrigger > 128.0f) {
+			if (!m_isPushedLeftTrigger)
+				Obj->Hover();
+		}
+		else {
+			m_isPushedLeftTrigger = false;
+		}
+
+		bool flg = m_groundingDecision.Calculate(Obj->GetTransform()->GetPosition());
+		if (flg)
+			Obj->GetJumpAndHoverStateMachine()->ChangeState(PlayerJumpState::Instance());
+	}
+	void PlayerHoverState::Exit(const shared_ptr<Player>& Obj) {}
 #pragma endregion
 }
