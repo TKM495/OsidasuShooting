@@ -10,9 +10,10 @@ namespace basecross {
 	class DebugCamera :public Camera {
 		float angleRadY; //カメラの回り込み角度(ラジアン)
 		float length; //カメラの注視点からの距離
+		float height;
 	public:
 		DebugCamera()
-			:angleRadY(XMConvertToRadians(-90)), length(15.0f)
+			:angleRadY(XMConvertToRadians(-90)), length(30.0f), height(30.0f)
 		{
 		}
 

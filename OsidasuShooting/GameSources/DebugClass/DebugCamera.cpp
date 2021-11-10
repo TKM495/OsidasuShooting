@@ -5,7 +5,7 @@
 namespace basecross {
 	void DebugCamera::OnCreate() {
 		auto eye = Vec3(cosf(angleRadY), 0.0f, sinf(angleRadY)) * length;
-		eye += Vec3(0.0f, 15.0f, 0.0f);
+		eye += Vec3(0.0f, height, 0.0f);
 		SetEye(eye);
 		SetAt(0.0f, 0.0f, 0.0f);
 	}
@@ -33,7 +33,7 @@ namespace basecross {
 
 		//ƒJƒƒ‰‚Ì‰ñ‚è‚İ‚ÌŠp“x‚Æ‹——£‚ÅˆÊ’u‚ğŒˆ’è‚·‚é
 		auto eye = Vec3(cosf(angleRadY), 0.0f, sinf(angleRadY)) * length;
-		eye += Vec3(0.0f, 15.0f, 0.0f);
+		eye += Vec3(0.0f, height, 0.0f);
 		SetEye(eye);
 	}
 }

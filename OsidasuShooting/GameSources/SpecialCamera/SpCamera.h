@@ -7,7 +7,6 @@
 #include "stdafx.h"
 
 namespace basecross {
-
 	// 必殺技の演出用カメラ
 	class SpecialCamera : public GameObject {
 		// 演出用
@@ -41,9 +40,5 @@ namespace basecross {
 
 		virtual void OnCreate() override;
 		virtual void OnUpdate() override;
-
 	};
-
-
-
 }

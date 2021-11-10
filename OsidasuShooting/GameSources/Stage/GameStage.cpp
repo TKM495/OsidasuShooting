@@ -8,7 +8,7 @@
 
 namespace basecross {
 	void GameStage::CreateViewLight() {
-		const Vec3 eye(0.0f, 15.0f, -10.0f);
+		const Vec3 eye(0.0f, 17.0f, -10.0f);
 		const Vec3 at(0.0f);
 		auto PtrView = CreateView<SingleView>();
 		//ƒrƒ…[‚ÌƒJƒƒ‰‚Ìİ’è

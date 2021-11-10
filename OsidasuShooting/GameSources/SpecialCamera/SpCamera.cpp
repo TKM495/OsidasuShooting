@@ -23,7 +23,6 @@ namespace basecross {
 		m_playerRot(0, 0, 0)
 	{}
 
-
 	// プレイヤーの位置を取得する
 	void SpecialCamera::PlayerTrans()
 	{
@@ -49,9 +48,6 @@ namespace basecross {
 		auto angle = -atan2(direction.y, direction.x);
 
 		trans->SetRotation(cameraPos.x, angle, angle);
-
-
-
 	}
 
 	// オブジェクトの生成
@@ -87,9 +83,9 @@ namespace basecross {
 		m_move = 1 - m_move;
 		Vec3 TargetPos, TargetRot;
 
-		Easing<Vec3> cameraMove; TargetPos = cameraMove.EaseInOut(
+		Easing<Vec3> cameraMove;
+		TargetPos = cameraMove.EaseInOut(
 			EasingType::Exponential, m_cameraPos[0], m_cameraPos[1], m_totalTime, m_easingTime);
 		trans->SetPosition(TargetPos);
 	}
-
 }
