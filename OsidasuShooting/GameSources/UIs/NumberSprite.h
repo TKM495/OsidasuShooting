@@ -24,8 +24,10 @@ namespace basecross
 			m_textureKey(TextureKey),
 			m_trace(Trace),
 			m_startScale(StartScale),
-			m_startPos(StartPos)
+			m_startPos(StartPos),
+			m_number(),vertices()
 		{}
+
 
 		virtual ~Number() {};
 
@@ -46,9 +48,9 @@ namespace basecross
 
 			auto drawComp = GetComponent<PCTSpriteDraw>();
 			drawComp->UpdateVertices(vertices);
-
 		}
-		void OnCreate();
+
+		void OnCreate() override;
 		void OnUpdate() {};
 
 	};

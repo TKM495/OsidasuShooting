@@ -43,12 +43,11 @@ namespace basecross
 
 		SetAlphaActive(true);
 
-		// 位置、拡大縮小
+		// 位置、拡大縮小 表示用
 		auto ptrTrans = GetComponent<Transform>();
 		Vec3 pos(-sideSize * helfSize * tqatSize, -higthSize * tqatSize * tqatSize, zeroSize);
 		Vec3 scl(oneSize, oneSize, oneSize);
 		ptrTrans->SetPosition(pos);
 		ptrTrans->SetScale(scl);
-
 	};
 }
