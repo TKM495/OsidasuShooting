@@ -1,8 +1,8 @@
-GBUiPlayers 512px,512px
+GBPUI 512px,512px
 
 Gauge 128px,512px
 
-Timer 1024px,640px 一文字64px
+Number1024px,640px 一文字64px
 
 Title 1024px,512
 
