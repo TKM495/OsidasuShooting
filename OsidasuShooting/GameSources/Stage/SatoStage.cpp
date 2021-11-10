@@ -48,7 +48,7 @@ namespace basecross {
 
 			//AddGameObject<SpecialCamera>();
 			AddGameObject<Number>(L"Number", false,
-				Vec2(256.0f, 50.0f), Vec2(0.0f, 50.0f));
+				Vec2(256.0f, 50.0f), Vec2(0.0f, 50.0f),2);
 
 
 		}

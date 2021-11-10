@@ -19,15 +19,14 @@ namespace basecross
 
 	public:
 		Number(const shared_ptr<Stage>& stage, const wstring& TextureKey, bool Trace,
-			const Vec2& StartScale, const Vec2& StartPos) :
+			const Vec2& StartScale, const Vec2& StartPos,int number) :
 			GameObject(stage),
 			m_textureKey(TextureKey),
 			m_trace(Trace),
 			m_startScale(StartScale),
 			m_startPos(StartPos),
-			m_number(),vertices()
+			m_number(number), vertices()
 		{}
-
 
 		virtual ~Number() {};
 
@@ -40,11 +39,14 @@ namespace basecross
 			float higthSize = 128.0f;
 			float fontSize = 64.0f;
 			float zeroSize = 0.0f;
+			float oneSize = 1.0f;
 
-			vertices[0].textureCoordinate = Vec2((fNumber + 0) * fontSize / fSidSize, zeroSize);
-			vertices[1].textureCoordinate = Vec2((fNumber + 1) * fontSize / fSidSize, zeroSize);
-			vertices[2].textureCoordinate = Vec2((fNumber + 0) * fontSize / fSidSize, higthSize);
-			vertices[3].textureCoordinate = Vec2((fNumber + 1) * fontSize / fSidSize, higthSize);
+			float setNumber = static_cast<float>(m_number);
+
+			vertices[0].textureCoordinate = Vec2((setNumber + zeroSize) * fontSize / fSidSize, zeroSize);
+			vertices[1].textureCoordinate = Vec2((setNumber +  oneSize) * fontSize / fSidSize, zeroSize);
+			vertices[2].textureCoordinate = Vec2((setNumber + zeroSize) * fontSize / fSidSize, higthSize);
+			vertices[3].textureCoordinate = Vec2((setNumber +  oneSize) * fontSize / fSidSize, higthSize);
 
 			auto drawComp = GetComponent<PCTSpriteDraw>();
 			drawComp->UpdateVertices(vertices);
