@@ -26,11 +26,39 @@ namespace basecross {
 		try {
 			//ビューとライトの作成
 			CreateViewLight();
-			AddGameObject<Debug>();
-			Debug::GetInstance()->Log(L"CurrentStage : JONYMDStage");
+			//AddGameObject<Debug>();
+			//Debug::GetInstance()->Log(L"CurrentStage : JONYMDStage");
+
+			auto countDown = AddGameObject<CountDown>();
+			SetSharedGameObject(L"CountDown", countDown);
+
 		}
 		catch (...) {
 			throw;
+		}
+	}
+
+
+	void JONYMDStage::OnUpdate() {
+		const auto& app = App::GetApp();
+		const auto& keyState = app->GetInputDevice().GetKeyState();
+		if (keyState.m_bPressedKeyTbl['W']) {
+			GetSharedGameObject<CountDown>(L"CountDown")->Start();
+		}
+		if (keyState.m_bPressedKeyTbl['S']) {
+			GetSharedGameObject<CountDown>(L"CountDown")->Stop();
+		}
+		if (keyState.m_bPressedKeyTbl['R']) {
+			GetSharedGameObject<CountDown>(L"CountDown")->Reset();
+		}
+
+
+
+		if (keyState.m_bPressedKeyTbl['A']) {
+			GetSharedGameObject<CountDown>(L"CountDown")->Adjust(5);
+		}
+		if (keyState.m_bPressedKeyTbl['M']) {
+			GetSharedGameObject<CountDown>(L"CountDown")->Adjust(-5);
 		}
 	}
 }

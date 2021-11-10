@@ -16,5 +16,6 @@ namespace basecross {
 		virtual ~JONYMDStage() {}
 		//‰Šú‰»
 		virtual void OnCreate()override;
+		virtual void OnUpdate()override;
 	};
 }
