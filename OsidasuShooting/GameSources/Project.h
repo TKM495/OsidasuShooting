@@ -19,6 +19,8 @@
 #include "Utility/Utility.h"
 #include "Utility/BombPredictionLine.h"
 #include "Utility/GroundingDecision.h"
+#include "Utility/CSVLoad.h"
+#include "Utility/TimeCounter.h"
 #include "Effekseer/EfkEffect.h"
 // ステージオブジェクト
 #include "StageObject/StageObject.h"
@@ -28,5 +30,11 @@
 #include "StageObject/Bullet.h"
 //UI
 #include "UIs/TitleSprite.h"
+#include "UIs/Fade.h"
+#include "UIs/FadeComponent.h"
+#include "UIs/StringSprite2.h"
 // コンポーネント
 #include "Component/PhysicalBehavior.h"
+
+// メニュー
+#include "UIs/Menu/BaseMenu.h"

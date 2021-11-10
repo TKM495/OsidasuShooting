@@ -36,10 +36,15 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\SatoStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\TitleStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\Menu\BaseMenu.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\Menu\Cursor.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\StringSprite2.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\BombPredictionLine.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\CSVLoad.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\GroundingDecision.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\LinePoint.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\TimeCounter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\Utility.h" />
   </ItemGroup>
   <ItemGroup>
@@ -63,10 +68,15 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\SatoStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\TitleStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\Menu\BaseMenu.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\Menu\Cursor.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\StringSprite2.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\BombPredictionLine.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\CSVLoad.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\GroundingDecision.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\LinePoint.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\TimeCounter.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\Utility.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
   </ItemGroup>

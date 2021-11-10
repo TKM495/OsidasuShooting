@@ -70,6 +70,24 @@
     <Filter Include="UI\TitleSprite">
       <UniqueIdentifier>{add3088f-01cd-4bc8-b9ea-cf30cfcaaded}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Menu">
+      <UniqueIdentifier>{92d6c959-a3ba-4376-9ed0-3b25b3cfa862}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\BombPredictionLine">
+      <UniqueIdentifier>{90cf575b-3825-4862-8c0c-1cfc21ca600e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\CSVLoad">
+      <UniqueIdentifier>{7430e74c-1c60-4668-bed4-fd3a96d3d351}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\GroundingDecision">
+      <UniqueIdentifier>{3c138790-97a8-4741-9ffe-a9fd20d08c75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\TimeCounter">
+      <UniqueIdentifier>{aaff4d9c-384e-4374-86a4-c0855d57d8c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\StringSprite2">
+      <UniqueIdentifier>{039d2856-a65f-4488-8cd0-608b70f6780e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -133,12 +151,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Bullet.h">
       <Filter>StageObject\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\BombPredictionLine.h">
-      <Filter>Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\LinePoint.h">
-      <Filter>Utility</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.h">
       <Filter>Camera</Filter>
     </ClInclude>
@@ -148,8 +160,29 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.h">
       <Filter>Setting</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\BombPredictionLine.h">
+      <Filter>Utility\BombPredictionLine</Filter>
+    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\GroundingDecision.h">
-      <Filter>Utility</Filter>
+      <Filter>Utility\GroundingDecision</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\LinePoint.h">
+      <Filter>Utility\BombPredictionLine</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\Menu\BaseMenu.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\Menu\Cursor.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\CSVLoad.h">
+      <Filter>Utility\CSVLoad</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\TimeCounter.h">
+      <Filter>Utility\TimeCounter</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\StringSprite2.h">
+      <Filter>UI\StringSprite2</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -211,12 +244,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Bullet.cpp">
       <Filter>StageObject\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\BombPredictionLine.cpp">
-      <Filter>Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\LinePoint.cpp">
-      <Filter>Utility</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.cpp">
       <Filter>Camera</Filter>
     </ClCompile>
@@ -226,8 +253,29 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.cpp">
       <Filter>Setting</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\BombPredictionLine.cpp">
+      <Filter>Utility\BombPredictionLine</Filter>
+    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\GroundingDecision.cpp">
-      <Filter>Utility</Filter>
+      <Filter>Utility\GroundingDecision</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\LinePoint.cpp">
+      <Filter>Utility\BombPredictionLine</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\Menu\BaseMenu.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\Menu\Cursor.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\CSVLoad.cpp">
+      <Filter>Utility\CSVLoad</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\TimeCounter.cpp">
+      <Filter>Utility\TimeCounter</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\StringSprite2.cpp">
+      <Filter>UI\StringSprite2</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
