@@ -6,15 +6,20 @@ namespace basecross {
 	class CountDown : public GameObject
 	{
 	private:
-		bool start = false;
+		bool start;
 		bool reset;
 
-		float initialTime = 180.0f; //•b‚Ì’l‚Å‚·
+		float initialTime; //•b‚Ì’l‚Å‚·
 		float currentTime;
 
 	public:
 		CountDown(const shared_ptr <Stage>& stage)
-			:GameObject(stage)
+			:GameObject(stage),
+			start(false),
+			reset(false),
+			initialTime(180.0f),
+			currentTime()
+
 		{}
 
 		void OnCreate() override;

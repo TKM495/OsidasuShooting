@@ -136,9 +136,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Bullet.h">
       <Filter>StageObject\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.h">
-      <Filter>Utility</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\LinePoint.h">
       <Filter>Utility</Filter>
     </ClInclude>
@@ -154,9 +151,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\GroundingDecision.h">
       <Filter>Utility</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\CountDown.h">
       <Filter>JonyMd</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\BombPredictionLine.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.h">
+      <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -218,9 +218,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Bullet.cpp">
       <Filter>StageObject\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.cpp">
-      <Filter>Utility</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\LinePoint.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
@@ -236,9 +233,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\GroundingDecision.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\CountDown.cpp">
       <Filter>JonyMd</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\BombPredictionLine.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.cpp">
+      <Filter>UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
