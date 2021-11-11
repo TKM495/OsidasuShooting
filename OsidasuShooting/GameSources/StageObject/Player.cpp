@@ -8,17 +8,22 @@
 
 namespace basecross {
 	void Player::OnCreate() {
+		// シェアオブジェクトに登録（最終的に複数になるので要検討）
 		GetStage()->SetSharedGameObject(L"Player", GetThis<Player>());
 
+		// 描画コンポーネントの追加
 		auto drawComp = AddComponent<PNTStaticDraw>();
 		drawComp->SetMeshResource(L"DEFAULT_SPHERE");
 		drawComp->SetOwnShadowActive(true);
 
+		// 影の追加
 		auto shadowComp = AddComponent<Shadowmap>();
 		shadowComp->SetMeshResource(L"DEFAULT_SPHERE");
 
+		// 滑るような挙動用のコンポーネントと重力を追加
 		AddComponent<PhysicalBehavior>();
 		AddComponent<Gravity>();
+		// 当たり判定を追加
 		AddComponent<CollisionSphere>();
 
 		ObjectSetUp();
@@ -92,13 +97,32 @@ namespace basecross {
 		GetStage()->AddGameObject<SpecialCamera>();
 	}
 
-	void Player::BulletAim() {
-	}
-	void Player::BulletLaunch() {
+	void Player::BulletAimAndLaunch() {
 		const auto& cntlPad = App::GetApp()->GetInputDevice().GetControlerVec()[0];
-		// 本来はスティックを倒すと発射されるようにする
-		if (cntlPad.wPressedButtons & XINPUT_GAMEPAD_A)
-			GetStage()->AddGameObject<Bullet>(GetTransform()->GetPosition(), Vec3(0.0f, 0.0f, 1.0f));
+		float fThumbRY = 0.0f;
+		float fThumbRX = 0.0f;
+		if (!cntlPad.bConnected)
+			return;
+
+		fThumbRY = cntlPad.fThumbRY;
+		fThumbRX = cntlPad.fThumbRX;
+
+		Vec3 moveVec(0.0f);
+		bool isShot = false;
+		if (fThumbRX != 0 || fThumbRY != 0) {
+			moveVec = Vec3(fThumbRX, 0.0f, fThumbRY);
+			isShot = true;
+		}
+		else {
+			moveVec = Vec3(0.0f);
+			isShot = false;
+		}
+		auto direction = moveVec.normalize() * 3.0f;
+		auto userPosition = GetTransform()->GetPosition();
+		line.Update(userPosition, userPosition + direction, PredictionLine::Type::Bullet);
+
+		if (isShot)
+			GetStage()->AddGameObject<Bullet>(userPosition, direction);
 	}
 	void Player::BombAim() {
 		const auto& cntlPad = App::GetApp()->GetInputDevice().GetControlerVec()[0];
@@ -111,18 +135,18 @@ namespace basecross {
 		fThumbRY = cntlPad.fThumbRY;
 		fThumbRX = cntlPad.fThumbRX;
 
+		// 移動量
 		Vec3 moveVec(0.0f);
-		if (fThumbRX != 0 || fThumbRY != 0)
-		{
+		if (fThumbRX != 0 || fThumbRY != 0) {
 			moveVec = Vec3(fThumbRX, 0.0f, fThumbRY);
 		}
 		m_bombPoint += moveVec * delta * 10.0f;
-		line.SetActive(true);
-		line.Update(GetTransform()->GetPosition(), m_bombPoint);
+		//line.SetActive(true);
+		line.Update(GetTransform()->GetPosition(), m_bombPoint, PredictionLine::Type::Bomb);
 	}
 
 	void Player::BombLaunch() {
-		line.SetActive(false);
+		//line.SetActive(false);
 	}
 
 	// 武器用ステート
@@ -135,8 +159,7 @@ namespace basecross {
 	void PlayerBulletModeState::Enter(const shared_ptr<Player>& Obj) {}
 	void PlayerBulletModeState::Execute(const shared_ptr<Player>& Obj) {
 		const auto& cntlPad = App::GetApp()->GetInputDevice().GetControlerVec()[0];
-		Obj->BulletAim();
-		Obj->BulletLaunch();
+		Obj->BulletAimAndLaunch();
 		if (cntlPad.bRightTrigger > 128.0f) {
 			Obj->GetWeaponStateMachine()->ChangeState(PlayerBombModeState::Instance());
 		}

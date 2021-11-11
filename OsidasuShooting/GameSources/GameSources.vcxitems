@@ -21,6 +21,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkEffect.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkEffectResource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkInterface.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\CountDown.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Scene.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.h" />
@@ -38,7 +39,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\BombPredictionLine.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\GroundingDecision.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\LinePoint.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\Utility.h" />
@@ -50,6 +51,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkComponent.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkEffectResource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkInterface.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\CountDown.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Scene.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.cpp" />
@@ -66,7 +68,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\BombPredictionLine.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\GroundingDecision.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\LinePoint.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\Utility.cpp" />

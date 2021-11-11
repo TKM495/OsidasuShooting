@@ -70,6 +70,9 @@
     <Filter Include="UI\TitleSprite">
       <UniqueIdentifier>{add3088f-01cd-4bc8-b9ea-cf30cfcaaded}</UniqueIdentifier>
     </Filter>
+    <Filter Include="JonyMd">
+      <UniqueIdentifier>{5e611ea7-2f55-439e-be59-ff4b4385e58f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -133,7 +136,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Bullet.h">
       <Filter>StageObject\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\BombPredictionLine.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.h">
       <Filter>Utility</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\LinePoint.h">
@@ -150,6 +153,10 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\GroundingDecision.h">
       <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\CountDown.h">
+      <Filter>JonyMd</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -211,7 +218,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Bullet.cpp">
       <Filter>StageObject\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\BombPredictionLine.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\LinePoint.cpp">
@@ -228,6 +235,10 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\GroundingDecision.cpp">
       <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\CountDown.cpp">
+      <Filter>JonyMd</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
