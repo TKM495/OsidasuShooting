@@ -17,7 +17,7 @@
 // その他
 #include "DebugClass/Debug.h"
 #include "Utility/Utility.h"
-#include "Utility/BombPredictionLine.h"
+#include "Utility/PredictionLine.h"
 #include "Utility/GroundingDecision.h"
 #include "Effekseer/EfkEffect.h"
 // ステージオブジェクト
@@ -32,5 +32,4 @@
 // コンポーネント
 #include "Component/PhysicalBehavior.h"
 
-
-#include "JonyMd/CountDown.h";
+#include "JonyMd/CountDown.h"

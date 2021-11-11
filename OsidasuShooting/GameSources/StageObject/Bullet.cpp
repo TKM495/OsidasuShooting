@@ -4,12 +4,12 @@
 namespace basecross {
 	void Bullet::OnCreate()
 	{
-		//auto drawComp = AddComponent <BcPNTStaticDraw>();
-		//drawComp->SetMeshResource(L"DEFAULT_CUBE");
-
 		auto PtrColl = AddComponent<CollisionSphere>();
 		//PtrColl->SetDrawActive(true);
 		PtrColl->SetAfterCollision(AfterCollision::None);
+
+		auto rad = atan2f(-m_direction.z, m_direction.x) + XM_PIDIV2;
+		m_transformData.Rotation.y = XMConvertToDegrees(rad);
 
 		ObjectSetUp();
 
@@ -17,6 +17,7 @@ namespace basecross {
 		auto efkComp = AddComponent<EfkComponent>();
 		efkComp->SetEffectResource(L"Bullet");
 		efkComp->SetScale(m_transformData.Scale);
+		efkComp->SetRotation(m_transformData.Rotation);
 		efkComp->Play();
 
 		AddTag(L"Bullet");

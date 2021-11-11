@@ -6,7 +6,7 @@
 #pragma once
 #include "stdafx.h"
 #include "StageObject.h"
-#include "Utility/BombPredictionLine.h"
+#include "Utility/PredictionLine.h"
 
 namespace basecross {
 	enum class PlayerNumber {
@@ -20,7 +20,7 @@ namespace basecross {
 		// 移動速度（どちらかというとかける力）
 		float m_moveSpeed;
 		// 予測線表示クラス
-		BombPredictionLine line;
+		PredictionLine line;
 		// 爆弾の着弾ポイント
 		Vec3 m_bombPoint;
 		// ジャンプ速度
@@ -64,9 +64,8 @@ namespace basecross {
 		//
 		void HoverTimeRecovery();
 
-		void BulletAim();
+		void BulletAimAndLaunch();
 		void BombAim();
-		void BulletLaunch();
 		void BombLaunch();
 		void SpecialSkill();
 	};
