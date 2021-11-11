@@ -26,6 +26,7 @@
 #include "SpecialCamera/SpCamera.h"
 #include "StageObject/Block.h"
 #include "StageObject/Bullet.h"
+#include "StageObject/Bomb.h"
 #include "StageObject/Player.h"
 #include "StageObject/StageObject.h"
 //UI

@@ -119,7 +119,7 @@ namespace basecross {
 		}
 		auto direction = moveVec.normalize() * 3.0f;
 		auto userPosition = GetTransform()->GetPosition();
-		line.Update(userPosition, userPosition + direction, PredictionLine::Type::Bullet);
+		m_predictionLine.Update(userPosition, userPosition + direction, PredictionLine::Type::Bullet);
 
 		if (isShot)
 			GetStage()->AddGameObject<Bullet>(userPosition, direction);
@@ -141,12 +141,11 @@ namespace basecross {
 			moveVec = Vec3(fThumbRX, 0.0f, fThumbRY);
 		}
 		m_bombPoint += moveVec * delta * 10.0f;
-		//line.SetActive(true);
-		line.Update(GetTransform()->GetPosition(), m_bombPoint, PredictionLine::Type::Bomb);
+		m_predictionLine.Update(GetTransform()->GetPosition(), m_bombPoint, PredictionLine::Type::Bomb);
 	}
 
 	void Player::BombLaunch() {
-		//line.SetActive(false);
+		GetStage()->AddGameObject<Bomb>(m_predictionLine, GetTransform()->GetPosition(), m_bombPoint);
 	}
 
 	// 武器用ステート

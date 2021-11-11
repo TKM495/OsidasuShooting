@@ -20,7 +20,7 @@ namespace basecross {
 		// 移動速度（どちらかというとかける力）
 		float m_moveSpeed;
 		// 予測線表示クラス
-		PredictionLine line;
+		PredictionLine m_predictionLine;
 		// 爆弾の着弾ポイント
 		Vec3 m_bombPoint;
 		// ジャンプ速度
@@ -37,7 +37,7 @@ namespace basecross {
 		void Move();
 	public:
 		Player(const shared_ptr<Stage>& stage, const TransformData& transData)
-			:StageObject(stage), m_moveSpeed(20.0f), line(stage, 10, 2.0f),
+			:StageObject(stage), m_moveSpeed(20.0f), m_predictionLine(stage, 10, 2.0f),
 			m_bombPoint(Vec3(0.0f)), m_jumpVerocity(Vec3(0.0f, 10.0f, 0.0f)),
 			m_hoverTime(5.0f), m_currentHoverTime(m_hoverTime)
 		{

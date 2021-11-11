@@ -76,9 +76,6 @@
     <Filter Include="Menu">
       <UniqueIdentifier>{92d6c959-a3ba-4376-9ed0-3b25b3cfa862}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Utility\BombPredictionLine">
-      <UniqueIdentifier>{90cf575b-3825-4862-8c0c-1cfc21ca600e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Utility\CSVLoad">
       <UniqueIdentifier>{7430e74c-1c60-4668-bed4-fd3a96d3d351}</UniqueIdentifier>
     </Filter>
@@ -102,6 +99,12 @@
     </Filter>
     <Filter Include="UI\SimpleSprite">
       <UniqueIdentifier>{41a8978e-2833-429b-bc17-0760ff6f3a9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StageObject\Bomb">
+      <UniqueIdentifier>{6fe3fda3-fdff-44b1-8801-4350ebabd2d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\PredictionLine">
+      <UniqueIdentifier>{90cf575b-3825-4862-8c0c-1cfc21ca600e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -166,12 +169,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Bullet.h">
       <Filter>StageObject\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.h">
-      <Filter>Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\LinePoint.h">
-      <Filter>Utility</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.h">
       <Filter>Camera</Filter>
     </ClInclude>
@@ -222,6 +219,15 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.h">
       <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Bomb.h">
+      <Filter>StageObject\Bomb</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.h">
+      <Filter>Utility\PredictionLine</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\LinePoint.h">
+      <Filter>Utility\PredictionLine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -283,12 +289,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Bullet.cpp">
       <Filter>StageObject\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.cpp">
-      <Filter>Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\LinePoint.cpp">
-      <Filter>Utility</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.cpp">
       <Filter>Camera</Filter>
     </ClCompile>
@@ -336,6 +336,15 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.cpp">
       <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Bomb.cpp">
+      <Filter>StageObject\Bomb</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.cpp">
+      <Filter>Utility\PredictionLine</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\LinePoint.cpp">
+      <Filter>Utility\PredictionLine</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
