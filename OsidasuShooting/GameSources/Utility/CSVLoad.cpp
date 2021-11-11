@@ -7,11 +7,6 @@
 #include "Project.h"
 
 namespace basecross {
-	void CSVLoad::OnCreate() {
-		// SharedGameObject‚É“o˜^
-		GetStage()->SetSharedGameObject(L"CSVLoad", GetThis<CSVLoad>());
-	}
-
 	void CSVLoad::SpriteDataExtraction(vector<wstring> fileData, SpriteType type) {
 		if (fileData.size() == 0) {
 			throw BaseException(

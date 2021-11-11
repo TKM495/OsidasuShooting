@@ -20,21 +20,21 @@ namespace basecross {
 		Image,
 		Number
 	};
+	class CSVLoad {
+		// デリーター
+		struct CSVLoadDeleter
+		{
+			void operator()(CSVLoad* p) { delete p; }
+		};
+		// Singletonで利用する自分自身のポインタ
+		static unique_ptr<CSVLoad, CSVLoadDeleter> m_myPointer;
 
-	class CSVLoad :public GameObject {
 		// スプライトデータの配列
 		vector<SpriteDataFormat> m_stringSpriteData;
-	public:
-		/**
-		 * @brief コンストラクタ
-		 *
-		 * @param stage ステージ
-		 */
-		CSVLoad(const shared_ptr<Stage>& stage)
-			:GameObject(stage)
-		{}
 
-		virtual void OnCreate()override;
+		CSVLoad() {}
+		~CSVLoad() {}
+	public:
 
 		/**
 		 * @brief データの取り出し

@@ -29,12 +29,14 @@
 #include "SpecialCamera/SpCamera.h"
 #include "StageObject/Bullet.h"
 //UI
+#include "UIs/Canvas.h"
+#include "UIs/BaseUI.h"
 #include "UIs/TitleSprite.h"
-#include "UIs/Fade.h"
-#include "UIs/FadeComponent.h"
 #include "UIs/StringSprite2.h"
+#include "UIs/UIHeader.h"
+#include "UIs/SimpleSprite.h"
 // コンポーネント
 #include "Component/PhysicalBehavior.h"
-
+#include "Component/FadeComponent.h"
 // メニュー
 #include "UIs/Menu/BaseMenu.h"

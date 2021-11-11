@@ -6,25 +6,10 @@
 #pragma once
 #include "stdafx.h"
 #include "Utility/CSVLoad.h"
-#include "FadeComponent.h"
+#include "Component/FadeComponent.h"
+#include "UIHeader.h"
 
 namespace basecross {
-	// ‘µ‚¦•û
-	struct Align {
-		// ‚’¼•ûŒü
-		enum class Vertical {
-			Top,
-			Center,
-			Bottom
-		};
-		// …•½•ûŒü
-		enum class Horizontal {
-			Left,
-			Center,
-			Right
-		};
-	};
-
 	class StringSprite2 :public GameObject {
 		// ŠÔŒv‘ª—p
 		float m_delta;

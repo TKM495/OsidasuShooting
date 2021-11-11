@@ -88,6 +88,18 @@
     <Filter Include="UI\StringSprite2">
       <UniqueIdentifier>{039d2856-a65f-4488-8cd0-608b70f6780e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\FadeComponent">
+      <UniqueIdentifier>{c9d23716-e422-4149-8d26-d4671befcb2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\BaseUI">
+      <UniqueIdentifier>{44dc54f6-e806-433a-a822-b3e42e60cd62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Canvas">
+      <UniqueIdentifier>{38361008-53fd-40d8-afa2-b230f8e9a6cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\SimpleSprite">
+      <UniqueIdentifier>{41a8978e-2833-429b-bc17-0760ff6f3a9b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -184,6 +196,21 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\StringSprite2.h">
       <Filter>UI\StringSprite2</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\FadeComponent.h">
+      <Filter>Component\FadeComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BaseUI.h">
+      <Filter>UI\BaseUI</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\Canvas.h">
+      <Filter>UI\Canvas</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\UIHeader.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\SimpleSprite.h">
+      <Filter>UI\SimpleSprite</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
@@ -276,6 +303,18 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\StringSprite2.cpp">
       <Filter>UI\StringSprite2</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\FadeComponent.cpp">
+      <Filter>Component\FadeComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BaseUI.cpp">
+      <Filter>UI\BaseUI</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\Canvas.cpp">
+      <Filter>UI\Canvas</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\SimpleSprite.cpp">
+      <Filter>UI\SimpleSprite</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
