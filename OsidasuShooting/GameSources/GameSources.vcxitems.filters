@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0"
+  xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Scene">
       <UniqueIdentifier>{2b8d1595-edd3-4fe9-bba6-3593e4ea4ad9}</UniqueIdentifier>
@@ -73,6 +74,36 @@
     <Filter Include="JonyMd">
       <UniqueIdentifier>{5e611ea7-2f55-439e-be59-ff4b4385e58f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Menu">
+      <UniqueIdentifier>{92d6c959-a3ba-4376-9ed0-3b25b3cfa862}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\BombPredictionLine">
+      <UniqueIdentifier>{90cf575b-3825-4862-8c0c-1cfc21ca600e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\CSVLoad">
+      <UniqueIdentifier>{7430e74c-1c60-4668-bed4-fd3a96d3d351}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\GroundingDecision">
+      <UniqueIdentifier>{3c138790-97a8-4741-9ffe-a9fd20d08c75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\TimeCounter">
+      <UniqueIdentifier>{aaff4d9c-384e-4374-86a4-c0855d57d8c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\StringSprite2">
+      <UniqueIdentifier>{039d2856-a65f-4488-8cd0-608b70f6780e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\FadeComponent">
+      <UniqueIdentifier>{c9d23716-e422-4149-8d26-d4671befcb2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\BaseUI">
+      <UniqueIdentifier>{44dc54f6-e806-433a-a822-b3e42e60cd62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Canvas">
+      <UniqueIdentifier>{38361008-53fd-40d8-afa2-b230f8e9a6cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\SimpleSprite">
+      <UniqueIdentifier>{41a8978e-2833-429b-bc17-0760ff6f3a9b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -136,12 +167,15 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Bullet.h">
       <Filter>StageObject\Bullet</Filter>
     </ClInclude>
+    <<<<<<< HEAD
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.h">
       <Filter>Utility</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\LinePoint.h">
       <Filter>Utility</Filter>
     </ClInclude>
+=======
+>>>>>>> Watanabe/AddLibrary
     <ClInclude Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.h">
       <Filter>Camera</Filter>
     </ClInclude>
@@ -151,8 +185,44 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.h">
       <Filter>Setting</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\BombPredictionLine.h">
+      <Filter>Utility\BombPredictionLine</Filter>
+    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\GroundingDecision.h">
-      <Filter>Utility</Filter>
+      <Filter>Utility\GroundingDecision</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\LinePoint.h">
+      <Filter>Utility\BombPredictionLine</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\Menu\BaseMenu.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\Menu\Cursor.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\CSVLoad.h">
+      <Filter>Utility\CSVLoad</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\TimeCounter.h">
+      <Filter>Utility\TimeCounter</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\StringSprite2.h">
+      <Filter>UI\StringSprite2</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\FadeComponent.h">
+      <Filter>Component\FadeComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BaseUI.h">
+      <Filter>UI\BaseUI</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\Canvas.h">
+      <Filter>UI\Canvas</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\UIHeader.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\SimpleSprite.h">
+      <Filter>UI\SimpleSprite</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\CountDown.h">
@@ -218,12 +288,15 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Bullet.cpp">
       <Filter>StageObject\Bullet</Filter>
     </ClCompile>
+    <<<<<<< HEAD
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\LinePoint.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
+=======
+>>>>>>> Watanabe/AddLibrary
     <ClCompile Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.cpp">
       <Filter>Camera</Filter>
     </ClCompile>
@@ -233,8 +306,41 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.cpp">
       <Filter>Setting</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\BombPredictionLine.cpp">
+      <Filter>Utility\BombPredictionLine</Filter>
+    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\GroundingDecision.cpp">
-      <Filter>Utility</Filter>
+      <Filter>Utility\GroundingDecision</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\LinePoint.cpp">
+      <Filter>Utility\BombPredictionLine</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\Menu\BaseMenu.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\Menu\Cursor.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\CSVLoad.cpp">
+      <Filter>Utility\CSVLoad</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\TimeCounter.cpp">
+      <Filter>Utility\TimeCounter</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\StringSprite2.cpp">
+      <Filter>UI\StringSprite2</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\FadeComponent.cpp">
+      <Filter>Component\FadeComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BaseUI.cpp">
+      <Filter>UI\BaseUI</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\Canvas.cpp">
+      <Filter>UI\Canvas</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\SimpleSprite.cpp">
+      <Filter>UI\SimpleSprite</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\CountDown.cpp">

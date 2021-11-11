@@ -14,6 +14,7 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\FadeComponent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\PhysicalBehavior.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DebugClass\Debug.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DebugClass\DebugCamera.h" />
@@ -40,11 +41,21 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BaseUI.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\Canvas.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\Menu\BaseMenu.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\Menu\Cursor.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\SimpleSprite.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\StringSprite2.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\UIHeader.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\CSVLoad.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\GroundingDecision.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\LinePoint.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\TimeCounter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\Utility.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\FadeComponent.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\PhysicalBehavior.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)DebugClass\Debug.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)DebugClass\DebugCamera.cpp" />
@@ -69,8 +80,16 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BaseUI.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\Canvas.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\Menu\BaseMenu.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\Menu\Cursor.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\SimpleSprite.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\StringSprite2.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\CSVLoad.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\GroundingDecision.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\LinePoint.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\TimeCounter.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\Utility.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
   </ItemGroup>
