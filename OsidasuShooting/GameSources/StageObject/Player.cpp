@@ -38,6 +38,7 @@ namespace basecross {
 
 		// タグの追加
 		AddTag(L"Player");
+		m_currentArmorPoint = m_defaultArmorPoint;
 	}
 
 	void Player::OnUpdate() {
@@ -148,6 +149,25 @@ namespace basecross {
 		GetStage()->AddGameObject<Bomb>(m_predictionLine, GetTransform()->GetPosition(), m_bombPoint);
 	}
 
+	void Player::KnockBack(const Vec3& knockBackDirection, float knockBackAmount) {
+		float knockBackCorrection;
+		if (m_currentArmorPoint > 0)
+		{
+			knockBackCorrection = 1;
+			m_currentArmorPoint -= 5;
+		}
+		else
+		{
+			knockBackCorrection = 5.0f;
+		}
+		GetComponent<PhysicalBehavior>()->
+			Impact(knockBackDirection, knockBackAmount * knockBackCorrection);
+		Debug::GetInstance()->Log(m_currentArmorPoint);
+	}
+
+	void Player::Respawn() {
+	}
+
 	// 武器用ステート
 	// 弾の照準や発射状態（デフォルト）
 #pragma region PlayerBulletModeState
@@ -203,20 +223,6 @@ namespace basecross {
 	}
 #pragma endregion
 
-	// ジャンプとホバー用のステート
-	// 移動
-#pragma region PlayerMoveState
-	shared_ptr<PlayerMoveState> PlayerMoveState::Instance() {
-		static shared_ptr<PlayerMoveState> instance(new PlayerMoveState);
-		return instance;
-	}
-	void PlayerMoveState::Enter(const shared_ptr<Player>& Obj) {
-		Debug::GetInstance()->Log(L"MoveState");
-	}
-	void PlayerMoveState::Execute(const shared_ptr<Player>& Obj) {
-	}
-	void PlayerMoveState::Exit(const shared_ptr<Player>& Obj) {}
-#pragma endregion
 	// ジャンプ
 #pragma region PlayerJumpState
 	shared_ptr<PlayerJumpState> PlayerJumpState::Instance() {
@@ -228,7 +234,6 @@ namespace basecross {
 		if (cntlPad.bLeftTrigger > 128.0f) {
 			m_isPushedLeftTrigger = true;
 		}
-		Debug::GetInstance()->Log(L"Jump");
 	}
 	void PlayerJumpState::Execute(const shared_ptr<Player>& Obj) {
 		const auto& cntlPad = App::GetApp()->GetInputDevice().GetControlerVec()[0];
@@ -256,7 +261,6 @@ namespace basecross {
 		if (cntlPad.bLeftTrigger > 128.0f) {
 			m_isPushedLeftTrigger = true;
 		}
-		Debug::GetInstance()->Log(L"Hover");
 		m_groundingDecision.SetRadius(Obj->GetTransform()->GetScale());
 	}
 	void PlayerHoverState::Execute(const shared_ptr<Player>& Obj) {

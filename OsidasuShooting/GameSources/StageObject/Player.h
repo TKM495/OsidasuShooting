@@ -9,13 +9,6 @@
 #include "Utility/PredictionLine.h"
 
 namespace basecross {
-	enum class PlayerNumber {
-		P1,
-		P2,
-		P3,
-		P4
-	};
-
 	class Player :public StageObject {
 		// 移動速度（どちらかというとかける力）
 		float m_moveSpeed;
@@ -34,12 +27,18 @@ namespace basecross {
 		// 現在のホバー可能時間
 		float m_currentHoverTime;
 
+		// 現在のアーマー値
+		float m_currentArmorPoint;
+		// デフォルトのアーマー値
+		float m_defaultArmorPoint;
+
 		void Move();
 	public:
 		Player(const shared_ptr<Stage>& stage, const TransformData& transData)
 			:StageObject(stage), m_moveSpeed(20.0f), m_predictionLine(stage, 10, 2.0f),
 			m_bombPoint(Vec3(0.0f)), m_jumpVerocity(Vec3(0.0f, 10.0f, 0.0f)),
-			m_hoverTime(5.0f), m_currentHoverTime(m_hoverTime)
+			m_hoverTime(5.0f), m_currentHoverTime(m_hoverTime),
+			m_defaultArmorPoint(100.0f), m_currentArmorPoint(m_defaultArmorPoint)
 		{
 			m_transformData = transData;
 		}
@@ -61,13 +60,18 @@ namespace basecross {
 		void Jump();
 		// ホバー
 		void Hover();
-		//
+		// ホバー可能時間回復
 		void HoverTimeRecovery();
 
 		void BulletAimAndLaunch();
 		void BombAim();
 		void BombLaunch();
 		void SpecialSkill();
+
+		// ノックバック
+		void KnockBack(const Vec3& knockBackDirection, float knockBackAmount);
+		//リスポーン
+		void Respawn();
 	};
 
 	// 武器用ステート
@@ -105,16 +109,7 @@ namespace basecross {
 
 	// ジャンプとホバー用のステート
 #pragma region JumpAndHoverState
-	// 移動（デフォルト）（移動自体は）
-	class PlayerMoveState : public ObjState<Player> {
-		PlayerMoveState() {}
-	public:
-		static shared_ptr<PlayerMoveState> Instance();
-		virtual void Enter(const shared_ptr<Player>& Obj)override;
-		virtual void Execute(const shared_ptr<Player>& Obj)override;
-		virtual void Exit(const shared_ptr<Player>& Obj)override;
-	};
-	// ジャンプ
+	// ジャンプ（デフォルト）
 	class PlayerJumpState : public ObjState<Player> {
 		// 遷移前から押されているかのフラグ
 		bool m_isPushedLeftTrigger;

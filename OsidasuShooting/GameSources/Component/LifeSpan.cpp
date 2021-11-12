@@ -1,3 +1,8 @@
+/*!
+@file   LifeSpan.cpp
+@brief  寿命を持たせるためのコンポーネントの実体
+*/
+
 #include "stdafx.h"
 #include "Project.h"
 

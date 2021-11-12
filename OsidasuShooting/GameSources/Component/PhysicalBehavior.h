@@ -43,6 +43,21 @@ namespace basecross {
 		void Move(const Vec3& direction, float force);
 
 		/**
+		 * @brief uŠÔ“I‚É—Í‚ğ‰Á‚¦‚é
+		 *
+		 * @param force ‚©‚¯‚é—Í
+		 */
+		void Impact(const Vec3& force);
+
+		/**
+		 * @brief uŠÔ“I‚É—Í‚ğ‰Á‚¦‚é
+		 *
+		 * @param direction •ûŒü
+		 * @param force ‚©‚¯‚é—Í
+		 */
+		void Impact(const Vec3& direction, float force);
+
+		/**
 		 * @brief Drag‚ğİ’è
 		 *
 		 * @param drag İ’è’l

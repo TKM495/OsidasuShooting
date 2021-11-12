@@ -109,6 +109,9 @@
     <Filter Include="Component\LifeSpan">
       <UniqueIdentifier>{2963c5c4-d966-4967-8f6d-eb07b1559f1c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{31f89d01-371a-4aad-b82a-b500d54514d8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -233,6 +236,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\LifeSpan.h">
       <Filter>Component\LifeSpan</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
@@ -350,6 +356,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\LinePoint.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\LifeSpan.cpp">
       <Filter>Component\LifeSpan</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.cpp">
+      <Filter>Manager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

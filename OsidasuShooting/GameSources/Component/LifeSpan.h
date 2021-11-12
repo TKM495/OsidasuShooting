@@ -1,3 +1,8 @@
+/*!
+@file   LifeSpan.h
+@brief  寿命を持たせるためのコンポーネント
+*/
+
 #pragma once
 #include "stdafx.h"
 #include "Utility/TimeCounter.h"

@@ -35,4 +35,14 @@ namespace basecross {
 		auto _direction = direction;
 		Move(_direction.normalize() * force);
 	}
+
+	void PhysicalBehavior::Impact(const Vec3& force) {
+		m_velocity += force;
+	}
+
+	void PhysicalBehavior::Impact(const Vec3& direction, float force) {
+		// ˆø”‚Íconst‚È‚Ì‚Åˆê’Uƒ[ƒJƒ‹‚Ì•Ï”‚ğéŒ¾
+		auto _direction = direction;
+		Impact(_direction.normalize() * force);
+	}
 }

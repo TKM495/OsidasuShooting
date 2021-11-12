@@ -35,22 +35,24 @@ namespace basecross {
 	}
 
 	void Bomb::OnCollisionEnter(shared_ptr<GameObject>& other) {
+		// 発射した直後に爆発するのを防ぐためPlayerも判定に加える
 		if (other->FindTag(L"Player") ||
 			other->FindTag(L"Bullet") ||
-			other->FindTag(L"Bomb"))
+			other->FindTag(L"Bomb") ||
+			m_isExploded)
 			return;
-
+		m_isExploded = true;
 		// 爆弾によるノックバック処理（本来はPlayer内に実装する）
 		GetComponent<EfkComponent>()->Play();
 		auto objs = GetStage()->GetGameObjectVec();
 		for (auto obj : objs) {
-			if (obj->FindTag(L"Player")) {
-				auto pos = obj->GetComponent<Transform>()->GetPosition();
+			auto ptr = dynamic_pointer_cast<Player>(obj);
+			if (ptr) {
+				auto pos = ptr->GetTransform()->GetPosition();
 				auto myPos = GetTransform()->GetPosition();
 				auto distance = (pos - myPos).length();
 				if (distance < m_radius) {
-					obj->GetComponent<PhysicalBehavior>()->
-						Move(pos - myPos, m_power);
+					ptr->KnockBack(pos - myPos, m_power);
 				}
 			}
 		}
