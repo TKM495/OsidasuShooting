@@ -239,6 +239,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.h">
       <Filter>Manager</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\ManualPlayer.h">
+      <Filter>StageObject\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
@@ -359,6 +362,9 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.cpp">
       <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\ManualPlayer.cpp">
+      <Filter>StageObject\Player</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

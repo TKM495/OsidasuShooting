@@ -28,6 +28,7 @@
 #include "StageObject/Bullet.h"
 #include "StageObject/Bomb.h"
 #include "StageObject/Player.h"
+#include "StageObject/ManualPlayer.h"
 #include "StageObject/StageObject.h"
 //UI
 #include "UIs/BaseUI.h"

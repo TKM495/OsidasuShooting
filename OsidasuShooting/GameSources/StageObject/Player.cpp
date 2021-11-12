@@ -9,7 +9,7 @@
 namespace basecross {
 	void Player::OnCreate() {
 		// シェアオブジェクトに登録（最終的に複数になるので要検討）
-		GetStage()->SetSharedGameObject(L"Player", GetThis<Player>());
+		//GetStage()->SetSharedGameObject(L"Player", GetThis<Player>());
 
 		// 描画コンポーネントの追加
 		auto drawComp = AddComponent<PNTStaticDraw>();
