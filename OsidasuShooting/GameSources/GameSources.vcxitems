@@ -15,6 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\FadeComponent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\LifeSpan.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\PhysicalBehavior.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DebugClass\Debug.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DebugClass\DebugCamera.h" />
@@ -23,11 +24,13 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkEffectResource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkInterface.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\CountDown.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Scene.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Block.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Bomb.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Bullet.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Player.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\StageObject.h" />
@@ -56,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\FadeComponent.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\LifeSpan.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\PhysicalBehavior.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)DebugClass\Debug.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)DebugClass\DebugCamera.cpp" />
@@ -63,10 +67,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkEffectResource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkInterface.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\CountDown.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Scene.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Block.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Bomb.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Bullet.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Player.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\StageObject.cpp" />

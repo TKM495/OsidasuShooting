@@ -29,6 +29,7 @@ namespace basecross {
 			App::GetApp()->GetDataDirectory(DataDir);
 			wstring TestEffectStr = DataDir + L"Effects\\";
 			EfkEffectResource::RegisterEffectResource(L"Bullet", TestEffectStr + L"Bullet.efk");
+			EfkEffectResource::RegisterEffectResource(L"Explosion", TestEffectStr + L"fire.efk");
 
 			//ビューとライトの作成
 			CreateViewLight();

@@ -49,7 +49,8 @@ namespace basecross {
 			float flightTime,
 			float gravity = -9.8f)
 			:stages(stage), m_pointCount(pointCount),
-			m_flightTime(flightTime), m_gravity(gravity), m_type(Type::Bullet)
+			m_flightTime(flightTime), m_gravity(gravity),
+			m_type(Type::Bullet)
 		{
 			for (int i = 0; i < m_pointCount + 1; i++)
 				CreateLinePoint();
@@ -63,6 +64,16 @@ namespace basecross {
 		 * @param type タイプ
 		 */
 		void Update(const Vec3& startPoint, const Vec3& endPoint, Type type);
+
+		/**
+		 * @brief 放物線の計算
+		 *
+		 * @param startPoint 開始点
+		 * @param endPoint 終了点
+		 * @param time m_flightTimeを最大とした時間
+		 * @return timeの時の位置
+		 */
+		Vec3 ParabolaCalculate(const Vec3& startPoint, const Vec3& endPoint, float time);
 
 		/**
 		 * @brief 表示するかどうか

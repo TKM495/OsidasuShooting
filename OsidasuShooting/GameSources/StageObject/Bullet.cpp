@@ -8,8 +8,11 @@ namespace basecross {
 		//PtrColl->SetDrawActive(true);
 		PtrColl->SetAfterCollision(AfterCollision::None);
 
+		// ”­Ë•ûŒü‚É³–Ê‚ğŒü‚¯‚é
 		auto rad = atan2f(-m_direction.z, m_direction.x) + XM_PIDIV2;
 		m_transformData.Rotation.y = XMConvertToDegrees(rad);
+
+		AddComponent<LifeSpan>(m_lifeSpan);
 
 		ObjectSetUp();
 
@@ -33,15 +36,7 @@ namespace basecross {
 		float deltaTime = app->GetElapsedTime();
 
 		transPos += m_direction.normalize() * m_speed * deltaTime;
-
-		if (m_lifeSpan > 0)
-		{
-			m_lifeSpan -= deltaTime;
-			transComp->SetPosition(transPos);
-		}
-		else {
-			GetStage()->RemoveGameObject<Bullet>(GetThis<Bullet>());
-		}
+		transComp->SetPosition(transPos);
 
 		GetComponent<EfkComponent>()->SyncPosition();
 	}

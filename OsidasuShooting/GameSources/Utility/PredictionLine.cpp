@@ -26,23 +26,27 @@ namespace basecross {
 	vector<Vec3> PredictionLine::BombCalculate(const Vec3& startPoint, const Vec3& endPoint) {
 		vector<Vec3> points;
 
+		// 放物運動
+		for (float t = 0.0f; t < m_flightTime; t += (m_flightTime / (float)m_pointCount))
+		{
+			points.push_back(ParabolaCalculate(startPoint, endPoint, t));
+		}
+		// 終点座標へ補正
+		points.push_back(endPoint);
+		return points;
+	}
+
+	Vec3 PredictionLine::ParabolaCalculate(const Vec3& startPoint, const Vec3& endPoint, float time) {
 		// 始点と終点のy成分の差分
 		auto diffY = (endPoint - startPoint).y;
 		// 鉛直方向の初速度vn
 		auto vn = (diffY - m_gravity * 0.5f * m_flightTime * m_flightTime) / m_flightTime;
 
-		// 放物運動
-		for (float t = 0.0f; t < m_flightTime; t += (m_flightTime / (float)m_pointCount))
-		{
-			// 水平方向の座標を求める (x,z座標)
-			auto p = Lerp::CalculateLerp(startPoint, endPoint, 0.0f, 1.0f, t / m_flightTime, Lerp::rate::Linear);
-			// 鉛直方向の座標 y
-			p.y = startPoint.y + vn * t + 0.5f * m_gravity * t * t;
-			points.push_back(p);
-		}
-		// 終点座標へ補正
-		points.push_back(endPoint);
-		return points;
+		// 水平方向の座標を求める (x,z座標)
+		auto p = Lerp::CalculateLerp(startPoint, endPoint, 0.0f, 1.0f, time / m_flightTime, Lerp::rate::Linear);
+		// 鉛直方向の座標 y
+		p.y = startPoint.y + vn * time + 0.5f * m_gravity * time * time;
+		return p;
 	}
 
 	void PredictionLine::CreateLinePoint() {

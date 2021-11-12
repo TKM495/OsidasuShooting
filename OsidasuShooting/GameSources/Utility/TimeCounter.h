@@ -8,30 +8,51 @@
 
 namespace basecross {
 	class TimeCounter {
-		float m_delta;
-		float m_countTime;
+		// 設定された時間
+		float m_intervalTime;
+		// 経過時間
+		float m_elaspedTime;
+		// 設定した時間を経過しているか？
+		bool m_isTimeUp;
 	public:
-		TimeCounter()
-			:m_delta(0.0f), m_countTime(0.0f)
+		TimeCounter(float interval)
+			: m_intervalTime(interval), m_elaspedTime(0.0f), m_isTimeUp(false)
 		{}
-		//数える時間を設定する関数
-		void SetCountTime(float time) {
-			m_countTime = time;
-		}
-		float GetCountTime() {
-			return m_countTime;
-		}
-		//現在の時間の取得
-		float GetTime() {
-			return m_delta;
-		}
 		//タイマーのリセット
 		void Reset() {
-			m_delta = 0.0f;
+			m_elaspedTime = 0.0f;
+			m_isTimeUp = false;
 		}
 		//カウント
 		bool Count();
-		bool Count(float offset);
+
+		bool IsTimeUp() {
+			return m_isTimeUp;
+		}
+
+		void SetIntervalTime(float interval) {
+			m_intervalTime = interval;
+		}
+
+		// 経過時間 / 設定された時間 の割合
+		float GetTimeRate() {
+			return m_elaspedTime / m_intervalTime;
+		}
+
+		// (1.0f - 経過時間 / 設定された時間)
+		float GetInverseTimeRate() {
+			return 1 - GetTimeRate();
+		}
+
+		// 残り時間
+		float GetLeftTime() {
+			return m_intervalTime - m_elaspedTime;
+		}
+
+		// 経過時間
+		float GetElaspedTime() {
+			return m_elaspedTime;
+		}
 	};
 }
 //end basecross

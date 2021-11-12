@@ -4,7 +4,7 @@
 */
 
 #include "stdafx.h"
-#include "Component/PhysicalBehavior.h"
+#include "Project.h"
 
 namespace basecross {
 	void PhysicalBehavior::OnUpdate() {
@@ -34,5 +34,15 @@ namespace basecross {
 		// 引数はconstなので一旦ローカルの変数を宣言
 		auto _direction = direction;
 		Move(_direction.normalize() * force);
+	}
+
+	void PhysicalBehavior::Impact(const Vec3& force) {
+		m_velocity += force;
+	}
+
+	void PhysicalBehavior::Impact(const Vec3& direction, float force) {
+		// 引数はconstなので一旦ローカルの変数を宣言
+		auto _direction = direction;
+		Impact(_direction.normalize() * force);
 	}
 }

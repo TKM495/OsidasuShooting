@@ -26,6 +26,7 @@
 #include "SpecialCamera/SpCamera.h"
 #include "StageObject/Block.h"
 #include "StageObject/Bullet.h"
+#include "StageObject/Bomb.h"
 #include "StageObject/Player.h"
 #include "StageObject/StageObject.h"
 //UI
@@ -39,6 +40,7 @@
 // コンポーネント
 #include "Component/FadeComponent.h"
 #include "Component/PhysicalBehavior.h"
+#include "Component/LifeSpan.h"
 // メニュー
 #include "UIs/Menu/BaseMenu.h"
 
