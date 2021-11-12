@@ -40,6 +40,7 @@
 // コンポーネント
 #include "Component/FadeComponent.h"
 #include "Component/PhysicalBehavior.h"
+#include "Component/LifeSpan.h"
 // メニュー
 #include "UIs/Menu/BaseMenu.h"
 

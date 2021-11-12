@@ -15,6 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\FadeComponent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\LifeSpan.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\PhysicalBehavior.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DebugClass\Debug.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DebugClass\DebugCamera.h" />
@@ -57,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\FadeComponent.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\LifeSpan.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\PhysicalBehavior.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)DebugClass\Debug.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)DebugClass\DebugCamera.cpp" />

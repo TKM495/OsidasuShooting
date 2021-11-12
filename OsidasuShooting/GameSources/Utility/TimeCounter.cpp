@@ -8,23 +8,22 @@
 
 namespace basecross {
 	bool TimeCounter::Count() {
-		return Count(0.0f);
-	}
-	bool TimeCounter::Count(float offset) {
 		auto elapsed = App::GetApp()->GetElapsedTime();
-		bool flg = false;
-		if (m_countTime - offset < m_delta) {
-			flg = true;
+		if (m_elaspedTime >= m_intervalTime) {
+			m_isTimeUp = true;
 		}
 		else {
-			flg = false;
+			m_isTimeUp = false;
 		}
 
-		//”O‚Ì‚½‚ßŽw’è‚µ‚½ŽžŠÔ‚ªŒo‰ß‚µ‚½‚ç’âŽ~‚³‚¹‚é
-		if (m_countTime >= m_delta) {
-			m_delta += elapsed;
+		// ”O‚Ì‚½‚ßŽw’è‚µ‚½ŽžŠÔ‚ªŒo‰ß‚µ‚½‚ç’âŽ~‚³‚¹‚é
+		if (!m_isTimeUp) {
+			m_elaspedTime += elapsed;
 		}
-		return flg;
+		else {
+			m_elaspedTime = m_intervalTime;
+		}
+		return m_isTimeUp;
 	}
 }
 //end basecross

@@ -17,6 +17,8 @@ namespace basecross {
 		auto collComp = AddComponent<CollisionObb>();
 		collComp->SetAfterCollision(AfterCollision::None);
 
+		AddComponent<LifeSpan>(m_lifeSpan);
+
 		ObjectSetUp();
 
 		auto efkComp = AddComponent<EfkComponent>();

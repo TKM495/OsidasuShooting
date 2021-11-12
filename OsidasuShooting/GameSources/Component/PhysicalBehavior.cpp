@@ -4,7 +4,7 @@
 */
 
 #include "stdafx.h"
-#include "Component/PhysicalBehavior.h"
+#include "Project.h"
 
 namespace basecross {
 	void PhysicalBehavior::OnUpdate() {
