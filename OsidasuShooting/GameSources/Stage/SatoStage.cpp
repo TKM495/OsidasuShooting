@@ -22,13 +22,13 @@ namespace basecross {
 		PtrMultiLight->SetDefaultLighting();
 	}
 
-	void SatoStage::SetPlayer()
-	{
-		auto player = AddGameObject<Player>(TransformData());
-		SetSharedGameObject(L"Player", player);
-		AddGameObject<Block>(TransformData(Vec3(0.0f, -1.5f, 0.0f), Vec3(10.0f, 1.0f, 10.0f)));
+	//void SatoStage::SetPlayer()
+	//{
+	//	auto player = AddGameObject<Player>(TransformData());
+	//	SetSharedGameObject(L"Player", player);
+	//	AddGameObject<Block>(TransformData(Vec3(0.0f, -1.5f, 0.0f), Vec3(10.0f, 1.0f, 10.0f)));
 
-	}
+	//}
 
 
 	void SatoStage::OnCreate() {
@@ -44,11 +44,12 @@ namespace basecross {
 			AddGameObject<Debug>();
 			Debug::GetInstance()->Log(L"CurrentStage : SatoStage");
 
-			SetPlayer();
+			//SetPlayer();
 
 			//AddGameObject<SpecialCamera>();
-			AddGameObject<Number>(L"Number", false,
-				Vec2(256.0f, 50.0f), Vec2(0.0f, 50.0f),2);
+			AddGameObject<Number>(2);
+			m_timer = AddGameObject<CountDown>();
+			
 
 
 		}

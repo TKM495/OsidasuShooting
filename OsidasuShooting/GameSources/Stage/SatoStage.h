@@ -5,6 +5,7 @@
 
 #pragma once
 #include "stdafx.h"
+#include "JonyMd/CountDown.h"
 
 namespace basecross {
 	class SatoStage : public Stage {
@@ -18,5 +19,7 @@ namespace basecross {
 
 		void SetPlayer();
 		virtual void OnCreate()override;
+
+		shared_ptr<CountDown> m_timer;
 	};
 }

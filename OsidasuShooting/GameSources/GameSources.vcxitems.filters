@@ -154,10 +154,10 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\CountDown.h">
       <Filter>JonyMd</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\BombPredictionLine.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.h">
       <Filter>UI</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
@@ -236,9 +236,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\CountDown.cpp">
       <Filter>JonyMd</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\BombPredictionLine.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.cpp" />
   </ItemGroup>
 </Project>
