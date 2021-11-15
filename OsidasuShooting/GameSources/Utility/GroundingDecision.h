@@ -8,16 +8,18 @@
 
 namespace basecross {
 	class GroundingDecision {
-		// オブジェクトの半径
-		float m_radius;
+		// オブジェクトの高さ
+		float m_height;
 		// しきい値
 		static float m_threshold;
 		// 初期化したか
 		bool m_isInit;
+		// 判定から除外するタグ
+		vector<wstring> m_tagDoNotDecision;
 	public:
 		// コンストラクタ
 		GroundingDecision();
-		GroundingDecision(float radius);
+		GroundingDecision(float height);
 		GroundingDecision(const Vec3& scale);
 
 		/**
@@ -29,12 +31,12 @@ namespace basecross {
 		bool Calculate(const Vec3& pos);
 
 		/**
-		 * @brief 自身の半径の設定
+		 * @brief 判定に使う高さの設定
 		 *
-		 * @param radius 半径
+		 * @param height 高さ
 		 */
-		void SetRadius(float radius) {
-			m_radius = radius;
+		void SetRadius(float height) {
+			m_height = height;
 			m_isInit = true;
 		}
 		/**
@@ -43,8 +45,17 @@ namespace basecross {
 		 * @param scale 自身のスケール
 		 */
 		void SetRadius(const Vec3& scale) {
-			m_radius = scale.y / 2.0f;
+			m_height = scale.y;
 			m_isInit = true;
+		}
+
+		/**
+		 * @brief 判定から除外するタグを追加
+		 *
+		 * @param tag タグ
+		 */
+		void AddNotDecisionTag(const wstring& tag) {
+			m_tagDoNotDecision.push_back(tag);
 		}
 	};
 }

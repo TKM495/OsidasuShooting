@@ -33,6 +33,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Block.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Bomb.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Bullet.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\FallDecision.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\ManualPlayer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\PlayerBase.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\StageObject.h" />
@@ -77,6 +78,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Block.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Bomb.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Bullet.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\FallDecision.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\ManualPlayer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\PlayerBase.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\StageObject.cpp" />

@@ -39,14 +39,23 @@ namespace basecross {
 		// タグの追加
 		AddTag(L"Player");
 		m_currentArmorPoint = m_defaultArmorPoint;
+		m_initialPosition = GetTransform()->GetPosition();
 	}
 
 	void PlayerBase::OnUpdate() {
+		// 入力の更新
 		InputUpdate();
+		// 移動処理
 		Move();
+		// テストコード
 		TestFanc();
+		// 各種ステートマシンの更新
 		m_weaponStateMachine->Update();
 		m_jumpAndHoverStateMachine->Update();
+		// アーマー回復フラグがtrueの場合
+		if (m_isRestoreArmor)
+			// アーマーを回復
+			ArmorRecovery();
 	}
 
 	void PlayerBase::Move() {
@@ -59,6 +68,7 @@ namespace basecross {
 	}
 
 	void PlayerBase::Hover() {
+		// ホバー可能時間が0以上の場合はホバー
 		if (m_currentHoverTime < 0.0f)
 			return;
 		GetComponent<Gravity>()->SetGravityVerocityZero();
@@ -84,6 +94,7 @@ namespace basecross {
 		// 予測線はStartとEndの2点の情報が必要
 		m_predictionLine.Update(ray.Origin, ray.GetPoint(3.0f), PredictionLine::Type::Bullet);
 
+		// 弾の発射
 		if (m_inputData.BulletAim != Vec3(0.0f) && m_bulletTimer.Count()) {
 			m_bulletTimer.Reset();
 			GetStage()->AddGameObject<Bullet>(GetThis<PlayerBase>(), ray);
@@ -96,15 +107,28 @@ namespace basecross {
 	}
 
 	void PlayerBase::BombLaunch() {
-		GetStage()->AddGameObject<Bomb>(m_predictionLine, GetTransform()->GetPosition(), m_bombPoint);
+		GetStage()->AddGameObject<Bomb>(
+			m_predictionLine, GetTransform()->GetPosition(), m_bombPoint);
 	}
 
 	void PlayerBase::ArmorRecovery() {
+		// アーマーが0になってから一定時間後に回復
+		if (!m_armorRecoveryTimer.Count())
+			return;
+
+		// m_defaultArmorPointを超えたら回復停止
+		if (m_currentArmorPoint >= m_defaultArmorPoint) {
+			m_currentArmorPoint = m_defaultArmorPoint;
+			m_isRestoreArmor = false;
+			m_armorRecoveryTimer.Reset();
+		}
+		m_currentArmorPoint += 10.0f * App::GetApp()->GetElapsedTime();
 	}
 
 	void PlayerBase::KnockBack(const Vec3& knockBackDirection, float knockBackAmount) {
 		float knockBackCorrection;
-		if (m_currentArmorPoint > 0)
+		// アーマーが回復中でない　かつ　アーマーが0より大きい
+		if (m_currentArmorPoint > 0 && !m_isRestoreArmor)
 		{
 			knockBackCorrection = 1;
 			m_currentArmorPoint -= 5;
@@ -112,17 +136,19 @@ namespace basecross {
 		else
 		{
 			knockBackCorrection = 5.0f;
+			m_isRestoreArmor = true;
 		}
-		GetComponent<PhysicalBehavior>()->
-			Impact(knockBackDirection, knockBackAmount * knockBackCorrection);
-		Debug::GetInstance()->Log(m_currentArmorPoint);
+		GetComponent<PhysicalBehavior>()->Impact(
+			knockBackDirection, knockBackAmount * knockBackCorrection);
 	}
 
 	void PlayerBase::Respawn() {
+		GetTransform()->SetPosition(m_initialPosition);
 	}
 
 	void PlayerBase::TestFanc() {
 		const auto& keyState = App::GetApp()->GetInputDevice().GetKeyState();
+		// アーマーを0にする
 		if (keyState.m_bPressedKeyTbl['0']) {
 			m_currentArmorPoint = 0.0f;
 			Debug::GetInstance()->Log(L"Test:Armor0");
@@ -198,20 +224,20 @@ namespace basecross {
 		// 遷移時に入力がある場合
 		if (Obj->m_inputData.IsJumpOrHover) {
 			// フラグを立てる
-			m_isPushed = true;
+			Obj->m_isInput = true;
 		}
 	}
 	void PlayerBase::PlayerJumpState::Execute(const shared_ptr<PlayerBase>& Obj) {
 		// 入力がある場合
 		if (Obj->m_inputData.IsJumpOrHover) {
 			// 遷移時に入力があった場合はジャンプしない
-			if (!m_isPushed) {
+			if (!Obj->m_isInput) {
 				Obj->Jump();
 				Obj->m_jumpAndHoverStateMachine->ChangeState(PlayerHoverState::Instance());
 			}
 		}
 		else {
-			m_isPushed = false;
+			Obj->m_isInput = false;
 		}
 		// ホバー可能時間回復
 		Obj->HoverTimeRecovery();
@@ -228,7 +254,7 @@ namespace basecross {
 		// 遷移時に入力がある場合
 		if (Obj->m_inputData.IsJumpOrHover) {
 			// フラグを立てる
-			m_isPushed = true;
+			Obj->m_isInput = true;
 		}
 		// 接地判定の情報を初期化
 		m_groundingDecision.SetRadius(Obj->GetTransform()->GetScale());
@@ -236,11 +262,11 @@ namespace basecross {
 	void PlayerBase::PlayerHoverState::Execute(const shared_ptr<PlayerBase>& Obj) {
 		if (Obj->m_inputData.IsJumpOrHover) {
 			// 遷移時に入力があった場合ホバーを行わない（一度離す必要がある）
-			if (!m_isPushed)
+			if (!Obj->m_isInput)
 				Obj->Hover();
 		}
 		else {
-			m_isPushed = false;
+			Obj->m_isInput = false;
 		}
 
 		// 接地した場合
