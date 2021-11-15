@@ -8,8 +8,8 @@
 
 namespace basecross {
 	void GameStage::CreateViewLight() {
-		const Vec3 eye(0.0f, 17.0f, -10.0f);
-		const Vec3 at(0.0f);
+		const Vec3 eye(0.0f, 30.0f, -25.0f);
+		const Vec3 at(0.0f, 0.0f, -2.0f);
 		auto PtrView = CreateView<SingleView>();
 		//ƒrƒ…[‚ÌƒJƒƒ‰‚Ìİ’è
 		auto PtrCamera = ObjectFactory::Create<Camera>();
@@ -36,8 +36,17 @@ namespace basecross {
 			AddGameObject<Debug>();
 			Debug::GetInstance()->Log(L"CurrentStage : GameStage");
 
-			AddGameObject<ManualPlayer>(TransformData());
-			AddGameObject<Block>(TransformData(Vec3(0.0f, -1.5f, 0.0f), Vec3(10.0f, 1.0f, 10.0f)));
+			GameObjecttCSVBuilder builder;
+			builder.Register<Block>(L"Block");
+			auto dir = App::GetApp()->GetDataDirWString();
+			auto path = dir + L"Csv/Stage";
+			path += L".csv";
+
+			builder.Build(GetThis<Stage>(), path);
+
+			AddGameObject<ManualPlayer>(TransformData(Vec3(10.0f, 1.0f, 0.0f)), PlayerNumber::P1);
+			AddGameObject<ManualPlayer>(TransformData(Vec3(-10.0f, 1.0f, 0.0f)), PlayerNumber::P2);
+			AddGameObject<CountDown>()->Start();
 		}
 		catch (...) {
 			throw;

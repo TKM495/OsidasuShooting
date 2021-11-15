@@ -2,7 +2,6 @@
 #include "Project.h"
 
 namespace basecross {
-
 	void CountDown::OnCreate() {
 		currentTime = initialTime;
 
@@ -19,15 +18,15 @@ namespace basecross {
 		m_numbersOffset = 0;			// 分か秒か判別用
 		m_isMinutes = false;			// 分か秒か
 		m_setOffset = Vec3(-132.5f, 360, 0);	// 一文字目のオブジェクト
-		m_addOffset = Vec3(  45.0f, 0, 0);	// 一文字の大きさ
+		m_addOffset = Vec3(45.0f, 0, 0);	// 一文字の大きさ
 		m_spaceOffset = Vec3(20.0f, 0, 0);	// 分と秒で分けるときのスペース
 		m_posOffset = m_setOffset;		// オッフセット
-		
+
 		m_scaleValue = 0.7f;
 		m_scaleOffset = Vec3(m_scaleValue, m_scaleValue, m_scaleValue);
 
 		m_numbers.resize(4);			// 分と秒で4文字ずつ
-		for(auto& number : m_numbers) {
+		for (auto& number : m_numbers) {
 			++m_numbersOffset;
 
 			number = ObjectFactory::Create<Number>(GetStage(), 0);
@@ -39,7 +38,7 @@ namespace basecross {
 			if (m_numbersOffset == 2 && !m_isMinutes) {
 				m_isMinutes = false;
 				m_posOffset += m_spaceOffset;
-				AddTimerColonSpriteCreate(m_posOffset,m_scaleOffset);
+				AddTimerColonSpriteCreate(m_posOffset, m_scaleOffset);
 			}
 		}
 	}
@@ -52,14 +51,12 @@ namespace basecross {
 		colonTrans->SetScale(scaleValue);
 	}
 
-	
 	void CountDown::SetTimerNumbers() {
 		auto& app = App::GetApp();
 		float deltaTime = app->GetElapsedTime();
 
 		//if (m_timeCount > 1.0f && m_timerNumbers < pow(10, m_numbers.size()) - 1)
 		//{
-
 		//}
 
 		// numberに引数を渡す
@@ -70,9 +67,7 @@ namespace basecross {
 
 			number->SetValue(value);
 		}
-
 	}
-
 
 	void CountDown::OnUpdate() {
 		auto& app = App::GetApp();
@@ -81,7 +76,7 @@ namespace basecross {
 		int minutes;
 		int hour;
 		int seconds;
-		
+
 		wstring clocks = L"00:00:00";
 
 		if (reset)
@@ -122,12 +117,10 @@ namespace basecross {
 		//}
 		//clocks += Util::FloatToWStr(seconds);
 
+		//auto m_ssComp = AddComponent<StringSprite>();
+		//m_ssComp->SetText(clocks);
 
-
-		auto m_ssComp = AddComponent<StringSprite>();
-		m_ssComp->SetText(clocks);
-		
-		//m_timerNumbers = minutes * 100 + seconds;	
+		//m_timerNumbers = minutes * 100 + seconds;
 
 		SetTimerNumbers();
 	}
@@ -138,6 +131,4 @@ namespace basecross {
 			number->OnDraw();
 		}
 	}
-
-
 }
