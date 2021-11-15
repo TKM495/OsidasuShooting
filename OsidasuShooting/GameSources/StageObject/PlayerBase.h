@@ -58,6 +58,8 @@ namespace basecross {
 		void Hover();
 		// ホバー可能時間回復
 		void HoverTimeRecovery();
+		// アーマーの回復
+		void ArmorRecovery();
 		// 爆弾の発射
 		void BombLaunch();
 		// 必殺技の発動

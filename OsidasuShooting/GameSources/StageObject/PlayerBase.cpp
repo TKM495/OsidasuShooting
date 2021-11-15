@@ -99,6 +99,9 @@ namespace basecross {
 		GetStage()->AddGameObject<Bomb>(m_predictionLine, GetTransform()->GetPosition(), m_bombPoint);
 	}
 
+	void PlayerBase::ArmorRecovery() {
+	}
+
 	void PlayerBase::KnockBack(const Vec3& knockBackDirection, float knockBackAmount) {
 		float knockBackCorrection;
 		if (m_currentArmorPoint > 0)
