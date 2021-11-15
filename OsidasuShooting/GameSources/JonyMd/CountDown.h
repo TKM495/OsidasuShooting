@@ -13,7 +13,6 @@ namespace basecross {
 		float initialTime; //秒の値です
 		float currentTime;
 		
-		int m_timer;
 		int m_timerNumbers;
 		float m_timeCount;
 		vector<std::shared_ptr<Number>> m_numbers;
@@ -59,7 +58,7 @@ namespace basecross {
 
 
 		// タイマーをスプライトで表示するための関数
-		void CreateCount();
+		void CountDownSpriteCreate();
 		
 		// カウントダウンをさせるための数値
 		void SetTimerNumbers();

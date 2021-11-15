@@ -47,13 +47,28 @@ namespace basecross {
 			//SetPlayer();
 
 			//AddGameObject<SpecialCamera>();
-			AddGameObject<Number>(2);
-			m_timer = AddGameObject<CountDown>();
 			
+			// Timer
+			m_timer = AddGameObject<CountDown>();
+			SetSharedGameObject(L"CountDown", m_timer);
 
+			AddGameObject<Number>(10);
+			
+			
 
 		}
 		catch (...) {
+			throw;
+		}
+	}
+
+	void SatoStage::OnUpdate() {
+		try 
+		{
+			JMDSeitchSystem();
+		}
+		catch (...)
+		{
 			throw;
 		}
 	}
