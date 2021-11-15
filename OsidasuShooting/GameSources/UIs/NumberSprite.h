@@ -35,7 +35,7 @@ namespace basecross
 			m_number = value;
 			float sideSize = 640.0f;
 			float fSidSize = 1024.0f;
-			float higthSize = 128.0f;
+			float highSize = 128.0f;
 			float fontSize = 64.0f;
 			float zeroSize = 0.0f;
 			float oneSize = 1.0f;

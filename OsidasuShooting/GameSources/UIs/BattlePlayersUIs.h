@@ -25,7 +25,7 @@ namespace basecross
 
 		{}
 
-		void OnCreate() {};
+		void OnCreate() override;
 		void OnUpDate() {};
 	};
 }
