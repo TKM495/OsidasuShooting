@@ -44,6 +44,7 @@ namespace basecross {
 	void PlayerBase::OnUpdate() {
 		InputUpdate();
 		Move();
+		TestFanc();
 		m_weaponStateMachine->Update();
 		m_jumpAndHoverStateMachine->Update();
 	}
@@ -83,8 +84,10 @@ namespace basecross {
 		// 予測線はStartとEndの2点の情報が必要
 		m_predictionLine.Update(ray.Origin, ray.GetPoint(3.0f), PredictionLine::Type::Bullet);
 
-		if (m_inputData.BulletAim != Vec3(0.0f))
-			GetStage()->AddGameObject<Bullet>(ray);
+		if (m_inputData.BulletAim != Vec3(0.0f) && m_bulletTimer.Count()) {
+			m_bulletTimer.Reset();
+			GetStage()->AddGameObject<Bullet>(GetThis<PlayerBase>(), ray);
+		}
 	}
 	void PlayerBase::BombAim() {
 		auto delta = App::GetApp()->GetElapsedTime();
@@ -94,6 +97,9 @@ namespace basecross {
 
 	void PlayerBase::BombLaunch() {
 		GetStage()->AddGameObject<Bomb>(m_predictionLine, GetTransform()->GetPosition(), m_bombPoint);
+	}
+
+	void PlayerBase::ArmorRecovery() {
 	}
 
 	void PlayerBase::KnockBack(const Vec3& knockBackDirection, float knockBackAmount) {
@@ -113,6 +119,14 @@ namespace basecross {
 	}
 
 	void PlayerBase::Respawn() {
+	}
+
+	void PlayerBase::TestFanc() {
+		const auto& keyState = App::GetApp()->GetInputDevice().GetKeyState();
+		if (keyState.m_bPressedKeyTbl['0']) {
+			m_currentArmorPoint = 0.0f;
+			Debug::GetInstance()->Log(L"Test:Armor0");
+		}
 	}
 
 	// 武器用ステート

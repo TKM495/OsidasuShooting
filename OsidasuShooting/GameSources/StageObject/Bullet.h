@@ -6,24 +6,37 @@
 #pragma once
 #include "stdafx.h"
 #include "StageObject.h"
+#include "PlayerBase.h"
 
 namespace basecross {
 	class Bullet : public StageObject
 	{
+		// 弾の移動速度
 		float m_speed;
+		// 寿命
 		float m_lifeSpan;
+		// ノックバック量
+		float m_knockBackAmount;
+		// 移動方向
 		Vec3 m_direction;
+		// オーナー
+		weak_ptr<PlayerBase> m_owner;
 	public:
-		Bullet(const shared_ptr<Stage>& stage, const Vec3& position, const Vec3& direction)
-			:StageObject(stage), m_direction(direction),
-			m_speed(25.0f), m_lifeSpan(5.0f)
+		Bullet(const shared_ptr<Stage>& stage,
+			const shared_ptr<PlayerBase>& owner,
+			const Vec3& position, const Vec3& direction)
+			:StageObject(stage), m_owner(owner),
+			m_direction(direction),
+			m_speed(25.0f), m_lifeSpan(5.0f),
+			m_knockBackAmount(5.0f)
 		{
 			m_transformData.Position = position;
 			m_transformData.Scale = Vec3(0.5f);
 		}
 
-		Bullet(const shared_ptr<Stage>& stage, const Ray& ray)
-			:Bullet(stage, ray.Origin, ray.Direction)
+		Bullet(const shared_ptr<Stage>& stage,
+			const shared_ptr<PlayerBase>& owner, const Ray& ray)
+			:Bullet(stage, owner, ray.Origin, ray.Direction)
 		{}
 
 		void OnCreate() override;
