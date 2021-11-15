@@ -59,6 +59,9 @@ namespace basecross {
 		TimeCounter m_armorRecoveryTimer;
 		// アーマーが回復中か
 		bool m_isRestoreArmor;
+		// ジャンプ＆ホバーステート用の連続押し検出用フラグ
+		// (Stateはシングルトンであり状態が共有させてしまうため)
+		bool m_isInput;
 
 		// 移動
 		void Move();
@@ -100,7 +103,7 @@ namespace basecross {
 			m_hoverTime(5.0f), m_currentHoverTime(m_hoverTime),
 			m_defaultArmorPoint(100.0f), m_currentArmorPoint(m_defaultArmorPoint),
 			m_bulletTimer(0.1f, true), m_armorRecoveryTimer(2.0f),
-			m_isRestoreArmor(false)
+			m_isRestoreArmor(false), m_isInput(false)
 
 		{
 			m_transformData = transData;
@@ -152,11 +155,7 @@ namespace basecross {
 #pragma region JumpAndHoverState
 	// ジャンプ（デフォルト）
 		class PlayerJumpState : public ObjState<PlayerBase> {
-			// 遷移前から押されているかのフラグ
-			bool m_isPushed;
-			PlayerJumpState()
-				:m_isPushed(false)
-			{}
+			PlayerJumpState() {}
 		public:
 			static shared_ptr<PlayerJumpState> Instance();
 			virtual void Enter(const shared_ptr<PlayerBase>& Obj)override;
@@ -165,12 +164,14 @@ namespace basecross {
 		};
 		// ホバー
 		class PlayerHoverState : public ObjState<PlayerBase> {
-			// 遷移前から押されているかのフラグ
-			bool m_isPushed;
 			GroundingDecision m_groundingDecision;
 			PlayerHoverState()
-				:m_isPushed(false), m_groundingDecision()
-			{}
+				:m_groundingDecision()
+			{
+				// 以下のタグを持つオブジェクトを判定から除外
+				m_groundingDecision.AddNotDecisionTag(L"Bomb");
+				m_groundingDecision.AddNotDecisionTag(L"Bullet");
+			}
 		public:
 			static shared_ptr<PlayerHoverState> Instance();
 			virtual void Enter(const shared_ptr<PlayerBase>& Obj)override;

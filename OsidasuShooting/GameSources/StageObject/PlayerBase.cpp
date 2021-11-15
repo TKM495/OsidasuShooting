@@ -224,20 +224,20 @@ namespace basecross {
 		// 遷移時に入力がある場合
 		if (Obj->m_inputData.IsJumpOrHover) {
 			// フラグを立てる
-			m_isPushed = true;
+			Obj->m_isInput = true;
 		}
 	}
 	void PlayerBase::PlayerJumpState::Execute(const shared_ptr<PlayerBase>& Obj) {
 		// 入力がある場合
 		if (Obj->m_inputData.IsJumpOrHover) {
 			// 遷移時に入力があった場合はジャンプしない
-			if (!m_isPushed) {
+			if (!Obj->m_isInput) {
 				Obj->Jump();
 				Obj->m_jumpAndHoverStateMachine->ChangeState(PlayerHoverState::Instance());
 			}
 		}
 		else {
-			m_isPushed = false;
+			Obj->m_isInput = false;
 		}
 		// ホバー可能時間回復
 		Obj->HoverTimeRecovery();
@@ -254,7 +254,7 @@ namespace basecross {
 		// 遷移時に入力がある場合
 		if (Obj->m_inputData.IsJumpOrHover) {
 			// フラグを立てる
-			m_isPushed = true;
+			Obj->m_isInput = true;
 		}
 		// 接地判定の情報を初期化
 		m_groundingDecision.SetRadius(Obj->GetTransform()->GetScale());
@@ -262,11 +262,11 @@ namespace basecross {
 	void PlayerBase::PlayerHoverState::Execute(const shared_ptr<PlayerBase>& Obj) {
 		if (Obj->m_inputData.IsJumpOrHover) {
 			// 遷移時に入力があった場合ホバーを行わない（一度離す必要がある）
-			if (!m_isPushed)
+			if (!Obj->m_isInput)
 				Obj->Hover();
 		}
 		else {
-			m_isPushed = false;
+			Obj->m_isInput = false;
 		}
 
 		// 接地した場合
