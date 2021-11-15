@@ -30,6 +30,7 @@
 #include "StageObject/PlayerBase.h"
 #include "StageObject/ManualPlayer.h"
 #include "StageObject/StageObject.h"
+#include "StageObject/FallDecision.h"
 //UI
 #include "UIs/BaseUI.h"
 #include "UIs/Canvas.h"

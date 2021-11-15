@@ -118,6 +118,9 @@
     <Filter Include="Manager\PlayerManager">
       <UniqueIdentifier>{c8422ba4-b059-4683-9370-1346af62f6c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="StageObject\FallDecision">
+      <UniqueIdentifier>{8e0379d1-5859-489c-93a0-2920b8b7c764}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -251,6 +254,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.h">
       <Filter>Manager\PlayerManager</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\FallDecision.h">
+      <Filter>StageObject\FallDecision</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
@@ -377,6 +383,9 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.cpp">
       <Filter>Manager\PlayerManager</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\FallDecision.cpp">
+      <Filter>StageObject\FallDecision</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
