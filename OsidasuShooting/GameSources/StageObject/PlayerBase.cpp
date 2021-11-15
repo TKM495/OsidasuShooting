@@ -44,6 +44,7 @@ namespace basecross {
 	void PlayerBase::OnUpdate() {
 		InputUpdate();
 		Move();
+		TestFanc();
 		m_weaponStateMachine->Update();
 		m_jumpAndHoverStateMachine->Update();
 	}
@@ -115,6 +116,14 @@ namespace basecross {
 	}
 
 	void PlayerBase::Respawn() {
+	}
+
+	void PlayerBase::TestFanc() {
+		const auto& keyState = App::GetApp()->GetInputDevice().GetKeyState();
+		if (keyState.m_bPressedKeyTbl['0']) {
+			m_currentArmorPoint = 0.0f;
+			Debug::GetInstance()->Log(L"Test:Armor0");
+		}
 	}
 
 	// 武器用ステート

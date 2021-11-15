@@ -93,6 +93,8 @@ namespace basecross {
 		void KnockBack(const Vec3& knockBackDirection, float knockBackAmount);
 		//リスポーン
 		void Respawn();
+		// テスト関数
+		void TestFanc();
 	private:
 		// 武器用ステート
 #pragma region WeaponState
