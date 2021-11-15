@@ -112,6 +112,12 @@
     <Filter Include="Manager">
       <UniqueIdentifier>{31f89d01-371a-4aad-b82a-b500d54514d8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager\ControllerManager">
+      <UniqueIdentifier>{c018e5db-7117-497b-8652-e410f9f938f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\PlayerManager">
+      <UniqueIdentifier>{c8422ba4-b059-4683-9370-1346af62f6c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -154,7 +160,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Block.h">
       <Filter>StageObject\Block</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Player.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\PlayerBase.h">
       <Filter>StageObject\Player</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)DebugClass\DebugCamera.h">
@@ -236,11 +242,14 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\LifeSpan.h">
       <Filter>Component\LifeSpan</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.h">
-      <Filter>Manager</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\ManualPlayer.h">
       <Filter>StageObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Manager\ControllerManager.h">
+      <Filter>Manager\ControllerManager</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.h">
+      <Filter>Manager\PlayerManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -281,7 +290,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Block.cpp">
       <Filter>StageObject\Block</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Player.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\PlayerBase.cpp">
       <Filter>StageObject\Player</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)DebugClass\DebugCamera.cpp">
@@ -360,11 +369,14 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\LifeSpan.cpp">
       <Filter>Component\LifeSpan</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.cpp">
-      <Filter>Manager</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\ManualPlayer.cpp">
       <Filter>StageObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Manager\ControllerManager.cpp">
+      <Filter>Manager\ControllerManager</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.cpp">
+      <Filter>Manager\PlayerManager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

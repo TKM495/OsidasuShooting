@@ -5,6 +5,7 @@
 
 #pragma once
 #include "stdafx.h"
+#include "StageObject/PlayerBase.h"
 
 namespace basecross {
 	enum class PlayerNumber {
@@ -14,23 +15,9 @@ namespace basecross {
 		P4
 	};
 
-	// プレイヤーインターフェイス
-	class PlayerInterface {
-	public:
-		PlayerInterface() {}
-		~PlayerInterface() {}
-
-		// ノックバック
-		virtual void KnockBack(Vec3 direction, float force) = 0;
-	private:
-		// コピー禁止
-		PlayerInterface(const PlayerInterface&) = delete;
-		PlayerInterface& operator=(const PlayerInterface&) = delete;
-		// ムーブ禁止
-		PlayerInterface(const PlayerInterface&&) = delete;
-		PlayerInterface& operator=(const PlayerInterface&&) = delete;
-	};
-
 	class PlayerManager {
+		vector<PlayerBase> m_player;
+	public:
+		void AddPlayer(const shared_ptr<PlayerBase>& playerPtr);
 	};
 }

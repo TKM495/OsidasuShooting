@@ -27,7 +27,7 @@
 #include "StageObject/Block.h"
 #include "StageObject/Bullet.h"
 #include "StageObject/Bomb.h"
-#include "StageObject/Player.h"
+#include "StageObject/PlayerBase.h"
 #include "StageObject/ManualPlayer.h"
 #include "StageObject/StageObject.h"
 //UI
@@ -44,5 +44,8 @@
 #include "Component/LifeSpan.h"
 // メニュー
 #include "UIs/Menu/BaseMenu.h"
+// マネージャー
+#include "Manager/ControllerManager.h"
+#include "Manager/PlayerManager.h"
 
 #include "JonyMd/CountDown.h"

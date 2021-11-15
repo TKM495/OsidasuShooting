@@ -24,6 +24,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkEffectResource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkInterface.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\CountDown.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Manager\ControllerManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Scene.h" />
@@ -33,7 +34,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Bomb.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Bullet.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\ManualPlayer.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Player.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\PlayerBase.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\StageObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\DebugStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\GameStage.h" />
@@ -68,6 +69,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkEffectResource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkInterface.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\CountDown.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Manager\ControllerManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Scene.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.cpp" />
@@ -76,7 +78,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Bomb.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Bullet.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\ManualPlayer.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Player.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\PlayerBase.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\StageObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\DebugStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\GameStage.cpp" />

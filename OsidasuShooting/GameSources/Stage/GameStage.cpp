@@ -36,7 +36,7 @@ namespace basecross {
 			AddGameObject<Debug>();
 			Debug::GetInstance()->Log(L"CurrentStage : GameStage");
 
-			AddGameObject<Player>(TransformData());
+			AddGameObject<ManualPlayer>(TransformData());
 			AddGameObject<Block>(TransformData(Vec3(0.0f, -1.5f, 0.0f), Vec3(10.0f, 1.0f, 10.0f)));
 		}
 		catch (...) {
