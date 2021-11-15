@@ -45,8 +45,8 @@ namespace basecross {
 
 			builder.Build(GetThis<Stage>(), path);
 
-			AddGameObject<Player>(TransformData(Vec3(0.0f, 1.0f, 0.0f)));
-			//AddGameObject<Block>(TransformData(Vec3(0.0f, -1.5f, 0.0f), Vec3(10.0f, 1.0f, 10.0f)));
+			AddGameObject<ManualPlayer>(TransformData(Vec3(10.0f, 1.0f, 0.0f)), PlayerNumber::P1);
+			AddGameObject<ManualPlayer>(TransformData(Vec3(-10.0f, 1.0f, 0.0f)), PlayerNumber::P2);
 		}
 		catch (...) {
 			throw;

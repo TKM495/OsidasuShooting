@@ -42,15 +42,17 @@ namespace basecross {
 			m_isExploded)
 			return;
 		m_isExploded = true;
-		// 爆弾によるノックバック処理（本来はPlayer内に実装する）
+		// 爆弾によるノックバック処理
 		GetComponent<EfkComponent>()->Play();
 		auto objs = GetStage()->GetGameObjectVec();
 		for (auto obj : objs) {
-			auto ptr = dynamic_pointer_cast<Player>(obj);
+			auto ptr = dynamic_pointer_cast<PlayerBase>(obj);
+			// プレイヤーの場合
 			if (ptr) {
 				auto pos = ptr->GetTransform()->GetPosition();
 				auto myPos = GetTransform()->GetPosition();
 				auto distance = (pos - myPos).length();
+				// 爆発半径内にいる場合ノックバック
 				if (distance < m_radius) {
 					ptr->KnockBack(pos - myPos, m_power);
 				}

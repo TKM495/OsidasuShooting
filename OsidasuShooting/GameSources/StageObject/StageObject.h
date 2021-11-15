@@ -29,13 +29,17 @@ namespace basecross {
 	};
 
 	struct Ray {
-		Vec3 origin;
-		Vec3 dir;
-		Ray(const Vec3& origin, const Vec3& dir) {
-			this->origin = origin;
-			this->dir = dir;
+		Vec3 Origin;
+		Vec3 Direction;
+		Ray(const Vec3& origin, const Vec3& direction) {
+			this->Origin = origin;
+			this->Direction = direction;
 		}
 		Ray() {}
+
+		Vec3 GetPoint(float distance) {
+			return Origin + (Direction * distance);
+		}
 	};
 
 	using ObjectPositionForward = Ray;

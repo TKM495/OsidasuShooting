@@ -1,17 +1,24 @@
+/*!
+@file   Bullet.cpp
+@brief  弾クラスの実体
+*/
+
 #include "stdafx.h"
 #include "Project.h"
 
 namespace basecross {
 	void Bullet::OnCreate()
 	{
+		// 当たり判定の追加
 		auto PtrColl = AddComponent<CollisionSphere>();
-		//PtrColl->SetDrawActive(true);
+		// 衝突応答を無視
 		PtrColl->SetAfterCollision(AfterCollision::None);
 
 		// 発射方向に正面を向ける
 		auto rad = atan2f(-m_direction.z, m_direction.x) + XM_PIDIV2;
 		m_transformData.Rotation.y = XMConvertToDegrees(rad);
 
+		// 寿命の追加
 		AddComponent<LifeSpan>(m_lifeSpan);
 
 		ObjectSetUp();
@@ -28,20 +35,19 @@ namespace basecross {
 
 	void Bullet::OnUpdate()
 	{
-		auto& app = App::GetApp();
+		auto transPos = GetTransform()->GetPosition(); //(x,y,z)
 
-		auto transComp = GetComponent<Transform>();
-		auto transPos = transComp->GetPosition(); //(x,y,z)
-
-		float deltaTime = app->GetElapsedTime();
+		float deltaTime = App::GetApp()->GetElapsedTime();
 
 		transPos += m_direction.normalize() * m_speed * deltaTime;
-		transComp->SetPosition(transPos);
+		GetTransform()->SetPosition(transPos);
 
+		// 位置を同期
 		GetComponent<EfkComponent>()->SyncPosition();
 	}
 
 	void Bullet::OnDestroy() {
+		// オブジェクト削除時にエフェクトも停止
 		GetComponent<EfkComponent>()->Stop();
 	}
 

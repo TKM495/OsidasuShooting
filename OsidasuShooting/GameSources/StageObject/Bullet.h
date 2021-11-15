@@ -1,3 +1,8 @@
+/*!
+@file   Bullet.h
+@brief  ’eƒNƒ‰ƒX
+*/
+
 #pragma once
 #include "stdafx.h"
 #include "StageObject.h"
@@ -16,6 +21,10 @@ namespace basecross {
 			m_transformData.Position = position;
 			m_transformData.Scale = Vec3(0.5f);
 		}
+
+		Bullet(const shared_ptr<Stage>& stage, const Ray& ray)
+			:Bullet(stage, ray.Origin, ray.Direction)
+		{}
 
 		void OnCreate() override;
 		void OnUpdate() override;
