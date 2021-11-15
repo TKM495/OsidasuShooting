@@ -118,6 +118,9 @@
     <Filter Include="Manager\PlayerManager">
       <UniqueIdentifier>{c8422ba4-b059-4683-9370-1346af62f6c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI\BattlePlayersUI">
+      <UniqueIdentifier>{6f1e1945-4d31-464d-a159-51165c5bfa8c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -251,6 +254,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.h">
       <Filter>Manager\PlayerManager</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameBattlePlayersUI.h">
+      <Filter>UI\BattlePlayersUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
@@ -377,6 +383,9 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.cpp">
       <Filter>Manager\PlayerManager</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameBattlePlayersUI.cpp">
+      <Filter>UI\BattlePlayersUI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
