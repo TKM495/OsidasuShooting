@@ -29,13 +29,14 @@ namespace basecross {
 			App::GetApp()->GetDataDirectory(DataDir);
 			wstring TestEffectStr = DataDir + L"Effects\\";
 			EfkEffectResource::RegisterEffectResource(L"Bullet", TestEffectStr + L"Bullet.efk");
+			EfkEffectResource::RegisterEffectResource(L"Explosion", TestEffectStr + L"fire.efk");
 
 			//ビューとライトの作成
 			CreateViewLight();
 			AddGameObject<Debug>();
 			Debug::GetInstance()->Log(L"CurrentStage : GameStage");
 
-			AddGameObject<Player>(TransformData());
+			AddGameObject<ManualPlayer>(TransformData());
 			AddGameObject<Block>(TransformData(Vec3(0.0f, -1.5f, 0.0f), Vec3(10.0f, 1.0f, 10.0f)));
 		}
 		catch (...) {

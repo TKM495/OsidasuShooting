@@ -30,6 +30,7 @@ namespace basecross {
 			App::GetApp()->GetDataDirectory(DataDir);
 			wstring TestEffectStr = DataDir + L"Effects\\";
 			EfkEffectResource::RegisterEffectResource(L"Bullet", TestEffectStr + L"Bullet.efk");
+			EfkEffectResource::RegisterEffectResource(L"Explosion", TestEffectStr + L"fire.efk");
 
 			//ビューとライトの作成
 			CreateViewLight();
@@ -44,8 +45,8 @@ namespace basecross {
 
 			builder.Build(GetThis<Stage>(), path);
 
-			AddGameObject<Player>(TransformData(Vec3(0.0f, 1.0f, 0.0f)));
-			//AddGameObject<Block>(TransformData(Vec3(0.0f, -1.5f, 0.0f), Vec3(10.0f, 1.0f, 10.0f)));
+			AddGameObject<ManualPlayer>(TransformData(Vec3(10.0f, 1.0f, 0.0f)), PlayerNumber::P1);
+			AddGameObject<ManualPlayer>(TransformData(Vec3(-10.0f, 1.0f, 0.0f)), PlayerNumber::P2);
 		}
 		catch (...) {
 			throw;
