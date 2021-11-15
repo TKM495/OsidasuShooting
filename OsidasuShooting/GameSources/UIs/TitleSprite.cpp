@@ -8,8 +8,7 @@
 
 namespace basecross 
 {
-	void TitleSprite::OnCreate()
-	{
+	void TitleSprite::OnCreate() {
 		//texture 1024 x 512
 		float sideSize = 1024.0f;
 		float higthSize = -512.0f;
@@ -50,8 +49,7 @@ namespace basecross
 
 	}
 	
-	void PushAButtonSprite::OnCreate()
-	{
+	void PushAButtonSprite::OnCreate() {
 		//texture 512 x 64
 		float sideSize = 340.0f;
 		float fSidSize = 512.0f;

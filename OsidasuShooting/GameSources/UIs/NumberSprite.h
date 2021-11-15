@@ -31,8 +31,7 @@ namespace basecross
 
 		virtual ~Number() {};
 
-		void SetValue(int value)
-		{
+		void SetValue(int value) {
 			m_number = value;
 			float sideSize = 640.0f;
 			float fSidSize = 1024.0f;

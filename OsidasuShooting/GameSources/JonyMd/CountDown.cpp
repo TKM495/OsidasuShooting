@@ -16,34 +16,40 @@ namespace basecross {
 
 	// タイマーの数字を一文字ずつ作成
 	void CountDown::CountDownSpriteCreate() {
-		int numbersOffset = 0;			// 分か秒か判別用
-		bool isMinutes = false;			// 分か秒か
-		Vec3 setOffset(-132.5f, 360, 0);	// 一文字目のオブジェクト
-		Vec3 addOffset(  45.0f, 0, 0);	// 一文字の大きさ
-		Vec3 spaceOffset(20.0f, 0, 0);	// 分と秒で分けるときのスペース
-		Vec3 posOffset = setOffset;		// オッフセット
+		m_numbersOffset = 0;			// 分か秒か判別用
+		m_isMinutes = false;			// 分か秒か
+		m_setOffset = Vec3(-132.5f, 360, 0);	// 一文字目のオブジェクト
+		m_addOffset = Vec3(  45.0f, 0, 0);	// 一文字の大きさ
+		m_spaceOffset = Vec3(20.0f, 0, 0);	// 分と秒で分けるときのスペース
+		m_posOffset = m_setOffset;		// オッフセット
 		
-		float scaleValue = 0.7f;
-		Vec3 scaleOffset(scaleValue, scaleValue, scaleValue);
+		m_scaleValue = 0.7f;
+		m_scaleOffset = Vec3(m_scaleValue, m_scaleValue, m_scaleValue);
 
 		m_numbers.resize(4);			// 分と秒で4文字ずつ
-		for(auto& number : m_numbers)
-		{
-			++numbersOffset;
+		for(auto& number : m_numbers) {
+			++m_numbersOffset;
 
 			number = ObjectFactory::Create<Number>(GetStage(), 0);
 			auto numberTrans = number->GetComponent<Transform>();
-			numberTrans->SetPosition(posOffset);
-			numberTrans->SetScale(scaleOffset);
-			posOffset += addOffset;
+			numberTrans->SetPosition(m_posOffset);
+			numberTrans->SetScale(m_scaleOffset);
+			m_posOffset += m_addOffset;
 
-			if (numbersOffset == 2 && !isMinutes)
-			{
-				isMinutes = false;
-				posOffset += spaceOffset;
+			if (m_numbersOffset == 2 && !m_isMinutes) {
+				m_isMinutes = false;
+				m_posOffset += m_spaceOffset;
+				AddTimerColonSpriteCreate(m_posOffset,m_scaleOffset);
 			}
 		}
+	}
 
+	void CountDown::AddTimerColonSpriteCreate(Vec3 posValue, Vec3 scaleValue) {
+		auto colon = GetStage()->AddGameObject<Number>(10);
+		auto colonTrans = colon->GetComponent<Transform>();
+		auto posSetting(-m_spaceOffset * 1.6f);
+		colonTrans->SetPosition(posValue + posSetting);
+		colonTrans->SetScale(scaleValue);
 	}
 
 	
@@ -58,8 +64,7 @@ namespace basecross {
 
 		// numberに引数を渡す
 		int place = static_cast<int>(pow(10, m_numbers.size() - 1));
-		for (auto& number : m_numbers)
-		{
+		for (auto& number : m_numbers) {
 			int value = m_timerNumbers / place % 10;
 			place /= 10;
 
@@ -129,8 +134,7 @@ namespace basecross {
 
 	void CountDown::OnDraw() {
 		GameObject::OnDraw();
-		for (auto& number : m_numbers)
-		{
+		for (auto& number : m_numbers) {
 			number->OnDraw();
 		}
 	}

@@ -8,8 +8,7 @@
 
 namespace basecross
 {
-	void Number::OnCreate()
-	{
+	void Number::OnCreate() {
 		//texture 640 x 128
 		//font 64 x 128
 		float sideSize = 704.0f;

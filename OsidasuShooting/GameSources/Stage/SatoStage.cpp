@@ -52,7 +52,7 @@ namespace basecross {
 			m_timer = AddGameObject<CountDown>();
 			SetSharedGameObject(L"CountDown", m_timer);
 
-			AddGameObject<Number>(10);
+			//AddGameObject<Number>(10);
 			
 			
 
