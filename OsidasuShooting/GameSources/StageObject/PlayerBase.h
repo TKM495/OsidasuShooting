@@ -7,6 +7,7 @@
 #include "stdafx.h"
 #include "StageObject.h"
 #include "Utility/PredictionLine.h"
+#include "Utility/TimeCounter.h"
 
 namespace basecross {
 	/**
@@ -42,6 +43,8 @@ namespace basecross {
 		float m_currentHoverTime;
 		// 現在のアーマー値
 		float m_currentArmorPoint;
+		// 弾用のタイマー
+		TimeCounter m_bulletTimer;
 
 		// 移動
 		void Move();
@@ -78,7 +81,8 @@ namespace basecross {
 			:StageObject(stage), m_moveSpeed(20.0f), m_predictionLine(stage, 10, 2.0f),
 			m_bombPoint(Vec3(0.0f)), m_jumpVerocity(Vec3(0.0f, 10.0f, 0.0f)),
 			m_hoverTime(5.0f), m_currentHoverTime(m_hoverTime),
-			m_defaultArmorPoint(100.0f), m_currentArmorPoint(m_defaultArmorPoint)
+			m_defaultArmorPoint(100.0f), m_currentArmorPoint(m_defaultArmorPoint),
+			m_bulletTimer(0.1f, true)
 		{
 			m_transformData = transData;
 		}

@@ -83,8 +83,10 @@ namespace basecross {
 		// —\‘ªü‚ÍStart‚ÆEnd‚Ì2“_‚Ìî•ñ‚ª•K—v
 		m_predictionLine.Update(ray.Origin, ray.GetPoint(3.0f), PredictionLine::Type::Bullet);
 
-		if (m_inputData.BulletAim != Vec3(0.0f))
-			GetStage()->AddGameObject<Bullet>(ray);
+		if (m_inputData.BulletAim != Vec3(0.0f) && m_bulletTimer.Count()) {
+			m_bulletTimer.Reset();
+			GetStage()->AddGameObject<Bullet>(GetThis<PlayerBase>(), ray);
+		}
 	}
 	void PlayerBase::BombAim() {
 		auto delta = App::GetApp()->GetElapsedTime();

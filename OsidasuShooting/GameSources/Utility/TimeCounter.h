@@ -14,10 +14,16 @@ namespace basecross {
 		float m_elaspedTime;
 		// 設定した時間を経過しているか？
 		bool m_isTimeUp;
+		// リロードタイマーか（リロードタイマー：最初からCountがtrueの状態のタイマー）
+		bool m_isReloadTimer;
 	public:
-		TimeCounter(float interval)
-			: m_intervalTime(interval), m_elaspedTime(0.0f), m_isTimeUp(false)
-		{}
+		TimeCounter(float interval, bool isReloadTimer = false)
+			: m_intervalTime(interval), m_elaspedTime(0.0f), m_isTimeUp(false),
+			m_isReloadTimer(isReloadTimer)
+		{
+			if (isReloadTimer)
+				m_elaspedTime = m_intervalTime;
+		}
 		//タイマーのリセット
 		void Reset() {
 			m_elaspedTime = 0.0f;
