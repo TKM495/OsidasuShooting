@@ -14,9 +14,16 @@ namespace basecross {
 		float m_elaspedTime;
 		// 設定した時間を経過しているか？
 		bool m_isTimeUp;
-		// リロードタイマーか（リロードタイマー：最初からCountがtrueの状態のタイマー）
+		// リロードタイマーか
+		//（リロードタイマー：最初からm_isTimeUpがtrueの状態のタイマー）
 		bool m_isReloadTimer;
 	public:
+		/**
+		 * @brief コンストラクタ
+		 *
+		 * @param interval 計測する時間
+		 * @param isReloadTimer リロードタイマーか
+		 */
 		TimeCounter(float interval, bool isReloadTimer = false)
 			: m_intervalTime(interval), m_elaspedTime(0.0f), m_isTimeUp(false),
 			m_isReloadTimer(isReloadTimer)
@@ -24,38 +31,81 @@ namespace basecross {
 			if (isReloadTimer)
 				m_elaspedTime = m_intervalTime;
 		}
-		//タイマーのリセット
+		/**
+		 * @brief タイマーのリセット
+		 */
 		void Reset() {
 			m_elaspedTime = 0.0f;
 			m_isTimeUp = false;
 		}
-		//カウント
+		/**
+		 * @brief タイマーのリセット（新たに計測時間を設定）
+		 *
+		 * @param interval 計測する時間
+		 */
+		void Reset(float interval) {
+			m_intervalTime = interval;
+			m_elaspedTime = 0.0f;
+			m_isTimeUp = false;
+		}
+
+		/**
+		 * @brief カウント
+		 *
+		 * @return true:経過した/false:経過していない
+		 */
 		bool Count();
 
+		/**
+		 * @brief 設定した時間が経過したか
+		 *
+		 * @return true:経過した/false:経過していない
+		 */
 		bool IsTimeUp() {
 			return m_isTimeUp;
 		}
 
+		/**
+		 * @brief 計測時間を設定
+		 *
+		 * @param interval 計測時間
+		 */
 		void SetIntervalTime(float interval) {
 			m_intervalTime = interval;
 		}
 
-		// 経過時間 / 設定された時間 の割合
+		/**
+		 * @brief 経過時間 / 設定された時間 の割合を取得
+		 *
+		 * @return float 経過時間 / 設定された時間 の割合
+		 */
 		float GetTimeRate() {
 			return m_elaspedTime / m_intervalTime;
 		}
 
-		// (1.0f - 経過時間 / 設定された時間)
+		/**
+		 * @brief (1.0f - 経過時間 / 設定された時間)を取得
+		 *
+		 * @return float (1.0f - 経過時間 / 設定された時間)
+		 */
 		float GetInverseTimeRate() {
 			return 1 - GetTimeRate();
 		}
 
-		// 残り時間
+		/**
+		 * @brief 残り時間を取得
+		 *
+		 * @return float 残り時間
+		 */
 		float GetLeftTime() {
 			return m_intervalTime - m_elaspedTime;
 		}
 
-		// 経過時間
+		/**
+		 * @brief 経過時間を取得
+		 *
+		 * @return float 経過時間
+		 */
 		float GetElaspedTime() {
 			return m_elaspedTime;
 		}

@@ -24,9 +24,11 @@ namespace basecross {
 	}
 
 	void Debug::OnCreate() {
+		// インスタンスを初期化して自身のインスタンスを代入
 		m_ownInstance = nullptr;
 		m_ownInstance = GetThis<Debug>();
 
+		// 前面に描画
 		SetDrawLayer(10);
 		// 文字列表示用コンポーネント
 		m_ssComp = AddComponent<StringSprite>();
@@ -42,7 +44,7 @@ namespace basecross {
 		// ログの数を取得
 		auto logCount = m_logData.size();
 		// ログの数が最大表示数より多い場合は
-		// 最新のログから最大表示数までのログを表示する
+		// 最新のログから（最新のログー最大表示数）までのログを表示する
 		if (logCount > m_maxLogCount) {
 			int diff = (int)logCount - m_maxLogCount;
 			m_displayLogFirstIndex = diff;
@@ -92,6 +94,10 @@ namespace basecross {
 
 	void Debug::RegisterLog(const wstring& text) {
 		m_logData.push_back(GetNowTimeString() + L" " + text + L"\n");
+	}
+
+	void Debug::ClearLog() {
+		m_logData.clear();
 	}
 
 	wstring Debug::GetNowTimeString() {

@@ -46,9 +46,9 @@ namespace basecross {
 
 			AddGameObject<ManualPlayer>(TransformData(Vec3(10.0f, 1.0f, 0.0f)), PlayerNumber::P1);
 			AddGameObject<ManualPlayer>(TransformData(Vec3(-10.0f, 1.0f, 0.0f)), PlayerNumber::P2);
-			AddGameObject<CountDown>()->Start();
-
 			AddGameObject<FallDecision>();
+
+			m_countDown = AddGameObject<CountDown>();
 		}
 		catch (...) {
 			throw;
@@ -56,5 +56,35 @@ namespace basecross {
 	}
 
 	void GameStage::OnUpdate() {
+		const auto& app = App::GetApp();
+		auto delta = app->GetElapsedTime();
+		const auto& pad = app->GetInputDevice().GetControlerVec()[0];
+		switch (m_gameState)
+		{
+		case GameState::STAY:
+			if (m_startCountDownTimer.Count()) {
+				m_countDown.lock()->Start();
+				Debug::GetInstance()->Log(L"GameStart！！！！！");
+				ChangeGameState(GameState::PLAYING);
+				break;
+			}
+			Debug::GetInstance()->ClearLog();
+			Debug::GetInstance()->Log(m_startCountDownTimer.GetLeftTime() + 1.0f);
+			break;
+		case GameState::PLAYING:
+			break;
+		case GameState::CLEAR:
+			break;
+		default:
+			break;
+		}
+	}
+
+	void GameStage::ChangeGameState(GameState state) {
+		m_gameState = state;
+	}
+
+	GameStage::GameState GameStage::GetCurrentGameState() {
+		return m_gameState;
 	}
 }
