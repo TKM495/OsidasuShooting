@@ -7,7 +7,6 @@
 #include "Project.h"
 
 namespace basecross {
-
 	void Scene::GetAppTexture()
 	{
 		auto& app = App::GetApp();
@@ -17,6 +16,7 @@ namespace basecross {
 		app->RegisterTexture(L"PushAButton", tpath + L"PushAButton.png");
 
 		app->RegisterTexture(L"Number", tpath + L"Number.png");
+		app->RegisterTexture(L"Gauge", tpath + L"Gauge3.png");
 	}
 
 	//--------------------------------------------------------------------------------------

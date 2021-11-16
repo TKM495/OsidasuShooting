@@ -16,6 +16,8 @@
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\FadeComponent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\LifeSpan.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\MySpriteBaseDraw.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\PCTGaugeSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\PhysicalBehavior.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DebugClass\Debug.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DebugClass\DebugCamera.h" />
@@ -44,6 +46,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\SatoStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\TitleStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\ArmorGauge.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.h" />
@@ -63,6 +66,8 @@
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\FadeComponent.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\LifeSpan.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\MySpriteBaseDraw.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\PCTGaugeSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\PhysicalBehavior.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)DebugClass\Debug.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)DebugClass\DebugCamera.cpp" />
@@ -89,6 +94,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\SatoStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\TitleStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\ArmorGauge.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.cpp" />
@@ -104,5 +110,20 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\TimeCounter.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\Utility.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="$(MSBuildThisFileDirectory)Component\PSPCTGaugeSprite.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)Component\VSPCTGaugeSprite.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Component\INCPCTGaugeSprite.hlsli" />
   </ItemGroup>
 </Project>

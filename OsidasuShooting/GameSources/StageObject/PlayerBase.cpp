@@ -39,6 +39,7 @@ namespace basecross {
 		// ƒ^ƒO‚Ì’Ç‰Á
 		AddTag(L"Player");
 		m_currentArmorPoint = m_defaultArmorPoint;
+		m_currentHoverTime = m_hoverTime;
 		m_initialPosition = GetTransform()->GetPosition();
 	}
 

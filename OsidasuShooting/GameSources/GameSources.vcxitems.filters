@@ -121,6 +121,18 @@
     <Filter Include="StageObject\FallDecision">
       <UniqueIdentifier>{8e0379d1-5859-489c-93a0-2920b8b7c764}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\PCTGaugeSprite">
+      <UniqueIdentifier>{9fe2265b-8b30-4017-9b65-aaf4514ba53f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\PCTGaugeSprite\HLSL">
+      <UniqueIdentifier>{0b0076ae-fbf7-48cb-bd3a-e6a63e31c27c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\ArmorGauge">
+      <UniqueIdentifier>{2eaefa1e-84a6-4cf9-84f1-2ebed523aacd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\MySpriteBaseDraw">
+      <UniqueIdentifier>{0b67201f-57f0-4e02-b985-479d800aa083}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -257,6 +269,15 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\FallDecision.h">
       <Filter>StageObject\FallDecision</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\ArmorGauge.h">
+      <Filter>UI\ArmorGauge</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\PCTGaugeSprite.h">
+      <Filter>Component\PCTGaugeSprite</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\MySpriteBaseDraw.h">
+      <Filter>Component\MySpriteBaseDraw</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
@@ -265,9 +286,6 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Scene.cpp">
       <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\Utility.cpp">
-      <Filter>Utility</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkInterface.cpp">
       <Filter>Effekseer</Filter>
@@ -387,5 +405,30 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\FallDecision.cpp">
       <Filter>StageObject\FallDecision</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\Utility.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\ArmorGauge.cpp">
+      <Filter>UI\ArmorGauge</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\PCTGaugeSprite.cpp">
+      <Filter>Component\PCTGaugeSprite</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\MySpriteBaseDraw.cpp">
+      <Filter>Component\MySpriteBaseDraw</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="$(MSBuildThisFileDirectory)Component\VSPCTGaugeSprite.hlsl">
+      <Filter>Component\PCTGaugeSprite\HLSL</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)Component\PSPCTGaugeSprite.hlsl">
+      <Filter>Component\PCTGaugeSprite\HLSL</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Component\INCPCTGaugeSprite.hlsli">
+      <Filter>Component\PCTGaugeSprite\HLSL</Filter>
+    </None>
   </ItemGroup>
 </Project>

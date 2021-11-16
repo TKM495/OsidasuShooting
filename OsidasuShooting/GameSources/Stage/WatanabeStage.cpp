@@ -45,10 +45,11 @@ namespace basecross {
 
 			builder.Build(GetThis<Stage>(), path);
 
-			AddGameObject<ManualPlayer>(TransformData(Vec3(10.0f, 1.0f, 0.0f)), PlayerNumber::P1);
+			auto player = AddGameObject<ManualPlayer>(TransformData(Vec3(10.0f, 1.0f, 0.0f)), PlayerNumber::P1);
 			AddGameObject<ManualPlayer>(TransformData(Vec3(-10.0f, 1.0f, 0.0f)), PlayerNumber::P2);
 
 			AddGameObject<FallDecision>();
+			AddGameObject<ArmorGauge>(player);
 		}
 		catch (...) {
 			throw;
