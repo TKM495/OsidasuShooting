@@ -23,7 +23,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkEffect.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkEffectResource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkInterface.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)GameBattlePlayersUI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\CountDown.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\ControllerManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.h" />
@@ -44,6 +43,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\SatoStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\TitleStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BattlePlayersUIs.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.h" />
@@ -69,7 +69,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkComponent.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkEffectResource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkInterface.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)GameBattlePlayersUI.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\CountDown.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\ControllerManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.cpp" />
@@ -89,6 +88,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\SatoStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\TitleStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BattlePlayersUIs.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.cpp" />

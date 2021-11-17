@@ -12,11 +12,11 @@ namespace basecross
 		//texture 640 x 128
 		//font 64 x 128
 		float sideSize = 704.0f;
-		float fSidSize = 1024.0f;
+		float fSidSize = 1024.0f; //fullSideSizeÅAëSëÃÇÃâ°ÇÃí∑Ç≥
 		float highSize = -128.0f;
 		float fontSize = 64.0f;
 		float zeroSize = 0.0f;
-		float oneSize = 1.0f;
+		float  oneSize = 1.0f;
 		float quatSize = 0.25f;
 		float helfSize = 0.5f;
 		float tqatSize = 0.75f;
