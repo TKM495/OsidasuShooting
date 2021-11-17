@@ -7,7 +7,6 @@
 #include "Project.h"
 
 namespace basecross {
-
 	void Scene::GetAppTexture()
 	{
 		auto& app = App::GetApp();
@@ -17,6 +16,10 @@ namespace basecross {
 		app->RegisterTexture(L"PushAButton", tpath + L"PushAButton.png");
 
 		app->RegisterTexture(L"Number", tpath + L"Number.png");
+		app->RegisterTexture(L"CircleGauge", tpath + L"CircleGauge.png");
+		app->RegisterTexture(L"BarGauge", tpath + L"BarGauge.png");
+		app->RegisterTexture(L"GaugeColor", tpath + L"GaugeColor.png");
+		app->RegisterTexture(L"Wall", tpath + L"wall.jpg");
 	}
 
 	//--------------------------------------------------------------------------------------
@@ -27,13 +30,6 @@ namespace basecross {
 			//クリアする色を設定
 			Col4 Col(0.0f, 0.0f, 0.0f, 1.0f);
 			SetClearColor(Col);
-
-			//リソースの読み込み
-			auto& app = App::GetApp();
-			auto dir = app->GetDataDirWString();
-			//テクスチャ
-			auto path = dir + L"Textures/";
-			app->RegisterTexture(L"Wall", path + L"wall.jpg");
 
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる

@@ -117,6 +117,24 @@ namespace basecross {
 		void Respawn();
 		// テスト関数
 		void TestFanc();
+
+		/**
+		 * @brief アーマーの(現在値 / 最大値)を取得する
+		 *
+		 * @return (現在値 / 最大値)
+		 */
+		float GetArmorPointRate() {
+			return m_currentArmorPoint / m_defaultArmorPoint;
+		}
+
+		/**
+		 * @brief ホバー可能時間の(現在値 / 最大値)を取得する
+		 *
+		 * @return (現在値 / 最大値)
+		 */
+		float GetHoverTimeRate() {
+			return m_currentHoverTime / m_hoverTime;
+		}
 	private:
 		// 武器用ステート
 #pragma region WeaponState

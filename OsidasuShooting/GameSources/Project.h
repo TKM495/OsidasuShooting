@@ -39,10 +39,14 @@
 #include "UIs/StringSprite2.h"
 #include "UIs/TitleSprite.h"
 #include "UIs/UIHeader.h"
+#include "UIs/ArmorGauge.h"
+#include "UIs/HoverTimeGauge.h"
 // コンポーネント
 #include "Component/FadeComponent.h"
 #include "Component/PhysicalBehavior.h"
 #include "Component/LifeSpan.h"
+#include "Component/MySpriteBaseDraw.h"
+#include "Component/PCTGaugeSprite.h"
 // メニュー
 #include "UIs/Menu/BaseMenu.h"
 // マネージャー
