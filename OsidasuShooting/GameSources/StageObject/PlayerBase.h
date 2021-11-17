@@ -58,6 +58,10 @@ namespace basecross {
 		TimeCounter m_bulletTimer;
 		// アーマー回復開始までの時間
 		TimeCounter m_armorRecoveryTimer;
+		// 爆弾のリロードタイマー
+		TimeCounter m_bombReload;
+		// 爆弾の個数
+		int m_bombCount;
 		// アーマーが回復中か
 		bool m_isRestoreArmor;
 		// ジャンプ＆ホバーステート用の連続押し検出用フラグ
@@ -73,6 +77,8 @@ namespace basecross {
 		void BulletAimAndLaunch();
 		// 爆弾の照準
 		void BombAim();
+		// 爆弾のリロード
+		void BombReload();
 		// ジャンプ
 		void Jump();
 		// ホバー
@@ -94,6 +100,8 @@ namespace basecross {
 		float m_hoverTime;
 		// デフォルトのアーマー値
 		float m_defaultArmorPoint;
+		// デフォルトの爆弾の所持数
+		int m_defaultBombCount;
 		// 入力データ
 		PlayerInputData m_inputData;
 		// 入力の更新
@@ -109,8 +117,8 @@ namespace basecross {
 			m_hoverTime(5.0f), m_currentHoverTime(m_hoverTime),
 			m_defaultArmorPoint(100.0f), m_currentArmorPoint(m_defaultArmorPoint),
 			m_bulletTimer(0.1f, true), m_armorRecoveryTimer(2.0f),
-			m_isRestoreArmor(false), m_isInput(false), m_playerNumber(playerNumber)
-
+			m_isRestoreArmor(false), m_isInput(false), m_playerNumber(playerNumber),
+			m_bombReload(1.0f, true), m_defaultBombCount(5)
 		{
 			m_transformData = transData;
 		}
@@ -149,6 +157,15 @@ namespace basecross {
 		 */
 		float GetHoverTimeRate() {
 			return m_currentHoverTime / m_hoverTime;
+		}
+
+		/**
+		 * @brief 爆弾のリロードの時間の割合を取得する
+		 *
+		 * @return爆弾のリロードの時間の割合
+		 */
+		float GetBombReloadRate() {
+			return m_bombReload.GetTimeRate();
 		}
 	private:
 		// 武器用ステート
