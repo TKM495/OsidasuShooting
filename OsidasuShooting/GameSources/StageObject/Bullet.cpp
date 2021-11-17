@@ -21,9 +21,7 @@ namespace basecross {
 		// 寿命の追加
 		AddComponent<LifeSpan>(m_lifeSpan);
 
-		ObjectSetUp();
-
-		// エフェクトはオブジェクトの位置の影響を受けるためセットアップのあと
+		// エフェクト
 		auto efkComp = AddComponent<EfkComponent>();
 		efkComp->SetEffectResource(L"Bullet");
 		efkComp->SetScale(m_transformData.Scale);

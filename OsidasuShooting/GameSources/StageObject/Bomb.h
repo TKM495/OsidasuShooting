@@ -5,10 +5,10 @@
 
 #pragma once
 #include "stdafx.h"
-#include "StageObject.h"
+#include "AdvancedGameObject.h"
 
 namespace basecross {
-	class Bomb :public StageObject {
+	class Bomb :public AdvancedGameObject {
 		// PredictionLineのインスタンス
 		PredictionLine m_predictionLine;
 		// 開始位置
@@ -34,7 +34,7 @@ namespace basecross {
 			const PredictionLine& predictionLine,
 			const Vec3& startPoint,
 			const Vec3& endPoint)
-			:StageObject(stage), m_predictionLine(predictionLine),
+			:AdvancedGameObject(stage), m_predictionLine(predictionLine),
 			m_delta(0.0f), m_startPoint(startPoint), m_endPoint(endPoint),
 			m_timeRate(2.0f), m_radius(3.0f), m_power(20.0f), m_lifeSpan(5.0f),
 			m_isExploded(false)

@@ -32,6 +32,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Scene.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\AdvancedGameObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Block.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Bomb.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Bullet.h" />
@@ -50,6 +51,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\ArmorGauge.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\HoverTimeGauge.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\PlayerFollowUI.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\PlayerInfo.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BaseUI.h" />
@@ -82,6 +85,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Scene.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\AdvancedGameObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Block.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Bomb.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Bullet.cpp" />
@@ -100,6 +104,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\ArmorGauge.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\HoverTimeGauge.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\PlayerFollowUI.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\PlayerInfo.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BaseUI.cpp" />

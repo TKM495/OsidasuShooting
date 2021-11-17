@@ -1,13 +1,15 @@
 #pragma once
 #include "stdafx.h"
-#include "StageObject/StageObject.h"
+#include "StageObject/AdvancedGameObject.h"
 
 namespace basecross {
-	class LinePoint :public StageObject {
+	class LinePoint :public AdvancedGameObject {
 	public:
 		LinePoint(const shared_ptr<Stage>& stage, const TransformData& transData)
-			:StageObject(stage)
-		{}
+			:AdvancedGameObject(stage)
+		{
+			m_transformData = transData;
+		}
 
 		void OnCreate()override;
 	};

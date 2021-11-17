@@ -26,7 +26,6 @@ namespace basecross {
 		// 当たり判定を追加
 		AddComponent<CollisionSphere>();
 
-		ObjectSetUp();
 		// 武器ステートマシンの構築
 		m_weaponStateMachine.reset(new StateMachine<PlayerBase>(GetThis<PlayerBase>()));
 		// 武器の初期ステートの設定

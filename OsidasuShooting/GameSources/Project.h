@@ -29,7 +29,8 @@
 #include "StageObject/Bomb.h"
 #include "StageObject/PlayerBase.h"
 #include "StageObject/ManualPlayer.h"
-#include "StageObject/StageObject.h"
+#include "StageObject/AdvancedGameObject.h"
+#include "StageObject/AdvancedGameObject.h"
 #include "StageObject/FallDecision.h"
 //UI
 #include "UIs/BaseUI.h"
@@ -42,6 +43,8 @@
 #include "UIs/UIHeader.h"
 #include "UIs/ArmorGauge.h"
 #include "UIs/HoverTimeGauge.h"
+#include "UIs/PlayerInfo.h"
+#include "UIs/PlayerFollowUI.h"
 // コンポーネント
 #include "Component/FadeComponent.h"
 #include "Component/PhysicalBehavior.h"

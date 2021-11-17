@@ -1,6 +1,5 @@
 #pragma once
 #include "stdafx.h"
-#include "StageObject/StageObject.h"
 #include "BaseUI.h"
 
 namespace basecross {

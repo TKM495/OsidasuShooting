@@ -19,8 +19,6 @@ namespace basecross {
 
 		AddComponent<LifeSpan>(m_lifeSpan);
 
-		ObjectSetUp();
-
 		auto efkComp = AddComponent<EfkComponent>();
 		efkComp->SetEffectResource(L"Explosion");
 

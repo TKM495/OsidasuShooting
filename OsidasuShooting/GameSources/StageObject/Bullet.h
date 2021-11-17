@@ -5,11 +5,11 @@
 
 #pragma once
 #include "stdafx.h"
-#include "StageObject.h"
+#include "AdvancedGameObject.h"
 #include "PlayerBase.h"
 
 namespace basecross {
-	class Bullet : public StageObject
+	class Bullet : public AdvancedGameObject
 	{
 		// ’e‚ÌˆÚ“®‘¬“x
 		float m_speed;
@@ -25,7 +25,7 @@ namespace basecross {
 		Bullet(const shared_ptr<Stage>& stage,
 			const shared_ptr<PlayerBase>& owner,
 			const Vec3& position, const Vec3& direction)
-			:StageObject(stage), m_owner(owner),
+			:AdvancedGameObject(stage), m_owner(owner),
 			m_direction(direction),
 			m_speed(25.0f), m_lifeSpan(5.0f),
 			m_knockBackAmount(5.0f)

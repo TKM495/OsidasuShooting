@@ -5,10 +5,11 @@
 
 #pragma once
 #include "stdafx.h"
+#include "BaseUI.h"
 
 namespace basecross
 {
-	class BattlePlayersUIs : public GameObject {
+	class BattlePlayersUIs : public BaseUI {
 		//bool m_trace;
 		//Vec2 m_startScale;
 		//Vec2 m_startPos;
@@ -21,10 +22,10 @@ namespace basecross
 		vector<VertexPositionColorTexture> vertices;
 
 	public:
-		BattlePlayersUIs(const shared_ptr<Stage>& stage, 
+		BattlePlayersUIs(const shared_ptr<Stage>& stage,
 			const wstring& TextureKey, int iconNum, Vec3 Pos
-			/*bool Trace, const Vec2& StartScale, const Vec2& StartPos*/) :
-			GameObject(stage),
+		/*bool Trace, const Vec2& StartScale, const Vec2& StartPos*/) :
+			BaseUI(stage, TransformData()),
 			m_textureKey(TextureKey),
 			//m_trace(Trace),
 			//m_startScale(StartScale),
