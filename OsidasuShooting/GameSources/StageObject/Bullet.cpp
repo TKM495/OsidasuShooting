@@ -53,8 +53,14 @@ namespace basecross {
 
 	void Bullet::OnCollisionEnter(shared_ptr<GameObject>& other)
 	{
-		if (other->FindTag(L"Player") || other->FindTag(L"Bullet"))
+		if (other == m_owner.lock() || other->FindTag(L"Bullet"))
 			return;
+
+		auto ptr = dynamic_pointer_cast<PlayerBase>(other);
+		if (ptr)
+			// ノックバック
+			ptr->KnockBack(m_direction, m_knockBackAmount);
+
 		GetStage()->RemoveGameObject<Bullet>(GetThis<Bullet>());
 	}
 }

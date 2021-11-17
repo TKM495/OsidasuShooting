@@ -11,18 +11,16 @@ namespace basecross {
 	float GroundingDecision::m_threshold = 0.1f;
 
 	GroundingDecision::GroundingDecision()
-		:m_radius(0.0f), m_isInit(false)
+		:m_height(0.0f), m_isInit(false)
 	{}
 
-	GroundingDecision::GroundingDecision(float radius)
-		: m_radius(radius), m_isInit(true)
+	GroundingDecision::GroundingDecision(float height)
+		: m_height(height), m_isInit(true)
 	{}
 
 	GroundingDecision::GroundingDecision(const Vec3& scale)
-		: m_isInit(true)
-	{
-		m_radius = scale.y / 2.0f;
-	}
+		: m_height(scale.y), m_isInit(true)
+	{}
 
 	bool GroundingDecision::Calculate(const Vec3& pos) {
 		if (!m_isInit) {
@@ -38,10 +36,20 @@ namespace basecross {
 			// CollisionObbコンポーネントがある場合
 			auto ColObb = obj->GetComponent<CollisionObb>(false);
 			if (ColObb) {
+				bool hasTag = false;
+				for (auto tag : m_tagDoNotDecision) {
+					if (obj->FindTag(tag)) {
+						hasTag = true;
+						break;
+					}
+				}
+				if (hasTag)
+					break;
+
 				auto Obb = ColObb->GetObb();
 				// OBBと線分の衝突判定
 				if (HitTest::SEGMENT_OBB(pos,
-					pos + Vec3(0.0f, -(m_radius + m_threshold), 0.0f), Obb))
+					pos + Vec3(0.0f, -((m_height / 2.0f) + m_threshold), 0.0f), Obb))
 				{
 					return true;
 				}

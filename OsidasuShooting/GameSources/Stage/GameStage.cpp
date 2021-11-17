@@ -8,8 +8,8 @@
 
 namespace basecross {
 	void GameStage::CreateViewLight() {
-		const Vec3 eye(0.0f, 17.0f, -10.0f);
-		const Vec3 at(0.0f);
+		const Vec3 eye(0.0f, 30.0f, -25.0f);
+		const Vec3 at(0.0f, 0.0f, -2.0f);
 		auto PtrView = CreateView<SingleView>();
 		//ビューのカメラの設定
 		auto PtrCamera = ObjectFactory::Create<Camera>();
@@ -36,8 +36,19 @@ namespace basecross {
 			AddGameObject<Debug>();
 			Debug::GetInstance()->Log(L"CurrentStage : GameStage");
 
-			AddGameObject<ManualPlayer>(TransformData());
-			AddGameObject<Block>(TransformData(Vec3(0.0f, -1.5f, 0.0f), Vec3(10.0f, 1.0f, 10.0f)));
+			GameObjecttCSVBuilder builder;
+			builder.Register<Block>(L"Block");
+			auto dir = App::GetApp()->GetDataDirWString();
+			auto path = dir + L"Csv/Stage";
+			path += L".csv";
+
+			builder.Build(GetThis<Stage>(), path);
+
+			AddGameObject<ManualPlayer>(TransformData(Vec3(10.0f, 1.0f, 0.0f)), PlayerNumber::P1);
+			AddGameObject<ManualPlayer>(TransformData(Vec3(-10.0f, 1.0f, 0.0f)), PlayerNumber::P2);
+			AddGameObject<FallDecision>();
+
+			m_countDown = AddGameObject<CountDown>();
 		}
 		catch (...) {
 			throw;
@@ -45,5 +56,35 @@ namespace basecross {
 	}
 
 	void GameStage::OnUpdate() {
+		const auto& app = App::GetApp();
+		auto delta = app->GetElapsedTime();
+		const auto& pad = app->GetInputDevice().GetControlerVec()[0];
+		switch (m_gameState)
+		{
+		case GameState::STAY:
+			if (m_startCountDownTimer.Count()) {
+				m_countDown.lock()->Start();
+				Debug::GetInstance()->Log(L"GameStart！！！！！");
+				ChangeGameState(GameState::PLAYING);
+				break;
+			}
+			Debug::GetInstance()->ClearLog();
+			Debug::GetInstance()->Log(m_startCountDownTimer.GetLeftTime() + 1.0f);
+			break;
+		case GameState::PLAYING:
+			break;
+		case GameState::CLEAR:
+			break;
+		default:
+			break;
+		}
+	}
+
+	void GameStage::ChangeGameState(GameState state) {
+		m_gameState = state;
+	}
+
+	GameStage::GameState GameStage::GetCurrentGameState() {
+		return m_gameState;
 	}
 }

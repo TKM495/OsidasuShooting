@@ -92,6 +92,11 @@ namespace basecross {
 		void Log(const Vec3& value);
 
 		/**
+		 * @brief ログをクリアする
+		 */
+		void ClearLog();
+
+		/**
 		 * @brief Debugのインスタンスを取得
 		 *
 		 * @return shared_ptr<Debug>
