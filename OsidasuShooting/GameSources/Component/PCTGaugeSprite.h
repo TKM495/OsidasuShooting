@@ -26,6 +26,7 @@ namespace basecross {
 		Col4 m_gaugeColor;
 		float m_rate;
 		float m_threshold;
+		wstring m_gaugeColorTexKey;
 	public:
 		explicit PCTGaugeSprite(const shared_ptr<GameObject>& gameObjectPtr);
 		explicit PCTGaugeSprite(const shared_ptr<GameObject>& gameObjectPtr,
@@ -43,6 +44,10 @@ namespace basecross {
 		}
 		void SetGaugeColor(const Col4& color) {
 			m_gaugeColor = color;
+		}
+
+		void SetGaugeColorTexture(const wstring& key) {
+			m_gaugeColorTexKey = key;
 		}
 	private:
 		/**

@@ -2,10 +2,9 @@
 #include "Project.h"
 
 namespace basecross {
-	void ArmorGauge::OnCreate() {
+	void HoverTimeGauge::OnCreate() {
 		Vec2 origin(0.0f);
 		auto size = Utility::GetTextureSize(m_textureKey);
-		//size *= 0.5f;
 		// テクスチャ座標でUVを定義
 		vector<Vec2> uvs, uv = {
 			origin,
@@ -34,8 +33,8 @@ namespace basecross {
 		ptrDraw->SetTextureResource(m_textureKey);
 		SetAlphaActive(true);
 	}
-	void ArmorGauge::OnUpdate() {
+	void HoverTimeGauge::OnUpdate() {
 		auto ptrDraw = GetComponent<PCTGaugeSprite>();
-		ptrDraw->SetRate(m_player->GetArmorPointRate());
+		ptrDraw->SetRate(m_player->GetHoverTimeRate());
 	}
 }

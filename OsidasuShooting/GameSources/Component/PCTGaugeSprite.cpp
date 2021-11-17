@@ -7,7 +7,7 @@ namespace basecross {
 		IMPLEMENT_DX11_PIXEL_SHADER(PSPCTGaugeSprite, App::GetApp()->GetShadersPath() + L"PSPCTGaugeSprite.cso")
 
 		PCTGaugeSprite::PCTGaugeSprite(const shared_ptr<GameObject>& gameObjectPtr)
-		:MySpriteBaseDraw(gameObjectPtr), m_rate(0.0f), m_threshold(0.05f)
+		:MySpriteBaseDraw(gameObjectPtr), m_rate(0.0f), m_threshold(0.01f)
 	{
 		// パイプラインステートをデフォルトの2D
 		SetBlendState(BlendState::Opaque);
@@ -18,7 +18,7 @@ namespace basecross {
 
 	PCTGaugeSprite::PCTGaugeSprite(const shared_ptr<GameObject>& gameObjectPtr,
 		vector<VertexPositionColorTexture>& vertices, vector<uint16_t>& indices)
-		:MySpriteBaseDraw(gameObjectPtr), m_rate(0.0f), m_threshold(0.05f)
+		:MySpriteBaseDraw(gameObjectPtr), m_rate(0.0f), m_threshold(0.01f)
 	{
 		// パイプラインステートをデフォルトの2D
 		SetBlendState(BlendState::Opaque);
@@ -118,6 +118,7 @@ namespace basecross {
 		//テクスチャとサンプラー
 		if (shTex) {
 			pD3D11DeviceContext->PSSetShaderResources(0, 1, shTex->GetShaderResourceView().GetAddressOf());
+			pD3D11DeviceContext->PSSetShaderResources(1, 1, App::GetApp()->GetResource<TextureResource>(L"GaugeColor")->GetShaderResourceView().GetAddressOf());
 			//サンプラーを設定
 			RenderState->SetSamplerState(pD3D11DeviceContext, GetSamplerState(), 0);
 		}

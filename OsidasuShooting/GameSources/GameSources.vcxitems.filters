@@ -133,6 +133,9 @@
     <Filter Include="Component\MySpriteBaseDraw">
       <UniqueIdentifier>{0b67201f-57f0-4e02-b985-479d800aa083}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI\HoverTimeGauge">
+      <UniqueIdentifier>{665f2812-505c-483e-afee-d5a297386c0d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -278,6 +281,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\MySpriteBaseDraw.h">
       <Filter>Component\MySpriteBaseDraw</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\HoverTimeGauge.h">
+      <Filter>UI\HoverTimeGauge</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
@@ -416,6 +422,9 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\MySpriteBaseDraw.cpp">
       <Filter>Component\MySpriteBaseDraw</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\HoverTimeGauge.cpp">
+      <Filter>UI\HoverTimeGauge</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

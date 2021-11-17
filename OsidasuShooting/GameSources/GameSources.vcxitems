@@ -47,6 +47,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\TitleStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\ArmorGauge.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\HoverTimeGauge.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.h" />
@@ -95,6 +96,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\TitleStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\ArmorGauge.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\HoverTimeGauge.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.cpp" />

@@ -2,8 +2,15 @@
 #include "Project.h"
 
 namespace basecross {
-	void BaseUI::OnCreate() {
+	void BaseUI::OnPreCreate() {
+		GameObject::OnPreCreate();
+		ApplyTransform();
 	}
-	void BaseUI::OnUpdate() {
+
+	void BaseUI::ApplyTransform() {
+		auto transComp = GetComponent<Transform>();
+		transComp->SetPosition(m_localTransData.Position);
+		transComp->SetScale(m_localTransData.Scale);
+		transComp->SetRotation(m_localTransData.Rotation);
 	}
 }

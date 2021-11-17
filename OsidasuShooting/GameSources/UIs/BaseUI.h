@@ -18,8 +18,25 @@ namespace basecross {
 			m_align(align),
 			m_anchor(anchor)
 		{}
+		BaseUI(const shared_ptr<Stage>& stage,
+			const TransformData& transData)
+			:GameObject(stage),
+			m_localTransData(transData),
+			m_align(Align()),
+			m_anchor(Anchor())
+		{}
 
-		virtual void OnCreate()override;
-		virtual void OnUpdate()override;
+		virtual void OnPreCreate()override;
+
+		void SetTransformData(const TransformData& data) {
+			m_localTransData = data;
+			ApplyTransform();
+		}
+
+		TransformData& GetTransformData() {
+			return m_localTransData;
+		}
+
+		void ApplyTransform();
 	};
 }

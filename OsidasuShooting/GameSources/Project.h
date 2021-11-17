@@ -40,6 +40,7 @@
 #include "UIs/TitleSprite.h"
 #include "UIs/UIHeader.h"
 #include "UIs/ArmorGauge.h"
+#include "UIs/HoverTimeGauge.h"
 // コンポーネント
 #include "Component/FadeComponent.h"
 #include "Component/PhysicalBehavior.h"

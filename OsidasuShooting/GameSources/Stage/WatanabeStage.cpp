@@ -49,7 +49,8 @@ namespace basecross {
 			AddGameObject<ManualPlayer>(TransformData(Vec3(-10.0f, 1.0f, 0.0f)), PlayerNumber::P2);
 
 			AddGameObject<FallDecision>();
-			AddGameObject<ArmorGauge>(player);
+			AddGameObject<ArmorGauge>(player, TransformData(Vec3(0.0f, -200.0f, 0.0f), Vec3(0.2f)));
+			AddGameObject<HoverTimeGauge>(player, TransformData(Vec3(0.0f, -300.0f, 0.0f), Vec3(0.2f)));
 		}
 		catch (...) {
 			throw;
