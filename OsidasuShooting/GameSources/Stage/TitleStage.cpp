@@ -22,11 +22,15 @@ namespace basecross {
 		PtrMultiLight->SetDefaultLighting();
 	}
 	
-	void TitleStage::AddTitleSprite() {
-		AddGameObject<TitleSprite>(L"Title");
+	void TitleStage::AddTitleSprite()
+	{
+		AddGameObject<TitleSprite>(L"Title"/*, false,
+			Vec2(256.0f, 50.0f), Vec2(0.0f, 50.0f)*/);
 	}
-	void TitleStage::AddPushAButtonSprite() {
-		AddGameObject<PushAButtonSprite>(L"PushAButton");
+	void TitleStage::AddPushAButtonSprite()
+	{
+		AddGameObject<PushAButtonSprite>(L"PushAButton"/*, false,
+			Vec2(256.0f, 50.0f), Vec2(0.0f, 50.0f)*/);
 	}
 
 

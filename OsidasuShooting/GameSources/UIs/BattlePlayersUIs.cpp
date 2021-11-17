@@ -85,8 +85,10 @@ namespace basecross
 		vertices[3].textureCoordinate = Vec2((setNumber + oneSize) * iconSize / fSidSize, oneSize);
 
 		auto ptrTrans = GetComponent<Transform>();
-		ptrTrans->SetPosition(Vec3(0.0f, 0.0f, 0.0f));
+		auto setSenter = iconSize * 0.35f;
 		ptrTrans->SetScale(Vec3(m_objIconSize));
+		ptrTrans->SetPosition(Vec3(-setSenter, setSenter,0));
+		//ptrTrans->SetPosition(Vec3(0, 0,0));
 
 		auto drawComp = GetComponent<PCTSpriteDraw>();
 		drawComp->UpdateVertices(vertices);

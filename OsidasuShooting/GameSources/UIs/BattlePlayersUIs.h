@@ -15,13 +15,14 @@ namespace basecross
 		wstring m_textureKey;
 		float m_objIconSize;
 		int m_iconNumber;
+		Vec3 m_position;
 
 		int m_number;
 		vector<VertexPositionColorTexture> vertices;
 
 	public:
 		BattlePlayersUIs(const shared_ptr<Stage>& stage, 
-			const wstring& TextureKey, int iconNum
+			const wstring& TextureKey, int iconNum, Vec3 Pos
 			/*bool Trace, const Vec2& StartScale, const Vec2& StartPos*/) :
 			GameObject(stage),
 			m_textureKey(TextureKey),
@@ -29,6 +30,7 @@ namespace basecross
 			//m_startScale(StartScale),
 			//m_startPos(StartPos),
 			m_iconNumber(iconNum),
+			m_position(Pos),
 			m_number(),
 			m_objIconSize()
 
