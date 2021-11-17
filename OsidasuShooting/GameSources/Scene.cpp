@@ -17,6 +17,7 @@ namespace basecross {
 		app->RegisterTexture(L"PushAButton", tpath + L"PushAButton.png");
 
 		app->RegisterTexture(L"Number", tpath + L"Number.png");
+		app->RegisterTexture(L"BPsUIs", tpath + L"BattlePlayersUI256x256.png");
 	}
 
 	//--------------------------------------------------------------------------------------

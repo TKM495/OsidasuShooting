@@ -20,6 +20,7 @@ namespace basecross {
 		//void SetPlayer();
 		virtual void OnCreate() override;
 		virtual void OnUpdate() override;
+
 		void JMDSeitchSystem()
 		{
 
@@ -47,6 +48,7 @@ namespace basecross {
 
 		shared_ptr<CountDown> m_timer;
 
+		void BattlePlayerUISet(int value);
 
 	};
 }
