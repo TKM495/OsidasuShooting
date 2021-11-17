@@ -15,9 +15,9 @@ namespace basecross {
 		P4
 	};
 
-	class PlayerManager {
-		vector<PlayerBase> m_player;
-	public:
-		void AddPlayer(const shared_ptr<PlayerBase>& playerPtr);
-	};
+	//class PlayerManager {
+	//	vector<PlayerBase> m_player;
+	//public:
+	//	void AddPlayer(const shared_ptr<PlayerBase>& playerPtr);
+	//};
 }

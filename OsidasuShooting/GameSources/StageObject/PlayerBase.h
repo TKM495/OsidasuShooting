@@ -5,7 +5,8 @@
 
 #pragma once
 #include "stdafx.h"
-#include "StageObject.h"
+#include "Manager/PlayerManager.h"
+#include "AdvancedGameObject.h"
 #include "Utility/PredictionLine.h"
 #include "Utility/TimeCounter.h"
 
@@ -38,7 +39,7 @@ namespace basecross {
 		}
 	};
 
-	class PlayerBase :public StageObject {
+	class PlayerBase :public AdvancedGameObject {
 	private:
 		Vec3 m_initialPosition;
 		// 武器用ステートマシーン
@@ -62,6 +63,9 @@ namespace basecross {
 		// ジャンプ＆ホバーステート用の連続押し検出用フラグ
 		// (Stateはシングルトンであり状態が共有させてしまうため)
 		bool m_isInput;
+
+		// プレイヤーナンバー
+		PlayerNumber m_playerNumber;
 
 		// 移動
 		void Move();
@@ -96,14 +100,16 @@ namespace basecross {
 		virtual void InputUpdate() = 0;
 
 	public:
-		PlayerBase(const shared_ptr<Stage>& stage, const TransformData& transData)
-			:StageObject(stage), m_initialPosition(0.0f),
+		PlayerBase(const shared_ptr<Stage>& stage,
+			const TransformData& transData,
+			PlayerNumber playerNumber)
+			:AdvancedGameObject(stage), m_initialPosition(0.0f),
 			m_moveSpeed(20.0f), m_predictionLine(stage, 10, 2.0f),
 			m_bombPoint(Vec3(0.0f)), m_jumpVerocity(Vec3(0.0f, 10.0f, 0.0f)),
 			m_hoverTime(5.0f), m_currentHoverTime(m_hoverTime),
 			m_defaultArmorPoint(100.0f), m_currentArmorPoint(m_defaultArmorPoint),
 			m_bulletTimer(0.1f, true), m_armorRecoveryTimer(2.0f),
-			m_isRestoreArmor(false), m_isInput(false)
+			m_isRestoreArmor(false), m_isInput(false), m_playerNumber(playerNumber)
 
 		{
 			m_transformData = transData;
@@ -117,6 +123,15 @@ namespace basecross {
 		void Respawn();
 		// テスト関数
 		void TestFanc();
+
+		/**
+		 * @brief プレイヤーの番号を取得する
+		 *
+		 * @return プレイヤーナンバー
+		 */
+		PlayerNumber GetPlayerNumber() {
+			return m_playerNumber;
+		}
 
 		/**
 		 * @brief アーマーの(現在値 / 最大値)を取得する

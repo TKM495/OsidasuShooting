@@ -27,7 +27,7 @@ namespace basecross {
 		ManualPlayer(const shared_ptr<Stage>& stage,
 			const TransformData& transformData,
 			PlayerNumber playerNumber = PlayerNumber::P1)
-			:PlayerBase(stage, transformData),
+			:PlayerBase(stage, transformData, playerNumber),
 			m_controllerManager(playerNumber)
 		{}
 	};

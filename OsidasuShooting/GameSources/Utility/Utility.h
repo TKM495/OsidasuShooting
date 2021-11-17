@@ -117,6 +117,8 @@ namespace basecross {
 		 * @return ’·‚³‚ªlength‚ÌƒxƒNƒgƒ‹
 		 */
 		Vec3 ChangeVectorLength(const Vec3& vector, float length);
+
+		Vec3 ConvertWorldToScreen(const shared_ptr<ViewBase>& view, const Vec3& position);
 	}
 }
 //end basecross
