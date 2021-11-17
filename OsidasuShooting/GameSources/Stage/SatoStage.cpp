@@ -30,6 +30,13 @@ namespace basecross {
 
 	//}
 
+	void SatoStage::BattlePlayerUISet(int value) {
+		auto setNum = 0;
+		//auto playerCirecle = AddGameObject<BattlePlayersUIs>(L"BPsUIs",0);
+		auto playerNumber = AddGameObject<BattlePlayersUIs>(L"BPsUIs",value,Vec3(0));
+		
+	}
+
 
 	void SatoStage::OnCreate() {
 		try {
@@ -53,7 +60,9 @@ namespace basecross {
 			SetSharedGameObject(L"CountDown", m_timer);
 
 			//AddGameObject<Number>(10);
-			
+
+			BattlePlayerUISet(6);
+
 			
 
 		}

@@ -118,6 +118,8 @@
     <Filter Include="Manager\PlayerManager">
       <UniqueIdentifier>{c8422ba4-b059-4683-9370-1346af62f6c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI\BattlePlayersUIs">
+      <UniqueIdentifier>{6f1e1945-4d31-464d-a159-51165c5bfa8c}</UniqueIdentifier>
     <Filter Include="StageObject\FallDecision">
       <UniqueIdentifier>{8e0379d1-5859-489c-93a0-2920b8b7c764}</UniqueIdentifier>
     </Filter>
@@ -244,9 +246,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\CountDown.h">
       <Filter>JonyMd</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.h">
-      <Filter>UI</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Bomb.h">
       <Filter>StageObject\Bomb</Filter>
     </ClInclude>
@@ -269,6 +268,11 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.h">
       <Filter>Manager\PlayerManager</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BattlePlayersUIs.h">
+      <Filter>UI\BattlePlayersUIs</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.h">
+      <Filter>UI</Filter>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\FallDecision.h">
       <Filter>StageObject\FallDecision</Filter>
     </ClInclude>
@@ -344,9 +348,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.cpp">
       <Filter>Camera</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.cpp">
-      <Filter>UI\TitleSprite</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.cpp">
       <Filter>Setting</Filter>
     </ClCompile>
@@ -383,9 +384,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\CountDown.cpp">
       <Filter>JonyMd</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.cpp">
-      <Filter>UI</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Bomb.cpp">
       <Filter>StageObject\Bomb</Filter>
     </ClCompile>
@@ -407,6 +405,15 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.cpp">
       <Filter>Manager\PlayerManager</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BattlePlayersUIs.cpp">
+      <Filter>UI\BattlePlayersUIs</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.cpp">
+      <Filter>UI\TitleSprite</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\FallDecision.cpp">
       <Filter>StageObject\FallDecision</Filter>

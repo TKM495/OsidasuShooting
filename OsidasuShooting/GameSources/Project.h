@@ -38,6 +38,7 @@
 #include "UIs/SimpleSprite.h"
 #include "UIs/StringSprite2.h"
 #include "UIs/TitleSprite.h"
+#include "UIs/BattlePlayersUIs.h"
 #include "UIs/UIHeader.h"
 #include "UIs/ArmorGauge.h"
 #include "UIs/HoverTimeGauge.h"

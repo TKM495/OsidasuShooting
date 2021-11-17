@@ -12,11 +12,11 @@ namespace basecross
 		//texture 640 x 128
 		//font 64 x 128
 		float sideSize = 704.0f;
-		float fSidSize = 1024.0f;
-		float higthSize = -128.0f;
+		float fSidSize = 1024.0f; //fullSideSize、全体の横の長さ
+		float highSize = -128.0f;
 		float fontSize = 64.0f;
 		float zeroSize = 0.0f;
-		float oneSize = 1.0f;
+		float  oneSize = 1.0f;
 		float quatSize = 0.25f;
 		float helfSize = 0.5f;
 		float tqatSize = 0.75f;
@@ -26,10 +26,10 @@ namespace basecross
 
 		// ポリゴンの頂点データ
 		vertices = {
-			{VertexPositionColorTexture(Vec3(zeroSize,  zeroSize, zeroSize),color,Vec2((setNumber + zeroSize) * fontSize / fSidSize, zeroSize))},
-			{VertexPositionColorTexture(Vec3(fontSize,  zeroSize, zeroSize),color,Vec2((setNumber +  oneSize) * fontSize / fSidSize, zeroSize))},
-			{VertexPositionColorTexture(Vec3(zeroSize, higthSize, zeroSize),color,Vec2((setNumber + zeroSize) * fontSize / fSidSize,  oneSize))},
-			{VertexPositionColorTexture(Vec3(fontSize, higthSize, zeroSize),color,Vec2((setNumber +  oneSize) * fontSize / fSidSize,  oneSize))}
+			{VertexPositionColorTexture(Vec3(zeroSize, zeroSize, zeroSize),color,Vec2((setNumber + zeroSize) * fontSize / fSidSize, zeroSize))},
+			{VertexPositionColorTexture(Vec3(fontSize, zeroSize, zeroSize),color,Vec2((setNumber +  oneSize) * fontSize / fSidSize, zeroSize))},
+			{VertexPositionColorTexture(Vec3(zeroSize, highSize, zeroSize),color,Vec2((setNumber + zeroSize) * fontSize / fSidSize,  oneSize))},
+			{VertexPositionColorTexture(Vec3(fontSize, highSize, zeroSize),color,Vec2((setNumber +  oneSize) * fontSize / fSidSize,  oneSize))}
 		};
 
 		// 頂点インデックス
@@ -47,7 +47,7 @@ namespace basecross
 
 		// 位置、拡大縮小 表示用
 		auto ptrTrans = GetComponent<Transform>();
-		Vec3 pos(-sideSize * helfSize * tqatSize, -higthSize * tqatSize * tqatSize, zeroSize);
+		Vec3 pos(-sideSize * helfSize * tqatSize, -highSize * tqatSize * tqatSize, zeroSize);
 		Vec3 scl(oneSize, oneSize, oneSize);
 		ptrTrans->SetPosition(pos);
 		ptrTrans->SetScale(scl);
