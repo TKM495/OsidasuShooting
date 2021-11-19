@@ -75,6 +75,16 @@ namespace basecross {
 		void Move();
 		// 弾の照準と発射
 		void BulletAimAndLaunch();
+		// 弾の照準補正
+		Vec3 BulletAimCorrection(const Vec3& launchDirection);
+		/**
+		 * @brief 視野範囲内にpositionがあるかどうか
+		 *
+		 * @param direction 照準方向
+		 * @param position 位置
+		 * @return trueなら存在する
+		 */
+		bool InViewRange(const Vec3& aimDirection, const Vec3& position);
 		// 爆弾の照準
 		void BombAim();
 		// 爆弾のリロード
@@ -102,6 +112,8 @@ namespace basecross {
 		float m_defaultArmorPoint;
 		// デフォルトの爆弾の所持数
 		int m_defaultBombCount;
+		// 補正する角度（弾の照準）
+		float m_correctAngle;
 		// 入力データ
 		PlayerInputData m_inputData;
 		// 入力の更新
@@ -118,7 +130,7 @@ namespace basecross {
 			m_defaultArmorPoint(100.0f), m_currentArmorPoint(m_defaultArmorPoint),
 			m_bulletTimer(0.1f, true), m_armorRecoveryTimer(2.0f),
 			m_isRestoreArmor(false), m_isInput(false), m_playerNumber(playerNumber),
-			m_bombReload(1.0f), m_defaultBombCount(5)
+			m_bombReload(1.0f), m_defaultBombCount(5), m_correctAngle(20.0f)
 		{
 			m_transformData = transData;
 		}

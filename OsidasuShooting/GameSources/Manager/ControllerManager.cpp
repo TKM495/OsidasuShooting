@@ -13,7 +13,21 @@ namespace basecross {
 
 	CONTROLER_STATE ControllerManager::GetControler() {
 		const auto& cntlPadVec = App::GetApp()->GetInputDevice().GetControlerVec();
-		return cntlPadVec[(UINT)m_playerNumber];
+		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
+		auto gameStage = dynamic_pointer_cast<GameStage>(stage);
+		CONTROLER_STATE cntlPad = cntlPadVec[(UINT)m_playerNumber];
+		if (gameStage) {
+			switch (gameStage->GetCurrentGameState())
+			{
+			case GameStage::GameState::PLAYING:
+				break;
+			default:
+				// ‹­§“I‚É•ÏX
+				cntlPad.bConnected = false;
+				break;
+			}
+		}
+		return cntlPad;
 	}
 
 	Vec3 ControllerManager::GetLeftStickVec() {
