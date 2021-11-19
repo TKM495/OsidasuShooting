@@ -43,6 +43,8 @@
 #include "UIs/UIHeader.h"
 #include "UIs/ArmorGauge.h"
 #include "UIs/HoverTimeGauge.h"
+#include "UIs/BombReloadTimeGauge.h"
+#include "UIs/BombRemainingCount.h"
 #include "UIs/PlayerInfo.h"
 #include "UIs/PlayerFollowUI.h"
 // コンポーネント

@@ -39,6 +39,7 @@ namespace basecross {
 		AddTag(L"Player");
 		m_currentArmorPoint = m_defaultArmorPoint;
 		m_currentHoverTime = m_hoverTime;
+		m_bombCount = m_defaultBombCount;
 		m_initialPosition = GetTransform()->GetPosition();
 	}
 
@@ -49,6 +50,7 @@ namespace basecross {
 		Move();
 		// テストコード
 		TestFanc();
+		BombReload();
 		// 各種ステートマシンの更新
 		m_weaponStateMachine->Update();
 		m_jumpAndHoverStateMachine->Update();
@@ -106,6 +108,18 @@ namespace basecross {
 		m_predictionLine.Update(GetTransform()->GetPosition(), m_bombPoint, PredictionLine::Type::Bomb);
 	}
 
+	void PlayerBase::BombReload() {
+		// 現在の爆弾の数が最大数以上の場合は何もしない
+		if (m_bombCount < m_defaultBombCount) {
+			// 一定の時間が経過したら
+			if (m_bombReload.Count()) {
+				// 残弾を増やし、タイマーをリセット
+				m_bombCount++;
+				m_bombReload.Reset();
+			}
+		}
+	}
+
 	void PlayerBase::BombLaunch() {
 		GetStage()->AddGameObject<Bomb>(
 			m_predictionLine, GetTransform()->GetPosition(), m_bombPoint);
@@ -128,13 +142,11 @@ namespace basecross {
 	void PlayerBase::KnockBack(const Vec3& knockBackDirection, float knockBackAmount) {
 		float knockBackCorrection;
 		// アーマーが回復中でない　かつ　アーマーが0より大きい
-		if (m_currentArmorPoint > 0 && !m_isRestoreArmor)
-		{
+		if (m_currentArmorPoint > 0 && !m_isRestoreArmor) {
 			knockBackCorrection = 1;
 			m_currentArmorPoint -= 5;
 		}
-		else
-		{
+		else {
 			knockBackCorrection = 5.0f;
 			m_isRestoreArmor = true;
 		}
@@ -151,6 +163,7 @@ namespace basecross {
 		// アーマーを0にする
 		if (keyState.m_bPressedKeyTbl['0']) {
 			m_currentArmorPoint = 0.0f;
+			m_isRestoreArmor = true;
 			Debug::GetInstance()->Log(L"Test:Armor0");
 		}
 	}
@@ -193,8 +206,13 @@ namespace basecross {
 		}
 	}
 	void PlayerBase::PlayerBombModeState::Exit(const shared_ptr<PlayerBase>& Obj) {
-		// 弾モードへ遷移時に爆弾を発射
-		Obj->BombLaunch();
+		// 爆弾の残弾がある場合
+		if (Obj->m_bombCount > 0) {
+			// 弾モードへ遷移時に爆弾を発射
+			Obj->BombLaunch();
+			// 残弾を減らす
+			Obj->m_bombCount--;
+		}
 	}
 #pragma endregion
 

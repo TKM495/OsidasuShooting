@@ -145,6 +145,12 @@
     <Filter Include="UI\PlayerFollowUI">
       <UniqueIdentifier>{ff46d07b-582d-4552-885c-3c2184cc819f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI\BombReloadTimeGauge">
+      <UniqueIdentifier>{9d49bee0-bae4-4e17-8274-41ab8db1e287}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\BombRemainingCount">
+      <UniqueIdentifier>{2b096544-2c75-4928-9400-b31877458ea0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -305,6 +311,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\PlayerFollowUI.h">
       <Filter>UI\PlayerFollowUI</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BombReloadTimeGauge.h">
+      <Filter>UI\BombReloadTimeGauge</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BombRemainingCount.h">
+      <Filter>UI\BombRemainingCount</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
@@ -458,6 +470,12 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\PlayerFollowUI.cpp">
       <Filter>UI\PlayerFollowUI</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BombReloadTimeGauge.cpp">
+      <Filter>UI\BombReloadTimeGauge</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BombRemainingCount.cpp">
+      <Filter>UI\BombRemainingCount</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
