@@ -87,21 +87,69 @@ namespace basecross {
 	}
 
 	void PlayerBase::SpecialSkill() {
-		GetStage()->AddGameObject<SpecialCamera>();
+		//GetStage()->AddGameObject<SpecialCamera>();
 	}
 
 	void PlayerBase::BulletAimAndLaunch() {
 		auto userPosition = GetTransform()->GetPosition();
-		Ray ray(userPosition, m_inputData.BulletAim.normalize());
+		auto bulletAim = BulletAimCorrection(m_inputData.BulletAim.normalize());
+
+		Ray ray(userPosition, bulletAim);
 		// 予測線はStartとEndの2点の情報が必要
 		m_predictionLine.Update(ray.Origin, ray.GetPoint(3.0f), PredictionLine::Type::Bullet);
 
 		// 弾の発射
-		if (m_inputData.BulletAim != Vec3(0.0f) && m_bulletTimer.Count()) {
+		if (bulletAim != Vec3(0.0f) && m_bulletTimer.Count()) {
 			m_bulletTimer.Reset();
 			GetStage()->AddGameObject<Bullet>(GetThis<PlayerBase>(), ray);
 		}
 	}
+
+	Vec3 PlayerBase::BulletAimCorrection(const Vec3& launchDirection) {
+		vector<Vec3> positions;
+
+		// いずれはPlayerManagerから取得するようにしたい
+		auto objects = GetStage()->GetGameObjectVec();
+		for (auto object : objects) {
+			auto player = dynamic_pointer_cast<PlayerBase>(object);
+			if (player) {
+				if (player == GetThis<PlayerBase>())
+					continue;
+				auto pos = player->GetTransform()->GetPosition();
+				if (InViewRange(launchDirection, pos))
+					positions.push_back(pos);
+			}
+		}
+
+		// リストが空の場合補正しない
+		if (positions.size() <= 0)
+			return launchDirection;
+
+		// 最も自身に近い位置を求める
+		auto closestPosition = Vec3(INFINITY);
+		for (auto position : positions)
+		{
+			auto direction = position - GetTransform()->GetPosition();
+			if (direction.lengthSqr() < closestPosition.lengthSqr())
+				closestPosition = position;
+		}
+
+		auto direction = closestPosition - GetTransform()->GetPosition();
+		// y座標を合わせる
+		direction.y = launchDirection.y;
+		return direction.normalize();
+	}
+
+	bool PlayerBase::InViewRange(const Vec3& aimDirection, const Vec3& position)
+	{
+		// 自分からpositionへのベクトル
+		Vec3 direction = position - GetTransform()->GetPosition();
+		// 照準方向から見たtargetPosとの角度
+		float deg = Utility::GetTwoVectorAngle(aimDirection, direction.normalize());
+		// 角度が視野の範囲内かどうか(angleは左右合わせての角度なので÷2)
+		return deg < (m_correctAngle / 2.0f);
+	}
+
 	void PlayerBase::BombAim() {
 		auto delta = App::GetApp()->GetElapsedTime();
 		m_bombPoint += m_inputData.BombAim * delta * 20.0f;

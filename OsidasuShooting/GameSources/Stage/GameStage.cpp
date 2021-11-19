@@ -44,8 +44,22 @@ namespace basecross {
 
 			builder.Build(GetThis<Stage>(), path);
 
-			AddGameObject<ManualPlayer>(TransformData(Vec3(10.0f, 1.0f, 0.0f)), PlayerNumber::P1);
-			AddGameObject<ManualPlayer>(TransformData(Vec3(-10.0f, 1.0f, 0.0f)), PlayerNumber::P2);
+			auto player = AddGameObject<ManualPlayer>(TransformData(Vec3(10.0f, 1.0f, 0.0f)), PlayerNumber::P1);
+			AddGameObject<PlayerInfo>(player, TransformData(Vec3(-500.0f, -250.0f, 0.0f)));
+			AddGameObject<PlayerFollowUI>(player, TransformData());
+
+			player = AddGameObject<ManualPlayer>(TransformData(Vec3(-10.0f, 1.0f, 0.0f)), PlayerNumber::P2);
+			AddGameObject<PlayerInfo>(player, TransformData(Vec3(-200.0f, -250.0f, 0.0f)));
+			AddGameObject<PlayerFollowUI>(player, TransformData());
+
+			player = AddGameObject<ManualPlayer>(TransformData(Vec3(-10.0f, 10.0f, 0.0f)), PlayerNumber::P3);
+			AddGameObject<PlayerInfo>(player, TransformData(Vec3(200.0f, -250.0f, 0.0f)));
+			AddGameObject<PlayerFollowUI>(player, TransformData());
+
+			player = AddGameObject<ManualPlayer>(TransformData(Vec3(-10.0f, 10.0f, 0.0f)), PlayerNumber::P4);
+			AddGameObject<PlayerInfo>(player, TransformData(Vec3(500.0f, -250.0f, 0.0f)));
+			AddGameObject<PlayerFollowUI>(player, TransformData());
+
 			AddGameObject<FallDecision>();
 
 			m_countDown = AddGameObject<CountDown>();
@@ -56,9 +70,6 @@ namespace basecross {
 	}
 
 	void GameStage::OnUpdate() {
-		const auto& app = App::GetApp();
-		auto delta = app->GetElapsedTime();
-		const auto& pad = app->GetInputDevice().GetControlerVec()[0];
 		switch (m_gameState)
 		{
 		case GameState::STAY:
