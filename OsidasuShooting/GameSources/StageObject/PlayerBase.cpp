@@ -109,11 +109,11 @@ namespace basecross {
 	}
 
 	void PlayerBase::BombReload() {
-		// 一定の時間が経過したら
-		if (m_bombReload.Count()) {
-			// 現在の爆弾の数が最大数以上の場合は何もしない
-			if (m_bombCount < m_defaultBombCount) {
-				// 最大数以上ではないとき残弾を増やし、タイマーをリセット
+		// 現在の爆弾の数が最大数以上の場合は何もしない
+		if (m_bombCount < m_defaultBombCount) {
+			// 一定の時間が経過したら
+			if (m_bombReload.Count()) {
+				// 残弾を増やし、タイマーをリセット
 				m_bombCount++;
 				m_bombReload.Reset();
 			}
@@ -142,13 +142,11 @@ namespace basecross {
 	void PlayerBase::KnockBack(const Vec3& knockBackDirection, float knockBackAmount) {
 		float knockBackCorrection;
 		// アーマーが回復中でない　かつ　アーマーが0より大きい
-		if (m_currentArmorPoint > 0 && !m_isRestoreArmor)
-		{
+		if (m_currentArmorPoint > 0 && !m_isRestoreArmor) {
 			knockBackCorrection = 1;
 			m_currentArmorPoint -= 5;
 		}
-		else
-		{
+		else {
 			knockBackCorrection = 5.0f;
 			m_isRestoreArmor = true;
 		}
@@ -165,6 +163,7 @@ namespace basecross {
 		// アーマーを0にする
 		if (keyState.m_bPressedKeyTbl['0']) {
 			m_currentArmorPoint = 0.0f;
+			m_isRestoreArmor = true;
 			Debug::GetInstance()->Log(L"Test:Armor0");
 		}
 	}

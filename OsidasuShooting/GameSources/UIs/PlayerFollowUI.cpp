@@ -8,6 +8,16 @@ namespace basecross {
 		armorGauge->GetTransform()->SetParent(GetThis<PlayerFollowUI>());
 		m_uiObjects.push_back(armorGauge);
 
+		auto bombReloadTimeGauge = ObjectFactory::Create<BombReloadTimeGauge>(GetStage(),
+			m_owner, TransformData(Vec3(0.0f), Vec3(0.1f)));
+		bombReloadTimeGauge->GetTransform()->SetParent(GetThis<PlayerFollowUI>());
+		m_uiObjects.push_back(bombReloadTimeGauge);
+
+		auto bombCount = ObjectFactory::Create<BombRemainingCount>(GetStage(),
+			m_owner, TransformData(Vec3(0.0f), Vec3(0.3f)));
+		bombCount->GetTransform()->SetParent(GetThis<PlayerFollowUI>());
+		m_uiObjects.push_back(bombCount);
+
 		int playerNumber = (int)m_owner->GetPlayerNumber();
 		auto t = ObjectFactory::Create<BattlePlayersUIs>(GetStage(), L"BPsUIs", playerNumber + 1, Vec3(0));
 		t->GetTransform()->SetPosition(Vec3(-100.0f, -5.0f, 0.0f));

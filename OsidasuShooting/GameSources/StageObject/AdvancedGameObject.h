@@ -2,6 +2,9 @@
 #include "stdafx.h"
 
 namespace basecross {
+	/**
+	 * @brief 位置、大きさ、回転の情報を持つ構造体
+	 */
 	struct TransformData {
 		Vec3 Position;
 		Vec3 Scale;
@@ -28,6 +31,9 @@ namespace basecross {
 		}
 	};
 
+	/**
+	 * @brief 位置と方向を持つ構造体
+	 */
 	struct Ray {
 		Vec3 Origin;
 		Vec3 Direction;
@@ -42,11 +48,20 @@ namespace basecross {
 		}
 	};
 
+	/**
+	 * @brief 位置と方向を持つ構造体
+	 */
 	using ObjectPositionForward = Ray;
 
+	/**
+	 * @brief 高度なゲームオブジェクトクラス
+	 */
 	class AdvancedGameObject :public GameObject {
+		// OnCreate()前にトランスフォームをm_transformDataで初期化するか
 		bool m_isTransformInit;
 	protected:
+		// トランスフォームデータ
+		//（子クラス側でトランスフォームをいじっていもこれに反映はされない）
 		TransformData m_transformData;
 	public:
 		AdvancedGameObject(const shared_ptr<Stage>& stage)
@@ -55,21 +70,44 @@ namespace basecross {
 
 		virtual void OnPreCreate()override;
 
+		/**
+		 * @brief OnCreate()前にトランスフォームを初期化するか
+		 *
+		 * @param flg true:初期化する/false:初期化しない
+		 */
 		void SetTransformInit(bool flg) {
 			m_isTransformInit = flg;
 		}
 
+		/**
+		 * @brief トランスフォームデータをセット
+		 *
+		 * @param data セットするトランスフォームデータ
+		 */
 		void SetTransformData(const TransformData& data) {
 			m_transformData = data;
 			ApplyTransform();
 		}
 
+		/**
+		 * @brief トランスフォームデータを取得
+		 *
+		 * @return トランスフォームデータ
+		 */
 		TransformData& GetTransformData() {
 			return m_transformData;
 		}
 
+		/**
+		 * @brief トランスフォームデータを適用
+		 */
 		void ApplyTransform();
 
+		/**
+		 * @brief トランスフォームコンポーネントを取得
+		 *
+		 * @return トランスフォームコンポーネント
+		 */
 		shared_ptr<Transform> GetTransform() {
 			return GetComponent<Transform>();
 		}

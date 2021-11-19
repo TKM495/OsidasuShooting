@@ -118,7 +118,7 @@ namespace basecross {
 			m_defaultArmorPoint(100.0f), m_currentArmorPoint(m_defaultArmorPoint),
 			m_bulletTimer(0.1f, true), m_armorRecoveryTimer(2.0f),
 			m_isRestoreArmor(false), m_isInput(false), m_playerNumber(playerNumber),
-			m_bombReload(1.0f, true), m_defaultBombCount(5)
+			m_bombReload(1.0f), m_defaultBombCount(5)
 		{
 			m_transformData = transData;
 		}
@@ -166,6 +166,10 @@ namespace basecross {
 		 */
 		float GetBombReloadRate() {
 			return m_bombReload.GetTimeRate();
+		}
+
+		int GetBombCount() {
+			return m_bombCount;
 		}
 	private:
 		// 武器用ステート
