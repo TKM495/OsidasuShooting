@@ -6,6 +6,7 @@
 #pragma once
 #include "stdafx.h"
 #include "StageObject/PlayerBase.h"
+#include "Utility/BaseSingleton.h"
 
 namespace basecross {
 	/**
@@ -21,42 +22,11 @@ namespace basecross {
 	// これがないとなぜかエラーが出る
 	class PlayerBase;
 
-	class PlayerManager {
-#pragma region  Singleton
+	class PlayerManager :public BaseSingleton<PlayerManager> {
 	private:
-		// カスタム削除子。インスタンスの削除はここからのみ行なう。
-		struct Deleter {
-			void operator()(PlayerManager const* const p) const {
-				delete p;
-			}
-		};
-		// std::unique_ptr は削除子を指定出来る
-		static unique_ptr<PlayerManager, Deleter> m_instance;
-
-		PlayerManager() {}
+		PlayerManager() :BaseSingleton() {}
 		~PlayerManager() {}
-	public:
-		/**
-		 * @brief インスタンスの取得（必要があれば生成する）
-		 *
-		 * @return インスタンス
-		 */
-		static unique_ptr<PlayerManager, Deleter>& GetInstance() {
-			if (!m_instance) {
-				m_instance.reset(new PlayerManager);
-			}
-			return m_instance;
-		}
-		/**
-		 * @brief インスタンスの強制削除
-		 */
-		static void DeleteInstance() {
-			if (m_instance.get()) {
-				m_instance.reset();
-			}
-		}
-#pragma endregion
-
+		friend class BaseSingleton<PlayerManager>;
 	private:
 		vector<shared_ptr<PlayerBase>> m_players;
 	public:

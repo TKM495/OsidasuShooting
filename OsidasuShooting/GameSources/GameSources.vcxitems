@@ -56,6 +56,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\PlayerFollowUI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\PlayerInfo.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\BaseSingleton.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BaseUI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\Canvas.h" />
@@ -121,6 +122,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\CSVLoad.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\GroundingDecision.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\LinePoint.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\BaseSingleton.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\TimeCounter.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\Utility.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />

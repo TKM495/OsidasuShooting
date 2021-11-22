@@ -151,6 +151,9 @@
     <Filter Include="UI\BombRemainingCount">
       <UniqueIdentifier>{2b096544-2c75-4928-9400-b31877458ea0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utility\BaseSingleton">
+      <UniqueIdentifier>{ceb7806d-c494-437b-a221-eb7a4db6c0c2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -317,6 +320,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BombRemainingCount.h">
       <Filter>UI\BombRemainingCount</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\BaseSingleton.h">
+      <Filter>Utility\BaseSingleton</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
@@ -476,6 +482,9 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BombRemainingCount.cpp">
       <Filter>UI\BombRemainingCount</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\BaseSingleton.cpp">
+      <Filter>Utility\BaseSingleton</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
