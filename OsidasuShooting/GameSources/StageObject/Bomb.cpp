@@ -52,7 +52,7 @@ namespace basecross {
 				auto distance = (pos - myPos).length();
 				// 爆発半径内にいる場合ノックバック
 				if (distance < m_radius) {
-					ptr->KnockBack(pos - myPos, m_power);
+					ptr->KnockBack(pos - myPos, m_power, m_owner.lock());
 				}
 			}
 		}

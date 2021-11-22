@@ -9,6 +9,7 @@
 #include "AdvancedGameObject.h"
 #include "Utility/PredictionLine.h"
 #include "Utility/TimeCounter.h"
+#include "Utility/GroundingDecision.h"
 
 namespace basecross {
 	/**
@@ -41,6 +42,7 @@ namespace basecross {
 
 	class PlayerBase :public AdvancedGameObject {
 	private:
+		// 初期位置
 		Vec3 m_initialPosition;
 		// 武器用ステートマシーン
 		unique_ptr<StateMachine<PlayerBase>> m_weaponStateMachine;
@@ -65,11 +67,21 @@ namespace basecross {
 		// アーマーが回復中か
 		bool m_isRestoreArmor;
 		// ジャンプ＆ホバーステート用の連続押し検出用フラグ
-		// (Stateはシングルトンであり状態が共有させてしまうため)
+		// (Stateはシングルトンであり状態が共有されてしまうため)
 		bool m_isInput;
-
 		// プレイヤーナンバー
 		PlayerNumber m_playerNumber;
+
+		// 加害者（自分に攻撃を当てたプレイヤー）
+		shared_ptr<PlayerBase> m_aggriever;
+		// 復帰中か
+		bool m_isDuringReturn;
+		// 復帰した判定を少し遅らせるためのタイマー
+		TimeCounter m_returnTimer;
+		// 接地判定用
+		GroundingDecision m_groundingDecision;
+		// 自分がプレイヤーを倒した数
+		int m_countKilledPlayer;
 
 		// 移動
 		void Move();
@@ -130,15 +142,20 @@ namespace basecross {
 			m_defaultArmorPoint(100.0f), m_currentArmorPoint(m_defaultArmorPoint),
 			m_bulletTimer(0.1f, true), m_armorRecoveryTimer(2.0f),
 			m_isRestoreArmor(false), m_isInput(false), m_playerNumber(playerNumber),
-			m_bombReload(1.0f), m_defaultBombCount(5), m_correctAngle(20.0f)
+			m_bombReload(1.0f), m_defaultBombCount(5), m_correctAngle(20.0f),
+			m_isDuringReturn(false), m_groundingDecision(), m_countKilledPlayer(0),
+			m_returnTimer(0.5f)
 		{
 			m_transformData = transData;
+			// 以下のタグを持つオブジェクトを判定から除外
+			m_groundingDecision.AddNotDecisionTag(L"Bomb");
+			m_groundingDecision.AddNotDecisionTag(L"Bullet");
 		}
 		void OnCreate()override;
 		void OnUpdate()override;
 
 		// ノックバック
-		void KnockBack(const Vec3& knockBackDirection, float knockBackAmount);
+		void KnockBack(const Vec3& knockBackDirection, float knockBackAmount, const shared_ptr<PlayerBase>& aggriever);
 		//リスポーン
 		void Respawn();
 		// テスト関数
@@ -180,8 +197,30 @@ namespace basecross {
 			return m_bombReload.GetTimeRate();
 		}
 
+		/**
+		 * @brief 爆弾の残弾数を取得する
+		 *
+		 * @return 爆弾の残弾数
+		 */
 		int GetBombCount() {
 			return m_bombCount;
+		}
+
+		/**
+		 * @brief プレイヤーを倒した
+		 */
+		void KilledPlayer() {
+			m_countKilledPlayer++;
+			Debug::GetInstance()->Log(m_countKilledPlayer);
+		}
+
+		/**
+		 * @brief プレイヤーを倒した数を取得
+		 *
+		 * @return プレイヤーを倒した数
+		 */
+		int GetCountKilledPlayer() {
+			return m_countKilledPlayer;
 		}
 	private:
 		// 武器用ステート
@@ -230,14 +269,7 @@ namespace basecross {
 		};
 		// ホバー
 		class PlayerHoverState : public ObjState<PlayerBase> {
-			GroundingDecision m_groundingDecision;
-			PlayerHoverState()
-				:m_groundingDecision()
-			{
-				// 以下のタグを持つオブジェクトを判定から除外
-				m_groundingDecision.AddNotDecisionTag(L"Bomb");
-				m_groundingDecision.AddNotDecisionTag(L"Bullet");
-			}
+			PlayerHoverState() {}
 		public:
 			static shared_ptr<PlayerHoverState> Instance();
 			virtual void Enter(const shared_ptr<PlayerBase>& Obj)override;

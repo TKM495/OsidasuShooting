@@ -41,15 +41,35 @@ namespace basecross {
 		m_currentHoverTime = m_hoverTime;
 		m_bombCount = m_defaultBombCount;
 		m_initialPosition = GetTransform()->GetPosition();
+
+		// 接地判定の情報を初期化
+		m_groundingDecision.SetRadius(GetTransform()->GetScale());
 	}
 
 	void PlayerBase::OnUpdate() {
+		// 復帰中で接地しているかつ
+		if (m_isDuringReturn &&
+			m_groundingDecision.Calculate(GetTransform()->GetPosition())) {
+			// 一定時間経過したら復帰が終了した判定に
+			if (m_returnTimer.Count()) {
+				m_isDuringReturn = false;
+			}
+		}
+
+		if (m_isDuringReturn) {
+			GetComponent<PNTStaticDraw>()->SetDiffuse(Col4(1.0f, 0.0f, 0.0f, 1.0f));
+		}
+		else {
+			GetComponent<PNTStaticDraw>()->SetDiffuse(Col4(1.0f, 1.0f, 1.0f, 1.0f));
+		}
+
 		// 入力の更新
 		InputUpdate();
 		// 移動処理
 		Move();
 		// テストコード
 		TestFanc();
+		// 爆弾のリロード
 		BombReload();
 		// 各種ステートマシンの更新
 		m_weaponStateMachine->Update();
@@ -169,7 +189,7 @@ namespace basecross {
 	}
 
 	void PlayerBase::BombLaunch() {
-		GetStage()->AddGameObject<Bomb>(
+		GetStage()->AddGameObject<Bomb>(GetThis<PlayerBase>(),
 			m_predictionLine, GetTransform()->GetPosition(), m_bombPoint);
 	}
 
@@ -187,7 +207,10 @@ namespace basecross {
 		m_currentArmorPoint += 10.0f * App::GetApp()->GetElapsedTime();
 	}
 
-	void PlayerBase::KnockBack(const Vec3& knockBackDirection, float knockBackAmount) {
+	void PlayerBase::KnockBack(const Vec3& knockBackDirection, float knockBackAmount, const shared_ptr<PlayerBase>& aggriever) {
+		m_aggriever = aggriever;
+		m_isDuringReturn = true;
+		m_returnTimer.Reset();
 		float knockBackCorrection;
 		// アーマーが回復中でない　かつ　アーマーが0より大きい
 		if (m_currentArmorPoint > 0 && !m_isRestoreArmor) {
@@ -203,6 +226,12 @@ namespace basecross {
 	}
 
 	void PlayerBase::Respawn() {
+		// 復帰中に死んだ場合加害者に倒した通知を行う
+		if (m_isDuringReturn) {
+			m_aggriever->KilledPlayer();
+			Debug::GetInstance()->Log(L"Die");
+		}
+		m_isDuringReturn = false;
 		GetTransform()->SetPosition(m_initialPosition);
 	}
 
@@ -322,8 +351,6 @@ namespace basecross {
 			// フラグを立てる
 			Obj->m_isInput = true;
 		}
-		// 接地判定の情報を初期化
-		m_groundingDecision.SetRadius(Obj->GetTransform()->GetScale());
 	}
 	void PlayerBase::PlayerHoverState::Execute(const shared_ptr<PlayerBase>& Obj) {
 		if (Obj->m_inputData.IsJumpOrHover) {
@@ -336,7 +363,7 @@ namespace basecross {
 		}
 
 		// 接地した場合
-		if (m_groundingDecision.Calculate(Obj->GetTransform()->GetPosition()))
+		if (Obj->m_groundingDecision.Calculate(Obj->GetTransform()->GetPosition()))
 			// ジャンプステートへ遷移
 			Obj->m_jumpAndHoverStateMachine->ChangeState(PlayerJumpState::Instance());
 	}
