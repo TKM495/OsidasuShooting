@@ -57,7 +57,7 @@ namespace basecross {
 		auto ptr = dynamic_pointer_cast<PlayerBase>(other);
 		if (ptr)
 			// ノックバック
-			ptr->KnockBack(m_direction, m_knockBackAmount);
+			ptr->KnockBack(m_direction, m_knockBackAmount, m_owner.lock());
 
 		GetStage()->RemoveGameObject<Bullet>(GetThis<Bullet>());
 	}

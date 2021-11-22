@@ -29,12 +29,17 @@ namespace basecross {
 
 		// 爆発したか（1つの爆弾が多段ヒットするのを防ぐフラグ）
 		bool m_isExploded;
+
+		// オーナー
+		weak_ptr<PlayerBase> m_owner;
 	public:
 		Bomb(const shared_ptr<Stage>& stage,
+			const shared_ptr<PlayerBase>& owner,
 			const PredictionLine& predictionLine,
 			const Vec3& startPoint,
 			const Vec3& endPoint)
-			:AdvancedGameObject(stage), m_predictionLine(predictionLine),
+			:AdvancedGameObject(stage), m_owner(owner),
+			m_predictionLine(predictionLine),
 			m_delta(0.0f), m_startPoint(startPoint), m_endPoint(endPoint),
 			m_timeRate(2.0f), m_radius(3.0f), m_power(20.0f), m_lifeSpan(5.0f),
 			m_isExploded(false)

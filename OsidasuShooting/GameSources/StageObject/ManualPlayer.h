@@ -9,7 +9,7 @@
 #include "StageObject/PlayerBase.h"
 
 namespace basecross {
-	// 後で消す
+	// 後で消す（SpCameraで使用中）
 	class ManualPlayer;
 	using Player = ManualPlayer;
 
