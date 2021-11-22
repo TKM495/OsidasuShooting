@@ -21,6 +21,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkEffect.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkEffectResource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkInterface.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Area.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Items.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\ItemsCreations.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Scene.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.h" />
@@ -50,6 +53,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkComponent.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkEffectResource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkInterface.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Area.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Items.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\ItemsCreations.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Scene.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.cpp" />
