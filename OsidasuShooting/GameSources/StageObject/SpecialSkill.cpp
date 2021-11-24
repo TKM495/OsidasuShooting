@@ -20,7 +20,7 @@ namespace basecross {
 		m_transformData.Rotation.y = rad;
 
 		// 位置の調整
-		m_transformData.Position.z = m_zPosSet;
+		GetTransform()->SetPivot(0,0,-m_zPosSet);
 
 		//m_transformData.Position = m_direction.normalize() * -m_zPosSet;
 		// 寿命の追加
@@ -47,7 +47,29 @@ namespace basecross {
 		//GetComponent<Transform>()->SetWorldPosition(Vec3(0));
 	}
 
+	// 動作確認用の関数
+	void SpecialLaser::MoveTestLaser() {
+		auto trans = GetTransform(); //(x,y,z)
+
+		auto ctrlVec = App::GetApp()->GetInputDevice().GetControlerVec();
+		auto ctrlX = 0.0f;
+		auto ctrlY = 0.0f;
+		if (ctrlVec[0].bConnected) {
+			ctrlX = ctrlVec[0].fThumbRX;
+			ctrlY = ctrlVec[0].fThumbRY;
+		}
+		if (ctrlX != 0 || ctrlY != 0) {
+			auto rad = atan2f(-ctrlY, ctrlX) + XM_PIDIV2;
+			trans->SetRotation(0, rad, 0);
+		}
+		auto ownerPos = m_owner->GetTransform()->GetPosition();
+		ownerPos.z += m_zPosSet;
+		trans->SetPosition(ownerPos);
+	}
+
+
 	void SpecialLaser::OnUpdate() {
+		MoveTestLaser();
 
 		auto transPos = GetTransform()->GetPosition(); //(x,y,z)
 		float deltaTime = App::GetApp()->GetElapsedTime();

@@ -56,6 +56,8 @@ namespace basecross {
 		Vec3 m_scale;
 		Vec3 m_position;
 
+		shared_ptr<PlayerBase> m_owner;
+
 		float m_lifeSpan;
 		float m_zPosSet;
 	public:
@@ -66,7 +68,8 @@ namespace basecross {
 			const Vec3& direction)
 			: SpecialSkill(stage,owner,position,direction),
 			m_lifeSpan(3.0f),
-			m_zPosSet(10.0f)
+			m_zPosSet(20.0f),
+			m_owner(owner)
 		{
 			m_transformData.Position = position;
 			//m_transformData.Rotation = Vec3(0,0,0);
@@ -80,7 +83,7 @@ namespace basecross {
 			: SpecialLaser(stage,owner,ray.Origin,ray.Direction)
 		{}
 
-
+		void MoveTestLaser();
 		void OnCreate() override;
 		void OnUpdate() override;
 
