@@ -31,7 +31,7 @@
 #include "StageObject/ManualPlayer.h"
 #include "StageObject/StageObject.h"
 #include "StageObject/FallDecision.h"
-#include "StageObject/SpecialLaser.h"
+#include "StageObject/SpecialSkill.h"
 //UI
 #include "UIs/BaseUI.h"
 #include "UIs/Canvas.h"
