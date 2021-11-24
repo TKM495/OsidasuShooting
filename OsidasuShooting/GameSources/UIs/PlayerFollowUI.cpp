@@ -3,25 +3,38 @@
 
 namespace basecross {
 	void PlayerFollowUI::OnCreate() {
+		auto data = CSVLoad::GetInstance()->GetData(L"PlayerFollowUI");
+		auto tokens = Extracter::DelimitData(data[1]);
+		auto transData = Extracter::TransformDataExtraction(tokens);
+
 		auto armorGauge = ObjectFactory::Create<HoverTimeGauge>(GetStage(),
-			m_owner, TransformData(Vec3(0.0f), Vec3(0.05f)));
+			m_owner, transData);
 		armorGauge->GetTransform()->SetParent(GetThis<PlayerFollowUI>());
 		m_uiObjects.push_back(armorGauge);
 
+		tokens = Extracter::DelimitData(data[2]);
+		transData = Extracter::TransformDataExtraction(tokens);
+
 		auto bombReloadTimeGauge = ObjectFactory::Create<BombReloadTimeGauge>(GetStage(),
-			m_owner, TransformData(Vec3(0.0f), Vec3(0.1f)));
+			m_owner, transData);
 		bombReloadTimeGauge->GetTransform()->SetParent(GetThis<PlayerFollowUI>());
 		m_uiObjects.push_back(bombReloadTimeGauge);
 
+		tokens = Extracter::DelimitData(data[3]);
+		transData = Extracter::TransformDataExtraction(tokens);
+
 		auto bombCount = ObjectFactory::Create<BombRemainingCount>(GetStage(),
-			m_owner, TransformData(Vec3(0.0f), Vec3(0.3f)));
+			m_owner, transData);
 		bombCount->GetTransform()->SetParent(GetThis<PlayerFollowUI>());
 		m_uiObjects.push_back(bombCount);
 
+		tokens = Extracter::DelimitData(data[4]);
+		transData = Extracter::TransformDataExtraction(tokens);
+
 		int playerNumber = (int)m_owner->GetPlayerNumber();
 		auto t = ObjectFactory::Create<BattlePlayersUIs>(GetStage(), L"BPsUIs", playerNumber + 1, Vec3(0));
-		t->GetTransform()->SetPosition(Vec3(-100.0f, -5.0f, 0.0f));
-		t->GetTransform()->SetScale(Vec3(0.2f));
+		t->GetTransform()->SetPosition(transData.Position);
+		t->GetTransform()->SetScale(transData.Scale);
 		t->GetTransform()->SetParent(GetThis<PlayerFollowUI>());
 		m_uiObjects.push_back(t);
 

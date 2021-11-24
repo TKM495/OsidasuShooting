@@ -5,53 +5,26 @@
 
 #pragma once
 #include "stdafx.h"
+#include "Utility/BaseSingleton.h"
 
 namespace basecross {
-	// スプライトのデータ形式
-	struct SpriteDataFormat {
-		wstring name;	// 名称
-		Vec2 origin;	// 原点の座標
-		Vec2 size;		// サイズ
-	};
-
-	// スプライトのタイプ
-	enum class SpriteType {
-		String,
-		Image,
-		Number
-	};
-	class CSVLoad {
-		// デリーター
-		struct CSVLoadDeleter
-		{
-			void operator()(CSVLoad* p) { delete p; }
-		};
-		// Singletonで利用する自分自身のポインタ
-		static unique_ptr<CSVLoad, CSVLoadDeleter> m_myPointer;
-
-		// スプライトデータの配列
-		vector<SpriteDataFormat> m_stringSpriteData;
-
+	class CSVLoad :public BaseSingleton<CSVLoad> {
+	private:
 		CSVLoad() {}
 		~CSVLoad() {}
+		friend class BaseSingleton<CSVLoad>;
+	private:
+		// データ
+		map<wstring, vector<wstring>> m_data;
 	public:
-
 		/**
-		 * @brief データの取り出し
-		 *
-		 * @param fileData	ファイルデータ
-		 * @param type		スプライトのタイプ
+		 * @brief ファイルを登録する
 		 */
-		void SpriteDataExtraction(vector<wstring> fileData, SpriteType type);
-
+		void RegisterFile(const wstring& key, const wstring& filePath);
 		/**
-		 * @brief スプライトデータの取得
-		 *
-		 * @return スプライトデータ
+		 * @brief データを取得する
 		 */
-		vector<SpriteDataFormat>& GetStringSpriteData() {
-			return m_stringSpriteData;
-		}
+		vector<wstring> GetData(const wstring& key)const;
 	};
 }
 //end basecross

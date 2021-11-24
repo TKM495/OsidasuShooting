@@ -8,9 +8,7 @@
 
 namespace basecross {
 	void StringSprite2::OnCreate() {
-		// CSVLoadを取得しデータをもらう
-		auto csvLoad = dynamic_pointer_cast<CSVLoad>(GetStage()->GetSharedObject(L"CSVLoad"));
-		auto& data = csvLoad->GetStringSpriteData();
+		vector<SpriteDataFormat> data;
 		// 目標のデータを探す
 		int index = SearchDataIndex(data);
 		if (index == -1) {

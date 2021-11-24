@@ -3,14 +3,12 @@
 #include "StageObject/AdvancedGameObject.h"
 
 namespace basecross {
-	class SimpleSprite :public GameObject {
+	class SimpleSprite :public BaseUI {
 		wstring m_textureKey;
-		TransformData m_TransformData;
 	public:
 		SimpleSprite(const shared_ptr<Stage>& stage, const wstring& textureKey,
 			const TransformData& transformData = TransformData())
-			:GameObject(stage), m_textureKey(textureKey),
-			m_TransformData(transformData)
+			:BaseUI(stage, transformData), m_textureKey(textureKey)
 		{}
 
 		void OnCreate()override;

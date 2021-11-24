@@ -9,7 +9,6 @@
 #include "PlayerBase.h"
 
 namespace basecross {
-
 	struct SkillData {
 		float m_speed;			// ˆÚ“®‘¬“x
 		float m_lifeSpan;		// Ž‘±ŽžŠÔ
@@ -22,11 +21,9 @@ namespace basecross {
 			this->m_knokBackAmount = 0.0f;
 			//this->m_direction = Vec3(0.0f);
 		}
-
 	};
 
-	class SpecialSkill : public StageObject {
-
+	class SpecialSkill : public AdvancedGameObject {
 	protected:
 		virtual void SkillData() = 0;
 
@@ -39,15 +36,16 @@ namespace basecross {
 			const shared_ptr<PlayerBase>& owner,
 			const Vec3& position,
 			const Vec3& direction)
-			: StageObject(stage),
+			: AdvancedGameObject(stage),
 			m_owner(owner),
 			m_position(position),
 			m_direction(direction)
-		{}
+		{
+			SetTransformInit(false);
+		}
 
 		//void OnCreate() {};
 		//void OnUpdate() {};
-
 	};
 
 	class SpecialLaser : public SpecialSkill {
@@ -66,21 +64,21 @@ namespace basecross {
 			const shared_ptr<PlayerBase>& owner,
 			const Vec3& position,
 			const Vec3& direction)
-			: SpecialSkill(stage,owner,position,direction),
+			: SpecialSkill(stage, owner, position, direction),
 			m_lifeSpan(3.0f),
 			m_zPosSet(20.0f),
 			m_owner(owner)
 		{
 			m_transformData.Position = position;
 			//m_transformData.Rotation = Vec3(0,0,0);
-			m_transformData.Scale = Vec3(2.0f,2.0f, m_zPosSet * 2.0f);
+			m_transformData.Scale = Vec3(2.0f, 2.0f, m_zPosSet * 2.0f);
 		}
 
 		SpecialLaser(
 			const shared_ptr<Stage>& stage,
 			const shared_ptr<PlayerBase>& owner,
 			const Ray& ray)
-			: SpecialLaser(stage,owner,ray.Origin,ray.Direction)
+			: SpecialLaser(stage, owner, ray.Origin, ray.Direction)
 		{}
 
 		void MoveTestLaser();

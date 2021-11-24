@@ -20,7 +20,7 @@
 #pragma comment(lib, "EffekseerSoundXAudio2.lib" )
 #endif
 
-// キー重複を防ぐための文字列
+// テクスチャなどのキーとの重複を防ぐための文字列
 #define EfkKey L"_Efk"
 
 #include "Effekseer/EfkInterface.h"

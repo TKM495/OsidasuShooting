@@ -21,6 +21,7 @@ namespace basecross {
 		app->RegisterTexture(L"BarGauge", tpath + L"BarGauge.png");
 		app->RegisterTexture(L"GaugeColor", tpath + L"GaugeColor.png");
 		app->RegisterTexture(L"Wall", tpath + L"wall.jpg");
+		app->RegisterTexture(L"Test", tpath + L"test.png");
 	}
 
 	//--------------------------------------------------------------------------------------
@@ -31,6 +32,14 @@ namespace basecross {
 			//クリアする色を設定
 			Col4 Col(0.0f, 0.0f, 0.0f, 1.0f);
 			SetClearColor(Col);
+
+			auto dir = App::GetApp()->GetDataDirWString();
+			auto path = dir + L"Csv/";
+			CSVLoad::GetInstance()->RegisterFile(L"test", path + L"StringSprite.csv");
+			CSVLoad::GetInstance()->RegisterFile(L"PlayerInfo", path + L"PlayerInfo.csv");
+			CSVLoad::GetInstance()->RegisterFile(L"PlayerFollowUI", path + L"PlayerFollowUI.csv");
+
+			//App::GetApp()->SetFullScreenMode();
 
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる
@@ -69,17 +78,13 @@ namespace basecross {
 
 		// 以下制作用ステージ
 		else if (event->m_MsgStr == L"ToWatanabeStage") {
-			ResetActiveStage<WatanabeStage>();
+			ResetActiveStage<WatanabeStage2>();
 		}
 		else if (event->m_MsgStr == L"ToSatoStage") {
 			ResetActiveStage<SatoStage>();
 		}
 		else if (event->m_MsgStr == L"ToJONYMDStage") {
 			ResetActiveStage<JONYMDStage>();
-		}
-		// ゲーム終了
-		else if (event->m_MsgStr == L"ToExit") {
-			PostQuitMessage(0);
 		}
 	}
 }

@@ -7,7 +7,6 @@
 #include "Project.h"
 
 namespace basecross {
-
 	void SpecialLaser::OnCreate() {
 		// 当たり判定の追加
 		auto PtrColl = AddComponent<CollisionObb>();
@@ -20,13 +19,13 @@ namespace basecross {
 		m_transformData.Rotation.y = rad;
 
 		// 位置の調整
-		GetTransform()->SetPivot(0,0,-m_zPosSet);
+		GetTransform()->SetPivot(0, 0, -m_zPosSet);
 
 		//m_transformData.Position = m_direction.normalize() * -m_zPosSet;
 		// 寿命の追加
 		//AddComponent<LifeSpan>(m_lifeSpan);
 
-		ObjectSetUp();
+		ApplyTransform();
 
 		//// エフェクトはオブジェクトの位置の影響を受けるためセットアップのあと
 		//auto efkComp = AddComponent<EfkComponent>();
@@ -66,7 +65,6 @@ namespace basecross {
 		ownerPos.z += m_zPosSet;
 		trans->SetPosition(ownerPos);
 	}
-
 
 	void SpecialLaser::OnUpdate() {
 		MoveTestLaser();

@@ -1,0 +1,14 @@
+name,originX,originY,SizeX,SizeY
+Title,0,0,1024,200
+Numbers,0,200,60,100
+Pause,600,200,300,100
+StageClear,0,300,600,100
+Start,600,300,300,100
+StageSelect2,0,400,650,100
+GameStart,0,500,350,75
+Exit,350,500,135,75
+NextStage,485,500,345,75
+Continue,0,575,295,75
+Retry,295,575,190,75
+StageSelect,485,575,385,75
+Stage,0,300,295,100

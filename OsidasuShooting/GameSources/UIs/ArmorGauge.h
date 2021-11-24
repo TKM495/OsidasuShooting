@@ -1,6 +1,7 @@
 #pragma once
 #include "stdafx.h"
 #include "StageObject/PlayerBase.h"
+#include "BaseUI.h"
 
 namespace basecross {
 	class ArmorGauge :public BaseUI {

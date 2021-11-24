@@ -11,7 +11,7 @@ namespace basecross {
 	unique_ptr<PlayerManager, PlayerManager::Deleter> PlayerManager::m_instance = nullptr;
 
 	void PlayerManager::AddPlayer(const shared_ptr<PlayerBase>& playerPtr) {
-		// プレイヤーのナンバーをキーとしてポインタを格納
+		// プレイヤーのポインタを格納
 		m_players.push_back(playerPtr);
 	}
 

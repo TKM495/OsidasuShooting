@@ -1,0 +1,4 @@
+name,PosX,PosY,PosZ,ScaleX,ScaleY,ScaleZ,RotX, RotY, RotZ
+ArmorGauge,40,-25,0,0.1,0.15,0.15,0,0,0
+BattlePlayersUIs,-150,0,0,0.4,0.4,0.4,0,0,0
+BattlePlayersUIs,-150,0,0,0.4,0.4,0.4,0,0,0

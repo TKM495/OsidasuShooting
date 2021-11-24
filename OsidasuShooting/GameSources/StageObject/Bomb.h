@@ -6,6 +6,7 @@
 #pragma once
 #include "stdafx.h"
 #include "AdvancedGameObject.h"
+#include "PlayerBase.h"
 
 namespace basecross {
 	class Bomb :public AdvancedGameObject {

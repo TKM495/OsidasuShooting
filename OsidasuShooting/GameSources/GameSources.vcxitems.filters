@@ -1,59 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <FxCompile Include="$(MSBuildThisFileDirectory)Component\PSPCTGaugeSprite.hlsl" />
-    <FxCompile Include="$(MSBuildThisFileDirectory)Component\VSPCTGaugeSprite.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)Component\PSPCTGaugeSprite.hlsl">
+      <Filter>Component\PCTGaugeSprite\HLSL</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)Component\VSPCTGaugeSprite.hlsl">
+      <Filter>Component\PCTGaugeSprite\HLSL</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Component\FadeComponent.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Component\LifeSpan.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Component\MySpriteBaseDraw.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Component\PCTGaugeSprite.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Component\PhysicalBehavior.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)DebugClass\Debug.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)DebugClass\DebugCamera.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkComponent.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkEffectResource.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkInterface.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\CountDown.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Manager\ControllerManager.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Scene.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Block.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Bomb.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Bullet.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\FallDecision.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\ManualPlayer.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\PlayerBase.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\StageObject.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Stage\DebugStage.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Stage\GameStage.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Stage\JONYMDStage.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Stage\ResultStage.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Stage\SatoStage.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Stage\TitleStage.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BattlePlayersUIs.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\ArmorGauge.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\HoverTimeGauge.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BaseUI.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\Canvas.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\Menu\BaseMenu.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\Menu\Cursor.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\SimpleSprite.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\StringSprite2.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\CSVLoad.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\GroundingDecision.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\LinePoint.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\TimeCounter.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\Utility.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\SpecialSkill.cpp" />
     <Filter Include="Scene">
       <UniqueIdentifier>{2b8d1595-edd3-4fe9-bba6-3593e4ea4ad9}</UniqueIdentifier>
     </Filter>
@@ -125,6 +81,7 @@
     </Filter>
     <Filter Include="StageObject\JonyMd">
       <UniqueIdentifier>{48fc7ecf-3fe5-4de3-8c5b-6f2b0a0e1b58}</UniqueIdentifier>
+    </Filter>
     <Filter Include="JonyMd">
       <UniqueIdentifier>{5e611ea7-2f55-439e-be59-ff4b4385e58f}</UniqueIdentifier>
     </Filter>
@@ -206,6 +163,159 @@
     <Filter Include="UI\BombRemainingCount">
       <UniqueIdentifier>{2b096544-2c75-4928-9400-b31877458ea0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utility\BaseSingleton">
+      <UniqueIdentifier>{ceb7806d-c494-437b-a221-eb7a4db6c0c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\DataExtracted">
+      <UniqueIdentifier>{e3644973-ff3b-443b-a71b-4a0d596efa32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\CurrentFirst">
+      <UniqueIdentifier>{569781e7-47e0-407f-a42d-311bda4d21c3}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\ArmorGauge.cpp">
+      <Filter>UI\ArmorGauge</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\Menu\BaseMenu.cpp">
+      <Filter>Menu\BaseMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\Menu\Cursor.cpp">
+      <Filter>Menu\Cursor</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BaseUI.cpp">
+      <Filter>UI\BaseUI</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BattlePlayersUIs.cpp">
+      <Filter>UI\BattlePlayersUIs</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Block.cpp">
+      <Filter>StageObject\Block</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Bomb.cpp">
+      <Filter>StageObject\Bomb</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Bullet.cpp">
+      <Filter>StageObject\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\Canvas.cpp">
+      <Filter>UI\Canvas</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.cpp">
+      <Filter>Setting</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Manager\ControllerManager.cpp">
+      <Filter>Manager\ControllerManager</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\CountDown.cpp">
+      <Filter>JonyMd</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\CSVLoad.cpp">
+      <Filter>Utility\CSVLoad</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)DebugClass\Debug.cpp">
+      <Filter>DebugClass</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)DebugClass\DebugCamera.cpp">
+      <Filter>DebugClass</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Stage\DebugStage.cpp">
+      <Filter>Stage\Debug\DebugStage</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkComponent.cpp">
+      <Filter>Effekseer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkEffectResource.cpp">
+      <Filter>Effekseer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkInterface.cpp">
+      <Filter>Effekseer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\FadeComponent.cpp">
+      <Filter>Component\FadeComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\FallDecision.cpp">
+      <Filter>StageObject\FallDecision</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Stage\GameStage.cpp">
+      <Filter>Stage\GameStage</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\GroundingDecision.cpp">
+      <Filter>Utility\GroundingDecision</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\HoverTimeGauge.cpp">
+      <Filter>UI\HoverTimeGauge</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Stage\JONYMDStage.cpp">
+      <Filter>Stage\Debug\JONYMDStage</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\LifeSpan.cpp">
+      <Filter>Component\LifeSpan</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\LinePoint.cpp">
+      <Filter>Utility\PredictionLine</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.cpp">
+      <Filter>Utility\PredictionLine</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\ManualPlayer.cpp">
+      <Filter>StageObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\PlayerBase.cpp">
+      <Filter>StageObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\MySpriteBaseDraw.cpp">
+      <Filter>Component\MySpriteBaseDraw</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\PCTGaugeSprite.cpp">
+      <Filter>Component\PCTGaugeSprite</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\PhysicalBehavior.cpp">
+      <Filter>Component\PhysicalBehavior</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.cpp">
+      <Filter>Manager\PlayerManager</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Stage\ResultStage.cpp">
+      <Filter>Stage\ResultStage</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Stage\SatoStage.cpp">
+      <Filter>Stage\Debug\SatoStage</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Scene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\SimpleSprite.cpp">
+      <Filter>UI\SimpleSprite</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\SpecialSkill.cpp">
+      <Filter>StageObject</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\StageObject.cpp">
+      <Filter>StageObject</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\StringSprite2.cpp">
+      <Filter>UI\StringSprite2</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\TimeCounter.cpp">
+      <Filter>Utility\TimeCounter</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\Utility.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.cpp">
+      <Filter>UI\TitleSprite</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Stage\TitleStage.cpp">
+      <Filter>Stage\TitleStage</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage.cpp">
+      <Filter>Stage\Debug\WatanabeStage</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -280,12 +390,6 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\GroundingDecision.h">
       <Filter>Utility\GroundingDecision</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\Menu\BaseMenu.h">
-      <Filter>Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\Menu\Cursor.h">
-      <Filter>Menu</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\CSVLoad.h">
       <Filter>Utility\CSVLoad</Filter>
@@ -372,7 +476,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BombRemainingCount.h">
       <Filter>UI\BombRemainingCount</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Area.h">
       <Filter>StageObject\JonyMd</Filter>
     </ClInclude>
@@ -381,6 +484,27 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\ItemsCreations.h">
       <Filter>StageObject\JonyMd</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\BaseSingleton.h">
+      <Filter>Utility\BaseSingleton</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\DataExtracted.h">
+      <Filter>Utility\DataExtracted</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage2.h">
+      <Filter>Stage\Debug\WatanabeStage</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CurrentFirst.h">
+      <Filter>UI\CurrentFirst</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\Menu\BaseMenu.h">
+      <Filter>Menu\BaseMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\Menu\Cursor.h">
+      <Filter>Menu\Cursor</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\SpecialSkill.h">
+      <Filter>StageObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -552,6 +676,18 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BombRemainingCount.cpp">
       <Filter>UI\BombRemainingCount</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\BaseSingleton.cpp">
+      <Filter>Utility\BaseSingleton</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\DataExtracted.cpp">
+      <Filter>Utility\DataExtracted</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage2.cpp">
+      <Filter>Stage\Debug\WatanabeStage</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CurrentFirst.cpp">
+      <Filter>UI\CurrentFirst</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\FadeComponent.h" />
@@ -604,9 +740,18 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\LinePoint.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\TimeCounter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\Utility.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\SpecialSkill.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)Component\INCPCTGaugeSprite.hlsli" />
+    <Filter Include="Menu\BaseMenu">
+      <UniqueIdentifier>{aabea212-1ec0-4268-a73d-d49b8dd8b355}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Menu\Cursor">
+      <UniqueIdentifier>{43fbf486-1f3d-429e-9980-aeb26eef6335}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Component\INCPCTGaugeSprite.hlsli">
+      <Filter>Component\PCTGaugeSprite\HLSL</Filter>
+    </None>
   </ItemGroup>
 </Project>
