@@ -32,6 +32,7 @@
 #include "StageObject/AdvancedGameObject.h"
 #include "StageObject/AdvancedGameObject.h"
 #include "StageObject/FallDecision.h"
+#include "StageObject/SpecialSkill.h"
 //UI
 #include "UIs/BaseUI.h"
 #include "UIs/Canvas.h"

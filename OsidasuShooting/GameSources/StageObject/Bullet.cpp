@@ -1,6 +1,6 @@
 /*!
 @file   Bullet.cpp
-@brief  ’eƒNƒ‰ƒX‚ÌÀ‘Ì
+@brief  å¼¾ã‚¯ãƒ©ã‚¹ã®å®Ÿä½“
 */
 
 #include "stdafx.h"
@@ -9,19 +9,19 @@
 namespace basecross {
 	void Bullet::OnCreate()
 	{
-		// “–‚½‚è”»’è‚Ì’Ç‰Á
+		// å½“ãŸã‚Šåˆ¤å®šã®è¿½åŠ 
 		auto PtrColl = AddComponent<CollisionSphere>();
-		// Õ“Ë‰“š‚ğ–³‹
+		// è¡çªå¿œç­”ã‚’ç„¡è¦–
 		PtrColl->SetAfterCollision(AfterCollision::None);
 
-		// ”­Ë•ûŒü‚É³–Ê‚ğŒü‚¯‚é
+		// ç™ºå°„æ–¹å‘ã«æ­£é¢ã‚’å‘ã‘ã‚‹
 		auto rad = atan2f(-m_direction.z, m_direction.x) + XM_PIDIV2;
 		m_transformData.Rotation.y = XMConvertToDegrees(rad);
 
-		// õ–½‚Ì’Ç‰Á
+		// å¯¿å‘½ã®è¿½åŠ 
 		AddComponent<LifeSpan>(m_lifeSpan);
 
-		// ƒGƒtƒFƒNƒg
+		// ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
 		auto efkComp = AddComponent<EfkComponent>();
 		efkComp->SetEffectResource(L"Bullet");
 		efkComp->SetScale(m_transformData.Scale);
@@ -40,25 +40,23 @@ namespace basecross {
 		transPos += m_direction.normalize() * m_speed * deltaTime;
 		GetTransform()->SetPosition(transPos);
 
-		// ˆÊ’u‚ğ“¯Šú
+		// ä½ç½®ã‚’åŒæœŸ
 		GetComponent<EfkComponent>()->SyncPosition();
 	}
 
 	void Bullet::OnDestroy() {
-		// ƒIƒuƒWƒFƒNƒgíœ‚ÉƒGƒtƒFƒNƒg‚à’â~
+		// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆå‰Šé™¤æ™‚ã«ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚‚åœæ­¢
 		GetComponent<EfkComponent>()->Stop();
 	}
 
 	void Bullet::OnCollisionEnter(shared_ptr<GameObject>& other)
 	{
-		if (other == m_owner.lock() || other->FindTag(L"Bullet"))
+		if (other->FindTag(L"Player") || other->FindTag(L"Bullet"))
 			return;
-
 		auto ptr = dynamic_pointer_cast<PlayerBase>(other);
 		if (ptr)
-			// ƒmƒbƒNƒoƒbƒN
+			// ãƒãƒƒã‚¯ãƒãƒƒã‚¯
 			ptr->KnockBack(m_direction, m_knockBackAmount, m_owner.lock());
-
 		GetStage()->RemoveGameObject<Bullet>(GetThis<Bullet>());
 	}
 }

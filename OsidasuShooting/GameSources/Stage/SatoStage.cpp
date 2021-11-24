@@ -8,8 +8,8 @@
 
 namespace basecross {
 	void SatoStage::CreateViewLight() {
-		const Vec3 eye(0.0f, 5.0f, -15.0f);
-		const Vec3 at(0.0f);
+		const Vec3 eye(0.0f, 30.0f, -25.0f);
+		const Vec3 at(0.0f, 0.0f, -2.0f);
 		auto PtrView = CreateView<SingleView>();
 		//ÉrÉÖÅ[ÇÃÉJÉÅÉâÇÃê›íË
 		auto PtrCamera = ObjectFactory::Create<Camera>();
@@ -33,7 +33,7 @@ namespace basecross {
 	void SatoStage::BattlePlayerUISet(int value) {
 		auto setNum = 0;
 		//auto playerCirecle = AddGameObject<BattlePlayersUIs>(L"BPsUIs",0);
-		auto playerNumber = AddGameObject<BattlePlayersUIs>(L"BPsUIs",value,Vec3(0));
+		//auto playerNumber = AddGameObject<BattlePlayersUIs>(L"BPsUIs",value,Vec3(0));
 		
 	}
 
@@ -61,10 +61,19 @@ namespace basecross {
 
 			//AddGameObject<Number>(10);
 
-			BattlePlayerUISet(6);
-
+			//BattlePlayerUISet(6);
 			
+			auto Player1 =  AddGameObject<ManualPlayer>(TransformData(Vec3(0), Vec3(1), Vec3(0,0,1)), PlayerNumber::P1);
+			Player1->GetComponent<Gravity>()->SetGravityZero();
+			auto PlayerPos = Player1->GetComponent<Transform>()->GetPosition();
+			
+			auto Laser = AddGameObject<SpecialLaser>(Player1, Vec3(0,0,0), Vec3(0, 0, 0));
 
+			AddGameObject<Block>(TransformData(Vec3(0,-1,0),Vec3(3,1,3)));
+			//auto LaserPos->GetPositino();
+			//LaserPos.z *= -1;
+			//Laser->GetTransform()->SetPosition(LaserPos);
+			//
 		}
 		catch (...) {
 			throw;
