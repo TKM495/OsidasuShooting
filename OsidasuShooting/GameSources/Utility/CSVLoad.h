@@ -8,13 +8,6 @@
 #include "Utility/BaseSingleton.h"
 
 namespace basecross {
-	// スプライトのデータ形式
-	struct SpriteDataFormat {
-		wstring name;	// 名称
-		Vec2 origin;	// 原点の座標
-		Vec2 size;		// サイズ
-	};
-
 	class CSVLoad :public BaseSingleton<CSVLoad> {
 	private:
 		CSVLoad() {}
@@ -31,7 +24,7 @@ namespace basecross {
 		/**
 		 * @brief データを取得する
 		 */
-		void GetData(const wstring& key);
+		vector<wstring> GetData(const wstring& key)const;
 	};
 }
 //end basecross

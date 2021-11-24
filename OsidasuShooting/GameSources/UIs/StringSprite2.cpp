@@ -8,97 +8,95 @@
 
 namespace basecross {
 	void StringSprite2::OnCreate() {
-		//// CSVLoadを取得しデータをもらう
-		//auto csvLoad = dynamic_pointer_cast<CSVLoad>(GetStage()->GetSharedObject(L"CSVLoad"));
-		//auto& data = csvLoad->GetStringSpriteData();
-		//// 目標のデータを探す
-		//int index = SearchDataIndex(data);
-		//if (index == -1) {
-		//	throw BaseException(
-		//		L"目標のデータが見つかりません",
-		//		L"name : " + m_name,
-		//		L"StringSprite2::OnCreate()"
-		//	);
-		//}
-		//m_data = data[index];
-		//auto origin = m_data.origin;
-		//auto size = m_data.size;
-		//Rect2D<float> pos;
-		//// 水平位置の設定
-		//switch (m_horizontal)
-		//{
-		//case basecross::Align::Horizontal::Left:
-		//	pos.left = 0.0f;
-		//	pos.right = size.x;
-		//	break;
-		//case basecross::Align::Horizontal::Center:
-		//	pos.left = size.x / 2.0f;
-		//	pos.right = size.x / 2.0f;
-		//	break;
-		//case basecross::Align::Horizontal::Right:
-		//	pos.left = size.x;
-		//	pos.right = 0.0f;
-		//	break;
-		//default:
-		//	// エラー
-		//	break;
-		//}
-		//// 垂直位置の設定
-		//switch (m_vertical)
-		//{
-		//case basecross::Align::Vertical::Top:
-		//	pos.top = 0.0f;
-		//	pos.bottom = size.y;
-		//	break;
-		//case basecross::Align::Vertical::Center:
-		//	pos.top = size.y / 2.0f;
-		//	pos.bottom = size.y / 2.0f;
-		//	break;
-		//case basecross::Align::Vertical::Bottom:
-		//	pos.top = size.y;
-		//	pos.bottom = 0.0f;
-		//	break;
-		//default:
-		//	// エラー
-		//	break;
-		//}
+		vector<SpriteDataFormat> data;
+		// 目標のデータを探す
+		int index = SearchDataIndex(data);
+		if (index == -1) {
+			throw BaseException(
+				L"目標のデータが見つかりません",
+				L"name : " + m_name,
+				L"StringSprite2::OnCreate()"
+			);
+		}
+		m_data = data[index];
+		auto origin = m_data.origin;
+		auto size = m_data.size;
+		Rect2D<float> pos;
+		// 水平位置の設定
+		switch (m_horizontal)
+		{
+		case basecross::Align::Horizontal::Left:
+			pos.left = 0.0f;
+			pos.right = size.x;
+			break;
+		case basecross::Align::Horizontal::Center:
+			pos.left = size.x / 2.0f;
+			pos.right = size.x / 2.0f;
+			break;
+		case basecross::Align::Horizontal::Right:
+			pos.left = size.x;
+			pos.right = 0.0f;
+			break;
+		default:
+			// エラー
+			break;
+		}
+		// 垂直位置の設定
+		switch (m_vertical)
+		{
+		case basecross::Align::Vertical::Top:
+			pos.top = 0.0f;
+			pos.bottom = size.y;
+			break;
+		case basecross::Align::Vertical::Center:
+			pos.top = size.y / 2.0f;
+			pos.bottom = size.y / 2.0f;
+			break;
+		case basecross::Align::Vertical::Bottom:
+			pos.top = size.y;
+			pos.bottom = 0.0f;
+			break;
+		default:
+			// エラー
+			break;
+		}
 
-		//// テクスチャ座標でUVを定義
-		//vector<Vec2> uvs, uv = {
-		//	origin,
-		//	origin + Vec2(size.x,0.0f),
-		//	origin + Vec2(0.0f, size.y),
-		//	origin + size
-		//};
-		//// テクスチャ座標からUV座標に変換
-		//Utility::ConvertToUVCoordinates(uv, L"string", uvs);
+		// テクスチャ座標でUVを定義
+		vector<Vec2> uvs, uv = {
+			origin,
+			origin + Vec2(size.x,0.0f),
+			origin + Vec2(0.0f, size.y),
+			origin + size
+		};
+		// テクスチャ座標からUV座標に変換
+		Utility::ConvertToUVCoordinates(uv, L"string", uvs);
 
-		//// 頂点のデータ (番号は左上から右下まで)
-		//vertices = {
-		//	{Vec3(-pos.left,+pos.top,0.0f),m_color,uvs[0]}, //0
-		//	{Vec3(+pos.right,+pos.top,0.0f),m_color,uvs[1]}, //1
+		// 頂点のデータ (番号は左上から右下まで)
+		vertices = {
+			{Vec3(-pos.left,+pos.top,0.0f),m_color,uvs[0]}, //0
+			{Vec3(+pos.right,+pos.top,0.0f),m_color,uvs[1]}, //1
 
-		//	{Vec3(-pos.left,-pos.bottom,0.0f),m_color,uvs[2]}, //2
-		//	{Vec3(+pos.right,-pos.bottom,0.0f),m_color,uvs[3]},  //3
-		//};
-		//// 頂点インデックス
-		//vector<uint16_t> indices = {
-		//	0, 1, 2, // 上の三角形
-		//	2, 1, 3  // 下の三角形
-		//};
+			{Vec3(-pos.left,-pos.bottom,0.0f),m_color,uvs[2]}, //2
+			{Vec3(+pos.right,-pos.bottom,0.0f),m_color,uvs[3]},  //3
+		};
+		// 頂点インデックス
+		vector<uint16_t> indices = {
+			0, 1, 2, // 上の三角形
+			2, 1, 3  // 下の三角形
+		};
 
-		//auto drawComp = AddComponent<PCTSpriteDraw>(vertices, indices);
-		//drawComp->SetTextureResource(L"string");
-		//// テクスチャの繰り返し設定(Wrap)
-		//drawComp->SetSamplerState(SamplerState::AnisotropicWrap);
-		//drawComp->SetDepthStencilState(DepthStencilState::Read);
+		auto drawComp = AddComponent<PCTSpriteDraw>(vertices, indices);
+		drawComp->SetTextureResource(L"string");
+		// テクスチャの繰り返し設定(Wrap)
+		drawComp->SetSamplerState(SamplerState::AnisotropicWrap);
+		drawComp->SetDepthStencilState(DepthStencilState::Read);
 
-		//auto fade = AddComponent<FadeComponent>();
-		//fade->SetFadeColor(m_color);
+		auto fade = AddComponent<FadeComponent>();
+		fade->SetFadeColor(m_color);
 
-		//SetAlphaActive(true); // 透明をサポートする&両面描画になる
-		//SetDrawLayer(2);
-		//SetUpdateActive(false);
+		SetAlphaActive(true); // 透明をサポートする&両面描画になる
+		SetDrawLayer(2);
+		SetUpdateActive(false);
 	}
 
 	void StringSprite2::OnUpdate() {

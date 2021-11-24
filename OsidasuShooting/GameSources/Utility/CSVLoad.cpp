@@ -7,10 +7,18 @@
 #include "Project.h"
 
 namespace basecross {
+	unique_ptr<CSVLoad, CSVLoad::Deleter> CSVLoad::m_instance = nullptr;
+
 	void CSVLoad::RegisterFile(const wstring& key, const wstring& filePath) {
+		CsvFile csvFile;
+
+		csvFile.SetFileName(filePath);
+		csvFile.ReadCsv();
+		m_data[key] = csvFile.GetCsvVec();
 	}
 
-	void CSVLoad::GetData(const wstring& key) {
+	vector<wstring> CSVLoad::GetData(const wstring& key)const {
+		return m_data.at(key);
 	}
 
 	//void CSVLoad::SpriteDataExtraction(vector<wstring> fileData, SpriteType type) {

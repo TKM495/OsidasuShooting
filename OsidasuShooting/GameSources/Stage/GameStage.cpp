@@ -8,8 +8,8 @@
 
 namespace basecross {
 	void GameStage::CreateViewLight() {
-		const Vec3 eye(0.0f, 30.0f, -25.0f);
-		const Vec3 at(0.0f, 0.0f, -2.0f);
+		const Vec3 eye(0.0f, 25.0f, -30.0f);
+		const Vec3 at(0.0f, 0.0f, -7.0f);
 		auto PtrView = CreateView<SingleView>();
 		//ÉrÉÖÅ[ÇÃÉJÉÅÉâÇÃê›íË
 		auto PtrCamera = ObjectFactory::Create<Camera>();
@@ -44,29 +44,29 @@ namespace basecross {
 
 			builder.Build(GetThis<Stage>(), path);
 
-			auto player = AddGameObject<ManualPlayer>(TransformData(Vec3(10.0f, 1.0f, 0.0f)), PlayerNumber::P1);
+			auto player = AddGameObject<ManualPlayer>(TransformData(Vec3(10.0f, 1.0f, -15.0f)), PlayerNumber::P1);
 			AddGameObject<PlayerInfo>(player, TransformData(Vec3(-500.0f, -250.0f, 0.0f)));
 			AddGameObject<PlayerFollowUI>(player, TransformData());
 			PlayerManager::GetInstance()->AddPlayer(player);
 
-			player = AddGameObject<ManualPlayer>(TransformData(Vec3(-10.0f, 1.0f, 0.0f)), PlayerNumber::P2);
-			AddGameObject<PlayerInfo>(player, TransformData(Vec3(-200.0f, -250.0f, 0.0f)));
+			player = AddGameObject<ManualPlayer>(TransformData(Vec3(-10.0f, 1.0f, -15.0f)), PlayerNumber::P2);
+			AddGameObject<PlayerInfo>(player, TransformData(Vec3(-180.0f, -250.0f, 0.0f)));
 			AddGameObject<PlayerFollowUI>(player, TransformData());
 			PlayerManager::GetInstance()->AddPlayer(player);
 
-			player = AddGameObject<ManualPlayer>(TransformData(Vec3(-10.0f, 10.0f, 0.0f)), PlayerNumber::P3);
-			AddGameObject<PlayerInfo>(player, TransformData(Vec3(200.0f, -250.0f, 0.0f)));
+			player = AddGameObject<ManualPlayer>(TransformData(Vec3(10.0f, 1.0f, 0.0f)), PlayerNumber::P3);
+			AddGameObject<PlayerInfo>(player, TransformData(Vec3(180.0f, -250.0f, 0.0f)));
 			AddGameObject<PlayerFollowUI>(player, TransformData());
 			PlayerManager::GetInstance()->AddPlayer(player);
 
-			player = AddGameObject<ManualPlayer>(TransformData(Vec3(-10.0f, 10.0f, 0.0f)), PlayerNumber::P4);
+			player = AddGameObject<ManualPlayer>(TransformData(Vec3(-10.0f, 1.0f, 0.0f)), PlayerNumber::P4);
 			AddGameObject<PlayerInfo>(player, TransformData(Vec3(500.0f, -250.0f, 0.0f)));
 			AddGameObject<PlayerFollowUI>(player, TransformData());
 			PlayerManager::GetInstance()->AddPlayer(player);
 
 			AddGameObject<FallDecision>();
 
-			m_countDown = AddGameObject<CountDown>(10.0f);
+			m_countDown = AddGameObject<CountDown>(90.0f);
 		}
 		catch (...) {
 			throw;

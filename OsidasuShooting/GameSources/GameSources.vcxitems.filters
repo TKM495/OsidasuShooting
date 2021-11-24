@@ -154,6 +154,12 @@
     <Filter Include="Utility\BaseSingleton">
       <UniqueIdentifier>{ceb7806d-c494-437b-a221-eb7a4db6c0c2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utility\DataExtracted">
+      <UniqueIdentifier>{e3644973-ff3b-443b-a71b-4a0d596efa32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\CurrentFirst">
+      <UniqueIdentifier>{569781e7-47e0-407f-a42d-311bda4d21c3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -323,6 +329,15 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\BaseSingleton.h">
       <Filter>Utility\BaseSingleton</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\DataExtracted.h">
+      <Filter>Utility\DataExtracted</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage2.h">
+      <Filter>Stage\Debug\WatanabeStage</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CurrentFirst.h">
+      <Filter>UI\CurrentFirst</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
@@ -485,6 +500,15 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\BaseSingleton.cpp">
       <Filter>Utility\BaseSingleton</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\DataExtracted.cpp">
+      <Filter>Utility\DataExtracted</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage2.cpp">
+      <Filter>Stage\Debug\WatanabeStage</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CurrentFirst.cpp">
+      <Filter>UI\CurrentFirst</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

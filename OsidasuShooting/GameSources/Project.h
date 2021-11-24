@@ -14,6 +14,7 @@
 #include "Stage/SatoStage.h"
 #include "Stage/TitleStage.h"
 #include "Stage/WatanabeStage.h"
+#include "Stage/WatanabeStage2.h"
 // その他
 #include "DebugClass/Debug.h"
 #include "Effekseer/EfkEffect.h"
@@ -48,6 +49,7 @@
 #include "UIs/BombRemainingCount.h"
 #include "UIs/PlayerInfo.h"
 #include "UIs/PlayerFollowUI.h"
+#include "UIs/CurrentFirst.h"
 // コンポーネント
 #include "Component/FadeComponent.h"
 #include "Component/PhysicalBehavior.h"
