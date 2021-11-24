@@ -1,39 +1,66 @@
 /*!
 @file Project.h
-@brief ƒRƒ“ƒeƒ“ƒc—p‚Ìƒwƒbƒ_‚ğ‚Ü‚Æ‚ß‚é
+@brief ã‚³ãƒ³ãƒ†ãƒ³ãƒ„ç”¨ã®ãƒ˜ãƒƒãƒ€ã‚’ã¾ã¨ã‚ã‚‹
 */
 
 #pragma once
 
-// Šî–{
+// åŸºæœ¬
 #include "Scene.h"
-#include "Stage/TitleStage.h"
-#include "Stage/GameStage.h"
-#include "Stage/ResultStage.h"
 #include "Stage/DebugStage.h"
-#include "Stage/WatanabeStage.h"
-#include "Stage/SatoStage.h"
+#include "Stage/GameStage.h"
 #include "Stage/JONYMDStage.h"
-// ‚»‚Ì‘¼
+#include "Stage/ResultStage.h"
+#include "Stage/SatoStage.h"
+#include "Stage/TitleStage.h"
+#include "Stage/WatanabeStage.h"
+// ãã®ä»–
 #include "DebugClass/Debug.h"
-#include "Utility/Utility.h"
-#include "Utility/BombPredictionLine.h"
-#include "Utility/GroundingDecision.h"
 #include "Effekseer/EfkEffect.h"
-// ƒXƒe[ƒWƒIƒuƒWƒFƒNƒg
-#include "StageObject/StageObject.h"
-#include "StageObject/Player.h"
-#include "StageObject/Block.h"
+#include "Utility/CSVLoad.h"
+#include "Utility/GroundingDecision.h"
+#include "Utility/PredictionLine.h"
+#include "Utility/TimeCounter.h"
+#include "Utility/Utility.h"
+// ã‚¹ãƒ†ãƒ¼ã‚¸ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 #include "SpecialCamera/SpCamera.h"
+#include "StageObject/Block.h"
 #include "StageObject/Bullet.h"
+#include "StageObject/Bomb.h"
+#include "StageObject/PlayerBase.h"
+#include "StageObject/ManualPlayer.h"
+#include "StageObject/AdvancedGameObject.h"
+#include "StageObject/AdvancedGameObject.h"
+#include "StageObject/FallDecision.h"
 //UI
-#include "UIs/TitleSprite.h"
+#include "UIs/BaseUI.h"
+#include "UIs/Canvas.h"
 #include "UIs/NumberSprite.h"
-// ƒRƒ“ƒ|[ƒlƒ“ƒg
+#include "UIs/SimpleSprite.h"
+#include "UIs/StringSprite2.h"
+#include "UIs/TitleSprite.h"
+#include "UIs/BattlePlayersUIs.h"
+#include "UIs/UIHeader.h"
+#include "UIs/ArmorGauge.h"
+#include "UIs/HoverTimeGauge.h"
+#include "UIs/BombReloadTimeGauge.h"
+#include "UIs/BombRemainingCount.h"
+#include "UIs/PlayerInfo.h"
+#include "UIs/PlayerFollowUI.h"
+// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
+#include "Component/FadeComponent.h"
 #include "Component/PhysicalBehavior.h"
-
+#include "Component/LifeSpan.h"
+#include "Component/MySpriteBaseDraw.h"
+#include "Component/PCTGaugeSprite.h"
+// ãƒ¡ãƒ‹ãƒ¥ãƒ¼
+#include "UIs/Menu/BaseMenu.h"
+// ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼
+#include "Manager/ControllerManager.h"
+#include "Manager/PlayerManager.h"
 
 //#include "JonyMd/CountDown.h";
 #include "JonyMd/Items.h";
 #include "JonyMd/ItemsCreations.h";
 #include "JonyMd/Area.h";
+#include "JonyMd/CountDown.h"

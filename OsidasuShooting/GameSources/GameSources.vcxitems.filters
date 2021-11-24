@@ -72,6 +72,86 @@
     </Filter>
     <Filter Include="StageObject\JonyMd">
       <UniqueIdentifier>{48fc7ecf-3fe5-4de3-8c5b-6f2b0a0e1b58}</UniqueIdentifier>
+    <Filter Include="JonyMd">
+      <UniqueIdentifier>{5e611ea7-2f55-439e-be59-ff4b4385e58f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Menu">
+      <UniqueIdentifier>{92d6c959-a3ba-4376-9ed0-3b25b3cfa862}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\CSVLoad">
+      <UniqueIdentifier>{7430e74c-1c60-4668-bed4-fd3a96d3d351}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\GroundingDecision">
+      <UniqueIdentifier>{3c138790-97a8-4741-9ffe-a9fd20d08c75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\TimeCounter">
+      <UniqueIdentifier>{aaff4d9c-384e-4374-86a4-c0855d57d8c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\StringSprite2">
+      <UniqueIdentifier>{039d2856-a65f-4488-8cd0-608b70f6780e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\FadeComponent">
+      <UniqueIdentifier>{c9d23716-e422-4149-8d26-d4671befcb2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\BaseUI">
+      <UniqueIdentifier>{44dc54f6-e806-433a-a822-b3e42e60cd62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Canvas">
+      <UniqueIdentifier>{38361008-53fd-40d8-afa2-b230f8e9a6cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\SimpleSprite">
+      <UniqueIdentifier>{41a8978e-2833-429b-bc17-0760ff6f3a9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StageObject\Bomb">
+      <UniqueIdentifier>{6fe3fda3-fdff-44b1-8801-4350ebabd2d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\PredictionLine">
+      <UniqueIdentifier>{90cf575b-3825-4862-8c0c-1cfc21ca600e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\LifeSpan">
+      <UniqueIdentifier>{2963c5c4-d966-4967-8f6d-eb07b1559f1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{31f89d01-371a-4aad-b82a-b500d54514d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\ControllerManager">
+      <UniqueIdentifier>{c018e5db-7117-497b-8652-e410f9f938f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\PlayerManager">
+      <UniqueIdentifier>{c8422ba4-b059-4683-9370-1346af62f6c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\BattlePlayersUIs">
+      <UniqueIdentifier>{6f1e1945-4d31-464d-a159-51165c5bfa8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StageObject\FallDecision">
+      <UniqueIdentifier>{8e0379d1-5859-489c-93a0-2920b8b7c764}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\PCTGaugeSprite">
+      <UniqueIdentifier>{9fe2265b-8b30-4017-9b65-aaf4514ba53f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\PCTGaugeSprite\HLSL">
+      <UniqueIdentifier>{0b0076ae-fbf7-48cb-bd3a-e6a63e31c27c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\ArmorGauge">
+      <UniqueIdentifier>{2eaefa1e-84a6-4cf9-84f1-2ebed523aacd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\MySpriteBaseDraw">
+      <UniqueIdentifier>{0b67201f-57f0-4e02-b985-479d800aa083}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\HoverTimeGauge">
+      <UniqueIdentifier>{665f2812-505c-483e-afee-d5a297386c0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\PlayerInfo">
+      <UniqueIdentifier>{f612adde-52c8-447e-8bc5-849448ad1fe8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\PlayerFollowUI">
+      <UniqueIdentifier>{ff46d07b-582d-4552-885c-3c2184cc819f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\BombReloadTimeGauge">
+      <UniqueIdentifier>{9d49bee0-bae4-4e17-8274-41ab8db1e287}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\BombRemainingCount">
+      <UniqueIdentifier>{2b096544-2c75-4928-9400-b31877458ea0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -115,7 +195,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Block.h">
       <Filter>StageObject\Block</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Player.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\PlayerBase.h">
       <Filter>StageObject\Player</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)DebugClass\DebugCamera.h">
@@ -136,12 +216,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Bullet.h">
       <Filter>StageObject\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\BombPredictionLine.h">
-      <Filter>Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\LinePoint.h">
-      <Filter>Utility</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.h">
       <Filter>Camera</Filter>
     </ClInclude>
@@ -152,7 +226,98 @@
       <Filter>Setting</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\GroundingDecision.h">
-      <Filter>Utility</Filter>
+      <Filter>Utility\GroundingDecision</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\Menu\BaseMenu.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\Menu\Cursor.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\CSVLoad.h">
+      <Filter>Utility\CSVLoad</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\TimeCounter.h">
+      <Filter>Utility\TimeCounter</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\StringSprite2.h">
+      <Filter>UI\StringSprite2</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\FadeComponent.h">
+      <Filter>Component\FadeComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BaseUI.h">
+      <Filter>UI\BaseUI</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\Canvas.h">
+      <Filter>UI\Canvas</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\UIHeader.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\SimpleSprite.h">
+      <Filter>UI\SimpleSprite</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\CountDown.h">
+      <Filter>JonyMd</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Bomb.h">
+      <Filter>StageObject\Bomb</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.h">
+      <Filter>Utility\PredictionLine</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\LinePoint.h">
+      <Filter>Utility\PredictionLine</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\LinePoint.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\LifeSpan.h">
+      <Filter>Component\LifeSpan</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\ManualPlayer.h">
+      <Filter>StageObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Manager\ControllerManager.h">
+      <Filter>Manager\ControllerManager</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.h">
+      <Filter>Manager\PlayerManager</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BattlePlayersUIs.h">
+      <Filter>UI\BattlePlayersUIs</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\FallDecision.h">
+      <Filter>StageObject\FallDecision</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\ArmorGauge.h">
+      <Filter>UI\ArmorGauge</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\PCTGaugeSprite.h">
+      <Filter>Component\PCTGaugeSprite</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\MySpriteBaseDraw.h">
+      <Filter>Component\MySpriteBaseDraw</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\HoverTimeGauge.h">
+      <Filter>UI\HoverTimeGauge</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\PlayerInfo.h">
+      <Filter>UI\PlayerInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\AdvancedGameObject.h">
+      <Filter>StageObject</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\PlayerFollowUI.h">
+      <Filter>UI\PlayerFollowUI</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BombReloadTimeGauge.h">
+      <Filter>UI\BombReloadTimeGauge</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BombRemainingCount.h">
+      <Filter>UI\BombRemainingCount</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Area.h">
@@ -172,9 +337,6 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Scene.cpp">
       <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\Utility.cpp">
-      <Filter>Utility</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Effekseer\EfkInterface.cpp">
       <Filter>Effekseer</Filter>
@@ -203,7 +365,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Block.cpp">
       <Filter>StageObject\Block</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Player.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\PlayerBase.cpp">
       <Filter>StageObject\Player</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)DebugClass\DebugCamera.cpp">
@@ -224,22 +386,80 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Bullet.cpp">
       <Filter>StageObject\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\BombPredictionLine.cpp">
-      <Filter>Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\LinePoint.cpp">
-      <Filter>Utility</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.cpp">
       <Filter>Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.cpp">
-      <Filter>UI\TitleSprite</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.cpp">
       <Filter>Setting</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\GroundingDecision.cpp">
+      <Filter>Utility\GroundingDecision</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\Menu\BaseMenu.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\Menu\Cursor.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\CSVLoad.cpp">
+      <Filter>Utility\CSVLoad</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\TimeCounter.cpp">
+      <Filter>Utility\TimeCounter</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\StringSprite2.cpp">
+      <Filter>UI\StringSprite2</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\FadeComponent.cpp">
+      <Filter>Component\FadeComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BaseUI.cpp">
+      <Filter>UI\BaseUI</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\Canvas.cpp">
+      <Filter>UI\Canvas</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\SimpleSprite.cpp">
+      <Filter>UI\SimpleSprite</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\CountDown.cpp">
+      <Filter>JonyMd</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Bomb.cpp">
+      <Filter>StageObject\Bomb</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.cpp">
+      <Filter>Utility\PredictionLine</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\LinePoint.cpp">
+      <Filter>Utility\PredictionLine</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\LinePoint.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\LifeSpan.cpp">
+      <Filter>Component\LifeSpan</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\ManualPlayer.cpp">
+      <Filter>StageObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Manager\ControllerManager.cpp">
+      <Filter>Manager\ControllerManager</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.cpp">
+      <Filter>Manager\PlayerManager</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BattlePlayersUIs.cpp">
+      <Filter>UI\BattlePlayersUIs</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.cpp">
+      <Filter>UI\TitleSprite</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\FallDecision.cpp">
+      <Filter>StageObject\FallDecision</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\Utility.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.cpp" />
@@ -252,5 +472,45 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\ItemsCreations.cpp">
       <Filter>StageObject\JonyMd</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\ArmorGauge.cpp">
+      <Filter>UI\ArmorGauge</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\PCTGaugeSprite.cpp">
+      <Filter>Component\PCTGaugeSprite</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\MySpriteBaseDraw.cpp">
+      <Filter>Component\MySpriteBaseDraw</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\HoverTimeGauge.cpp">
+      <Filter>UI\HoverTimeGauge</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\PlayerInfo.cpp">
+      <Filter>UI\PlayerInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\AdvancedGameObject.cpp">
+      <Filter>StageObject</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\PlayerFollowUI.cpp">
+      <Filter>UI\PlayerFollowUI</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BombReloadTimeGauge.cpp">
+      <Filter>UI\BombReloadTimeGauge</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BombRemainingCount.cpp">
+      <Filter>UI\BombRemainingCount</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="$(MSBuildThisFileDirectory)Component\VSPCTGaugeSprite.hlsl">
+      <Filter>Component\PCTGaugeSprite\HLSL</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)Component\PSPCTGaugeSprite.hlsl">
+      <Filter>Component\PCTGaugeSprite\HLSL</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Component\INCPCTGaugeSprite.hlsli">
+      <Filter>Component\PCTGaugeSprite\HLSL</Filter>
+    </None>
   </ItemGroup>
 </Project>

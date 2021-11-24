@@ -1,10 +1,11 @@
 GBPUI 512px,512px
+GBPUI256  2048px(256px),256px
 
-Gauge 128px,512px
+Gauge 512px,128px
 
-Number1024px,640px 一文字64px
+Number1024px(704px,一文字64px) 128px
 
-Title 1024px,512
+Title 1024px,512px
 
 PushAButton 340px,64px
 

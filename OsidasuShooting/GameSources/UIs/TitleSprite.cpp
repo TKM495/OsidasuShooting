@@ -8,11 +8,10 @@
 
 namespace basecross 
 {
-	void TitleSprite::OnCreate()
-	{
+	void TitleSprite::OnCreate() {
 		//texture 1024 x 512
 		float sideSize = 1024.0f;
-		float higthSize = -512.0f;
+		float highSize = -512.0f;
 		float zeroSize = 0.0f;
 		float oneSize = 1.0f;
 		float quatSize = 0.25f;
@@ -23,10 +22,10 @@ namespace basecross
 
 		// ポリゴンの頂点データ
 		vector<VertexPositionColorTexture> vertices = {
-			{VertexPositionColorTexture(Vec3(zeroSize,  zeroSize, zeroSize),color,Vec2(zeroSize, zeroSize))},
-			{VertexPositionColorTexture(Vec3(sideSize,  zeroSize, zeroSize),color,Vec2( oneSize, zeroSize))},
-			{VertexPositionColorTexture(Vec3(zeroSize, higthSize, zeroSize),color,Vec2(zeroSize,  oneSize))},
-			{VertexPositionColorTexture(Vec3(sideSize, higthSize, zeroSize),color,Vec2( oneSize,  oneSize))}
+			{VertexPositionColorTexture(Vec3(zeroSize, zeroSize, zeroSize),color,Vec2(zeroSize, zeroSize))},
+			{VertexPositionColorTexture(Vec3(sideSize, zeroSize, zeroSize),color,Vec2( oneSize, zeroSize))},
+			{VertexPositionColorTexture(Vec3(zeroSize, highSize, zeroSize),color,Vec2(zeroSize,  oneSize))},
+			{VertexPositionColorTexture(Vec3(sideSize, highSize, zeroSize),color,Vec2( oneSize,  oneSize))}
 		};
 
 		// 頂点インデックス
@@ -43,15 +42,14 @@ namespace basecross
 
 		// 位置、拡大縮小
 		auto ptrTrans = GetComponent<Transform>();
-		Vec3 pos(-sideSize * helfSize * tqatSize, -higthSize * tqatSize * tqatSize, zeroSize);
+		Vec3 pos(-sideSize * helfSize * tqatSize, -highSize * tqatSize * tqatSize, zeroSize);
 		Vec3 scl(oneSize * tqatSize, oneSize * tqatSize, oneSize);
 		ptrTrans->SetPosition(pos);
 		ptrTrans->SetScale(scl);
 
 	}
 	
-	void PushAButtonSprite::OnCreate()
-	{
+	void PushAButtonSprite::OnCreate() {
 		//texture 512 x 64
 		float sideSize = 340.0f;
 		float fSidSize = 512.0f;

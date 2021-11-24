@@ -9,7 +9,7 @@
 namespace basecross {
 	Block::Block(const shared_ptr<Stage>& stage,
 		const wstring& line)
-		:StageObject(stage)
+		:AdvancedGameObject(stage)
 	{
 		vector<wstring> tokens;
 		Util::WStrToTokenVector(tokens, line, L',');
@@ -42,8 +42,6 @@ namespace basecross {
 
 		auto shadowComp = AddComponent<Shadowmap>();
 		shadowComp->SetMeshResource(L"DEFAULT_CUBE");
-
-		ObjectSetUp();
 	}
 
 	void Block::OnUpdate() {
