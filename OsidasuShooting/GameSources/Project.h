@@ -1,11 +1,11 @@
 /*!
 @file Project.h
-@brief ƒRƒ“ƒeƒ“ƒc—p‚Ìƒwƒbƒ_‚ğ‚Ü‚Æ‚ß‚é
+@brief ã‚³ãƒ³ãƒ†ãƒ³ãƒ„ç”¨ã®ãƒ˜ãƒƒãƒ€ã‚’ã¾ã¨ã‚ã‚‹
 */
 
 #pragma once
 
-// Šî–{
+// åŸºæœ¬
 #include "Scene.h"
 #include "Stage/DebugStage.h"
 #include "Stage/GameStage.h"
@@ -14,7 +14,7 @@
 #include "Stage/SatoStage.h"
 #include "Stage/TitleStage.h"
 #include "Stage/WatanabeStage.h"
-// ‚»‚Ì‘¼
+// ãã®ä»–
 #include "DebugClass/Debug.h"
 #include "Effekseer/EfkEffect.h"
 #include "Utility/CSVLoad.h"
@@ -22,7 +22,7 @@
 #include "Utility/PredictionLine.h"
 #include "Utility/TimeCounter.h"
 #include "Utility/Utility.h"
-// ƒXƒe[ƒWƒIƒuƒWƒFƒNƒg
+// ã‚¹ãƒ†ãƒ¼ã‚¸ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 #include "SpecialCamera/SpCamera.h"
 #include "StageObject/Block.h"
 #include "StageObject/Bullet.h"
@@ -47,16 +47,20 @@
 #include "UIs/BombRemainingCount.h"
 #include "UIs/PlayerInfo.h"
 #include "UIs/PlayerFollowUI.h"
-// ƒRƒ“ƒ|[ƒlƒ“ƒg
+// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
 #include "Component/FadeComponent.h"
 #include "Component/PhysicalBehavior.h"
 #include "Component/LifeSpan.h"
 #include "Component/MySpriteBaseDraw.h"
 #include "Component/PCTGaugeSprite.h"
-// ƒƒjƒ…[
+// ãƒ¡ãƒ‹ãƒ¥ãƒ¼
 #include "UIs/Menu/BaseMenu.h"
-// ƒ}ƒl[ƒWƒƒ[
+// ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼
 #include "Manager/ControllerManager.h"
 #include "Manager/PlayerManager.h"
 
+//#include "JonyMd/CountDown.h";
+#include "JonyMd/Items.h";
+#include "JonyMd/ItemsCreations.h";
+#include "JonyMd/Area.h";
 #include "JonyMd/CountDown.h"

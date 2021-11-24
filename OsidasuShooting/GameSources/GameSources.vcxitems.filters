@@ -70,6 +70,8 @@
     <Filter Include="UI\TitleSprite">
       <UniqueIdentifier>{add3088f-01cd-4bc8-b9ea-cf30cfcaaded}</UniqueIdentifier>
     </Filter>
+    <Filter Include="StageObject\JonyMd">
+      <UniqueIdentifier>{48fc7ecf-3fe5-4de3-8c5b-6f2b0a0e1b58}</UniqueIdentifier>
     <Filter Include="JonyMd">
       <UniqueIdentifier>{5e611ea7-2f55-439e-be59-ff4b4385e58f}</UniqueIdentifier>
     </Filter>
@@ -317,6 +319,16 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BombRemainingCount.h">
       <Filter>UI\BombRemainingCount</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Area.h">
+      <Filter>StageObject\JonyMd</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Items.h">
+      <Filter>StageObject\JonyMd</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\ItemsCreations.h">
+      <Filter>StageObject\JonyMd</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
@@ -449,6 +461,16 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\Utility.cpp">
       <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Area.cpp">
+      <Filter>StageObject\JonyMd</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Items.cpp">
+      <Filter>StageObject\JonyMd</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\ItemsCreations.cpp">
+      <Filter>StageObject\JonyMd</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\ArmorGauge.cpp">
       <Filter>UI\ArmorGauge</Filter>
