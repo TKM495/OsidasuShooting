@@ -46,11 +46,26 @@ namespace basecross {
 			builder.Build(GetThis<Stage>(), path);
 
 			auto player = AddGameObject<ManualPlayer>(TransformData(Vec3(10.0f, 1.0f, 0.0f)), PlayerNumber::P1);
-			AddGameObject<ManualPlayer>(TransformData(Vec3(-10.0f, 1.0f, 0.0f)), PlayerNumber::P2);
+			AddGameObject<PlayerInfo>(player, TransformData(Vec3(-500.0f, -250.0f, 0.0f)));
+			AddGameObject<PlayerFollowUI>(player, TransformData());
+			PlayerManager::GetInstance()->AddPlayer(player);
+
+			player = AddGameObject<ManualPlayer>(TransformData(Vec3(-10.0f, 1.0f, 0.0f)), PlayerNumber::P2);
+			AddGameObject<PlayerInfo>(player, TransformData(Vec3(-200.0f, -250.0f, 0.0f)));
+			AddGameObject<PlayerFollowUI>(player, TransformData());
+			PlayerManager::GetInstance()->AddPlayer(player);
+
+			player = AddGameObject<ManualPlayer>(TransformData(Vec3(-10.0f, 10.0f, 0.0f)), PlayerNumber::P3);
+			AddGameObject<PlayerInfo>(player, TransformData(Vec3(200.0f, -250.0f, 0.0f)));
+			AddGameObject<PlayerFollowUI>(player, TransformData());
+			PlayerManager::GetInstance()->AddPlayer(player);
+
+			player = AddGameObject<ManualPlayer>(TransformData(Vec3(-10.0f, 10.0f, 0.0f)), PlayerNumber::P4);
+			AddGameObject<PlayerInfo>(player, TransformData(Vec3(500.0f, -250.0f, 0.0f)));
+			AddGameObject<PlayerFollowUI>(player, TransformData());
+			PlayerManager::GetInstance()->AddPlayer(player);
 
 			AddGameObject<FallDecision>();
-			AddGameObject<ArmorGauge>(player, TransformData(Vec3(0.0f, -200.0f, 0.0f), Vec3(0.2f)));
-			AddGameObject<HoverTimeGauge>(player, TransformData(Vec3(0.0f, -300.0f, 0.0f), Vec3(0.2f)));
 		}
 		catch (...) {
 			throw;

@@ -21,10 +21,11 @@ float4 main(PSPCTInput input) : SV_TARGET
     float remapRatio = remap(Ratio, 0, 1, -Threshold, 1);
     // remapRatioとcolor.xを比べる
     float alpha = smoothstep(remapRatio, remapRatio + Threshold, color.x);
-    // 元の画像のアルファが0の場合強制的に0にする
-    alpha = color.a > 0.0f ? (1 - alpha) : 0.0f;
     // Ratioと元に色を取得
     float3 gaugeColor = g_colorTexture.Sample(g_sampler, float2(Ratio, 0.0f));
-    return float4(gaugeColor, alpha);
+    float4 mainColor = (1 - alpha) > 0.0f ? float4(gaugeColor, 1.0f) : float4(0.1f, 0.1f, 0.1f, 1.0f);
+    // 元の画像のアルファが0の場合強制的に0にする
+    alpha = color.a > 0.0f ? 1.0f : 0.0f;
+    return float4(mainColor.xyz, alpha);
 }
 

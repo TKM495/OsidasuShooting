@@ -9,7 +9,7 @@
 #include "StageObject/PlayerBase.h"
 
 namespace basecross {
-	// 後で消す
+	// 後で消す（SpCameraで使用中）
 	class ManualPlayer;
 	using Player = ManualPlayer;
 
@@ -27,7 +27,7 @@ namespace basecross {
 		ManualPlayer(const shared_ptr<Stage>& stage,
 			const TransformData& transformData,
 			PlayerNumber playerNumber = PlayerNumber::P1)
-			:PlayerBase(stage, transformData),
+			:PlayerBase(stage, transformData, playerNumber),
 			m_controllerManager(playerNumber)
 		{}
 	};

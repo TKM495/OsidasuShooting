@@ -50,8 +50,7 @@ namespace basecross {
 	}
 
 	void PredictionLine::CreateLinePoint() {
-		const auto& stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
-		auto linePoint = stages->AddGameObject<LinePoint>(TransformData(Vec3(0.0f), Vec3(1.0f), Vec3(0.0f)));
+		auto linePoint = stages->AddGameObject<LinePoint>(TransformData(Vec3(0.0f), Vec3(0.25f), Vec3(0.0f)));
 		m_linePoints.push_back(linePoint);
 	}
 

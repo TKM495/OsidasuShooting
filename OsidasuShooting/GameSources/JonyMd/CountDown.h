@@ -3,7 +3,6 @@
 #include "UIs/NumberSprite.h"
 
 namespace basecross {
-
 	class CountDown : public GameObject
 	{
 	private:
@@ -28,13 +27,13 @@ namespace basecross {
 		float m_scaleValue;				// スケール
 		Vec3 m_scaleOffset;				// スケールオフセット
 
-
 	public:
-		CountDown(const shared_ptr <Stage>& stage)
+		CountDown(const shared_ptr <Stage>& stage,
+			float time = 60.0f)
 			:GameObject(stage),
 			start(false),
 			reset(false),
-			initialTime(180.0f),
+			initialTime(time),
 			currentTime(),
 			m_timerNumbers(0),
 			m_timeCount(0.0f),
@@ -48,7 +47,6 @@ namespace basecross {
 
 			m_scaleValue(),
 			m_scaleOffset()
-
 
 		{}
 
@@ -79,14 +77,15 @@ namespace basecross {
 		}
 		//void ClockCreation();
 
+		float GetTime() {
+			return currentTime;
+		}
 
 		// タイマーをスプライトで表示するための関数
 		void CountDownSpriteCreate();
 		void AddTimerColonSpriteCreate(Vec3 posValue, Vec3 scaleValue);
-		
+
 		// カウントダウンをさせるための数値
 		void SetTimerNumbers();
-
 	};
-
 }

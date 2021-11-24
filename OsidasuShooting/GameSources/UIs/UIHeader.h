@@ -1,6 +1,5 @@
 #pragma once
-
-#include "StageObject/StageObject.h"
+#include "StageObject/AdvancedGameObject.h"
 
 namespace basecross {
 	// ‘µ‚¦•û

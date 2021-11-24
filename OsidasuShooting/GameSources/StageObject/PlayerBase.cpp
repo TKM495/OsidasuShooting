@@ -26,7 +26,6 @@ namespace basecross {
 		// 当たり判定を追加
 		AddComponent<CollisionSphere>();
 
-		ObjectSetUp();
 		// 武器ステートマシンの構築
 		m_weaponStateMachine.reset(new StateMachine<PlayerBase>(GetThis<PlayerBase>()));
 		// 武器の初期ステートの設定
@@ -40,16 +39,38 @@ namespace basecross {
 		AddTag(L"Player");
 		m_currentArmorPoint = m_defaultArmorPoint;
 		m_currentHoverTime = m_hoverTime;
+		m_bombCount = m_defaultBombCount;
 		m_initialPosition = GetTransform()->GetPosition();
+
+		// 接地判定の情報を初期化
+		m_groundingDecision.SetRadius(GetTransform()->GetScale());
 	}
 
 	void PlayerBase::OnUpdate() {
+		// 復帰中で接地しているかつ
+		if (m_isDuringReturn &&
+			m_groundingDecision.Calculate(GetTransform()->GetPosition())) {
+			// 一定時間経過したら復帰が終了した判定に
+			if (m_returnTimer.Count()) {
+				m_isDuringReturn = false;
+			}
+		}
+
+		if (m_isDuringReturn) {
+			GetComponent<PNTStaticDraw>()->SetDiffuse(Col4(1.0f, 0.0f, 0.0f, 1.0f));
+		}
+		else {
+			GetComponent<PNTStaticDraw>()->SetDiffuse(Col4(1.0f, 1.0f, 1.0f, 1.0f));
+		}
+
 		// 入力の更新
 		InputUpdate();
 		// 移動処理
 		Move();
 		// テストコード
 		TestFanc();
+		// 爆弾のリロード
+		BombReload();
 		// 各種ステートマシンの更新
 		m_weaponStateMachine->Update();
 		m_jumpAndHoverStateMachine->Update();
@@ -86,29 +107,89 @@ namespace basecross {
 	}
 
 	void PlayerBase::SpecialSkill() {
-		GetStage()->AddGameObject<SpecialCamera>();
+		//GetStage()->AddGameObject<SpecialCamera>();
 	}
 
 	void PlayerBase::BulletAimAndLaunch() {
 		auto userPosition = GetTransform()->GetPosition();
-		Ray ray(userPosition, m_inputData.BulletAim.normalize());
+		auto bulletAim = BulletAimCorrection(m_inputData.BulletAim.normalize());
+
+		Ray ray(userPosition, bulletAim);
 		// 予測線はStartとEndの2点の情報が必要
 		m_predictionLine.Update(ray.Origin, ray.GetPoint(3.0f), PredictionLine::Type::Bullet);
 
 		// 弾の発射
-		if (m_inputData.BulletAim != Vec3(0.0f) && m_bulletTimer.Count()) {
+		if (bulletAim != Vec3(0.0f) && m_bulletTimer.Count()) {
 			m_bulletTimer.Reset();
 			GetStage()->AddGameObject<Bullet>(GetThis<PlayerBase>(), ray);
 		}
 	}
+
+	Vec3 PlayerBase::BulletAimCorrection(const Vec3& launchDirection) {
+		vector<Vec3> positions;
+
+		// いずれはPlayerManagerから取得するようにしたい
+		auto objects = GetStage()->GetGameObjectVec();
+		for (auto object : objects) {
+			auto player = dynamic_pointer_cast<PlayerBase>(object);
+			if (player) {
+				if (player == GetThis<PlayerBase>())
+					continue;
+				auto pos = player->GetTransform()->GetPosition();
+				if (InViewRange(launchDirection, pos))
+					positions.push_back(pos);
+			}
+		}
+
+		// リストが空の場合補正しない
+		if (positions.size() <= 0)
+			return launchDirection;
+
+		// 最も自身に近い位置を求める
+		auto closestPosition = Vec3(INFINITY);
+		for (auto position : positions)
+		{
+			auto direction = position - GetTransform()->GetPosition();
+			if (direction.lengthSqr() < closestPosition.lengthSqr())
+				closestPosition = position;
+		}
+
+		auto direction = closestPosition - GetTransform()->GetPosition();
+		// y座標を合わせる
+		direction.y = launchDirection.y;
+		return direction.normalize();
+	}
+
+	bool PlayerBase::InViewRange(const Vec3& aimDirection, const Vec3& position)
+	{
+		// 自分からpositionへのベクトル
+		Vec3 direction = position - GetTransform()->GetPosition();
+		// 照準方向から見たtargetPosとの角度
+		float deg = Utility::GetTwoVectorAngle(aimDirection, direction.normalize());
+		// 角度が視野の範囲内かどうか(angleは左右合わせての角度なので÷2)
+		return deg < (m_correctAngle / 2.0f);
+	}
+
 	void PlayerBase::BombAim() {
 		auto delta = App::GetApp()->GetElapsedTime();
 		m_bombPoint += m_inputData.BombAim * delta * 20.0f;
 		m_predictionLine.Update(GetTransform()->GetPosition(), m_bombPoint, PredictionLine::Type::Bomb);
 	}
 
+	void PlayerBase::BombReload() {
+		// 現在の爆弾の数が最大数以上の場合は何もしない
+		if (m_bombCount < m_defaultBombCount) {
+			// 一定の時間が経過したら
+			if (m_bombReload.Count()) {
+				// 残弾を増やし、タイマーをリセット
+				m_bombCount++;
+				m_bombReload.Reset();
+			}
+		}
+	}
+
 	void PlayerBase::BombLaunch() {
-		GetStage()->AddGameObject<Bomb>(
+		GetStage()->AddGameObject<Bomb>(GetThis<PlayerBase>(),
 			m_predictionLine, GetTransform()->GetPosition(), m_bombPoint);
 	}
 
@@ -126,16 +207,17 @@ namespace basecross {
 		m_currentArmorPoint += 10.0f * App::GetApp()->GetElapsedTime();
 	}
 
-	void PlayerBase::KnockBack(const Vec3& knockBackDirection, float knockBackAmount) {
+	void PlayerBase::KnockBack(const Vec3& knockBackDirection, float knockBackAmount, const shared_ptr<PlayerBase>& aggriever) {
+		m_aggriever = aggriever;
+		m_isDuringReturn = true;
+		m_returnTimer.Reset();
 		float knockBackCorrection;
 		// アーマーが回復中でない　かつ　アーマーが0より大きい
-		if (m_currentArmorPoint > 0 && !m_isRestoreArmor)
-		{
+		if (m_currentArmorPoint > 0 && !m_isRestoreArmor) {
 			knockBackCorrection = 1;
 			m_currentArmorPoint -= 5;
 		}
-		else
-		{
+		else {
 			knockBackCorrection = 5.0f;
 			m_isRestoreArmor = true;
 		}
@@ -144,6 +226,12 @@ namespace basecross {
 	}
 
 	void PlayerBase::Respawn() {
+		// 復帰中に死んだ場合加害者に倒した通知を行う
+		if (m_isDuringReturn) {
+			m_aggriever->KilledPlayer();
+			Debug::GetInstance()->Log(L"Die");
+		}
+		m_isDuringReturn = false;
 		GetTransform()->SetPosition(m_initialPosition);
 	}
 
@@ -152,6 +240,7 @@ namespace basecross {
 		// アーマーを0にする
 		if (keyState.m_bPressedKeyTbl['0']) {
 			m_currentArmorPoint = 0.0f;
+			m_isRestoreArmor = true;
 			Debug::GetInstance()->Log(L"Test:Armor0");
 		}
 	}
@@ -194,8 +283,13 @@ namespace basecross {
 		}
 	}
 	void PlayerBase::PlayerBombModeState::Exit(const shared_ptr<PlayerBase>& Obj) {
-		// 弾モードへ遷移時に爆弾を発射
-		Obj->BombLaunch();
+		// 爆弾の残弾がある場合
+		if (Obj->m_bombCount > 0) {
+			// 弾モードへ遷移時に爆弾を発射
+			Obj->BombLaunch();
+			// 残弾を減らす
+			Obj->m_bombCount--;
+		}
 	}
 #pragma endregion
 
@@ -257,8 +351,6 @@ namespace basecross {
 			// フラグを立てる
 			Obj->m_isInput = true;
 		}
-		// 接地判定の情報を初期化
-		m_groundingDecision.SetRadius(Obj->GetTransform()->GetScale());
 	}
 	void PlayerBase::PlayerHoverState::Execute(const shared_ptr<PlayerBase>& Obj) {
 		if (Obj->m_inputData.IsJumpOrHover) {
@@ -271,7 +363,7 @@ namespace basecross {
 		}
 
 		// 接地した場合
-		if (m_groundingDecision.Calculate(Obj->GetTransform()->GetPosition()))
+		if (Obj->m_groundingDecision.Calculate(Obj->GetTransform()->GetPosition()))
 			// ジャンプステートへ遷移
 			Obj->m_jumpAndHoverStateMachine->ChangeState(PlayerJumpState::Instance());
 	}

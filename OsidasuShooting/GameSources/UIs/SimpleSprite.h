@@ -1,6 +1,6 @@
 #pragma once
 #include "stdafx.h"
-#include "StageObject/StageObject.h"
+#include "StageObject/AdvancedGameObject.h"
 
 namespace basecross {
 	class SimpleSprite :public GameObject {

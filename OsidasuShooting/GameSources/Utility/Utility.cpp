@@ -119,5 +119,29 @@ namespace basecross {
 			auto normalizedVec = vec.normalize();
 			return normalizedVec * length;
 		}
+
+		Vec3 ConvertWorldToScreen(const shared_ptr<ViewBase>& view, const Vec3& position) {
+			auto camera = view->GetTargetCamera();
+			const auto& viewport = view->GetTargetViewport();
+			const float& w = viewport.Width * 0.5f; //画面の幅の半分
+			const float& h = viewport.Height * 0.5f; //画面の高さの半分
+
+			const auto& mView = camera->GetViewMatrix(); //ビュー行列
+			const auto& mProj = camera->GetProjMatrix(); //プロジェクション行列
+			Mat4x4 mScreen( //スクリーン行列(BaseCross用)
+				{ w, 0, 0, 0 },
+				{ 0, h, 0, 0 },
+				{ 0, 0, 1, 0 },
+				{ 0, 0, 0, 1 }
+			);
+
+			Mat4x4 mVPS = mView * mProj * mScreen;
+			return Vec3(XMVector3TransformCoord(position, mVPS));
+		}
+
+		float GetTwoVectorAngle(const Vec3& vector1, const Vec3& vector2) {
+			auto dot = vector1.dot(vector2);
+			return XMConvertToDegrees(acosf(dot));
+		}
 	}
 }

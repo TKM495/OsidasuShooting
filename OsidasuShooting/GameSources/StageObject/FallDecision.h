@@ -5,13 +5,13 @@
 
 #pragma once
 #include "stdafx.h"
-#include "StageObject.h"
+#include "AdvancedGameObject.h"
 
 namespace basecross {
-	class FallDecision :public StageObject {
+	class FallDecision :public AdvancedGameObject {
 	public:
 		FallDecision(const shared_ptr<Stage>& stage)
-			:StageObject(stage)
+			:AdvancedGameObject(stage)
 		{
 			m_transformData.Position = Vec3(0.0f, -20.0f, 0.0f);
 			m_transformData.Scale = Vec3(100.0f, 1.0f, 100.0f);

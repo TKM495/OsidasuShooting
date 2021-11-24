@@ -44,11 +44,29 @@ namespace basecross {
 
 			builder.Build(GetThis<Stage>(), path);
 
-			AddGameObject<ManualPlayer>(TransformData(Vec3(10.0f, 1.0f, 0.0f)), PlayerNumber::P1);
-			AddGameObject<ManualPlayer>(TransformData(Vec3(-10.0f, 1.0f, 0.0f)), PlayerNumber::P2);
+			auto player = AddGameObject<ManualPlayer>(TransformData(Vec3(10.0f, 1.0f, 0.0f)), PlayerNumber::P1);
+			AddGameObject<PlayerInfo>(player, TransformData(Vec3(-500.0f, -250.0f, 0.0f)));
+			AddGameObject<PlayerFollowUI>(player, TransformData());
+			PlayerManager::GetInstance()->AddPlayer(player);
+
+			player = AddGameObject<ManualPlayer>(TransformData(Vec3(-10.0f, 1.0f, 0.0f)), PlayerNumber::P2);
+			AddGameObject<PlayerInfo>(player, TransformData(Vec3(-200.0f, -250.0f, 0.0f)));
+			AddGameObject<PlayerFollowUI>(player, TransformData());
+			PlayerManager::GetInstance()->AddPlayer(player);
+
+			player = AddGameObject<ManualPlayer>(TransformData(Vec3(-10.0f, 10.0f, 0.0f)), PlayerNumber::P3);
+			AddGameObject<PlayerInfo>(player, TransformData(Vec3(200.0f, -250.0f, 0.0f)));
+			AddGameObject<PlayerFollowUI>(player, TransformData());
+			PlayerManager::GetInstance()->AddPlayer(player);
+
+			player = AddGameObject<ManualPlayer>(TransformData(Vec3(-10.0f, 10.0f, 0.0f)), PlayerNumber::P4);
+			AddGameObject<PlayerInfo>(player, TransformData(Vec3(500.0f, -250.0f, 0.0f)));
+			AddGameObject<PlayerFollowUI>(player, TransformData());
+			PlayerManager::GetInstance()->AddPlayer(player);
+
 			AddGameObject<FallDecision>();
 
-			m_countDown = AddGameObject<CountDown>();
+			m_countDown = AddGameObject<CountDown>(10.0f);
 		}
 		catch (...) {
 			throw;
@@ -56,9 +74,6 @@ namespace basecross {
 	}
 
 	void GameStage::OnUpdate() {
-		const auto& app = App::GetApp();
-		auto delta = app->GetElapsedTime();
-		const auto& pad = app->GetInputDevice().GetControlerVec()[0];
 		switch (m_gameState)
 		{
 		case GameState::STAY:
@@ -72,8 +87,11 @@ namespace basecross {
 			Debug::GetInstance()->Log(m_startCountDownTimer.GetLeftTime() + 1.0f);
 			break;
 		case GameState::PLAYING:
+			if (m_countDown.lock()->GetTime() <= 0.0f)
+				ChangeGameState(GameState::CLEAR);
 			break;
 		case GameState::CLEAR:
+			PostEvent(0.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToResultStage");
 			break;
 		default:
 			break;
