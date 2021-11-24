@@ -142,7 +142,7 @@ namespace basecross {
 			m_defaultArmorPoint(100.0f), m_currentArmorPoint(m_defaultArmorPoint),
 			m_bulletTimer(0.1f, true), m_armorRecoveryTimer(2.0f),
 			m_isRestoreArmor(false), m_isInput(false), m_playerNumber(playerNumber),
-			m_bombReload(1.0f), m_defaultBombCount(5), m_correctAngle(20.0f),
+			m_bombReload(1.0f), m_defaultBombCount(5), m_correctAngle(40.0f),
 			m_isDuringReturn(false), m_groundingDecision(), m_countKilledPlayer(0),
 			m_returnTimer(0.5f)
 		{
@@ -211,7 +211,6 @@ namespace basecross {
 		 */
 		void KilledPlayer() {
 			m_countKilledPlayer++;
-			Debug::GetInstance()->Log(m_countKilledPlayer);
 		}
 
 		/**

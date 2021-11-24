@@ -229,7 +229,6 @@ namespace basecross {
 		// •œ‹A’†‚ÉŽ€‚ñ‚¾ê‡‰ÁŠQŽÒ‚É“|‚µ‚½’Ê’m‚ðs‚¤
 		if (m_isDuringReturn) {
 			m_aggriever->KilledPlayer();
-			Debug::GetInstance()->Log(L"Die");
 		}
 		m_isDuringReturn = false;
 		GetTransform()->SetPosition(m_initialPosition);
