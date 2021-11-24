@@ -13,6 +13,8 @@ namespace basecross {
 		auto PtrColl = AddComponent<CollisionSphere>();
 		// 衝突応答を無視
 		PtrColl->SetAfterCollision(AfterCollision::None);
+		PtrColl->AddExcludeCollisionGameObject(m_owner.lock());
+		PtrColl->AddExcludeCollisionTag(L"Bullet");
 
 		// 発射方向に正面を向ける
 		auto rad = atan2f(-m_direction.z, m_direction.x) + XM_PIDIV2;
@@ -51,8 +53,6 @@ namespace basecross {
 
 	void Bullet::OnCollisionEnter(shared_ptr<GameObject>& other)
 	{
-		if (other->FindTag(L"Player") || other->FindTag(L"Bullet"))
-			return;
 		auto ptr = dynamic_pointer_cast<PlayerBase>(other);
 		if (ptr)
 			// ノックバック
