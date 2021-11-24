@@ -46,6 +46,7 @@
 #include "UIs/NumberSprite.h"
 #include "UIs/PlayerFollowUI.h"
 #include "UIs/PlayerInfo.h"
+#include "UIs/Result/Winner.h"
 #include "UIs/SimpleSprite.h"
 #include "UIs/StringSprite2.h"
 #include "UIs/TitleSprite.h"
