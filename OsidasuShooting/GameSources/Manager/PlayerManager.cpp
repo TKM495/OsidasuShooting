@@ -5,7 +5,6 @@
 
 #include "stdafx.h"
 #include "Project.h"
-#include "StageObject/PlayerBase.h"
 
 namespace basecross {
 	unique_ptr<PlayerManager, PlayerManager::Deleter> PlayerManager::m_instance = nullptr;
