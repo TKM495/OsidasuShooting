@@ -316,6 +316,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage.cpp">
       <Filter>Stage\Debug\WatanabeStage</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Manager\SoundManager.cpp">
+      <Filter>Manager\SoundManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -505,6 +508,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\SpecialSkill.h">
       <Filter>StageObject</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Manager\SoundManager.h">
+      <Filter>Manager\SoundManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -747,6 +753,9 @@
     </Filter>
     <Filter Include="Menu\Cursor">
       <UniqueIdentifier>{43fbf486-1f3d-429e-9980-aeb26eef6335}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\SoundManager">
+      <UniqueIdentifier>{e539bb20-c876-4dc6-b42b-96a6b495756c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

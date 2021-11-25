@@ -31,6 +31,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\CountDown.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\ControllerManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Manager\SoundManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Scene.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.h" />
@@ -95,6 +96,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\CountDown.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\ControllerManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Manager\SoundManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Scene.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.cpp" />
