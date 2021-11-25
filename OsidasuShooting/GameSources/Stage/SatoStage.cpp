@@ -52,6 +52,13 @@ namespace basecross {
 
 	}
 
+	void SatoStage::AddResultDataSprite()
+	{
+		auto WLineUIs = AddGameObject<ResultLineSprite>(L"WhiteLine");
+		auto DLineUIs = AddGameObject<ResultLineSprite>(L"WhiteLine");
+
+	}
+
 	void SatoStage::OnCreate() {
 		try {
 			AddGameObject<EfkInterface>();
@@ -90,6 +97,7 @@ namespace basecross {
 			//
 
 			AddWinnerSprite();
+			AddResultDataSprite();
 
 		}
 		catch (...) {

@@ -24,8 +24,24 @@ namespace basecross {
 
 		void OnCreate() override;
 		void OnUpdate() {};
+	};
 
+	class ResultLineSprite : public GameObject {
+		wstring m_textureKey;
 
+	public:
+		ResultLineSprite(
+			const shared_ptr<Stage>& stage, 
+			const wstring& TextureKey
+		) :
+			GameObject(stage),
+			m_textureKey(TextureKey)
+		{}
+
+		virtual ~ResultLineSprite() {};
+
+		void OnCreate() override;
+		void OnUpdate() {};
 	};
 
 }

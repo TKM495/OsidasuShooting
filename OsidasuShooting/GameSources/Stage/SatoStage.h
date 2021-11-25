@@ -22,6 +22,7 @@ namespace basecross {
 		virtual void OnUpdate() override;
 		
 		void AddWinnerSprite();
+		void AddResultDataSprite();
 		
 		void JMDSeitchSystem()
 		{
