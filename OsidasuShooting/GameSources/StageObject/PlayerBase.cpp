@@ -8,9 +8,6 @@
 
 namespace basecross {
 	void PlayerBase::OnCreate() {
-		// シェアオブジェクトに登録（最終的に複数になるので要検討）
-		//GetStage()->SetSharedGameObject(L"PlayerBase", GetThis<PlayerBase>());
-
 		// 描画コンポーネントの追加
 		auto drawComp = AddComponent<PNTStaticDraw>();
 		drawComp->SetMeshResource(L"DEFAULT_SPHERE");
@@ -56,6 +53,7 @@ namespace basecross {
 			}
 		}
 
+		// テスト用の処理（ダメージを受けたら赤くなる）
 		if (m_isDuringReturn) {
 			GetComponent<PNTStaticDraw>()->SetDiffuse(Col4(1.0f, 0.0f, 0.0f, 1.0f));
 		}
@@ -204,22 +202,33 @@ namespace basecross {
 		m_currentArmorPoint += 10.0f * App::GetApp()->GetElapsedTime();
 	}
 
-	void PlayerBase::KnockBack(const Vec3& knockBackDirection, float knockBackAmount, const shared_ptr<PlayerBase>& aggriever) {
-		m_aggriever = aggriever;
+	void PlayerBase::KnockBack(const KnockBackData& data) {
+		m_aggriever = data.Aggriever;
 		m_isDuringReturn = true;
 		m_returnTimer.Reset();
+		// ノックバック倍率
 		float knockBackCorrection;
 		// アーマーが回復中でない　かつ　アーマーが0より大きい
 		if (m_currentArmorPoint > 0 && !m_isRestoreArmor) {
-			knockBackCorrection = 1;
-			m_currentArmorPoint -= 5;
+			knockBackCorrection = 1.0f;
 		}
 		else {
 			knockBackCorrection = 5.0f;
 			m_isRestoreArmor = true;
 		}
+		// ダメージ判定
+		switch (data.Type) {
+		case KnockBackData::Category::Bullet:
+			m_currentArmorPoint -= 10;
+			break;
+		case KnockBackData::Category::Bomb:
+			m_currentArmorPoint -= 5;
+			break;
+		default:
+			break;
+		}
 		GetComponent<PhysicalBehavior>()->Impact(
-			knockBackDirection, knockBackAmount * knockBackCorrection);
+			data.Direction, data.Amount * knockBackCorrection);
 	}
 
 	void PlayerBase::Respawn() {
@@ -257,8 +266,10 @@ namespace basecross {
 			Obj->m_weaponStateMachine->ChangeState(PlayerBombModeState::Instance());
 		}
 		// 必殺技モードへの遷移
-		if (Obj->m_inputData.IsInvokeSpecialSkill)
-			Obj->m_weaponStateMachine->ChangeState(PlayerSpecialSkillModeState::Instance());
+		if (Obj->m_inputData.IsInvokeSpecialSkill) {
+			// 現在は遷移しないようにする
+			//Obj->m_weaponStateMachine->ChangeState(PlayerSpecialSkillModeState::Instance());
+		}
 	}
 	void PlayerBase::PlayerBulletModeState::Exit(const shared_ptr<PlayerBase>& Obj) {}
 #pragma endregion

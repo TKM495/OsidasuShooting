@@ -41,6 +41,41 @@ namespace basecross {
 	};
 
 	class PlayerBase :public AdvancedGameObject {
+	public:
+		/**
+		 * @brief ノックバックデータ
+		 */
+		struct KnockBackData {
+			/**
+			 * @brief ノックバックのタイプ
+			 */
+			enum class Category {
+				Bullet,	// 弾
+				Bomb	// 爆弾
+			};
+
+			// タイプ
+			Category Type;
+			// ノックバック方向
+			Vec3 Direction;
+			// ノックバック量
+			float Amount;
+			// 加害者
+			shared_ptr<PlayerBase> Aggriever;
+
+			// コンストラクタ
+			KnockBackData(
+				Category type,
+				const Vec3& direction,
+				float amount,
+				const shared_ptr<PlayerBase>& aggriever
+			) {
+				this->Type = type;
+				this->Direction = direction;
+				this->Amount = amount;
+				this->Aggriever = aggriever;
+			}
+		};
 	private:
 		// 初期位置
 		Vec3 m_initialPosition;
@@ -155,7 +190,7 @@ namespace basecross {
 		void OnUpdate()override;
 
 		// ノックバック
-		void KnockBack(const Vec3& knockBackDirection, float knockBackAmount, const shared_ptr<PlayerBase>& aggriever);
+		void KnockBack(const KnockBackData& data);
 		//リスポーン
 		void Respawn();
 		// テスト関数
