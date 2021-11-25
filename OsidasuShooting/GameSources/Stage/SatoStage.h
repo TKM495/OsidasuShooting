@@ -20,7 +20,9 @@ namespace basecross {
 		//void SetPlayer();
 		virtual void OnCreate() override;
 		virtual void OnUpdate() override;
-
+		
+		void AddWinnerSprite();
+		
 		void JMDSeitchSystem()
 		{
 

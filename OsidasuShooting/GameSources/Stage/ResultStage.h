@@ -14,7 +14,10 @@ namespace basecross {
 		ResultStage() :Stage() {}
 		~ResultStage() {}
 
-		void OnCreate()override;
-		void OnUpdate()override;
+
+		//void AddWinnerSprite();
+
+		void OnCreate() override;
+		void OnUpdate() override;
 	};
 }

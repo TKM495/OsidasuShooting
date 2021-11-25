@@ -22,12 +22,19 @@ namespace basecross {
 		PtrMultiLight->SetDefaultLighting();
 	}
 
+	//void ResultStage::AddWinnerSprite()
+	//{
+	//	AddGameObject<ResultWinnerSprite>(L"Winner");
+	//}
+
 	void ResultStage::OnCreate() {
 		try {
 			//ビューとライトの作成
 			CreateViewLight();
 			AddGameObject<Debug>();
 			Debug::GetInstance()->Log(L"CurrentStage : ResultStage");
+
+			//AddWinnerSprite();
 
 			auto allPlayer = PlayerManager::GetInstance()->GetSortedAllPlayer();
 			for (auto player : allPlayer) {

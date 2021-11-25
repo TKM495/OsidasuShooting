@@ -316,6 +316,21 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage.cpp">
       <Filter>Stage\Debug\WatanabeStage</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Area.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Items.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\ItemsCreations.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\AdvancedGameObject.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage2.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BombReloadTimeGauge.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BombRemainingCount.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CurrentFirst.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\PlayerFollowUI.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\PlayerInfo.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\DataExtracted.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\BaseSingleton.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\ResultSprite.cpp">
+      <Filter>UI\Result</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -469,6 +484,21 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\SpecialSkill.h">
       <Filter>StageObject</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Area.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Items.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\ItemsCreations.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\AdvancedGameObject.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage2.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BombReloadTimeGauge.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BombRemainingCount.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CurrentFirst.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\PlayerFollowUI.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\PlayerInfo.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\BaseSingleton.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\DataExtracted.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\ResultSprite.h">
+      <Filter>UI\Result</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -675,6 +705,9 @@
     </Filter>
     <Filter Include="Menu\Cursor">
       <UniqueIdentifier>{43fbf486-1f3d-429e-9980-aeb26eef6335}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Result">
+      <UniqueIdentifier>{61c6cba9-72b0-494d-8959-68d460d2a0bb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
