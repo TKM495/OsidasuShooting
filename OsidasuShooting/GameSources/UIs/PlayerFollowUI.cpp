@@ -12,6 +12,13 @@ namespace basecross {
 		armorGauge->GetTransform()->SetParent(GetThis<PlayerFollowUI>());
 		m_uiObjects.push_back(armorGauge);
 
+		tokens = Extracter::DelimitData(data[5]);
+		transData = Extracter::TransformDataExtraction(tokens);
+
+		auto back = ObjectFactory::Create<SimpleSprite>(GetStage(), L"BombBack", transData);
+		back->GetTransform()->SetParent(GetThis<PlayerFollowUI>());
+		m_uiObjects.push_back(back);
+
 		tokens = Extracter::DelimitData(data[2]);
 		transData = Extracter::TransformDataExtraction(tokens);
 

@@ -46,8 +46,8 @@ namespace basecross {
 
 			auto player = AddGameObject<ManualPlayer>(TransformData(Vec3(0.0f, 1.0f, 0.0f)), PlayerNumber::P1);
 			//AddGameObject<PlayerInfo>(player, TransformData());
-			//AddGameObject<PlayerFollowUI>(player, TransformData());
-			AddGameObject<BattlePlayersUIs>(L"BPsUIs", 6, Vec3(0));
+			AddGameObject<PlayerFollowUI>(player, TransformData());
+			//AddGameObject<BattlePlayersUIs>(L"BPsUIs", 6, Vec3(0));
 			PlayerManager::GetInstance()->AddPlayer(player);
 
 			AddGameObject<SimpleSprite>(L"Test", TransformData(Vec3(0.0f), Vec3(0.4f)))->SetDrawLayer(-2);
@@ -59,7 +59,8 @@ namespace basecross {
 
 	void WatanabeStage2::OnUpdate() {
 		const auto& keyState = App::GetApp()->GetInputDevice().GetKeyState();
-		if (keyState.m_bPressedKeyTbl['R'])
+		const auto& cont = App::GetApp()->GetInputDevice().GetControlerVec()[0];
+		if (cont.wPressedButtons & XINPUT_GAMEPAD_A || keyState.m_bPressedKeyTbl['R'])
 			PostEvent(0.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToWatanabeStage");
 	}
 }

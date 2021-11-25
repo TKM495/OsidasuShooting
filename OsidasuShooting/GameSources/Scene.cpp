@@ -22,6 +22,9 @@ namespace basecross {
 		app->RegisterTexture(L"GaugeColor", tpath + L"GaugeColor.png");
 		app->RegisterTexture(L"Wall", tpath + L"wall.jpg");
 		app->RegisterTexture(L"Test", tpath + L"test.png");
+		app->RegisterTexture(L"BombBack", tpath + L"BombBackGround.png");
+		app->RegisterTexture(L"GaugeBackGround", tpath + L"GaugeBackGround.png");
+		app->RegisterTexture(L"Gauge", tpath + L"Gauge.png");
 	}
 
 	//--------------------------------------------------------------------------------------
@@ -30,8 +33,8 @@ namespace basecross {
 	void Scene::OnCreate() {
 		try {
 			//ƒNƒŠƒA‚·‚éF‚ðÝ’è
-			Col4 Col(0.0f, 0.0f, 0.0f, 1.0f);
-			SetClearColor(Col);
+			Col4 Col(30.0f, 30.0f, 30.0f, 1.0f);
+			SetClearColor(Utility::ConvertColorZeroToOne(Col));
 
 			auto dir = App::GetApp()->GetDataDirWString();
 			auto path = dir + L"Csv/";
