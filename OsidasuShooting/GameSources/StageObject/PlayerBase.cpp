@@ -128,17 +128,14 @@ namespace basecross {
 	Vec3 PlayerBase::BulletAimCorrection(const Vec3& launchDirection) {
 		vector<Vec3> positions;
 
-		// いずれはPlayerManagerから取得するようにしたい
-		auto objects = GetStage()->GetGameObjectVec();
-		for (auto object : objects) {
-			auto player = dynamic_pointer_cast<PlayerBase>(object);
-			if (player) {
-				if (player == GetThis<PlayerBase>())
-					continue;
-				auto pos = player->GetTransform()->GetPosition();
-				if (InViewRange(launchDirection, pos))
-					positions.push_back(pos);
-			}
+		// プレイヤーの取得
+		const auto& players = PlayerManager::GetInstance()->GetAllPlayer();
+		for (auto player : players) {
+			if (player == GetThis<PlayerBase>())
+				continue;
+			auto pos = player->GetTransform()->GetPosition();
+			if (InViewRange(launchDirection, pos))
+				positions.push_back(pos);
 		}
 
 		// リストが空の場合補正しない
