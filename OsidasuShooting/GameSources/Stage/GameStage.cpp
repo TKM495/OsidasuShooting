@@ -65,6 +65,7 @@ namespace basecross {
 			PlayerManager::GetInstance()->AddPlayer(player);
 
 			AddGameObject<FallDecision>();
+			AddGameObject<CurrentFirst>();
 
 			m_countDown = AddGameObject<CountDown>(90.0f);
 		}
