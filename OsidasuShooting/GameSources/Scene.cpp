@@ -42,6 +42,9 @@ namespace basecross {
 			CSVLoad::GetInstance()->RegisterFile(L"PlayerInfo", path + L"PlayerInfo.csv");
 			CSVLoad::GetInstance()->RegisterFile(L"PlayerFollowUI", path + L"PlayerFollowUI.csv");
 
+			path = dir + L"Models/";
+			auto modelMesh = MultiMeshResource::CreateStaticModelMultiMesh(path + L"LaserCharacter/", L"Laser.bmf");
+			App::GetApp()->RegisterResource(L"Player", modelMesh);
 			//App::GetApp()->SetFullScreenMode();
 
 			//自分自身にイベントを送る

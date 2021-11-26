@@ -9,27 +9,14 @@
 
 namespace basecross {
 	// 静的メンバ変数の実体
-	shared_ptr<Debug> Debug::m_ownInstance;
-
-	shared_ptr<Debug> Debug::GetInstance() {
-		if (m_ownInstance.get() == 0)
-		{
-			throw BaseException(
-				L"Debugが生成されていません",
-				L"if (m_ownInstance.get() == 0)",
-				L"Debug::GetInstance()"
-			);
-		}
-		return m_ownInstance;
-	}
+	shared_ptr<Debug> Debug::m_ownInstance = nullptr;
 
 	void Debug::OnCreate() {
 		// インスタンスを初期化して自身のインスタンスを代入
-		m_ownInstance = nullptr;
-		m_ownInstance = GetThis<Debug>();
+		CreateInstance();
 
 		// 前面に描画
-		SetDrawLayer(10);
+		SetDrawLayer(200);
 		// 文字列表示用コンポーネント
 		m_ssComp = AddComponent<StringSprite>();
 		if (m_isShowBackground)

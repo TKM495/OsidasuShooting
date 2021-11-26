@@ -14,12 +14,12 @@ namespace basecross {
 	public:
 		// ゲームステート
 		enum class GameState {
-			//FADEIN,		//フェードイン待機
+			FADEOUT,		//フェードアウト待機
 			STAY,		//スタート前
 			PLAYING,	//プレイ時
 			//PAUSE,		//ポーズ時
 			CLEAR,		//クリア時
-			//FADEOUT		//フェードアウト待機
+			FADEIN		//フェードイン待機
 		};
 	private:
 		// スタート時のカウントダウンタイマー
@@ -33,7 +33,7 @@ namespace basecross {
 	public:
 		GameStage()
 			: Stage(), m_startCountDownTimer(3.0f),
-			m_gameState(GameState::STAY)
+			m_gameState(GameState::FADEOUT)
 		{}
 		~GameStage() {}
 

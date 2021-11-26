@@ -42,15 +42,15 @@ namespace basecross {
 			CSVLoad::GetInstance()->RegisterFile(L"PlayerInfo", path + L"PlayerInfo.csv");
 			CSVLoad::GetInstance()->RegisterFile(L"PlayerFollowUI", path + L"PlayerFollowUI.csv");
 
-			AddGameObject<LinePoint>(TransformData(Vec3(0.0f), Vec3(3.0f)));
+			//AddGameObject<LinePoint>(TransformData(Vec3(0.0f), Vec3(3.0f)));
 
-			AddGameObject<Block>(TransformData(Vec3(10.0f, 0.0f, 0.0f)));
-			AddGameObject<Block>(TransformData(Vec3(0.0f, 0.0f, 10.0f)));
-			AddGameObject<Block>(TransformData(Vec3(10.0f, 0.0f, 10.0f)));
+			//AddGameObject<Block>(TransformData(Vec3(10.0f, 0.0f, 0.0f)));
+			//AddGameObject<Block>(TransformData(Vec3(0.0f, 0.0f, 10.0f)));
+			//AddGameObject<Block>(TransformData(Vec3(10.0f, 0.0f, 10.0f)));
 
-			//AddGameObject<Block>(TransformData(Vec3(0.0f, -1.0f, 0.0f)));
+			AddGameObject<Block>(TransformData(Vec3(0.0f, -1.0f, 0.0f)));
 
-			//auto player = AddGameObject<ManualPlayer>(TransformData(Vec3(0.0f, 1.0f, 0.0f)), PlayerNumber::P1);
+			auto player = AddGameObject<ManualPlayer>(TransformData(Vec3(0.0f, 1.0f, 0.0f), Vec3(1.0f)), PlayerNumber::P1);
 			//AddGameObject<PlayerInfo>(player, TransformData());
 			//AddGameObject<PlayerFollowUI>(player, TransformData());
 			//AddGameObject<BattlePlayersUIs>(L"BPsUIs", 6, Vec3(0));
@@ -66,6 +66,7 @@ namespace basecross {
 			//vector<wstring> tokens;
 			//Util::WStrToTokenVector(tokens, MapStr, L' ');
 			//Debug::GetInstance()->Log(tokens[1]);
+			AddGameObject<TransitionSprite>()->FadeOut();
 		}
 		catch (...) {
 			throw;

@@ -5,9 +5,10 @@
 
 #pragma once
 #include "stdafx.h"
+#include "Utility/BaseSingleton.h"
 
 namespace basecross {
-	class Debug :public GameObject {
+	class Debug :public BaseSingletonGameObject<Debug> {
 	private:
 		// ログのデータ本体
 		vector<wstring> m_logData;
@@ -15,8 +16,6 @@ namespace basecross {
 		int m_displayLogFirstIndex;
 		// StringSpriteコンポーネント
 		shared_ptr<StringSprite> m_ssComp;
-		// 自身のインスタンス
-		static shared_ptr<Debug> m_ownInstance;
 
 		/**
 		 * @brief ログを登録
@@ -51,7 +50,7 @@ namespace basecross {
 		bool m_isShowBackground;
 	public:
 		Debug(const shared_ptr<Stage>& stage)
-			:GameObject(stage), m_displayLogFirstIndex(0),
+			:BaseSingletonGameObject(stage), m_displayLogFirstIndex(0),
 			// 以下設定
 			m_maxLogCount(18),
 			m_isDisplayForCount(true),
@@ -95,13 +94,6 @@ namespace basecross {
 		 * @brief ログをクリアする
 		 */
 		void ClearLog();
-
-		/**
-		 * @brief Debugのインスタンスを取得
-		 *
-		 * @return shared_ptr<Debug>
-		 */
-		static shared_ptr<Debug> GetInstance();
 	};
 }
 //end basecross
