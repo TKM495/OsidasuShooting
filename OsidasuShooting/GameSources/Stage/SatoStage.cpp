@@ -52,12 +52,26 @@ namespace basecross {
 
 	}
 
-	void SatoStage::AddResultDataSprite()
+	void SatoStage::AddResultDataSprite(Vec3 pos, int playerNum,int score)
 	{
-		auto WLineUIs = AddGameObject<ResultLineSprite>(L"WhiteLine");
-		auto DLineUIs = AddGameObject<ResultLineSprite>(L"WhiteLine");
+		auto fream = AddGameObject<ResultFreamSprite>(L"ResultFream");
+		auto freamTrans = fream->GetComponent<Transform>();
+		auto freamPos = freamTrans->GetPosition();
+		auto resultPos = freamPos + pos;
+		freamTrans->SetPosition(resultPos);
 
+		auto playerNumber = AddGameObject<BattlePlayersUIs>(L"BPsUIs", playerNum, Vec3(0));
+		auto playUIsTrans = playerNumber->GetComponent<Transform>();
+		resultPos.y -= 50.0f;
+		playUIsTrans->SetPosition(resultPos);
+		playUIsTrans->SetScale(Vec3(0.4f));
+
+		resultPos.x += 120.0f;
+		resultPos.y += 25.0f;
+		m_score = AddGameObject<ResultScore>(score, resultPos);
+		m_score->SetDrawLayer(1);
 	}
+
 
 	void SatoStage::OnCreate() {
 		try {
@@ -76,9 +90,10 @@ namespace basecross {
 
 			//AddGameObject<SpecialCamera>();
 			
-			// Timer
-			m_timer = AddGameObject<CountDown>();
-			SetSharedGameObject(L"CountDown", m_timer);
+			//// Timer
+			//m_timer = AddGameObject<CountDown>();
+			//SetSharedGameObject(L"CountDown", m_timer);
+
 
 			//AddGameObject<Number>(10);
 
@@ -97,7 +112,16 @@ namespace basecross {
 			//
 
 			AddWinnerSprite();
-			AddResultDataSprite();
+
+			float addVec = 0;
+			float setPosY = 0;
+			auto playNum = 0;
+			for (int i = 0; i < 4; i++) {
+				addVec += 15;
+				playNum += 1;
+				AddResultDataSprite(Vec3(390 + addVec, 260 + setPosY,0),playNum,2);
+				setPosY -= 160;
+			}
 
 		}
 		catch (...) {

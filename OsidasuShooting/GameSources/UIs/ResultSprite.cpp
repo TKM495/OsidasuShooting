@@ -51,10 +51,10 @@ namespace basecross {
 	}
 	
 
-	void ResultLineSprite::OnCreate() {
+	void ResultFreamSprite::OnCreate() {
 		//texture 
 		float sideSize = 256.0f;
-		float highSize = -64.0f;
+		float highSize = -128.0f;
 		float zeroSize = 0.0f;
 		float oneSize = 1.0f;
 		float quatSize = 0.25f;
@@ -62,13 +62,12 @@ namespace basecross {
 		float tqatSize = 0.75f;
 
 		Col4 color(1.0f, 1.0f, 1.0f, 1.0f);
-
 		// ポリゴンの頂点データ
 		vector<VertexPositionColorTexture> vertices = {
 			{VertexPositionColorTexture(Vec3(zeroSize, zeroSize, zeroSize),color,Vec2(zeroSize, zeroSize))},
-			{VertexPositionColorTexture(Vec3(sideSize, zeroSize, zeroSize),color,Vec2( oneSize,	   0.94f))},
-			{VertexPositionColorTexture(Vec3(zeroSize, highSize, zeroSize),color,Vec2(zeroSize, zeroSize))},
-			{VertexPositionColorTexture(Vec3(sideSize, highSize, zeroSize),color,Vec2(    0.8f,  oneSize))}
+			{VertexPositionColorTexture(Vec3(sideSize, zeroSize, zeroSize),color,Vec2(oneSize, zeroSize))},
+			{VertexPositionColorTexture(Vec3(zeroSize, highSize, zeroSize),color,Vec2(zeroSize,  oneSize))},
+			{VertexPositionColorTexture(Vec3(sideSize, highSize, zeroSize),color,Vec2(oneSize,  oneSize))}
 		};
 
 		// 頂点インデックス
@@ -87,7 +86,7 @@ namespace basecross {
 		auto ptrTrans = GetComponent<Transform>();
 		Vec3 senterPos(sideSize * helfSize, highSize * helfSize, 0);
 		Vec3 pos(0);
-		Vec3 scl(1);
+		Vec3 scl(1.1f);
 		ptrTrans->SetPosition(pos - senterPos);
 		ptrTrans->SetScale(scl);
 

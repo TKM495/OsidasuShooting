@@ -12,7 +12,6 @@ namespace basecross {
 		auto& app = App::GetApp();
 
 		wstring tpath = app->GetDataDirWString() + L"Sprite/";
-		app->RegisterTexture(L"WhiteLine", tpath + L"White.png");
 
 		app->RegisterTexture(L"Title", tpath + L"Title.png");
 		app->RegisterTexture(L"PushAButton", tpath + L"PushAButton.png");
@@ -26,6 +25,7 @@ namespace basecross {
 		app->RegisterTexture(L"Test", tpath + L"test.png");
 
 		app->RegisterTexture(L"Winner", tpath + L"Winner.png");
+		app->RegisterTexture(L"ResultFream", tpath + L"ResultFream.png");
 	}
 
 	//--------------------------------------------------------------------------------------

@@ -6,6 +6,7 @@
 #pragma once
 #include "stdafx.h"
 #include "JonyMd/CountDown.h"
+#include "UIs/ResultScore.h"
 
 namespace basecross {
 	class SatoStage : public Stage {
@@ -22,8 +23,8 @@ namespace basecross {
 		virtual void OnUpdate() override;
 		
 		void AddWinnerSprite();
-		void AddResultDataSprite();
-		
+		void AddResultDataSprite(Vec3 pos, int playerNum, int score);
+
 		void JMDSeitchSystem()
 		{
 
@@ -50,6 +51,7 @@ namespace basecross {
 		}
 
 		shared_ptr<CountDown> m_timer;
+		shared_ptr<ResultScore> m_score;
 
 		void BattlePlayerUISet(int value);
 

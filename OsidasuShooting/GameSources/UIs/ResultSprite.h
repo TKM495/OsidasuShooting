@@ -26,11 +26,11 @@ namespace basecross {
 		void OnUpdate() {};
 	};
 
-	class ResultLineSprite : public GameObject {
+	class ResultFreamSprite : public GameObject {
 		wstring m_textureKey;
 
 	public:
-		ResultLineSprite(
+		ResultFreamSprite(
 			const shared_ptr<Stage>& stage, 
 			const wstring& TextureKey
 		) :
@@ -38,7 +38,7 @@ namespace basecross {
 			m_textureKey(TextureKey)
 		{}
 
-		virtual ~ResultLineSprite() {};
+		virtual ~ResultFreamSprite() {};
 
 		void OnCreate() override;
 		void OnUpdate() {};

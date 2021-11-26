@@ -331,6 +331,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\ResultSprite.cpp">
       <Filter>UI\Result</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\ResultScore.cpp">
+      <Filter>UI\Result</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -498,6 +501,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\BaseSingleton.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\DataExtracted.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\ResultSprite.h">
+      <Filter>UI\Result</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\ResultScore.h">
       <Filter>UI\Result</Filter>
     </ClInclude>
   </ItemGroup>
