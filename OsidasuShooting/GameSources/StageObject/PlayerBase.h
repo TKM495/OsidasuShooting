@@ -61,14 +61,14 @@ namespace basecross {
 			// ノックバック量
 			float Amount;
 			// 加害者
-			shared_ptr<PlayerBase> Aggriever;
+			weak_ptr<PlayerBase> Aggriever;
 
 			// コンストラクタ
 			KnockBackData(
 				Category type,
 				const Vec3& direction,
 				float amount,
-				const shared_ptr<PlayerBase>& aggriever
+				const weak_ptr<PlayerBase>& aggriever
 			) {
 				this->Type = type;
 				this->Direction = direction;
@@ -108,7 +108,7 @@ namespace basecross {
 		PlayerNumber m_playerNumber;
 
 		// 加害者（自分に攻撃を当てたプレイヤー）
-		shared_ptr<PlayerBase> m_aggriever;
+		weak_ptr<PlayerBase> m_aggriever;
 		// 復帰中か
 		bool m_isDuringReturn;
 		// 復帰した判定を少し遅らせるためのタイマー
@@ -255,6 +255,10 @@ namespace basecross {
 		 */
 		int GetCountKilledPlayer() {
 			return m_countKilledPlayer;
+		}
+
+		void SetColor(const Col4& color) {
+			GetComponent<PNTStaticDraw>()->SetDiffuse(color);
 		}
 	private:
 		// 武器用ステート

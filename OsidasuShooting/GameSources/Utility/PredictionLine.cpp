@@ -68,6 +68,11 @@ namespace basecross {
 
 		for (int i = 0; i < points.size(); i++) {
 			m_linePoints[i]->GetTransform()->SetPosition(points[i]);
+			auto direction = endPoint - startPoint;
+			direction.normalize();
+			auto rad = atan2f(-direction.z, direction.x) + XM_PIDIV2;
+			Vec3 rot(0.0f, rad, 0.0f);
+			m_linePoints[i]->GetTransform()->SetRotation(rot);
 		}
 	}
 

@@ -53,13 +53,13 @@ namespace basecross {
 			}
 		}
 
-		// テスト用の処理（ダメージを受けたら赤くなる）
-		if (m_isDuringReturn) {
-			GetComponent<PNTStaticDraw>()->SetDiffuse(Col4(1.0f, 0.0f, 0.0f, 1.0f));
-		}
-		else {
-			GetComponent<PNTStaticDraw>()->SetDiffuse(Col4(1.0f, 1.0f, 1.0f, 1.0f));
-		}
+		//// テスト用の処理（ダメージを受けたら赤くなる）
+		//if (m_isDuringReturn) {
+		//	GetComponent<PNTStaticDraw>()->SetDiffuse(Col4(1.0f, 0.0f, 0.0f, 1.0f));
+		//}
+		//else {
+		//	GetComponent<PNTStaticDraw>()->SetDiffuse(Col4(1.0f, 1.0f, 1.0f, 1.0f));
+		//}
 
 		// 入力の更新
 		InputUpdate();
@@ -119,7 +119,7 @@ namespace basecross {
 		// 弾の発射
 		if (bulletAim != Vec3(0.0f) && m_bulletTimer.Count()) {
 			m_bulletTimer.Reset();
-			GetStage()->AddGameObject<Bullet>(GetThis<PlayerBase>(), ray);
+			InstantiateGameObject<Bullet>(GetThis<PlayerBase>(), ray);
 		}
 	}
 
@@ -184,7 +184,7 @@ namespace basecross {
 	}
 
 	void PlayerBase::BombLaunch() {
-		GetStage()->AddGameObject<Bomb>(GetThis<PlayerBase>(),
+		InstantiateGameObject<Bomb>(GetThis<PlayerBase>(),
 			m_predictionLine, GetTransform()->GetPosition(), m_bombPoint);
 	}
 
@@ -233,8 +233,8 @@ namespace basecross {
 
 	void PlayerBase::Respawn() {
 		// 復帰中に死んだ場合加害者に倒した通知を行う
-		if (m_isDuringReturn) {
-			m_aggriever->KilledPlayer();
+		if (m_isDuringReturn && m_aggriever.lock() != nullptr) {
+			m_aggriever.lock()->KilledPlayer();
 		}
 		m_isDuringReturn = false;
 		GetTransform()->SetPosition(m_initialPosition);

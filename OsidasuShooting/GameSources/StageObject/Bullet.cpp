@@ -62,12 +62,13 @@ namespace basecross {
 		if (ptr) {
 			PlayerBase::KnockBackData data(
 				PlayerBase::KnockBackData::Category::Bullet,
-				m_direction, m_knockBackAmount, m_owner.lock()
+				m_direction, m_knockBackAmount, m_owner
 			);
 			// ノックバック
 			ptr->KnockBack(data);
 		}
-		GetStage()->RemoveGameObject<Bullet>(GetThis<Bullet>());
+		// 自身を削除
+		Destroy<Bullet>();
 	}
 }
 //end basecross
