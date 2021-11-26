@@ -59,10 +59,16 @@ namespace basecross {
 	void Bullet::OnCollisionEnter(shared_ptr<GameObject>& other)
 	{
 		auto ptr = dynamic_pointer_cast<PlayerBase>(other);
-		if (ptr)
+		if (ptr) {
+			PlayerBase::KnockBackData data(
+				PlayerBase::KnockBackData::Category::Bullet,
+				m_direction, m_knockBackAmount, m_owner
+			);
 			// ノックバック
-			ptr->KnockBack(m_direction, m_knockBackAmount, m_owner.lock());
-		GetStage()->RemoveGameObject<Bullet>(GetThis<Bullet>());
+			ptr->KnockBack(data);
+		}
+		// 自身を削除
+		Destroy<Bullet>();
 	}
 }
 //end basecross

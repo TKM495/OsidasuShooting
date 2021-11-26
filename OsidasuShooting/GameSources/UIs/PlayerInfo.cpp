@@ -4,8 +4,15 @@
 namespace basecross {
 	void PlayerInfo::OnCreate() {
 		auto data = CSVLoad::GetInstance()->GetData(L"PlayerInfo");
-		auto tokens = Extracter::DelimitData(data[1]);
+		auto tokens = Extracter::DelimitData(data[4]);
 		auto transData = Extracter::TransformDataExtraction(tokens);
+
+		auto back = ObjectFactory::Create<SimpleSprite>(GetStage(), L"GaugeBackGround", transData);
+		back->GetTransform()->SetParent(GetThis<PlayerInfo>());
+		m_uiObjects.push_back(back);
+
+		tokens = Extracter::DelimitData(data[1]);
+		transData = Extracter::TransformDataExtraction(tokens);
 
 		auto armorGauge = ObjectFactory::Create<ArmorGauge>(GetStage(),
 			m_owner, transData);

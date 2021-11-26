@@ -51,9 +51,15 @@ namespace basecross {
 			auto distance = (pos - myPos).length();
 			// 爆発半径内にいる場合ノックバック
 			if (distance < m_radius) {
-				player->KnockBack(pos - myPos, m_power, m_owner.lock());
+				PlayerBase::KnockBackData data(
+					PlayerBase::KnockBackData::Category::Bomb,
+					pos - myPos, m_power, m_owner
+				);
+				// ノックバック
+				player->KnockBack(data);
 			}
 		}
-		GetStage()->RemoveGameObject<Bomb>(GetThis<Bomb>());
+		// 自身を削除
+		Destroy<Bomb>();
 	}
 }

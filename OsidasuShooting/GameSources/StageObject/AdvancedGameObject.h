@@ -90,15 +90,6 @@ namespace basecross {
 		}
 
 		/**
-		 * @brief トランスフォームデータを取得
-		 *
-		 * @return トランスフォームデータ
-		 */
-		TransformData& GetTransformData() {
-			return m_transformData;
-		}
-
-		/**
 		 * @brief トランスフォームデータを適用
 		 */
 		void ApplyTransform();
@@ -110,6 +101,25 @@ namespace basecross {
 		 */
 		shared_ptr<Transform> GetTransform() {
 			return GetComponent<Transform>();
+		}
+
+		/**
+		 * @brief ゲームオブジェクトの生成
+		 *
+		 * @param ...params パラメータ
+		 * @return 作成されたゲームオブジェクト
+		 */
+		template<class T, typename... Ts>
+		shared_ptr<T> InstantiateGameObject(Ts&&... params) {
+			return GetStage()->AddGameObject<T>(params ...);
+		}
+
+		/**
+		 * @brief 自身の削除
+		 */
+		template<class T>
+		void Destroy() {
+			GetStage()->RemoveGameObject<T>(GetThis<T>());
 		}
 	};
 }
