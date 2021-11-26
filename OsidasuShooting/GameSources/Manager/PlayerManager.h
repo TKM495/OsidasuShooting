@@ -20,6 +20,7 @@ namespace basecross {
 	};
 
 	// これがないとなぜかエラーが出る
+	// 追記：ヘッダーが循環参照しているのでこれがないとエラーになるっぽい
 	class PlayerBase;
 
 	class PlayerManager :public BaseSingleton<PlayerManager> {

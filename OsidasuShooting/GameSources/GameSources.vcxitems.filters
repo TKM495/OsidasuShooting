@@ -319,6 +319,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\SoundManager.cpp">
       <Filter>Manager\SoundManager</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Stage\CharacterSelectStage.cpp">
+      <Filter>Stage\CharacterSelectStage</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -511,6 +514,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\SoundManager.h">
       <Filter>Manager\SoundManager</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Stage\CharacterSelectStage.h">
+      <Filter>Stage\CharacterSelectStage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -756,6 +762,9 @@
     </Filter>
     <Filter Include="Manager\SoundManager">
       <UniqueIdentifier>{e539bb20-c876-4dc6-b42b-96a6b495756c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage\CharacterSelectStage">
+      <UniqueIdentifier>{0f3fc75f-846b-423a-9087-e0f31ea069b6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
