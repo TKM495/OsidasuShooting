@@ -21,7 +21,7 @@ namespace basecross {
 		//デフォルトのライティングを指定
 		PtrMultiLight->SetDefaultLighting();
 	}
-	
+
 	void TitleStage::AddTitleSprite()
 	{
 		AddGameObject<TitleSprite>(L"Title"/*, false,
@@ -33,14 +33,13 @@ namespace basecross {
 			Vec2(256.0f, 50.0f), Vec2(0.0f, 50.0f)*/);
 	}
 
-
 	void TitleStage::OnCreate() {
 		try {
 			//ビューとライトの作成
 			CreateViewLight();
 			AddGameObject<Debug>();
 			Debug::GetInstance()->Log(L"CurrentStage : TitleStage");
-			Debug::GetInstance()->Log(L"A : GameStart");
+			Debug::GetInstance()->Log(L"A : CharacterSelect");
 			Debug::GetInstance()->Log(L"B : Exit");
 
 			AddTitleSprite();
@@ -55,7 +54,7 @@ namespace basecross {
 		auto& app = App::GetApp();
 		const auto& cntlPad = app->GetInputDevice().GetControlerVec()[0];
 		if (cntlPad.wPressedButtons & XINPUT_GAMEPAD_A)
-			PostEvent(0.0f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToGameStage");
+			PostEvent(0.0f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToCharacterSelectStage");
 		if (cntlPad.wPressedButtons & XINPUT_GAMEPAD_B)
 			PostEvent(0.0f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToExit");
 	}

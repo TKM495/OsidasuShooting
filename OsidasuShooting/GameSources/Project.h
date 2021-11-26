@@ -13,6 +13,7 @@
 #include "Stage/ResultStage.h"
 #include "Stage/SatoStage.h"
 #include "Stage/TitleStage.h"
+#include "Stage/CharacterSelectStage.h"
 #include "Stage/WatanabeStage.h"
 #include "Stage/WatanabeStage2.h"
 // ‚»‚Ì‘¼
