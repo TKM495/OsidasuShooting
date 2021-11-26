@@ -1,5 +1,6 @@
 #pragma once
 #include "stdafx.h"
+#include "StageObject/AdvancedGameObject.h"
 
 namespace basecross {
 	// 参考：https://gintenlabo.hatenablog.com/entry/20100423/1272041386
@@ -36,6 +37,39 @@ namespace basecross {
 			if (m_instance.get()) {
 				m_instance.reset();
 			}
+		}
+	};
+
+	template<class T>
+	class BaseSingletonGameObject :public AdvancedGameObject {
+	private:
+		// 自身のインスタンス
+		static shared_ptr<T> m_ownInstance;
+	protected:
+		void CreateInstance() {
+			m_ownInstance = nullptr;
+			m_ownInstance = GetThis<T>();
+		}
+	public:
+		BaseSingletonGameObject(const shared_ptr<Stage>& stage)
+			:AdvancedGameObject(stage)
+		{}
+
+		/**
+		 * @brief Debugのインスタンスを取得
+		 *
+		 * @return shared_ptr<Debug>
+		 */
+		static shared_ptr<T> GetInstance() {
+			if (m_ownInstance.get() == 0)
+			{
+				throw BaseException(
+					L"Debugが生成されていません",
+					L"if (m_ownInstance.get() == 0)",
+					L"Debug::GetInstance()"
+				);
+			}
+			return m_ownInstance;
 		}
 	};
 }

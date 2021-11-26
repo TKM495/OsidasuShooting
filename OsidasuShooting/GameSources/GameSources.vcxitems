@@ -64,6 +64,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\PlayerFollowUI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\PlayerInfo.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\TransitionSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\BaseSingleton.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\DataExtracted.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.h" />
@@ -129,6 +130,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\PlayerFollowUI.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\PlayerInfo.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\TransitionSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\DataExtracted.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BaseUI.cpp" />

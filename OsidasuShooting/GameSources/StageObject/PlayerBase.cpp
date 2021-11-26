@@ -9,8 +9,9 @@
 namespace basecross {
 	void PlayerBase::OnCreate() {
 		// 描画コンポーネントの追加
-		auto drawComp = AddComponent<PNTStaticDraw>();
-		drawComp->SetMeshResource(L"DEFAULT_SPHERE");
+		auto drawComp = AddComponent<PNTStaticModelDraw>();
+		//drawComp->SetMeshResource(L"DEFAULT_SPHERE");
+		drawComp->SetMultiMeshResource(L"Player");
 		drawComp->SetOwnShadowActive(true);
 
 		// 影の追加

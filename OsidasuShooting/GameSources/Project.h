@@ -52,6 +52,7 @@
 #include "UIs/TitleSprite.h"
 #include "UIs/UIHeader.h"
 #include "UIs/CurrentFirst.h"
+#include "UIs/TransitionSprite.h"
 // コンポーネント
 #include "Component/FadeComponent.h"
 #include "Component/LifeSpan.h"

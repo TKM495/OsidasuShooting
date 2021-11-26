@@ -68,6 +68,7 @@ namespace basecross {
 			AddGameObject<CurrentFirst>();
 
 			m_countDown = AddGameObject<CountDown>(90.0f);
+			AddGameObject<TransitionSprite>()->FadeOut();
 		}
 		catch (...) {
 			throw;
@@ -77,6 +78,12 @@ namespace basecross {
 	void GameStage::OnUpdate() {
 		switch (m_gameState)
 		{
+		case GameState::FADEOUT:
+			// フェードが終了したら
+			if (!TransitionSprite::GetInstance()->GetFade()->IsFadeActive()) {
+				ChangeGameState(GameState::STAY);
+			}
+			break;
 		case GameState::STAY:
 			if (m_startCountDownTimer.Count()) {
 				m_countDown.lock()->Start();
@@ -92,7 +99,13 @@ namespace basecross {
 				ChangeGameState(GameState::CLEAR);
 			break;
 		case GameState::CLEAR:
-			PostEvent(0.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToResultStage");
+			TransitionSprite::GetInstance()->FadeIn();
+			ChangeGameState(GameState::FADEIN);
+			break;
+		case GameState::FADEIN:
+			if (!TransitionSprite::GetInstance()->GetFade()->IsFadeActive()) {
+				PostEvent(0.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToResultStage");
+			}
 			break;
 		default:
 			break;
