@@ -5,8 +5,26 @@
 
 namespace basecross {
 	class PlayerFollowUI :public BaseUI {
+		// UIのタイプ
+		enum class UIType {
+			Normal,	// 普通
+			Bomb,	// 爆弾関係
+			Hover	// ホバー関係
+		};
+		// オブジェクトデータ
+		struct ObjectData {
+			UIType Type;
+			shared_ptr<BaseUI> UIObject;
+			ObjectData(UIType type, const shared_ptr<BaseUI> ui) {
+				this->Type = type;
+				this->UIObject = ui;
+			}
+		};
+		// オーナー
 		shared_ptr<PlayerBase> m_owner;
-		vector<shared_ptr<BaseUI>> m_uiObjects;
+		// オブジェクトデータ
+		vector<ObjectData> m_objectsData;
+		// オフセット
 		Vec3 m_offset;
 	public:
 		PlayerFollowUI(const shared_ptr<Stage>& stage,

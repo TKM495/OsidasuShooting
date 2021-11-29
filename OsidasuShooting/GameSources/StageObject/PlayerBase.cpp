@@ -86,6 +86,7 @@ namespace basecross {
 	}
 
 	void PlayerBase::Hover() {
+		m_isHoverMode = true;
 		// ホバー可能時間が0以上の場合はホバー
 		if (m_currentHoverTime < 0.0f)
 			return;
@@ -108,6 +109,7 @@ namespace basecross {
 		}
 		else {
 			m_currentHoverTime = m_hoverTime;
+			m_isHoverMode = false;
 		}
 	}
 
@@ -300,7 +302,9 @@ namespace basecross {
 		static shared_ptr<PlayerBombModeState> instance(new PlayerBombModeState);
 		return instance;
 	}
-	void PlayerBase::PlayerBombModeState::Enter(const shared_ptr<PlayerBase>& Obj) {}
+	void PlayerBase::PlayerBombModeState::Enter(const shared_ptr<PlayerBase>& Obj) {
+		Obj->m_isBombMode = true;
+	}
 	void PlayerBase::PlayerBombModeState::Execute(const shared_ptr<PlayerBase>& Obj) {
 		// 爆弾の照準
 		Obj->BombAim();
@@ -317,6 +321,7 @@ namespace basecross {
 			// 残弾を減らす
 			Obj->m_bombCount--;
 		}
+		Obj->m_isBombMode = false;
 	}
 #pragma endregion
 
@@ -385,12 +390,10 @@ namespace basecross {
 			if (!Obj->m_isInput) {
 				Obj->Hover();
 			}
-			else {
-				Obj->GetComponent<EfkComponent>()->Stop(L"Hover");
-			}
 		}
 		else {
 			Obj->m_isInput = false;
+			Obj->GetComponent<EfkComponent>()->Stop(L"Hover");
 		}
 
 		// 接地した場合

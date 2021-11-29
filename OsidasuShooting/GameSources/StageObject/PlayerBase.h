@@ -121,6 +121,11 @@ namespace basecross {
 		// 前回の正面方向
 		Vec3 m_lastFrontDirection;
 
+		// 爆弾モードか
+		bool m_isBombMode;
+		// ホバーモードか
+		bool m_isHoverMode;
+
 		// 移動
 		void Move();
 		// 弾の照準と発射
@@ -248,6 +253,15 @@ namespace basecross {
 		}
 
 		/**
+		 * @brief 爆弾の残弾数の割合を取得する
+		 *
+		 * @return 割合
+		 */
+		float GetBombCountRate() {
+			return (float)GetBombCount() / (float)m_defaultBombCount;
+		}
+
+		/**
 		 * @brief プレイヤーを倒した
 		 */
 		void KilledPlayer() {
@@ -265,6 +279,13 @@ namespace basecross {
 
 		void SetColor(const Col4& color) {
 			GetComponent<PNTStaticDraw>()->SetDiffuse(color);
+		}
+
+		bool IsBombMode() {
+			return m_isBombMode;
+		}
+		bool IsHoverMode() {
+			return m_isHoverMode;
 		}
 	private:
 		// 武器用ステート
