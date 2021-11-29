@@ -42,15 +42,31 @@ namespace basecross {
 			CSVLoad::GetInstance()->RegisterFile(L"PlayerInfo", path + L"PlayerInfo.csv");
 			CSVLoad::GetInstance()->RegisterFile(L"PlayerFollowUI", path + L"PlayerFollowUI.csv");
 
+			//AddGameObject<LinePoint>(TransformData(Vec3(0.0f), Vec3(3.0f)));
+
+			//AddGameObject<Block>(TransformData(Vec3(10.0f, 0.0f, 0.0f)));
+			//AddGameObject<Block>(TransformData(Vec3(0.0f, 0.0f, 10.0f)));
+			//AddGameObject<Block>(TransformData(Vec3(10.0f, 0.0f, 10.0f)));
+
 			AddGameObject<Block>(TransformData(Vec3(0.0f, -1.0f, 0.0f)));
 
-			auto player = AddGameObject<ManualPlayer>(TransformData(Vec3(0.0f, 1.0f, 0.0f)), PlayerNumber::P1);
+			auto player = AddGameObject<ManualPlayer>(TransformData(Vec3(0.0f, 1.0f, 0.0f), Vec3(1.0f)), PlayerNumber::P1);
 			//AddGameObject<PlayerInfo>(player, TransformData());
 			//AddGameObject<PlayerFollowUI>(player, TransformData());
-			AddGameObject<BattlePlayersUIs>(L"BPsUIs", 6, Vec3(0));
-			PlayerManager::GetInstance()->AddPlayer(player);
+			//AddGameObject<BattlePlayersUIs>(L"BPsUIs", 6, Vec3(0));
+			//PlayerManager::GetInstance()->AddPlayer(player);
 
-			AddGameObject<SimpleSprite>(L"Test", TransformData(Vec3(0.0f), Vec3(0.4f)))->SetDrawLayer(-2);
+			//AddGameObject<SimpleSprite>(L"Test", TransformData(Vec3(0.0f), Vec3(0.4f)))->SetDrawLayer(-2);
+
+			//unique_ptr<XmlDocReader> m_XmlDocReader;
+			//m_XmlDocReader.reset(new XmlDocReader(dir + L"XML/PlayerStatus.xml"));
+			//auto CellmapNode = m_XmlDocReader->GetSelectSingleNode(L"PlayerStatus");
+			////“à—e‚Ì•¶Žš—ñ‚ðŽæ“¾
+			//wstring MapStr = XmlDocReader::GetText(CellmapNode);
+			//vector<wstring> tokens;
+			//Util::WStrToTokenVector(tokens, MapStr, L' ');
+			//Debug::GetInstance()->Log(tokens[1]);
+			AddGameObject<TransitionSprite>()->FadeOut();
 		}
 		catch (...) {
 			throw;
@@ -59,7 +75,8 @@ namespace basecross {
 
 	void WatanabeStage2::OnUpdate() {
 		const auto& keyState = App::GetApp()->GetInputDevice().GetKeyState();
-		if (keyState.m_bPressedKeyTbl['R'])
+		const auto& cont = App::GetApp()->GetInputDevice().GetControlerVec()[0];
+		if (cont.wPressedButtons & XINPUT_GAMEPAD_A || keyState.m_bPressedKeyTbl['R'])
 			PostEvent(0.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToWatanabeStage");
 	}
 }

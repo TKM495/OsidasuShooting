@@ -31,6 +31,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\CountDown.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\ControllerManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Manager\SoundManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\ResultScore.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\ResultSprite.h" />
@@ -46,6 +47,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\PlayerBase.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\SpecialSkill.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\StageObject.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Stage\CharacterSelectStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\DebugStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\GameStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\JONYMDStage.h" />
@@ -64,6 +66,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\PlayerFollowUI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\PlayerInfo.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\TransitionSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\BaseSingleton.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\DataExtracted.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.h" />
@@ -99,6 +102,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\ResultScore.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\ResultSprite.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Manager\SoundManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Scene.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.cpp" />
@@ -111,6 +115,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\PlayerBase.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\SpecialSkill.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\StageObject.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Stage\CharacterSelectStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\DebugStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\GameStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\JONYMDStage.cpp" />
@@ -129,6 +134,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\PlayerFollowUI.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\PlayerInfo.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\TransitionSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\DataExtracted.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BaseUI.cpp" />

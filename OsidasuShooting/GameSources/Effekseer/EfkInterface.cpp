@@ -8,7 +8,7 @@
 
 namespace basecross {
 	// 静的メンバ変数の実体
-	shared_ptr<EfkInterface> EfkInterface::m_ownInstance;
+	shared_ptr<EfkInterface> EfkInterface::m_ownInstance = nullptr;
 
 	// インスタンスの取得
 	shared_ptr<EfkInterface> EfkInterface::GetInstance() {

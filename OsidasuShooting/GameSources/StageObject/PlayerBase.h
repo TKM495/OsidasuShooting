@@ -41,6 +41,41 @@ namespace basecross {
 	};
 
 	class PlayerBase :public AdvancedGameObject {
+	public:
+		/**
+		 * @brief ノックバックデータ
+		 */
+		struct KnockBackData {
+			/**
+			 * @brief ノックバックのタイプ
+			 */
+			enum class Category {
+				Bullet,	// 弾
+				Bomb	// 爆弾
+			};
+
+			// タイプ
+			Category Type;
+			// ノックバック方向
+			Vec3 Direction;
+			// ノックバック量
+			float Amount;
+			// 加害者
+			weak_ptr<PlayerBase> Aggriever;
+
+			// コンストラクタ
+			KnockBackData(
+				Category type,
+				const Vec3& direction,
+				float amount,
+				const weak_ptr<PlayerBase>& aggriever
+			) {
+				this->Type = type;
+				this->Direction = direction;
+				this->Amount = amount;
+				this->Aggriever = aggriever;
+			}
+		};
 	private:
 		// 初期位置
 		Vec3 m_initialPosition;
@@ -73,7 +108,7 @@ namespace basecross {
 		PlayerNumber m_playerNumber;
 
 		// 加害者（自分に攻撃を当てたプレイヤー）
-		shared_ptr<PlayerBase> m_aggriever;
+		weak_ptr<PlayerBase> m_aggriever;
 		// 復帰中か
 		bool m_isDuringReturn;
 		// 復帰した判定を少し遅らせるためのタイマー
@@ -142,7 +177,7 @@ namespace basecross {
 			m_defaultArmorPoint(100.0f), m_currentArmorPoint(m_defaultArmorPoint),
 			m_bulletTimer(0.1f, true), m_armorRecoveryTimer(2.0f),
 			m_isRestoreArmor(false), m_isInput(false), m_playerNumber(playerNumber),
-			m_bombReload(1.0f), m_defaultBombCount(5), m_correctAngle(20.0f),
+			m_bombReload(1.0f), m_defaultBombCount(5), m_correctAngle(40.0f),
 			m_isDuringReturn(false), m_groundingDecision(), m_countKilledPlayer(0),
 			m_returnTimer(0.5f)
 		{
@@ -155,7 +190,7 @@ namespace basecross {
 		void OnUpdate()override;
 
 		// ノックバック
-		void KnockBack(const Vec3& knockBackDirection, float knockBackAmount, const shared_ptr<PlayerBase>& aggriever);
+		void KnockBack(const KnockBackData& data);
 		//リスポーン
 		void Respawn();
 		// テスト関数
@@ -211,7 +246,6 @@ namespace basecross {
 		 */
 		void KilledPlayer() {
 			m_countKilledPlayer++;
-			Debug::GetInstance()->Log(m_countKilledPlayer);
 		}
 
 		/**
@@ -221,6 +255,10 @@ namespace basecross {
 		 */
 		int GetCountKilledPlayer() {
 			return m_countKilledPlayer;
+		}
+
+		void SetColor(const Col4& color) {
+			GetComponent<PNTStaticDraw>()->SetDiffuse(color);
 		}
 	private:
 		// 武器用ステート

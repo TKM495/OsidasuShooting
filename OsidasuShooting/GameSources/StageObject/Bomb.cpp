@@ -16,6 +16,10 @@ namespace basecross {
 
 		auto collComp = AddComponent<CollisionObb>();
 		collComp->SetAfterCollision(AfterCollision::None);
+		// 発射した直後に爆発するのを防ぐためPlayerも判定から除外する
+		collComp->AddExcludeCollisionTag(L"Player");
+		collComp->AddExcludeCollisionTag(L"Bullet");
+		collComp->AddExcludeCollisionTag(L"Bomb");
 
 		AddComponent<LifeSpan>(m_lifeSpan);
 
@@ -33,29 +37,29 @@ namespace basecross {
 	}
 
 	void Bomb::OnCollisionEnter(shared_ptr<GameObject>& other) {
-		// 発射した直後に爆発するのを防ぐためPlayerも判定に加える
-		if (other->FindTag(L"Player") ||
-			other->FindTag(L"Bullet") ||
-			other->FindTag(L"Bomb") ||
-			m_isExploded)
+		// 一回のみ実行
+		if (m_isExploded)
 			return;
 		m_isExploded = true;
 		// 爆弾によるノックバック処理
 		GetComponent<EfkComponent>()->Play();
-		auto objs = GetStage()->GetGameObjectVec();
-		for (auto obj : objs) {
-			auto ptr = dynamic_pointer_cast<PlayerBase>(obj);
-			// プレイヤーの場合
-			if (ptr) {
-				auto pos = ptr->GetTransform()->GetPosition();
-				auto myPos = GetTransform()->GetPosition();
-				auto distance = (pos - myPos).length();
-				// 爆発半径内にいる場合ノックバック
-				if (distance < m_radius) {
-					ptr->KnockBack(pos - myPos, m_power, m_owner.lock());
-				}
+		// プレイヤーの取得
+		const auto& players = PlayerManager::GetInstance()->GetAllPlayer();
+		for (auto player : players) {
+			auto pos = player->GetTransform()->GetPosition();
+			auto myPos = GetTransform()->GetPosition();
+			auto distance = (pos - myPos).length();
+			// 爆発半径内にいる場合ノックバック
+			if (distance < m_radius) {
+				PlayerBase::KnockBackData data(
+					PlayerBase::KnockBackData::Category::Bomb,
+					pos - myPos, m_power, m_owner
+				);
+				// ノックバック
+				player->KnockBack(data);
 			}
 		}
-		GetStage()->RemoveGameObject<Bomb>(GetThis<Bomb>());
+		// 自身を削除
+		Destroy<Bomb>();
 	}
 }

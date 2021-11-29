@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--プレイヤーの色（0 ～ 255のRGB）-->
+<PlayerColor>
+    <!--1P-->
+    <1PColor>0,255,255</1PColor>
+    <!--2P-->
+    <2PColor>0,255,0</2PColor>
+    <!--3P-->
+    <3PColor>0,0,255</3PColor>
+    <!--4P-->
+    <4PColor>255,255,255</4PColor>
+</PlayerColor>

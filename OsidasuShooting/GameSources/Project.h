@@ -13,6 +13,7 @@
 #include "Stage/ResultStage.h"
 #include "Stage/SatoStage.h"
 #include "Stage/TitleStage.h"
+#include "Stage/CharacterSelectStage.h"
 #include "Stage/WatanabeStage.h"
 #include "Stage/WatanabeStage2.h"
 // その他
@@ -52,6 +53,8 @@
 #include "UIs/StringSprite2.h"
 #include "UIs/TitleSprite.h"
 #include "UIs/UIHeader.h"
+#include "UIs/CurrentFirst.h"
+#include "UIs/TransitionSprite.h"
 // コンポーネント
 #include "Component/FadeComponent.h"
 #include "Component/LifeSpan.h"
@@ -63,6 +66,7 @@
 // マネージャー
 #include "Manager/ControllerManager.h"
 #include "Manager/PlayerManager.h"
+#include "Manager/SoundManager.h"
 
 #include "JonyMd/Area.h"
 #include "JonyMd/CountDown.h"

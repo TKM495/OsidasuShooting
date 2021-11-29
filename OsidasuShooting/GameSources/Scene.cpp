@@ -1,6 +1,6 @@
 /*!
 @file Scene.cpp
-@brief ƒV[ƒ“À‘Ì
+@brief ã‚·ãƒ¼ãƒ³å®Ÿä½“
 */
 
 #include "stdafx.h"
@@ -26,16 +26,19 @@ namespace basecross {
 
 		app->RegisterTexture(L"Winner", tpath + L"Winner.png");
 		app->RegisterTexture(L"ResultFream", tpath + L"ResultFream.png");
+		app->RegisterTexture(L"BombBack", tpath + L"BombBackGround.png");
+		app->RegisterTexture(L"GaugeBackGround", tpath + L"GaugeBackGround.png");
+		app->RegisterTexture(L"Gauge", tpath + L"Gauge.png");
 	}
 
 	//--------------------------------------------------------------------------------------
-	///	ƒQ[ƒ€ƒV[ƒ“
+	///	ã‚²ãƒ¼ãƒ ã‚·ãƒ¼ãƒ³
 	//--------------------------------------------------------------------------------------
 	void Scene::OnCreate() {
 		try {
-			//ƒNƒŠƒA‚·‚éF‚ğİ’è
-			Col4 Col(0.0f, 0.0f, 0.0f, 1.0f);
-			SetClearColor(Col);
+			//ã‚¯ãƒªã‚¢ã™ã‚‹è‰²ã‚’è¨­å®š
+			Col4 Col(30.0f, 30.0f, 30.0f, 1.0f);
+			SetClearColor(Utility::ConvertColorZeroToOne(Col));
 
 			auto dir = App::GetApp()->GetDataDirWString();
 			auto path = dir + L"Csv/";
@@ -43,10 +46,13 @@ namespace basecross {
 			CSVLoad::GetInstance()->RegisterFile(L"PlayerInfo", path + L"PlayerInfo.csv");
 			CSVLoad::GetInstance()->RegisterFile(L"PlayerFollowUI", path + L"PlayerFollowUI.csv");
 
+			path = dir + L"Models/";
+			auto modelMesh = MultiMeshResource::CreateStaticModelMultiMesh(path + L"LaserCharacter/", L"Laser.bmf");
+			App::GetApp()->RegisterResource(L"Player", modelMesh);
 			//App::GetApp()->SetFullScreenMode();
 
-			//©•ª©g‚ÉƒCƒxƒ“ƒg‚ğ‘—‚é
-			//‚±‚ê‚É‚æ‚èŠeƒXƒe[ƒW‚âƒIƒuƒWƒFƒNƒg‚ªCreate‚ÉƒV[ƒ“‚ÉƒAƒNƒZƒX‚Å‚«‚é
+			//è‡ªåˆ†è‡ªèº«ã«ã‚¤ãƒ™ãƒ³ãƒˆã‚’é€ã‚‹
+			//ã“ã‚Œã«ã‚ˆã‚Šå„ã‚¹ãƒ†ãƒ¼ã‚¸ã‚„ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒCreateæ™‚ã«ã‚·ãƒ¼ãƒ³ã«ã‚¢ã‚¯ã‚»ã‚¹ã§ãã‚‹
 			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToDebugStage");
 			GetAppTexture();
 		}
@@ -59,28 +65,32 @@ namespace basecross {
 	}
 
 	void Scene::OnEvent(const shared_ptr<Event>& event) {
-		// ƒfƒoƒbƒOƒXƒe[ƒW
+		// ãƒ‡ãƒãƒƒã‚°ã‚¹ãƒ†ãƒ¼ã‚¸
 		if (event->m_MsgStr == L"ToDebugStage") {
 			ResetActiveStage<DebugStage>();
 		}
-		// ƒ^ƒCƒgƒ‹ƒXƒe[ƒW
+		// ã‚¿ã‚¤ãƒˆãƒ«ã‚¹ãƒ†ãƒ¼ã‚¸
 		else if (event->m_MsgStr == L"ToTitleStage") {
 			ResetActiveStage<TitleStage>();
 		}
-		// ƒQ[ƒ€ƒXƒe[ƒW
+		// ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã‚»ãƒ¬ã‚¯ãƒˆã‚¹ãƒ†ãƒ¼ã‚¸
+		else if (event->m_MsgStr == L"ToCharacterSelectStage") {
+			ResetActiveStage<CharacterSelectStage>();
+		}
+		// ã‚²ãƒ¼ãƒ ã‚¹ãƒ†ãƒ¼ã‚¸
 		else if (event->m_MsgStr == L"ToGameStage") {
 			ResetActiveStage<GameStage>();
 		}
-		// ƒŠƒUƒ‹ƒgƒXƒe[ƒW
+		// ãƒªã‚¶ãƒ«ãƒˆã‚¹ãƒ†ãƒ¼ã‚¸
 		else if (event->m_MsgStr == L"ToResultStage") {
 			ResetActiveStage<ResultStage>();
 		}
-		// I—¹
+		// çµ‚äº†
 		else if (event->m_MsgStr == L"ToExit") {
 			PostQuitMessage(0);
 		}
 
-		// ˆÈ‰º§ì—pƒXƒe[ƒW
+		// ä»¥ä¸‹åˆ¶ä½œç”¨ã‚¹ãƒ†ãƒ¼ã‚¸
 		else if (event->m_MsgStr == L"ToWatanabeStage") {
 			ResetActiveStage<WatanabeStage2>();
 		}
