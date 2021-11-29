@@ -31,4 +31,24 @@ namespace basecross {
 			m_controllerManager(playerNumber)
 		{}
 	};
+
+	// リザルト用のプレイヤー
+	class ResultPlayer :public PlayerBase {
+		void InputUpdate()override;
+		ControllerManager m_controllerManager;
+	public:
+		/**
+		 * @brief コンストラクタ
+		 *
+		 * @param stage ステージへのポインタ
+		 * @param transformData トランスフォームデータ
+		 * @param playerNumber プレイヤーの番号
+		 */
+		ResultPlayer(const shared_ptr<Stage>& stage,
+			const TransformData& transformData,
+			PlayerNumber playerNumber = PlayerNumber::P1)
+			:PlayerBase(stage, transformData, playerNumber),
+			m_controllerManager(playerNumber)
+		{}
+	};
 }
