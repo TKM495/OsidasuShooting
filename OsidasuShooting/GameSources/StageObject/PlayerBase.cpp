@@ -20,6 +20,8 @@ namespace basecross {
 		auto efkComp = AddComponent<EfkComponent>();
 		efkComp->SetEffectResource(L"Jump", TransformData(Vec3(0.0f, -0.5f, 0.0f), m_transformData.Scale));
 		efkComp->SetEffectResource(L"Hover", TransformData(Vec3(0.0f, -0.5f, 0.0f), m_transformData.Scale));
+		// 落ちたときのエフェクトの代わり
+		efkComp->SetEffectResource(L"Explosion", TransformData(Vec3(0.0f), Vec3(1.0f, 5.0f, 1.0f)));
 
 		// 武器ステートマシンの構築と設定
 		m_weaponStateMachine.reset(new StateMachine<PlayerBase>(GetThis<PlayerBase>()));
@@ -86,13 +88,16 @@ namespace basecross {
 	}
 
 	void PlayerBase::Hover() {
+		m_isHoverMode = true;
 		// ホバー可能時間が0以上の場合はホバー
-		if (m_currentHoverTime < 0.0f)
+		if (m_currentHoverTime < 0.0f) {
+			StopHover();
 			return;
+		}
 		GetComponent<Gravity>()->SetGravityVerocityZero();
 		m_currentHoverTime -= App::GetApp()->GetElapsedTime();
 
-		// ホバーエフェクト（バグあり）
+		// ホバーエフェクト
 		auto efkComp = GetComponent<EfkComponent>();
 		if (!efkComp->IsPlaying(L"Hover")) {
 			efkComp->Play(L"Hover");
@@ -108,6 +113,7 @@ namespace basecross {
 		}
 		else {
 			m_currentHoverTime = m_hoverTime;
+			m_isHoverMode = false;
 		}
 	}
 
@@ -222,6 +228,10 @@ namespace basecross {
 		m_currentArmorPoint += 10.0f * App::GetApp()->GetElapsedTime();
 	}
 
+	void PlayerBase::StopHover() {
+		GetComponent<EfkComponent>()->Stop(L"Hover");
+	}
+
 	void PlayerBase::KnockBack(const KnockBackData& data) {
 		m_aggriever = data.Aggriever;
 		m_isDuringReturn = true;
@@ -257,6 +267,7 @@ namespace basecross {
 			m_aggriever.lock()->KilledPlayer();
 		}
 		m_isDuringReturn = false;
+		GetComponent<EfkComponent>()->Play(L"Explosion");
 		GetTransform()->SetPosition(m_initialPosition);
 	}
 
@@ -300,7 +311,9 @@ namespace basecross {
 		static shared_ptr<PlayerBombModeState> instance(new PlayerBombModeState);
 		return instance;
 	}
-	void PlayerBase::PlayerBombModeState::Enter(const shared_ptr<PlayerBase>& Obj) {}
+	void PlayerBase::PlayerBombModeState::Enter(const shared_ptr<PlayerBase>& Obj) {
+		Obj->m_isBombMode = true;
+	}
 	void PlayerBase::PlayerBombModeState::Execute(const shared_ptr<PlayerBase>& Obj) {
 		// 爆弾の照準
 		Obj->BombAim();
@@ -317,6 +330,7 @@ namespace basecross {
 			// 残弾を減らす
 			Obj->m_bombCount--;
 		}
+		Obj->m_isBombMode = false;
 	}
 #pragma endregion
 
@@ -385,12 +399,10 @@ namespace basecross {
 			if (!Obj->m_isInput) {
 				Obj->Hover();
 			}
-			else {
-				Obj->GetComponent<EfkComponent>()->Stop(L"Hover");
-			}
 		}
 		else {
 			Obj->m_isInput = false;
+			Obj->StopHover();
 		}
 
 		// 接地した場合
@@ -398,6 +410,8 @@ namespace basecross {
 			// ジャンプステートへ遷移
 			Obj->m_jumpAndHoverStateMachine->ChangeState(PlayerJumpState::Instance());
 	}
-	void PlayerBase::PlayerHoverState::Exit(const shared_ptr<PlayerBase>& Obj) {}
+	void PlayerBase::PlayerHoverState::Exit(const shared_ptr<PlayerBase>& Obj) {
+		Obj->StopHover();
+	}
 #pragma endregion
 }
