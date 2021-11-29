@@ -5,7 +5,6 @@
 
 #pragma once
 #include "stdafx.h"
-#include "StageObject.h"
 #include "PlayerBase.h"
 
 namespace basecross {

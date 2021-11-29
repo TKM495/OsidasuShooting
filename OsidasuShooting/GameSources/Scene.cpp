@@ -1,6 +1,6 @@
 /*!
 @file Scene.cpp
-@brief ã‚·ãƒ¼ãƒ³å®Ÿä½“
+@brief ƒV[ƒ“À‘Ì
 */
 
 #include "stdafx.h"
@@ -32,11 +32,11 @@ namespace basecross {
 	}
 
 	//--------------------------------------------------------------------------------------
-	///	ã‚²ãƒ¼ãƒ ã‚·ãƒ¼ãƒ³
+	///	ƒQ[ƒ€ƒV[ƒ“
 	//--------------------------------------------------------------------------------------
 	void Scene::OnCreate() {
 		try {
-			//ã‚¯ãƒªã‚¢ã™ã‚‹è‰²ã‚’è¨­å®š
+			//ƒNƒŠƒA‚·‚éF‚ğİ’è
 			Col4 Col(30.0f, 30.0f, 30.0f, 1.0f);
 			SetClearColor(Utility::ConvertColorZeroToOne(Col));
 
@@ -51,8 +51,8 @@ namespace basecross {
 			App::GetApp()->RegisterResource(L"Player", modelMesh);
 			//App::GetApp()->SetFullScreenMode();
 
-			//è‡ªåˆ†è‡ªèº«ã«ã‚¤ãƒ™ãƒ³ãƒˆã‚’é€ã‚‹
-			//ã“ã‚Œã«ã‚ˆã‚Šå„ã‚¹ãƒ†ãƒ¼ã‚¸ã‚„ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒCreateæ™‚ã«ã‚·ãƒ¼ãƒ³ã«ã‚¢ã‚¯ã‚»ã‚¹ã§ãã‚‹
+			//©•ª©g‚ÉƒCƒxƒ“ƒg‚ğ‘—‚é
+			//‚±‚ê‚É‚æ‚èŠeƒXƒe[ƒW‚âƒIƒuƒWƒFƒNƒg‚ªCreate‚ÉƒV[ƒ“‚ÉƒAƒNƒZƒX‚Å‚«‚é
 			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToDebugStage");
 			GetAppTexture();
 		}
@@ -65,32 +65,32 @@ namespace basecross {
 	}
 
 	void Scene::OnEvent(const shared_ptr<Event>& event) {
-		// ãƒ‡ãƒãƒƒã‚°ã‚¹ãƒ†ãƒ¼ã‚¸
+		// ƒfƒoƒbƒOƒXƒe[ƒW
 		if (event->m_MsgStr == L"ToDebugStage") {
 			ResetActiveStage<DebugStage>();
 		}
-		// ã‚¿ã‚¤ãƒˆãƒ«ã‚¹ãƒ†ãƒ¼ã‚¸
+		// ƒ^ƒCƒgƒ‹ƒXƒe[ƒW
 		else if (event->m_MsgStr == L"ToTitleStage") {
 			ResetActiveStage<TitleStage>();
 		}
-		// ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã‚»ãƒ¬ã‚¯ãƒˆã‚¹ãƒ†ãƒ¼ã‚¸
+		// ƒLƒƒƒ‰ƒNƒ^[ƒZƒŒƒNƒgƒXƒe[ƒW
 		else if (event->m_MsgStr == L"ToCharacterSelectStage") {
 			ResetActiveStage<CharacterSelectStage>();
 		}
-		// ã‚²ãƒ¼ãƒ ã‚¹ãƒ†ãƒ¼ã‚¸
+		// ƒQ[ƒ€ƒXƒe[ƒW
 		else if (event->m_MsgStr == L"ToGameStage") {
 			ResetActiveStage<GameStage>();
 		}
-		// ãƒªã‚¶ãƒ«ãƒˆã‚¹ãƒ†ãƒ¼ã‚¸
+		// ƒŠƒUƒ‹ƒgƒXƒe[ƒW
 		else if (event->m_MsgStr == L"ToResultStage") {
 			ResetActiveStage<ResultStage>();
 		}
-		// çµ‚äº†
+		// I—¹
 		else if (event->m_MsgStr == L"ToExit") {
 			PostQuitMessage(0);
 		}
 
-		// ä»¥ä¸‹åˆ¶ä½œç”¨ã‚¹ãƒ†ãƒ¼ã‚¸
+		// ˆÈ‰º§ì—pƒXƒe[ƒW
 		else if (event->m_MsgStr == L"ToWatanabeStage") {
 			ResetActiveStage<WatanabeStage2>();
 		}

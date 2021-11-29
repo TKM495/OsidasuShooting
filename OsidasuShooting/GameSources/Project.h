@@ -34,6 +34,7 @@
 #include "StageObject/FallDecision.h"
 #include "StageObject/ManualPlayer.h"
 #include "StageObject/PlayerBase.h"
+#include "StageObject/PlayerModel.h"
 #include "StageObject/SpecialSkill.h"
 //UI
 #include "UIs/ArmorGauge.h"

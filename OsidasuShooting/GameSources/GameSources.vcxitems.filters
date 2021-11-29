@@ -364,6 +364,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\ResultSprite.cpp">
       <Filter>UI\Result</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\PlayerModel.cpp">
+      <Filter>StageObject\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -565,6 +568,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\ResultSprite.h">
       <Filter>UI\Result</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\PlayerModel.h">
+      <Filter>StageObject\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

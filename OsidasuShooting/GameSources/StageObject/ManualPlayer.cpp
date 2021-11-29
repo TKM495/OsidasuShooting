@@ -29,4 +29,13 @@ namespace basecross {
 			m_inputData.BulletAim = m_controllerManager.GetRightStickVec();
 		}
 	}
+
+	void ResultPlayer::InputUpdate() {
+		// コントローラーを取得
+		const auto& ctrlPad = m_controllerManager.GetControler();
+		// ジャンプとホバー
+		m_inputData.IsJumpOrHover = ctrlPad.bLeftTrigger > 128.0f;
+		// 弾の照準（現状リザルトで向きがおかしくなるので治るまでコメントアウト）
+		//m_inputData.BulletAim = m_controllerManager.GetRightStickVec();
+	}
 }
