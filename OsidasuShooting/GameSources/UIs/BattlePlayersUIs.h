@@ -10,9 +10,6 @@
 namespace basecross
 {
 	class BattlePlayersUIs : public BaseUI {
-		//bool m_trace;
-		//Vec2 m_startScale;
-		//Vec2 m_startPos;
 		wstring m_textureKey;
 		float m_objIconSize;
 		int m_iconNumber;
@@ -23,13 +20,12 @@ namespace basecross
 
 	public:
 		BattlePlayersUIs(const shared_ptr<Stage>& stage,
-			const wstring& TextureKey, int iconNum, Vec3 Pos
-		/*bool Trace, const Vec2& StartScale, const Vec2& StartPos*/) :
+			const wstring& TextureKey, 
+			int iconNum, 
+			Vec3 Pos
+		) :
 			BaseUI(stage, TransformData()),
 			m_textureKey(TextureKey),
-			//m_trace(Trace),
-			//m_startScale(StartScale),
-			//m_startPos(StartPos),
 			m_iconNumber(iconNum),
 			m_position(Pos),
 			m_number(),

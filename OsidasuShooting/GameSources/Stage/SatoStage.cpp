@@ -8,8 +8,10 @@
 
 namespace basecross {
 	void SatoStage::CreateViewLight() {
-		const Vec3 eye(0.0f, 30.0f, -25.0f);
-		const Vec3 at(0.0f, 0.0f, -2.0f);
+		//const Vec3 eye(0.0f, 30.0f, -25.0f);
+		const Vec3 eye(0.0f, 0.0f, -4.0f);
+		//const Vec3 at(0.0f, 0.0f, -2.0f);
+		const Vec3 at(0.5f, 0.0f, -2.0f);
 		auto PtrView = CreateView<SingleView>();
 		//ÉrÉÖÅ[ÇÃÉJÉÅÉâÇÃê›íË
 		auto PtrCamera = ObjectFactory::Create<Camera>();
@@ -37,6 +39,39 @@ namespace basecross {
 		
 	}
 
+	void SatoStage::AddWinnerSprite()
+	{
+		auto winnerUIs = AddGameObject<ResultWinnerSprite>(L"Winner");
+		auto winnerUIsTrans = winnerUIs->GetComponent<Transform>();
+		auto winnerUIsPos = winnerUIsTrans->GetPosition();
+
+		auto playerNumber = AddGameObject<BattlePlayersUIs>(L"BPsUIs", 1,Vec3(0));
+		auto playUIsTrans = playerNumber->GetComponent<Transform>();
+		playUIsTrans->SetPosition(winnerUIsPos - Vec3(-412.0f,-27.0f,0));
+		playUIsTrans->SetScale(Vec3(1.1f));
+
+	}
+
+	void SatoStage::AddResultDataSprite(Vec3 pos, int playerNum,int score)
+	{
+		auto fream = AddGameObject<ResultFreamSprite>(L"ResultFream");
+		auto freamTrans = fream->GetComponent<Transform>();
+		auto freamPos = freamTrans->GetPosition();
+		auto resultPos = freamPos + pos;
+		freamTrans->SetPosition(resultPos);
+
+		auto playerNumber = AddGameObject<BattlePlayersUIs>(L"BPsUIs", playerNum, Vec3(0));
+		auto playUIsTrans = playerNumber->GetComponent<Transform>();
+		resultPos.y -= 50.0f;
+		playUIsTrans->SetPosition(resultPos);
+		playUIsTrans->SetScale(Vec3(0.4f));
+
+		resultPos.x += 120.0f;
+		resultPos.y += 25.0f;
+		m_score = AddGameObject<ResultScore>(score, resultPos);
+		m_score->SetDrawLayer(1);
+	}
+
 
 	void SatoStage::OnCreate() {
 		try {
@@ -55,9 +90,10 @@ namespace basecross {
 
 			//AddGameObject<SpecialCamera>();
 			
-			// Timer
-			m_timer = AddGameObject<CountDown>();
-			SetSharedGameObject(L"CountDown", m_timer);
+			//// Timer
+			//m_timer = AddGameObject<CountDown>();
+			//SetSharedGameObject(L"CountDown", m_timer);
+
 
 			//AddGameObject<Number>(10);
 
@@ -69,11 +105,24 @@ namespace basecross {
 			
 			auto Laser = AddGameObject<SpecialLaser>(Player1, Vec3(0,0,0), Vec3(0, 0, 0));
 
-			AddGameObject<Block>(TransformData(Vec3(0,-1,0),Vec3(3,1,3)));
+			AddGameObject<Block>(TransformData(Vec3(0,-1,0),Vec3(100,1,100)));
 			//auto LaserPos->GetPositino();
 			//LaserPos.z *= -1;
 			//Laser->GetTransform()->SetPosition(LaserPos);
 			//
+
+			AddWinnerSprite();
+
+			float addVec = 0;
+			float setPosY = 0;
+			auto playNum = 0;
+			for (int i = 0; i < 4; i++) {
+				addVec += 15;
+				playNum += 1;
+				AddResultDataSprite(Vec3(390 + addVec, 260 + setPosY,0),playNum,2);
+				setPosY -= 160;
+			}
+
 		}
 		catch (...) {
 			throw;
