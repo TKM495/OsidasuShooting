@@ -114,6 +114,7 @@ namespace basecross {
 			m_bulletTimer.Reset();
 			InstantiateGameObject<Bullet>(GetThis<PlayerBase>(), ray);
 		}
+		TurnFrontToDirection(ray.Direction);
 	}
 
 	Vec3 PlayerBase::BulletAimCorrection(const Vec3& launchDirection) {
@@ -162,6 +163,7 @@ namespace basecross {
 		auto delta = App::GetApp()->GetElapsedTime();
 		m_bombPoint += m_inputData.BombAim * delta * 20.0f;
 		m_predictionLine.Update(GetTransform()->GetPosition(), m_bombPoint, PredictionLine::Type::Bomb);
+		TurnFrontToDirection(m_bombPoint - GetTransform()->GetPosition());
 	}
 
 	void PlayerBase::BombReload() {
@@ -179,6 +181,17 @@ namespace basecross {
 	void PlayerBase::BombLaunch() {
 		InstantiateGameObject<Bomb>(GetThis<PlayerBase>(),
 			m_predictionLine, GetTransform()->GetPosition(), m_bombPoint);
+	}
+
+	void PlayerBase::TurnFrontToDirection(const Vec3& direction) {
+		Vec3 rot(0.0f);
+		// direction‚ªVec3(0.0f)‚¾‚Á‚½‚ç‘O‰ñ‚Ì•ûŒü‚Ì‚Ü‚ÜˆÛŽ
+		Vec3 _direction = direction != Vec3(0.0f) ? direction : m_lastFrontDirection;
+		// •ûŒü‚É³–Ê‚ðŒü‚¯‚é
+		auto rad = atan2f(-_direction.z, _direction.x) - XM_PIDIV2;
+		rot.y = rad;
+		GetTransform()->SetRotation(rot);
+		m_lastFrontDirection = _direction;
 	}
 
 	void PlayerBase::ArmorRecovery() {
