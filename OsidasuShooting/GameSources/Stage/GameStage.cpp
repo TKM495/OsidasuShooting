@@ -67,7 +67,7 @@ namespace basecross {
 			AddGameObject<FallDecision>();
 			AddGameObject<CurrentFirst>();
 
-			m_countDown = AddGameObject<CountDown>(90.0f);
+			m_countDown = AddGameObject<CountDown>(10.0f);
 			AddGameObject<TransitionSprite>()->FadeOut();
 		}
 		catch (...) {

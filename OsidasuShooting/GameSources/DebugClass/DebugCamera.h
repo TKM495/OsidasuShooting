@@ -12,8 +12,8 @@ namespace basecross {
 		float length; //ƒJƒƒ‰‚Ì’‹“_‚©‚ç‚Ì‹——£
 		float height;
 	public:
-		DebugCamera()
-			:angleRadY(XMConvertToRadians(-90)), length(30.0f), height(30.0f)
+		DebugCamera(float length = 30.0f, float height = 30.0f)
+			:angleRadY(XMConvertToRadians(-90)), length(length), height(height)
 		{
 		}
 

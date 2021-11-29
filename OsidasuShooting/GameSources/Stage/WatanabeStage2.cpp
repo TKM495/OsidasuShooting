@@ -13,7 +13,7 @@ namespace basecross {
 		const Vec3 at(0.0f);
 		auto PtrView = CreateView<SingleView>();
 		//ƒrƒ…[‚ÌƒJƒƒ‰‚Ìİ’è
-		auto PtrCamera = ObjectFactory::Create<DebugCamera>();
+		auto PtrCamera = ObjectFactory::Create<DebugCamera>(10.0f, 0.0f);
 		PtrView->SetCamera(PtrCamera);
 		PtrCamera->SetEye(eye);
 		PtrCamera->SetAt(at);
@@ -50,7 +50,7 @@ namespace basecross {
 
 			AddGameObject<Block>(TransformData(Vec3(0.0f, -1.0f, 0.0f)));
 
-			auto player = AddGameObject<ManualPlayer>(TransformData(Vec3(0.0f, 1.0f, 0.0f), Vec3(1.0f)), PlayerNumber::P1);
+			auto player = AddGameObject<ManualPlayer>(TransformData(Vec3(0.0f, 2.0f, 0.0f), Vec3(1.0f)), PlayerNumber::P1);
 			//AddGameObject<PlayerInfo>(player, TransformData());
 			//AddGameObject<PlayerFollowUI>(player, TransformData());
 			//AddGameObject<BattlePlayersUIs>(L"BPsUIs", 6, Vec3(0));

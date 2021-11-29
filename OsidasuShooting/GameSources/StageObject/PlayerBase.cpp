@@ -8,38 +8,30 @@
 
 namespace basecross {
 	void PlayerBase::OnCreate() {
-		// 描画コンポーネントの追加
-		auto drawComp = AddComponent<PNTStaticModelDraw>();
-		//drawComp->SetMeshResource(L"DEFAULT_SPHERE");
-		drawComp->SetMultiMeshResource(L"Player");
-		drawComp->SetOwnShadowActive(true);
-
-		// 影の追加
-		auto shadowComp = AddComponent<Shadowmap>();
-		shadowComp->SetMeshResource(L"DEFAULT_SPHERE");
+		// プレイヤーのモデルを追加
+		InstantiateGameObject<PlayerModel>(GetThis<PlayerBase>(), m_transformData);
 
 		// 滑るような挙動用のコンポーネントと重力を追加
 		AddComponent<PhysicalBehavior>();
 		AddComponent<Gravity>();
 		// 当たり判定を追加
-		AddComponent<CollisionSphere>();
+		AddComponent<CollisionSphere>()->SetDrawActive(false);
 
-		// 武器ステートマシンの構築
+		// 武器ステートマシンの構築と設定
 		m_weaponStateMachine.reset(new StateMachine<PlayerBase>(GetThis<PlayerBase>()));
-		// 武器の初期ステートの設定
 		m_weaponStateMachine->ChangeState(PlayerBulletModeState::Instance());
-
-		// ジャンプ＆ホバー
+		// ジャンプ＆ホバーステートマシンの構築と設定
 		m_jumpAndHoverStateMachine.reset(new StateMachine<PlayerBase>(GetThis<PlayerBase>()));
 		m_jumpAndHoverStateMachine->ChangeState(PlayerJumpState::Instance());
 
 		// タグの追加
 		AddTag(L"Player");
+
+		// 各値の初期化
 		m_currentArmorPoint = m_defaultArmorPoint;
 		m_currentHoverTime = m_hoverTime;
 		m_bombCount = m_defaultBombCount;
 		m_initialPosition = GetTransform()->GetPosition();
-
 		// 接地判定の情報を初期化
 		m_groundingDecision.SetRadius(GetTransform()->GetScale());
 	}
