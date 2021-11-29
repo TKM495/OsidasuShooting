@@ -158,6 +158,8 @@ namespace basecross {
 		void SpecialSkill();
 		// 特定の方向に正面を向ける
 		void TurnFrontToDirection(const Vec3& direction);
+		// ホバー停止時の処理
+		void StopHover();
 	protected:
 		// 移動速度（どちらかというとかける力）
 		float m_moveSpeed;

@@ -70,7 +70,7 @@ namespace basecross {
 	//}
 
 	bool EfkComponent::IsPlaying(const wstring& key) {
-		return (m_effectDataMap[key].Handle != -1);
+		return m_manager->Exists(m_effectDataMap[key].Handle);
 	}
 
 	bool EfkComponent::IsPlaying() {

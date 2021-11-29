@@ -88,12 +88,14 @@ namespace basecross {
 	void PlayerBase::Hover() {
 		m_isHoverMode = true;
 		// ホバー可能時間が0以上の場合はホバー
-		if (m_currentHoverTime < 0.0f)
+		if (m_currentHoverTime < 0.0f) {
+			StopHover();
 			return;
+		}
 		GetComponent<Gravity>()->SetGravityVerocityZero();
 		m_currentHoverTime -= App::GetApp()->GetElapsedTime();
 
-		// ホバーエフェクト（バグあり）
+		// ホバーエフェクト
 		auto efkComp = GetComponent<EfkComponent>();
 		if (!efkComp->IsPlaying(L"Hover")) {
 			efkComp->Play(L"Hover");
@@ -222,6 +224,10 @@ namespace basecross {
 			m_armorRecoveryTimer.Reset();
 		}
 		m_currentArmorPoint += 10.0f * App::GetApp()->GetElapsedTime();
+	}
+
+	void PlayerBase::StopHover() {
+		GetComponent<EfkComponent>()->Stop(L"Hover");
 	}
 
 	void PlayerBase::KnockBack(const KnockBackData& data) {
@@ -393,7 +399,7 @@ namespace basecross {
 		}
 		else {
 			Obj->m_isInput = false;
-			Obj->GetComponent<EfkComponent>()->Stop(L"Hover");
+			Obj->StopHover();
 		}
 
 		// 接地した場合
@@ -401,6 +407,8 @@ namespace basecross {
 			// ジャンプステートへ遷移
 			Obj->m_jumpAndHoverStateMachine->ChangeState(PlayerJumpState::Instance());
 	}
-	void PlayerBase::PlayerHoverState::Exit(const shared_ptr<PlayerBase>& Obj) {}
+	void PlayerBase::PlayerHoverState::Exit(const shared_ptr<PlayerBase>& Obj) {
+		Obj->StopHover();
+	}
 #pragma endregion
 }
