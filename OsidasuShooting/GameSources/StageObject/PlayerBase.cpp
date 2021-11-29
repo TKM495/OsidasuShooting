@@ -20,6 +20,8 @@ namespace basecross {
 		auto efkComp = AddComponent<EfkComponent>();
 		efkComp->SetEffectResource(L"Jump", TransformData(Vec3(0.0f, -0.5f, 0.0f), m_transformData.Scale));
 		efkComp->SetEffectResource(L"Hover", TransformData(Vec3(0.0f, -0.5f, 0.0f), m_transformData.Scale));
+		// 落ちたときのエフェクトの代わり
+		efkComp->SetEffectResource(L"Explosion", TransformData(Vec3(0.0f), Vec3(1.0f, 5.0f, 1.0f)));
 
 		// 武器ステートマシンの構築と設定
 		m_weaponStateMachine.reset(new StateMachine<PlayerBase>(GetThis<PlayerBase>()));
@@ -265,6 +267,7 @@ namespace basecross {
 			m_aggriever.lock()->KilledPlayer();
 		}
 		m_isDuringReturn = false;
+		GetComponent<EfkComponent>()->Play(L"Explosion");
 		GetTransform()->SetPosition(m_initialPosition);
 	}
 
