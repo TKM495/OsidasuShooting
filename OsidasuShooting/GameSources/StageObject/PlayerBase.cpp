@@ -17,6 +17,10 @@ namespace basecross {
 		// 当たり判定を追加
 		AddComponent<CollisionSphere>()->SetDrawActive(false);
 
+		auto efkComp = AddComponent<EfkComponent>();
+		efkComp->SetEffectResource(L"Jump", TransformData(Vec3(0.0f, -0.5f, 0.0f), m_transformData.Scale));
+		efkComp->SetEffectResource(L"Hover", TransformData(Vec3(0.0f, -0.5f, 0.0f), m_transformData.Scale));
+
 		// 武器ステートマシンの構築と設定
 		m_weaponStateMachine.reset(new StateMachine<PlayerBase>(GetThis<PlayerBase>()));
 		m_weaponStateMachine->ChangeState(PlayerBulletModeState::Instance());
@@ -78,6 +82,7 @@ namespace basecross {
 
 	void PlayerBase::Jump() {
 		GetComponent<Gravity>()->StartJump(m_jumpVerocity);
+		GetComponent<EfkComponent>()->Play(L"Jump");
 	}
 
 	void PlayerBase::Hover() {
@@ -86,6 +91,15 @@ namespace basecross {
 			return;
 		GetComponent<Gravity>()->SetGravityVerocityZero();
 		m_currentHoverTime -= App::GetApp()->GetElapsedTime();
+
+		// ホバーエフェクト（バグあり）
+		auto efkComp = GetComponent<EfkComponent>();
+		if (!efkComp->IsPlaying(L"Hover")) {
+			efkComp->Play(L"Hover");
+		}
+		else {
+			efkComp->SyncPosition(L"Hover");
+		}
 	}
 
 	void PlayerBase::HoverTimeRecovery() {
@@ -368,8 +382,12 @@ namespace basecross {
 	void PlayerBase::PlayerHoverState::Execute(const shared_ptr<PlayerBase>& Obj) {
 		if (Obj->m_inputData.IsJumpOrHover) {
 			// 遷移時に入力があった場合ホバーを行わない（一度離す必要がある）
-			if (!Obj->m_isInput)
+			if (!Obj->m_isInput) {
 				Obj->Hover();
+			}
+			else {
+				Obj->GetComponent<EfkComponent>()->Stop(L"Hover");
+			}
 		}
 		else {
 			Obj->m_isInput = false;

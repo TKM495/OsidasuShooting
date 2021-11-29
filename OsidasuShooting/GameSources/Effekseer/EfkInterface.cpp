@@ -24,7 +24,7 @@ namespace basecross {
 	}
 
 	EfkInterface::EfkInterface(const shared_ptr<Stage>& stage)
-		:GameObject(stage),
+		:AdvancedGameObject(stage),
 		m_Manager(nullptr),
 		m_Renderer(nullptr)
 	{}

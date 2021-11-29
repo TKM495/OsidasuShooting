@@ -8,72 +8,87 @@
 
 namespace basecross {
 	EfkComponent::EfkComponent(const shared_ptr<GameObject>& gameObjectPtr)
-		: Component(gameObjectPtr), m_handle(-1), m_playSpeed(1),
-		m_scale(Vec3(1.0f)), m_rotation(Vec3(0.0f))
+		: Component(gameObjectPtr), m_playSpeed(1)
 	{
 		// マネージャーのポインタを取得
 		m_manager = EfkInterface::GetInstance()->GetManager();
 	}
 
+	void EfkComponent::SetEffectResource(const wstring& key, const TransformData& offset) {
+		auto effectRes = App::GetApp()->GetResource<EfkEffectResource>(key + EfkKey);
+		auto data = effectRes->GetEffectData();
+		m_effectDataMap[key] = EfkData(data, offset);
+	}
+
 	void EfkComponent::SetEffectResource(const wstring& key) {
-		this->SetEffectResource(App::GetApp()->GetResource<EfkEffectResource>(key + EfkKey));
-	}
-	void EfkComponent::SetEffectResource(const shared_ptr<EfkEffectResource>& effectRes) {
-		m_effectData = effectRes->GetEffectData();
+		SetEffectResource(key, TransformData());
 	}
 
-	void EfkComponent::Play() {
+	void EfkComponent::Play(const wstring& key) {
+		auto& data = m_effectDataMap[key];
 		// 前回のエフェクトを停止
-		Stop();
-		auto pos = GetGameObjectPosition();
+		Stop(key);
+		auto pos = GetGameObjectPosition() + data.Offset.Position;
 		// 再生
-		m_handle = m_manager->Play(m_effectData, pos.x, pos.y, pos.z);
+		data.Handle = m_manager->Play(data.EffectData, pos.x, pos.y, pos.z);
 		// ハンドルがないと設定できないのでここで再生速度を設定
-		m_manager->SetSpeed(m_handle, m_playSpeed);
+		m_manager->SetSpeed(data.Handle, m_playSpeed);
 		// スケールを設定
-		m_manager->SetScale(m_handle, m_scale.x, m_scale.y, m_scale.z);
+		auto scale = data.Offset.Scale;
+		m_manager->SetScale(data.Handle, scale.x, scale.y, scale.z);
+
 		// 回転を設定
-		auto rad = Utility::ConvertDegVecToRadVec(m_rotation);
-		m_manager->SetRotation(m_handle, rad.x, rad.y, rad.z);
+		auto rad = Utility::ConvertDegVecToRadVec(data.Offset.Rotation);
+		m_manager->SetRotation(data.Handle, rad.x, rad.y, rad.z);
 	}
 
-	void EfkComponent::Stop() {
-		if (IsPlaying())
-			m_manager->StopEffect(m_handle);
+	void EfkComponent::Stop(const wstring& key) {
+		if (IsPlaying(key))
+			m_manager->StopEffect(m_effectDataMap[key].Handle);
 	}
-	void EfkComponent::Pause() {
-		if (IsPlaying())
+	void EfkComponent::Pause(const wstring& key) {
+		auto handle = m_effectDataMap[key].Handle;
+		if (IsPlaying(key))
 			// ポーズ中だったら続きから再生
-			m_manager->SetPaused(m_handle, !m_manager->GetPaused(m_handle));
+			m_manager->SetPaused(handle, !m_manager->GetPaused(handle));
 	}
 
-	void EfkComponent::SetPlaySpeed(float speed) {
-		m_playSpeed = speed;
+	void EfkComponent::StopAll() {
+		m_manager->StopAllEffects();
 	}
 
-	void EfkComponent::AddLocation(const Vec3& position) {
-		if (!IsPlaying())
-			return;
-		m_manager->AddLocation(m_handle, Effekseer::Vector3D(position.x, position.y, position.z));
-	}
+	//void EfkComponent::SetPlaySpeed(float speed) {
+	//	m_playSpeed = speed;
+	//}
 
-	void EfkComponent::SetRotation(const Vec3& rotation) {
-		m_rotation = rotation;
-	}
+	//void EfkComponent::SetRotation(const Vec3& rotation) {
+	//	m_rotation = rotation;
+	//}
 
-	void EfkComponent::SetScale(const Vec3& scale) {
-		m_scale = scale;
+	//void EfkComponent::SetScale(const Vec3& scale) {
+	//	m_scale = scale;
+	//}
+
+	bool EfkComponent::IsPlaying(const wstring& key) {
+		return (m_effectDataMap[key].Handle != -1);
 	}
 
 	bool EfkComponent::IsPlaying() {
-		return (m_handle != -1);
+		for (auto data : m_effectDataMap) {
+			// 再生中のエフェクトがあればtrue
+			if (IsPlaying(data.first)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
-	void EfkComponent::SyncPosition() {
-		if (!IsPlaying())
+	void EfkComponent::SyncPosition(const wstring& key) {
+		if (!IsPlaying(key))
 			return;
-		auto parentPosition = GetGameObjectPosition();
-		m_manager->SetLocation(m_handle, parentPosition.x, parentPosition.y, parentPosition.z);
+		auto data = m_effectDataMap[key];
+		auto parentPosition = GetGameObjectPosition() + data.Offset.Position;
+		m_manager->SetLocation(data.Handle, parentPosition.x, parentPosition.y, parentPosition.z);
 	}
 
 	Vec3 EfkComponent::GetGameObjectPosition() {

@@ -13,7 +13,7 @@ namespace basecross {
 		const Vec3 at(0.0f);
 		auto PtrView = CreateView<SingleView>();
 		//ビューのカメラの設定
-		auto PtrCamera = ObjectFactory::Create<DebugCamera>(10.0f, 5.0f);
+		auto PtrCamera = ObjectFactory::Create<DebugCamera>(10.0f, 0.0f);
 		PtrView->SetCamera(PtrCamera);
 		PtrCamera->SetEye(eye);
 		PtrCamera->SetAt(at);
@@ -26,11 +26,12 @@ namespace basecross {
 	void WatanabeStage2::OnCreate() {
 		try {
 			AddGameObject<EfkInterface>();
-			wstring DataDir;
-			App::GetApp()->GetDataDirectory(DataDir);
-			wstring TestEffectStr = DataDir + L"Effects\\";
-			EfkEffectResource::RegisterEffectResource(L"Bullet", TestEffectStr + L"Bullet.efk");
-			EfkEffectResource::RegisterEffectResource(L"Explosion", TestEffectStr + L"fire.efk");
+			auto efkpath = App::GetApp()->GetDataDirWString() + L"Effects/";
+			EfkEffectResource::RegisterEffectResource(L"Bullet", efkpath + L"Bullet.efk");
+			EfkEffectResource::RegisterEffectResource(L"Explosion", efkpath + L"fire.efk");
+			EfkEffectResource::RegisterEffectResource(L"Hit", efkpath + L"Hit.efk");
+			EfkEffectResource::RegisterEffectResource(L"Jump", efkpath + L"Jump.efk");
+			EfkEffectResource::RegisterEffectResource(L"Hover", efkpath + L"Hover.efk");
 
 			//ビューとライトの作成
 			CreateViewLight();

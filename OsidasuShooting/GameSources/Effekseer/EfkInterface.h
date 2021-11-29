@@ -6,12 +6,13 @@
 #pragma once
 #include "stdafx.h"
 #include "Effekseer/EfkEffect.h"
+#include "StageObject/AdvancedGameObject.h"
 
 namespace basecross {
 	/**
 	 * @brief Effekseerのインターフェイス
 	 */
-	class EfkInterface : public GameObject {
+	class EfkInterface : public AdvancedGameObject {
 		// Effekseerのマネージャーポインタ
 		Effekseer::ManagerRef m_Manager;
 		EffekseerRenderer::RendererRef m_Renderer;
@@ -36,7 +37,7 @@ namespace basecross {
 		/**
 		 * @brief インスタンスの取得
 		 *
-		 * @return EfkInterfaceのインスタンスの
+		 * @return EfkInterfaceのインスタンスの取得
 		 */
 		static shared_ptr<EfkInterface> GetInstance();
 

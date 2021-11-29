@@ -187,6 +187,7 @@ namespace basecross {
 			m_returnTimer(0.5f), m_lastFrontDirection(Vec3(0.0f))
 		{
 			m_transformData = transData;
+			m_transformData.Scale *= 2.0f;
 			// 以下のタグを持つオブジェクトを判定から除外
 			m_groundingDecision.AddNotDecisionTag(L"Bomb");
 			m_groundingDecision.AddNotDecisionTag(L"Bullet");

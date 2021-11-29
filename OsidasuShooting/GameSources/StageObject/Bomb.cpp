@@ -42,7 +42,7 @@ namespace basecross {
 			return;
 		m_isExploded = true;
 		// 爆弾によるノックバック処理
-		GetComponent<EfkComponent>()->Play();
+		GetComponent<EfkComponent>()->Play(L"Explosion");
 		// プレイヤーの取得
 		const auto& players = PlayerManager::GetInstance()->GetAllPlayer();
 		for (auto player : players) {
