@@ -25,11 +25,12 @@ namespace basecross {
 	void GameStage::OnCreate() {
 		try {
 			AddGameObject<EfkInterface>();
-			wstring DataDir;
-			App::GetApp()->GetDataDirectory(DataDir);
-			wstring TestEffectStr = DataDir + L"Effects\\";
-			EfkEffectResource::RegisterEffectResource(L"Bullet", TestEffectStr + L"Bullet.efk");
-			EfkEffectResource::RegisterEffectResource(L"Explosion", TestEffectStr + L"fire.efk");
+			auto efkpath = App::GetApp()->GetDataDirWString() + L"Effects/";
+			EfkEffectResource::RegisterEffectResource(L"Bullet", efkpath + L"Bullet.efk");
+			EfkEffectResource::RegisterEffectResource(L"Explosion", efkpath + L"fire.efk");
+			EfkEffectResource::RegisterEffectResource(L"Hit", efkpath + L"Hit.efk");
+			EfkEffectResource::RegisterEffectResource(L"Jump", efkpath + L"Jump.efk");
+			EfkEffectResource::RegisterEffectResource(L"Hover", efkpath + L"Hover.efk");
 
 			//ビューとライトの作成
 			CreateViewLight();
@@ -67,7 +68,7 @@ namespace basecross {
 			AddGameObject<FallDecision>();
 			AddGameObject<CurrentFirst>();
 
-			m_countDown = AddGameObject<CountDown>(10.0f);
+			m_countDown = AddGameObject<CountDown>(90.0f);
 			AddGameObject<TransitionSprite>()->FadeOut();
 		}
 		catch (...) {

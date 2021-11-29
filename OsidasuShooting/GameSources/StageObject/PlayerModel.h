@@ -13,7 +13,7 @@ namespace basecross {
 			:AdvancedGameObject(stage), m_owner(gameObject)
 		{
 			m_transformData = transformData;
-			m_transformData.Position.y += -0.5f;
+			m_transformData.Position.y += -0.5f * m_transformData.Scale.y;
 		}
 		void OnCreate()override;
 	};
