@@ -295,9 +295,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\SpecialSkill.cpp">
       <Filter>StageObject</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\StageObject.cpp">
-      <Filter>StageObject</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\StringSprite2.cpp">
       <Filter>UI\StringSprite2</Filter>
     </ClCompile>
@@ -316,24 +313,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage.cpp">
       <Filter>Stage\Debug\WatanabeStage</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Area.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Items.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\ItemsCreations.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\AdvancedGameObject.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage2.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BombReloadTimeGauge.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BombRemainingCount.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CurrentFirst.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\PlayerFollowUI.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\PlayerInfo.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\DataExtracted.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\BaseSingleton.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\ResultSprite.cpp">
-      <Filter>UI\Result</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\ResultScore.cpp">
-      <Filter>UI\Result</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\SoundManager.cpp">
       <Filter>Manager\SoundManager</Filter>
     </ClCompile>
@@ -342,6 +321,48 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\TransitionSprite.cpp">
       <Filter>UI\TransitionSprite</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\AdvancedGameObject.cpp">
+      <Filter>StageObject</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\BaseSingleton.cpp">
+      <Filter>Utility\BaseSingleton</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\DataExtracted.cpp">
+      <Filter>Utility\DataExtracted</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Area.cpp">
+      <Filter>StageObject\JonyMd</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BombReloadTimeGauge.cpp">
+      <Filter>UI\BombReloadTimeGauge</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BombRemainingCount.cpp">
+      <Filter>UI\BombRemainingCount</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CurrentFirst.cpp">
+      <Filter>UI\CurrentFirst</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Items.cpp">
+      <Filter>StageObject\JonyMd</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\ItemsCreations.cpp">
+      <Filter>StageObject\JonyMd</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\PlayerFollowUI.cpp">
+      <Filter>UI\PlayerFollowUI</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\PlayerInfo.cpp">
+      <Filter>UI\PlayerInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage2.cpp">
+      <Filter>Stage\Debug\WatanabeStage</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\ResultScore.cpp">
+      <Filter>UI\Result</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\ResultSprite.cpp">
+      <Filter>UI\Result</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -393,9 +414,6 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\PhysicalBehavior.h">
       <Filter>Component\PhysicalBehavior</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\StageObject.h">
-      <Filter>StageObject</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\TitleStage.h">
       <Filter>Stage\TitleStage</Filter>
@@ -497,24 +515,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\SpecialSkill.h">
       <Filter>StageObject</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Area.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Items.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\ItemsCreations.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\AdvancedGameObject.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage2.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BombReloadTimeGauge.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BombRemainingCount.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CurrentFirst.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\PlayerFollowUI.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\PlayerInfo.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\BaseSingleton.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\DataExtracted.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\ResultSprite.h">
-      <Filter>UI\Result</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\ResultScore.h">
-      <Filter>UI\Result</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\SoundManager.h">
       <Filter>Manager\SoundManager</Filter>
     </ClInclude>
@@ -523,6 +523,48 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\TransitionSprite.h">
       <Filter>UI\TransitionSprite</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\AdvancedGameObject.h">
+      <Filter>StageObject</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\BaseSingleton.h">
+      <Filter>Utility\BaseSingleton</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\DataExtracted.h">
+      <Filter>Utility\DataExtracted</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Area.h">
+      <Filter>StageObject\JonyMd</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BombReloadTimeGauge.h">
+      <Filter>UI\BombReloadTimeGauge</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BombRemainingCount.h">
+      <Filter>UI\BombRemainingCount</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CurrentFirst.h">
+      <Filter>UI\CurrentFirst</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Items.h">
+      <Filter>StageObject\JonyMd</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\ItemsCreations.h">
+      <Filter>StageObject\JonyMd</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\PlayerFollowUI.h">
+      <Filter>UI\PlayerFollowUI</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\PlayerInfo.h">
+      <Filter>UI\PlayerInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage2.h">
+      <Filter>Stage\Debug\WatanabeStage</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\ResultScore.h">
+      <Filter>UI\Result</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\ResultSprite.h">
+      <Filter>UI\Result</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -568,9 +610,6 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\PhysicalBehavior.cpp">
       <Filter>Component\PhysicalBehavior</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\StageObject.cpp">
-      <Filter>StageObject</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\TitleStage.cpp">
       <Filter>Stage\TitleStage</Filter>
@@ -696,7 +735,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\FallDecision.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\ManualPlayer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\PlayerBase.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\StageObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\DebugStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\GameStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\JONYMDStage.h" />
