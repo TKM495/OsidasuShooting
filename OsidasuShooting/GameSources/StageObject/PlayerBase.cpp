@@ -52,14 +52,6 @@ namespace basecross {
 			}
 		}
 
-		//// テスト用の処理（ダメージを受けたら赤くなる）
-		//if (m_isDuringReturn) {
-		//	GetComponent<PNTStaticDraw>()->SetDiffuse(Col4(1.0f, 0.0f, 0.0f, 1.0f));
-		//}
-		//else {
-		//	GetComponent<PNTStaticDraw>()->SetDiffuse(Col4(1.0f, 1.0f, 1.0f, 1.0f));
-		//}
-
 		// 入力の更新
 		InputUpdate();
 		// 移動処理
@@ -133,6 +125,7 @@ namespace basecross {
 		if (bulletAim != Vec3(0.0f) && m_bulletTimer.Count()) {
 			m_bulletTimer.Reset();
 			InstantiateGameObject<Bullet>(GetThis<PlayerBase>(), ray);
+			SoundManager::GetInstance()->Play(L"Shot");
 		}
 		TurnFrontToDirection(ray.Direction);
 	}

@@ -8,7 +8,7 @@
 
 namespace basecross {
 	ControllerManager::ControllerManager(PlayerNumber number)
-		:m_playerNumber(number)
+		:m_playerNumber(number), m_triggerThreshold(128.0f)
 	{}
 
 	CONTROLER_STATE ControllerManager::GetControler() {
@@ -31,15 +31,15 @@ namespace basecross {
 	}
 
 	Vec3 ControllerManager::GetLeftStickVec() {
-		auto vec = GetStickVec(Stick::Left);
+		auto vec = GetStickVec(Direction::Left);
 		return Vec3(vec.x, 0.0f, vec.y);
 	}
 	Vec3 ControllerManager::GetRightStickVec() {
-		auto vec = GetStickVec(Stick::Right);
+		auto vec = GetStickVec(Direction::Right);
 		return Vec3(vec.x, 0.0f, vec.y);
 	}
 
-	Vec2 ControllerManager::GetStickVec(Stick stick) {
+	Vec2 ControllerManager::GetStickVec(Direction direction) {
 		const auto& cntlPad = GetControler();
 		if (!cntlPad.bConnected)
 			return Vec2(0.0f);
@@ -47,13 +47,13 @@ namespace basecross {
 		float fThumbX = 0.0f;
 		float fThumbY = 0.0f;
 
-		switch (stick)
+		switch (direction)
 		{
-		case Stick::Left:
+		case Direction::Left:
 			fThumbX = cntlPad.fThumbLX;
 			fThumbY = cntlPad.fThumbLY;
 			break;
-		case Stick::Right:
+		case Direction::Right:
 			fThumbX = cntlPad.fThumbRX;
 			fThumbY = cntlPad.fThumbRY;
 			break;
@@ -64,5 +64,27 @@ namespace basecross {
 			stickVec = Vec2(fThumbX, fThumbY);
 		}
 		return stickVec;
+	}
+
+	bool ControllerManager::GetRightTrigger() {
+		return GetTrigger(Direction::Right);
+	}
+	bool ControllerManager::GetLeftTrigger() {
+		return GetTrigger(Direction::Left);
+	}
+
+	bool ControllerManager::GetTrigger(Direction direction) {
+		const auto& cntlPad = GetControler();
+		if (!cntlPad.bConnected)
+			return false;
+		switch (direction)
+		{
+		case Direction::Left:
+			return cntlPad.bLeftTrigger > m_triggerThreshold;
+		case Direction::Right:
+			return cntlPad.bRightTrigger > m_triggerThreshold;
+		}
+
+		return false;
 	}
 }

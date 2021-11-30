@@ -11,13 +11,14 @@ namespace basecross {
 	///	ゲームシーン
 	//--------------------------------------------------------------------------------------
 	class Scene : public SceneBase {
+		Vec3 m_circleShadowDirection;
 	public:
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief コンストラクタ
 		*/
 		//--------------------------------------------------------------------------------------
-		Scene() :SceneBase() {}
+		Scene();
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief デストラクタ
@@ -40,6 +41,10 @@ namespace basecross {
 		virtual void OnEvent(const shared_ptr<Event>& event) override;
 
 		virtual void GetAppTexture();
+
+		Vec3 GetCircleShadowDirection() {
+			return m_circleShadowDirection;
+		}
 	};
 }
 

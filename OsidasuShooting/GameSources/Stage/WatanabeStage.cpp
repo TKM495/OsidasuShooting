@@ -13,7 +13,7 @@ namespace basecross {
 		const Vec3 at(0.0f);
 		auto PtrView = CreateView<SingleView>();
 		//ビューのカメラの設定
-		auto PtrCamera = ObjectFactory::Create<DebugCamera>();
+		auto PtrCamera = ObjectFactory::Create<DebugCamera>(20.0f, 5.0f);
 		PtrView->SetCamera(PtrCamera);
 		PtrCamera->SetEye(eye);
 		PtrCamera->SetAt(at);
@@ -31,6 +31,9 @@ namespace basecross {
 			wstring TestEffectStr = DataDir + L"Effects\\";
 			EfkEffectResource::RegisterEffectResource(L"Bullet", TestEffectStr + L"Bullet.efk");
 			EfkEffectResource::RegisterEffectResource(L"Explosion", TestEffectStr + L"fire.efk");
+			EfkEffectResource::RegisterEffectResource(L"Hit", TestEffectStr + L"Hit.efk");
+			EfkEffectResource::RegisterEffectResource(L"Jump", TestEffectStr + L"Jump.efk");
+			EfkEffectResource::RegisterEffectResource(L"Hover", TestEffectStr + L"Hover.efk");
 
 			//ビューとライトの作成
 			CreateViewLight();

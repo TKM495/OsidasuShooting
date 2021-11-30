@@ -3,9 +3,6 @@
 
 namespace basecross {
 	void PlayerModel::OnCreate() {
-		// オーナーを親に設定
-		GetTransform()->SetParent(m_owner);
-
 		// 描画コンポーネントの追加
 		auto drawComp = AddComponent<PNTStaticModelDraw>();
 		drawComp->SetMultiMeshResource(L"Player");
@@ -14,5 +11,12 @@ namespace basecross {
 		// 影の追加
 		auto shadowComp = AddComponent<Shadowmap>();
 		shadowComp->SetMultiMeshResource(L"Player");
+	}
+
+	void PlayerModel::OnUpdate() {
+		// 位置や回転を同期
+		auto ownerTrans = m_owner->GetTransform();
+		GetTransform()->SetPosition(ownerTrans->GetPosition() + m_offsetPos);
+		GetTransform()->SetQuaternion(ownerTrans->GetQuaternion());
 	}
 }

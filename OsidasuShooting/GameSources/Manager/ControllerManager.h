@@ -12,20 +12,29 @@ namespace basecross {
 		/**
 		 * @brief スティックの種類
 		 */
-		enum class Stick {
+		enum class Direction {
 			Left,
 			Right
 		};
 
 		// プレイヤー番号（取得するコントローラーに影響）
 		PlayerNumber m_playerNumber;
+		// トリガーのしきい値
+		float m_triggerThreshold;
 		/**
 		 * @brief スティックを取得
 		 *
-		 * @param stick 取得したいスティック
+		 * @param direction 取得したいスティック
 		 * @return スティックのデータ（Vec2）
 		 */
-		Vec2 GetStickVec(Stick stick);
+		Vec2 GetStickVec(Direction direction);
+		/**
+		 * @brief トリガーを取得
+		 *
+		 * @param direction 取得したいトリガー
+		 * @return トリガーのデータ（bool）
+		 */
+		bool GetTrigger(Direction direction);
 	public:
 		/**
 		 * @brief コンストラクタ
@@ -54,5 +63,8 @@ namespace basecross {
 		 * @return Vec3のベクトル
 		 */
 		Vec3 GetRightStickVec();
+
+		bool GetRightTrigger();
+		bool GetLeftTrigger();
 	};
 }

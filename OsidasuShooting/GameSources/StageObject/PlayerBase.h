@@ -195,6 +195,8 @@ namespace basecross {
 		{
 			m_transformData = transData;
 			m_transformData.Scale *= 2.0f;
+			auto rot = m_transformData.Rotation;
+			m_lastFrontDirection = Vec3(cosf(rot.y), 0.0f, sinf(rot.y));
 			// 以下のタグを持つオブジェクトを判定から除外
 			m_groundingDecision.AddNotDecisionTag(L"Bomb");
 			m_groundingDecision.AddNotDecisionTag(L"Bullet");

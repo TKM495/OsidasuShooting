@@ -49,7 +49,10 @@ namespace basecross {
 			path = dir + L"Models/";
 			auto modelMesh = MultiMeshResource::CreateStaticModelMultiMesh(path + L"LaserCharacter/", L"Laser.bmf");
 			App::GetApp()->RegisterResource(L"Player", modelMesh);
-			//App::GetApp()->SetFullScreenMode();
+
+			path = dir + L"Sound/";
+			App::GetApp()->RegisterWav(L"Shot", path + L"Shot.wav");
+			App::GetApp()->RegisterWav(L"Bomb", path + L"Bomb.wav");
 
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる
@@ -61,6 +64,9 @@ namespace basecross {
 		}
 	}
 
+	Scene::Scene() : SceneBase(),
+		m_circleShadowDirection(Vec3(0.3f, -1.0f, 0.3f).normalize())
+	{}
 	Scene::~Scene() {
 	}
 

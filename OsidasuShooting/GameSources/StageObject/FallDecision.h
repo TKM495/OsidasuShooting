@@ -14,7 +14,7 @@ namespace basecross {
 			:AdvancedGameObject(stage)
 		{
 			m_transformData.Position = Vec3(0.0f, -20.0f, 0.0f);
-			m_transformData.Scale = Vec3(100.0f, 1.0f, 100.0f);
+			m_transformData.Scale = Vec3(200.0f, 1.0f, 200.0f);
 		}
 
 		void OnCreate()override;
