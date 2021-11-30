@@ -29,6 +29,12 @@ namespace basecross {
 			this->Scale = scale;
 			this->Rotation = rotation;
 		}
+		TransformData operator +(const TransformData& data) {
+			this->Position += data.Position;
+			this->Scale += data.Scale;
+			this->Rotation += data.Rotation;
+			return *this;
+		}
 	};
 
 	/**
@@ -87,6 +93,14 @@ namespace basecross {
 		void SetTransformData(const TransformData& data) {
 			m_transformData = data;
 			ApplyTransform();
+		}
+
+		TransformData GetTransformData() {
+			auto transComp = GetTransform();
+			m_transformData.Position = transComp->GetPosition();
+			m_transformData.Scale = transComp->GetScale();
+			m_transformData.Rotation = transComp->GetRotation();
+			return m_transformData;
 		}
 
 		/**

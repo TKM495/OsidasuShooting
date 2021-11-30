@@ -49,8 +49,7 @@ namespace basecross {
 			//AddGameObject<Block>(TransformData(Vec3(0.0f, 0.0f, 10.0f)));
 			//AddGameObject<Block>(TransformData(Vec3(10.0f, 0.0f, 10.0f)));
 
-			AddGameObject<Block>(TransformData(Vec3(0.0f, -1.0f, 0.0f), Vec3(5.0f, 1.0f, 5.0f)));
-
+			auto b = AddGameObject<Block>(TransformData(Vec3(0.0f, -1.0f, 0.0f), Vec3(5.0f, 1.0f, 5.0f), Vec3(0.0f, XMConvertToRadians(90.0f), 0.0f)));
 			auto player = AddGameObject<ManualPlayer>(TransformData(Vec3(0.0f, 2.0f, 0.0f), Vec3(1.0f)), PlayerNumber::P1);
 			//AddGameObject<PlayerInfo>(player, TransformData());
 			//AddGameObject<PlayerFollowUI>(player, TransformData());
