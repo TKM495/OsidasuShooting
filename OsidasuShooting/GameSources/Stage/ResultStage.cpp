@@ -109,7 +109,7 @@ namespace basecross {
 	void ResultStage::WinnerPlayer() {
 		PlayersResult();
 		auto Player1 = AddGameObject<ResultPlayer>(
-			TransformData(Vec3(0), Vec3(1), Vec3(0, XMConvertToRadians(30.0f), 0)),
+			TransformData(Vec3(0.0f, 1.0f, 0.0f), Vec3(1), Vec3(0, XMConvertToRadians(-90.0f), 0)),
 			PlayerNumber::P1);
 		//Player1->GetComponent<Gravity>()->SetGravityZero();
 		//auto PlayerPos = Player1->GetComponent<Transform>()->GetPosition();

@@ -8,11 +8,11 @@
 
 namespace basecross {
 	void Bomb::OnCreate() {
-		auto drawComp = AddComponent<PNTStaticDraw>();
-		drawComp->SetMeshResource(L"DEFAULT_CUBE");
+		//auto drawComp = AddComponent<PNTStaticDraw>();
+		//drawComp->SetMeshResource(L"DEFAULT_CUBE");
 
 		auto shadowComp = AddComponent<Shadowmap>();
-		shadowComp->SetMeshResource(L"DEFAULT_CUBE");
+		shadowComp->SetMeshResource(L"DEFAULT_SPHERE");
 
 		auto collComp = AddComponent<CollisionObb>();
 		collComp->SetAfterCollision(AfterCollision::None);
@@ -25,6 +25,8 @@ namespace basecross {
 
 		auto efkComp = AddComponent<EfkComponent>();
 		efkComp->SetEffectResource(L"Explosion");
+		efkComp->SetEffectResource(L"Bomb");
+		efkComp->Play(L"Bomb");
 
 		AddTag(L"Bomb");
 	}
@@ -34,6 +36,11 @@ namespace basecross {
 			m_startPoint, m_endPoint, m_delta * m_timeRate);
 		GetTransform()->SetPosition(pos);
 		m_delta += App::GetApp()->GetElapsedTime();
+		GetComponent<EfkComponent>()->SyncPosition(L"Bomb");
+	}
+
+	void Bomb::OnDestroy() {
+		GetComponent<EfkComponent>()->Stop(L"Bomb");
 	}
 
 	void Bomb::OnCollisionEnter(shared_ptr<GameObject>& other) {
