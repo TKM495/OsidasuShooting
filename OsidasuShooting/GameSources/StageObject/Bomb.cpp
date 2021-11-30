@@ -43,6 +43,7 @@ namespace basecross {
 		m_isExploded = true;
 		// 爆弾によるノックバック処理
 		GetComponent<EfkComponent>()->Play(L"Explosion");
+		SoundManager::GetInstance()->Play(L"Bomb");
 		// プレイヤーの取得
 		const auto& players = PlayerManager::GetInstance()->GetAllPlayer();
 		for (auto player : players) {

@@ -25,15 +25,6 @@
     <Filter Include="DebugClass">
       <UniqueIdentifier>{3a517626-971a-4fb5-9f05-997cab10addd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="StageObject">
-      <UniqueIdentifier>{d34aa44d-fef4-4a73-83db-e1c9a2a8794c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="StageObject\Player">
-      <UniqueIdentifier>{758079ae-d728-4e1c-ad2e-025e95cf9ff4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="StageObject\Block">
-      <UniqueIdentifier>{dbd40ea9-3aac-4391-8942-b535ef0b1167}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Component">
       <UniqueIdentifier>{81af0442-a588-42fb-a099-1115307a51ab}</UniqueIdentifier>
     </Filter>
@@ -64,9 +55,6 @@
     <Filter Include="Stage\ResultStage">
       <UniqueIdentifier>{fba10ab4-90e4-4631-a2d0-bafda26cb34f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="StageObject\Bullet">
-      <UniqueIdentifier>{19751d65-f1d8-4c81-b147-55380dbdaedc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Setting">
       <UniqueIdentifier>{1e986d81-5165-4176-8b67-2176ae11a0f4}</UniqueIdentifier>
     </Filter>
@@ -78,9 +66,6 @@
     </Filter>
     <Filter Include="UI\TitleSprite">
       <UniqueIdentifier>{add3088f-01cd-4bc8-b9ea-cf30cfcaaded}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="StageObject\JonyMd">
-      <UniqueIdentifier>{48fc7ecf-3fe5-4de3-8c5b-6f2b0a0e1b58}</UniqueIdentifier>
     </Filter>
     <Filter Include="JonyMd">
       <UniqueIdentifier>{5e611ea7-2f55-439e-be59-ff4b4385e58f}</UniqueIdentifier>
@@ -112,9 +97,6 @@
     <Filter Include="UI\SimpleSprite">
       <UniqueIdentifier>{41a8978e-2833-429b-bc17-0760ff6f3a9b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="StageObject\Bomb">
-      <UniqueIdentifier>{6fe3fda3-fdff-44b1-8801-4350ebabd2d8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Utility\PredictionLine">
       <UniqueIdentifier>{90cf575b-3825-4862-8c0c-1cfc21ca600e}</UniqueIdentifier>
     </Filter>
@@ -132,9 +114,6 @@
     </Filter>
     <Filter Include="UI\BattlePlayersUIs">
       <UniqueIdentifier>{6f1e1945-4d31-464d-a159-51165c5bfa8c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="StageObject\FallDecision">
-      <UniqueIdentifier>{8e0379d1-5859-489c-93a0-2920b8b7c764}</UniqueIdentifier>
     </Filter>
     <Filter Include="Component\PCTGaugeSprite">
       <UniqueIdentifier>{9fe2265b-8b30-4017-9b65-aaf4514ba53f}</UniqueIdentifier>
@@ -785,6 +764,27 @@
     </Filter>
     <Filter Include="UI\TransitionSprite">
       <UniqueIdentifier>{52554772-f0f5-4a5b-82b8-c425f9013c87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StageObject">
+      <UniqueIdentifier>{d34aa44d-fef4-4a73-83db-e1c9a2a8794c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StageObject\Player">
+      <UniqueIdentifier>{758079ae-d728-4e1c-ad2e-025e95cf9ff4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StageObject\Block">
+      <UniqueIdentifier>{dbd40ea9-3aac-4391-8942-b535ef0b1167}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StageObject\Bullet">
+      <UniqueIdentifier>{19751d65-f1d8-4c81-b147-55380dbdaedc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StageObject\JonyMd">
+      <UniqueIdentifier>{48fc7ecf-3fe5-4de3-8c5b-6f2b0a0e1b58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StageObject\Bomb">
+      <UniqueIdentifier>{6fe3fda3-fdff-44b1-8801-4350ebabd2d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StageObject\FallDecision">
+      <UniqueIdentifier>{8e0379d1-5859-489c-93a0-2920b8b7c764}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

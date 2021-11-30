@@ -133,6 +133,7 @@ namespace basecross {
 		if (bulletAim != Vec3(0.0f) && m_bulletTimer.Count()) {
 			m_bulletTimer.Reset();
 			InstantiateGameObject<Bullet>(GetThis<PlayerBase>(), ray);
+			SoundManager::GetInstance()->Play(L"Shot");
 		}
 		TurnFrontToDirection(ray.Direction);
 	}

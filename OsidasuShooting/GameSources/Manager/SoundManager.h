@@ -25,7 +25,7 @@ namespace basecross {
 		 * @param volume 音量
 		 * @return サウンドアイテムのポインタ
 		 */
-		shared_ptr<SoundItem> Play(const wstring& key, size_t loopCount = 0, float volume = 1.0f);
+		shared_ptr<SoundItem> Play(const wstring& key, size_t loopCount = 0, float volume = 0.3f);
 		/**
 		 * @brief 停止
 		 *
