@@ -4,6 +4,7 @@
 namespace basecross {
 	void StartCountDown::OnCreate() {
 		m_number = ObjectFactory::Create<Number>(GetStage(), 3);
+		m_number->GetTransform()->SetPosition(m_offsetPos);
 		m_startSprite = ObjectFactory::Create<SimpleSprite>(GetStage(), L"Start");
 	}
 	void StartCountDown::OnUpdate() {

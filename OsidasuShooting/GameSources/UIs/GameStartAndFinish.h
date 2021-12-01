@@ -15,12 +15,15 @@ namespace basecross {
 		TimeCounter m_countDownTimer;
 		// スタート文字の表示タイマー
 		TimeCounter m_startDisplayTimer;
+		// ナンバーのオフセット位置
+		Vec3 m_offsetPos;
 	public:
 		StartCountDown(const shared_ptr<Stage>& stage,
 			const TransformData& data)
 			:BaseUI(stage, data),
 			m_countDownTimer(3.0f),
-			m_startDisplayTimer(1.0f)
+			m_startDisplayTimer(1.0f),
+			m_offsetPos(Vec3(-32.0f, 64.0f, 0.0f))
 		{}
 
 		void OnCreate()override;
