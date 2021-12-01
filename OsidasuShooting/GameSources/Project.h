@@ -56,6 +56,7 @@
 #include "UIs/UIHeader.h"
 #include "UIs/CurrentFirst.h"
 #include "UIs/TransitionSprite.h"
+#include "UIs/GameStartAndFinish.h"
 // コンポーネント
 #include "Component/FadeComponent.h"
 #include "Component/LifeSpan.h"
