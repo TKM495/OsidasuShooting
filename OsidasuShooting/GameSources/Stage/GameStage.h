@@ -41,6 +41,7 @@ namespace basecross {
 
 		void OnCreate()override;
 		void OnUpdate()override;
+		void OnDestroy()override;
 
 		/**
 		 * @brief ステートの変更

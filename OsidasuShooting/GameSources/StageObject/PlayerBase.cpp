@@ -76,7 +76,9 @@ namespace basecross {
 
 	void PlayerBase::Jump() {
 		GetComponent<Gravity>()->StartJump(m_jumpVerocity);
+		// エフェクトと効果音の再生
 		GetComponent<EfkComponent>()->Play(L"Jump");
+		SoundManager::GetInstance()->Play(L"Jump");
 	}
 
 	void PlayerBase::Hover() {
@@ -260,7 +262,10 @@ namespace basecross {
 			m_aggriever.lock()->KilledPlayer();
 		}
 		m_isDuringReturn = false;
+		// エフェクトと効果音の再生
 		GetComponent<EfkComponent>()->Play(L"Explosion");
+		SoundManager::GetInstance()->Play(L"Fall");
+		// 初期位置に戻る
 		GetTransform()->SetPosition(m_initialPosition);
 	}
 

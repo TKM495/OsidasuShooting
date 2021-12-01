@@ -42,19 +42,32 @@ namespace basecross {
 			Col4 Col(30.0f, 30.0f, 30.0f, 1.0f);
 			SetClearColor(Utility::ConvertColorZeroToOne(Col));
 
-			auto dir = App::GetApp()->GetDataDirWString();
+			const auto& app = App::GetApp();
+
+			auto dir = app->GetDataDirWString();
+			// CSVファイル
 			auto path = dir + L"Csv/";
 			CSVLoad::GetInstance()->RegisterFile(L"test", path + L"StringSprite.csv");
 			CSVLoad::GetInstance()->RegisterFile(L"PlayerInfo", path + L"PlayerInfo.csv");
 			CSVLoad::GetInstance()->RegisterFile(L"PlayerFollowUI", path + L"PlayerFollowUI.csv");
 
+			// モデル
 			path = dir + L"Models/";
 			auto modelMesh = MultiMeshResource::CreateStaticModelMultiMesh(path + L"LaserCharacter/", L"Laser.bmf");
-			App::GetApp()->RegisterResource(L"Player", modelMesh);
+			app->RegisterResource(L"Player", modelMesh);
 
-			path = dir + L"Sound/";
-			App::GetApp()->RegisterWav(L"Shot", path + L"Shot.wav");
-			App::GetApp()->RegisterWav(L"Bomb", path + L"Bomb.wav");
+			// 効果音
+			path = dir + L"Sound/SE/";
+			app->RegisterWav(L"Shot", path + L"Shot.wav");
+			app->RegisterWav(L"Explosion", path + L"Explosion.wav");
+			app->RegisterWav(L"Fall", path + L"Fall.wav");
+			app->RegisterWav(L"Jump", path + L"Jump.wav");
+			// 現在未使用
+			app->RegisterWav(L"Warning", path + L"Warning.wav");
+
+			// BGM
+			path = dir + L"Sound/BGM/";
+			app->RegisterWav(L"GameBGM", path + L"Game.wav");
 
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる

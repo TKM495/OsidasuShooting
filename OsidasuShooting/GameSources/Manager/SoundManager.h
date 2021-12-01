@@ -17,7 +17,7 @@ namespace basecross {
 	private: //シングルトン関係
 		SoundManager()
 			:m_manager(App::GetApp()->GetXAudio2Manager()),
-			m_defaultVolume(0.2f)
+			m_defaultVolume(0.1f)
 		{}
 		~SoundManager() {}
 		friend class BaseSingleton<SoundManager>;
@@ -33,7 +33,7 @@ namespace basecross {
 		 * @brief 再生
 		 *
 		 * @param key 再生したい音のキー
-		 * @param loopCount ループ回数（0 = 1回再生）
+		 * @param loopCount ループ回数（0 = 1回再生:XAUDIO2_LOOP_INFINITE = ∞）
 		 * @return サウンドアイテムのポインタ
 		 */
 		shared_ptr<SoundItem> Play(const wstring& key, size_t loopCount);
@@ -41,7 +41,7 @@ namespace basecross {
 		 * @brief 再生
 		 *
 		 * @param key 再生したい音のキー
-		 * @param loopCount ループ回数（0 = 1回再生）
+		 * @param loopCount ループ回数（0 = 1回再生:XAUDIO2_LOOP_INFINITE = ∞）
 		 * @param volume 音量
 		 * @return サウンドアイテムのポインタ
 		 */
