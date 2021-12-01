@@ -14,6 +14,8 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Manager\SoundManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Stage\CharacterSelectStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\FadeComponent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\LifeSpan.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\MySpriteBaseDraw.h" />
@@ -31,8 +33,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\CountDown.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\ControllerManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Manager\SoundManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUISprites.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\ResultScore.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\ResultSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Scene.h" />
@@ -46,7 +48,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\ManualPlayer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\PlayerBase.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\SpecialSkill.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Stage\CharacterSelectStage.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\StageObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\DebugStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\GameStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\JONYMDStage.h" />
@@ -83,6 +85,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\Utility.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Manager\SoundManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Stage\CharacterSelectStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\FadeComponent.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\LifeSpan.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\MySpriteBaseDraw.cpp" />
@@ -99,9 +103,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\CountDown.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\ControllerManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUISprites.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\ResultScore.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\ResultSprite.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Manager\SoundManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Scene.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.cpp" />
@@ -113,7 +117,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\ManualPlayer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\PlayerBase.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\SpecialSkill.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Stage\CharacterSelectStage.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\StageObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\DebugStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\GameStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\JONYMDStage.cpp" />

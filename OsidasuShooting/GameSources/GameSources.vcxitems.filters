@@ -364,6 +364,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\ResultSprite.cpp">
       <Filter>UI\Result</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\StageObject.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUISprites.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -566,6 +568,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\ResultSprite.h">
       <Filter>UI\Result</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\StageObject.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUISprites.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
@@ -779,6 +783,9 @@
     </Filter>
     <Filter Include="UI\TransitionSprite">
       <UniqueIdentifier>{52554772-f0f5-4a5b-82b8-c425f9013c87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\CharacterSelectUI">
+      <UniqueIdentifier>{a2234d37-9d2e-4a31-af89-2d6323c8f72b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
