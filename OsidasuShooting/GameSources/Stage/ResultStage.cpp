@@ -37,9 +37,9 @@ namespace basecross {
 
 	}
 
-	void ResultStage::AddResultDataSprite(Vec3 pos, int playerNum, int score)
+	void ResultStage::AddResultSprites(Vec3 pos, int playerNum, int score)
 	{
-		auto fream = AddGameObject<ResultFreamSprite>(L"ResultFream");
+		auto fream = AddGameObject<FreamSprite>(L"ResultFream");
 		auto freamTrans = fream->GetComponent<Transform>();
 		auto freamPos = freamTrans->GetPosition();
 		auto resultPos = freamPos + pos;
@@ -93,7 +93,7 @@ namespace basecross {
 			}
 			Debug::GetInstance()->Log(str);
 			Debug::GetInstance()->Log(player->GetCountKilledPlayer());
-			AddResultDataSprite(Vec3(390 + addVec, 260 + setPosY, 0), m_playersNumber, m_playersScore);
+			AddResultSprites(Vec3(390 + addVec, 260 + setPosY, 0), m_playersNumber, m_playersScore);
 			setPosY -= 160;
 			if (i > 0) {
 				m_playerTop = m_playersNumber;

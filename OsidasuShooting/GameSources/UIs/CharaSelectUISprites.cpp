@@ -39,8 +39,10 @@ namespace basecross
 
 		// à íuÅAägëÂèkè¨
 		auto ptrTrans = GetComponent<Transform>();
-		Vec3 scl(oneSize * tqatSize, oneSize * tqatSize, oneSize);
+		m_defIconSize = oneSize * tqatSize;
+		Vec3 scl(m_defIconSize, m_defIconSize, oneSize);
 		ptrTrans->SetScale(scl);
+		Debug::GetInstance()->Log(ptrTrans->GetPosition());
 	}
 
 	void CharacterIcon::CharacterSelecting() {
@@ -92,14 +94,18 @@ namespace basecross
 	void CharacterIcon::OnUpdate() {
 		CharacterSelecting();
 
-		//auto ptrTrans = GetComponent<Transform>();
-		//auto pos = ptrTrans->GetPosition();
-		//if (pos.x >= pos.x + m_movePos ||
-		//	pos.x <= pos.x - m_movePos) {
-		//	SetDrawActive(true);
-		//}
-		//else {
-		//	SetDrawActive(false);
-		//}
+		auto ptrTrans = GetComponent<Transform>();
+		auto pos = ptrTrans->GetPosition();
+		auto rot = ptrTrans->GetScale();
+		auto iconSenterPos = -128;
+		if (pos.x >= iconSenterPos + m_movePos * 2 ||
+			pos.x <= iconSenterPos - m_movePos * 2) {
+			SetDrawActive(false);
+		}
+		else {
+			SetDrawActive(true);
+		}
+
+
 	}
 }

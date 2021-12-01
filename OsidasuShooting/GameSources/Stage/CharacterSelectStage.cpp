@@ -27,22 +27,17 @@ namespace basecross {
 			Debug::GetInstance()->Log(L"A : GameStart");
 			Debug::GetInstance()->Log(L"B : ToTitle");
 
-			float posOffsetX = 128.0f;
-			float posOffsetY = 100.0f;
-			
-			auto icons = AddGameObject<CharacterIcon>(L"LaserIcon");
-			auto iconTrans = icons->GetComponent<Transform>();
+			SetCharaName();
 
-			auto posSet = -posOffsetX + m_shiftMovePos;
+			for (int i = 0; i < 4; i++) {
+				auto icons = AddGameObject<CharacterIcon>(m_charaName[i]);
+				auto iconTrans = icons->GetComponent<Transform>();
 
-			iconTrans->SetPosition(Vec3(posSet, posOffsetY, 0));
+				auto posSet = m_posOffsetX + m_shiftMovePos * i;
 
+				iconTrans->SetPosition(Vec3(posSet, m_posOffsetY, 0));
+			}
 			//auto addIcons = AddGameObject<CharacterIcon>(L"MissileIcon");
-			//auto addIconTrans = addIcons->GetComponent<Transform>();
-			//addIconTrans->SetPosition(Vec3(-posOffsetX + m_shiftMovePos, posOffsetY, 0));
-
-			Debug::GetInstance()->Log(iconTrans->GetPosition());
-			//Debug::GetInstance()->Log(addIconTrans->GetPosition());
 			Debug::GetInstance()->Log(m_shiftMovePos);
 		}
 		catch (...) {
@@ -50,7 +45,15 @@ namespace basecross {
 		}
 	}
 
-	void CharacterSelectStage::SetCharaName() {
+	void CharacterSelectStage::SetCharaName() {	
+
+		//m_charaName[i] = cvs;
+
+		m_charaName[0] = (L"LaserIcon");
+		m_charaName[1] = (L"MissileIcon");
+		m_charaName[2] = (L"3WayIcon");
+		m_charaName[3] = (L"MissileIcon");
+
 	}
 
 	void CharacterSelectStage::OnUpdate() {

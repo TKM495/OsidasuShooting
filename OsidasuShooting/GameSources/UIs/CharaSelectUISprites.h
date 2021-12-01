@@ -26,6 +26,8 @@ namespace basecross
 		float m_movePos;	// キャラ(モデルおよびアイコン)一体分
 		bool m_isSetStick;	// キャラクターセレクト用
 
+		float m_defIconSize;
+
 	public:
 		CharacterIcon(
 			const shared_ptr<Stage>& stage,
@@ -36,7 +38,8 @@ namespace basecross
 			m_enumLength(3),
 			m_characterId(0),
 			m_movePos(200),
-			m_isSetStick(false)
+			m_isSetStick(false),
+			m_defIconSize(0)
 		{}
 
 		void OnCreate() override;

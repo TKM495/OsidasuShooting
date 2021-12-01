@@ -52,9 +52,9 @@ namespace basecross {
 
 	}
 
-	void SatoStage::AddResultDataSprite(Vec3 pos, int playerNum,int score)
+	void SatoStage::AddResultSprites(Vec3 pos, int playerNum,int score)
 	{
-		auto fream = AddGameObject<ResultFreamSprite>(L"ResultFream");
+		auto fream = AddGameObject<FreamSprite>(L"Fream");
 		auto freamTrans = fream->GetComponent<Transform>();
 		auto freamPos = freamTrans->GetPosition();
 		auto resultPos = freamPos + pos;
@@ -119,7 +119,7 @@ namespace basecross {
 			for (int i = 0; i < 4; i++) {
 				addVec += 15;
 				playNum += 1;
-				AddResultDataSprite(Vec3(390 + addVec, 260 + setPosY,0),playNum,2);
+				AddResultSprites(Vec3(390 + addVec, 260 + setPosY,0),playNum,2);
 				setPosY -= 160;
 			}
 

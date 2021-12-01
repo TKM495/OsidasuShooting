@@ -44,6 +44,7 @@
 #include "UIs/Canvas.h"
 #include "UIs/CharaSelectUISprites.h"
 #include "UIs/CurrentFirst.h"
+#include "UIs/FreamSprite.h"
 #include "UIs/HoverTimeGauge.h"
 #include "UIs/NumberSprite.h"
 #include "UIs/PlayerFollowUI.h"

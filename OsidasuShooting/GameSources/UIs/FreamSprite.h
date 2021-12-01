@@ -1,28 +1,29 @@
+
 /*!
-@file ResultSprite.h
-@brief リザルトで使うスプライト
+@file FreamSprite.h
+@brief 枠スプライト
 */
 
 #pragma once
 #include "stdafx.h"
 
 namespace basecross {
-
-	class ResultWinnerSprite : public GameObject {
+	class FreamSprite : public GameObject {
 		wstring m_textureKey;
 
 	public:
-		ResultWinnerSprite(
-			const shared_ptr<Stage>& stage, 
+		FreamSprite(
+			const shared_ptr<Stage>& stage,
 			const wstring& TextureKey
 		) :
 			GameObject(stage),
 			m_textureKey(TextureKey)
 		{}
 
-		virtual ~ResultWinnerSprite() {};
+		virtual ~FreamSprite() {};
 
 		void OnCreate() override;
 		void OnUpdate() {};
 	};
+
 }

@@ -40,7 +40,7 @@ namespace basecross {
 
 		void AddWinnwe();
 		void AddWinnerSprite(int player);
-		void AddResultDataSprite(Vec3 pos, int playerNum, int score);
+		void AddResultSprites(Vec3 pos, int playerNum, int score);
 		void BattlePlayerUISet(int value) {} ;
 
 	};

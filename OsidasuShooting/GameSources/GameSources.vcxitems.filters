@@ -366,6 +366,7 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\StageObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUISprites.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\FreamSprite.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -570,6 +571,7 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\StageObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUISprites.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\FreamSprite.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />

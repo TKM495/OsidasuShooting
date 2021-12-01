@@ -15,9 +15,11 @@ namespace basecross {
 
 		app->RegisterTexture(L"Title", tpath + L"Title.png");
 		app->RegisterTexture(L"PushAButton", tpath + L"PushAButton.png");
+		app->RegisterTexture(L"Fream", tpath + L"Fream.png");
 
 		app->RegisterTexture(L"LaserIcon", tpath + L"LaserIcon.png");
 		app->RegisterTexture(L"MissileIcon", tpath + L"MissileIcon.png");
+		app->RegisterTexture(L"3WayIcon", tpath + L"3WayIcon.png");
 
 		app->RegisterTexture(L"Number", tpath + L"Number.png");
 		app->RegisterTexture(L"BPsUIs", tpath + L"BattlePlayersUI256x256.png");
@@ -28,7 +30,6 @@ namespace basecross {
 		app->RegisterTexture(L"Test", tpath + L"test.png");
 
 		app->RegisterTexture(L"Winner", tpath + L"Winner.png");
-		app->RegisterTexture(L"ResultFream", tpath + L"ResultFream.png");
 		app->RegisterTexture(L"BombBack", tpath + L"BombBackGround.png");
 		app->RegisterTexture(L"GaugeBackGround", tpath + L"GaugeBackGround.png");
 		app->RegisterTexture(L"Gauge", tpath + L"Gauge.png");
