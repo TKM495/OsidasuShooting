@@ -118,7 +118,7 @@ namespace basecross {
 		case GameState::PLAYING:
 			if (m_countDown->GetTime() <= 0.0f) {
 				m_countDown->Stop();
-				m_utilTimer.SetIntervalTime(2.0f);
+				m_utilTimer.Reset(2.0f);
 				AddGameObject<FinishSprite>(TransformData());
 				Debug::GetInstance()->Log(L"Finish!!!!!!");
 				ChangeGameState(GameState::CLEAR);

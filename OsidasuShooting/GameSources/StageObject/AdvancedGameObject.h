@@ -135,5 +135,15 @@ namespace basecross {
 		void Destroy() {
 			GetStage()->RemoveGameObject<T>(GetThis<T>());
 		}
+
+		/**
+		 * @brief 描画や更新を有効にするか設定する
+		 *
+		 * @param flg trueなら有効
+		 */
+		void SetActive(bool flg) {
+			SetUpdateActive(flg);
+			SetDrawActive(flg);
+		}
 	};
 }

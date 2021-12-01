@@ -17,9 +17,17 @@ namespace basecross {
 			m_number->OnDraw();
 		}
 		else {
-			m_startSprite->OnDraw();
+			if (!m_startDisplayTimer.Count()) {
+				m_startSprite->OnDraw();
+			}
+			else {
+				SetActive(false);
+			}
 		}
 	}
+
+	//--------------------------------------------------------------
+	//--------------------------------------------------------------
 
 	void FinishSprite::OnCreate() {
 		m_finishSprite = ObjectFactory::Create<SimpleSprite>(GetStage(), L"Finish");

@@ -13,10 +13,14 @@ namespace basecross {
 		shared_ptr<SimpleSprite> m_startSprite;
 		// スタート時のカウントダウンタイマー
 		TimeCounter m_countDownTimer;
+		// スタート文字の表示タイマー
+		TimeCounter m_startDisplayTimer;
 	public:
 		StartCountDown(const shared_ptr<Stage>& stage,
 			const TransformData& data)
-			:BaseUI(stage, data), m_countDownTimer(3.0f)
+			:BaseUI(stage, data),
+			m_countDownTimer(3.0f),
+			m_startDisplayTimer(1.0f)
 		{}
 
 		void OnCreate()override;
