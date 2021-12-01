@@ -346,6 +346,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\PlayerModel.cpp">
       <Filter>StageObject\Player</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\GameStartAndFinish.cpp">
+      <Filter>UI\GameStartAndFinish</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -550,6 +553,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\PlayerModel.h">
       <Filter>StageObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\GameStartAndFinish.h">
+      <Filter>UI\GameStartAndFinish</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -785,6 +791,9 @@
     </Filter>
     <Filter Include="StageObject\FallDecision">
       <UniqueIdentifier>{8e0379d1-5859-489c-93a0-2920b8b7c764}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\GameStartAndFinish">
+      <UniqueIdentifier>{7e2a0c45-6f85-423c-a3c3-03b6a8ed7540}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

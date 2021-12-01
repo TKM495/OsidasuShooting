@@ -8,6 +8,7 @@
 #include "Effekseer/EfkInterface.h"
 #include "Utility/TimeCounter.h"
 #include "JonyMd/CountDown.h"
+#include "UIs/GameStartAndFinish.h"
 
 namespace basecross {
 	class GameStage : public Stage {
@@ -22,23 +23,25 @@ namespace basecross {
 			FADEIN		//フェードイン待機
 		};
 	private:
-		// スタート時のカウントダウンタイマー
-		TimeCounter m_startCountDownTimer;
 		//現在のステート
 		GameState m_gameState;
-		// カウントダウンの表示オブジェクト
-		weak_ptr<CountDown> m_countDown;
+		// タイマーの表示オブジェクト
+		shared_ptr<CountDown> m_countDown;
+		// スタート時のカウントダウン
+		shared_ptr<StartCountDown> m_startCountDown;
+		// 汎用的なタイマー
+		TimeCounter m_utilTimer;
 		// ビューの作成
 		void CreateViewLight();
 	public:
 		GameStage()
-			: Stage(), m_startCountDownTimer(3.0f),
-			m_gameState(GameState::FADEOUT)
+			: Stage(), m_gameState(GameState::FADEOUT), m_utilTimer(0.0f)
 		{}
 		~GameStage() {}
 
 		void OnCreate()override;
 		void OnUpdate()override;
+		void OnDestroy()override;
 
 		/**
 		 * @brief ステートの変更

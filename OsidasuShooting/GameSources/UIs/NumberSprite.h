@@ -8,8 +8,7 @@
 
 namespace basecross
 {
-
-	class Number : public GameObject {
+	class Number : public AdvancedGameObject {
 		//bool m_trace;
 		//Vec2 m_startScale;
 		//Vec2 m_startPos;
@@ -21,7 +20,7 @@ namespace basecross
 		Number(const shared_ptr<Stage>& stage, //const wstring& TextureKey,
 			 //bool Trace,const Vec2& StartScale, const Vec2& StartPos,
 			int number) :
-			GameObject(stage),
+			AdvancedGameObject(stage),
 			//m_textureKey(TextureKey),
 			//m_trace(Trace),
 			//m_startScale(StartScale),
@@ -43,9 +42,9 @@ namespace basecross
 			float setNumber = static_cast<float>(m_number);
 
 			vertices[0].textureCoordinate = Vec2((setNumber + zeroSize) * fontSize / fSidSize, zeroSize);
-			vertices[1].textureCoordinate = Vec2((setNumber +  oneSize) * fontSize / fSidSize, zeroSize);
-			vertices[2].textureCoordinate = Vec2((setNumber + zeroSize) * fontSize / fSidSize,	oneSize);
-			vertices[3].textureCoordinate = Vec2((setNumber +  oneSize) * fontSize / fSidSize,	oneSize);
+			vertices[1].textureCoordinate = Vec2((setNumber + oneSize) * fontSize / fSidSize, zeroSize);
+			vertices[2].textureCoordinate = Vec2((setNumber + zeroSize) * fontSize / fSidSize, oneSize);
+			vertices[3].textureCoordinate = Vec2((setNumber + oneSize) * fontSize / fSidSize, oneSize);
 
 			auto drawComp = GetComponent<PCTSpriteDraw>();
 			drawComp->UpdateVertices(vertices);
@@ -53,6 +52,5 @@ namespace basecross
 
 		void OnCreate() override;
 		void OnUpdate() {};
-
 	};
 }

@@ -90,7 +90,9 @@ namespace basecross {
 			AddGameObject<CurrentFirst>();
 
 			m_countDown = AddGameObject<CountDown>(90.0f);
+			m_startCountDown = AddGameObject<StartCountDown>(TransformData());
 			AddGameObject<TransitionSprite>()->FadeOut();
+			SoundManager::GetInstance()->Play(L"GameBGM", XAUDIO2_LOOP_INFINITE, 0.05f);
 		}
 		catch (...) {
 			throw;
@@ -107,22 +109,26 @@ namespace basecross {
 			}
 			break;
 		case GameState::STAY:
-			if (m_startCountDownTimer.Count()) {
-				m_countDown.lock()->Start();
+			if (m_startCountDown->GetTimer().IsTimeUp()) {
+				m_countDown->Start();
 				Debug::GetInstance()->Log(L"GameStart！！！！！");
 				ChangeGameState(GameState::PLAYING);
-				break;
 			}
-			Debug::GetInstance()->ClearLog();
-			Debug::GetInstance()->Log(m_startCountDownTimer.GetLeftTime() + 1.0f);
 			break;
 		case GameState::PLAYING:
-			if (m_countDown.lock()->GetTime() <= 0.0f)
+			if (m_countDown->GetTime() <= 0.0f) {
+				m_countDown->Stop();
+				m_utilTimer.Reset(2.0f);
+				AddGameObject<FinishSprite>(TransformData());
+				Debug::GetInstance()->Log(L"Finish!!!!!!");
 				ChangeGameState(GameState::CLEAR);
+			}
 			break;
 		case GameState::CLEAR:
-			TransitionSprite::GetInstance()->FadeIn();
-			ChangeGameState(GameState::FADEIN);
+			if (m_utilTimer.Count()) {
+				TransitionSprite::GetInstance()->FadeIn();
+				ChangeGameState(GameState::FADEIN);
+			}
 			break;
 		case GameState::FADEIN:
 			if (!TransitionSprite::GetInstance()->GetFade()->IsFadeActive()) {
@@ -132,6 +138,10 @@ namespace basecross {
 		default:
 			break;
 		}
+	}
+
+	void GameStage::OnDestroy() {
+		SoundManager::GetInstance()->StopAll();
 	}
 
 	void GameStage::ChangeGameState(GameState state) {
