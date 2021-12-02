@@ -31,11 +31,17 @@ namespace basecross {
 	}
 
 	void Block::OnCreate() {
+		vector<VertexPositionNormalTexture> vertices;
+		vector<uint16_t> indices;
+
+		AdvancedMeshUtil::CreateCube(3.0f, m_transformData.Scale, vertices, indices);
+
 		auto drawComp = AddComponent<PNTStaticDraw>();
-		drawComp->SetMeshResource(L"DEFAULT_CUBE");
-		drawComp->SetDiffuse(Col4(0.5f));
-		drawComp->SetTextureResource(L"Wall");
+		drawComp->CreateOriginalMesh(vertices, indices);
+		drawComp->SetOriginalMeshUse(true);
+		drawComp->SetTextureResource(L"Block");
 		drawComp->SetOwnShadowActive(true);
+		drawComp->SetSamplerState(SamplerState::LinearWrap);
 
 		auto collComp = AddComponent<CollisionObb>();
 		collComp->SetFixed(true);

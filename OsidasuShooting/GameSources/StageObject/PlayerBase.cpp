@@ -20,6 +20,7 @@ namespace basecross {
 		auto efkComp = AddComponent<EfkComponent>();
 		efkComp->SetEffectResource(L"Jump", TransformData(Vec3(0.0f, -0.5f, 0.0f), m_transformData.Scale));
 		efkComp->SetEffectResource(L"Hover", TransformData(Vec3(0.0f, -0.5f, 0.0f), m_transformData.Scale));
+		efkComp->SetEffectResource(L"Smoke", TransformData(Vec3(0.0f, -0.5f, 0.0f), m_transformData.Scale), true);
 		// 落ちたときのエフェクトの代わり
 		efkComp->SetEffectResource(L"Explosion", TransformData(Vec3(0.0f), Vec3(1.0f, 5.0f, 1.0f)));
 
@@ -72,6 +73,12 @@ namespace basecross {
 	void PlayerBase::Move() {
 		auto physicalComp = GetComponent<PhysicalBehavior>();
 		physicalComp->Move(m_inputData.MoveDirection, m_moveSpeed);
+		auto efkComp = GetComponent<EfkComponent>();
+		if (m_inputData.MoveDirection != Vec3(0.0f) &&
+			m_smokeTimer.Count()) {
+			efkComp->Play(L"Smoke");
+			m_smokeTimer.Reset();
+		}
 	}
 
 	void PlayerBase::Jump() {

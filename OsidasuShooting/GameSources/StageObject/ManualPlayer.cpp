@@ -35,7 +35,5 @@ namespace basecross {
 		const auto& ctrlPad = m_controllerManager.GetControler();
 		// ジャンプとホバー
 		m_inputData.IsJumpOrHover = ctrlPad.bLeftTrigger > 128.0f;
-		// 弾の照準
-		m_inputData.BulletAim = m_controllerManager.GetRightStickVec();
 	}
 }

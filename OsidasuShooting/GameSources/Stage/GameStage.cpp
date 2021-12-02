@@ -32,6 +32,7 @@ namespace basecross {
 			EfkEffectResource::RegisterEffectResource(L"Jump", efkpath + L"Jump.efk");
 			EfkEffectResource::RegisterEffectResource(L"Hover", efkpath + L"Hover.efk");
 			EfkEffectResource::RegisterEffectResource(L"Bomb", efkpath + L"Bomb.efk");
+			EfkEffectResource::RegisterEffectResource(L"Smoke", efkpath + L"Smoke.efk");
 
 			//ビューとライトの作成
 			CreateViewLight();
@@ -41,7 +42,7 @@ namespace basecross {
 			GameObjecttCSVBuilder builder;
 			builder.Register<Block>(L"Block");
 			auto dir = App::GetApp()->GetDataDirWString();
-			auto path = dir + L"Csv/Stage";
+			auto path = dir + L"Csv/Stage/Stage1";
 			path += L".csv";
 
 			builder.Build(GetThis<Stage>(), path);
