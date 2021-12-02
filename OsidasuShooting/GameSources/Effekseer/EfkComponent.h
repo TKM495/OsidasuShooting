@@ -21,13 +21,16 @@ namespace basecross {
 			Effekseer::Handle Handle;
 			// 再生時のオフセットデータ
 			TransformData Offset;
+			// 前回のエフェクトを停止せずに再生を開始するか
+			bool NoStopLastEffect;
 			EfkData()
-				:EfkData(nullptr, TransformData())
+				:EfkData(nullptr, TransformData(), false)
 			{}
-			EfkData(const Effekseer::EffectRef& data, const TransformData& offset) {
+			EfkData(const Effekseer::EffectRef& data, const TransformData& offset, bool flg) {
 				this->EffectData = data;
 				this->Handle = -1;
 				this->Offset = offset;
+				this->NoStopLastEffect = flg;
 			}
 		};
 		// キー,エフェクトデータのマップ
@@ -50,6 +53,14 @@ namespace basecross {
 		void OnUpdate() override {}
 		void OnDraw()override {}
 
+		/**
+		 * @brief 使用するエフェクトの設定
+		 *
+		 * @param key エフェクトのキー
+		 * @param offset オフセットデータ
+		 * @param noStopLastEffect 前回のエフェクトを停止せずに再生を開始するか
+		 */
+		void SetEffectResource(const wstring& key, const TransformData& offset, bool noStopLastEffect);
 		/**
 		 * @brief 使用するエフェクトの設定
 		 *

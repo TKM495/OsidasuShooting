@@ -126,6 +126,8 @@ namespace basecross {
 		// ホバーモードか
 		bool m_isHoverMode;
 
+		TimeCounter m_smokeTimer;
+
 		// 移動
 		void Move();
 		// 弾の照準と発射
@@ -191,7 +193,7 @@ namespace basecross {
 			m_isRestoreArmor(false), m_isInput(false), m_playerNumber(playerNumber),
 			m_bombReload(1.0f), m_defaultBombCount(5), m_correctAngle(40.0f),
 			m_isDuringReturn(false), m_groundingDecision(), m_countKilledPlayer(0),
-			m_returnTimer(0.5f), m_lastFrontDirection(Vec3(0.0f))
+			m_returnTimer(0.5f), m_lastFrontDirection(Vec3(0.0f)), m_smokeTimer(0.2f)
 		{
 			m_transformData = transData;
 			m_transformData.Scale *= 2.0f;

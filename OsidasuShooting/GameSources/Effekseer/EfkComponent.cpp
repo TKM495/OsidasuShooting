@@ -14,20 +14,26 @@ namespace basecross {
 		m_manager = EfkInterface::GetInstance()->GetManager();
 	}
 
-	void EfkComponent::SetEffectResource(const wstring& key, const TransformData& offset) {
+	void EfkComponent::SetEffectResource(const wstring& key, const TransformData& offset, bool noStopLastEffect) {
 		auto effectRes = App::GetApp()->GetResource<EfkEffectResource>(key + EfkKey);
 		auto data = effectRes->GetEffectData();
-		m_effectDataMap[key] = EfkData(data, offset);
+		m_effectDataMap[key] = EfkData(data, offset, noStopLastEffect);
+	}
+
+	void EfkComponent::SetEffectResource(const wstring& key, const TransformData& offset) {
+		SetEffectResource(key, offset, false);
 	}
 
 	void EfkComponent::SetEffectResource(const wstring& key) {
-		SetEffectResource(key, TransformData());
+		SetEffectResource(key, TransformData(), false);
 	}
 
 	void EfkComponent::Play(const wstring& key) {
 		auto& data = m_effectDataMap[key];
-		// 前回のエフェクトを停止
-		Stop(key);
+		if (!data.NoStopLastEffect) {
+			// 前回のエフェクトを停止
+			Stop(key);
+		}
 		auto pos = GetGameObjectPosition() + data.Offset.Position;
 		// 再生
 		data.Handle = m_manager->Play(data.EffectData, pos.x, pos.y, pos.z);

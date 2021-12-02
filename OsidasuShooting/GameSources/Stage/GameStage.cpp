@@ -32,6 +32,7 @@ namespace basecross {
 			EfkEffectResource::RegisterEffectResource(L"Jump", efkpath + L"Jump.efk");
 			EfkEffectResource::RegisterEffectResource(L"Hover", efkpath + L"Hover.efk");
 			EfkEffectResource::RegisterEffectResource(L"Bomb", efkpath + L"Bomb.efk");
+			EfkEffectResource::RegisterEffectResource(L"Smoke", efkpath + L"Smoke.efk");
 
 			//ビューとライトの作成
 			CreateViewLight();
