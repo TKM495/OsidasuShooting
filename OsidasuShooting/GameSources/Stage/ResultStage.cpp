@@ -30,7 +30,7 @@ namespace basecross {
 		auto winnerUIsTrans = winnerUIs->GetComponent<Transform>();
 		auto winnerUIsPos = winnerUIsTrans->GetPosition();
 
-		auto playerNumber = AddGameObject<BattlePlayersUIs>(L"BPsUIs", 1, Vec3(0));
+		auto playerNumber = AddGameObject<BattlePlayersUIs>(L"BPsUIs", player, Vec3(0));
 		auto playUIsTrans = playerNumber->GetComponent<Transform>();
 		playUIsTrans->SetPosition(winnerUIsPos - Vec3(-412.0f, -27.0f, 0));
 		playUIsTrans->SetScale(Vec3(1.1f));
@@ -110,7 +110,7 @@ namespace basecross {
 		PlayersResult();
 		auto Player1 = AddGameObject<ResultPlayer>(
 			TransformData(Vec3(0.0f, 1.0f, 0.0f), Vec3(1), Vec3(0, XMConvertToRadians(-90.0f), 0)),
-			PlayerNumber::P1);
+			PlayerNumber(m_playerTop - 1));
 		//Player1->GetComponent<Gravity>()->SetGravityZero();
 		//auto PlayerPos = Player1->GetComponent<Transform>()->GetPosition();
 		//auto Laser = AddGameObject<SpecialLaser>(Player1, Vec3(0, 0, 0), Vec3(0, 0, 0));
@@ -129,7 +129,7 @@ namespace basecross {
 
 			PlayerManager::DeleteInstance();
 
-			AddWinnerSprite(m_playersNumber);
+			AddWinnerSprite(m_playerTop);
 
 			Debug::GetInstance()->Log(L"Button A Å® Game");
 			Debug::GetInstance()->Log(L"Button B Å® Title");
