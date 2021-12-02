@@ -349,6 +349,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\GameStartAndFinish.cpp">
       <Filter>UI\GameStartAndFinish</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\AdvancedMeshUtil.cpp">
+      <Filter>Utility\AdvancedMeshUtil</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -556,6 +559,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\GameStartAndFinish.h">
       <Filter>UI\GameStartAndFinish</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\AdvancedMeshUtil.h">
+      <Filter>Utility\AdvancedMeshUtil</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -794,6 +800,9 @@
     </Filter>
     <Filter Include="UI\GameStartAndFinish">
       <UniqueIdentifier>{7e2a0c45-6f85-423c-a3c3-03b6a8ed7540}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\AdvancedMeshUtil">
+      <UniqueIdentifier>{940a6c39-6a32-4322-9f1c-56e83f764aa5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
