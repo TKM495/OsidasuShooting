@@ -31,6 +31,10 @@ namespace basecross {
 		auto players = m_players;
 		stable_sort(players.begin(), players.end(),
 			[](const shared_ptr<PlayerBase>& x, const shared_ptr<PlayerBase>& y) {
+				// キルカウントが同じ場合死んだ回数が少ないほうが上になるようにする
+				if (x->GetCountKilledPlayer() == y->GetCountKilledPlayer()) {
+					return x->GetDeadCount() < y->GetDeadCount();
+				}
 				return x->GetCountKilledPlayer() > y->GetCountKilledPlayer();
 			}
 		);

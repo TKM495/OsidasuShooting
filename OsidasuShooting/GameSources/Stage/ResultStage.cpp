@@ -30,7 +30,7 @@ namespace basecross {
 		auto winnerUIsTrans = winnerUIs->GetComponent<Transform>();
 		auto winnerUIsPos = winnerUIsTrans->GetPosition();
 
-		auto playerNumber = AddGameObject<BattlePlayersUIs>(L"BPsUIs", 1, Vec3(0));
+		auto playerNumber = AddGameObject<BattlePlayersUIs>(L"BPsUIs", player, Vec3(0));
 		auto playUIsTrans = playerNumber->GetComponent<Transform>();
 		playUIsTrans->SetPosition(winnerUIsPos - Vec3(-412.0f, -27.0f, 0));
 		playUIsTrans->SetScale(Vec3(1.1f));
@@ -68,30 +68,31 @@ namespace basecross {
 			{
 			case PlayerNumber::P1:
 				str = L"P1";
-				m_playersNumber = 1;
-				m_playersScore = player->GetCountKilledPlayer();
+				m_playersNumber = player->GetPlayerNumber();
+				//m_playersScore = player->GetCountKilledPlayer();
 				break;
 			case PlayerNumber::P2:
 				str = L"P2";
-				m_playersNumber = 2;
-				m_playersScore = player->GetCountKilledPlayer();
+				m_playersNumber = player->GetPlayerNumber();
+				//m_playersScore = player->GetCountKilledPlayer();
 				break;
 			case PlayerNumber::P3:
 				str = L"P3";
-				m_playersNumber = 3;
-				m_playersScore = player->GetCountKilledPlayer();
+				m_playersNumber = player->GetPlayerNumber();
+				//m_playersScore = player->GetCountKilledPlayer();
 				break;
 			case PlayerNumber::P4:
 				str = L"P4";
-				m_playersNumber = 4;
-				m_playersScore = player->GetCountKilledPlayer();
+				m_playersNumber = player->GetPlayerNumber();
+				//m_playersScore = player->GetCountKilledPlayer();
 				break;
 			default:
 				break;
 			}
 			Debug::GetInstance()->Log(str);
 			Debug::GetInstance()->Log(player->GetCountKilledPlayer());
-			AddResultDataSprite(Vec3(390 + addVec, 260 + setPosY, 0), m_playersNumber, m_playersScore);
+			// 各プレイヤーの情報を表示
+			AddResultDataSprite(Vec3(390 + addVec, 260 + setPosY, 0), (UINT)m_playersNumber + 1, m_playersScore);
 			setPosY -= 160;
 			if (i > 0) {
 				m_playerTop = m_playersNumber;
@@ -103,14 +104,16 @@ namespace basecross {
 					m_playerTopScore = m_playersScore;
 				}
 			}
+			i++;
 		}
+		// トップのプレイヤー
+		m_playerTop = allPlayer[0]->GetPlayerNumber();
 	}
 
 	void ResultStage::WinnerPlayer() {
-		PlayersResult();
 		auto Player1 = AddGameObject<ResultPlayer>(
 			TransformData(Vec3(0.0f, 1.0f, 0.0f), Vec3(1), Vec3(0, XMConvertToRadians(-90.0f), 0)),
-			PlayerNumber::P1);
+			m_playerTop);
 		//Player1->GetComponent<Gravity>()->SetGravityZero();
 		//auto PlayerPos = Player1->GetComponent<Transform>()->GetPosition();
 		//auto Laser = AddGameObject<SpecialLaser>(Player1, Vec3(0, 0, 0), Vec3(0, 0, 0));
@@ -125,11 +128,12 @@ namespace basecross {
 			AddGameObject<Debug>();
 			Debug::GetInstance()->Log(L"CurrentStage : ResultStage");
 
+			PlayersResult();
 			WinnerPlayer();
 
 			PlayerManager::DeleteInstance();
 
-			AddWinnerSprite(m_playersNumber);
+			AddWinnerSprite((UINT)m_playerTop + 1);
 
 			Debug::GetInstance()->Log(L"Button A → Game");
 			Debug::GetInstance()->Log(L"Button B → Title");

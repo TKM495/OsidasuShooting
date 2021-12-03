@@ -15,7 +15,9 @@ namespace basecross {
 		const auto& cntlPadVec = App::GetApp()->GetInputDevice().GetControlerVec();
 		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
 		auto gameStage = dynamic_pointer_cast<GameStage>(stage);
-		CONTROLER_STATE cntlPad = cntlPadVec[(UINT)m_playerNumber];
+		// 0ˆÈ‰º‚Ìê‡‹­§“I‚É0‚É‚·‚é
+		auto index = (UINT)m_playerNumber < 0 ? 0 : (UINT)m_playerNumber;
+		CONTROLER_STATE cntlPad = cntlPadVec[index];
 		if (gameStage) {
 			switch (gameStage->GetCurrentGameState())
 			{

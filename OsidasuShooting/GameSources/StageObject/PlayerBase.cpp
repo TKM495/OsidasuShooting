@@ -268,7 +268,10 @@ namespace basecross {
 		if (m_isDuringReturn && m_aggriever.lock() != nullptr) {
 			m_aggriever.lock()->KilledPlayer();
 		}
+		// 復帰判定の初期化
 		m_isDuringReturn = false;
+		// 死亡回数を増やす
+		m_deadCount++;
 		// エフェクトと効果音の再生
 		GetComponent<EfkComponent>()->Play(L"Explosion");
 		SoundManager::GetInstance()->Play(L"Fall");
@@ -283,6 +286,28 @@ namespace basecross {
 			m_currentArmorPoint = 0.0f;
 			m_isRestoreArmor = true;
 			Debug::GetInstance()->Log(L"Test:Armor0");
+		}
+
+		if (keyState.m_bPressedKeyTbl['1'] &&
+			m_playerNumber == PlayerNumber::P1) {
+			m_countKilledPlayer += 10;
+			Debug::GetInstance()->Log(L"P1 +10Kill");
+		}
+
+		if (keyState.m_bPressedKeyTbl['2'] &&
+			m_playerNumber == PlayerNumber::P2) {
+			m_countKilledPlayer += 10;
+			Debug::GetInstance()->Log(L"P2 +10Kill");
+		}
+		if (keyState.m_bPressedKeyTbl['3'] &&
+			m_playerNumber == PlayerNumber::P3) {
+			m_countKilledPlayer += 10;
+			Debug::GetInstance()->Log(L"P3 +10Kill");
+		}
+		if (keyState.m_bPressedKeyTbl['4'] &&
+			m_playerNumber == PlayerNumber::P4) {
+			m_countKilledPlayer += 10;
+			Debug::GetInstance()->Log(L"P4 +10Kill");
 		}
 	}
 
