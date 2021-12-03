@@ -268,7 +268,10 @@ namespace basecross {
 		if (m_isDuringReturn && m_aggriever.lock() != nullptr) {
 			m_aggriever.lock()->KilledPlayer();
 		}
+		// 復帰判定の初期化
 		m_isDuringReturn = false;
+		// 死亡回数を増やす
+		m_deadCount++;
 		// エフェクトと効果音の再生
 		GetComponent<EfkComponent>()->Play(L"Explosion");
 		SoundManager::GetInstance()->Play(L"Fall");

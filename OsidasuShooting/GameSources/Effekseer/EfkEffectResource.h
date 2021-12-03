@@ -12,6 +12,11 @@ namespace basecross {
 		// エフェクトデータのポインタ
 		Effekseer::EffectRef m_effect;
 	public:
+		/**
+		 * @brief コンストラクタ
+		 *
+		 * @param path ファイルパス
+		 */
 		EfkEffectResource(const wstring& path);
 
 		/**
