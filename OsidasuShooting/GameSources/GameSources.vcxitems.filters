@@ -352,6 +352,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\AdvancedMeshUtil.cpp">
       <Filter>Utility\AdvancedMeshUtil</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\XMLLoad.cpp">
+      <Filter>Utility\XMLLoad</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -562,6 +565,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\AdvancedMeshUtil.h">
       <Filter>Utility\AdvancedMeshUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\XMLLoad.h">
+      <Filter>Utility\XMLLoad</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -789,9 +795,6 @@
     <Filter Include="StageObject\Bullet">
       <UniqueIdentifier>{19751d65-f1d8-4c81-b147-55380dbdaedc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="StageObject\JonyMd">
-      <UniqueIdentifier>{48fc7ecf-3fe5-4de3-8c5b-6f2b0a0e1b58}</UniqueIdentifier>
-    </Filter>
     <Filter Include="StageObject\Bomb">
       <UniqueIdentifier>{6fe3fda3-fdff-44b1-8801-4350ebabd2d8}</UniqueIdentifier>
     </Filter>
@@ -803,6 +806,12 @@
     </Filter>
     <Filter Include="Utility\AdvancedMeshUtil">
       <UniqueIdentifier>{940a6c39-6a32-4322-9f1c-56e83f764aa5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StageObject\JonyMd">
+      <UniqueIdentifier>{48fc7ecf-3fe5-4de3-8c5b-6f2b0a0e1b58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\XMLLoad">
+      <UniqueIdentifier>{6d062646-cd8a-47b1-a7c7-a50a24930b5d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

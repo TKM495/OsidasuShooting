@@ -21,6 +21,7 @@
 #include "Effekseer/EfkEffect.h"
 #include "Utility/BaseSingleton.h"
 #include "Utility/CSVLoad.h"
+#include "Utility/XMLLoad.h"
 #include "Utility/GroundingDecision.h"
 #include "Utility/PredictionLine.h"
 #include "Utility/TimeCounter.h"
