@@ -129,6 +129,9 @@ namespace basecross {
 		// 移動エフェクトのタイマー
 		TimeCounter m_smokeTimer;
 
+		//色
+		Col4 m_color;
+
 		// 移動
 		void Move();
 		// 弾の照準と発射
@@ -294,13 +297,28 @@ namespace basecross {
 			return m_deadCount;
 		}
 
-		void SetColor(const Col4& color) {
-			GetComponent<PNTStaticDraw>()->SetDiffuse(color);
+		/**
+		 * @brief 色を取得
+		 *
+		 * @return 色
+		 */
+		Col4 GetColor() {
+			return m_color;
 		}
 
+		/**
+		 * @brief 爆弾モードか
+		 *
+		 * @return trueならそう
+		 */
 		bool IsBombMode() {
 			return m_isBombMode;
 		}
+		/**
+		 * @brief ホバーモードか
+		 *
+		 * @return trueならそう
+		 */
 		bool IsHoverMode() {
 			return m_isHoverMode;
 		}

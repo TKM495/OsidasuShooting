@@ -1,40 +1,42 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!--プレイヤーのステータス-->
-<PlayerStatus>
-    <!--移動速度-->
-    <MoveSpeed>20</MoveSpeed>
-    <!--ジャンプ量-->
-    <JumpAmount>10</JumpAmount>
-    <!--ホバー可能時間-->
-    <HoverTime>10</HoverTime>
-    <!--デフォルトのアーマー値-->
-    <DefaultArmorPoint>100</DefaultArmorPoint>
-    <!--デフォルトの爆弾の所持数-->
-    <DefaultBombCount>5</DefaultBombCount>
-    <!--弾の照準の補正角度-->
-    <CorrectAngle>40</CorrectAngle>
-    <!--弾の威力-->
-    <BulletPower>5</BulletPower>
-    <!--爆弾の威力-->
-    <BombPower>10</BombPower>
-    <!--アーマー0の時のノックバック倍率-->
-    <ArmorZeroWhenKnockBackMagnification>5</ArmorZeroWhenKnockBackMagnification>
-    <!--アーマーの回復速度-->
-    <ArmorRecoveryAmount>10</ArmorRecoveryAmount>
-    <!--爆弾の照準の移動量-->
-    <BombAimMovingDistance>10</BombAimMovingDistance>
-    <!--弾の照準線の長さ-->
-    <BulletAimLineLength>3</BulletAimLineLength>
-    <!--弾の発射速度-->
-    <BulletRateOfFire>0.1</BulletRateOfFire>
-    <!--爆弾のリロード速度-->
-    <BombReloadSpeed>5</BombReloadSpeed>
-</PlayerStatus>
+<Player>
+    <!--プレイヤーのステータス-->
+    <PlayerStatus>
+        <!--移動速度-->
+        <MoveSpeed>20</MoveSpeed>
+        <!--ジャンプ量-->
+        <JumpAmount>10</JumpAmount>
+        <!--ホバー可能時間-->
+        <HoverTime>10</HoverTime>
+        <!--デフォルトのアーマー値-->
+        <DefaultArmorPoint>100</DefaultArmorPoint>
+        <!--デフォルトの爆弾の所持数-->
+        <DefaultBombCount>5</DefaultBombCount>
+        <!--弾の照準の補正角度-->
+        <CorrectAngle>40</CorrectAngle>
+        <!--弾の威力-->
+        <BulletPower>5</BulletPower>
+        <!--爆弾の威力-->
+        <BombPower>10</BombPower>
+        <!--アーマー0の時のノックバック倍率-->
+        <ArmorZeroWhenKnockBackMagnification>5</ArmorZeroWhenKnockBackMagnification>
+        <!--アーマーの回復速度-->
+        <ArmorRecoveryAmount>10</ArmorRecoveryAmount>
+        <!--爆弾の照準の移動量-->
+        <BombAimMovingDistance>10</BombAimMovingDistance>
+        <!--弾の照準線の長さ-->
+        <BulletAimLineLength>3</BulletAimLineLength>
+        <!--弾の発射速度-->
+        <BulletRateOfFire>0.1</BulletRateOfFire>
+        <!--爆弾のリロード速度-->
+        <BombReloadSpeed>5</BombReloadSpeed>
+    </PlayerStatus>
 
-<!--プレイヤーの色（0 ～ 255のRGB）-->
-<PlayerColor>
-    <1P>0,255,255</1P>
-    <2P>0,255,0</2P>
-    <3P>0,0,255</3P>
-    <4P>255,255,255</4P>
-</PlayerColor>
+    <!--プレイヤーの色（0 ～ 255のRGBA）-->
+    <PlayerColor>
+        <P1>0,255,255,255</P1>
+        <P2>0,255,0,255</P2>
+        <P3>0,0,255,255</P3>
+        <P4>255,255,255,255</P4>
+    </PlayerColor>
+</Player>

@@ -71,6 +71,7 @@
 #include "Manager/ControllerManager.h"
 #include "Manager/PlayerManager.h"
 #include "Manager/SoundManager.h"
+#include "Manager/PlayerBuilder.h"
 
 #include "JonyMd/Area.h"
 #include "JonyMd/CountDown.h"

@@ -355,6 +355,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\XMLLoad.cpp">
       <Filter>Utility\XMLLoad</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Manager\PlayerBuilder.cpp">
+      <Filter>Manager\PlayerManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -568,6 +571,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\XMLLoad.h">
       <Filter>Utility\XMLLoad</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Manager\PlayerBuilder.h">
+      <Filter>Manager\PlayerManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

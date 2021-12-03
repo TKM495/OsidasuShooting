@@ -41,51 +41,12 @@ namespace basecross {
 
 			GameObjecttCSVBuilder builder;
 			builder.Register<Block>(L"Block");
+			builder.Register<PlayerBuilder>(L"Player");
 			auto dir = App::GetApp()->GetDataDirWString();
 			auto path = dir + L"Csv/Stage/Stage1";
 			path += L".csv";
 
 			builder.Build(GetThis<Stage>(), path);
-
-			auto player = AddGameObject<ManualPlayer>(
-				TransformData(
-					Vec3(10.0f, 1.0f, -15.0f),
-					Vec3(1.0f),
-					Vec3(0.0f, XMConvertToRadians(135.0f), 0.0f)
-				), PlayerNumber::P1);
-			AddGameObject<PlayerInfo>(player, TransformData(Vec3(-480.0f, -250.0f, 0.0f)));
-			AddGameObject<PlayerFollowUI>(player, TransformData());
-			PlayerManager::GetInstance()->AddPlayer(player);
-
-			player = AddGameObject<ManualPlayer>(
-				TransformData(
-					Vec3(-10.0f, 1.0f, -15.0f),
-					Vec3(1.0f),
-					Vec3(0.0f, XMConvertToRadians(45.0f), 0.0f)
-				), PlayerNumber::P2);
-			AddGameObject<PlayerInfo>(player, TransformData(Vec3(-170.0f, -250.0f, 0.0f)));
-			AddGameObject<PlayerFollowUI>(player, TransformData());
-			PlayerManager::GetInstance()->AddPlayer(player);
-
-			player = AddGameObject<ManualPlayer>(
-				TransformData(
-					Vec3(10.0f, 1.0f, 0.0f),
-					Vec3(1.0f),
-					Vec3(0.0f, XMConvertToRadians(-135.0f), 0.0f)
-				), PlayerNumber::P3);
-			AddGameObject<PlayerInfo>(player, TransformData(Vec3(170.0f, -250.0f, 0.0f)));
-			AddGameObject<PlayerFollowUI>(player, TransformData());
-			PlayerManager::GetInstance()->AddPlayer(player);
-
-			player = AddGameObject<ManualPlayer>(
-				TransformData(
-					Vec3(-10.0f, 1.0f, 0.0f),
-					Vec3(1.0f),
-					Vec3(0.0f, XMConvertToRadians(-45.0f), 0.0f)
-				), PlayerNumber::P4);
-			AddGameObject<PlayerInfo>(player, TransformData(Vec3(480.0f, -250.0f, 0.0f)));
-			AddGameObject<PlayerFollowUI>(player, TransformData());
-			PlayerManager::GetInstance()->AddPlayer(player);
 
 			AddGameObject<FallDecision>();
 			AddGameObject<CurrentFirst>();

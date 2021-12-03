@@ -5,11 +5,12 @@
 namespace basecross {
 	class PlayerModel :public AdvancedGameObject {
 		// オーナー
-		shared_ptr<AdvancedGameObject> m_owner;
+		shared_ptr<PlayerBase> m_owner;
+		// オフセット位置
 		Vec3 m_offsetPos;
 	public:
 		PlayerModel(const shared_ptr<Stage>& stage,
-			const shared_ptr<AdvancedGameObject>& gameObject,
+			const shared_ptr<PlayerBase>& gameObject,
 			const TransformData& transformData)
 			:AdvancedGameObject(stage), m_owner(gameObject),
 			m_offsetPos(Vec3(0.0f))
