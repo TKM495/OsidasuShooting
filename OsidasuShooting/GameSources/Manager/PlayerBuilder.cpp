@@ -24,19 +24,7 @@ namespace basecross {
 		);
 		// 1`4‚ğ0`3‚É•ÏŠ·
 		m_playerNumber = (PlayerNumber)(_wtof(tokens[10].c_str()) - 1);
-		if (tokens[11] == L"Manual") {
-			m_type = OperationType::Manual;
-		}
-		else if (tokens[11] == L"CPU") {
-			m_type = OperationType::CPU;
-		}
-		else {
-			throw BaseException(
-				L"•¶š—ñ‚ª–³Œø‚Å‚·B",
-				L"tokens[11] == L\"" + tokens[11] + L"\")",
-				L"PlayerBuilder::PlayerBuilder()"
-			);
-		}
+		m_type = OperationType::Manual;
 	}
 
 	void PlayerBuilder::OnCreate() {

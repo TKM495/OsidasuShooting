@@ -71,7 +71,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\TransitionSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\AdvancedMeshUtil.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\BaseSingleton.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\DataExtracted.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\DataExtracter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BaseUI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\Canvas.h" />
