@@ -7,7 +7,9 @@ namespace basecross {
 		IMPLEMENT_DX11_PIXEL_SHADER(PSPCTGaugeSprite, App::GetApp()->GetShadersPath() + L"PSPCTGaugeSprite.cso")
 
 		PCTGaugeSprite::PCTGaugeSprite(const shared_ptr<GameObject>& gameObjectPtr)
-		:MySpriteBaseDraw(gameObjectPtr), m_rate(0.0f), m_threshold(0.01f)
+		:MySpriteBaseDraw(gameObjectPtr),
+		m_rate(0.0f), m_threshold(0.01f), m_gaugeGradientTexKey(L""),
+		m_isBackground(false)
 	{
 		// パイプラインステートをデフォルトの2D
 		SetBlendState(BlendState::Opaque);
@@ -18,7 +20,9 @@ namespace basecross {
 
 	PCTGaugeSprite::PCTGaugeSprite(const shared_ptr<GameObject>& gameObjectPtr,
 		vector<VertexPositionColorTexture>& vertices, vector<uint16_t>& indices)
-		:MySpriteBaseDraw(gameObjectPtr), m_rate(0.0f), m_threshold(0.01f)
+		:MySpriteBaseDraw(gameObjectPtr),
+		m_rate(0.0f), m_threshold(0.01f), m_gaugeGradientTexKey(L""),
+		m_isBackground(false)
 	{
 		// パイプラインステートをデフォルトの2D
 		SetBlendState(BlendState::Opaque);
@@ -117,8 +121,16 @@ namespace basecross {
 		RenderState->SetDepthStencilState(pD3D11DeviceContext, GetDepthStencilState());
 		//テクスチャとサンプラー
 		if (shTex) {
+			// ゲージ用テクスチャ
 			pD3D11DeviceContext->PSSetShaderResources(0, 1, shTex->GetShaderResourceView().GetAddressOf());
-			pD3D11DeviceContext->PSSetShaderResources(1, 1, App::GetApp()->GetResource<TextureResource>(L"GaugeColor")->GetShaderResourceView().GetAddressOf());
+			// グラデーションテクスチャがセットされている場合は読み込みを行う
+			if (m_gaugeGradientTexKey != L"") {
+				// グラデーションテクスチャ
+				pD3D11DeviceContext->PSSetShaderResources(1, 1,
+					App::GetApp()->GetResource<TextureResource>(m_gaugeGradientTexKey)->GetShaderResourceView().GetAddressOf());
+				// フラグをオンに
+				sb.RatioAndThresholdEtc.setZ(1);
+			}
 			//サンプラーを設定
 			RenderState->SetSamplerState(pD3D11DeviceContext, GetSamplerState(), 0);
 		}
@@ -150,6 +162,9 @@ namespace basecross {
 		spCb.Diffuse = GetDiffuse();
 		// 行列の設定
 		spCb.World = World;
-		spCb.RatioAndThreshold = Vec4(m_rate, m_threshold, 0.0f, 0.0f);
+		// 割合やしきい値を設定
+		// フラグはここで設定できるものだけ設定
+		spCb.RatioAndThresholdEtc =
+			Vec4(m_rate, m_threshold, 0.0f, m_isBackground == true ? 1.0f : 0.0f);
 	}
 }

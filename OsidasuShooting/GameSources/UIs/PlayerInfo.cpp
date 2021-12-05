@@ -36,6 +36,7 @@ namespace basecross {
 		t->GetTransform()->SetPosition(transData.Position);
 		t->GetTransform()->SetScale(transData.Scale);
 		t->GetTransform()->SetParent(GetThis<PlayerInfo>());
+		t->GetDynamicComponent<SpriteBaseDraw>()->SetDiffuse(m_owner->GetColor());
 		m_uiObjects.push_back(t);
 
 		ApplyTransform();

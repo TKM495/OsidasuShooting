@@ -31,6 +31,7 @@ namespace basecross {
 
 		auto ptrDraw = AddComponent<PCTGaugeSprite>(vertices, indices);
 		ptrDraw->SetTextureResource(m_textureKey);
+		ptrDraw->SetGaugeColor(m_player->GetColor());
 		SetAlphaActive(true);
 	}
 	void HoverTimeGauge::OnUpdate() {
