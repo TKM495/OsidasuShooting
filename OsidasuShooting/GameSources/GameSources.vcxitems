@@ -142,7 +142,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\TransitionSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\AdvancedMeshUtil.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\DataExtracted.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BaseUI.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\Canvas.cpp" />
@@ -153,7 +152,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\CSVLoad.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\GroundingDecision.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\LinePoint.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\BaseSingleton.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\TimeCounter.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\Utility.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\XMLLoad.cpp" />

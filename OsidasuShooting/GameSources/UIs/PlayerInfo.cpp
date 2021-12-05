@@ -4,23 +4,23 @@
 namespace basecross {
 	void PlayerInfo::OnCreate() {
 		auto data = CSVLoad::GetInstance()->GetData(L"PlayerInfo");
-		auto tokens = Extracter::DelimitData(data[4]);
-		auto transData = Extracter::TransformDataExtraction(tokens);
+		auto tokens = DataExtracter::DelimitData(data[4]);
+		auto transData = DataExtracter::TransformDataExtraction(tokens);
 
 		auto back = ObjectFactory::Create<SimpleSprite>(GetStage(), L"GaugeBackGround", transData);
 		back->GetTransform()->SetParent(GetThis<PlayerInfo>());
 		m_uiObjects.push_back(back);
 
-		tokens = Extracter::DelimitData(data[1]);
-		transData = Extracter::TransformDataExtraction(tokens);
+		tokens = DataExtracter::DelimitData(data[1]);
+		transData = DataExtracter::TransformDataExtraction(tokens);
 
 		auto armorGauge = ObjectFactory::Create<ArmorGauge>(GetStage(),
 			m_owner, transData);
 		armorGauge->GetTransform()->SetParent(GetThis<PlayerInfo>());
 		m_uiObjects.push_back(armorGauge);
 
-		tokens = Extracter::DelimitData(data[2]);
-		transData = Extracter::TransformDataExtraction(tokens);
+		tokens = DataExtracter::DelimitData(data[2]);
+		transData = DataExtracter::TransformDataExtraction(tokens);
 
 		auto t = ObjectFactory::Create<BattlePlayersUIs>(GetStage(), L"BPsUIs", 0, Vec3(0));
 		t->GetTransform()->SetPosition(transData.Position);
@@ -28,8 +28,8 @@ namespace basecross {
 		t->GetTransform()->SetParent(GetThis<PlayerInfo>());
 		m_uiObjects.push_back(t);
 
-		tokens = Extracter::DelimitData(data[3]);
-		transData = Extracter::TransformDataExtraction(tokens);
+		tokens = DataExtracter::DelimitData(data[3]);
+		transData = DataExtracter::TransformDataExtraction(tokens);
 
 		int playerNumber = (int)m_owner->GetPlayerNumber();
 		t = ObjectFactory::Create<BattlePlayersUIs>(GetStage(), L"BPsUIs", playerNumber + 1, Vec3(0));

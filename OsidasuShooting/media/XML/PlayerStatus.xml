@@ -31,7 +31,6 @@
         <!--爆弾のリロード速度-->
         <BombReloadSpeed>5</BombReloadSpeed>
     </PlayerStatus>
-
     <!--プレイヤーの色（0 ～ 255のRGBA）-->
     <PlayerColor>
         <P1>0,255,255,255</P1>

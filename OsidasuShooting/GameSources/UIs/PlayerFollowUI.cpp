@@ -4,39 +4,39 @@
 namespace basecross {
 	void PlayerFollowUI::OnCreate() {
 		auto data = CSVLoad::GetInstance()->GetData(L"PlayerFollowUI");
-		auto tokens = Extracter::DelimitData(data[1]);
-		auto transData = Extracter::TransformDataExtraction(tokens);
+		auto tokens = DataExtracter::DelimitData(data[1]);
+		auto transData = DataExtracter::TransformDataExtraction(tokens);
 
 		auto armorGauge = ObjectFactory::Create<HoverTimeGauge>(GetStage(),
 			m_owner, transData);
 		armorGauge->GetTransform()->SetParent(GetThis<PlayerFollowUI>());
 		m_objectsData.push_back(ObjectData(UIType::Hover, armorGauge));
 
-		tokens = Extracter::DelimitData(data[5]);
-		transData = Extracter::TransformDataExtraction(tokens);
+		tokens = DataExtracter::DelimitData(data[5]);
+		transData = DataExtracter::TransformDataExtraction(tokens);
 
 		auto back = ObjectFactory::Create<SimpleSprite>(GetStage(), L"BombBack", transData);
 		back->GetTransform()->SetParent(GetThis<PlayerFollowUI>());
 		m_objectsData.push_back(ObjectData(UIType::Bomb, back));
 
-		tokens = Extracter::DelimitData(data[2]);
-		transData = Extracter::TransformDataExtraction(tokens);
+		tokens = DataExtracter::DelimitData(data[2]);
+		transData = DataExtracter::TransformDataExtraction(tokens);
 
 		auto bombReloadTimeGauge = ObjectFactory::Create<BombReloadTimeGauge>(GetStage(),
 			m_owner, transData);
 		bombReloadTimeGauge->GetTransform()->SetParent(GetThis<PlayerFollowUI>());
 		m_objectsData.push_back(ObjectData(UIType::Bomb, bombReloadTimeGauge));
 
-		tokens = Extracter::DelimitData(data[3]);
-		transData = Extracter::TransformDataExtraction(tokens);
+		tokens = DataExtracter::DelimitData(data[3]);
+		transData = DataExtracter::TransformDataExtraction(tokens);
 
 		auto bombCount = ObjectFactory::Create<BombRemainingCount>(GetStage(),
 			m_owner, transData);
 		bombCount->GetTransform()->SetParent(GetThis<PlayerFollowUI>());
 		m_objectsData.push_back(ObjectData(UIType::Bomb, bombCount));
 
-		tokens = Extracter::DelimitData(data[4]);
-		transData = Extracter::TransformDataExtraction(tokens);
+		tokens = DataExtracter::DelimitData(data[4]);
+		transData = DataExtracter::TransformDataExtraction(tokens);
 
 		int playerNumber = (int)m_owner->GetPlayerNumber();
 		auto t = ObjectFactory::Create<BattlePlayersUIs>(GetStage(), L"BPsUIs", playerNumber + 1, Vec3(0));

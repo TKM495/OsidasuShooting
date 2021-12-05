@@ -21,11 +21,11 @@ namespace basecross {
 		// プレイヤーの色情報を取得
 		wstring data = XmlDocReader::GetText(node);
 		// 4プレイヤー分の色を空白で4つのデータに分ける
-		auto colorStr = Extracter::DelimitData(data, L' ');
+		auto colorStr = DataExtracter::DelimitData(data, L' ');
 		// 自身のプレイヤー番号に応じた色データをRGBAに分類
-		auto color = Extracter::DelimitData(colorStr[(UINT)m_playerNumber]);
+		auto color = DataExtracter::DelimitData(colorStr[(UINT)m_playerNumber]);
 		// 分類したものをCol4に変換
-		m_color = Extracter::ColorDataExtraction(color);
+		m_color = DataExtracter::ColorDataExtraction(color);
 
 		// プレイヤーのモデルを追加
 		InstantiateGameObject<PlayerModel>(GetThis<PlayerBase>(), m_transformData);

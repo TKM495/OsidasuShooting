@@ -304,12 +304,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\AdvancedGameObject.cpp">
       <Filter>StageObject</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\BaseSingleton.cpp">
-      <Filter>Utility\BaseSingleton</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\DataExtracted.cpp">
-      <Filter>Utility\DataExtracted</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Area.cpp">
       <Filter>StageObject\JonyMd</Filter>
     </ClCompile>

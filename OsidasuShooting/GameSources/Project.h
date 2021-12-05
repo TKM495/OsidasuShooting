@@ -27,6 +27,7 @@
 #include "Utility/TimeCounter.h"
 #include "Utility/Utility.h"
 #include "Utility/AdvancedMeshUtil.h"
+#include "Utility/DataExtracter.h"
 // ステージオブジェクト
 #include "SpecialCamera/SpCamera.h"
 #include "StageObject/AdvancedGameObject.h"
