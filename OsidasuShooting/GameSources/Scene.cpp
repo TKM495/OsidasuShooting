@@ -87,7 +87,7 @@ namespace basecross {
 
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる
-			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToDebugStage");
+			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToLoadStage");
 			GetAppTexture();
 		}
 		catch (...) {
@@ -105,6 +105,9 @@ namespace basecross {
 		// デバッグステージ
 		if (event->m_MsgStr == L"ToDebugStage") {
 			ResetActiveStage<DebugStage>();
+		}
+		else if (event->m_MsgStr == L"ToLoadStage") {
+			ResetActiveStage<LoadStage>();
 		}
 		// タイトルステージ
 		else if (event->m_MsgStr == L"ToTitleStage") {
