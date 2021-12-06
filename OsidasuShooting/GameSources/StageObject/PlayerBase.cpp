@@ -7,6 +7,30 @@
 #include "Project.h"
 
 namespace basecross {
+	PlayerBase::PlayerBase(const shared_ptr<Stage>& stage,
+		const TransformData& transData,
+		PlayerNumber playerNumber)
+		:AdvancedGameObject(stage), m_initialPosition(0.0f),
+		m_moveSpeed(20.0f), m_predictionLine(stage, 10, 2.0f),
+		m_bombPoint(Vec3(0.0f)), m_jumpVerocity(Vec3(0.0f, 10.0f, 0.0f)),
+		m_hoverTime(5.0f), m_currentHoverTime(m_hoverTime),
+		m_defaultArmorPoint(100.0f), m_currentArmorPoint(m_defaultArmorPoint),
+		m_bulletTimer(0.1f, true), m_armorRecoveryTimer(2.0f),
+		m_isRestoreArmor(false), m_isInput(false), m_playerNumber(playerNumber),
+		m_bombReload(1.0f), m_defaultBombCount(5), m_correctAngle(40.0f),
+		m_isDuringReturn(false), m_groundingDecision(), m_countKilledPlayer(0),
+		m_returnTimer(0.5f), m_lastFrontDirection(Vec3(0.0f)), m_smokeTimer(0.2f),
+		m_deadCount(0), m_invincibleTimer(3.0f, true), m_isInvincible(false)
+	{
+		m_transformData = transData;
+		m_transformData.Scale *= 2.0f;
+		auto rot = m_transformData.Rotation;
+		m_lastFrontDirection = Vec3(cosf(rot.y), 0.0f, sinf(rot.y));
+		// 以下のタグを持つオブジェクトを判定から除外
+		m_groundingDecision.AddNotDecisionTag(L"Bomb");
+		m_groundingDecision.AddNotDecisionTag(L"Bullet");
+	}
+
 	void PlayerBase::OnCreate() {
 		// XMLのデータを取得
 		auto xmlData = XMLLoad::GetInstance()->GetData(L"PlayerStatus");
@@ -30,7 +54,7 @@ namespace basecross {
 		m_color = Utility::ConvertColorZeroToOne(m_color);
 
 		// プレイヤーのモデルを追加
-		InstantiateGameObject<PlayerModel>(GetThis<PlayerBase>(), m_transformData);
+		m_model = InstantiateGameObject<PlayerModel>(GetThis<PlayerBase>(), m_transformData);
 
 		// 滑るような挙動用のコンポーネントと重力を追加
 		AddComponent<PhysicalBehavior>();
@@ -82,6 +106,8 @@ namespace basecross {
 		TestFanc();
 		// 爆弾のリロード
 		BombReload();
+		// 無敵処理
+		Invincible();
 		// 各種ステートマシンの更新
 		m_weaponStateMachine->Update();
 		m_jumpAndHoverStateMachine->Update();
@@ -103,6 +129,17 @@ namespace basecross {
 				efkComp->Play(L"Smoke");
 				m_smokeTimer.Reset();
 			}
+		}
+	}
+
+	void PlayerBase::Invincible() {
+		if (m_invincibleTimer.Count()) {
+			m_isInvincible = false;
+		}
+		else {
+			auto time = m_invincibleTimer.GetElaspedTime() * 10;
+			auto flg = ((int)time % 2) == 0;
+			m_model.lock()->SetDrawActive(flg);
 		}
 	}
 
@@ -262,6 +299,10 @@ namespace basecross {
 	}
 
 	void PlayerBase::KnockBack(const KnockBackData& data) {
+		// 無敵の場合無視
+		if (m_isInvincible)
+			return;
+
 		m_aggriever = data.Aggriever;
 		m_isDuringReturn = true;
 		m_returnTimer.Reset();
@@ -299,11 +340,17 @@ namespace basecross {
 		m_isDuringReturn = false;
 		// 死亡回数を増やす
 		m_deadCount++;
+		// 各種パラメータを初期化
+		m_currentArmorPoint = m_defaultArmorPoint;
+		m_currentHoverTime = m_hoverTime;
+		m_bombCount = m_defaultBombCount;
 		// エフェクトと効果音の再生
 		GetComponent<EfkComponent>()->Play(L"Explosion");
 		SoundManager::GetInstance()->Play(L"Fall");
 		// 初期位置に戻る
 		GetTransform()->SetPosition(m_initialPosition);
+		m_invincibleTimer.Reset();
+		m_isInvincible = true;
 	}
 
 	void PlayerBase::TestFanc() {
