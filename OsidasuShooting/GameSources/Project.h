@@ -78,3 +78,5 @@
 #include "JonyMd/CountDown.h"
 #include "JonyMd/Items.h"
 #include "JonyMd/ItemsCreations.h"
+#include "JonyMd/Meteorite.h"
+#include "JonyMd/MeteoriteCreation.h"

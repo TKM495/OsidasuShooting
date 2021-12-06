@@ -343,6 +343,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\AdvancedMeshUtil.cpp">
       <Filter>Utility\AdvancedMeshUtil</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Meteorite.cpp">
+      <Filter>StageObject\JonyMd</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\MeteoriteCreation.cpp">
+      <Filter>StageObject\JonyMd</Filter>
+      </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\XMLLoad.cpp">
       <Filter>Utility\XMLLoad</Filter>
     </ClCompile>
@@ -560,6 +566,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\AdvancedMeshUtil.h">
       <Filter>Utility\AdvancedMeshUtil</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Meteorite.h">
+      <Filter>StageObject\JonyMd</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\MeteoriteCreation.h">
+      <Filter>StageObject\JonyMd</Filter>
+      </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\XMLLoad.h">
       <Filter>Utility\XMLLoad</Filter>
     </ClInclude>
