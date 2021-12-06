@@ -28,7 +28,7 @@ namespace basecross {
 		static mutex mtx;
 	public:
 		LoadStage()
-			:Stage(), m_state(State::Loading), m_timer(2.0f)
+			:Stage(), m_state(State::Loading), m_timer(0.0f)
 		{}
 		~LoadStage() {}
 		void OnCreate()override;

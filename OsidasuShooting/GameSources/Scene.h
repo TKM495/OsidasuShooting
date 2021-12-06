@@ -40,8 +40,6 @@ namespace basecross {
 		//--------------------------------------------------------------------------------------
 		virtual void OnEvent(const shared_ptr<Event>& event) override;
 
-		virtual void GetAppTexture();
-
 		Vec3 GetCircleShadowDirection() {
 			return m_circleShadowDirection;
 		}

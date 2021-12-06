@@ -15,7 +15,68 @@ namespace basecross {
 		m_Loaded = false;
 		mtx.unlock();
 
-		// ここでリソース読み込み
+		// リソース読み込み
+		const auto& app = App::GetApp();
+		auto dir = app->GetDataDirWString();
+
+		// スプライト
+		auto path = dir + L"Sprite/";
+		app->RegisterTexture(L"Title", path + L"Title.png");
+		app->RegisterTexture(L"PushAButton", path + L"PushAButton.png");
+		app->RegisterTexture(L"Number", path + L"Number.png");
+		app->RegisterTexture(L"BPsUIs", path + L"BattlePlayersUI256x256.png");
+		app->RegisterTexture(L"CircleGauge", path + L"CircleGauge.png");
+		app->RegisterTexture(L"BarGauge", path + L"BarGauge.png");
+		app->RegisterTexture(L"GaugeColor", path + L"GaugeColor.png");
+		app->RegisterTexture(L"Wall", path + L"wall.jpg");
+		app->RegisterTexture(L"Block", path + L"Block.png");
+		app->RegisterTexture(L"Test", path + L"test.png");
+		app->RegisterTexture(L"Winner", path + L"Winner.png");
+		app->RegisterTexture(L"ResultFream", path + L"ResultFream.png");
+		app->RegisterTexture(L"BombBack", path + L"BombBackGround.png");
+		app->RegisterTexture(L"GaugeBackGround", path + L"GaugeBackGround.png");
+		app->RegisterTexture(L"Gauge", path + L"Gauge.png");
+		app->RegisterTexture(L"Start", path + L"TestStart.png");
+		app->RegisterTexture(L"Finish", path + L"TestFinish.png");
+
+		// CSVファイル
+		path = dir + L"CSV/";
+		CSVLoad::GetInstance()->RegisterFile(L"test", path + L"StringSprite.csv");
+		CSVLoad::GetInstance()->RegisterFile(L"PlayerInfo", path + L"PlayerInfo.csv");
+		CSVLoad::GetInstance()->RegisterFile(L"PlayerFollowUI", path + L"PlayerFollowUI.csv");
+
+		//XMLファイル
+		path = dir + L"XML/";
+		XMLLoad::GetInstance()->RegisterFile(L"PlayerStatus", path + L"PlayerStatus.xml");
+
+		// モデル
+		path = dir + L"Models/LaserCharacter/";
+		for (int i = 0; i < 4; i++) {
+			auto number = Util::IntToWStr(i + 1);
+			auto modelMesh = MultiMeshResource::CreateStaticModelMultiMesh(path + L"Player" + number + L"/", L"LaserPlayer" + number + L".bmf");
+			app->RegisterResource(L"Player" + number, modelMesh);
+		}
+
+		// 効果音
+		path = dir + L"Sound/SE/";
+		app->RegisterWav(L"EmptyBomb", path + L"EmptyBomb.wav");
+		app->RegisterWav(L"Decision", path + L"Decision.wav");
+		app->RegisterWav(L"Explosion", path + L"Explosion.wav");
+		app->RegisterWav(L"Fall", path + L"Fall.wav");
+		app->RegisterWav(L"Hover", path + L"Hover.wav");
+		app->RegisterWav(L"Jump", path + L"Jump.wav");
+		app->RegisterWav(L"Shot", path + L"Shot.wav");
+		app->RegisterWav(L"ThrowBomb", path + L"ThrowBomb.wav");
+		app->RegisterWav(L"Warning", path + L"Warning.wav");
+
+		// BGM
+		path = dir + L"Sound/BGM/";
+		app->RegisterWav(L"GameBGM", path + L"Game.wav");
+		app->RegisterWav(L"Game1BGM", path + L"Game1.wav");
+		app->RegisterWav(L"Game2BGM", path + L"Game2.wav");
+		app->RegisterWav(L"ResultBGM", path + L"Result.wav");
+		app->RegisterWav(L"SelectBGM", path + L"Select.wav");
+		app->RegisterWav(L"TitleBGM", path + L"Title.wav");
 
 		mtx.lock();
 		m_Loaded = true;
@@ -38,6 +99,9 @@ namespace basecross {
 	void LoadStage::OnCreate() {
 		auto& app = App::GetApp();
 		auto dir = app->GetDataDirWString();
+		// スプライト
+		auto path = dir + L"Sprite/";
+		app->RegisterTexture(L"Loading", path + L"TestLoading.png");
 
 		//他のリソースを読み込むスレッドのスタート
 		thread LoadThread(LoadResourceFunc);
@@ -45,7 +109,10 @@ namespace basecross {
 		LoadThread.detach();
 
 		CreateViewLight();
+		AddGameObject<Debug>();
+		Debug::GetInstance()->Log(L"CurrentStage : LoadStage");
 
+		AddGameObject<SimpleSprite>(L"Loading", TransformData());
 		AddGameObject<TransitionSprite>();
 	}
 
@@ -55,8 +122,9 @@ namespace basecross {
 		case State::Loading:
 			if (m_Loaded && m_timer.Count()) {
 				//リソースのロードが終了&指定の時間が経過したらフェード開始
-				TransitionSprite::GetInstance()->FadeOut();
+				TransitionSprite::GetInstance()->FadeIn();
 				m_state = State::FadeOut;
+				Debug::GetInstance()->Log(L"LoadComplete");
 			}
 			break;
 		case State::FadeOut:
