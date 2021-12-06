@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "Project.h"
 
+#include <iostream>
+#include <algorithm>
+
 namespace basecross {
 	void PlayerFollowUI::OnCreate() {
 		auto data = CSVLoad::GetInstance()->GetData(L"PlayerFollowUI");
@@ -35,16 +38,16 @@ namespace basecross {
 		bombCount->GetTransform()->SetParent(GetThis<PlayerFollowUI>());
 		m_objectsData.push_back(ObjectData(UIType::Bomb, bombCount));
 
-		tokens = DataExtracter::DelimitData(data[4]);
-		transData = DataExtracter::TransformDataExtraction(tokens);
+		//tokens = DataExtracter::DelimitData(data[4]);
+		//transData = DataExtracter::TransformDataExtraction(tokens);
 
-		int playerNumber = (int)m_owner->GetPlayerNumber();
-		auto t = ObjectFactory::Create<BattlePlayersUIs>(GetStage(), L"BPsUIs", playerNumber + 1, Vec3(0));
-		t->GetTransform()->SetPosition(transData.Position);
-		t->GetTransform()->SetScale(transData.Scale);
-		t->GetTransform()->SetParent(GetThis<PlayerFollowUI>());
-		t->GetDynamicComponent<SpriteBaseDraw>()->SetDiffuse(m_owner->GetColor());
-		m_objectsData.push_back(ObjectData(UIType::Normal, t));
+		//int playerNumber = (int)m_owner->GetPlayerNumber();
+		//auto t = ObjectFactory::Create<BattlePlayersUIs>(GetStage(), L"BPsUIs", playerNumber + 1, Vec3(0));
+		//t->GetTransform()->SetPosition(transData.Position);
+		//t->GetTransform()->SetScale(transData.Scale);
+		//t->GetTransform()->SetParent(GetThis<PlayerFollowUI>());
+		//t->GetDynamicComponent<SpriteBaseDraw>()->SetDiffuse(m_owner->GetColor());
+		//m_objectsData.push_back(ObjectData(UIType::Normal, t));
 
 		ApplyTransform();
 	}
@@ -76,5 +79,46 @@ namespace basecross {
 				break;
 			}
 		}
+	}
+
+	void PlayerPositionUI::OnCreate() {
+		auto data = CSVLoad::GetInstance()->GetData(L"PlayerFollowUI");
+		auto tokens = DataExtracter::DelimitData(data[4]);
+		auto transData = DataExtracter::TransformDataExtraction(tokens);
+
+		int playerNumber = (int)m_owner->GetPlayerNumber();
+		auto t = ObjectFactory::Create<BattlePlayersUIs>(GetStage(), L"BPsUIs", playerNumber + 1, Vec3(0));
+		t->GetTransform()->SetPosition(transData.Position);
+		t->GetTransform()->SetScale(transData.Scale);
+		t->GetTransform()->SetParent(GetThis<PlayerPositionUI>());
+		t->GetDynamicComponent<SpriteBaseDraw>()->SetDiffuse(m_owner->GetColor());
+		m_uiObject.push_back(t);
+
+		//auto arrow = ObjectFactory::Create<SimpleSprite>(GetStage(), L"Arrow", TransformData());
+		//m_uiObject.push_back(arrow);
+	}
+
+	void PlayerPositionUI::OnUpdate() {
+		auto pos = Utility::ConvertWorldToScreen(GetStage()->GetView(), m_owner->GetTransform()->GetPosition());
+		pos = ClampInScreen(pos);
+		GetTransform()->SetPosition(pos + m_offset);
+
+		for (auto uiObject : m_uiObject) {
+			uiObject->OnUpdate();
+		}
+	}
+
+	void PlayerPositionUI::OnDraw() {
+		for (auto uiObject : m_uiObject) {
+			uiObject->OnDraw();
+		}
+	}
+
+	Vec3 PlayerPositionUI::ClampInScreen(const Vec3& value) {
+		auto viewport = GetStage()->GetView()->GetTargetViewport();
+		auto screenSize = Vec3(viewport.Width * 0.95f, viewport.Height * 0.95f, 0);
+		auto halfScreenSize = screenSize / 2.0f;
+		auto clamped = Utility::ClampVector3(value, -halfScreenSize, halfScreenSize);
+		return clamped;
 	}
 }
