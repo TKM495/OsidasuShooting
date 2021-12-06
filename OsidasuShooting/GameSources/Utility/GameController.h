@@ -1,6 +1,6 @@
 /*!
-@file   ControllerManager.h
-@brief  コントローラーマネージャー
+@file   GameController.h
+@brief  コントローラー管理クラス
  */
 
 #pragma once
@@ -8,7 +8,30 @@
 #include "Manager/PlayerManager.h"
 
 namespace basecross {
-	class ControllerManager {
+	/**
+	 * @brief バイブレーションデータ
+	 */
+	struct VibrationData
+	{
+		float Time;				// 継続時間
+		WORD RightMotorSpeed;	// 右モーター（0～65535）
+		WORD LeftMotorSpeed;		// 左モーター（0～65535）
+
+		/**
+		 * @brief コンストラクタ
+		 *
+		 * @param time				継続時間
+		 * @param rightMotorSpeed	右モーター（0～65535）
+		 * @param leftMotorSpeed	左モーター（0～65535）
+		 */
+		VibrationData(float time, WORD rightMotorSpeed, WORD leftMotorSpeed) {
+			this->Time = time;
+			this->RightMotorSpeed = rightMotorSpeed;
+			this->LeftMotorSpeed = leftMotorSpeed;
+		}
+	};
+
+	class GameController {
 		/**
 		 * @brief スティックの種類
 		 */
@@ -19,8 +42,7 @@ namespace basecross {
 
 		// プレイヤー番号（取得するコントローラーに影響）
 		PlayerNumber m_playerNumber;
-		// トリガーのしきい値
-		float m_triggerThreshold;
+		TimeCounter m_timer;
 		/**
 		 * @brief スティックを取得
 		 *
@@ -35,13 +57,14 @@ namespace basecross {
 		 * @return トリガーのデータ（bool）
 		 */
 		bool GetTrigger(Direction direction);
+		void th(const VibrationData& data);
 	public:
 		/**
 		 * @brief コンストラクタ
 		 *
 		 * @param number プレイヤー番号
 		 */
-		ControllerManager(PlayerNumber number);
+		GameController(PlayerNumber number);
 
 		/**
 		 * @brief コントローラー取得
@@ -64,7 +87,20 @@ namespace basecross {
 		 */
 		Vec3 GetRightStickVec();
 
+		/**
+		 * @brief 右トリガーが押されているか
+		 *
+		 * @return trueなら押されている
+		 */
 		bool GetRightTrigger();
+		/**
+		 * @brief 左トリガーが押されているか
+		 *
+		 * @return trueなら押されている
+		 */
 		bool GetLeftTrigger();
+
+		void SetVibration(const VibrationData& data);
+		void ResetVibration();
 	};
 }
