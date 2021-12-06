@@ -120,6 +120,7 @@ namespace basecross {
 		}
 		GetComponent<Gravity>()->SetGravityVerocityZero();
 		m_currentHoverTime -= App::GetApp()->GetElapsedTime();
+		SoundManager::GetInstance()->Play(L"Hover");
 
 		// ホバーエフェクト
 		auto efkComp = GetComponent<EfkComponent>();
@@ -226,6 +227,7 @@ namespace basecross {
 	void PlayerBase::BombLaunch() {
 		InstantiateGameObject<Bomb>(GetThis<PlayerBase>(),
 			m_predictionLine, GetTransform()->GetPosition(), m_bombPoint);
+		SoundManager::GetInstance()->Play(L"ThrowBomb");
 	}
 
 	void PlayerBase::TurnFrontToDirection(const Vec3& direction) {
@@ -382,6 +384,9 @@ namespace basecross {
 			Obj->BombLaunch();
 			// 残弾を減らす
 			Obj->m_bombCount--;
+		}
+		else {
+			SoundManager::GetInstance()->Play(L"EmptyBomb");
 		}
 		Obj->m_isBombMode = false;
 	}

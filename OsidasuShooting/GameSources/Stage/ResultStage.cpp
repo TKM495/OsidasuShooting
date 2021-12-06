@@ -137,6 +137,8 @@ namespace basecross {
 
 			Debug::GetInstance()->Log(L"Button A ¨ Game");
 			Debug::GetInstance()->Log(L"Button B ¨ Title");
+
+			SoundManager::GetInstance()->Play(L"ResultBGM", 0, 0.05f);
 		}
 		catch (...) {
 			throw;
@@ -150,5 +152,9 @@ namespace basecross {
 			PostEvent(0.0f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToGameStage");
 		if (cntlPad.wPressedButtons & XINPUT_GAMEPAD_B)
 			PostEvent(0.0f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToTitleStage");
+	}
+
+	void ResultStage::OnDestroy() {
+		SoundManager::GetInstance()->StopAll();
 	}
 }

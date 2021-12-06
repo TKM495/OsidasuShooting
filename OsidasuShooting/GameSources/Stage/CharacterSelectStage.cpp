@@ -25,6 +25,8 @@ namespace basecross {
 			Debug::GetInstance()->Log(L"CurrentStage : CharacterSelectStage");
 			Debug::GetInstance()->Log(L"A : GameStart");
 			Debug::GetInstance()->Log(L"B : ToTitle");
+
+			SoundManager::GetInstance()->Play(L"SelectBGM", XAUDIO2_LOOP_INFINITE, 0.05f);
 		}
 		catch (...) {
 			throw;
@@ -38,5 +40,9 @@ namespace basecross {
 			PostEvent(0.0f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToGameStage");
 		if (cntlPad.wPressedButtons & XINPUT_GAMEPAD_B)
 			PostEvent(0.0f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToTitleStage");
+	}
+
+	void CharacterSelectStage::OnDestroy() {
+		SoundManager::GetInstance()->StopAll();
 	}
 }

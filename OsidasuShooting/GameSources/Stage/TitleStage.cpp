@@ -44,6 +44,7 @@ namespace basecross {
 
 			AddTitleSprite();
 			AddPushAButtonSprite();
+			SoundManager::GetInstance()->Play(L"TitleBGM", XAUDIO2_LOOP_INFINITE, 0.05f);
 		}
 		catch (...) {
 			throw;
@@ -57,5 +58,9 @@ namespace basecross {
 			PostEvent(0.0f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToCharacterSelectStage");
 		if (cntlPad.wPressedButtons & XINPUT_GAMEPAD_B)
 			PostEvent(0.0f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToExit");
+	}
+
+	void TitleStage::OnDestroy() {
+		SoundManager::GetInstance()->StopAll();
 	}
 }

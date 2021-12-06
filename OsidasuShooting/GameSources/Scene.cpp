@@ -63,16 +63,24 @@ namespace basecross {
 
 			// 効果音
 			path = dir + L"Sound/SE/";
-			app->RegisterWav(L"Shot", path + L"Shot.wav");
+			app->RegisterWav(L"EmptyBomb", path + L"EmptyBomb.wav");
+			app->RegisterWav(L"Decision", path + L"Decision.wav");
 			app->RegisterWav(L"Explosion", path + L"Explosion.wav");
 			app->RegisterWav(L"Fall", path + L"Fall.wav");
+			app->RegisterWav(L"Hover", path + L"Hover.wav");
 			app->RegisterWav(L"Jump", path + L"Jump.wav");
-			// 現在未使用
+			app->RegisterWav(L"Shot", path + L"Shot.wav");
+			app->RegisterWav(L"ThrowBomb", path + L"ThrowBomb.wav");
 			app->RegisterWav(L"Warning", path + L"Warning.wav");
 
 			// BGM
 			path = dir + L"Sound/BGM/";
 			app->RegisterWav(L"GameBGM", path + L"Game.wav");
+			app->RegisterWav(L"Game1BGM", path + L"Game1.wav");
+			app->RegisterWav(L"Game2BGM", path + L"Game2.wav");
+			app->RegisterWav(L"ResultBGM", path + L"Result.wav");
+			app->RegisterWav(L"SelectBGM", path + L"Select.wav");
+			app->RegisterWav(L"TitleBGM", path + L"Title.wav");
 
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる
