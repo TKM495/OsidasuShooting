@@ -26,6 +26,8 @@ namespace basecross {
 		auto color = DataExtracter::DelimitData(colorStr[(UINT)m_playerNumber]);
 		// 分類したものをCol4に変換
 		m_color = DataExtracter::ColorDataExtraction(color);
+		// 0～1に変換
+		m_color = Utility::ConvertColorZeroToOne(m_color);
 
 		// プレイヤーのモデルを追加
 		InstantiateGameObject<PlayerModel>(GetThis<PlayerBase>(), m_transformData);
@@ -125,6 +127,7 @@ namespace basecross {
 		auto efkComp = GetComponent<EfkComponent>();
 		if (!efkComp->IsPlaying(L"Hover")) {
 			efkComp->Play(L"Hover");
+			//SoundManager::GetInstance()->Play(L"Hover");
 		}
 		else {
 			efkComp->SyncPosition(L"Hover");
@@ -226,6 +229,7 @@ namespace basecross {
 	void PlayerBase::BombLaunch() {
 		InstantiateGameObject<Bomb>(GetThis<PlayerBase>(),
 			m_predictionLine, GetTransform()->GetPosition(), m_bombPoint);
+		SoundManager::GetInstance()->Play(L"ThrowBomb");
 	}
 
 	void PlayerBase::TurnFrontToDirection(const Vec3& direction) {
@@ -382,6 +386,9 @@ namespace basecross {
 			Obj->BombLaunch();
 			// 残弾を減らす
 			Obj->m_bombCount--;
+		}
+		else {
+			SoundManager::GetInstance()->Play(L"EmptyBomb");
 		}
 		Obj->m_isBombMode = false;
 	}
