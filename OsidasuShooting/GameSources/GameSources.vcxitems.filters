@@ -355,6 +355,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\PlayerBuilder.cpp">
       <Filter>Manager\PlayerManager</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Stage\LoadStage.cpp">
+      <Filter>Stage\LoadStage</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -577,6 +580,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\PlayerBuilder.h">
       <Filter>Manager\PlayerManager</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Stage\LoadStage.h">
+      <Filter>Stage\LoadStage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -824,6 +830,9 @@
     </Filter>
     <Filter Include="Utility\DataExtracter">
       <UniqueIdentifier>{e3644973-ff3b-443b-a71b-4a0d596efa32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage\LoadStage">
+      <UniqueIdentifier>{8b326204-66e5-4f28-8e9b-19385e64c12b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
