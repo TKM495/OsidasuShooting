@@ -57,9 +57,12 @@ namespace basecross {
 			XMLLoad::GetInstance()->RegisterFile(L"PlayerStatus", path + L"PlayerStatus.xml");
 
 			// ƒ‚ƒfƒ‹
-			path = dir + L"Models/";
-			auto modelMesh = MultiMeshResource::CreateStaticModelMultiMesh(path + L"LaserCharacter/", L"Laser.bmf");
-			app->RegisterResource(L"Player", modelMesh);
+			path = dir + L"Models/LaserCharacter/";
+			for (int i = 0; i < 4; i++) {
+				auto number = Util::IntToWStr(i + 1);
+				auto modelMesh = MultiMeshResource::CreateStaticModelMultiMesh(path + L"Player" + number + L"/", L"LaserPlayer" + number + L".bmf");
+				app->RegisterResource(L"Player" + number, modelMesh);
+			}
 
 			// Œø‰Ê‰¹
 			path = dir + L"Sound/SE/";
