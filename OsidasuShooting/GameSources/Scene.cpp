@@ -47,28 +47,43 @@ namespace basecross {
 
 			auto dir = app->GetDataDirWString();
 			// CSVファイル
-			auto path = dir + L"Csv/";
+			auto path = dir + L"CSV/";
 			CSVLoad::GetInstance()->RegisterFile(L"test", path + L"StringSprite.csv");
 			CSVLoad::GetInstance()->RegisterFile(L"PlayerInfo", path + L"PlayerInfo.csv");
 			CSVLoad::GetInstance()->RegisterFile(L"PlayerFollowUI", path + L"PlayerFollowUI.csv");
 
+			//XMLファイル
+			path = dir + L"XML/";
+			XMLLoad::GetInstance()->RegisterFile(L"PlayerStatus", path + L"PlayerStatus.xml");
+
 			// モデル
-			path = dir + L"Models/";
-			auto modelMesh = MultiMeshResource::CreateStaticModelMultiMesh(path + L"LaserCharacter/", L"Laser.bmf");
-			app->RegisterResource(L"Player", modelMesh);
+			path = dir + L"Models/LaserCharacter/";
+			for (int i = 0; i < 4; i++) {
+				auto number = Util::IntToWStr(i + 1);
+				auto modelMesh = MultiMeshResource::CreateStaticModelMultiMesh(path + L"Player" + number + L"/", L"LaserPlayer" + number + L".bmf");
+				app->RegisterResource(L"Player" + number, modelMesh);
+			}
 
 			// 効果音
 			path = dir + L"Sound/SE/";
-			app->RegisterWav(L"Shot", path + L"Shot.wav");
+			app->RegisterWav(L"EmptyBomb", path + L"EmptyBomb.wav");
+			app->RegisterWav(L"Decision", path + L"Decision.wav");
 			app->RegisterWav(L"Explosion", path + L"Explosion.wav");
 			app->RegisterWav(L"Fall", path + L"Fall.wav");
+			app->RegisterWav(L"Hover", path + L"Hover.wav");
 			app->RegisterWav(L"Jump", path + L"Jump.wav");
-			// 現在未使用
+			app->RegisterWav(L"Shot", path + L"Shot.wav");
+			app->RegisterWav(L"ThrowBomb", path + L"ThrowBomb.wav");
 			app->RegisterWav(L"Warning", path + L"Warning.wav");
 
 			// BGM
 			path = dir + L"Sound/BGM/";
 			app->RegisterWav(L"GameBGM", path + L"Game.wav");
+			app->RegisterWav(L"Game1BGM", path + L"Game1.wav");
+			app->RegisterWav(L"Game2BGM", path + L"Game2.wav");
+			app->RegisterWav(L"ResultBGM", path + L"Result.wav");
+			app->RegisterWav(L"SelectBGM", path + L"Select.wav");
+			app->RegisterWav(L"TitleBGM", path + L"Title.wav");
 
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる
@@ -114,7 +129,7 @@ namespace basecross {
 
 		// 以下制作用ステージ
 		else if (event->m_MsgStr == L"ToWatanabeStage") {
-			ResetActiveStage<WatanabeStage2>();
+			ResetActiveStage<WatanabeStage>();
 		}
 		else if (event->m_MsgStr == L"ToSatoStage") {
 			ResetActiveStage<SatoStage>();

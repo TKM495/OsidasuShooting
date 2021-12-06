@@ -32,6 +32,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Meteorite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\MeteoriteCreation.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\ControllerManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Manager\PlayerBuilder.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\SoundManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -72,7 +73,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\TransitionSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\AdvancedMeshUtil.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\BaseSingleton.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\DataExtracted.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\DataExtracter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BaseUI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\Canvas.h" />
@@ -86,6 +87,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\LinePoint.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\TimeCounter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\Utility.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\XMLLoad.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\FadeComponent.cpp" />
@@ -105,6 +107,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Meteorite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\MeteoriteCreation.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\ControllerManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Manager\PlayerBuilder.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\PlayerModel.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\GameStartAndFinish.cpp" />
@@ -143,7 +146,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\TransitionSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\AdvancedMeshUtil.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\DataExtracted.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BaseUI.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\Canvas.cpp" />
@@ -154,9 +156,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\CSVLoad.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\GroundingDecision.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\LinePoint.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\BaseSingleton.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\TimeCounter.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\Utility.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\XMLLoad.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>

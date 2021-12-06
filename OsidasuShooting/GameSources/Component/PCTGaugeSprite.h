@@ -10,8 +10,8 @@ namespace basecross {
 		Col4 Emissive;
 		// デフューズ色
 		Col4 Diffuse;
-		// 割合としきい値
-		Vec4 RatioAndThreshold;
+		// 割合としきい値とフラグ
+		Vec4 RatioAndThresholdEtc;
 		GaugeSpriteConstants() {
 			memset(this, 0, sizeof(GaugeSpriteConstants));
 			Diffuse = bsm::Col4(1.0f, 1.0f, 1.0f, 1.0f);
@@ -23,10 +23,14 @@ namespace basecross {
 	DECLARE_DX11_PIXEL_SHADER(PSPCTGaugeSprite)
 
 	class PCTGaugeSprite :public MySpriteBaseDraw {
-		Col4 m_gaugeColor;
+		// 割合（0～1）
 		float m_rate;
+		// しきい値
 		float m_threshold;
-		wstring m_gaugeColorTexKey;
+		// 割合に応じたゲージの色にするときにグラデーションテクスチャキー
+		wstring m_gaugeGradientTexKey;
+		// 背景ありか
+		bool m_isBackground;
 	public:
 		explicit PCTGaugeSprite(const shared_ptr<GameObject>& gameObjectPtr);
 		explicit PCTGaugeSprite(const shared_ptr<GameObject>& gameObjectPtr,
@@ -36,18 +40,40 @@ namespace basecross {
 		void OnUpdate()override {}
 		void OnDraw()override;
 
+		/**
+		 * @brief ゲージ残量の設定
+		 *
+		 * @param rate 割合
+		 */
 		void SetRate(float rate) {
 			m_rate = rate;
 		}
-		void SetThreshold(float threshold) {
-			m_threshold = threshold;
-		}
+
+		/**
+		 * @brief ゲージの色の設定
+		 *
+		 * @param color ゲージの色
+		 */
 		void SetGaugeColor(const Col4& color) {
-			m_gaugeColor = color;
+			SetDiffuse(color);
 		}
 
-		void SetGaugeColorTexture(const wstring& key) {
-			m_gaugeColorTexKey = key;
+		/**
+		 * @brief グラデーションテクスチャの設定
+		 *
+		 * @param key
+		 */
+		void SetGaugeGradientTexture(const wstring& key) {
+			m_gaugeGradientTexKey = key;
+		}
+
+		/**
+		 * @brief 背景をつけるか
+		 *
+		 * @param flg trueならあり
+		 */
+		void IsBackground(bool flg) {
+			m_isBackground = flg;
 		}
 	private:
 		/**

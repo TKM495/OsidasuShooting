@@ -8,6 +8,27 @@
 
 namespace basecross {
 	void PlayerBase::OnCreate() {
+		// XMLのデータを取得
+		auto xmlData = XMLLoad::GetInstance()->GetData(L"PlayerStatus");
+		auto node = xmlData->GetSelectSingleNode(L"Player/PlayerColor");
+		if (!node) {
+			throw BaseException(
+				L"Player/PlayerColorが見つかりません",
+				L"if (!node)",
+				L"PlayerBase::OnCreate()"
+			);
+		}
+		// プレイヤーの色情報を取得
+		wstring data = XmlDocReader::GetText(node);
+		// 4プレイヤー分の色を空白で4つのデータに分ける
+		auto colorStr = DataExtracter::DelimitData(data, L' ');
+		// 自身のプレイヤー番号に応じた色データをRGBAに分類
+		auto color = DataExtracter::DelimitData(colorStr[(UINT)m_playerNumber]);
+		// 分類したものをCol4に変換
+		m_color = DataExtracter::ColorDataExtraction(color);
+		// 0～1に変換
+		m_color = Utility::ConvertColorZeroToOne(m_color);
+
 		// プレイヤーのモデルを追加
 		InstantiateGameObject<PlayerModel>(GetThis<PlayerBase>(), m_transformData);
 
@@ -74,10 +95,14 @@ namespace basecross {
 		auto physicalComp = GetComponent<PhysicalBehavior>();
 		physicalComp->Move(m_inputData.MoveDirection, m_moveSpeed);
 		auto efkComp = GetComponent<EfkComponent>();
+
+		// 移動していて接地している場合
 		if (m_inputData.MoveDirection != Vec3(0.0f) &&
-			m_smokeTimer.Count()) {
-			efkComp->Play(L"Smoke");
-			m_smokeTimer.Reset();
+			m_groundingDecision.Calculate(GetTransform()->GetPosition())) {
+			if (m_smokeTimer.Count()) {
+				efkComp->Play(L"Smoke");
+				m_smokeTimer.Reset();
+			}
 		}
 	}
 
@@ -102,6 +127,7 @@ namespace basecross {
 		auto efkComp = GetComponent<EfkComponent>();
 		if (!efkComp->IsPlaying(L"Hover")) {
 			efkComp->Play(L"Hover");
+			//SoundManager::GetInstance()->Play(L"Hover");
 		}
 		else {
 			efkComp->SyncPosition(L"Hover");
@@ -203,6 +229,7 @@ namespace basecross {
 	void PlayerBase::BombLaunch() {
 		InstantiateGameObject<Bomb>(GetThis<PlayerBase>(),
 			m_predictionLine, GetTransform()->GetPosition(), m_bombPoint);
+		SoundManager::GetInstance()->Play(L"ThrowBomb");
 	}
 
 	void PlayerBase::TurnFrontToDirection(const Vec3& direction) {
@@ -268,7 +295,10 @@ namespace basecross {
 		if (m_isDuringReturn && m_aggriever.lock() != nullptr) {
 			m_aggriever.lock()->KilledPlayer();
 		}
+		// 復帰判定の初期化
 		m_isDuringReturn = false;
+		// 死亡回数を増やす
+		m_deadCount++;
 		// エフェクトと効果音の再生
 		GetComponent<EfkComponent>()->Play(L"Explosion");
 		SoundManager::GetInstance()->Play(L"Fall");
@@ -283,6 +313,28 @@ namespace basecross {
 			m_currentArmorPoint = 0.0f;
 			m_isRestoreArmor = true;
 			Debug::GetInstance()->Log(L"Test:Armor0");
+		}
+
+		if (keyState.m_bPressedKeyTbl['1'] &&
+			m_playerNumber == PlayerNumber::P1) {
+			m_countKilledPlayer += 10;
+			Debug::GetInstance()->Log(L"P1 +10Kill");
+		}
+
+		if (keyState.m_bPressedKeyTbl['2'] &&
+			m_playerNumber == PlayerNumber::P2) {
+			m_countKilledPlayer += 10;
+			Debug::GetInstance()->Log(L"P2 +10Kill");
+		}
+		if (keyState.m_bPressedKeyTbl['3'] &&
+			m_playerNumber == PlayerNumber::P3) {
+			m_countKilledPlayer += 10;
+			Debug::GetInstance()->Log(L"P3 +10Kill");
+		}
+		if (keyState.m_bPressedKeyTbl['4'] &&
+			m_playerNumber == PlayerNumber::P4) {
+			m_countKilledPlayer += 10;
+			Debug::GetInstance()->Log(L"P4 +10Kill");
 		}
 	}
 
@@ -334,6 +386,9 @@ namespace basecross {
 			Obj->BombLaunch();
 			// 残弾を減らす
 			Obj->m_bombCount--;
+		}
+		else {
+			SoundManager::GetInstance()->Play(L"EmptyBomb");
 		}
 		Obj->m_isBombMode = false;
 	}

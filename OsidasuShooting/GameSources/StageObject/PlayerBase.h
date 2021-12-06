@@ -40,42 +40,41 @@ namespace basecross {
 		}
 	};
 
-	class PlayerBase :public AdvancedGameObject {
-	public:
+	/**
+	 * @brief ノックバックデータ
+	 */
+	struct KnockBackData {
 		/**
-		 * @brief ノックバックデータ
+		 * @brief ノックバックのタイプ
 		 */
-		struct KnockBackData {
-			/**
-			 * @brief ノックバックのタイプ
-			 */
-			enum class Category {
-				Bullet,	// 弾
-				Bomb	// 爆弾
-			};
-
-			// タイプ
-			Category Type;
-			// ノックバック方向
-			Vec3 Direction;
-			// ノックバック量
-			float Amount;
-			// 加害者
-			weak_ptr<PlayerBase> Aggriever;
-
-			// コンストラクタ
-			KnockBackData(
-				Category type,
-				const Vec3& direction,
-				float amount,
-				const weak_ptr<PlayerBase>& aggriever
-			) {
-				this->Type = type;
-				this->Direction = direction;
-				this->Amount = amount;
-				this->Aggriever = aggriever;
-			}
+		enum class Category {
+			Bullet,	// 弾
+			Bomb	// 爆弾
 		};
+
+		// タイプ
+		Category Type;
+		// ノックバック方向
+		Vec3 Direction;
+		// ノックバック量
+		float Amount;
+		// 加害者
+		weak_ptr<PlayerBase> Aggriever;
+
+		// コンストラクタ
+		KnockBackData(
+			Category type,
+			const Vec3& direction,
+			float amount,
+			const weak_ptr<PlayerBase>& aggriever
+		) {
+			this->Type = type;
+			this->Direction = direction;
+			this->Amount = amount;
+			this->Aggriever = aggriever;
+		}
+	};
+	class PlayerBase :public AdvancedGameObject {
 	private:
 		// 初期位置
 		Vec3 m_initialPosition;
@@ -117,6 +116,8 @@ namespace basecross {
 		GroundingDecision m_groundingDecision;
 		// 自分がプレイヤーを倒した数
 		int m_countKilledPlayer;
+		// 死んだ回数
+		int m_deadCount;
 
 		// 前回の正面方向
 		Vec3 m_lastFrontDirection;
@@ -125,8 +126,11 @@ namespace basecross {
 		bool m_isBombMode;
 		// ホバーモードか
 		bool m_isHoverMode;
-
+		// 移動エフェクトのタイマー
 		TimeCounter m_smokeTimer;
+
+		//色
+		Col4 m_color;
 
 		// 移動
 		void Move();
@@ -193,7 +197,8 @@ namespace basecross {
 			m_isRestoreArmor(false), m_isInput(false), m_playerNumber(playerNumber),
 			m_bombReload(1.0f), m_defaultBombCount(5), m_correctAngle(40.0f),
 			m_isDuringReturn(false), m_groundingDecision(), m_countKilledPlayer(0),
-			m_returnTimer(0.5f), m_lastFrontDirection(Vec3(0.0f)), m_smokeTimer(0.2f)
+			m_returnTimer(0.5f), m_lastFrontDirection(Vec3(0.0f)), m_smokeTimer(0.2f),
+			m_deadCount(0)
 		{
 			m_transformData = transData;
 			m_transformData.Scale *= 2.0f;
@@ -283,13 +288,37 @@ namespace basecross {
 			return m_countKilledPlayer;
 		}
 
-		void SetColor(const Col4& color) {
-			GetComponent<PNTStaticDraw>()->SetDiffuse(color);
+		/**
+		 * @brief 死んだ回数を取得
+		 *
+		 * @return 死んだ回数
+		 */
+		int GetDeadCount() {
+			return m_deadCount;
 		}
 
+		/**
+		 * @brief 色を取得
+		 *
+		 * @return 色
+		 */
+		Col4 GetColor() {
+			return m_color;
+		}
+
+		/**
+		 * @brief 爆弾モードか
+		 *
+		 * @return trueならそう
+		 */
 		bool IsBombMode() {
 			return m_isBombMode;
 		}
+		/**
+		 * @brief ホバーモードか
+		 *
+		 * @return trueならそう
+		 */
 		bool IsHoverMode() {
 			return m_isHoverMode;
 		}

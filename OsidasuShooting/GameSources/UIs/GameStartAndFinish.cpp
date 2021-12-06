@@ -9,7 +9,7 @@ namespace basecross {
 	}
 	void StartCountDown::OnUpdate() {
 		if (!m_countDownTimer.Count()) {
-			m_number->SetValue((int)m_countDownTimer.GetLeftTime() + 1.0f);
+			m_number->SetValue((int)(m_countDownTimer.GetLeftTime() + 1.0f));
 		}
 	}
 

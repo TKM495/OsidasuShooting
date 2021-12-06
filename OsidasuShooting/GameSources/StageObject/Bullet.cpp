@@ -64,8 +64,8 @@ namespace basecross {
 	{
 		auto ptr = dynamic_pointer_cast<PlayerBase>(other);
 		if (ptr) {
-			PlayerBase::KnockBackData data(
-				PlayerBase::KnockBackData::Category::Bullet,
+			KnockBackData data(
+				KnockBackData::Category::Bullet,
 				m_direction, m_knockBackAmount, m_owner
 			);
 			// ノックバック

@@ -24,7 +24,7 @@ namespace basecross {
 	class PlayerBase;
 
 	class PlayerManager :public BaseSingleton<PlayerManager> {
-	private:
+	private: // ƒVƒ“ƒOƒ‹ƒgƒ“ŠÖŒW
 		PlayerManager() :BaseSingleton() {}
 		~PlayerManager() {}
 		friend class BaseSingleton<PlayerManager>;
