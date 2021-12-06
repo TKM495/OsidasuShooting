@@ -30,7 +30,7 @@ namespace basecross {
 		auto winnerUIsTrans = winnerUIs->GetComponent<Transform>();
 		auto winnerUIsPos = winnerUIsTrans->GetPosition();
 
-		auto playerNumber = AddGameObject<BattlePlayersUIs>(L"BPsUIs", 1, Vec3(0));
+		auto playerNumber = AddGameObject<BattlePlayersUIs>(L"BPsUIs", player, Vec3(0));
 		auto playUIsTrans = playerNumber->GetComponent<Transform>();
 		playUIsTrans->SetPosition(winnerUIsPos - Vec3(-412.0f, -27.0f, 0));
 		playUIsTrans->SetScale(Vec3(1.1f));
@@ -39,22 +39,27 @@ namespace basecross {
 
 	void ResultStage::AddResultSprites(Vec3 pos, int playerNum, int score)
 	{
-		auto fream = AddGameObject<FreamSprite>(L"ResultFream");
+		auto fream = AddGameObject<FreamSprite>(L"Fream",pos,1.2f);
 		auto freamTrans = fream->GetComponent<Transform>();
 		auto freamPos = freamTrans->GetPosition();
-		auto resultPos = freamPos + pos;
-		freamTrans->SetPosition(resultPos);
+		fream->SetDrawLayer(1);
+		//freamTrans->SetPosition(resultPos);
 
+		auto playerNumPos = pos;
 		auto playerNumber = AddGameObject<BattlePlayersUIs>(L"BPsUIs", playerNum, Vec3(0));
 		auto playUIsTrans = playerNumber->GetComponent<Transform>();
-		resultPos.y -= 50.0f;
-		playUIsTrans->SetPosition(resultPos);
+		playerNumPos.x -= 120.0f;
+		playerNumPos.y += 30.0f;
+		playUIsTrans->SetPosition(playerNumPos);
 		playUIsTrans->SetScale(Vec3(0.4f));
+		playerNumber->SetDrawLayer(2);
 
-		resultPos.x += 120.0f;
-		resultPos.y += 25.0f;
-		m_score = AddGameObject<ResultScore>(score, resultPos);
-		m_score->SetDrawLayer(1);
+
+		auto scorePos = pos;
+		scorePos.x += 0.0f;
+		scorePos.y += 40.0f;
+		m_score = AddGameObject<ResultScore>(score, scorePos);
+		m_score->SetDrawLayer(2);
 	}
 
 	void ResultStage::PlayersResult() {
@@ -91,30 +96,41 @@ namespace basecross {
 			default:
 				break;
 			}
-			Debug::GetInstance()->Log(str);
-			Debug::GetInstance()->Log(player->GetCountKilledPlayer());
-			AddResultSprites(Vec3(390 + addVec, 260 + setPosY, 0), m_playersNumber, m_playersScore);
-			setPosY -= 160;
+
+			//Debug::GetInstance()->Log(str);
+			//Debug::GetInstance()->Log(player->GetCountKilledPlayer());
+
+			AddResultSprites(Vec3(330 + addVec, 250 + setPosY, 0), m_playersNumber, m_playersScore);
+			addVec += 10;
+			setPosY -= 170;
 			if (i > 0) {
 				m_playerTop = m_playersNumber;
 				m_playerTopScore = m_playersScore;
 			}
-			else {
-				if (player->GetCountKilledPlayer() > m_playerTopScore) {
+			else if (player->GetCountKilledPlayer() > m_playerTopScore) {
 					m_playerTop = m_playersNumber;
 					m_playerTopScore = m_playersScore;
-				}
 			}
 		}
 	}
 
 	void ResultStage::WinnerPlayer() {
 		PlayersResult();
-		auto Player1 = AddGameObject<ManualPlayer>(TransformData(Vec3(0), Vec3(1), Vec3(0, 0, 1)), PlayerNumber::P1);
-		Player1->GetComponent<Gravity>()->SetGravityZero();
-		auto PlayerPos = Player1->GetComponent<Transform>()->GetPosition();
+		auto player = PlayerNumber::P1;
+		if (m_playerTop == 2) {
+			player = PlayerNumber::P2;
+		}
+		else if (m_playerTop == 3) {
+			player = PlayerNumber::P3;
+		}
+		else if (m_playerTop == 4) {
+			player = PlayerNumber::P4;
+		}
+		auto topPlayer = AddGameObject<ManualPlayer>(TransformData(Vec3(0), Vec3(1), Vec3(0, 0, 1)), player);
+		topPlayer->GetComponent<Gravity>()->SetGravityZero();
+		auto PlayerPos = topPlayer->GetComponent<Transform>()->GetPosition();
 
-		auto Laser = AddGameObject<SpecialLaser>(Player1, Vec3(0, 0, 0), Vec3(0, 0, 0));
+		AddGameObject<SpecialLaser>(topPlayer, Vec3(0, 0, 0), Vec3(0, 0, 0));
 
 		AddGameObject<Block>(TransformData(Vec3(0, -1, 0), Vec3(100, 1, 100)));
 	}

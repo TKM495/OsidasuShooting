@@ -1,6 +1,6 @@
 /*!
 @file CharaSelectUISprites.cpp
-@brief キャラクターセレクトのUIの実体
+@brief キャラクターセレクト画面のUIの実体
 */
 
 #include "stdafx.h"
@@ -8,7 +8,8 @@
 
 namespace basecross
 {
-	void CharacterIcon::OnCreate() {
+	// 板ポリを作る
+	void CharacterIcon::CreateSprite() {
 		//texture 256 x 256
 		float sideSize = 256.0f; //fullSideSize、全体の横の長さ
 		float highSize = -256.0f;
@@ -39,15 +40,20 @@ namespace basecross
 
 		// 位置、拡大縮小
 		auto ptrTrans = GetComponent<Transform>();
-		m_defIconSize = oneSize * tqatSize;
-		Vec3 scl(m_defIconSize, m_defIconSize, oneSize);
+		auto iconSize = oneSize * tqatSize;
+		Vec3 scl(iconSize, iconSize, oneSize);
 		ptrTrans->SetScale(scl);
-		Debug::GetInstance()->Log(ptrTrans->GetPosition());
+
 	}
 
+	void CharacterIcon::OnCreate() {
+		CreateSprite();
+	}
+
+	// スティック、方向パッドでアイコンが変わるようにする
 	void CharacterIcon::CharacterSelecting() {
 
-		const auto& ctrlVec = App::GetApp()->GetInputDevice().GetControlerVec()[0];
+		const auto& ctrlVec = App::GetApp()->GetInputDevice().GetControlerVec()[m_gamePadID];
 		auto ctrlX = 0.0f;
 		if (ctrlVec.bConnected) {
 			ctrlX = ctrlVec.fThumbLX;
@@ -86,26 +92,101 @@ namespace basecross
 		}
 		else if (!moveLeft && !moveRight) {
 			m_isSetStick = false;
-		}
+		}	
+	}
 
-		//Debug::GetInstance()->Log(m_characterId);
+	// 表示するアイコン
+	void CharacterIcon::IconsDraw() {
+
+		auto ptrTrans = GetComponent<Transform>();
+		auto iconPos = ptrTrans->GetPosition();
+		auto rot = ptrTrans->GetScale();
+		auto iconSenterPos = -128;
+
+		auto pp1 = -414.0f;
+		auto pp2 =  226.0f;
+
+		auto draw1 = iconPos.x == pp1;
+		auto draw2 = iconPos.x == pp2;
+
+		if (draw1 || draw2) {
+			SetDrawActive(true);
+		}
+		else {
+			SetDrawActive(false);
+		}
 	}
 
 	void CharacterIcon::OnUpdate() {
+
 		CharacterSelecting();
+		IconsDraw();
+	}
 
-		auto ptrTrans = GetComponent<Transform>();
-		auto pos = ptrTrans->GetPosition();
-		auto rot = ptrTrans->GetScale();
-		auto iconSenterPos = -128;
-		if (pos.x >= iconSenterPos + m_movePos * 2 ||
-			pos.x <= iconSenterPos - m_movePos * 2) {
-			SetDrawActive(false);
+
+	void SelectTriangle::OnCreate() {
+		CharacterIcon::CreateSprite();
+
+	}
+
+	void SelectTriangle::OnUpdate() {
+		if (!m_setDefPos) {
+			m_defPos = GetComponent<Transform>()->GetPosition().x;
+			m_setDefPos = true;
 		}
-		else {
-			SetDrawActive(true);
+
+		if (m_isInversion)
+		{
+			auto ptrTrans = GetComponent<Transform>();
+		}
+		CharacterSelecting();
+	}
+
+	void SelectTriangle::CharacterSelecting() {
+
+		const auto& ctrlVec = App::GetApp()->GetInputDevice().GetControlerVec()[m_gamePadID];
+		auto ctrlX = 0.0f;
+		if (ctrlVec.bConnected) {
+			ctrlX = ctrlVec.fThumbLX;
 		}
 
+		auto trans = GetComponent<Transform>();
+		auto transPos = trans->GetPosition();
+		auto moveLeft = ctrlX <= -1.0f || ctrlVec.wPressedButtons & XINPUT_GAMEPAD_DPAD_LEFT;
+		auto moveRight = ctrlX >= 1.0f || ctrlVec.wPressedButtons & XINPUT_GAMEPAD_DPAD_RIGHT;
+		if (!m_isSetStick) {
+			// 左へ
+			if (!m_isInversion && moveLeft) {
+				auto move = m_defPos - m_movePos;
+				transPos.x = move;
+				m_isSetStick = true;
+			}
+			// 右へ
+			else if (m_isInversion && moveRight) {
+				auto move = m_defPos + m_movePos;
+				transPos.x = move;
+				m_isSetStick = true;
+			}
+		}
+		else if (!moveLeft && !moveRight) {
+			m_isSetStick = false;
+		}
 
+		if (transPos.x != m_defPos)
+		{
+			if (!m_isInversion) {
+				transPos.x += 1;
+				if (m_defPos <= transPos.x) {
+					transPos.x = m_defPos;
+				}
+			}
+			else {
+				if (m_defPos >= transPos.x) {
+					transPos.x = m_defPos;
+				}
+				transPos.x -= 1;
+			}
+		}
+		trans->SetPosition(transPos);
 	}
 }
