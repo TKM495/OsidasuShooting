@@ -8,6 +8,25 @@
 
 namespace basecross {
 	void PlayerBase::OnCreate() {
+		// XMLのデータを取得
+		auto xmlData = XMLLoad::GetInstance()->GetData(L"PlayerStatus");
+		auto node = xmlData->GetSelectSingleNode(L"Player/PlayerColor");
+		if (!node) {
+			throw BaseException(
+				L"Player/PlayerColorが見つかりません",
+				L"if (!node)",
+				L"PlayerBase::OnCreate()"
+			);
+		}
+		// プレイヤーの色情報を取得
+		wstring data = XmlDocReader::GetText(node);
+		// 4プレイヤー分の色を空白で4つのデータに分ける
+		auto colorStr = DataExtracter::DelimitData(data, L' ');
+		// 自身のプレイヤー番号に応じた色データをRGBAに分類
+		auto color = DataExtracter::DelimitData(colorStr[(UINT)m_playerNumber]);
+		// 分類したものをCol4に変換
+		m_color = DataExtracter::ColorDataExtraction(color);
+
 		// プレイヤーのモデルを追加
 		InstantiateGameObject<PlayerModel>(GetThis<PlayerBase>(), m_transformData);
 
@@ -74,10 +93,14 @@ namespace basecross {
 		auto physicalComp = GetComponent<PhysicalBehavior>();
 		physicalComp->Move(m_inputData.MoveDirection, m_moveSpeed);
 		auto efkComp = GetComponent<EfkComponent>();
+
+		// 移動していて接地している場合
 		if (m_inputData.MoveDirection != Vec3(0.0f) &&
-			m_smokeTimer.Count()) {
-			efkComp->Play(L"Smoke");
-			m_smokeTimer.Reset();
+			m_groundingDecision.Calculate(GetTransform()->GetPosition())) {
+			if (m_smokeTimer.Count()) {
+				efkComp->Play(L"Smoke");
+				m_smokeTimer.Reset();
+			}
 		}
 	}
 

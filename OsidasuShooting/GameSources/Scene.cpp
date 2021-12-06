@@ -47,10 +47,14 @@ namespace basecross {
 
 			auto dir = app->GetDataDirWString();
 			// CSVファイル
-			auto path = dir + L"Csv/";
+			auto path = dir + L"CSV/";
 			CSVLoad::GetInstance()->RegisterFile(L"test", path + L"StringSprite.csv");
 			CSVLoad::GetInstance()->RegisterFile(L"PlayerInfo", path + L"PlayerInfo.csv");
 			CSVLoad::GetInstance()->RegisterFile(L"PlayerFollowUI", path + L"PlayerFollowUI.csv");
+
+			//XMLファイル
+			path = dir + L"XML/";
+			XMLLoad::GetInstance()->RegisterFile(L"PlayerStatus", path + L"PlayerStatus.xml");
 
 			// モデル
 			path = dir + L"Models/";

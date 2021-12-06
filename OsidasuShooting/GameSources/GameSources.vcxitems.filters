@@ -145,9 +145,6 @@
     <Filter Include="Utility\BaseSingleton">
       <UniqueIdentifier>{ceb7806d-c494-437b-a221-eb7a4db6c0c2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Utility\DataExtracted">
-      <UniqueIdentifier>{e3644973-ff3b-443b-a71b-4a0d596efa32}</UniqueIdentifier>
-    </Filter>
     <Filter Include="UI\CurrentFirst">
       <UniqueIdentifier>{569781e7-47e0-407f-a42d-311bda4d21c3}</UniqueIdentifier>
     </Filter>
@@ -304,12 +301,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\AdvancedGameObject.cpp">
       <Filter>StageObject</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\BaseSingleton.cpp">
-      <Filter>Utility\BaseSingleton</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\DataExtracted.cpp">
-      <Filter>Utility\DataExtracted</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Area.cpp">
       <Filter>StageObject\JonyMd</Filter>
     </ClCompile>
@@ -351,6 +342,12 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\AdvancedMeshUtil.cpp">
       <Filter>Utility\AdvancedMeshUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\XMLLoad.cpp">
+      <Filter>Utility\XMLLoad</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Manager\PlayerBuilder.cpp">
+      <Filter>Manager\PlayerManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -518,8 +515,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\BaseSingleton.h">
       <Filter>Utility\BaseSingleton</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\DataExtracted.h">
-      <Filter>Utility\DataExtracted</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\DataExtracter.h">
+      <Filter>Utility\DataExtracter</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Area.h">
       <Filter>StageObject\JonyMd</Filter>
@@ -562,6 +559,12 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\AdvancedMeshUtil.h">
       <Filter>Utility\AdvancedMeshUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\XMLLoad.h">
+      <Filter>Utility\XMLLoad</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Manager\PlayerBuilder.h">
+      <Filter>Manager\PlayerManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -789,9 +792,6 @@
     <Filter Include="StageObject\Bullet">
       <UniqueIdentifier>{19751d65-f1d8-4c81-b147-55380dbdaedc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="StageObject\JonyMd">
-      <UniqueIdentifier>{48fc7ecf-3fe5-4de3-8c5b-6f2b0a0e1b58}</UniqueIdentifier>
-    </Filter>
     <Filter Include="StageObject\Bomb">
       <UniqueIdentifier>{6fe3fda3-fdff-44b1-8801-4350ebabd2d8}</UniqueIdentifier>
     </Filter>
@@ -803,6 +803,15 @@
     </Filter>
     <Filter Include="Utility\AdvancedMeshUtil">
       <UniqueIdentifier>{940a6c39-6a32-4322-9f1c-56e83f764aa5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StageObject\JonyMd">
+      <UniqueIdentifier>{48fc7ecf-3fe5-4de3-8c5b-6f2b0a0e1b58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\XMLLoad">
+      <UniqueIdentifier>{6d062646-cd8a-47b1-a7c7-a50a24930b5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\DataExtracter">
+      <UniqueIdentifier>{e3644973-ff3b-443b-a71b-4a0d596efa32}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

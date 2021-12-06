@@ -21,11 +21,13 @@
 #include "Effekseer/EfkEffect.h"
 #include "Utility/BaseSingleton.h"
 #include "Utility/CSVLoad.h"
+#include "Utility/XMLLoad.h"
 #include "Utility/GroundingDecision.h"
 #include "Utility/PredictionLine.h"
 #include "Utility/TimeCounter.h"
 #include "Utility/Utility.h"
 #include "Utility/AdvancedMeshUtil.h"
+#include "Utility/DataExtracter.h"
 // ステージオブジェクト
 #include "SpecialCamera/SpCamera.h"
 #include "StageObject/AdvancedGameObject.h"
@@ -70,6 +72,7 @@
 #include "Manager/ControllerManager.h"
 #include "Manager/PlayerManager.h"
 #include "Manager/SoundManager.h"
+#include "Manager/PlayerBuilder.h"
 
 #include "JonyMd/Area.h"
 #include "JonyMd/CountDown.h"

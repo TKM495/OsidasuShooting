@@ -7,6 +7,7 @@ namespace basecross {
 		auto drawComp = AddComponent<PNTStaticModelDraw>();
 		drawComp->SetMultiMeshResource(L"Player");
 		drawComp->SetOwnShadowActive(true);
+		drawComp->SetDiffuse(m_owner->GetColor());
 
 		// ‰e‚Ì’Ç‰Á
 		auto shadowComp = AddComponent<Shadowmap>();
