@@ -93,10 +93,14 @@ namespace basecross {
 		auto physicalComp = GetComponent<PhysicalBehavior>();
 		physicalComp->Move(m_inputData.MoveDirection, m_moveSpeed);
 		auto efkComp = GetComponent<EfkComponent>();
+
+		// ˆÚ“®‚µ‚Ä‚¢‚ÄÚ’n‚µ‚Ä‚¢‚éê‡
 		if (m_inputData.MoveDirection != Vec3(0.0f) &&
-			m_smokeTimer.Count()) {
-			efkComp->Play(L"Smoke");
-			m_smokeTimer.Reset();
+			m_groundingDecision.Calculate(GetTransform()->GetPosition())) {
+			if (m_smokeTimer.Count()) {
+				efkComp->Play(L"Smoke");
+				m_smokeTimer.Reset();
+			}
 		}
 	}
 

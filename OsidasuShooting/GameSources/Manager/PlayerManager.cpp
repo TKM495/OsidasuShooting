@@ -28,7 +28,9 @@ namespace basecross {
 	}
 
 	vector<shared_ptr<PlayerBase>> PlayerManager::GetSortedAllPlayer()const {
+		// stable_sortは破壊ソートなのでコピー
 		auto players = m_players;
+		// ソート
 		stable_sort(players.begin(), players.end(),
 			[](const shared_ptr<PlayerBase>& x, const shared_ptr<PlayerBase>& y) {
 				// キルカウントが同じ場合死んだ回数が少ないほうが上になるようにする
