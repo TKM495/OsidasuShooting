@@ -26,6 +26,8 @@ namespace basecross {
 		auto color = DataExtracter::DelimitData(colorStr[(UINT)m_playerNumber]);
 		// 分類したものをCol4に変換
 		m_color = DataExtracter::ColorDataExtraction(color);
+		// 0～1に変換
+		m_color = Utility::ConvertColorZeroToOne(m_color);
 
 		// プレイヤーのモデルを追加
 		InstantiateGameObject<PlayerModel>(GetThis<PlayerBase>(), m_transformData);
@@ -120,12 +122,12 @@ namespace basecross {
 		}
 		GetComponent<Gravity>()->SetGravityVerocityZero();
 		m_currentHoverTime -= App::GetApp()->GetElapsedTime();
-		SoundManager::GetInstance()->Play(L"Hover");
 
 		// ホバーエフェクト
 		auto efkComp = GetComponent<EfkComponent>();
 		if (!efkComp->IsPlaying(L"Hover")) {
 			efkComp->Play(L"Hover");
+			//SoundManager::GetInstance()->Play(L"Hover");
 		}
 		else {
 			efkComp->SyncPosition(L"Hover");

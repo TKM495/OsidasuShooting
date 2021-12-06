@@ -129,7 +129,7 @@ namespace basecross {
 
 		// 以下制作用ステージ
 		else if (event->m_MsgStr == L"ToWatanabeStage") {
-			ResetActiveStage<WatanabeStage2>();
+			ResetActiveStage<WatanabeStage>();
 		}
 		else if (event->m_MsgStr == L"ToSatoStage") {
 			ResetActiveStage<SatoStage>();
