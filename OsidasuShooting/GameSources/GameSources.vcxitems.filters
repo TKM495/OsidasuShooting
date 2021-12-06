@@ -265,9 +265,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\MySpriteBaseDraw.cpp">
       <Filter>Component\MySpriteBaseDraw</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.cpp">
-      <Filter>UI</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\PCTGaugeSprite.cpp">
       <Filter>Component\PCTGaugeSprite</Filter>
     </ClCompile>
@@ -365,8 +362,18 @@
       <Filter>UI\Result</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\StageObject.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUISprites.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\FreamSprite.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUISprites.cpp">
+      <Filter>UI\CharaSelectUISprite</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.cpp">
+      <Filter>UI\NumberSprite</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\FreamSprite.cpp">
+      <Filter>UI\Fream</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)CharaSelectUILetter.cpp">
+      <Filter>UI\CharaSelectUISprite</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -491,9 +498,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BattlePlayersUIs.h">
       <Filter>UI\BattlePlayersUIs</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.h">
-      <Filter>UI</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\FallDecision.h">
       <Filter>StageObject\FallDecision</Filter>
     </ClInclude>
@@ -570,8 +574,18 @@
       <Filter>UI\Result</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\StageObject.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUISprites.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\FreamSprite.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUISprites.h">
+      <Filter>UI\CharaSelectUISprite</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.h">
+      <Filter>UI\NumberSprite</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\FreamSprite.h">
+      <Filter>UI\Fream</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)CharaSelectUILetter.h">
+      <Filter>UI\CharaSelectUISprite</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
@@ -788,6 +802,15 @@
     </Filter>
     <Filter Include="UI\CharacterSelectUI">
       <UniqueIdentifier>{a2234d37-9d2e-4a31-af89-2d6323c8f72b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\CharaSelectUISprite">
+      <UniqueIdentifier>{9699d9ed-563d-4058-8935-9c33a0754a80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\NumberSprite">
+      <UniqueIdentifier>{6c82f13a-036c-4f19-948f-eaaf04244e3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Fream">
+      <UniqueIdentifier>{f446c278-b51a-466b-8cfe-c94780ff1f11}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

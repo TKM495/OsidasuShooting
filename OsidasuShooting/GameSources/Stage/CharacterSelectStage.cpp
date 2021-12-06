@@ -36,7 +36,7 @@ namespace basecross {
 	// アイコン設置
 	void CharacterSelectStage::PlayerCharacterSelect(Vec3 pos, int gamePadID) {
 
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 3; i++) {
 			auto icons = AddGameObject<CharacterIcon>(m_charaName[i], gamePadID, m_shiftMovePos, pos);
 			auto iconTrans = icons->GetComponent<Transform>();
 
@@ -44,6 +44,7 @@ namespace basecross {
 
 			iconTrans->SetPosition(pos + Vec3(posSet, m_posOffsetY, 0));
 			icons->SetDrawLayer(1);
+			Debug::GetInstance()->Log(iconTrans->GetPosition().x);
 		}
 	}
 
@@ -102,7 +103,7 @@ namespace basecross {
 		m_charaName[0] = (L"LaserIcon");
 		m_charaName[1] = (L"MissileIcon");
 		m_charaName[2] = (L"3WayIcon");
-		m_charaName[3] = (L"MissileIcon");
+		//m_charaName[3] = (L"MissileIcon");
 
 	}
 

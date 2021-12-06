@@ -103,8 +103,8 @@ namespace basecross
 		auto rot = ptrTrans->GetScale();
 		auto iconSenterPos = -128;
 
-		auto pp1 = -414.0f;
-		auto pp2 =  226.0f;
+		auto pp1 = -394.0f;
+		auto pp2 =  206.0f;
 
 		auto draw1 = iconPos.x == pp1;
 		auto draw2 = iconPos.x == pp2;

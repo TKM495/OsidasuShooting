@@ -11,8 +11,7 @@ namespace basecross
 	enum class characters {
 		Laser,
 		Missile,
-		char3,
-		char4
+		char3
 	};
 
 	class CharacterIcon : public GameObject {
@@ -38,7 +37,7 @@ namespace basecross
 		) :
 			GameObject(stage),
 			m_textureKey(textureKey),
-			m_enumLength(3),
+			m_enumLength(2),
 			m_characterId(0),
 			m_movePos(iconShift),
 			m_isSetStick(false),

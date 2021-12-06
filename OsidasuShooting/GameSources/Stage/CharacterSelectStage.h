@@ -7,7 +7,7 @@ namespace basecross {
 		// ƒrƒ…[‚Ìì¬
 		void CreateViewLight();
 
-		wstring m_charaName[4];
+		wstring m_charaName[3];
 		
 		float m_posOffsetX;
 		float m_posOffsetY;
