@@ -371,7 +371,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\FreamSprite.cpp">
       <Filter>UI\Fream</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)CharaSelectUILetter.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUILetter.cpp">
       <Filter>UI\CharaSelectUISprite</Filter>
     </ClCompile>
   </ItemGroup>
@@ -583,7 +583,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\FreamSprite.h">
       <Filter>UI\Fream</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)CharaSelectUILetter.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUILetter.h">
       <Filter>UI\CharaSelectUISprite</Filter>
     </ClInclude>
   </ItemGroup>

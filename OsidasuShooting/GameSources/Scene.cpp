@@ -13,16 +13,24 @@ namespace basecross {
 
 		wstring tpath = app->GetDataDirWString() + L"Sprite/";
 
-		app->RegisterTexture(L"Title", tpath + L"Title.png");
-		app->RegisterTexture(L"PushAButton", tpath + L"PushAButton.png");
+		app->RegisterTexture(L"AButton", tpath + L"AButton.png");
+		app->RegisterTexture(L"BButton", tpath + L"BButton.png");
+		app->RegisterTexture(L"Cancel", tpath + L"Cancel.png");
+		app->RegisterTexture(L"Decision", tpath + L"Decision.png");
 		app->RegisterTexture(L"Fream", tpath + L"Fream.png");
+		app->RegisterTexture(L"OK", tpath + L"OK.png");
+		app->RegisterTexture(L"PushAButton", tpath + L"PushAButton.png");
+		app->RegisterTexture(L"Title", tpath + L"Title.png");
 
 		app->RegisterTexture(L"3WayIcon", tpath + L"3WayIcon.png");
 		app->RegisterTexture(L"LaserIcon", tpath + L"LaserIcon.png");
 		app->RegisterTexture(L"MissileIcon", tpath + L"MissileIcon.png");
 
+		app->RegisterTexture(L"CharacterSelect", tpath + L"CharacterSelect.png");
 		app->RegisterTexture(L"ReTriangle", tpath + L"ReTriangle.png");
 		app->RegisterTexture(L"Triangle", tpath + L"Triangle.png");
+		
+		app->RegisterTexture(L"ReadyToFight", tpath + L"ReadyToFight.png");
 
 		app->RegisterTexture(L"Number", tpath + L"Number.png");
 		app->RegisterTexture(L"BPsUIs", tpath + L"BattlePlayersUI256x256.png");

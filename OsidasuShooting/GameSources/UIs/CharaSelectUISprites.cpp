@@ -22,9 +22,9 @@ namespace basecross
 		Col4 col = { 1.0f,1.0f,1.0f,1.0f };
 		vector<VertexPositionColorTexture> vertices = {
 			{Vec3(zeroSize, zeroSize, zeroSize),col,Vec2(zeroSize,zeroSize)},
-			{Vec3(sideSize, zeroSize, zeroSize),col,Vec2(oneSize,zeroSize)},
+			{Vec3(sideSize, zeroSize, zeroSize),col,Vec2( oneSize,zeroSize)},
 			{Vec3(zeroSize, highSize, zeroSize),col,Vec2(zeroSize, oneSize)},
-			{Vec3(sideSize, highSize, zeroSize),col,Vec2(oneSize, oneSize)}
+			{Vec3(sideSize, highSize, zeroSize),col,Vec2( oneSize, oneSize)}
 		};
 
 		vector<uint16_t> indeces = {
