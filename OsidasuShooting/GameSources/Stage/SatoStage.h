@@ -23,7 +23,7 @@ namespace basecross {
 		virtual void OnUpdate() override;
 		
 		void AddWinnerSprite();
-		void AddResultDataSprite(Vec3 pos, int playerNum, int score);
+		void AddResultSprites(Vec3 pos, int playerNum, int score);
 
 		void JMDSeitchSystem()
 		{

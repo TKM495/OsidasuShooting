@@ -1,6 +1,6 @@
 /*!
 @file   ResultStage.cpp
-@brief  ƒŠƒUƒ‹ƒgƒXƒe[ƒWÀ‘Ì
+@brief  ãƒªã‚¶ãƒ«ãƒˆã‚¹ãƒ†ãƒ¼ã‚¸å®Ÿä½“
 */
 
 #include "stdafx.h"
@@ -13,14 +13,14 @@ namespace basecross {
 		const Vec3 eye(0.0f, 0.0f, -4.0f);
 		const Vec3 at(0.5f, 0.0f, -2.0f);
 		auto PtrView = CreateView<SingleView>();
-		//ƒrƒ…[‚ÌƒJƒƒ‰‚Ìİ’è
+		//ãƒ“ãƒ¥ãƒ¼ã®ã‚«ãƒ¡ãƒ©ã®è¨­å®š
 		auto PtrCamera = ObjectFactory::Create<Camera>();
 		PtrView->SetCamera(PtrCamera);
 		PtrCamera->SetEye(eye);
 		PtrCamera->SetAt(at);
-		//ƒ}ƒ‹ƒ`ƒ‰ƒCƒg‚Ìì¬
+		//ãƒãƒ«ãƒãƒ©ã‚¤ãƒˆã®ä½œæˆ
 		auto PtrMultiLight = CreateLight<MultiLight>();
-		//ƒfƒtƒHƒ‹ƒg‚Ìƒ‰ƒCƒeƒBƒ“ƒO‚ğw’è
+		//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®ãƒ©ã‚¤ãƒ†ã‚£ãƒ³ã‚°ã‚’æŒ‡å®š
 		PtrMultiLight->SetDefaultLighting();
 	}
 
@@ -36,24 +36,29 @@ namespace basecross {
 		playUIsTrans->SetScale(Vec3(1.1f));
 	}
 
-	void ResultStage::AddResultDataSprite(Vec3 pos, int playerNum, int score)
+	void ResultStage::AddResultSprites(Vec3 pos, int playerNum, int score)
 	{
-		auto fream = AddGameObject<ResultFreamSprite>(L"ResultFream");
+		auto fream = AddGameObject<FreamSprite>(L"Fream",pos,1.2f);
 		auto freamTrans = fream->GetComponent<Transform>();
 		auto freamPos = freamTrans->GetPosition();
-		auto resultPos = freamPos + pos;
-		freamTrans->SetPosition(resultPos);
+		fream->SetDrawLayer(1);
+		//freamTrans->SetPosition(resultPos);
 
+		auto playerNumPos = pos;
 		auto playerNumber = AddGameObject<BattlePlayersUIs>(L"BPsUIs", playerNum, Vec3(0));
 		auto playUIsTrans = playerNumber->GetComponent<Transform>();
-		resultPos.y -= 50.0f;
-		playUIsTrans->SetPosition(resultPos);
+		playerNumPos.x -= 120.0f;
+		playerNumPos.y += 30.0f;
+		playUIsTrans->SetPosition(playerNumPos);
 		playUIsTrans->SetScale(Vec3(0.4f));
+		playerNumber->SetDrawLayer(2);
 
-		resultPos.x += 120.0f;
-		resultPos.y += 25.0f;
-		m_score = AddGameObject<ResultScore>(score, resultPos);
-		m_score->SetDrawLayer(1);
+
+		auto scorePos = pos;
+		scorePos.x += 0.0f;
+		scorePos.y += 40.0f;
+		m_score = AddGameObject<ResultScore>(score, scorePos);
+		m_score->SetDrawLayer(2);
 	}
 
 	void ResultStage::PlayersResult() {
@@ -89,41 +94,53 @@ namespace basecross {
 			default:
 				break;
 			}
-			Debug::GetInstance()->Log(str);
-			Debug::GetInstance()->Log(player->GetCountKilledPlayer());
-			// ŠeƒvƒŒƒCƒ„[‚Ìî•ñ‚ğ•\¦
-			AddResultDataSprite(Vec3(390 + addVec, 260 + setPosY, 0), (UINT)m_playersNumber + 1, m_playersScore);
-			setPosY -= 160;
+
+			//Debug::GetInstance()->Log(str);
+			//Debug::GetInstance()->Log(player->GetCountKilledPlayer());
+
+			AddResultSprites(Vec3(330 + addVec, 250 + setPosY, 0), (UINT)m_playersNumber + 1, m_playersScore);
+			addVec += 10;
+			setPosY -= 170;
+
 			if (i > 0) {
 				m_playerTop = m_playersNumber;
 				m_playerTopScore = m_playersScore;
 			}
-			else {
-				if (player->GetCountKilledPlayer() > m_playerTopScore) {
+			else if (player->GetCountKilledPlayer() > m_playerTopScore) {
 					m_playerTop = m_playersNumber;
 					m_playerTopScore = m_playersScore;
-				}
 			}
 			i++;
 		}
-		// ƒgƒbƒv‚ÌƒvƒŒƒCƒ„[
+		// ãƒˆãƒƒãƒ—ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
 		m_playerTop = allPlayer[0]->GetPlayerNumber();
 	}
 
 	void ResultStage::WinnerPlayer() {
-		auto Player1 = AddGameObject<ResultPlayer>(
-			TransformData(Vec3(0.0f, 1.0f, 0.0f), Vec3(1), Vec3(0, XMConvertToRadians(-90.0f), 0)),
-			m_playerTop);
-		//Player1->GetComponent<Gravity>()->SetGravityZero();
-		//auto PlayerPos = Player1->GetComponent<Transform>()->GetPosition();
-		//auto Laser = AddGameObject<SpecialLaser>(Player1, Vec3(0, 0, 0), Vec3(0, 0, 0));
+		PlayersResult();
+		auto player = PlayerNumber::P1;
+		if (m_playerTop == 2) {
+			player = PlayerNumber::P2;
+		}
+		else if (m_playerTop == 3) {
+			player = PlayerNumber::P3;
+		}
+		else if (m_playerTop == 4) {
+			player = PlayerNumber::P4;
+		}
+		auto topPlayer = AddGameObject<ResultPlayer>(
+      TransformData(Vec3(0.0f, 1.0f, 0.0f), Vec3(1), Vec3(0, XMConvertToRadians(-90.0f), 0), player);
+		topPlayer->GetComponent<Gravity>()->SetGravityZero();
+		auto PlayerPos = topPlayer->GetComponent<Transform>()->GetPosition();
+
+		AddGameObject<SpecialLaser>(topPlayer, Vec3(0, 0, 0), Vec3(0, 0, 0));
 
 		AddGameObject<Block>(TransformData(Vec3(0, -1, 0), Vec3(100, 1, 100)));
 	}
 
 	void ResultStage::OnCreate() {
 		try {
-			//ƒrƒ…[‚Æƒ‰ƒCƒg‚Ìì¬
+			//ãƒ“ãƒ¥ãƒ¼ã¨ãƒ©ã‚¤ãƒˆã®ä½œæˆ
 			CreateViewLight();
 			AddGameObject<Debug>();
 			Debug::GetInstance()->Log(L"CurrentStage : ResultStage");
@@ -135,8 +152,8 @@ namespace basecross {
 
 			AddWinnerSprite((UINT)m_playerTop + 1);
 
-			Debug::GetInstance()->Log(L"Button A ¨ Game");
-			Debug::GetInstance()->Log(L"Button B ¨ Title");
+			Debug::GetInstance()->Log(L"Button A â†’ Game");
+			Debug::GetInstance()->Log(L"Button B â†’ Title");
 
 			SoundManager::GetInstance()->Play(L"ResultBGM");
 		}

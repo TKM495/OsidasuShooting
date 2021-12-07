@@ -1,23 +1,62 @@
 /*!
 @file Scene.cpp
-@brief ƒV[ƒ“À‘Ì
+@brief ã‚·ãƒ¼ãƒ³å®Ÿä½“
 */
 
 #include "stdafx.h"
 #include "Project.h"
 
 namespace basecross {
+	void Scene::GetAppTexture()
+	{
+		auto& app = App::GetApp();
+
+		wstring tpath = app->GetDataDirWString() + L"Sprite/";
+
+		app->RegisterTexture(L"AButton", tpath + L"AButton.png");
+		app->RegisterTexture(L"BButton", tpath + L"BButton.png");
+		app->RegisterTexture(L"Cancel", tpath + L"Cancel.png");
+		app->RegisterTexture(L"Decision", tpath + L"Decision.png");
+		app->RegisterTexture(L"Fream", tpath + L"Fream.png");
+		app->RegisterTexture(L"OK", tpath + L"OK.png");
+		app->RegisterTexture(L"PushAButton", tpath + L"PushAButton.png");
+		app->RegisterTexture(L"Title", tpath + L"Title.png");
+
+		app->RegisterTexture(L"3WayIcon", tpath + L"3WayIcon.png");
+		app->RegisterTexture(L"LaserIcon", tpath + L"LaserIcon.png");
+		app->RegisterTexture(L"MissileIcon", tpath + L"MissileIcon.png");
+
+		app->RegisterTexture(L"CharacterSelect", tpath + L"CharacterSelect.png");
+		app->RegisterTexture(L"ReTriangle", tpath + L"ReTriangle.png");
+		app->RegisterTexture(L"Triangle", tpath + L"Triangle.png");
+		
+		app->RegisterTexture(L"ReadyToFight", tpath + L"ReadyToFight.png");
+
+		app->RegisterTexture(L"Number", tpath + L"Number.png");
+		app->RegisterTexture(L"BPsUIs", tpath + L"BattlePlayersUI256x256.png");
+		app->RegisterTexture(L"CircleGauge", tpath + L"CircleGauge.png");
+		app->RegisterTexture(L"BarGauge", tpath + L"BarGauge.png");
+		app->RegisterTexture(L"GaugeColor", tpath + L"GaugeColor.png");
+		app->RegisterTexture(L"Wall", tpath + L"wall.jpg");
+		app->RegisterTexture(L"Test", tpath + L"test.png");
+
+		app->RegisterTexture(L"Winner", tpath + L"Winner.png");
+		app->RegisterTexture(L"BombBack", tpath + L"BombBackGround.png");
+		app->RegisterTexture(L"GaugeBackGround", tpath + L"GaugeBackGround.png");
+		app->RegisterTexture(L"Gauge", tpath + L"Gauge.png");
+	}
+
 	//--------------------------------------------------------------------------------------
-	///	ƒQ[ƒ€ƒV[ƒ“
+	///	ã‚²ãƒ¼ãƒ ã‚·ãƒ¼ãƒ³
 	//--------------------------------------------------------------------------------------
 	void Scene::OnCreate() {
 		try {
-			//ƒNƒŠƒA‚·‚éF‚ğİ’è
+			//ã‚¯ãƒªã‚¢ã™ã‚‹è‰²ã‚’è¨­å®š
 			Col4 Col(30.0f, 30.0f, 30.0f, 1.0f);
 			SetClearColor(Utility::ConvertColorZeroToOne(Col));
 
-			//©•ª©g‚ÉƒCƒxƒ“ƒg‚ğ‘—‚é
-			//‚±‚ê‚É‚æ‚èŠeƒXƒe[ƒW‚âƒIƒuƒWƒFƒNƒg‚ªCreate‚ÉƒV[ƒ“‚ÉƒAƒNƒZƒX‚Å‚«‚é
+			//è‡ªåˆ†è‡ªèº«ã«ã‚¤ãƒ™ãƒ³ãƒˆã‚’é€ã‚‹
+			//ã“ã‚Œã«ã‚ˆã‚Šå„ã‚¹ãƒ†ãƒ¼ã‚¸ã‚„ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒCreateæ™‚ã«ã‚·ãƒ¼ãƒ³ã«ã‚¢ã‚¯ã‚»ã‚¹ã§ãã‚‹
 			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToLoadStage");
 		}
 		catch (...) {
@@ -32,35 +71,35 @@ namespace basecross {
 	}
 
 	void Scene::OnEvent(const shared_ptr<Event>& event) {
-		// ƒfƒoƒbƒOƒXƒe[ƒW
+		// ãƒ‡ãƒãƒƒã‚°ã‚¹ãƒ†ãƒ¼ã‚¸
 		if (event->m_MsgStr == L"ToDebugStage") {
 			ResetActiveStage<DebugStage>();
 		}
 		else if (event->m_MsgStr == L"ToLoadStage") {
 			ResetActiveStage<LoadStage>();
 		}
-		// ƒ^ƒCƒgƒ‹ƒXƒe[ƒW
+		// ã‚¿ã‚¤ãƒˆãƒ«ã‚¹ãƒ†ãƒ¼ã‚¸
 		else if (event->m_MsgStr == L"ToTitleStage") {
 			ResetActiveStage<TitleStage>();
 		}
-		// ƒLƒƒƒ‰ƒNƒ^[ƒZƒŒƒNƒgƒXƒe[ƒW
+		// ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã‚»ãƒ¬ã‚¯ãƒˆã‚¹ãƒ†ãƒ¼ã‚¸
 		else if (event->m_MsgStr == L"ToCharacterSelectStage") {
 			ResetActiveStage<CharacterSelectStage>();
 		}
-		// ƒQ[ƒ€ƒXƒe[ƒW
+		// ã‚²ãƒ¼ãƒ ã‚¹ãƒ†ãƒ¼ã‚¸
 		else if (event->m_MsgStr == L"ToGameStage") {
 			ResetActiveStage<GameStage>();
 		}
-		// ƒŠƒUƒ‹ƒgƒXƒe[ƒW
+		// ãƒªã‚¶ãƒ«ãƒˆã‚¹ãƒ†ãƒ¼ã‚¸
 		else if (event->m_MsgStr == L"ToResultStage") {
 			ResetActiveStage<ResultStage>();
 		}
-		// I—¹
+		// çµ‚äº†
 		else if (event->m_MsgStr == L"ToExit") {
 			PostQuitMessage(0);
 		}
 
-		// ˆÈ‰º§ì—pƒXƒe[ƒW
+		// ä»¥ä¸‹åˆ¶ä½œç”¨ã‚¹ãƒ†ãƒ¼ã‚¸
 		else if (event->m_MsgStr == L"ToWatanabeStage") {
 			ResetActiveStage<WatanabeStage>();
 		}

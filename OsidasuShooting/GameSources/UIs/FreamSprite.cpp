@@ -1,6 +1,6 @@
 /*!
-@file ResultSprite.cpp
-@brief リザルトで使うスプライトの実体
+@file FreamSprite.cpp
+@brief 枠の実体
 */
 
 #include "stdafx.h"
@@ -8,10 +8,10 @@
 
 namespace basecross {
 
-	void ResultWinnerSprite::OnCreate() {
-		//texture 512 x 256
-		float sideSize = 512.0f;
-		float highSize = -256.0f;
+	void FreamSprite::OnCreate() {
+		//texture 
+		float sideSize = 256.0f;
+		float highSize = -128.0f;
 		float zeroSize = 0.0f;
 		float oneSize = 1.0f;
 		float quatSize = 0.25f;
@@ -19,13 +19,12 @@ namespace basecross {
 		float tqatSize = 0.75f;
 
 		Col4 color(1.0f, 1.0f, 1.0f, 1.0f);
-
 		// ポリゴンの頂点データ
 		vector<VertexPositionColorTexture> vertices = {
 			{VertexPositionColorTexture(Vec3(zeroSize, zeroSize, zeroSize),color,Vec2(zeroSize, zeroSize))},
-			{VertexPositionColorTexture(Vec3(sideSize, zeroSize, zeroSize),color,Vec2( oneSize, zeroSize))},
+			{VertexPositionColorTexture(Vec3(sideSize, zeroSize, zeroSize),color,Vec2(oneSize, zeroSize))},
 			{VertexPositionColorTexture(Vec3(zeroSize, highSize, zeroSize),color,Vec2(zeroSize,  oneSize))},
-			{VertexPositionColorTexture(Vec3(sideSize, highSize, zeroSize),color,Vec2( oneSize,  oneSize))}
+			{VertexPositionColorTexture(Vec3(sideSize, highSize, zeroSize),color,Vec2(oneSize,  oneSize))}
 		};
 
 		// 頂点インデックス
@@ -43,10 +42,10 @@ namespace basecross {
 		// 位置、拡大縮小
 		auto ptrTrans = GetComponent<Transform>();
 		Vec3 senterPos(sideSize * helfSize, highSize * helfSize, 0);
-		Vec3 pos(-310,-220,0);
-		Vec3 scl(1);
-		ptrTrans->SetPosition(pos - senterPos);
-		ptrTrans->SetScale(scl);
+		Vec3 pos((-senterPos * m_varScale) + m_setPosition);
+		ptrTrans->SetPosition(pos);
+		ptrTrans->SetScale(Vec3(m_varScale));
 
 	}
+
 }

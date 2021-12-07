@@ -1,6 +1,6 @@
 /*!
 @file   ResultStage.h
-@brief  ���U���g�X�e�[�W
+@brief  リザルトステージ
 */
 
 #pragma once
@@ -10,7 +10,7 @@
 
 namespace basecross {
 	class ResultStage :public Stage {
-		// �r���[�̍쐬
+		// ビューの作成
 		void CreateViewLight();
 		wstring str;
 		PlayerNumber m_playersNumber;
@@ -42,7 +42,7 @@ namespace basecross {
 
 		void AddWinnwe();
 		void AddWinnerSprite(int player);
-		void AddResultDataSprite(Vec3 pos, int playerNum, int score);
-		void BattlePlayerUISet(int value) {};
+		void AddResultSprites(Vec3 pos, int playerNum, int score);
+		void BattlePlayerUISet(int value) {} ;
 	};
 }

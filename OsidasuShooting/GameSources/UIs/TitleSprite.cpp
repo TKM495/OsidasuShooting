@@ -22,10 +22,10 @@ namespace basecross
 
 		// ポリゴンの頂点データ
 		vector<VertexPositionColorTexture> vertices = {
-			{VertexPositionColorTexture(Vec3(zeroSize, zeroSize, zeroSize),color,Vec2(zeroSize, zeroSize))},
-			{VertexPositionColorTexture(Vec3(sideSize, zeroSize, zeroSize),color,Vec2( oneSize, zeroSize))},
-			{VertexPositionColorTexture(Vec3(zeroSize, highSize, zeroSize),color,Vec2(zeroSize,  oneSize))},
-			{VertexPositionColorTexture(Vec3(sideSize, highSize, zeroSize),color,Vec2( oneSize,  oneSize))}
+			{Vec3(zeroSize, zeroSize, zeroSize),color,Vec2(zeroSize, zeroSize)},
+			{Vec3(sideSize, zeroSize, zeroSize),color,Vec2( oneSize, zeroSize)},
+			{Vec3(zeroSize, highSize, zeroSize),color,Vec2(zeroSize,  oneSize)},
+			{Vec3(sideSize, highSize, zeroSize),color,Vec2( oneSize,  oneSize)}
 		};
 
 		// 頂点インデックス
