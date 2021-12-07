@@ -93,6 +93,7 @@ namespace basecross
 		ReadyToFightUI(const shared_ptr<Stage>& stage) : BaseSprite(stage)
 		{}
 		void OnCreate() override;
+		void OnUpdate() override;
 	};
 
 	// OK!�̉摜
