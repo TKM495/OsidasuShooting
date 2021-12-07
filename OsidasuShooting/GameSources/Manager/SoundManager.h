@@ -14,11 +14,18 @@ namespace basecross {
 		shared_ptr<XAudio2Manager> m_manager;
 		// デフォルトの音量
 		float m_defaultVolume;
+		// 音量の割合（1.0f = 100%）
+		float m_volumeRate;
+
+		/**
+		 * @brief 再生中か
+		 *
+		 * @param item 判定するアイテム
+		 * @return trueなら再生中
+		 */
+		bool IsPlaying(const shared_ptr<SoundItem>& item);
 	private: //シングルトン関係
-		SoundManager()
-			:m_manager(App::GetApp()->GetXAudio2Manager()),
-			m_defaultVolume(0.1f)
-		{}
+		SoundManager();
 		~SoundManager() {}
 		friend class BaseSingleton<SoundManager>;
 	public:

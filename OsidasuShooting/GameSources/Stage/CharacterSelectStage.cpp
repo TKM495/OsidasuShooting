@@ -26,7 +26,7 @@ namespace basecross {
 			Debug::GetInstance()->Log(L"A : GameStart");
 			Debug::GetInstance()->Log(L"B : ToTitle");
 
-			SoundManager::GetInstance()->Play(L"SelectBGM", XAUDIO2_LOOP_INFINITE, 0.05f);
+			SoundManager::GetInstance()->Play(L"SelectBGM", XAUDIO2_LOOP_INFINITE);
 		}
 		catch (...) {
 			throw;

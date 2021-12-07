@@ -46,7 +46,7 @@ namespace basecross {
 
 			AddTitleSprite();
 			AddPushAButtonSprite();
-			SoundManager::GetInstance()->Play(L"TitleBGM", XAUDIO2_LOOP_INFINITE, 0.05f);
+			SoundManager::GetInstance()->Play(L"TitleBGM", XAUDIO2_LOOP_INFINITE);
 		}
 		catch (...) {
 			throw;
