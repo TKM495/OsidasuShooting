@@ -5,7 +5,8 @@ namespace basecross {
 	void StartCountDown::OnCreate() {
 		m_number = ObjectFactory::Create<Number>(GetStage(), 3);
 		m_number->GetTransform()->SetPosition(m_offsetPos);
-		m_startSprite = ObjectFactory::Create<SimpleSprite>(GetStage(), L"Start");
+		m_startSprite = ObjectFactory::Create<SimpleSprite>(
+			GetStage(), L"Start", TransformData(Vec3(0), Vec3(0.5f)));
 	}
 	void StartCountDown::OnUpdate() {
 		if (!m_countDownTimer.Count()) {
@@ -31,7 +32,8 @@ namespace basecross {
 	//--------------------------------------------------------------
 
 	void FinishSprite::OnCreate() {
-		m_finishSprite = ObjectFactory::Create<SimpleSprite>(GetStage(), L"Finish");
+		m_finishSprite = ObjectFactory::Create<SimpleSprite>(
+			GetStage(), L"Finish", TransformData(Vec3(0), Vec3(0.5f)));
 	}
 
 	void FinishSprite::OnUpdate() {
