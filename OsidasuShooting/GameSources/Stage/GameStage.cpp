@@ -39,6 +39,8 @@ namespace basecross {
 			AddGameObject<Debug>();
 			Debug::GetInstance()->Log(L"CurrentStage : GameStage");
 
+			AddGameObject<SimpleSprite>(L"BackGround00")->SetDrawLayer(-1);
+
 			GameObjecttCSVBuilder builder;
 			builder.Register<Block>(L"Block");
 			builder.Register<PlayerBuilder>(L"Player");
@@ -51,7 +53,7 @@ namespace basecross {
 			AddGameObject<FallDecision>();
 			AddGameObject<CurrentFirst>();
 
-			m_countDown = AddGameObject<CountDown>(30.0f);
+			m_countDown = AddGameObject<CountDown>(10.0f);
 			m_startCountDown = AddGameObject<StartCountDown>(TransformData());
 			AddGameObject<TransitionSprite>()->FadeOut();
 			SoundManager::GetInstance()->Play(L"Game1BGM", XAUDIO2_LOOP_INFINITE);

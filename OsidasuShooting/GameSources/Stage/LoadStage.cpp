@@ -38,7 +38,7 @@ namespace basecross {
 		app->RegisterTexture(L"Gauge", path + L"Gauge.png");
 		app->RegisterTexture(L"Start", path + L"Fight.png");
 		app->RegisterTexture(L"Finish", path + L"Finish.png");
-		app->RegisterTexture(L"Arrow", path + L"Arrow.png");
+		app->RegisterTexture(L"BackGround00", path + L"BackGround00.png");
 
 		// CSVƒtƒ@ƒCƒ‹
 		path = dir + L"CSV/";
@@ -114,7 +114,7 @@ namespace basecross {
 		Debug::GetInstance()->Log(L"CurrentStage : LoadStage");
 
 		auto sprite = AddGameObject<SimpleSprite>(L"Loading",
-			TransformData(Vec3(350.0f, -300.0f, 0.0f), Vec3(0.3f)));
+			TransformData(Vec3(350.0f, -300.0f, 0.0f), Vec3(0.7f)));
 		AddGameObject<TransitionSprite>();
 	}
 
