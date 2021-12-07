@@ -106,9 +106,6 @@
     <Filter Include="Manager">
       <UniqueIdentifier>{31f89d01-371a-4aad-b82a-b500d54514d8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Manager\ControllerManager">
-      <UniqueIdentifier>{c018e5db-7117-497b-8652-e410f9f938f2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Manager\PlayerManager">
       <UniqueIdentifier>{c8422ba4-b059-4683-9370-1346af62f6c4}</UniqueIdentifier>
     </Filter>
@@ -177,9 +174,6 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.cpp">
       <Filter>Setting</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Manager\ControllerManager.cpp">
-      <Filter>Manager\ControllerManager</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\CountDown.cpp">
       <Filter>JonyMd</Filter>
@@ -348,7 +342,7 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\MeteoriteCreation.cpp">
       <Filter>StageObject\JonyMd</Filter>
-      </ClCompile>
+    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\XMLLoad.cpp">
       <Filter>Utility\XMLLoad</Filter>
     </ClCompile>
@@ -357,6 +351,9 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\LoadStage.cpp">
       <Filter>Stage\LoadStage</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\GameController.cpp">
+      <Filter>Utility\GameController</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -473,9 +470,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\ManualPlayer.h">
       <Filter>StageObject\Player</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Manager\ControllerManager.h">
-      <Filter>Manager\ControllerManager</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.h">
       <Filter>Manager\PlayerManager</Filter>
     </ClInclude>
@@ -574,7 +568,7 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\MeteoriteCreation.h">
       <Filter>StageObject\JonyMd</Filter>
-      </ClInclude>
+    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\XMLLoad.h">
       <Filter>Utility\XMLLoad</Filter>
     </ClInclude>
@@ -583,6 +577,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\LoadStage.h">
       <Filter>Stage\LoadStage</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\GameController.h">
+      <Filter>Utility\GameController</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -693,9 +690,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\ManualPlayer.cpp">
       <Filter>StageObject\Player</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Manager\ControllerManager.cpp">
-      <Filter>Manager\ControllerManager</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.cpp">
       <Filter>Manager\PlayerManager</Filter>
     </ClCompile>
@@ -741,7 +735,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkEffectResource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Effekseer\EfkInterface.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\CountDown.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Manager\ControllerManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Scene.h" />
@@ -833,6 +826,9 @@
     </Filter>
     <Filter Include="Stage\LoadStage">
       <UniqueIdentifier>{8b326204-66e5-4f28-8e9b-19385e64c12b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\GameController">
+      <UniqueIdentifier>{c018e5db-7117-497b-8652-e410f9f938f2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

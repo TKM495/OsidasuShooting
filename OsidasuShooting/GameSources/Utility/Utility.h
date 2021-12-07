@@ -136,6 +136,13 @@ namespace basecross {
 		 * @return float äpìxÅidegÅj
 		 */
 		float GetTwoVectorAngle(const Vec3& vector1, const Vec3& vector2);
+
+		Vec3 ClampVector3(const Vec3& value, const Vec3& _min, const Vec3& _max);
+
+		template<typename T>
+		T Clamp(T value, T low, T high) {
+			return min(max(value, low), high);
+		}
 	}
 }
 //end basecross

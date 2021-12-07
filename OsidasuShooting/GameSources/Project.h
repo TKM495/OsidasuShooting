@@ -29,6 +29,7 @@
 #include "Utility/Utility.h"
 #include "Utility/AdvancedMeshUtil.h"
 #include "Utility/DataExtracter.h"
+#include "Utility/GameController.h"
 // ステージオブジェクト
 #include "SpecialCamera/SpCamera.h"
 #include "StageObject/AdvancedGameObject.h"
@@ -70,7 +71,6 @@
 // メニュー
 #include "UIs/Menu/BaseMenu.h"
 // マネージャー
-#include "Manager/ControllerManager.h"
 #include "Manager/PlayerManager.h"
 #include "Manager/SoundManager.h"
 #include "Manager/PlayerBuilder.h"

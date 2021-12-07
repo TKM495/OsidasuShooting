@@ -43,6 +43,7 @@ namespace basecross {
 			auto player = InstantiateGameObject<ManualPlayer>(m_transformData, m_playerNumber);
 			InstantiateGameObject<PlayerInfo>(player, TransformData(UIPosMap.at(m_playerNumber)));
 			InstantiateGameObject<PlayerFollowUI>(player, TransformData());
+			InstantiateGameObject<PlayerPositionUI>(player, TransformData());
 			PlayerManager::GetInstance()->AddPlayer(player);
 		}
 		break;

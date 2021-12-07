@@ -69,22 +69,22 @@ namespace basecross {
 			case PlayerNumber::P1:
 				str = L"P1";
 				m_playersNumber = player->GetPlayerNumber();
-				//m_playersScore = player->GetCountKilledPlayer();
+				m_playersScore = player->GetCountKilledPlayer();
 				break;
 			case PlayerNumber::P2:
 				str = L"P2";
 				m_playersNumber = player->GetPlayerNumber();
-				//m_playersScore = player->GetCountKilledPlayer();
+				m_playersScore = player->GetCountKilledPlayer();
 				break;
 			case PlayerNumber::P3:
 				str = L"P3";
 				m_playersNumber = player->GetPlayerNumber();
-				//m_playersScore = player->GetCountKilledPlayer();
+				m_playersScore = player->GetCountKilledPlayer();
 				break;
 			case PlayerNumber::P4:
 				str = L"P4";
 				m_playersNumber = player->GetPlayerNumber();
-				//m_playersScore = player->GetCountKilledPlayer();
+				m_playersScore = player->GetCountKilledPlayer();
 				break;
 			default:
 				break;

@@ -55,6 +55,7 @@ namespace basecross {
 			builder.Build(GetThis<Stage>(), path);
 
 			AddGameObject<FallDecision>();
+			m_controller.SetVibration(VibrationData(2.0f, 65535, 65535));
 		}
 		catch (...) {
 			throw;
@@ -65,5 +66,9 @@ namespace basecross {
 		const auto& keyState = App::GetApp()->GetInputDevice().GetKeyState();
 		if (keyState.m_bPressedKeyTbl['R'])
 			PostEvent(0.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToWatanabeStage");
+	}
+
+	void WatanabeStage::OnDestroy() {
+		m_controller.ResetVibration();
 	}
 }

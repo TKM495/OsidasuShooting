@@ -42,6 +42,8 @@ namespace basecross {
 			Debug::GetInstance()->Log(L"A : CharacterSelect");
 			Debug::GetInstance()->Log(L"B : Exit");
 
+			AddGameObject<SimpleSprite>(L"BackGround00")->SetDrawLayer(-1);
+
 			AddTitleSprite();
 			AddPushAButtonSprite();
 			SoundManager::GetInstance()->Play(L"TitleBGM", XAUDIO2_LOOP_INFINITE, 0.05f);

@@ -10,6 +10,7 @@
 #include "Utility/PredictionLine.h"
 #include "Utility/TimeCounter.h"
 #include "Utility/GroundingDecision.h"
+#include "StageObject/PlayerModel.h"
 
 namespace basecross {
 	/**
@@ -118,6 +119,8 @@ namespace basecross {
 		int m_countKilledPlayer;
 		// 死んだ回数
 		int m_deadCount;
+		// プレイヤーのモデル
+		weak_ptr<PlayerModel> m_model;
 
 		// 前回の正面方向
 		Vec3 m_lastFrontDirection;
@@ -128,9 +131,13 @@ namespace basecross {
 		bool m_isHoverMode;
 		// 移動エフェクトのタイマー
 		TimeCounter m_smokeTimer;
+		// 無敵タイマー
+		TimeCounter m_invincibleTimer;
 
 		//色
 		Col4 m_color;
+		// 無敵か
+		bool m_isInvincible;
 
 		// 移動
 		void Move();
@@ -166,6 +173,8 @@ namespace basecross {
 		void TurnFrontToDirection(const Vec3& direction);
 		// ホバー停止時の処理
 		void StopHover();
+		// 無敵処理
+		void Invincible();
 	protected:
 		// 移動速度（どちらかというとかける力）
 		float m_moveSpeed;
@@ -183,31 +192,10 @@ namespace basecross {
 		PlayerInputData m_inputData;
 		// 入力の更新
 		virtual void InputUpdate() = 0;
-
 	public:
 		PlayerBase(const shared_ptr<Stage>& stage,
 			const TransformData& transData,
-			PlayerNumber playerNumber)
-			:AdvancedGameObject(stage), m_initialPosition(0.0f),
-			m_moveSpeed(20.0f), m_predictionLine(stage, 10, 2.0f),
-			m_bombPoint(Vec3(0.0f)), m_jumpVerocity(Vec3(0.0f, 10.0f, 0.0f)),
-			m_hoverTime(5.0f), m_currentHoverTime(m_hoverTime),
-			m_defaultArmorPoint(100.0f), m_currentArmorPoint(m_defaultArmorPoint),
-			m_bulletTimer(0.1f, true), m_armorRecoveryTimer(2.0f),
-			m_isRestoreArmor(false), m_isInput(false), m_playerNumber(playerNumber),
-			m_bombReload(1.0f), m_defaultBombCount(5), m_correctAngle(40.0f),
-			m_isDuringReturn(false), m_groundingDecision(), m_countKilledPlayer(0),
-			m_returnTimer(0.5f), m_lastFrontDirection(Vec3(0.0f)), m_smokeTimer(0.2f),
-			m_deadCount(0)
-		{
-			m_transformData = transData;
-			m_transformData.Scale *= 2.0f;
-			auto rot = m_transformData.Rotation;
-			m_lastFrontDirection = Vec3(cosf(rot.y), 0.0f, sinf(rot.y));
-			// 以下のタグを持つオブジェクトを判定から除外
-			m_groundingDecision.AddNotDecisionTag(L"Bomb");
-			m_groundingDecision.AddNotDecisionTag(L"Bullet");
-		}
+			PlayerNumber playerNumber);
 		void OnCreate()override;
 		void OnUpdate()override;
 

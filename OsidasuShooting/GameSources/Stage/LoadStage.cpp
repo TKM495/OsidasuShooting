@@ -36,8 +36,9 @@ namespace basecross {
 		app->RegisterTexture(L"BombBack", path + L"BombBackGround.png");
 		app->RegisterTexture(L"GaugeBackGround", path + L"GaugeBackGround.png");
 		app->RegisterTexture(L"Gauge", path + L"Gauge.png");
-		app->RegisterTexture(L"Start", path + L"TestStart.png");
-		app->RegisterTexture(L"Finish", path + L"TestFinish.png");
+		app->RegisterTexture(L"Start", path + L"Fight.png");
+		app->RegisterTexture(L"Finish", path + L"Finish.png");
+		app->RegisterTexture(L"BackGround00", path + L"BackGround00.png");
 
 		// CSVファイル
 		path = dir + L"CSV/";
@@ -101,7 +102,7 @@ namespace basecross {
 		auto dir = app->GetDataDirWString();
 		// スプライト
 		auto path = dir + L"Sprite/";
-		app->RegisterTexture(L"Loading", path + L"TestLoading.png");
+		app->RegisterTexture(L"Loading", path + L"NowLoading.png");
 
 		//他のリソースを読み込むスレッドのスタート
 		thread LoadThread(LoadResourceFunc);
@@ -112,7 +113,8 @@ namespace basecross {
 		AddGameObject<Debug>();
 		Debug::GetInstance()->Log(L"CurrentStage : LoadStage");
 
-		AddGameObject<SimpleSprite>(L"Loading", TransformData());
+		auto sprite = AddGameObject<SimpleSprite>(L"Loading",
+			TransformData(Vec3(350.0f, -300.0f, 0.0f), Vec3(0.7f)));
 		AddGameObject<TransitionSprite>();
 	}
 

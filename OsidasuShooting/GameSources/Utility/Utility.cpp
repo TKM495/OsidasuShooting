@@ -143,5 +143,12 @@ namespace basecross {
 			auto dot = vector1.dot(vector2);
 			return XMConvertToDegrees(acosf(dot));
 		}
+
+		Vec3 ClampVector3(const Vec3& value, const Vec3& _min, const Vec3& _max) {
+			auto x = Clamp(value.x, _min.x, _max.x);
+			auto y = Clamp(value.y, _min.y, _max.y);
+			auto z = Clamp(value.z, _min.z, _max.z);
+			return Vec3(x, y, z);
+		}
 	}
 }
