@@ -6,20 +6,20 @@ namespace basecross {
 		const Vec3 eye(0.0f, 5.0f, -5.0f);
 		const Vec3 at(0.0f);
 		auto PtrView = CreateView<SingleView>();
-		//ƒrƒ…[‚ÌƒJƒƒ‰‚Ìİ’è
+		//ãƒ“ãƒ¥ãƒ¼ã®ã‚«ãƒ¡ãƒ©ã®è¨­å®š
 		auto PtrCamera = ObjectFactory::Create<Camera>();
 		PtrView->SetCamera(PtrCamera);
 		PtrCamera->SetEye(eye);
 		PtrCamera->SetAt(at);
-		//ƒ}ƒ‹ƒ`ƒ‰ƒCƒg‚Ìì¬
+		//ãƒãƒ«ãƒãƒ©ã‚¤ãƒˆã®ä½œæˆ
 		auto PtrMultiLight = CreateLight<MultiLight>();
-		//ƒfƒtƒHƒ‹ƒg‚Ìƒ‰ƒCƒeƒBƒ“ƒO‚ğw’è
+		//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®ãƒ©ã‚¤ãƒ†ã‚£ãƒ³ã‚°ã‚’æŒ‡å®š
 		PtrMultiLight->SetDefaultLighting();
 	}
 	
-	// ƒtƒŒ[ƒ€İ’u
+	// ãƒ•ãƒ¬ãƒ¼ãƒ è¨­ç½®
 	void CharacterSelectStage::PlayerFreamPosition(Vec3 pos,int gamePadID) {
-		m_gamePadIDs[gamePadID] = gamePadID;	// ƒQ[ƒ€ƒpƒbƒh‚Ì”Ô†‚ğ“o˜^
+		m_gamePadIDs[gamePadID] = gamePadID;	// ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ã®ç•ªå·ã‚’ç™»éŒ²
 		m_isDecisionPlayer[gamePadID] = false;
 
 		auto scale = 2.0f;
@@ -34,7 +34,7 @@ namespace basecross {
 
 	}
 
-	// ƒAƒCƒRƒ“İ’u
+	// ã‚¢ã‚¤ã‚³ãƒ³è¨­ç½®
 	void CharacterSelectStage::PlayerCharacterSelect(Vec3 pos, int gamePadID) {
 		for (int i = 0; i < 3; i++) {
 			auto gamePadLinkIcons = i + 3 * gamePadID;
@@ -54,9 +54,9 @@ namespace basecross {
 		playerTrans->SetPosition(pos);
 	}
 
-	// OŠpİ’u
+	// ä¸‰è§’è¨­ç½®
 	void CharacterSelectStage::PlayerSelectTriangle(Vec3 pos, Vec3 scl, int gamePadID) {
-		// ³ˆÊ’u
+		// æ­£ä½ç½®
 
 		m_Triangle[gamePadID] = AddGameObject<SelectTriangle>(L"Triangle", gamePadID, 0, pos, scl,false);
 		auto triTrans = m_Triangle[gamePadID]->GetComponent<Transform>();
@@ -100,7 +100,7 @@ namespace basecross {
 
 	void CharacterSelectStage::OnCreate() {
 		try {
-			//ƒrƒ…[‚Æƒ‰ƒCƒg‚Ìì¬
+			//ãƒ“ãƒ¥ãƒ¼ã¨ãƒ©ã‚¤ãƒˆã®ä½œæˆ
 			CreateViewLight();
 			AddGameObject<Debug>();
 			Debug::GetInstance()->Log(L"CurrentStage : CharacterSelectStage");
@@ -124,6 +124,7 @@ namespace basecross {
 			//auto addIcons = AddGameObject<CharacterIcon>(L"MissileIcon");
 			//Debug::GetInstance()->Log(m_shiftMovePos);
 			//Debug::GetInstance()->Log(m_shiftMovePos);
+			SoundManager::GetInstance()->Play(L"SelectBGM", XAUDIO2_LOOP_INFINITE);
 		}
 		catch (...) {
 			throw;
@@ -218,5 +219,9 @@ namespace basecross {
 		CheckSelectedPlayers();
 
 	}
+}
 
+	void CharacterSelectStage::OnDestroy() {
+		SoundManager::GetInstance()->StopAll();
+	}
 }

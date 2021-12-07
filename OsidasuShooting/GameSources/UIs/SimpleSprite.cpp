@@ -12,16 +12,17 @@ namespace basecross {
 			origin + Vec2(0.0f, size.y),
 			origin + size
 		};
+		auto halfSize = size / 2.0f;
 		// テクスチャ座標からUV座標に変換
 		Utility::ConvertToUVCoordinates(uv, m_textureKey, uvs);
 		Col4 color(1.0f);
 		// 頂点のデータ (番号は左上から右下まで)
 		vector<VertexPositionColorTexture> vertices = {
-			{Vec3(-size.x,+size.y,0.0f),color,uvs[0]}, //0
-			{Vec3(+size.x,+size.y,0.0f),color,uvs[1]}, //1
+			{Vec3(-halfSize.x,+halfSize.y,0.0f),color,uvs[0]}, //0
+			{Vec3(+halfSize.x,+halfSize.y,0.0f),color,uvs[1]}, //1
 
-			{Vec3(-size.x,-size.y,0.0f),color,uvs[2]}, //2
-			{Vec3(+size.x,-size.y,0.0f),color,uvs[3]},  //3
+			{Vec3(-halfSize.x,-halfSize.y,0.0f),color,uvs[2]}, //2
+			{Vec3(+halfSize.x,-halfSize.y,0.0f),color,uvs[3]},  //3
 		};
 		// 頂点インデックス
 		vector<uint16_t> indices = {
@@ -38,8 +39,5 @@ namespace basecross {
 		SetAlphaActive(true); // 透明をサポートする&両面描画になる
 		SetDrawLayer(2);
 		SetUpdateActive(false);
-	}
-
-	void SimpleSprite::OnUpdate() {
 	}
 }

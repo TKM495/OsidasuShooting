@@ -10,29 +10,15 @@ namespace basecross {
 	// 静的メンバ変数の実体
 	shared_ptr<EfkInterface> EfkInterface::m_ownInstance = nullptr;
 
-	// インスタンスの取得
-	shared_ptr<EfkInterface> EfkInterface::GetInstance() {
-		if (m_ownInstance.get() == 0)
-		{
-			throw BaseException(
-				L"EfkInterfaceが生成されていません",
-				L"if (m_ownInstance.get() == 0)",
-				L"EfkInterface::GetInstance()"
-			);
-		}
-		return m_ownInstance;
-	}
-
 	EfkInterface::EfkInterface(const shared_ptr<Stage>& stage)
-		:GameObject(stage),
+		:BaseSingletonGameObject(stage),
 		m_Manager(nullptr),
 		m_Renderer(nullptr)
 	{}
 	EfkInterface::~EfkInterface() {}
 
 	void EfkInterface::OnCreate() {
-		m_ownInstance = nullptr;
-		m_ownInstance = GetThis<EfkInterface>();
+		CreateInstance();
 
 		//デバイスの取得
 		auto Dev = App::GetApp()->GetDeviceResources();
@@ -60,7 +46,7 @@ namespace basecross {
 		SetDrawLayer(1);
 	}
 
-	void  EfkInterface::OnUpdate() {
+	void EfkInterface::OnUpdate() {
 		// エフェクトの更新処理を行う
 		m_Manager->Update();
 	}

@@ -6,17 +6,16 @@
 #pragma once
 #include "stdafx.h"
 #include "Effekseer/EfkEffect.h"
+#include "Utility/BaseSingleton.h"
 
 namespace basecross {
 	/**
 	 * @brief Effekseerのインターフェイス
 	 */
-	class EfkInterface : public GameObject {
+	class EfkInterface : public BaseSingletonGameObject<EfkInterface> {
 		// Effekseerのマネージャーポインタ
 		Effekseer::ManagerRef m_Manager;
 		EffekseerRenderer::RendererRef m_Renderer;
-		// 自身のインスタンス
-		static shared_ptr<EfkInterface> m_ownInstance;
 
 		/**
 		 * @brief ビューと射影行列を設定する
@@ -32,13 +31,6 @@ namespace basecross {
 		virtual void OnCreate()override;
 		virtual void OnUpdate()override;
 		virtual void OnDraw()override;
-
-		/**
-		 * @brief インスタンスの取得
-		 *
-		 * @return EfkInterfaceのインスタンスの
-		 */
-		static shared_ptr<EfkInterface> GetInstance();
 
 		/**
 		 * @brief マネージャーの取得

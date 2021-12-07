@@ -13,6 +13,7 @@ namespace basecross {
 		// ログのデータ本体
 		vector<wstring> m_logData;
 		// 表示するログの最初のインデックス
+		//（このインデックスからm_logDataのmaxまで表示）
 		int m_displayLogFirstIndex;
 		// StringSpriteコンポーネント
 		shared_ptr<StringSprite> m_ssComp;

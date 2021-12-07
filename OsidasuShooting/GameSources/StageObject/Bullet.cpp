@@ -25,11 +25,12 @@ namespace basecross {
 		AddComponent<LifeSpan>(m_lifeSpan);
 
 		// エフェクト
+		auto effectTrans = m_transformData;
+		effectTrans.Position = Vec3(0.0f);
 		auto efkComp = AddComponent<EfkComponent>();
-		efkComp->SetEffectResource(L"Bullet");
-		efkComp->SetScale(m_transformData.Scale);
-		efkComp->SetRotation(m_transformData.Rotation);
-		efkComp->Play();
+		efkComp->SetEffectResource(L"Bullet", effectTrans);
+		efkComp->SetEffectResource(L"Hit", effectTrans);
+		efkComp->Play(L"Bullet");
 
 		// 影
 		auto shadow = AddComponent<Shadowmap>();
@@ -48,20 +49,23 @@ namespace basecross {
 		GetTransform()->SetPosition(transPos);
 
 		// 位置を同期
-		GetComponent<EfkComponent>()->SyncPosition();
+		GetComponent<EfkComponent>()->SyncPosition(L"Bullet");
 	}
 
 	void Bullet::OnDestroy() {
-		// オブジェクト削除時にエフェクトも停止
-		GetComponent<EfkComponent>()->Stop();
+		// オブジェクト削除時に弾のエフェクトを停止し、
+		// ヒット時のエフェクトを再生
+		auto efkComp = GetComponent<EfkComponent>();
+		efkComp->Stop(L"Bullet");
+		efkComp->Play(L"Hit");
 	}
 
 	void Bullet::OnCollisionEnter(shared_ptr<GameObject>& other)
 	{
 		auto ptr = dynamic_pointer_cast<PlayerBase>(other);
 		if (ptr) {
-			PlayerBase::KnockBackData data(
-				PlayerBase::KnockBackData::Category::Bullet,
+			KnockBackData data(
+				KnockBackData::Category::Bullet,
 				m_direction, m_knockBackAmount, m_owner
 			);
 			// ノックバック

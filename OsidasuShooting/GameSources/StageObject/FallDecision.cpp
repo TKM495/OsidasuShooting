@@ -8,9 +8,7 @@
 
 namespace basecross {
 	void FallDecision::OnCreate() {
-		auto obb = AddComponent<CollisionObb>();
-		obb->SetDrawActive(true);
-		//obb->SetAfterCollision(AfterCollision::None);
+		AddComponent<CollisionObb>();
 	}
 
 	void FallDecision::OnCollisionEnter(shared_ptr<GameObject>& other) {

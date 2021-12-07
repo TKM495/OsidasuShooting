@@ -1,6 +1,6 @@
 /*!
 @file   ResultStage.cpp
-@brief  ƒŠƒUƒ‹ƒgƒXƒe[ƒWÀ‘Ì
+@brief  ãƒªã‚¶ãƒ«ãƒˆã‚¹ãƒ†ãƒ¼ã‚¸å®Ÿä½“
 */
 
 #include "stdafx.h"
@@ -13,14 +13,14 @@ namespace basecross {
 		const Vec3 eye(0.0f, 0.0f, -4.0f);
 		const Vec3 at(0.5f, 0.0f, -2.0f);
 		auto PtrView = CreateView<SingleView>();
-		//ƒrƒ…[‚ÌƒJƒƒ‰‚Ìİ’è
+		//ãƒ“ãƒ¥ãƒ¼ã®ã‚«ãƒ¡ãƒ©ã®è¨­å®š
 		auto PtrCamera = ObjectFactory::Create<Camera>();
 		PtrView->SetCamera(PtrCamera);
 		PtrCamera->SetEye(eye);
 		PtrCamera->SetAt(at);
-		//ƒ}ƒ‹ƒ`ƒ‰ƒCƒg‚Ìì¬
+		//ãƒãƒ«ãƒãƒ©ã‚¤ãƒˆã®ä½œæˆ
 		auto PtrMultiLight = CreateLight<MultiLight>();
-		//ƒfƒtƒHƒ‹ƒg‚Ìƒ‰ƒCƒeƒBƒ“ƒO‚ğw’è
+		//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®ãƒ©ã‚¤ãƒ†ã‚£ãƒ³ã‚°ã‚’æŒ‡å®š
 		PtrMultiLight->SetDefaultLighting();
 	}
 
@@ -34,7 +34,6 @@ namespace basecross {
 		auto playUIsTrans = playerNumber->GetComponent<Transform>();
 		playUIsTrans->SetPosition(winnerUIsPos - Vec3(-412.0f, -27.0f, 0));
 		playUIsTrans->SetScale(Vec3(1.1f));
-
 	}
 
 	void ResultStage::AddResultSprites(Vec3 pos, int playerNum, int score)
@@ -63,7 +62,6 @@ namespace basecross {
 	}
 
 	void ResultStage::PlayersResult() {
-
 		float addVec = 0;
 		float setPosY = 0;
 
@@ -75,22 +73,22 @@ namespace basecross {
 			{
 			case PlayerNumber::P1:
 				str = L"P1";
-				m_playersNumber = 1;
+				m_playersNumber = player->GetPlayerNumber();
 				m_playersScore = player->GetCountKilledPlayer();
 				break;
 			case PlayerNumber::P2:
 				str = L"P2";
-				m_playersNumber = 2;
+				m_playersNumber = player->GetPlayerNumber();
 				m_playersScore = player->GetCountKilledPlayer();
 				break;
 			case PlayerNumber::P3:
 				str = L"P3";
-				m_playersNumber = 3;
+				m_playersNumber = player->GetPlayerNumber();
 				m_playersScore = player->GetCountKilledPlayer();
 				break;
 			case PlayerNumber::P4:
 				str = L"P4";
-				m_playersNumber = 4;
+				m_playersNumber = player->GetPlayerNumber();
 				m_playersScore = player->GetCountKilledPlayer();
 				break;
 			default:
@@ -100,9 +98,10 @@ namespace basecross {
 			//Debug::GetInstance()->Log(str);
 			//Debug::GetInstance()->Log(player->GetCountKilledPlayer());
 
-			AddResultSprites(Vec3(330 + addVec, 250 + setPosY, 0), m_playersNumber, m_playersScore);
+			AddResultSprites(Vec3(330 + addVec, 250 + setPosY, 0), (UINT)m_playersNumber + 1, m_playersScore);
 			addVec += 10;
 			setPosY -= 170;
+
 			if (i > 0) {
 				m_playerTop = m_playersNumber;
 				m_playerTopScore = m_playersScore;
@@ -111,7 +110,10 @@ namespace basecross {
 					m_playerTop = m_playersNumber;
 					m_playerTopScore = m_playersScore;
 			}
+			i++;
 		}
+		// ãƒˆãƒƒãƒ—ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
+		m_playerTop = allPlayer[0]->GetPlayerNumber();
 	}
 
 	void ResultStage::WinnerPlayer() {
@@ -126,7 +128,8 @@ namespace basecross {
 		else if (m_playerTop == 4) {
 			player = PlayerNumber::P4;
 		}
-		auto topPlayer = AddGameObject<ManualPlayer>(TransformData(Vec3(0), Vec3(1), Vec3(0, 0, 1)), player);
+		auto topPlayer = AddGameObject<ResultPlayer>(
+      TransformData(Vec3(0.0f, 1.0f, 0.0f), Vec3(1), Vec3(0, XMConvertToRadians(-90.0f), 0), player);
 		topPlayer->GetComponent<Gravity>()->SetGravityZero();
 		auto PlayerPos = topPlayer->GetComponent<Transform>()->GetPosition();
 
@@ -137,19 +140,22 @@ namespace basecross {
 
 	void ResultStage::OnCreate() {
 		try {
-			//ƒrƒ…[‚Æƒ‰ƒCƒg‚Ìì¬
+			//ãƒ“ãƒ¥ãƒ¼ã¨ãƒ©ã‚¤ãƒˆã®ä½œæˆ
 			CreateViewLight();
 			AddGameObject<Debug>();
 			Debug::GetInstance()->Log(L"CurrentStage : ResultStage");
 
+			PlayersResult();
 			WinnerPlayer();
 
 			PlayerManager::DeleteInstance();
 
-			AddWinnerSprite(m_playersNumber);
+			AddWinnerSprite((UINT)m_playerTop + 1);
 
-			Debug::GetInstance()->Log(L"Button A ¨ Game");
-			Debug::GetInstance()->Log(L"Button B ¨ Title");
+			Debug::GetInstance()->Log(L"Button A â†’ Game");
+			Debug::GetInstance()->Log(L"Button B â†’ Title");
+
+			SoundManager::GetInstance()->Play(L"ResultBGM");
 		}
 		catch (...) {
 			throw;
@@ -163,5 +169,9 @@ namespace basecross {
 			PostEvent(0.0f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToGameStage");
 		if (cntlPad.wPressedButtons & XINPUT_GAMEPAD_B)
 			PostEvent(0.0f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToTitleStage");
+	}
+
+	void ResultStage::OnDestroy() {
+		SoundManager::GetInstance()->StopAll();
 	}
 }

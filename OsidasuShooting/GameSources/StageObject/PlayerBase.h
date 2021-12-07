@@ -10,6 +10,7 @@
 #include "Utility/PredictionLine.h"
 #include "Utility/TimeCounter.h"
 #include "Utility/GroundingDecision.h"
+#include "StageObject/PlayerModel.h"
 
 namespace basecross {
 	/**
@@ -40,42 +41,41 @@ namespace basecross {
 		}
 	};
 
-	class PlayerBase :public AdvancedGameObject {
-	public:
+	/**
+	 * @brief ノックバックデータ
+	 */
+	struct KnockBackData {
 		/**
-		 * @brief ノックバックデータ
+		 * @brief ノックバックのタイプ
 		 */
-		struct KnockBackData {
-			/**
-			 * @brief ノックバックのタイプ
-			 */
-			enum class Category {
-				Bullet,	// 弾
-				Bomb	// 爆弾
-			};
-
-			// タイプ
-			Category Type;
-			// ノックバック方向
-			Vec3 Direction;
-			// ノックバック量
-			float Amount;
-			// 加害者
-			weak_ptr<PlayerBase> Aggriever;
-
-			// コンストラクタ
-			KnockBackData(
-				Category type,
-				const Vec3& direction,
-				float amount,
-				const weak_ptr<PlayerBase>& aggriever
-			) {
-				this->Type = type;
-				this->Direction = direction;
-				this->Amount = amount;
-				this->Aggriever = aggriever;
-			}
+		enum class Category {
+			Bullet,	// 弾
+			Bomb	// 爆弾
 		};
+
+		// タイプ
+		Category Type;
+		// ノックバック方向
+		Vec3 Direction;
+		// ノックバック量
+		float Amount;
+		// 加害者
+		weak_ptr<PlayerBase> Aggriever;
+
+		// コンストラクタ
+		KnockBackData(
+			Category type,
+			const Vec3& direction,
+			float amount,
+			const weak_ptr<PlayerBase>& aggriever
+		) {
+			this->Type = type;
+			this->Direction = direction;
+			this->Amount = amount;
+			this->Aggriever = aggriever;
+		}
+	};
+	class PlayerBase :public AdvancedGameObject {
 	private:
 		// 初期位置
 		Vec3 m_initialPosition;
@@ -117,6 +117,27 @@ namespace basecross {
 		GroundingDecision m_groundingDecision;
 		// 自分がプレイヤーを倒した数
 		int m_countKilledPlayer;
+		// 死んだ回数
+		int m_deadCount;
+		// プレイヤーのモデル
+		weak_ptr<PlayerModel> m_model;
+
+		// 前回の正面方向
+		Vec3 m_lastFrontDirection;
+
+		// 爆弾モードか
+		bool m_isBombMode;
+		// ホバーモードか
+		bool m_isHoverMode;
+		// 移動エフェクトのタイマー
+		TimeCounter m_smokeTimer;
+		// 無敵タイマー
+		TimeCounter m_invincibleTimer;
+
+		//色
+		Col4 m_color;
+		// 無敵か
+		bool m_isInvincible;
 
 		// 移動
 		void Move();
@@ -148,6 +169,12 @@ namespace basecross {
 		void BombLaunch();
 		// 必殺技の発動
 		void SpecialSkill();
+		// 特定の方向に正面を向ける
+		void TurnFrontToDirection(const Vec3& direction);
+		// ホバー停止時の処理
+		void StopHover();
+		// 無敵処理
+		void Invincible();
 	protected:
 		// 移動速度（どちらかというとかける力）
 		float m_moveSpeed;
@@ -165,27 +192,10 @@ namespace basecross {
 		PlayerInputData m_inputData;
 		// 入力の更新
 		virtual void InputUpdate() = 0;
-
 	public:
 		PlayerBase(const shared_ptr<Stage>& stage,
 			const TransformData& transData,
-			PlayerNumber playerNumber)
-			:AdvancedGameObject(stage), m_initialPosition(0.0f),
-			m_moveSpeed(20.0f), m_predictionLine(stage, 10, 2.0f),
-			m_bombPoint(Vec3(0.0f)), m_jumpVerocity(Vec3(0.0f, 10.0f, 0.0f)),
-			m_hoverTime(5.0f), m_currentHoverTime(m_hoverTime),
-			m_defaultArmorPoint(100.0f), m_currentArmorPoint(m_defaultArmorPoint),
-			m_bulletTimer(0.1f, true), m_armorRecoveryTimer(2.0f),
-			m_isRestoreArmor(false), m_isInput(false), m_playerNumber(playerNumber),
-			m_bombReload(1.0f), m_defaultBombCount(5), m_correctAngle(40.0f),
-			m_isDuringReturn(false), m_groundingDecision(), m_countKilledPlayer(0),
-			m_returnTimer(0.5f)
-		{
-			m_transformData = transData;
-			// 以下のタグを持つオブジェクトを判定から除外
-			m_groundingDecision.AddNotDecisionTag(L"Bomb");
-			m_groundingDecision.AddNotDecisionTag(L"Bullet");
-		}
+			PlayerNumber playerNumber);
 		void OnCreate()override;
 		void OnUpdate()override;
 
@@ -242,6 +252,15 @@ namespace basecross {
 		}
 
 		/**
+		 * @brief 爆弾の残弾数の割合を取得する
+		 *
+		 * @return 割合
+		 */
+		float GetBombCountRate() {
+			return (float)GetBombCount() / (float)m_defaultBombCount;
+		}
+
+		/**
 		 * @brief プレイヤーを倒した
 		 */
 		void KilledPlayer() {
@@ -257,8 +276,39 @@ namespace basecross {
 			return m_countKilledPlayer;
 		}
 
-		void SetColor(const Col4& color) {
-			GetComponent<PNTStaticDraw>()->SetDiffuse(color);
+		/**
+		 * @brief 死んだ回数を取得
+		 *
+		 * @return 死んだ回数
+		 */
+		int GetDeadCount() {
+			return m_deadCount;
+		}
+
+		/**
+		 * @brief 色を取得
+		 *
+		 * @return 色
+		 */
+		Col4 GetColor() {
+			return m_color;
+		}
+
+		/**
+		 * @brief 爆弾モードか
+		 *
+		 * @return trueならそう
+		 */
+		bool IsBombMode() {
+			return m_isBombMode;
+		}
+		/**
+		 * @brief ホバーモードか
+		 *
+		 * @return trueならそう
+		 */
+		bool IsHoverMode() {
+			return m_isHoverMode;
 		}
 	private:
 		// 武器用ステート

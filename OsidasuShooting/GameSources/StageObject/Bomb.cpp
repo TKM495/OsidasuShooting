@@ -8,11 +8,11 @@
 
 namespace basecross {
 	void Bomb::OnCreate() {
-		auto drawComp = AddComponent<PNTStaticDraw>();
-		drawComp->SetMeshResource(L"DEFAULT_CUBE");
+		//auto drawComp = AddComponent<PNTStaticDraw>();
+		//drawComp->SetMeshResource(L"DEFAULT_CUBE");
 
 		auto shadowComp = AddComponent<Shadowmap>();
-		shadowComp->SetMeshResource(L"DEFAULT_CUBE");
+		shadowComp->SetMeshResource(L"DEFAULT_SPHERE");
 
 		auto collComp = AddComponent<CollisionObb>();
 		collComp->SetAfterCollision(AfterCollision::None);
@@ -25,6 +25,8 @@ namespace basecross {
 
 		auto efkComp = AddComponent<EfkComponent>();
 		efkComp->SetEffectResource(L"Explosion");
+		efkComp->SetEffectResource(L"Bomb");
+		efkComp->Play(L"Bomb");
 
 		AddTag(L"Bomb");
 	}
@@ -34,6 +36,11 @@ namespace basecross {
 			m_startPoint, m_endPoint, m_delta * m_timeRate);
 		GetTransform()->SetPosition(pos);
 		m_delta += App::GetApp()->GetElapsedTime();
+		GetComponent<EfkComponent>()->SyncPosition(L"Bomb");
+	}
+
+	void Bomb::OnDestroy() {
+		GetComponent<EfkComponent>()->Stop(L"Bomb");
 	}
 
 	void Bomb::OnCollisionEnter(shared_ptr<GameObject>& other) {
@@ -42,7 +49,8 @@ namespace basecross {
 			return;
 		m_isExploded = true;
 		// 爆弾によるノックバック処理
-		GetComponent<EfkComponent>()->Play();
+		GetComponent<EfkComponent>()->Play(L"Explosion");
+		SoundManager::GetInstance()->Play(L"Explosion", 0, 0.1f);
 		// プレイヤーの取得
 		const auto& players = PlayerManager::GetInstance()->GetAllPlayer();
 		for (auto player : players) {
@@ -51,8 +59,8 @@ namespace basecross {
 			auto distance = (pos - myPos).length();
 			// 爆発半径内にいる場合ノックバック
 			if (distance < m_radius) {
-				PlayerBase::KnockBackData data(
-					PlayerBase::KnockBackData::Category::Bomb,
+				KnockBackData data(
+					KnockBackData::Category::Bomb,
 					pos - myPos, m_power, m_owner
 				);
 				// ノックバック

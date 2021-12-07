@@ -29,6 +29,12 @@ namespace basecross {
 			this->Scale = scale;
 			this->Rotation = rotation;
 		}
+		TransformData operator +(const TransformData& data) {
+			this->Position += data.Position;
+			this->Scale += data.Scale;
+			this->Rotation += data.Rotation;
+			return *this;
+		}
 	};
 
 	/**
@@ -89,6 +95,14 @@ namespace basecross {
 			ApplyTransform();
 		}
 
+		TransformData GetTransformData() {
+			auto transComp = GetTransform();
+			m_transformData.Position = transComp->GetPosition();
+			m_transformData.Scale = transComp->GetScale();
+			m_transformData.Rotation = transComp->GetRotation();
+			return m_transformData;
+		}
+
 		/**
 		 * @brief トランスフォームデータを適用
 		 */
@@ -120,6 +134,16 @@ namespace basecross {
 		template<class T>
 		void Destroy() {
 			GetStage()->RemoveGameObject<T>(GetThis<T>());
+		}
+
+		/**
+		 * @brief 描画や更新を有効にするか設定する
+		 *
+		 * @param flg trueなら有効
+		 */
+		void SetActive(bool flg) {
+			SetUpdateActive(flg);
+			SetDrawActive(flg);
 		}
 	};
 }

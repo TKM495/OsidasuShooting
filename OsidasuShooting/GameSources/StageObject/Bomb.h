@@ -51,6 +51,7 @@ namespace basecross {
 
 		void OnCreate()override;
 		void OnUpdate()override;
+		void OnDestroy()override;
 
 		void OnCollisionEnter(shared_ptr<GameObject>& other)override;
 	};

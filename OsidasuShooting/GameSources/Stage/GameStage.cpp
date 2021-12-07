@@ -25,50 +25,38 @@ namespace basecross {
 	void GameStage::OnCreate() {
 		try {
 			AddGameObject<EfkInterface>();
-			wstring DataDir;
-			App::GetApp()->GetDataDirectory(DataDir);
-			wstring TestEffectStr = DataDir + L"Effects\\";
-			EfkEffectResource::RegisterEffectResource(L"Bullet", TestEffectStr + L"Bullet.efk");
-			EfkEffectResource::RegisterEffectResource(L"Explosion", TestEffectStr + L"fire.efk");
+			auto efkpath = App::GetApp()->GetDataDirWString() + L"Effects/";
+			EfkEffectResource::RegisterEffectResource(L"Bullet", efkpath + L"Bullet.efk");
+			EfkEffectResource::RegisterEffectResource(L"Explosion", efkpath + L"fire.efk");
+			EfkEffectResource::RegisterEffectResource(L"Hit", efkpath + L"Hit.efk");
+			EfkEffectResource::RegisterEffectResource(L"Jump", efkpath + L"Jump.efk");
+			EfkEffectResource::RegisterEffectResource(L"Hover", efkpath + L"Hover.efk");
+			EfkEffectResource::RegisterEffectResource(L"Bomb", efkpath + L"Bomb.efk");
+			EfkEffectResource::RegisterEffectResource(L"Smoke", efkpath + L"Smoke.efk");
 
 			//ビューとライトの作成
 			CreateViewLight();
 			AddGameObject<Debug>();
 			Debug::GetInstance()->Log(L"CurrentStage : GameStage");
 
+			AddGameObject<SimpleSprite>(L"BackGround00")->SetDrawLayer(-1);
+
 			GameObjecttCSVBuilder builder;
 			builder.Register<Block>(L"Block");
+			builder.Register<PlayerBuilder>(L"Player");
 			auto dir = App::GetApp()->GetDataDirWString();
-			auto path = dir + L"Csv/Stage";
+			auto path = dir + L"Csv/Stage/Stage1";
 			path += L".csv";
 
 			builder.Build(GetThis<Stage>(), path);
 
-			auto player = AddGameObject<ManualPlayer>(TransformData(Vec3(10.0f, 1.0f, -15.0f)), PlayerNumber::P1);
-			AddGameObject<PlayerInfo>(player, TransformData(Vec3(-500.0f, -250.0f, 0.0f)));
-			AddGameObject<PlayerFollowUI>(player, TransformData());
-			PlayerManager::GetInstance()->AddPlayer(player);
-
-			player = AddGameObject<ManualPlayer>(TransformData(Vec3(-10.0f, 1.0f, -15.0f)), PlayerNumber::P2);
-			AddGameObject<PlayerInfo>(player, TransformData(Vec3(-180.0f, -250.0f, 0.0f)));
-			AddGameObject<PlayerFollowUI>(player, TransformData());
-			PlayerManager::GetInstance()->AddPlayer(player);
-
-			player = AddGameObject<ManualPlayer>(TransformData(Vec3(10.0f, 1.0f, 0.0f)), PlayerNumber::P3);
-			AddGameObject<PlayerInfo>(player, TransformData(Vec3(180.0f, -250.0f, 0.0f)));
-			AddGameObject<PlayerFollowUI>(player, TransformData());
-			PlayerManager::GetInstance()->AddPlayer(player);
-
-			player = AddGameObject<ManualPlayer>(TransformData(Vec3(-10.0f, 1.0f, 0.0f)), PlayerNumber::P4);
-			AddGameObject<PlayerInfo>(player, TransformData(Vec3(500.0f, -250.0f, 0.0f)));
-			AddGameObject<PlayerFollowUI>(player, TransformData());
-			PlayerManager::GetInstance()->AddPlayer(player);
-
 			AddGameObject<FallDecision>();
 			AddGameObject<CurrentFirst>();
 
-			m_countDown = AddGameObject<CountDown>(90.0f);
+			m_countDown = AddGameObject<CountDown>(10.0f);
+			m_startCountDown = AddGameObject<StartCountDown>(TransformData());
 			AddGameObject<TransitionSprite>()->FadeOut();
+			SoundManager::GetInstance()->Play(L"Game1BGM", XAUDIO2_LOOP_INFINITE);
 		}
 		catch (...) {
 			throw;
@@ -85,22 +73,26 @@ namespace basecross {
 			}
 			break;
 		case GameState::STAY:
-			if (m_startCountDownTimer.Count()) {
-				m_countDown.lock()->Start();
+			if (m_startCountDown->GetTimer().IsTimeUp()) {
+				m_countDown->Start();
 				Debug::GetInstance()->Log(L"GameStart！！！！！");
 				ChangeGameState(GameState::PLAYING);
-				break;
 			}
-			Debug::GetInstance()->ClearLog();
-			Debug::GetInstance()->Log(m_startCountDownTimer.GetLeftTime() + 1.0f);
 			break;
 		case GameState::PLAYING:
-			if (m_countDown.lock()->GetTime() <= 0.0f)
+			if (m_countDown->GetTime() <= 0.0f) {
+				m_countDown->Stop();
+				m_utilTimer.Reset(2.0f);
+				AddGameObject<FinishSprite>(TransformData());
+				Debug::GetInstance()->Log(L"Finish!!!!!!");
 				ChangeGameState(GameState::CLEAR);
+			}
 			break;
 		case GameState::CLEAR:
-			TransitionSprite::GetInstance()->FadeIn();
-			ChangeGameState(GameState::FADEIN);
+			if (m_utilTimer.Count()) {
+				TransitionSprite::GetInstance()->FadeIn();
+				ChangeGameState(GameState::FADEIN);
+			}
 			break;
 		case GameState::FADEIN:
 			if (!TransitionSprite::GetInstance()->GetFade()->IsFadeActive()) {
@@ -110,6 +102,10 @@ namespace basecross {
 		default:
 			break;
 		}
+	}
+
+	void GameStage::OnDestroy() {
+		SoundManager::GetInstance()->StopAll();
 	}
 
 	void GameStage::ChangeGameState(GameState state) {

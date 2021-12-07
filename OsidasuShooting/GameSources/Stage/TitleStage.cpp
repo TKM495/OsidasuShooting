@@ -42,8 +42,11 @@ namespace basecross {
 			Debug::GetInstance()->Log(L"A : CharacterSelect");
 			Debug::GetInstance()->Log(L"B : Exit");
 
+			AddGameObject<SimpleSprite>(L"BackGround00")->SetDrawLayer(-1);
+
 			AddTitleSprite();
 			AddPushAButtonSprite();
+			SoundManager::GetInstance()->Play(L"TitleBGM", XAUDIO2_LOOP_INFINITE);
 		}
 		catch (...) {
 			throw;
@@ -57,5 +60,9 @@ namespace basecross {
 			PostEvent(0.0f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToCharacterSelectStage");
 		if (cntlPad.wPressedButtons & XINPUT_GAMEPAD_B)
 			PostEvent(0.0f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToExit");
+	}
+
+	void TitleStage::OnDestroy() {
+		SoundManager::GetInstance()->StopAll();
 	}
 }

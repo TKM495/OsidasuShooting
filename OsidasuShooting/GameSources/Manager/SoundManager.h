@@ -12,8 +12,20 @@ namespace basecross {
 	private:
 		// マネージャー
 		shared_ptr<XAudio2Manager> m_manager;
+		// デフォルトの音量
+		float m_defaultVolume;
+		// 音量の割合（1.0f = 100%）
+		float m_volumeRate;
+
+		/**
+		 * @brief 再生中か
+		 *
+		 * @param item 判定するアイテム
+		 * @return trueなら再生中
+		 */
+		bool IsPlaying(const shared_ptr<SoundItem>& item);
 	private: //シングルトン関係
-		SoundManager() :m_manager(App::GetApp()->GetXAudio2Manager()) {}
+		SoundManager();
 		~SoundManager() {}
 		friend class BaseSingleton<SoundManager>;
 	public:
@@ -21,11 +33,26 @@ namespace basecross {
 		 * @brief 再生
 		 *
 		 * @param key 再生したい音のキー
-		 * @param loopCount ループ回数（0 = 1回再生）
+		 * @return サウンドアイテムのポインタ
+		 */
+		shared_ptr<SoundItem> Play(const wstring& key);
+		/**
+		 * @brief 再生
+		 *
+		 * @param key 再生したい音のキー
+		 * @param loopCount ループ回数（0 = 1回再生:XAUDIO2_LOOP_INFINITE = ∞）
+		 * @return サウンドアイテムのポインタ
+		 */
+		shared_ptr<SoundItem> Play(const wstring& key, size_t loopCount);
+		/**
+		 * @brief 再生
+		 *
+		 * @param key 再生したい音のキー
+		 * @param loopCount ループ回数（0 = 1回再生:XAUDIO2_LOOP_INFINITE = ∞）
 		 * @param volume 音量
 		 * @return サウンドアイテムのポインタ
 		 */
-		shared_ptr<SoundItem> Play(const wstring& key, size_t loopCount = 0, float volume = 1.0f);
+		shared_ptr<SoundItem> Play(const wstring& key, size_t loopCount, float volume);
 		/**
 		 * @brief 停止
 		 *

@@ -7,39 +7,83 @@
 #include "Project.h"
 
 namespace basecross {
-	void PlayerBase::OnCreate() {
-		// 描画コンポーネントの追加
-		auto drawComp = AddComponent<PNTStaticModelDraw>();
-		//drawComp->SetMeshResource(L"DEFAULT_SPHERE");
-		drawComp->SetMultiMeshResource(L"Player");
-		drawComp->SetOwnShadowActive(true);
+	PlayerBase::PlayerBase(const shared_ptr<Stage>& stage,
+		const TransformData& transData,
+		PlayerNumber playerNumber)
+		:AdvancedGameObject(stage), m_initialPosition(0.0f),
+		m_moveSpeed(20.0f), m_predictionLine(stage, 10, 2.0f),
+		m_bombPoint(Vec3(0.0f)), m_jumpVerocity(Vec3(0.0f, 10.0f, 0.0f)),
+		m_hoverTime(5.0f), m_currentHoverTime(m_hoverTime),
+		m_defaultArmorPoint(100.0f), m_currentArmorPoint(m_defaultArmorPoint),
+		m_bulletTimer(0.1f, true), m_armorRecoveryTimer(2.0f),
+		m_isRestoreArmor(false), m_isInput(false), m_playerNumber(playerNumber),
+		m_bombReload(1.0f), m_defaultBombCount(5), m_correctAngle(40.0f),
+		m_isDuringReturn(false), m_groundingDecision(), m_countKilledPlayer(0),
+		m_returnTimer(0.5f), m_lastFrontDirection(Vec3(0.0f)), m_smokeTimer(0.2f),
+		m_deadCount(0), m_invincibleTimer(3.0f, true), m_isInvincible(false)
+	{
+		m_transformData = transData;
+		m_transformData.Scale *= 2.0f;
+		auto rot = m_transformData.Rotation;
+		m_lastFrontDirection = Vec3(cosf(rot.y), 0.0f, sinf(rot.y));
+		// 以下のタグを持つオブジェクトを判定から除外
+		m_groundingDecision.AddNotDecisionTag(L"Bomb");
+		m_groundingDecision.AddNotDecisionTag(L"Bullet");
+	}
 
-		// 影の追加
-		auto shadowComp = AddComponent<Shadowmap>();
-		shadowComp->SetMeshResource(L"DEFAULT_SPHERE");
+	void PlayerBase::OnCreate() {
+		// XMLのデータを取得
+		auto xmlData = XMLLoad::GetInstance()->GetData(L"PlayerStatus");
+		auto node = xmlData->GetSelectSingleNode(L"Player/PlayerColor");
+		if (!node) {
+			throw BaseException(
+				L"Player/PlayerColorが見つかりません",
+				L"if (!node)",
+				L"PlayerBase::OnCreate()"
+			);
+		}
+		// プレイヤーの色情報を取得
+		wstring data = XmlDocReader::GetText(node);
+		// 4プレイヤー分の色を空白で4つのデータに分ける
+		auto colorStr = DataExtracter::DelimitData(data, L' ');
+		// 自身のプレイヤー番号に応じた色データをRGBAに分類
+		auto color = DataExtracter::DelimitData(colorStr[(UINT)m_playerNumber]);
+		// 分類したものをCol4に変換
+		m_color = DataExtracter::ColorDataExtraction(color);
+		// 0～1に変換
+		m_color = Utility::ConvertColorZeroToOne(m_color);
+
+		// プレイヤーのモデルを追加
+		m_model = InstantiateGameObject<PlayerModel>(GetThis<PlayerBase>(), m_transformData);
 
 		// 滑るような挙動用のコンポーネントと重力を追加
 		AddComponent<PhysicalBehavior>();
 		AddComponent<Gravity>();
 		// 当たり判定を追加
-		AddComponent<CollisionSphere>();
+		AddComponent<CollisionSphere>()->SetDrawActive(false);
 
-		// 武器ステートマシンの構築
+		auto efkComp = AddComponent<EfkComponent>();
+		efkComp->SetEffectResource(L"Jump", TransformData(Vec3(0.0f, -0.5f, 0.0f), m_transformData.Scale));
+		efkComp->SetEffectResource(L"Hover", TransformData(Vec3(0.0f, -0.5f, 0.0f), m_transformData.Scale));
+		efkComp->SetEffectResource(L"Smoke", TransformData(Vec3(0.0f, -0.5f, 0.0f), m_transformData.Scale), true);
+		// 落ちたときのエフェクトの代わり
+		efkComp->SetEffectResource(L"Explosion", TransformData(Vec3(0.0f), Vec3(1.0f, 5.0f, 1.0f)));
+
+		// 武器ステートマシンの構築と設定
 		m_weaponStateMachine.reset(new StateMachine<PlayerBase>(GetThis<PlayerBase>()));
-		// 武器の初期ステートの設定
 		m_weaponStateMachine->ChangeState(PlayerBulletModeState::Instance());
-
-		// ジャンプ＆ホバー
+		// ジャンプ＆ホバーステートマシンの構築と設定
 		m_jumpAndHoverStateMachine.reset(new StateMachine<PlayerBase>(GetThis<PlayerBase>()));
 		m_jumpAndHoverStateMachine->ChangeState(PlayerJumpState::Instance());
 
 		// タグの追加
 		AddTag(L"Player");
+
+		// 各値の初期化
 		m_currentArmorPoint = m_defaultArmorPoint;
 		m_currentHoverTime = m_hoverTime;
 		m_bombCount = m_defaultBombCount;
 		m_initialPosition = GetTransform()->GetPosition();
-
 		// 接地判定の情報を初期化
 		m_groundingDecision.SetRadius(GetTransform()->GetScale());
 	}
@@ -54,14 +98,6 @@ namespace basecross {
 			}
 		}
 
-		//// テスト用の処理（ダメージを受けたら赤くなる）
-		//if (m_isDuringReturn) {
-		//	GetComponent<PNTStaticDraw>()->SetDiffuse(Col4(1.0f, 0.0f, 0.0f, 1.0f));
-		//}
-		//else {
-		//	GetComponent<PNTStaticDraw>()->SetDiffuse(Col4(1.0f, 1.0f, 1.0f, 1.0f));
-		//}
-
 		// 入力の更新
 		InputUpdate();
 		// 移動処理
@@ -70,6 +106,8 @@ namespace basecross {
 		TestFanc();
 		// 爆弾のリロード
 		BombReload();
+		// 無敵処理
+		Invincible();
 		// 各種ステートマシンの更新
 		m_weaponStateMachine->Update();
 		m_jumpAndHoverStateMachine->Update();
@@ -82,18 +120,55 @@ namespace basecross {
 	void PlayerBase::Move() {
 		auto physicalComp = GetComponent<PhysicalBehavior>();
 		physicalComp->Move(m_inputData.MoveDirection, m_moveSpeed);
+		auto efkComp = GetComponent<EfkComponent>();
+
+		// 移動していて接地している場合
+		if (m_inputData.MoveDirection != Vec3(0.0f) &&
+			m_groundingDecision.Calculate(GetTransform()->GetPosition())) {
+			if (m_smokeTimer.Count()) {
+				efkComp->Play(L"Smoke");
+				m_smokeTimer.Reset();
+			}
+		}
+	}
+
+	void PlayerBase::Invincible() {
+		if (m_invincibleTimer.Count()) {
+			m_isInvincible = false;
+		}
+		else {
+			auto time = m_invincibleTimer.GetElaspedTime() * 10;
+			auto flg = ((int)time % 2) == 0;
+			m_model.lock()->SetDrawActive(flg);
+		}
 	}
 
 	void PlayerBase::Jump() {
 		GetComponent<Gravity>()->StartJump(m_jumpVerocity);
+		// エフェクトと効果音の再生
+		GetComponent<EfkComponent>()->Play(L"Jump");
+		SoundManager::GetInstance()->Play(L"Jump", 0, 0.1f);
 	}
 
 	void PlayerBase::Hover() {
+		m_isHoverMode = true;
 		// ホバー可能時間が0以上の場合はホバー
-		if (m_currentHoverTime < 0.0f)
+		if (m_currentHoverTime < 0.0f) {
+			StopHover();
 			return;
+		}
 		GetComponent<Gravity>()->SetGravityVerocityZero();
 		m_currentHoverTime -= App::GetApp()->GetElapsedTime();
+
+		// ホバーエフェクト
+		auto efkComp = GetComponent<EfkComponent>();
+		if (!efkComp->IsPlaying(L"Hover")) {
+			efkComp->Play(L"Hover");
+			//SoundManager::GetInstance()->Play(L"Hover");
+		}
+		else {
+			efkComp->SyncPosition(L"Hover");
+		}
 	}
 
 	void PlayerBase::HoverTimeRecovery() {
@@ -102,6 +177,7 @@ namespace basecross {
 		}
 		else {
 			m_currentHoverTime = m_hoverTime;
+			m_isHoverMode = false;
 		}
 	}
 
@@ -121,7 +197,9 @@ namespace basecross {
 		if (bulletAim != Vec3(0.0f) && m_bulletTimer.Count()) {
 			m_bulletTimer.Reset();
 			InstantiateGameObject<Bullet>(GetThis<PlayerBase>(), ray);
+			SoundManager::GetInstance()->Play(L"Shot", 0, 0.1f);
 		}
+		TurnFrontToDirection(ray.Direction);
 	}
 
 	Vec3 PlayerBase::BulletAimCorrection(const Vec3& launchDirection) {
@@ -170,6 +248,7 @@ namespace basecross {
 		auto delta = App::GetApp()->GetElapsedTime();
 		m_bombPoint += m_inputData.BombAim * delta * 20.0f;
 		m_predictionLine.Update(GetTransform()->GetPosition(), m_bombPoint, PredictionLine::Type::Bomb);
+		TurnFrontToDirection(m_bombPoint - GetTransform()->GetPosition());
 	}
 
 	void PlayerBase::BombReload() {
@@ -187,6 +266,18 @@ namespace basecross {
 	void PlayerBase::BombLaunch() {
 		InstantiateGameObject<Bomb>(GetThis<PlayerBase>(),
 			m_predictionLine, GetTransform()->GetPosition(), m_bombPoint);
+		SoundManager::GetInstance()->Play(L"ThrowBomb", 0, 0.1f);
+	}
+
+	void PlayerBase::TurnFrontToDirection(const Vec3& direction) {
+		Vec3 rot(0.0f);
+		// directionがVec3(0.0f)だったら前回の方向のまま維持
+		Vec3 _direction = direction != Vec3(0.0f) ? direction : m_lastFrontDirection;
+		// 方向に正面を向ける
+		auto rad = atan2f(-_direction.z, _direction.x) - XM_PIDIV2;
+		rot.y = rad;
+		GetTransform()->SetRotation(rot);
+		m_lastFrontDirection = _direction;
 	}
 
 	void PlayerBase::ArmorRecovery() {
@@ -203,7 +294,15 @@ namespace basecross {
 		m_currentArmorPoint += 10.0f * App::GetApp()->GetElapsedTime();
 	}
 
+	void PlayerBase::StopHover() {
+		GetComponent<EfkComponent>()->Stop(L"Hover");
+	}
+
 	void PlayerBase::KnockBack(const KnockBackData& data) {
+		// 無敵の場合無視
+		if (m_isInvincible)
+			return;
+
 		m_aggriever = data.Aggriever;
 		m_isDuringReturn = true;
 		m_returnTimer.Reset();
@@ -237,8 +336,21 @@ namespace basecross {
 		if (m_isDuringReturn && m_aggriever.lock() != nullptr) {
 			m_aggriever.lock()->KilledPlayer();
 		}
+		// 復帰判定の初期化
 		m_isDuringReturn = false;
+		// 死亡回数を増やす
+		m_deadCount++;
+		// 各種パラメータを初期化
+		m_currentArmorPoint = m_defaultArmorPoint;
+		m_currentHoverTime = m_hoverTime;
+		m_bombCount = m_defaultBombCount;
+		// エフェクトと効果音の再生
+		GetComponent<EfkComponent>()->Play(L"Explosion");
+		SoundManager::GetInstance()->Play(L"Fall", 0, 0.1f);
+		// 初期位置に戻る
 		GetTransform()->SetPosition(m_initialPosition);
+		m_invincibleTimer.Reset();
+		m_isInvincible = true;
 	}
 
 	void PlayerBase::TestFanc() {
@@ -248,6 +360,28 @@ namespace basecross {
 			m_currentArmorPoint = 0.0f;
 			m_isRestoreArmor = true;
 			Debug::GetInstance()->Log(L"Test:Armor0");
+		}
+
+		if (keyState.m_bPressedKeyTbl['1'] &&
+			m_playerNumber == PlayerNumber::P1) {
+			m_countKilledPlayer += 10;
+			Debug::GetInstance()->Log(L"P1 +10Kill");
+		}
+
+		if (keyState.m_bPressedKeyTbl['2'] &&
+			m_playerNumber == PlayerNumber::P2) {
+			m_countKilledPlayer += 10;
+			Debug::GetInstance()->Log(L"P2 +10Kill");
+		}
+		if (keyState.m_bPressedKeyTbl['3'] &&
+			m_playerNumber == PlayerNumber::P3) {
+			m_countKilledPlayer += 10;
+			Debug::GetInstance()->Log(L"P3 +10Kill");
+		}
+		if (keyState.m_bPressedKeyTbl['4'] &&
+			m_playerNumber == PlayerNumber::P4) {
+			m_countKilledPlayer += 10;
+			Debug::GetInstance()->Log(L"P4 +10Kill");
 		}
 	}
 
@@ -281,7 +415,9 @@ namespace basecross {
 		static shared_ptr<PlayerBombModeState> instance(new PlayerBombModeState);
 		return instance;
 	}
-	void PlayerBase::PlayerBombModeState::Enter(const shared_ptr<PlayerBase>& Obj) {}
+	void PlayerBase::PlayerBombModeState::Enter(const shared_ptr<PlayerBase>& Obj) {
+		Obj->m_isBombMode = true;
+	}
 	void PlayerBase::PlayerBombModeState::Execute(const shared_ptr<PlayerBase>& Obj) {
 		// 爆弾の照準
 		Obj->BombAim();
@@ -298,6 +434,10 @@ namespace basecross {
 			// 残弾を減らす
 			Obj->m_bombCount--;
 		}
+		else {
+			SoundManager::GetInstance()->Play(L"EmptyBomb", 0, 0.1f);
+		}
+		Obj->m_isBombMode = false;
 	}
 #pragma endregion
 
@@ -363,11 +503,13 @@ namespace basecross {
 	void PlayerBase::PlayerHoverState::Execute(const shared_ptr<PlayerBase>& Obj) {
 		if (Obj->m_inputData.IsJumpOrHover) {
 			// 遷移時に入力があった場合ホバーを行わない（一度離す必要がある）
-			if (!Obj->m_isInput)
+			if (!Obj->m_isInput) {
 				Obj->Hover();
+			}
 		}
 		else {
 			Obj->m_isInput = false;
+			Obj->StopHover();
 		}
 
 		// 接地した場合
@@ -375,6 +517,8 @@ namespace basecross {
 			// ジャンプステートへ遷移
 			Obj->m_jumpAndHoverStateMachine->ChangeState(PlayerJumpState::Instance());
 	}
-	void PlayerBase::PlayerHoverState::Exit(const shared_ptr<PlayerBase>& Obj) {}
+	void PlayerBase::PlayerHoverState::Exit(const shared_ptr<PlayerBase>& Obj) {
+		Obj->StopHover();
+	}
 #pragma endregion
 }

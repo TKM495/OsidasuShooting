@@ -5,7 +5,7 @@
 
 #pragma once
 #include "stdafx.h"
-#include "Utility/DataExtracted.h"
+#include "Utility/DataExtracter.h"
 #include "Component/FadeComponent.h"
 #include "UIHeader.h"
 

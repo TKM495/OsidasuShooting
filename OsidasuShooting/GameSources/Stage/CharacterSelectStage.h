@@ -5,13 +5,13 @@
 
 namespace basecross {
 	class CharacterSelectStage :public Stage {
-		// �r���[�̍쐬
+		// ƒrƒ…[‚Ìì¬
 		void CreateViewLight();
 
 		wstring m_charaName[3];
 		Vec3 m_freamPos[4];
 		
-		int m_loopForPlayer;	// for���Ńv���C���[�̐l��������Ƃ�
+		int m_loopForPlayer;	// for•¶‚ÅƒvƒŒƒCƒ„[‚Ìl”‚ª“ü‚é‚Æ‚«
 		int m_gamePadIDs[4];
 
 		float m_posOffsetX;
@@ -22,8 +22,8 @@ namespace basecross {
 		bool m_isBPushPlayer[4];
 		bool m_isDecisionPlayer[4];
 
-		shared_ptr<CharacterIcon> m_Icons[12]; // �A�C�R��3 * �v���C���[��
-		shared_ptr<SelectTriangle> m_Triangle[8]; // �O�p2 * �v���C���[��
+		shared_ptr<CharacterIcon> m_Icons[12]; // ƒAƒCƒRƒ“3 * ƒvƒŒƒCƒ„[”
+		shared_ptr<SelectTriangle> m_Triangle[8]; // ŽOŠp2 * ƒvƒŒƒCƒ„[”
 		shared_ptr<ReadyToFightUI> m_Ready;
 
 		//shared_ptr<CharacterIcon> charaIcon;
@@ -45,7 +45,8 @@ namespace basecross {
 
 		void OnCreate()override;
 		void OnUpdate()override;
-
+		void OnDestroy()override;
+    
 		void PlayerFreamPosition(Vec3 pos, int gamePadID);
 		void PlayerCharacterSelect(Vec3 pos, int gamePadID);
 		void PlayerSelectTriangle(Vec3 pos, Vec3 scl, int gamePadID);
@@ -55,5 +56,6 @@ namespace basecross {
 		void CharacterSelectingPlayers(int gamePadID);
 		void CharacterSelectedPlayers(int gamePadID);
 		void CheckSelectedPlayers();
+
 	};
 }

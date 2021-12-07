@@ -6,30 +6,39 @@
 #pragma once
 #include "stdafx.h"
 #include "Effekseer/EfkEffect.h"
+#include "StageObject/AdvancedGameObject.h"
 
 namespace basecross {
 	/**
 	 * @brief エフェクトコンポーネント
 	 */
 	class EfkComponent : public Component {
-		// エフェクトデータのポインタ
-		Effekseer::EffectRef m_effectData;
-		// エフェクトハンドル
-		Effekseer::Handle m_handle;
+		// エフェクトデータ構造体
+		struct EfkData {
+			// エフェクトデータのポインタ
+			Effekseer::EffectRef EffectData;
+			// エフェクトハンドル
+			Effekseer::Handle Handle;
+			// 再生時のオフセットデータ
+			TransformData Offset;
+			// 前回のエフェクトを停止せずに再生を開始するか
+			bool NoStopLastEffect;
+			EfkData()
+				:EfkData(nullptr, TransformData(), false)
+			{}
+			EfkData(const Effekseer::EffectRef& data, const TransformData& offset, bool flg) {
+				this->EffectData = data;
+				this->Handle = -1;
+				this->Offset = offset;
+				this->NoStopLastEffect = flg;
+			}
+		};
+		// キー,エフェクトデータのマップ
+		map<wstring, EfkData> m_effectDataMap;
 		// マネージャーのポインタ
 		Effekseer::ManagerRef m_manager;
 		// 再生速度
 		float m_playSpeed;
-		// スケール
-		Vec3 m_scale;
-		//回転
-		Vec3 m_rotation;
-		/**
-		 * @brief 再生しているかどうか
-		 *
-		 * @return 再生している:true/再生していない:false
-		 */
-		bool IsPlaying();
 		/**
 		 * @brief ゲームオブジェクトの位置を取得
 		 *
@@ -48,59 +57,67 @@ namespace basecross {
 		 * @brief 使用するエフェクトの設定
 		 *
 		 * @param key エフェクトのキー
+		 * @param offset オフセットデータ
+		 * @param noStopLastEffect 前回のエフェクトを停止せずに再生を開始するか
 		 */
-		void SetEffectResource(const wstring& key);
+		void SetEffectResource(const wstring& key, const TransformData& offset, bool noStopLastEffect);
 		/**
 		 * @brief 使用するエフェクトの設定
 		 *
-		 * @param effectRes	shared_ptr<EfkEffectResource>
+		 * @param key エフェクトのキー
+		 * @param offset オフセットデータ
 		 */
-		void SetEffectResource(const shared_ptr<EfkEffectResource>& effectRes);
+		void SetEffectResource(const wstring& key, const TransformData& offset);
+		/**
+		 * @brief 使用するエフェクトの設定
+		 *
+		 * @param key エフェクトのキー
+		 */
+		void SetEffectResource(const wstring& key);
 
 		/**
 		 * @brief エフェクトの再生
+		 *
+		 * @param key エフェクトのキー
 		 */
-		void Play();
+		void Play(const wstring& key);
 		/**
 		 * @brief エフェクトの停止
+		 *
+		 * @param key エフェクトのキー
 		 */
-		void Stop();
+		void Stop(const wstring& key);
+		/**
+		 * @brief すべてのエフェクトを停止
+		 */
+		void StopAll();
 		/**
 		 * @brief エフェクトの一時停止（すでに一時停止している場合はそこから再生）
-		 */
-		void Pause();
-
-		/**
-		 * @brief 再生速度の設定
 		 *
-		 * @param speed 再生速度（デフォルトは1）
+		 * @param key エフェクトのキー
 		 */
-		void SetPlaySpeed(float speed = 1.0f);
-
-		/**
-		 * @brief 回転をセット（deg）
-		 *
-		 * @param rotation 回転量
-		 */
-		void SetRotation(const Vec3& rotation);
-
-		/**
-		 * @brief スケールをセット
-		 *
-		 * @param scale スケール
-		 */
-		void SetScale(const Vec3& scale);
+		void Pause(const wstring& key);
 
 		/**
 		 * @brief 位置の同期
+		 *
+		 * @param key エフェクトのキー
 		 */
-		void SyncPosition();
+		void SyncPosition(const wstring& key);
 
 		/**
-		 * @brief エフェクトの位置をずらす
+		 * @brief キーのエフェクトが再生中か
 		 *
-		 * @param position ずらす量
+		 * @param key エフェクトのキー
+		 * @return 再生している:true/再生していない:false
 		 */
-		void AddLocation(const Vec3& position);
+		bool IsPlaying(const wstring& key);
+
+		/**
+		 * @brief コンポーネントに登録されているすべてのエフェクトが再生中か
+		 *
+		 * @return 再生している:true/再生していない:false
+		 */
+		bool IsPlaying();
 	};
 }

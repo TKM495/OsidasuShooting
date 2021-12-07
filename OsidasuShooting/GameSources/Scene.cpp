@@ -55,27 +55,18 @@ namespace basecross {
 			Col4 Col(30.0f, 30.0f, 30.0f, 1.0f);
 			SetClearColor(Utility::ConvertColorZeroToOne(Col));
 
-			auto dir = App::GetApp()->GetDataDirWString();
-			auto path = dir + L"Csv/";
-			CSVLoad::GetInstance()->RegisterFile(L"test", path + L"StringSprite.csv");
-			CSVLoad::GetInstance()->RegisterFile(L"PlayerInfo", path + L"PlayerInfo.csv");
-			CSVLoad::GetInstance()->RegisterFile(L"PlayerFollowUI", path + L"PlayerFollowUI.csv");
-
-			path = dir + L"Models/";
-			auto modelMesh = MultiMeshResource::CreateStaticModelMultiMesh(path + L"LaserCharacter/", L"Laser.bmf");
-			App::GetApp()->RegisterResource(L"Player", modelMesh);
-			//App::GetApp()->SetFullScreenMode();
-
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる
-			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToDebugStage");
-			GetAppTexture();
+			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToLoadStage");
 		}
 		catch (...) {
 			throw;
 		}
 	}
 
+	Scene::Scene() : SceneBase(),
+		m_circleShadowDirection(Vec3(0.3f, -1.0f, 0.3f).normalize())
+	{}
 	Scene::~Scene() {
 	}
 
@@ -83,6 +74,9 @@ namespace basecross {
 		// デバッグステージ
 		if (event->m_MsgStr == L"ToDebugStage") {
 			ResetActiveStage<DebugStage>();
+		}
+		else if (event->m_MsgStr == L"ToLoadStage") {
+			ResetActiveStage<LoadStage>();
 		}
 		// タイトルステージ
 		else if (event->m_MsgStr == L"ToTitleStage") {
@@ -107,7 +101,7 @@ namespace basecross {
 
 		// 以下制作用ステージ
 		else if (event->m_MsgStr == L"ToWatanabeStage") {
-			ResetActiveStage<WatanabeStage2>();
+			ResetActiveStage<WatanabeStage>();
 		}
 		else if (event->m_MsgStr == L"ToSatoStage") {
 			ResetActiveStage<SatoStage>();
