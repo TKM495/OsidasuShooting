@@ -15,19 +15,19 @@ namespace basecross {
 	{
 		float Time;				// 継続時間
 		WORD RightMotorSpeed;	// 右モーター（0～65535）
-		WORD LeftMotorSpeed;		// 左モーター（0～65535）
+		WORD LeftMotorSpeed;	// 左モーター（0～65535）
 
 		/**
 		 * @brief コンストラクタ
 		 *
-		 * @param time				継続時間
-		 * @param rightMotorSpeed	右モーター（0～65535）
-		 * @param leftMotorSpeed	左モーター（0～65535）
+		 * @param time					// 継続時間
+		 * @param rightMotorSpeedRate	// 右モーターの回転速度（0～1）
+		 * @param leftMotorSpeedRate	// 左モーターの回転速度（0～1）
 		 */
-		VibrationData(float time, WORD rightMotorSpeed, WORD leftMotorSpeed) {
+		VibrationData(float time, float rightMotorSpeedRate, float leftMotorSpeedRate) {
 			this->Time = time;
-			this->RightMotorSpeed = rightMotorSpeed;
-			this->LeftMotorSpeed = leftMotorSpeed;
+			this->RightMotorSpeed = WORD(65535 * rightMotorSpeedRate);
+			this->LeftMotorSpeed = WORD(65535 * leftMotorSpeedRate);
 		}
 	};
 
@@ -42,7 +42,6 @@ namespace basecross {
 
 		// プレイヤー番号（取得するコントローラーに影響）
 		PlayerNumber m_playerNumber;
-		TimeCounter m_timer;
 		/**
 		 * @brief スティックを取得
 		 *
@@ -57,7 +56,13 @@ namespace basecross {
 		 * @return トリガーのデータ（bool）
 		 */
 		bool GetTrigger(Direction direction);
-		void th(const VibrationData& data);
+
+		/**
+		 * @brief バイブレーションのアクティブ（スレッド用関数）
+		 *
+		 * @param data バイブレーションデータ
+		 */
+		void ActiveVibrationThread(const VibrationData& data);
 	public:
 		/**
 		 * @brief コンストラクタ
@@ -65,6 +70,10 @@ namespace basecross {
 		 * @param number プレイヤー番号
 		 */
 		GameController(PlayerNumber number);
+		/**
+		 * @brief デストラクタ
+		 */
+		~GameController();
 
 		/**
 		 * @brief コントローラー取得
@@ -100,7 +109,16 @@ namespace basecross {
 		 */
 		bool GetLeftTrigger();
 
+		/**
+		 * @brief バイブレーションのセット
+		 *
+		 * @param data バイブレーションデータ
+		 */
 		void SetVibration(const VibrationData& data);
+
+		/**
+		 * @brief バイブレーションのリセット
+		 */
 		void ResetVibration();
 	};
 }
