@@ -138,7 +138,7 @@ namespace basecross {
 			Debug::GetInstance()->Log(L"Button A ¨ Game");
 			Debug::GetInstance()->Log(L"Button B ¨ Title");
 
-			SoundManager::GetInstance()->Play(L"ResultBGM", 0, 0.05f);
+			SoundManager::GetInstance()->Play(L"ResultBGM");
 		}
 		catch (...) {
 			throw;
