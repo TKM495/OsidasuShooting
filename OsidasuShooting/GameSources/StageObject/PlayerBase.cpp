@@ -82,6 +82,7 @@ namespace basecross {
 		m_currentHoverTime = m_hoverTime;
 		m_bombCount = m_defaultBombCount;
 		m_initialPosition = GetTransform()->GetPosition();
+		SoundManager::GetInstance()->InitPlayOverlap(L"HoverSE", 0.06f);
 		// Ú’n”»’è‚Ìî•ñ‚ð‰Šú‰»
 		m_groundingDecision.SetRadius(GetTransform()->GetScale());
 	}
@@ -162,11 +163,11 @@ namespace basecross {
 		auto efkComp = GetComponent<EfkComponent>();
 		if (!efkComp->IsPlaying(L"Hover")) {
 			efkComp->Play(L"Hover");
-			// SoundManager::GetInstance()->Play(L"Hover");
 		}
 		else {
 			efkComp->SyncPosition(L"Hover");
 		}
+		SoundManager::GetInstance()->PlayOverlap(L"HoverSE", 0.3f);
 	}
 
 	void PlayerBase::HoverTimeRecovery() {

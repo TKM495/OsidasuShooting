@@ -122,7 +122,7 @@ namespace basecross {
 			//Debug::GetInstance()->Log(m_shiftMovePos);
 			AddGameObject<TransitionSprite>()->FadeOut();
 
-			SoundManager::GetInstance()->Play(L"SelectBGM", XAUDIO2_LOOP_INFINITE);
+			SoundManager::GetInstance()->PlayLoop(L"SelectBGM");
 		}
 		catch (...) {
 			throw;

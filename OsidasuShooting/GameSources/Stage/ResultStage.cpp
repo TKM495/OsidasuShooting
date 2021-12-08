@@ -166,7 +166,7 @@ namespace basecross {
 			Debug::GetInstance()->Log(L"Button A : Game");
 			Debug::GetInstance()->Log(L"Button B : Title");
 
-			SoundManager::GetInstance()->Play(L"ResultBGM", XAUDIO2_LOOP_INFINITE);
+			SoundManager::GetInstance()->PlayLoop(L"ResultBGM");
 		}
 		catch (...) {
 			throw;
