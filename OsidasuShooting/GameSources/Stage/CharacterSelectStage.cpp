@@ -101,6 +101,8 @@ namespace basecross {
 			Debug::GetInstance()->Log(L"A : GameStart");
 			Debug::GetInstance()->Log(L"B : ToTitle");
 
+			AddGameObject<SimpleSprite>(L"BackGround00")->SetDrawLayer(-1);
+
 			SetCharaName();
 			auto side = 300.0f;
 			auto higth = 150.0f;
@@ -118,6 +120,8 @@ namespace basecross {
 			//auto addIcons = AddGameObject<CharacterIcon>(L"MissileIcon");
 			//Debug::GetInstance()->Log(m_shiftMovePos);
 			//Debug::GetInstance()->Log(m_shiftMovePos);
+			AddGameObject<TransitionSprite>()->FadeOut();
+
 			SoundManager::GetInstance()->Play(L"SelectBGM", XAUDIO2_LOOP_INFINITE);
 		}
 		catch (...) {
