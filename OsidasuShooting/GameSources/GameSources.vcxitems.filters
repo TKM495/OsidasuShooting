@@ -325,17 +325,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\ResultSprite.cpp">
       <Filter>UI\Result</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUISprites.cpp">
-      <Filter>UI\CharaSelectUISprite</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.cpp">
       <Filter>UI\NumberSprite</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\FreamSprite.cpp">
-      <Filter>UI\Fream</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUILetter.cpp">
-      <Filter>UI\CharaSelectUISprite</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\PlayerModel.cpp">
       <Filter>StageObject\Player</Filter>
@@ -363,6 +354,15 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\GameController.cpp">
       <Filter>Utility\GameController</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\FreamSprite.cpp">
+      <Filter>UI\Fream</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUILetter.cpp">
+      <Filter>UI\CharacterSelectUI</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUISprites.cpp">
+      <Filter>UI\CharaSelectUISprite</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -560,18 +560,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\ResultSprite.h">
       <Filter>UI\Result</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\StageObject.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUISprites.h">
-      <Filter>UI\CharaSelectUISprite</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.h">
       <Filter>UI\NumberSprite</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\FreamSprite.h">
-      <Filter>UI\Fream</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUILetter.h">
-      <Filter>UI\CharaSelectUISprite</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\PlayerModel.h">
       <Filter>StageObject\Player</Filter>
@@ -599,6 +589,15 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\GameController.h">
       <Filter>Utility\GameController</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\FreamSprite.h">
+      <Filter>UI\Fream</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUILetter.h">
+      <Filter>UI\CharacterSelectUI</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUISprites.h">
+      <Filter>UI\CharaSelectUISprite</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

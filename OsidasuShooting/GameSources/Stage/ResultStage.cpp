@@ -38,7 +38,7 @@ namespace basecross {
 
 	void ResultStage::AddResultSprites(Vec3 pos, int playerNum, int score)
 	{
-		auto fream = AddGameObject<FreamSprite>(L"Fream",pos,1.2f);
+		auto fream = AddGameObject<FreamSprite>(L"Fream", pos, 1.2f);
 		auto freamTrans = fream->GetComponent<Transform>();
 		auto freamPos = freamTrans->GetPosition();
 		fream->SetDrawLayer(1);
@@ -52,7 +52,6 @@ namespace basecross {
 		playUIsTrans->SetPosition(playerNumPos);
 		playUIsTrans->SetScale(Vec3(0.4f));
 		playerNumber->SetDrawLayer(2);
-
 
 		auto scorePos = pos;
 		scorePos.x += 0.0f;
@@ -107,8 +106,8 @@ namespace basecross {
 				m_playerTopScore = m_playersScore;
 			}
 			else if (player->GetCountKilledPlayer() > m_playerTopScore) {
-					m_playerTop = m_playersNumber;
-					m_playerTopScore = m_playersScore;
+				m_playerTop = m_playersNumber;
+				m_playerTopScore = m_playersScore;
 			}
 			i++;
 		}
@@ -119,17 +118,17 @@ namespace basecross {
 	void ResultStage::WinnerPlayer() {
 		PlayersResult();
 		auto player = PlayerNumber::P1;
-		if (m_playerTop == 2) {
+		if ((int)m_playerTop == 2) {
 			player = PlayerNumber::P2;
 		}
-		else if (m_playerTop == 3) {
+		else if ((int)m_playerTop == 3) {
 			player = PlayerNumber::P3;
 		}
-		else if (m_playerTop == 4) {
+		else if ((int)m_playerTop == 4) {
 			player = PlayerNumber::P4;
 		}
 		auto topPlayer = AddGameObject<ResultPlayer>(
-      TransformData(Vec3(0.0f, 1.0f, 0.0f), Vec3(1), Vec3(0, XMConvertToRadians(-90.0f), 0), player);
+			TransformData(Vec3(0.0f, 1.0f, 0.0f), Vec3(1), Vec3(0, XMConvertToRadians(-90.0f), 0)), player);
 		topPlayer->GetComponent<Gravity>()->SetGravityZero();
 		auto PlayerPos = topPlayer->GetComponent<Transform>()->GetPosition();
 

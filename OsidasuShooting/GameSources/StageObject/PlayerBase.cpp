@@ -147,7 +147,7 @@ namespace basecross {
 		GetComponent<Gravity>()->StartJump(m_jumpVerocity);
 		// エフェクトと効果音の再生
 		GetComponent<EfkComponent>()->Play(L"Jump");
-		SoundManager::GetInstance()->Play(L"Jump", 0, 0.1f);
+		SoundManager::GetInstance()->Play(L"JumpSE", 0, 0.1f);
 	}
 
 	void PlayerBase::Hover() {
@@ -197,7 +197,7 @@ namespace basecross {
 		if (bulletAim != Vec3(0.0f) && m_bulletTimer.Count()) {
 			m_bulletTimer.Reset();
 			InstantiateGameObject<Bullet>(GetThis<PlayerBase>(), ray);
-			SoundManager::GetInstance()->Play(L"Shot", 0, 0.1f);
+			SoundManager::GetInstance()->Play(L"ShotSE", 0, 0.1f);
 		}
 		TurnFrontToDirection(ray.Direction);
 	}
@@ -266,7 +266,7 @@ namespace basecross {
 	void PlayerBase::BombLaunch() {
 		InstantiateGameObject<Bomb>(GetThis<PlayerBase>(),
 			m_predictionLine, GetTransform()->GetPosition(), m_bombPoint);
-		SoundManager::GetInstance()->Play(L"ThrowBomb", 0, 0.1f);
+		SoundManager::GetInstance()->Play(L"ThrowBombSE", 0, 0.1f);
 	}
 
 	void PlayerBase::TurnFrontToDirection(const Vec3& direction) {
@@ -346,7 +346,7 @@ namespace basecross {
 		m_bombCount = m_defaultBombCount;
 		// エフェクトと効果音の再生
 		GetComponent<EfkComponent>()->Play(L"Explosion");
-		SoundManager::GetInstance()->Play(L"Fall", 0, 0.1f);
+		SoundManager::GetInstance()->Play(L"FallSE", 0, 0.1f);
 		// 初期位置に戻る
 		GetTransform()->SetPosition(m_initialPosition);
 		m_invincibleTimer.Reset();
@@ -435,7 +435,7 @@ namespace basecross {
 			Obj->m_bombCount--;
 		}
 		else {
-			SoundManager::GetInstance()->Play(L"EmptyBomb", 0, 0.1f);
+			SoundManager::GetInstance()->Play(L"EmptyBombSE", 0, 0.1f);
 		}
 		Obj->m_isBombMode = false;
 	}

@@ -6,24 +6,24 @@ namespace basecross {
 		const Vec3 eye(0.0f, 5.0f, -5.0f);
 		const Vec3 at(0.0f);
 		auto PtrView = CreateView<SingleView>();
-		//ãƒ“ãƒ¥ãƒ¼ã®ã‚«ãƒ¡ãƒ©ã®è¨­å®š
+		//ƒrƒ…[‚ÌƒJƒƒ‰‚Ìİ’è
 		auto PtrCamera = ObjectFactory::Create<Camera>();
 		PtrView->SetCamera(PtrCamera);
 		PtrCamera->SetEye(eye);
 		PtrCamera->SetAt(at);
-		//ãƒãƒ«ãƒãƒ©ã‚¤ãƒˆã®ä½œæˆ
+		//ƒ}ƒ‹ƒ`ƒ‰ƒCƒg‚Ìì¬
 		auto PtrMultiLight = CreateLight<MultiLight>();
-		//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®ãƒ©ã‚¤ãƒ†ã‚£ãƒ³ã‚°ã‚’æŒ‡å®š
+		//ƒfƒtƒHƒ‹ƒg‚Ìƒ‰ƒCƒeƒBƒ“ƒO‚ğw’è
 		PtrMultiLight->SetDefaultLighting();
 	}
-	
-	// ãƒ•ãƒ¬ãƒ¼ãƒ è¨­ç½®
-	void CharacterSelectStage::PlayerFreamPosition(Vec3 pos,int gamePadID) {
-		m_gamePadIDs[gamePadID] = gamePadID;	// ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ã®ç•ªå·ã‚’ç™»éŒ²
+
+	// ƒtƒŒ[ƒ€İ’u
+	void CharacterSelectStage::PlayerFreamPosition(Vec3 pos, int gamePadID) {
+		m_gamePadIDs[gamePadID] = gamePadID;	// ƒQ[ƒ€ƒpƒbƒh‚Ì”Ô†‚ğ“o˜^
 		m_isDecisionPlayer[gamePadID] = false;
 
 		auto scale = 2.0f;
-		auto fream = AddGameObject<FreamSprite>(L"Fream",pos,scale);
+		auto fream = AddGameObject<FreamSprite>(L"Fream", pos, scale);
 		auto freamTrans = fream->GetComponent<Transform>();
 		m_freamPos[gamePadID] = freamTrans->GetPosition();
 		fream->SetDrawLayer(0);
@@ -31,10 +31,9 @@ namespace basecross {
 		const auto& ctrlVec = App::GetApp()->GetInputDevice().GetControlerVec()[gamePadID];
 		PlayerCharacterSelect(m_freamPos[gamePadID], gamePadID);
 		PlayerSelectTriangle(m_freamPos[gamePadID], Vec3(0.5f), gamePadID);
-
 	}
 
-	// ã‚¢ã‚¤ã‚³ãƒ³è¨­ç½®
+	// ƒAƒCƒRƒ“İ’u
 	void CharacterSelectStage::PlayerCharacterSelect(Vec3 pos, int gamePadID) {
 		for (int i = 0; i < 3; i++) {
 			auto gamePadLinkIcons = i + 3 * gamePadID;
@@ -54,11 +53,11 @@ namespace basecross {
 		playerTrans->SetPosition(pos);
 	}
 
-	// ä¸‰è§’è¨­ç½®
+	// OŠpİ’u
 	void CharacterSelectStage::PlayerSelectTriangle(Vec3 pos, Vec3 scl, int gamePadID) {
-		// æ­£ä½ç½®
+		// ³ˆÊ’u
 
-		m_Triangle[gamePadID] = AddGameObject<SelectTriangle>(L"Triangle", gamePadID, 0, pos, scl,false);
+		m_Triangle[gamePadID] = AddGameObject<SelectTriangle>(L"Triangle", gamePadID, 0, pos, scl, false);
 		auto triTrans = m_Triangle[gamePadID]->GetComponent<Transform>();
 
 		auto posX = pos.x + 190;
@@ -73,7 +72,6 @@ namespace basecross {
 		triTrans->SetPosition(Vec3(m_shiftMovePos + posX, posY, 0));
 		triTrans->SetScale(scl);
 		m_Triangle[gamePadID + 4]->SetDrawLayer(1);
-
 	}
 
 	void CharacterSelectStage::UIsSet() {
@@ -83,24 +81,20 @@ namespace basecross {
 		AddGameObject<AButtonSpriteUI>();
 		AddGameObject<BButtonSpriteUI>();
 		m_Ready = AddGameObject<ReadyToFightUI>();
-
-
 	}
 
-	void CharacterSelectStage::SetCharaName() {	
-
+	void CharacterSelectStage::SetCharaName() {
 		//m_charaName[i] = cvs;
 
 		m_charaName[0] = (L"LaserIcon");
 		m_charaName[1] = (L"MissileIcon");
 		m_charaName[2] = (L"3WayIcon");
 		//m_charaName[3] = (L"MissileIcon");
-
 	}
 
 	void CharacterSelectStage::OnCreate() {
 		try {
-			//ãƒ“ãƒ¥ãƒ¼ã¨ãƒ©ã‚¤ãƒˆã®ä½œæˆ
+			//ƒrƒ…[‚Æƒ‰ƒCƒg‚Ìì¬
 			CreateViewLight();
 			AddGameObject<Debug>();
 			Debug::GetInstance()->Log(L"CurrentStage : CharacterSelectStage");
@@ -110,10 +104,10 @@ namespace basecross {
 			SetCharaName();
 			auto side = 300.0f;
 			auto higth = 150.0f;
-			PlayerFreamPosition(Vec3(-side,  higth, 0), 0);
-			PlayerFreamPosition(Vec3( side,  higth, 0), 1);
+			PlayerFreamPosition(Vec3(-side, higth, 0), 0);
+			PlayerFreamPosition(Vec3(side, higth, 0), 1);
 			PlayerFreamPosition(Vec3(-side, -higth, 0), 2);
-			PlayerFreamPosition(Vec3( side, -higth, 0), 3);
+			PlayerFreamPosition(Vec3(side, -higth, 0), 3);
 
 			UIsSet();
 
@@ -130,7 +124,6 @@ namespace basecross {
 			throw;
 		}
 	}
-
 
 	void CharacterSelectStage::CharacterSelectingPlayers(int gamePadID) {
 		auto& app = App::GetApp();
@@ -151,7 +144,6 @@ namespace basecross {
 	}
 
 	void CharacterSelectStage::CharacterSelectedPlayers(int gamePadID) {
-
 		if (m_isDecisionPlayer[gamePadID]) {
 			m_Triangle[gamePadID]->SetDrawActive(false);
 			m_Triangle[gamePadID]->SetUpdateActive(false);
@@ -178,8 +170,8 @@ namespace basecross {
 		}
 	}
 
-	void CharacterSelectStage::CheckSelectedPlayers(){
-		if( m_isDecisionPlayer[0] && m_isDecisionPlayer[1] &&
+	void CharacterSelectStage::CheckSelectedPlayers() {
+		if (m_isDecisionPlayer[0] && m_isDecisionPlayer[1] &&
 			m_isDecisionPlayer[2] && m_isDecisionPlayer[3])
 		{
 			m_Ready->SetDrawActive(true);
@@ -191,7 +183,6 @@ namespace basecross {
 			m_Ready->SetDrawActive(false);
 			m_Ready->SetUpdateActive(false);
 
-
 			auto& app = App::GetApp();
 			for (int i = 0; i < m_loopForPlayer; i++) {
 				const auto& ctrlVec = app->GetInputDevice().GetControlerVec()[i];
@@ -200,7 +191,6 @@ namespace basecross {
 						PostEvent(0.0f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToTitleStage");
 					else m_isBPushPlayer[i] = true;
 				}
-
 			}
 		}
 	}
@@ -208,7 +198,6 @@ namespace basecross {
 	void CharacterSelectStage::OnUpdate() {
 		auto& app = App::GetApp();
 		for (int i = 0; i < m_loopForPlayer; i++) {
-
 			CharacterSelectingPlayers(i);
 			CharacterSelectedPlayers(i);
 
@@ -217,9 +206,7 @@ namespace basecross {
 				m_isBPushPlayer[i] = false;
 		}
 		CheckSelectedPlayers();
-
 	}
-}
 
 	void CharacterSelectStage::OnDestroy() {
 		SoundManager::GetInstance()->StopAll();

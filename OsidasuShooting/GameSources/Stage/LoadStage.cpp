@@ -21,6 +21,30 @@ namespace basecross {
 
 		// スプライト
 		auto path = dir + L"Sprite/";
+
+		app->RegisterTexture(L"AButton", path + L"AButton.png");
+		app->RegisterTexture(L"BButton", path + L"BButton.png");
+		app->RegisterTexture(L"Cancel", path + L"Cancel.png");
+		app->RegisterTexture(L"Decision", path + L"Decision.png");
+		app->RegisterTexture(L"Fream", path + L"Fream.png");
+		app->RegisterTexture(L"OK", path + L"OK.png");
+		app->RegisterTexture(L"PushAButton", path + L"PushAButton.png");
+
+		app->RegisterTexture(L"3WayIcon", path + L"3WayIcon.png");
+		app->RegisterTexture(L"LaserIcon", path + L"LaserIcon.png");
+		app->RegisterTexture(L"MissileIcon", path + L"MissileIcon.png");
+
+		app->RegisterTexture(L"CharacterSelect", path + L"CharacterSelect.png");
+		app->RegisterTexture(L"ReTriangle", path + L"ReTriangle.png");
+		app->RegisterTexture(L"Triangle", path + L"Triangle.png");
+
+		app->RegisterTexture(L"ReadyToFight", path + L"ReadyToFight.png");
+
+		app->RegisterTexture(L"Winner", path + L"Winner.png");
+		app->RegisterTexture(L"BombBack", path + L"BombBackGround.png");
+		app->RegisterTexture(L"GaugeBackGround", path + L"GaugeBackGround.png");
+		app->RegisterTexture(L"Gauge", path + L"Gauge.png");
+
 		app->RegisterTexture(L"Title", path + L"Title.png");
 		app->RegisterTexture(L"PushAButton", path + L"PushAButton.png");
 		app->RegisterTexture(L"Number", path + L"Number.png");
@@ -32,9 +56,11 @@ namespace basecross {
 		app->RegisterTexture(L"Block", path + L"Block.png");
 		app->RegisterTexture(L"Test", path + L"test.png");
 		app->RegisterTexture(L"Winner", path + L"Winner.png");
-		app->RegisterTexture(L"ResultFream", path + L"ResultFream.png");
+
+		//app->RegisterTexture(L"ResultFream", path + L"ResultFream.png");
 		app->RegisterTexture(L"BombBack", path + L"BombBackGround.png");
 		app->RegisterTexture(L"GaugeBackGround", path + L"GaugeBackGround.png");
+
 		app->RegisterTexture(L"Gauge", path + L"Gauge.png");
 		app->RegisterTexture(L"Start", path + L"Fight.png");
 		app->RegisterTexture(L"Finish", path + L"Finish.png");
@@ -60,15 +86,15 @@ namespace basecross {
 
 		// 効果音
 		path = dir + L"Sound/SE/";
-		app->RegisterWav(L"EmptyBomb", path + L"EmptyBomb.wav");
-		app->RegisterWav(L"Decision", path + L"Decision.wav");
-		app->RegisterWav(L"Explosion", path + L"Explosion.wav");
-		app->RegisterWav(L"Fall", path + L"Fall.wav");
-		app->RegisterWav(L"Hover", path + L"Hover.wav");
-		app->RegisterWav(L"Jump", path + L"Jump.wav");
-		app->RegisterWav(L"Shot", path + L"Shot.wav");
-		app->RegisterWav(L"ThrowBomb", path + L"ThrowBomb.wav");
-		app->RegisterWav(L"Warning", path + L"Warning.wav");
+		app->RegisterWav(L"EmptyBombSE", path + L"EmptyBomb.wav");
+		app->RegisterWav(L"DecisionSE", path + L"Decision.wav");
+		app->RegisterWav(L"ExplosionSE", path + L"Explosion.wav");
+		app->RegisterWav(L"FallSE", path + L"Fall.wav");
+		app->RegisterWav(L"HoverSE", path + L"Hover.wav");
+		app->RegisterWav(L"JumpSE", path + L"Jump.wav");
+		app->RegisterWav(L"ShotSE", path + L"Shot.wav");
+		app->RegisterWav(L"ThrowBombSE", path + L"ThrowBomb.wav");
+		app->RegisterWav(L"WarningSE", path + L"Warning.wav");
 
 		// BGM
 		path = dir + L"Sound/BGM/";

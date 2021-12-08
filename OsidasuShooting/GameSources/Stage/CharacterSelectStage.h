@@ -5,13 +5,13 @@
 
 namespace basecross {
 	class CharacterSelectStage :public Stage {
-		// ƒrƒ…[‚Ìì¬
+		// ?r?�c?[?I?i?��
 		void CreateViewLight();
 
 		wstring m_charaName[3];
 		Vec3 m_freamPos[4];
 		
-		int m_loopForPlayer;	// for•¶‚ÅƒvƒŒƒCƒ„[‚Ìl”‚ª“ü‚é‚Æ‚«
+		int m_loopForPlayer;	// for?��?A?v???C???[?I?l?�h?a�gu?e?A?��
 		int m_gamePadIDs[4];
 
 		float m_posOffsetX;
@@ -22,8 +22,8 @@ namespace basecross {
 		bool m_isBPushPlayer[4];
 		bool m_isDecisionPlayer[4];
 
-		shared_ptr<CharacterIcon> m_Icons[12]; // ƒAƒCƒRƒ“3 * ƒvƒŒƒCƒ„[”
-		shared_ptr<SelectTriangle> m_Triangle[8]; // ŽOŠp2 * ƒvƒŒƒCƒ„[”
+		shared_ptr<CharacterIcon> m_Icons[12]; // ?A?C?R?�g3 * ?v???C???[?�h
+		shared_ptr<SelectTriangle> m_Triangle[8]; // ?O?p2 * ?v???C???[?�h
 		shared_ptr<ReadyToFightUI> m_Ready;
 
 		//shared_ptr<CharacterIcon> charaIcon;
