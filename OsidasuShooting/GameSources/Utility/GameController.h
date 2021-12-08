@@ -21,8 +21,8 @@ namespace basecross {
 		 * @brief コンストラクタ
 		 *
 		 * @param time					// 継続時間
-		 * @param rightMotorSpeedRate	// 右モーターの回転速度（0～1）
-		 * @param leftMotorSpeedRate	// 左モーターの回転速度（0～1）
+		 * @param rightMotorSpeedRate	// 右モーターの回転速度（0～1）(高回転)
+		 * @param leftMotorSpeedRate	// 左モーターの回転速度（0～1）(低回転)
 		 */
 		VibrationData(float time, float rightMotorSpeedRate, float leftMotorSpeedRate) {
 			this->Time = time;
@@ -42,6 +42,9 @@ namespace basecross {
 
 		// プレイヤー番号（取得するコントローラーに影響）
 		PlayerNumber m_playerNumber;
+
+		// バイブレーションがONになっているか
+		bool m_isVibrationON;
 		/**
 		 * @brief スティックを取得
 		 *

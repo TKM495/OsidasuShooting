@@ -177,7 +177,6 @@ namespace basecross {
 		}
 		else {
 			m_currentHoverTime = m_hoverTime;
-			m_isHoverMode = false;
 		}
 	}
 
@@ -295,6 +294,7 @@ namespace basecross {
 	}
 
 	void PlayerBase::StopHover() {
+		m_isHoverMode = false;
 		GetComponent<EfkComponent>()->Stop(L"Hover");
 	}
 
@@ -347,6 +347,7 @@ namespace basecross {
 		// エフェクトと効果音の再生
 		GetComponent<EfkComponent>()->Play(L"Explosion");
 		SoundManager::GetInstance()->Play(L"Fall", 0, 0.1f);
+		OnRespawn();
 		// 初期位置に戻る
 		GetTransform()->SetPosition(m_initialPosition);
 		m_invincibleTimer.Reset();

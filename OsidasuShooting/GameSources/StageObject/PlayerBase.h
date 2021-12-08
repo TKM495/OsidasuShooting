@@ -192,6 +192,8 @@ namespace basecross {
 		PlayerInputData m_inputData;
 		// 入力の更新
 		virtual void InputUpdate() = 0;
+		// リスポーン時の追加処理
+		virtual void OnRespawn() {}
 	public:
 		PlayerBase(const shared_ptr<Stage>& stage,
 			const TransformData& transData,
@@ -309,6 +311,15 @@ namespace basecross {
 		 */
 		bool IsHoverMode() {
 			return m_isHoverMode;
+		}
+
+		/**
+		 * @brief 無敵か
+		 *
+		 * @return trueならそう
+		 */
+		bool IsInvincible() {
+			return m_isInvincible;
 		}
 	private:
 		// 武器用ステート

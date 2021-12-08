@@ -8,7 +8,7 @@
 
 namespace basecross {
 	GameController::GameController(PlayerNumber number)
-		:m_playerNumber(number)
+		:m_playerNumber(number), m_isVibrationON(false)
 	{}
 
 	GameController::~GameController() {
@@ -107,6 +107,11 @@ namespace basecross {
 	}
 
 	void GameController::SetVibration(const VibrationData& data) {
+		// すでにバイブレーションがONになっている場合新しくスレッドを立てない
+		if (m_isVibrationON)
+			return;
+
+		m_isVibrationON = true;
 		//他のリソースを読み込むスレッドのスタート
 		thread vibrationThread(&GameController::ActiveVibrationThread, this, data);
 		//終了までは待たない
@@ -114,6 +119,7 @@ namespace basecross {
 	}
 
 	void GameController::ResetVibration() {
+		m_isVibrationON = false;
 		XINPUT_VIBRATION vibration = { 0,0 };
 		XInputSetState((WORD)m_playerNumber, &vibration);
 	}
