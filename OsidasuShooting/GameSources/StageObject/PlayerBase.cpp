@@ -293,6 +293,7 @@ namespace basecross {
 	void PlayerBase::StopHover() {
 		m_isHoverMode = false;
 		GetComponent<EfkComponent>()->Stop(L"Hover");
+		OnStopHover();
 	}
 
 	void PlayerBase::KnockBack(const KnockBackData& data) {
