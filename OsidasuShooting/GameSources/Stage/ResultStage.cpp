@@ -1,6 +1,6 @@
 /*!
 @file   ResultStage.cpp
-@brief  ãƒªã‚¶ãƒ«ãƒˆã‚¹ãƒ†ãƒ¼ã‚¸å®Ÿä½“
+@brief  ƒŠƒUƒ‹ƒgƒXƒe[ƒWÀ‘Ì
 */
 
 #include "stdafx.h"
@@ -13,14 +13,14 @@ namespace basecross {
 		const Vec3 eye(0.0f, 0.0f, -4.0f);
 		const Vec3 at(0.5f, 0.0f, -2.0f);
 		auto PtrView = CreateView<SingleView>();
-		//ãƒ“ãƒ¥ãƒ¼ã®ã‚«ãƒ¡ãƒ©ã®è¨­å®š
+		//ƒrƒ…[‚ÌƒJƒƒ‰‚Ìİ’è
 		auto PtrCamera = ObjectFactory::Create<Camera>();
 		PtrView->SetCamera(PtrCamera);
 		PtrCamera->SetEye(eye);
 		PtrCamera->SetAt(at);
-		//ãƒãƒ«ãƒãƒ©ã‚¤ãƒˆã®ä½œæˆ
+		//ƒ}ƒ‹ƒ`ƒ‰ƒCƒg‚Ìì¬
 		auto PtrMultiLight = CreateLight<MultiLight>();
-		//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®ãƒ©ã‚¤ãƒ†ã‚£ãƒ³ã‚°ã‚’æŒ‡å®š
+		//ƒfƒtƒHƒ‹ƒg‚Ìƒ‰ƒCƒeƒBƒ“ƒO‚ğw’è
 		PtrMultiLight->SetDefaultLighting();
 	}
 
@@ -111,7 +111,7 @@ namespace basecross {
 			}
 			i++;
 		}
-		// ãƒˆãƒƒãƒ—ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
+		// ƒgƒbƒv‚ÌƒvƒŒƒCƒ„[
 		m_playerTop = allPlayer[0]->GetPlayerNumber();
 	}
 
@@ -129,20 +129,32 @@ namespace basecross {
 		}
 		auto topPlayer = AddGameObject<ResultPlayer>(
 			TransformData(Vec3(0.0f, 1.0f, 0.0f), Vec3(1), Vec3(0, XMConvertToRadians(-90.0f), 0)), player);
-		topPlayer->GetComponent<Gravity>()->SetGravityZero();
+		//topPlayer->GetComponent<Gravity>()->SetGravityZero();
 		auto PlayerPos = topPlayer->GetComponent<Transform>()->GetPosition();
 
-		AddGameObject<SpecialLaser>(topPlayer, Vec3(0, 0, 0), Vec3(0, 0, 0));
+		//AddGameObject<SpecialLaser>(topPlayer, Vec3(0, 0, 0), Vec3(0, 0, 0));
 
 		AddGameObject<Block>(TransformData(Vec3(0, -1, 0), Vec3(100, 1, 100)));
 	}
 
 	void ResultStage::OnCreate() {
 		try {
-			//ãƒ“ãƒ¥ãƒ¼ã¨ãƒ©ã‚¤ãƒˆã®ä½œæˆ
+			AddGameObject<EfkInterface>();
+			auto efkpath = App::GetApp()->GetDataDirWString() + L"Effects/";
+			EfkEffectResource::RegisterEffectResource(L"Bullet", efkpath + L"Bullet.efk");
+			EfkEffectResource::RegisterEffectResource(L"Explosion", efkpath + L"fire.efk");
+			EfkEffectResource::RegisterEffectResource(L"Hit", efkpath + L"Hit.efk");
+			EfkEffectResource::RegisterEffectResource(L"Jump", efkpath + L"Jump.efk");
+			EfkEffectResource::RegisterEffectResource(L"Hover", efkpath + L"Hover.efk");
+			EfkEffectResource::RegisterEffectResource(L"Bomb", efkpath + L"Bomb.efk");
+			EfkEffectResource::RegisterEffectResource(L"Smoke", efkpath + L"Smoke.efk");
+
+			//ƒrƒ…[‚Æƒ‰ƒCƒg‚Ìì¬
 			CreateViewLight();
 			AddGameObject<Debug>();
 			Debug::GetInstance()->Log(L"CurrentStage : ResultStage");
+
+			AddGameObject<SimpleSprite>(L"BackGround00")->SetDrawLayer(-1);
 
 			PlayersResult();
 			WinnerPlayer();
@@ -151,10 +163,10 @@ namespace basecross {
 
 			AddWinnerSprite((UINT)m_playerTop + 1);
 
-			Debug::GetInstance()->Log(L"Button A â†’ Game");
-			Debug::GetInstance()->Log(L"Button B â†’ Title");
+			Debug::GetInstance()->Log(L"Button A : Game");
+			Debug::GetInstance()->Log(L"Button B : Title");
 
-			SoundManager::GetInstance()->Play(L"ResultBGM");
+			SoundManager::GetInstance()->PlayLoop(L"ResultBGM");
 		}
 		catch (...) {
 			throw;

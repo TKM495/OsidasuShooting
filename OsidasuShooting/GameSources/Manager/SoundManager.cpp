@@ -15,6 +15,14 @@ namespace basecross {
 		m_defaultVolume(0.5f), m_volumeRate(0.2f)
 	{}
 
+	shared_ptr<SoundItem> SoundManager::PlayLoop(const wstring& key) {
+		return PlayLoop(key, m_defaultVolume);
+	}
+
+	shared_ptr<SoundItem> SoundManager::PlayLoop(const wstring& key, float volume) {
+		return Play(key, XAUDIO2_LOOP_INFINITE, volume);
+	}
+
 	shared_ptr<SoundItem> SoundManager::Play(const wstring& key) {
 		return Play(key, 0, m_defaultVolume);
 	}
@@ -23,6 +31,23 @@ namespace basecross {
 	}
 	shared_ptr<SoundItem> SoundManager::Play(const wstring& key, size_t loopCount, float volume) {
 		return m_manager->Start(key, loopCount, volume * m_volumeRate);
+	}
+
+	void SoundManager::InitPlayOverlap(const wstring& key, float interval) {
+		TimeCounter timer(interval, true);
+		m_timerMap[key] = make_shared<TimeCounter>(timer);
+	}
+
+	void SoundManager::PlayOverlap(const wstring& key) {
+		PlayOverlap(key, m_defaultVolume);
+	}
+
+	void SoundManager::PlayOverlap(const wstring& key, float volume) {
+		auto timer = m_timerMap[key];
+		if (timer->Count()) {
+			Play(key, 0, volume);
+			timer->Reset();
+		}
 	}
 
 	void SoundManager::Stop(const shared_ptr<SoundItem>& soundItem) {

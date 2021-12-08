@@ -194,6 +194,7 @@ namespace basecross {
 		virtual void InputUpdate() = 0;
 		// ƒŠƒXƒ|[ƒ“‚Ì’Ç‰Áˆ—
 		virtual void OnRespawn() {}
+		virtual void OnStopHover() {}
 	public:
 		PlayerBase(const shared_ptr<Stage>& stage,
 			const TransformData& transData,

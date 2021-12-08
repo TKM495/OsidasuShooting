@@ -26,8 +26,8 @@ namespace basecross {
 		 */
 		VibrationData(float time, float rightMotorSpeedRate, float leftMotorSpeedRate) {
 			this->Time = time;
-			this->RightMotorSpeed = WORD(65535 * rightMotorSpeedRate);
-			this->LeftMotorSpeed = WORD(65535 * leftMotorSpeedRate);
+			this->RightMotorSpeed = WORD(65535 * Utility::Clamp(rightMotorSpeedRate, 0.0f, 1.0f));
+			this->LeftMotorSpeed = WORD(65535 * Utility::Clamp(leftMotorSpeedRate, 0.0f, 1.0f));
 		}
 	};
 

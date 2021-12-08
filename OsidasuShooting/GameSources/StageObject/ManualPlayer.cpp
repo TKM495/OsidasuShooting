@@ -33,13 +33,14 @@ namespace basecross {
 		if (IsHoverMode()) {
 			m_controller.SetVibration(VibrationData(m_hoverTime, 0.25f, 0.125f));
 		}
-		else {
-			m_controller.ResetVibration();
-		}
 	}
 
 	void ManualPlayer::OnRespawn() {
-		//m_controller.SetVibration(VibrationData(1.0f, 1.0f, 1.0f));
+		m_controller.SetVibration(VibrationData(0.5f, 1.0f, 1.0f));
+	}
+
+	void ManualPlayer::OnStopHover() {
+		m_controller.ResetVibration();
 	}
 
 	void ResultPlayer::InputUpdate() {

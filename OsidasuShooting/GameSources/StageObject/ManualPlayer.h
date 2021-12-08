@@ -17,6 +17,7 @@ namespace basecross {
 		GameController m_controller;
 		void InputUpdate()override;
 		void OnRespawn()override;
+		void OnStopHover()override;
 	public:
 		/**
 		 * @brief コンストラクタ
