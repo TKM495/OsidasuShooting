@@ -14,8 +14,9 @@ namespace basecross {
 	using Player = ManualPlayer;
 
 	class ManualPlayer :public PlayerBase {
-		void InputUpdate()override;
 		GameController m_controller;
+		void InputUpdate()override;
+		void OnRespawn()override;
 	public:
 		/**
 		 * @brief コンストラクタ

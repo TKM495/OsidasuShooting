@@ -72,7 +72,7 @@ namespace basecross {
 					uiObject.UIObject->OnDraw();
 				break;
 			case UIType::Hover:
-				if (m_owner->IsHoverMode())
+				if (m_owner->IsHoverMode() || m_owner->GetHoverTimeRate() < 1)
 					uiObject.UIObject->OnDraw();
 				break;
 			default:

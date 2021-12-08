@@ -8,8 +8,13 @@
 
 namespace basecross {
 	GameController::GameController(PlayerNumber number)
-		:m_playerNumber(number), m_timer(0.0f)
+		:m_playerNumber(number), m_isVibrationON(false)
 	{}
+
+	GameController::~GameController() {
+		// リセットしないとバイブレーションが止まらない
+		ResetVibration();
+	}
 
 	CONTROLER_STATE GameController::GetControler() {
 		const auto& cntlPadVec = App::GetApp()->GetInputDevice().GetControlerVec();
@@ -90,29 +95,31 @@ namespace basecross {
 		return false;
 	}
 
-	void GameController::th(const VibrationData& data) {
-		//m_timer.Reset(data.Time);
-		//XINPUT_VIBRATION vibration = { data.LeftMotorSpeed,data.RightMotorSpeed };
-		//XInputSetState((WORD)m_playerNumber, &vibration);
+	void GameController::ActiveVibrationThread(const VibrationData& data) {
+		// バイブレーション開始
+		XINPUT_VIBRATION vibration = { data.LeftMotorSpeed,data.RightMotorSpeed };
+		XInputSetState((WORD)m_playerNumber, &vibration);
 
-		//while (!m_timer.Count()) {
-		//	Debug::GetInstance()->Log(L"rwe");
-		//}
-
-		//vibration = { 0,0 };
-		//XInputSetState((WORD)m_playerNumber, &vibration);
-		//Debug::GetInstance()->Log(L"end");
+		// 指定した秒数待機
+		Sleep(DWORD(data.Time * 1000));
+		// リセット（0に戻す）
+		ResetVibration();
 	}
 
 	void GameController::SetVibration(const VibrationData& data) {
-		const auto& cntlPad = GetControler();
-		////他のリソースを読み込むスレッドのスタート
-		//thread LoadThread(&GameController::th, this, data);
-		////終了までは待たない
-		//LoadThread.detach();
+		// すでにバイブレーションがONになっている場合新しくスレッドを立てない
+		if (m_isVibrationON)
+			return;
+
+		m_isVibrationON = true;
+		//他のリソースを読み込むスレッドのスタート
+		thread vibrationThread(&GameController::ActiveVibrationThread, this, data);
+		//終了までは待たない
+		vibrationThread.detach();
 	}
 
 	void GameController::ResetVibration() {
+		m_isVibrationON = false;
 		XINPUT_VIBRATION vibration = { 0,0 };
 		XInputSetState((WORD)m_playerNumber, &vibration);
 	}
