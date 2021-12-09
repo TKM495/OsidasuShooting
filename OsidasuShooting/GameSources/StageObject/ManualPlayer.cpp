@@ -31,16 +31,16 @@ namespace basecross {
 
 		// ÉzÉoÅ[íÜÇ»ÇÁ
 		if (IsHoverMode()) {
-			m_controller.SetVibration(VibrationData(0.25f, 0.125f));
+			m_controller.SetVibration(L"Hover", VibrationData(0.25f, 0.125f));
 		}
 	}
 
 	void ManualPlayer::OnRespawn() {
-		m_controller.SetVibration(VibrationData(1.0f, 1.0f, 0.5f));
+		m_controller.SetVibration(L"Respawn", VibrationData(1.0f, 1.0f, 0.5f));
 	}
 
 	void ManualPlayer::OnStopHover() {
-		m_controller.ResetVibration();
+		m_controller.StopVibration(L"Hover");
 	}
 
 	void ResultPlayer::InputUpdate() {
