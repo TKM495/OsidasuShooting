@@ -1,6 +1,6 @@
 /*!
 @file CharaSelectUILetter.cpp
-@brief ƒLƒƒƒ‰ƒNƒ^[ƒZƒŒƒNƒg‰æ–Ê‚Ì•¶šUI‚ÌÀ‘Ì
+@brief ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã‚»ãƒ¬ã‚¯ãƒˆç”»é¢ã®æ–‡å­—UIã®å®Ÿä½“
 */
 
 #include "stdafx.h"
@@ -9,20 +9,19 @@
 namespace basecross
 {
 	void BaseSprite::CreateSprite(wstring textureKey, float sideSize, float fSidSize, float highSize, float fHigSize) {
-		m_textureKey = textureKey;	// ƒeƒNƒXƒ`ƒƒ
-		m_sideSize = sideSize;		// ‰¡•
-		m_highSize = highSize;		// c•
+		m_textureKey = textureKey;	// ãƒ†ã‚¯ã‚¹ãƒãƒ£
+		m_sideSize = sideSize;		// æ¨ªå¹…
+		m_highSize = highSize;		// ç¸¦å¹…
 
-		m_fSidSize = fSidSize;		// g—p‚·‚é‰æ‘œ‚Ì‰¡•‘S‘Ì
-		m_fHigSize = fHigSize;		// g—p‚·‚é‰æ‘œ‚Ìc•‘S‘Ì
+		m_fSidSize = fSidSize;		// ä½¿ç”¨ã™ã‚‹ç”»åƒã®æ¨ªå¹…å…¨ä½“
+		m_fHigSize = fHigSize;		// ä½¿ç”¨ã™ã‚‹ç”»åƒã®ç¸¦å¹…å…¨ä½“
 
 		Col4 color = { 1.0f,1.0f,1.0f,1.0f };
 		vector<VertexPositionColorTexture> vertices = {
 			{Vec3(m_zeroSize, m_zeroSize, m_zeroSize), color, Vec2(m_zeroSize, m_zeroSize)},
 			{Vec3(m_sideSize, m_zeroSize, m_zeroSize), color, Vec2(m_oneSize,  m_zeroSize)},
 			{Vec3(m_zeroSize, m_highSize, m_zeroSize), color, Vec2(m_zeroSize,  m_oneSize)},
-			{Vec3(m_sideSize, m_highSize, m_zeroSize), color, Vec2( m_oneSize,  m_oneSize)}
-
+			{Vec3(m_sideSize, m_highSize, m_zeroSize), color, Vec2(m_oneSize,  m_oneSize)}
 		};
 
 		vector<uint16_t> indeces = {
@@ -57,8 +56,8 @@ namespace basecross
 
 	//-----------------------------------------------------------------//
 
-	// CharacterSelect‚Æ‘‚©‚ê‚½ƒXƒvƒ‰ƒCƒg‚ğ•\¦‚·‚é‚½‚ß‚Ìî•ñ
-	void CharacterStringUI::OnCreate(){
+	// CharacterSelectã¨æ›¸ã‹ã‚ŒãŸã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®æƒ…å ±
+	void CharacterStringUI::OnCreate() {
 		auto wstring = L"CharacterSelect";
 		auto sideSize = 1024.0f;
 		auto highSize = -128.0f;
@@ -70,7 +69,7 @@ namespace basecross
 
 	//-----------------------------------------------------------------//
 
-	// ƒPƒbƒeƒC(Œˆ’è)‚Æ‘‚©‚ê‚½ƒXƒvƒ‰ƒCƒg‚ğ•\¦‚·‚é‚½‚ß‚Ìî•ñ
+	// ã‚±ãƒƒãƒ†ã‚¤(æ±ºå®š)ã¨æ›¸ã‹ã‚ŒãŸã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®æƒ…å ±
 	void DecisionSpriteUI::OnCreate(){
 		auto wstring = L"Decision";
 		auto sideSize = 512.0f;
@@ -83,7 +82,7 @@ namespace basecross
 
 	//-----------------------------------------------------------------//
 
-	// ƒLƒƒƒ“ƒZƒ‹‚Æ‘‚©‚ê‚½ƒXƒvƒ‰ƒCƒg‚ğ•\¦‚·‚é‚½‚ß‚Ìî•ñ
+	// ã‚­ãƒ£ãƒ³ã‚»ãƒ«ã¨æ›¸ã‹ã‚ŒãŸã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®æƒ…å ±
 	void CancelSpriteUI::OnCreate() {
 		auto wstring = L"Cancel";
 		auto sideSize = 512.0f;
@@ -96,7 +95,7 @@ namespace basecross
 
 	//-----------------------------------------------------------------//
 	// 
-	// ƒ‚ƒhƒ‹(–ß‚é)‚Æ‘‚©‚ê‚½ƒXƒvƒ‰ƒCƒg‚ğ•\¦‚·‚é‚½‚ß‚Ìî•ñ
+	// ãƒ¢ãƒ‰ãƒ«(æˆ»ã‚‹)ã¨æ›¸ã‹ã‚ŒãŸã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®æƒ…å ±
 	void GoToTitleSpriteUI::OnCreate() {
 		auto wstring = L"GoToTitle";
 		auto sideSize = 512.0f;
@@ -109,7 +108,7 @@ namespace basecross
 
 	//-----------------------------------------------------------------//
 
-	// ƒXƒXƒ€(i‚Ş)‚Æ‘‚©‚ê‚½ƒXƒvƒ‰ƒCƒg‚ğ•\¦‚·‚é‚½‚ß‚Ìî•ñ
+	// ã‚¹ã‚¹ãƒ (é€²ã‚€)ã¨æ›¸ã‹ã‚ŒãŸã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®æƒ…å ±
 	void GoToSelectSpriteUI::OnCreate() {
 		auto wstring = L"GoToSelect";
 		auto sideSize = 512.0f;
@@ -122,8 +121,8 @@ namespace basecross
 
 	//-----------------------------------------------------------------//
 
-	// A‚Æ‘‚©‚ê‚½ƒXƒvƒ‰ƒCƒg‚ğ•\¦‚·‚é‚½‚ß‚Ìî•ñ
-	void AButtonSpriteUI::OnCreate(){
+	// Aã¨æ›¸ã‹ã‚ŒãŸã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®æƒ…å ±
+	void AButtonSpriteUI::OnCreate() {
 		auto wstring = L"AButton";
 		auto sideSize = 256.0f;
 		auto highSize = -256.0f;
@@ -135,7 +134,7 @@ namespace basecross
 
 	//-----------------------------------------------------------------//
 
-	// B‚Æ‘‚©‚ê‚½ƒXƒvƒ‰ƒCƒg‚ğ•\¦‚·‚é‚½‚ß‚Ìî•ñ
+	// Bã¨æ›¸ã‹ã‚ŒãŸã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®æƒ…å ±
 	void BButtonSpriteUI::OnCreate() {
 		auto wstring = L"BButton";
 		auto sideSize = 256.0f;
@@ -148,7 +147,7 @@ namespace basecross
 
 	//-----------------------------------------------------------------//
 
-	// ReadytoFight‚Æ‘‚©‚ê‚½ƒXƒvƒ‰ƒCƒg‚ğ•\¦‚·‚é‚½‚ß‚Ìî•ñ
+	// ReadytoFightã¨æ›¸ã‹ã‚ŒãŸã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®æƒ…å ±
 	void ReadyToFightUI::OnCreate() {
 		auto wstring = L"ReadyToFight";
 		auto sideSize = 1024.0f;
@@ -162,13 +161,14 @@ namespace basecross
 	void ReadyToFightUI::OnUpdate() {
 		auto& app = App::GetApp();
 		const auto& ctrlVec = app->GetInputDevice().GetControlerVec()[0];
-		if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_A)
-			PostEvent(0.0f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToGameStage");
+		if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_A) {
+			PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToGameStage");
+		}
 	}
 
 	//-----------------------------------------------------------------//
 
-	// OK!!‚Æ‘‚©‚ê‚½ƒXƒvƒ‰ƒCƒg‚ğ•\¦‚·‚é‚½‚ß‚Ìî•ñ
+	// OK!!ã¨æ›¸ã‹ã‚ŒãŸã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®æƒ…å ±
 	void OKSpriteUI::OnCreate() {
 		auto wstring = L"OK";
 		auto sideSize = 256.0f;

@@ -8,7 +8,7 @@
 
 namespace basecross {
 	GameController::GameController(PlayerNumber number)
-		:m_playerNumber(number), m_isVibrationON(false)
+		:m_playerNumber(number)
 	{}
 
 	GameController::~GameController() {
@@ -23,12 +23,15 @@ namespace basecross {
 		// 0以下の場合強制的に0にする
 		auto index = (UINT)m_playerNumber < 0 ? 0 : (UINT)m_playerNumber;
 		CONTROLER_STATE cntlPad = cntlPadVec[index];
+		// 現在のステージがGameStage
 		if (gameStage) {
 			switch (gameStage->GetCurrentGameState())
 			{
 			case GameStage::GameState::PLAYING:
 				break;
+				// ゲーム中以外の場合
 			default:
+				// 入力を受け付けないようにするため
 				// 強制的に変更
 				cntlPad.bConnected = false;
 				break;
@@ -53,7 +56,7 @@ namespace basecross {
 
 		float fThumbX = 0.0f;
 		float fThumbY = 0.0f;
-
+		// Directionに応じたスティックを取得
 		switch (direction)
 		{
 		case Direction::Left:
@@ -84,6 +87,8 @@ namespace basecross {
 		const auto& cntlPad = GetControler();
 		if (!cntlPad.bConnected)
 			return false;
+
+		// Directionに応じたトリガーを判定
 		switch (direction)
 		{
 		case Direction::Left:
@@ -92,25 +97,26 @@ namespace basecross {
 			return cntlPad.bRightTrigger > XINPUT_GAMEPAD_TRIGGER_THRESHOLD;
 		}
 
+		// エラー
 		return false;
 	}
 
-	void GameController::ActiveVibrationThread(const VibrationData& data) {
+	void GameController::ActiveVibrationThread(const wstring& key, const VibrationData& data) {
 		// バイブレーション開始
 		XINPUT_VIBRATION vibration = { data.LeftMotorSpeed,data.RightMotorSpeed };
 		XInputSetState((WORD)m_playerNumber, &vibration);
-
 		// 指定した秒数待機
 		Sleep(DWORD(data.Time * 1000));
-		// リセット（0に戻す）
-		ResetVibration();
+		// バイブレーション停止
+		StopVibration(key);
 	}
 
-	void GameController::SetVibration(const VibrationData& data) {
-		// すでにバイブレーションがONになっている場合新しくスレッドを立てない
-		if (m_isVibrationON)
+	void GameController::SetVibration(const wstring& key, const VibrationData& data) {
+		// すでに同じキーでバイブレーションがONになっている場合何もしない
+		if (m_vibrationMap[key])
 			return;
-		m_isVibrationON = true;
+		// バイブレーションがONになっている
+		m_vibrationMap[key] = true;
 
 		// 無限の場合はスレッドを立てない
 		if (data.Time == INFINITY) {
@@ -120,13 +126,28 @@ namespace basecross {
 		}
 
 		//他のリソースを読み込むスレッドのスタート
-		thread vibrationThread(&GameController::ActiveVibrationThread, this, data);
+		thread vibrationThread(&GameController::ActiveVibrationThread, this, key, data);
 		//終了までは待たない
 		vibrationThread.detach();
 	}
 
+	void GameController::StopVibration(const wstring& key) {
+		// バイブレーションがOFFになっている
+		m_vibrationMap[key] = false;
+
+		for (auto vibration : m_vibrationMap) {
+			// もしほかにONになっているキーがある場合
+			if (vibration.second) {
+				// 停止しない
+				return;
+			}
+		}
+
+		// このkey以外のバイブレーションがすべてOFFになっている場合は停止する
+		ResetVibration();
+	}
+
 	void GameController::ResetVibration() {
-		m_isVibrationON = false;
 		XINPUT_VIBRATION vibration = { 0,0 };
 		XInputSetState((WORD)m_playerNumber, &vibration);
 	}

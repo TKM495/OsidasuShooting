@@ -74,5 +74,12 @@ namespace basecross {
 		 * @return time‚Ì‚ÌˆÊ’u
 		 */
 		Vec3 ParabolaCalculate(const Vec3& startPoint, const Vec3& endPoint, float time);
+
+		/**
+		 * @brief F‚Ìİ’è
+		 *
+		 * @param color F
+		 */
+		void SetColor(const Col4& color);
 	};
 }

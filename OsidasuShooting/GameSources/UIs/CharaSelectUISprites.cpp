@@ -22,9 +22,9 @@ namespace basecross
 		Col4 col = { 1.0f,1.0f,1.0f,1.0f };
 		vector<VertexPositionColorTexture> vertices = {
 			{Vec3(zeroSize, zeroSize, zeroSize),col,Vec2(zeroSize,zeroSize)},
-			{Vec3(sideSize, zeroSize, zeroSize),col,Vec2( oneSize,zeroSize)},
+			{Vec3(sideSize, zeroSize, zeroSize),col,Vec2(oneSize,zeroSize)},
 			{Vec3(zeroSize, highSize, zeroSize),col,Vec2(zeroSize, oneSize)},
-			{Vec3(sideSize, highSize, zeroSize),col,Vec2( oneSize, oneSize)}
+			{Vec3(sideSize, highSize, zeroSize),col,Vec2(oneSize, oneSize)}
 		};
 
 		vector<uint16_t> indeces = {
@@ -43,7 +43,6 @@ namespace basecross
 		auto iconSize = oneSize * tqatSize;
 		Vec3 scl(iconSize, iconSize, oneSize);
 		ptrTrans->SetScale(scl);
-
 	}
 
 	void CharacterIcon::OnCreate() {
@@ -52,7 +51,6 @@ namespace basecross
 
 	// スティック、方向パッドでアイコンが変わるようにする
 	void CharacterIcon::CharacterSelecting() {
-
 		const auto& ctrlVec = App::GetApp()->GetInputDevice().GetControlerVec()[m_gamePadID];
 		auto ctrlX = 0.0f;
 		if (ctrlVec.bConnected) {
@@ -92,19 +90,18 @@ namespace basecross
 		}
 		else if (!moveLeft && !moveRight) {
 			m_isSetStick = false;
-		}	
+		}
 	}
 
 	// 表示するアイコン
 	void CharacterIcon::IconsDraw() {
-
 		auto ptrTrans = GetComponent<Transform>();
 		auto iconPos = ptrTrans->GetPosition();
 		auto rot = ptrTrans->GetScale();
 		auto iconSenterPos = -128;
 
 		auto pp1 = -394.0f;
-		auto pp2 =  206.0f;
+		auto pp2 = 206.0f;
 
 		auto draw1 = iconPos.x == pp1;
 		auto draw2 = iconPos.x == pp2;
@@ -118,15 +115,12 @@ namespace basecross
 	}
 
 	void CharacterIcon::OnUpdate() {
-
 		CharacterSelecting();
 		IconsDraw();
 	}
 
-
 	void SelectTriangle::OnCreate() {
 		CharacterIcon::CreateSprite();
-
 	}
 
 	void SelectTriangle::OnUpdate() {
@@ -143,7 +137,6 @@ namespace basecross
 	}
 
 	void SelectTriangle::CharacterSelecting() {
-
 		const auto& ctrlVec = App::GetApp()->GetInputDevice().GetControlerVec()[m_gamePadID];
 		auto ctrlX = 0.0f;
 		if (ctrlVec.bConnected) {
@@ -160,12 +153,14 @@ namespace basecross
 				auto move = m_defPos - m_movePos;
 				transPos.x = move;
 				m_isSetStick = true;
+				SoundManager::GetInstance()->Play(L"CharacterSelectingSE");
 			}
 			// 右へ
 			else if (m_isInversion && moveRight) {
 				auto move = m_defPos + m_movePos;
 				transPos.x = move;
 				m_isSetStick = true;
+				SoundManager::GetInstance()->Play(L"CharacterSelectingSE");
 			}
 		}
 		else if (!moveLeft && !moveRight) {
