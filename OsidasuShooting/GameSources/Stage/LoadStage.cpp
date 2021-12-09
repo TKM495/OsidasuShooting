@@ -24,9 +24,13 @@ namespace basecross {
 
 		app->RegisterTexture(L"AButton", path + L"AButton.png");
 		app->RegisterTexture(L"BButton", path + L"BButton.png");
+		app->RegisterTexture(L"Back", path + L"Back.png");
 		app->RegisterTexture(L"Cancel", path + L"Cancel.png");
 		app->RegisterTexture(L"Decision", path + L"Decision.png");
 		app->RegisterTexture(L"Fream", path + L"Fream.png");
+		app->RegisterTexture(L"GoToSelect", path + L"GoToSelect.png");
+		app->RegisterTexture(L"GoToTitle", path + L"GoToTitle.png");
+		app->RegisterTexture(L"Next", path + L"Next.png");
 		app->RegisterTexture(L"OK", path + L"OK.png");
 		app->RegisterTexture(L"PushAButton", path + L"PushAButton.png");
 

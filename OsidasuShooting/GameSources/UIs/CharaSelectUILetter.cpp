@@ -1,6 +1,6 @@
 /*!
 @file CharaSelectUILetter.cpp
-@brief ƒLƒƒƒ‰ƒNƒ^[ƒZƒŒƒNƒg‰æ–Ê‚Ì•¶šUI‚ÌÀ‘Ì
+@brief ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã‚»ãƒ¬ã‚¯ãƒˆç”»é¢ã®æ–‡å­—UIã®å®Ÿä½“
 */
 
 #include "stdafx.h"
@@ -9,12 +9,12 @@
 namespace basecross
 {
 	void BaseSprite::CreateSprite(wstring textureKey, float sideSize, float fSidSize, float highSize, float fHigSize) {
-		m_textureKey = textureKey;	// ƒeƒNƒXƒ`ƒƒ
-		m_sideSize = sideSize;		// ‰¡•
-		m_highSize = highSize;		// c•
+		m_textureKey = textureKey;	// ãƒ†ã‚¯ã‚¹ãƒãƒ£
+		m_sideSize = sideSize;		// æ¨ªå¹…
+		m_highSize = highSize;		// ç¸¦å¹…
 
-		m_fSidSize = fSidSize;		// g—p‚·‚é‰æ‘œ‚Ì‰¡•‘S‘Ì
-		m_fHigSize = fHigSize;		// g—p‚·‚é‰æ‘œ‚Ìc•‘S‘Ì
+		m_fSidSize = fSidSize;		// ä½¿ç”¨ã™ã‚‹ç”»åƒã®æ¨ªå¹…å…¨ä½“
+		m_fHigSize = fHigSize;		// ä½¿ç”¨ã™ã‚‹ç”»åƒã®ç¸¦å¹…å…¨ä½“
 
 		Col4 color = { 1.0f,1.0f,1.0f,1.0f };
 		vector<VertexPositionColorTexture> vertices = {
@@ -44,113 +44,110 @@ namespace basecross
 		ptrTrans->SetScale(scl);
 	}
 
-	void BaseSprite::SettingSenter() {
+	void BaseSprite::SettingPosition(Vec3 position) {
 		auto ptrTrans = GetComponent<Transform>();
 		auto xSntrPos = m_sideSize * m_helfSize * m_tqatSize;
 		auto ySntrPos = m_highSize * m_helfSize * m_tqatSize;
 
 		auto pos = ptrTrans->GetPosition();
 		Vec3 senterPos(xSntrPos, ySntrPos, 0);
-		ptrTrans->SetPosition(pos - senterPos * m_scale);
+		ptrTrans->SetPosition((pos - senterPos * m_scale) + position);
 	}
 
 	//-----------------------------------------------------------------//
 
-	// CharacterSelect‚Æ‘‚©‚ê‚½ƒXƒvƒ‰ƒCƒg‚ğ•\¦‚·‚é‚½‚ß‚Ìî•ñ
+	// CharacterSelectã¨æ›¸ã‹ã‚ŒãŸã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®æƒ…å ±
 	void CharacterStringUI::OnCreate() {
 		auto wstring = L"CharacterSelect";
 		auto sideSize = 1024.0f;
 		auto highSize = -128.0f;
 
-		auto ptrTrans = GetComponent<Transform>();
-		auto pos = ptrTrans->GetPosition();
-		pos.y = 320;
-		ptrTrans->SetPosition(pos);
-
-		BaseSprite::CreateSprite(wstring, sideSize, NULL, highSize, NULL);
+		BaseSprite::CreateSprite(wstring, sideSize, NULL, highSize, NULL); 
 		BaseSprite::SettingScale(0.9f);
-		BaseSprite::SettingSenter();
+		BaseSprite::SettingPosition(m_setPos);
 	}
 
 	//-----------------------------------------------------------------//
 
-	// ƒPƒbƒeƒC‚Æ‘‚©‚ê‚½ƒXƒvƒ‰ƒCƒg‚ğ•\¦‚·‚é‚½‚ß‚Ìî•ñ
-	void DecisionSpriteUI::OnCreate() {
+	// ã‚±ãƒƒãƒ†ã‚¤(æ±ºå®š)ã¨æ›¸ã‹ã‚ŒãŸã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®æƒ…å ±
+	void DecisionSpriteUI::OnCreate(){
 		auto wstring = L"Decision";
 		auto sideSize = 512.0f;
 		auto highSize = -256.0f;
 
-		auto ptrTrans = GetComponent<Transform>();
-		auto pos = ptrTrans->GetPosition();
-		pos.x = 260;
-		pos.y = -320;
-		ptrTrans->SetPosition(pos);
-
-		BaseSprite::CreateSprite(wstring, sideSize, NULL, highSize, NULL);
-		BaseSprite::SettingScale(0.6f);
-		BaseSprite::SettingSenter();
+		BaseSprite::CreateSprite(wstring, sideSize, NULL, highSize, NULL); 
+		BaseSprite::SettingScale(0.5);
+		BaseSprite::SettingPosition(m_setPos);
 	}
 
 	//-----------------------------------------------------------------//
 
-	// ƒLƒƒƒ“ƒZƒ‹‚Æ‘‚©‚ê‚½ƒXƒvƒ‰ƒCƒg‚ğ•\¦‚·‚é‚½‚ß‚Ìî•ñ
+	// ã‚­ãƒ£ãƒ³ã‚»ãƒ«ã¨æ›¸ã‹ã‚ŒãŸã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®æƒ…å ±
 	void CancelSpriteUI::OnCreate() {
 		auto wstring = L"Cancel";
 		auto sideSize = 512.0f;
 		auto highSize = -256.0f;
 
-		auto ptrTrans = GetComponent<Transform>();
-		auto pos = ptrTrans->GetPosition();
-		pos.x = -350;
-		pos.y = -320;
-		ptrTrans->SetPosition(pos);
+		BaseSprite::CreateSprite(wstring, sideSize, NULL, highSize, NULL);
+		BaseSprite::SettingScale(0.5);
+		BaseSprite::SettingPosition(m_setPos);
+	}
+
+	//-----------------------------------------------------------------//
+	// 
+	// ãƒ¢ãƒ‰ãƒ«(æˆ»ã‚‹)ã¨æ›¸ã‹ã‚ŒãŸã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®æƒ…å ±
+	void GoToTitleSpriteUI::OnCreate() {
+		auto wstring = L"GoToTitle";
+		auto sideSize = 512.0f;
+		auto highSize = -256.0f;
 
 		BaseSprite::CreateSprite(wstring, sideSize, NULL, highSize, NULL);
-		BaseSprite::SettingScale(0.6f);
-		BaseSprite::SettingSenter();
+		BaseSprite::SettingScale(0.5);
+		BaseSprite::SettingPosition(m_setPos);
 	}
 
 	//-----------------------------------------------------------------//
 
-	// A‚Æ‘‚©‚ê‚½ƒXƒvƒ‰ƒCƒg‚ğ•\¦‚·‚é‚½‚ß‚Ìî•ñ
+	// ã‚¹ã‚¹ãƒ (é€²ã‚€)ã¨æ›¸ã‹ã‚ŒãŸã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®æƒ…å ±
+	void GoToSelectSpriteUI::OnCreate() {
+		auto wstring = L"GoToSelect";
+		auto sideSize = 512.0f;
+		auto highSize = -256.0f;
+
+		BaseSprite::CreateSprite(wstring, sideSize, NULL, highSize, NULL);
+		BaseSprite::SettingScale(0.5);
+		BaseSprite::SettingPosition(m_setPos);
+	}
+
+	//-----------------------------------------------------------------//
+
+	// Aã¨æ›¸ã‹ã‚ŒãŸã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®æƒ…å ±
 	void AButtonSpriteUI::OnCreate() {
 		auto wstring = L"AButton";
 		auto sideSize = 256.0f;
 		auto highSize = -256.0f;
 
-		auto ptrTrans = GetComponent<Transform>();
-		auto pos = ptrTrans->GetPosition();
-		pos.x = 410;
-		pos.y = -320;
-		ptrTrans->SetPosition(pos);
-
-		BaseSprite::CreateSprite(wstring, sideSize, NULL, highSize, NULL);
+		BaseSprite::CreateSprite(wstring, sideSize, NULL, highSize, NULL); 
 		BaseSprite::SettingScale(0.4f);
-		BaseSprite::SettingSenter();
+		BaseSprite::SettingPosition(m_setPos);
 	}
 
 	//-----------------------------------------------------------------//
 
-	// B‚Æ‘‚©‚ê‚½ƒXƒvƒ‰ƒCƒg‚ğ•\¦‚·‚é‚½‚ß‚Ìî•ñ
+	// Bã¨æ›¸ã‹ã‚ŒãŸã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®æƒ…å ±
 	void BButtonSpriteUI::OnCreate() {
 		auto wstring = L"BButton";
 		auto sideSize = 256.0f;
 		auto highSize = -256.0f;
 
-		auto ptrTrans = GetComponent<Transform>();
-		auto pos = ptrTrans->GetPosition();
-		pos.x = -170;
-		pos.y = -320;
-		ptrTrans->SetPosition(pos);
-
 		BaseSprite::CreateSprite(wstring, sideSize, NULL, highSize, NULL);
 		BaseSprite::SettingScale(0.4f);
-		BaseSprite::SettingSenter();
+		BaseSprite::SettingPosition(m_setPos);
 	}
 
 	//-----------------------------------------------------------------//
 
-	// ReadytoFight‚Æ‘‚©‚ê‚½ƒXƒvƒ‰ƒCƒg‚ğ•\¦‚·‚é‚½‚ß‚Ìî•ñ
+	// ReadytoFightã¨æ›¸ã‹ã‚ŒãŸã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®æƒ…å ±
 	void ReadyToFightUI::OnCreate() {
 		auto wstring = L"ReadyToFight";
 		auto sideSize = 1024.0f;
@@ -158,7 +155,7 @@ namespace basecross
 
 		BaseSprite::CreateSprite(wstring, sideSize, NULL, highSize, NULL);
 		BaseSprite::SettingScale(1);
-		BaseSprite::SettingSenter();
+		BaseSprite::SettingPosition(m_setPos);
 	}
 
 	void ReadyToFightUI::OnUpdate() {
@@ -171,7 +168,7 @@ namespace basecross
 
 	//-----------------------------------------------------------------//
 
-	// OK!!‚Æ‘‚©‚ê‚½ƒXƒvƒ‰ƒCƒg‚ğ•\¦‚·‚é‚½‚ß‚Ìî•ñ
+	// OK!!ã¨æ›¸ã‹ã‚ŒãŸã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®æƒ…å ±
 	void OKSpriteUI::OnCreate() {
 		auto wstring = L"OK";
 		auto sideSize = 256.0f;
@@ -179,10 +176,10 @@ namespace basecross
 
 		auto ptrTrans = GetComponent<Transform>();
 		auto pos = ptrTrans->GetPosition();
-		ptrTrans->SetPosition(m_position);
+		ptrTrans->SetPosition(m_setPos);
 
 		BaseSprite::CreateSprite(wstring, sideSize, NULL, highSize, NULL);
 		BaseSprite::SettingScale(1);
-		BaseSprite::SettingSenter();
+		BaseSprite::SettingPosition(m_setPos);
 	}
 }

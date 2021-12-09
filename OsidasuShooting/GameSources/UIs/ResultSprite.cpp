@@ -43,7 +43,7 @@ namespace basecross {
 		// ˆÊ’uAŠg‘åk¬
 		auto ptrTrans = GetComponent<Transform>();
 		Vec3 senterPos(sideSize * helfSize, highSize * helfSize, 0);
-		Vec3 pos(-310,-220,0);
+		Vec3 pos(-280,-220,0);
 		Vec3 scl(1);
 		ptrTrans->SetPosition(pos - senterPos);
 		ptrTrans->SetScale(scl);

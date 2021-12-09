@@ -73,14 +73,17 @@ namespace basecross {
 		triTrans->SetScale(scl);
 		m_Triangle[gamePadID + 4]->SetDrawLayer(1);
 	}
-
+	 // UIの設置、OnCreateで使用する関数
 	void CharacterSelectStage::UIsSet() {
-		AddGameObject<CharacterStringUI>();
-		AddGameObject<DecisionSpriteUI>();
-		AddGameObject<CancelSpriteUI>();
-		AddGameObject<AButtonSpriteUI>();
-		AddGameObject<BButtonSpriteUI>();
-		m_Ready = AddGameObject<ReadyToFightUI>();
+		AddGameObject<CharacterStringUI>(Vec3(0, 320, 0));
+		AddGameObject<DecisionSpriteUI>(Vec3(260, -320, 0));
+		AddGameObject<CancelSpriteUI>(Vec3(-340,-320 , 0));
+		AddGameObject<AButtonSpriteUI>(Vec3(410, -320, 0));
+		AddGameObject<BButtonSpriteUI>(Vec3(-190, -320, 0));
+		m_Ready = AddGameObject<ReadyToFightUI>(Vec3(0, 0, 0));
+
+		m_Ready->SetDrawActive(false);
+		m_Ready->SetUpdateActive(false);
 	}
 
 	void CharacterSelectStage::SetCharaName() {
