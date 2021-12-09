@@ -23,11 +23,14 @@ namespace basecross
 		float m_tqatSize = 0.75f;	// 3/4
 
 		float m_scale;
+		Vec3 m_setPos;
 	public:
 		BaseSprite(
-			const shared_ptr<Stage>& stage
+			const shared_ptr<Stage>& stage,
+			Vec3 setPosition
 		) :
 			GameObject(stage),
+			m_setPos(setPosition),
 			m_sideSize(0),
 			m_fSidSize(0),
 			m_highSize(0),
@@ -37,60 +40,118 @@ namespace basecross
 
 		virtual void CreateSprite(wstring textureKey,float sideSize,float fSidSize,float highSize,float fHigSize);
 		virtual void SettingScale(float sizes);
-		virtual void SettingSenter();
+		virtual void SettingPosition(Vec3 position);
 
 	};
 
 	// CharacterSelectの文字の画像
 	class CharacterStringUI : public BaseSprite {
-
+		Vec3 m_setPos;
 	public:
-		CharacterStringUI (const shared_ptr<Stage>& stage) : BaseSprite (stage)
+		CharacterStringUI (
+			const shared_ptr<Stage>& stage,
+			Vec3 setPosition
+		) :
+			BaseSprite (stage,setPosition),
+			m_setPos(setPosition)
 		{}
 		void OnCreate() override;
 	};
 
 	// ケッテイの文字の画像
 	class DecisionSpriteUI : public BaseSprite {
-
+		Vec3 m_setPos;
 	public:
-		DecisionSpriteUI(const shared_ptr<Stage>& stage) : BaseSprite (stage)
+		DecisionSpriteUI(
+			const shared_ptr<Stage>& stage,
+			Vec3 setPosition
+		) :
+			BaseSprite(stage, setPosition),
+			m_setPos(setPosition)
 		{}
 		void OnCreate() override;
 	};
 
 	// キャンセルの文字の画像
 	class CancelSpriteUI : public BaseSprite {
-
+		Vec3 m_setPos;
 	public:
-		CancelSpriteUI(const shared_ptr<Stage>& stage) : BaseSprite (stage)
+		CancelSpriteUI(
+			const shared_ptr<Stage>& stage,
+			Vec3 setPosition
+		) :
+			BaseSprite(stage, setPosition),
+			m_setPos(setPosition)
+		{}
+		void OnCreate() override;
+	};
+
+	// 戻るの文字の画像
+	class BackSpriteUI : public BaseSprite {
+		Vec3 m_setPos;
+	public:
+		BackSpriteUI(
+			const shared_ptr<Stage>& stage,
+			Vec3 setPosition
+		) :
+			BaseSprite(stage, setPosition),
+			m_setPos(setPosition)
+		{}
+		void OnCreate() override;
+	};
+
+	// 進むの文字の画像
+	class NextSpriteUI : public BaseSprite {
+		Vec3 m_setPos;
+	public:
+		NextSpriteUI(
+			const shared_ptr<Stage>& stage,
+			Vec3 setPosition
+		) :
+			BaseSprite(stage, setPosition),
+			m_setPos(setPosition)
 		{}
 		void OnCreate() override;
 	};
 
 	// Aの画像
 	class AButtonSpriteUI : public BaseSprite {
-
+		Vec3 m_setPos;
 	public:
-		AButtonSpriteUI(const shared_ptr<Stage>& stage) : BaseSprite (stage)
+		AButtonSpriteUI(
+			const shared_ptr<Stage>& stage,
+			Vec3 setPosition
+		) :
+			BaseSprite(stage, setPosition),
+			m_setPos(setPosition)
 		{}
 		void OnCreate() override;
 	};
 
 	// Bの画像
 	class BButtonSpriteUI : public BaseSprite {
-
+		Vec3 m_setPos;
 	public:
-		BButtonSpriteUI(const shared_ptr<Stage>& stage) : BaseSprite (stage)
+		BButtonSpriteUI(
+			const shared_ptr<Stage>& stage,
+			Vec3 setPosition
+		) :
+			BaseSprite(stage, setPosition),
+			m_setPos(setPosition)
 		{}
 		void OnCreate() override;
 	};
 
 	// ReadyToFight!!の画像
 	class ReadyToFightUI : public BaseSprite {
-
+		Vec3 m_setPos;
 	public:
-		ReadyToFightUI(const shared_ptr<Stage>& stage) : BaseSprite(stage)
+		ReadyToFightUI(
+			const shared_ptr<Stage>& stage,
+			Vec3 setPosition
+		) :
+			BaseSprite(stage, setPosition),
+			m_setPos(setPosition)
 		{}
 		void OnCreate() override;
 		void OnUpdate() override;
@@ -98,14 +159,14 @@ namespace basecross
 
 	// OK!の画像
 	class OKSpriteUI : public BaseSprite {
-		Vec3 m_position;
+		Vec3 m_setPos;
 	public:
 		OKSpriteUI(
 			const shared_ptr<Stage>& stage,
-			const Vec3 position
+			const Vec3 setPosition
 		) :
-			BaseSprite(stage),
-			m_position(position)
+			BaseSprite(stage, setPosition),
+			m_setPos(setPosition)
 		{}
 		void OnCreate() override;
 	};

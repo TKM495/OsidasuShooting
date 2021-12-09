@@ -45,14 +45,14 @@ namespace basecross
 		ptrTrans->SetScale(scl);
 	}
 
-	void BaseSprite::SettingSenter() {
+	void BaseSprite::SettingPosition(Vec3 position) {
 		auto ptrTrans = GetComponent<Transform>();
 		auto xSntrPos = m_sideSize * m_helfSize * m_tqatSize;
 		auto ySntrPos = m_highSize * m_helfSize * m_tqatSize;
 
 		auto pos = ptrTrans->GetPosition();
 		Vec3 senterPos(xSntrPos, ySntrPos, 0);
-		ptrTrans->SetPosition(pos - senterPos * m_scale);
+		ptrTrans->SetPosition((pos - senterPos * m_scale) + position);
 	}
 
 	//-----------------------------------------------------------------//
@@ -63,52 +63,61 @@ namespace basecross
 		auto sideSize = 1024.0f;
 		auto highSize = -128.0f;
 
-		auto ptrTrans = GetComponent<Transform>();
-		auto pos = ptrTrans->GetPosition();
-		pos.y = 320;
-		ptrTrans->SetPosition(pos);
-
 		BaseSprite::CreateSprite(wstring, sideSize, NULL, highSize, NULL); 
 		BaseSprite::SettingScale(0.9f);
-		BaseSprite::SettingSenter();
+		BaseSprite::SettingPosition(m_setPos);
 	}
 
 	//-----------------------------------------------------------------//
 
-	// ケッテイと書かれたスプライトを表示するための情報
+	// ケッテイ(決定)と書かれたスプライトを表示するための情報
 	void DecisionSpriteUI::OnCreate(){
 		auto wstring = L"Decision";
 		auto sideSize = 512.0f;
 		auto highSize = -256.0f;
 
-		auto ptrTrans = GetComponent<Transform>();
-		auto pos = ptrTrans->GetPosition();
-		pos.x =  260;
-		pos.y = -320;
-		ptrTrans->SetPosition(pos);
-
 		BaseSprite::CreateSprite(wstring, sideSize, NULL, highSize, NULL); 
-		BaseSprite::SettingScale(0.6f);
-		BaseSprite::SettingSenter();
+		BaseSprite::SettingScale(0.5);
+		BaseSprite::SettingPosition(m_setPos);
 	}
 
 	//-----------------------------------------------------------------//
 
 	// キャンセルと書かれたスプライトを表示するための情報
-	void CancelSpriteUI::OnCreate(){
+	void CancelSpriteUI::OnCreate() {
 		auto wstring = L"Cancel";
 		auto sideSize = 512.0f;
 		auto highSize = -256.0f;
 
-		auto ptrTrans = GetComponent<Transform>();
-		auto pos = ptrTrans->GetPosition();
-		pos.x = -350;
-		pos.y = -320;
-		ptrTrans->SetPosition(pos);
+		BaseSprite::CreateSprite(wstring, sideSize, NULL, highSize, NULL);
+		BaseSprite::SettingScale(0.5);
+		BaseSprite::SettingPosition(m_setPos);
+	}
 
-		BaseSprite::CreateSprite(wstring, sideSize, NULL, highSize, NULL); 
-		BaseSprite::SettingScale(0.6f);
-		BaseSprite::SettingSenter();
+	//-----------------------------------------------------------------//
+	// 
+	// モドル(戻る)と書かれたスプライトを表示するための情報
+	void BackSpriteUI::OnCreate() {
+		auto wstring = L"Back";
+		auto sideSize = 512.0f;
+		auto highSize = -256.0f;
+
+		BaseSprite::CreateSprite(wstring, sideSize, NULL, highSize, NULL);
+		BaseSprite::SettingScale(0.5);
+		BaseSprite::SettingPosition(m_setPos);
+	}
+
+	//-----------------------------------------------------------------//
+
+	// ススム(進む)と書かれたスプライトを表示するための情報
+	void NextSpriteUI::OnCreate() {
+		auto wstring = L"Next";
+		auto sideSize = 512.0f;
+		auto highSize = -256.0f;
+
+		BaseSprite::CreateSprite(wstring, sideSize, NULL, highSize, NULL);
+		BaseSprite::SettingScale(0.5);
+		BaseSprite::SettingPosition(m_setPos);
 	}
 
 	//-----------------------------------------------------------------//
@@ -119,15 +128,9 @@ namespace basecross
 		auto sideSize = 256.0f;
 		auto highSize = -256.0f;
 
-		auto ptrTrans = GetComponent<Transform>();
-		auto pos = ptrTrans->GetPosition();
-		pos.x =  410;
-		pos.y = -320;
-		ptrTrans->SetPosition(pos);
-
 		BaseSprite::CreateSprite(wstring, sideSize, NULL, highSize, NULL); 
 		BaseSprite::SettingScale(0.4f);
-		BaseSprite::SettingSenter();
+		BaseSprite::SettingPosition(m_setPos);
 	}
 
 	//-----------------------------------------------------------------//
@@ -138,15 +141,9 @@ namespace basecross
 		auto sideSize = 256.0f;
 		auto highSize = -256.0f;
 
-		auto ptrTrans = GetComponent<Transform>();
-		auto pos = ptrTrans->GetPosition();
-		pos.x = -170;
-		pos.y = -320;
-		ptrTrans->SetPosition(pos);
-
 		BaseSprite::CreateSprite(wstring, sideSize, NULL, highSize, NULL);
 		BaseSprite::SettingScale(0.4f);
-		BaseSprite::SettingSenter();
+		BaseSprite::SettingPosition(m_setPos);
 	}
 
 	//-----------------------------------------------------------------//
@@ -159,7 +156,7 @@ namespace basecross
 
 		BaseSprite::CreateSprite(wstring, sideSize, NULL, highSize, NULL);
 		BaseSprite::SettingScale(1);
-		BaseSprite::SettingSenter();
+		BaseSprite::SettingPosition(m_setPos);
 	}
 
 	void ReadyToFightUI::OnUpdate() {
@@ -179,10 +176,10 @@ namespace basecross
 
 		auto ptrTrans = GetComponent<Transform>();
 		auto pos = ptrTrans->GetPosition();
-		ptrTrans->SetPosition(m_position);
+		ptrTrans->SetPosition(m_setPos);
 
 		BaseSprite::CreateSprite(wstring, sideSize, NULL, highSize, NULL);
 		BaseSprite::SettingScale(1);
-		BaseSprite::SettingSenter();
+		BaseSprite::SettingPosition(m_setPos);
 	}
 }
