@@ -11,7 +11,7 @@ namespace basecross {
 		//const Vec3 eye(0.0f, 5.0f, -5.0f);
 		//const Vec3 at(0.0f);
 		const Vec3 eye(0.0f, 0.0f, -4.0f);
-		const Vec3 at(0.5f, 0.0f, -2.0f);
+		const Vec3 at(0.4f, 0.0f, -2.0f);
 		auto PtrView = CreateView<SingleView>();
 		//ビューのカメラの設定
 		auto PtrCamera = ObjectFactory::Create<Camera>();
@@ -97,8 +97,8 @@ namespace basecross {
 			//Debug::GetInstance()->Log(str);
 			//Debug::GetInstance()->Log(player->GetCountKilledPlayer());
 
-			AddResultSprites(Vec3(330 + addVec, 250 + setPosY, 0), (UINT)m_playersNumber + 1, m_playersScore);
-			addVec += 10;
+			AddResultSprites(Vec3(400 + addVec, 250 + setPosY, 0), (UINT)m_playersNumber + 1, m_playersScore);
+			addVec += 12.5f;
 			setPosY -= 170;
 
 			if (i > 0) {
@@ -128,7 +128,7 @@ namespace basecross {
 			player = PlayerNumber::P4;
 		}
 		auto topPlayer = AddGameObject<ResultPlayer>(
-			TransformData(Vec3(0.0f, 1.0f, 0.0f), Vec3(1), Vec3(0, XMConvertToRadians(-90.0f), 0)), m_playerTop);
+			TransformData(Vec3(0.0f, 1.0f, 0.0f), Vec3(0.75f), Vec3(0, XMConvertToRadians(-90.0f), 0)), m_playerTop);
 		//topPlayer->GetComponent<Gravity>()->SetGravityZero();
 		auto PlayerPos = topPlayer->GetComponent<Transform>()->GetPosition();
 
@@ -151,8 +151,8 @@ namespace basecross {
 
 			//ビューとライトの作成
 			CreateViewLight();
-			AddGameObject<Debug>();
-			Debug::GetInstance()->Log(L"CurrentStage : ResultStage");
+			//AddGameObject<Debug>();
+			//Debug::GetInstance()->Log(L"CurrentStage : ResultStage");
 
 			AddGameObject<SimpleSprite>(L"BackGround00")->SetDrawLayer(-1);
 
@@ -168,9 +168,9 @@ namespace basecross {
 
 			SoundManager::GetInstance()->PlayLoop(L"ResultBGM");
 
-			AddGameObject<NextSpriteUI>(Vec3(-50, -320, 0));
-			AddGameObject<BackSpriteUI>(Vec3(-430, -320, 0));
-			AddGameObject<AButtonSpriteUI>(Vec3(70, -320, 0));
+			AddGameObject<GoToSelectSpriteUI>(Vec3(-0, -320, 0));
+			AddGameObject<GoToTitleSpriteUI>(Vec3(-430, -320, 0));
+			AddGameObject<AButtonSpriteUI>(Vec3(120, -320, 0));
 			AddGameObject<BButtonSpriteUI>(Vec3(-310, -320, 0));
 
 		}
