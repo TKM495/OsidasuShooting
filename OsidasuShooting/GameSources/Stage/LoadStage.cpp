@@ -87,6 +87,9 @@ namespace basecross {
 		path = dir + L"Sound/SE/";
 		app->RegisterWav(L"EmptyBombSE", path + L"EmptyBomb.wav");
 		app->RegisterWav(L"DecisionSE", path + L"Decision.wav");
+		app->RegisterWav(L"CancelSE", path + L"Cancel.wav");
+		app->RegisterWav(L"CharacterDecisionSE", path + L"CharacterDecision.wav");
+		app->RegisterWav(L"CharacterSelectingSE", path + L"CharacterSelecting.wav");
 		app->RegisterWav(L"ExplosionSE", path + L"Explosion.wav");
 		app->RegisterWav(L"FallSE", path + L"Fall.wav");
 		app->RegisterWav(L"HoverSE", path + L"Hover.wav");
