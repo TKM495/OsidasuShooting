@@ -90,6 +90,7 @@ namespace basecross {
 		app->RegisterWav(L"CancelSE", path + L"Cancel.wav");
 		app->RegisterWav(L"CharacterDecisionSE", path + L"CharacterDecision.wav");
 		app->RegisterWav(L"CharacterSelectingSE", path + L"CharacterSelecting.wav");
+		app->RegisterWav(L"FightSE", path + L"Fight.wav");
 		app->RegisterWav(L"ExplosionSE", path + L"Explosion.wav");
 		app->RegisterWav(L"FallSE", path + L"Fall.wav");
 		app->RegisterWav(L"HoverSE", path + L"Hover.wav");

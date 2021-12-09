@@ -21,8 +21,7 @@ namespace basecross
 			{Vec3(m_zeroSize, m_zeroSize, m_zeroSize), color, Vec2(m_zeroSize, m_zeroSize)},
 			{Vec3(m_sideSize, m_zeroSize, m_zeroSize), color, Vec2(m_oneSize,  m_zeroSize)},
 			{Vec3(m_zeroSize, m_highSize, m_zeroSize), color, Vec2(m_zeroSize,  m_oneSize)},
-			{Vec3(m_sideSize, m_highSize, m_zeroSize), color, Vec2( m_oneSize,  m_oneSize)}
-
+			{Vec3(m_sideSize, m_highSize, m_zeroSize), color, Vec2(m_oneSize,  m_oneSize)}
 		};
 
 		vector<uint16_t> indeces = {
@@ -58,7 +57,7 @@ namespace basecross
 	//-----------------------------------------------------------------//
 
 	// CharacterSelectと書かれたスプライトを表示するための情報
-	void CharacterStringUI::OnCreate(){
+	void CharacterStringUI::OnCreate() {
 		auto wstring = L"CharacterSelect";
 		auto sideSize = 1024.0f;
 		auto highSize = -128.0f;
@@ -68,7 +67,7 @@ namespace basecross
 		pos.y = 320;
 		ptrTrans->SetPosition(pos);
 
-		BaseSprite::CreateSprite(wstring, sideSize, NULL, highSize, NULL); 
+		BaseSprite::CreateSprite(wstring, sideSize, NULL, highSize, NULL);
 		BaseSprite::SettingScale(0.9f);
 		BaseSprite::SettingSenter();
 	}
@@ -76,18 +75,18 @@ namespace basecross
 	//-----------------------------------------------------------------//
 
 	// ケッテイと書かれたスプライトを表示するための情報
-	void DecisionSpriteUI::OnCreate(){
+	void DecisionSpriteUI::OnCreate() {
 		auto wstring = L"Decision";
 		auto sideSize = 512.0f;
 		auto highSize = -256.0f;
 
 		auto ptrTrans = GetComponent<Transform>();
 		auto pos = ptrTrans->GetPosition();
-		pos.x =  260;
+		pos.x = 260;
 		pos.y = -320;
 		ptrTrans->SetPosition(pos);
 
-		BaseSprite::CreateSprite(wstring, sideSize, NULL, highSize, NULL); 
+		BaseSprite::CreateSprite(wstring, sideSize, NULL, highSize, NULL);
 		BaseSprite::SettingScale(0.6f);
 		BaseSprite::SettingSenter();
 	}
@@ -95,7 +94,7 @@ namespace basecross
 	//-----------------------------------------------------------------//
 
 	// キャンセルと書かれたスプライトを表示するための情報
-	void CancelSpriteUI::OnCreate(){
+	void CancelSpriteUI::OnCreate() {
 		auto wstring = L"Cancel";
 		auto sideSize = 512.0f;
 		auto highSize = -256.0f;
@@ -106,7 +105,7 @@ namespace basecross
 		pos.y = -320;
 		ptrTrans->SetPosition(pos);
 
-		BaseSprite::CreateSprite(wstring, sideSize, NULL, highSize, NULL); 
+		BaseSprite::CreateSprite(wstring, sideSize, NULL, highSize, NULL);
 		BaseSprite::SettingScale(0.6f);
 		BaseSprite::SettingSenter();
 	}
@@ -114,18 +113,18 @@ namespace basecross
 	//-----------------------------------------------------------------//
 
 	// Aと書かれたスプライトを表示するための情報
-	void AButtonSpriteUI::OnCreate(){
+	void AButtonSpriteUI::OnCreate() {
 		auto wstring = L"AButton";
 		auto sideSize = 256.0f;
 		auto highSize = -256.0f;
 
 		auto ptrTrans = GetComponent<Transform>();
 		auto pos = ptrTrans->GetPosition();
-		pos.x =  410;
+		pos.x = 410;
 		pos.y = -320;
 		ptrTrans->SetPosition(pos);
 
-		BaseSprite::CreateSprite(wstring, sideSize, NULL, highSize, NULL); 
+		BaseSprite::CreateSprite(wstring, sideSize, NULL, highSize, NULL);
 		BaseSprite::SettingScale(0.4f);
 		BaseSprite::SettingSenter();
 	}
@@ -165,8 +164,9 @@ namespace basecross
 	void ReadyToFightUI::OnUpdate() {
 		auto& app = App::GetApp();
 		const auto& ctrlVec = app->GetInputDevice().GetControlerVec()[0];
-		if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_A)
-			PostEvent(0.0f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToGameStage");
+		if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_A) {
+			PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToGameStage");
+		}
 	}
 
 	//-----------------------------------------------------------------//

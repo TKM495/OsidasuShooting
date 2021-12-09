@@ -136,9 +136,11 @@ namespace basecross {
 			m_ifEntryPlayer[gamePadID] = true;
 			if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_A) {
 				m_isDecisionPlayer[gamePadID] = true;
+				SoundManager::GetInstance()->Play(L"DecisionSE");
 			}
 			if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_B) {
 				m_isDecisionPlayer[gamePadID] = false;
+				SoundManager::GetInstance()->Play(L"CancelSE");
 			}
 		}
 		else {
@@ -191,8 +193,9 @@ namespace basecross {
 			for (int i = 0; i < m_loopForPlayer; i++) {
 				const auto& ctrlVec = app->GetInputDevice().GetControlerVec()[i];
 				if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_B) {
-					if (m_isBPushPlayer[i])
-						PostEvent(0.0f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToTitleStage");
+					if (m_isBPushPlayer[i]) {
+						PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToTitleStage");
+					}
 					else m_isBPushPlayer[i] = true;
 				}
 			}
@@ -206,8 +209,9 @@ namespace basecross {
 			CharacterSelectedPlayers(i);
 
 			const auto& ctrlVec = app->GetInputDevice().GetControlerVec()[i];
-			if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_A)
+			if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_A) {
 				m_isBPushPlayer[i] = false;
+			}
 		}
 		CheckSelectedPlayers();
 	}
