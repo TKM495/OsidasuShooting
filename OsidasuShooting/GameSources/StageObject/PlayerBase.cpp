@@ -54,6 +54,9 @@ namespace basecross {
 		// プレイヤーのモデルを追加
 		m_model = InstantiateGameObject<PlayerModel>(GetThis<PlayerBase>(), m_transformData);
 
+		// 予測線の色を設定
+		m_predictionLine.SetColor(m_color);
+
 		// 滑るような挙動用のコンポーネントと重力を追加
 		AddComponent<PhysicalBehavior>();
 		AddComponent<Gravity>();
