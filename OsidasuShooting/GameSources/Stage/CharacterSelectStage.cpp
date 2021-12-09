@@ -136,7 +136,7 @@ namespace basecross {
 			m_ifEntryPlayer[gamePadID] = true;
 			if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_A) {
 				m_isDecisionPlayer[gamePadID] = true;
-				SoundManager::GetInstance()->Play(L"DecisionSE");
+				SoundManager::GetInstance()->Play(L"CharacterDecisionSE");
 			}
 			if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_B) {
 				m_isDecisionPlayer[gamePadID] = false;
