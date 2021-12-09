@@ -110,8 +110,15 @@ namespace basecross {
 		// すでにバイブレーションがONになっている場合新しくスレッドを立てない
 		if (m_isVibrationON)
 			return;
-
 		m_isVibrationON = true;
+
+		// 無限の場合はスレッドを立てない
+		if (data.Time == INFINITY) {
+			XINPUT_VIBRATION vibration = { data.LeftMotorSpeed,data.RightMotorSpeed };
+			XInputSetState((WORD)m_playerNumber, &vibration);
+			return;
+		}
+
 		//他のリソースを読み込むスレッドのスタート
 		thread vibrationThread(&GameController::ActiveVibrationThread, this, data);
 		//終了までは待たない

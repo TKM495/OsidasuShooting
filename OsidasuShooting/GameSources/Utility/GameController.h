@@ -20,14 +20,25 @@ namespace basecross {
 		/**
 		 * @brief コンストラクタ
 		 *
+		 * @param rightMotorSpeedRate	// 右モーターの回転速度（0～1）(高回転)
+		 * @param leftMotorSpeedRate	// 左モーターの回転速度（0～1）(低回転)
 		 * @param time					// 継続時間
+		 */
+		VibrationData(float rightMotorSpeedRate, float leftMotorSpeedRate, float time) {
+			this->RightMotorSpeed = WORD(65535 * Utility::Clamp(rightMotorSpeedRate, 0.0f, 1.0f));
+			this->LeftMotorSpeed = WORD(65535 * Utility::Clamp(leftMotorSpeedRate, 0.0f, 1.0f));
+			this->Time = time;
+		}
+		/**
+		 * @brief コンストラクタ
+		 *
 		 * @param rightMotorSpeedRate	// 右モーターの回転速度（0～1）(高回転)
 		 * @param leftMotorSpeedRate	// 左モーターの回転速度（0～1）(低回転)
 		 */
-		VibrationData(float time, float rightMotorSpeedRate, float leftMotorSpeedRate) {
-			this->Time = time;
+		VibrationData(float rightMotorSpeedRate, float leftMotorSpeedRate) {
 			this->RightMotorSpeed = WORD(65535 * Utility::Clamp(rightMotorSpeedRate, 0.0f, 1.0f));
 			this->LeftMotorSpeed = WORD(65535 * Utility::Clamp(leftMotorSpeedRate, 0.0f, 1.0f));
+			this->Time = INFINITY;
 		}
 	};
 

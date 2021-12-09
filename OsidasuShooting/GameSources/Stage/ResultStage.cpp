@@ -128,7 +128,7 @@ namespace basecross {
 			player = PlayerNumber::P4;
 		}
 		auto topPlayer = AddGameObject<ResultPlayer>(
-			TransformData(Vec3(0.0f, 1.0f, 0.0f), Vec3(1), Vec3(0, XMConvertToRadians(-90.0f), 0)), player);
+			TransformData(Vec3(0.0f, 1.0f, 0.0f), Vec3(1), Vec3(0, XMConvertToRadians(-90.0f), 0)), m_playerTop);
 		//topPlayer->GetComponent<Gravity>()->SetGravityZero();
 		auto PlayerPos = topPlayer->GetComponent<Transform>()->GetPosition();
 
