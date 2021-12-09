@@ -163,7 +163,7 @@ namespace basecross {
 
 			AddWinnerSprite((UINT)m_playerTop + 1);
 
-			Debug::GetInstance()->Log(L"Button A : Game");
+			Debug::GetInstance()->Log(L"Button A : CharacterSelect");
 			Debug::GetInstance()->Log(L"Button B : Title");
 
 			SoundManager::GetInstance()->PlayLoop(L"ResultBGM");
@@ -178,7 +178,7 @@ namespace basecross {
 		const auto& cntlPad = app->GetInputDevice().GetControlerVec()[0];
 		if (cntlPad.wPressedButtons & XINPUT_GAMEPAD_A) {
 			SoundManager::GetInstance()->Play(L"DecisionSE");
-			PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToGameStage");
+			PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToCharacterSelectStage");
 		}
 		if (cntlPad.wPressedButtons & XINPUT_GAMEPAD_B) {
 			SoundManager::GetInstance()->Play(L"DecisionSE");
