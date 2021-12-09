@@ -176,10 +176,14 @@ namespace basecross {
 	void ResultStage::OnUpdate() {
 		auto& app = App::GetApp();
 		const auto& cntlPad = app->GetInputDevice().GetControlerVec()[0];
-		if (cntlPad.wPressedButtons & XINPUT_GAMEPAD_A)
-			PostEvent(0.0f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToGameStage");
-		if (cntlPad.wPressedButtons & XINPUT_GAMEPAD_B)
-			PostEvent(0.0f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToTitleStage");
+		if (cntlPad.wPressedButtons & XINPUT_GAMEPAD_A) {
+			SoundManager::GetInstance()->Play(L"DecisionSE");
+			PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToGameStage");
+		}
+		if (cntlPad.wPressedButtons & XINPUT_GAMEPAD_B) {
+			SoundManager::GetInstance()->Play(L"DecisionSE");
+			PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToTitleStage");
+		}
 	}
 
 	void ResultStage::OnDestroy() {
