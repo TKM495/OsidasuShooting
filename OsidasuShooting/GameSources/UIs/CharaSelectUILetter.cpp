@@ -97,8 +97,8 @@ namespace basecross
 	//-----------------------------------------------------------------//
 	// 
 	// モドル(戻る)と書かれたスプライトを表示するための情報
-	void BackSpriteUI::OnCreate() {
-		auto wstring = L"Back";
+	void GoToTitleSpriteUI::OnCreate() {
+		auto wstring = L"GoToTitle";
 		auto sideSize = 512.0f;
 		auto highSize = -256.0f;
 
@@ -110,8 +110,8 @@ namespace basecross
 	//-----------------------------------------------------------------//
 
 	// ススム(進む)と書かれたスプライトを表示するための情報
-	void NextSpriteUI::OnCreate() {
-		auto wstring = L"Next";
+	void GoToSelectSpriteUI::OnCreate() {
+		auto wstring = L"GoToSelect";
 		auto sideSize = 512.0f;
 		auto highSize = -256.0f;
 

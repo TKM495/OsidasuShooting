@@ -87,10 +87,10 @@ namespace basecross
 	};
 
 	// –ß‚é‚Ì•¶š‚Ì‰æ‘œ
-	class BackSpriteUI : public BaseSprite {
+	class GoToTitleSpriteUI : public BaseSprite {
 		Vec3 m_setPos;
 	public:
-		BackSpriteUI(
+		GoToTitleSpriteUI(
 			const shared_ptr<Stage>& stage,
 			Vec3 setPosition
 		) :
@@ -101,10 +101,10 @@ namespace basecross
 	};
 
 	// i‚Ş‚Ì•¶š‚Ì‰æ‘œ
-	class NextSpriteUI : public BaseSprite {
+	class GoToSelectSpriteUI : public BaseSprite {
 		Vec3 m_setPos;
 	public:
-		NextSpriteUI(
+		GoToSelectSpriteUI(
 			const shared_ptr<Stage>& stage,
 			Vec3 setPosition
 		) :
