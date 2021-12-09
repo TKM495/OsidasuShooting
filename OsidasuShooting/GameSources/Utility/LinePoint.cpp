@@ -31,6 +31,9 @@ namespace basecross {
 		auto drawComp = AddComponent<PCStaticDraw>();
 		drawComp->CreateOriginalMesh(vertices, indices);
 		drawComp->SetOriginalMeshUse(true);
-		drawComp->SetDiffuse(Col4(1.0, 0.0f, 0.0f, 1.0f));
+	}
+
+	void LinePoint::SetColor(const Col4& color) {
+		GetComponent<PCStaticDraw>()->SetDiffuse(color);
 	}
 }

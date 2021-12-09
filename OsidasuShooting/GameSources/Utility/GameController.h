@@ -51,11 +51,14 @@ namespace basecross {
 			Right
 		};
 
+		// キーとバイブレーション動作フラグのマップ
+		// 例：停止するAの処理と起動するBの処理があるとき
+		// BのあとにAを実行するとBが想定通りの動作をしないのを防ぐ
+		map<wstring, bool> m_vibrationMap;
+
 		// プレイヤー番号（取得するコントローラーに影響）
 		PlayerNumber m_playerNumber;
 
-		// バイブレーションがONになっているか
-		bool m_isVibrationON;
 		/**
 		 * @brief スティックを取得
 		 *
@@ -74,9 +77,10 @@ namespace basecross {
 		/**
 		 * @brief バイブレーションのアクティブ（スレッド用関数）
 		 *
+		 * @param key バイブレーションを識別するためのキー
 		 * @param data バイブレーションデータ
 		 */
-		void ActiveVibrationThread(const VibrationData& data);
+		void ActiveVibrationThread(const wstring& key, const VibrationData& data);
 	public:
 		/**
 		 * @brief コンストラクタ
@@ -126,9 +130,17 @@ namespace basecross {
 		/**
 		 * @brief バイブレーションのセット
 		 *
+		 * @param key バイブレーションを識別するためのキー
 		 * @param data バイブレーションデータ
 		 */
-		void SetVibration(const VibrationData& data);
+		void SetVibration(const wstring& key, const VibrationData& data);
+
+		/**
+		 * @brief バイブレーションの停止
+		 *
+		 * @param key バイブレーションを識別するためのキー
+		 */
+		void StopVibration(const wstring& key);
 
 		/**
 		 * @brief バイブレーションのリセット

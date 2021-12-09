@@ -55,7 +55,7 @@ namespace basecross {
 			builder.Build(GetThis<Stage>(), path);
 
 			AddGameObject<FallDecision>();
-			m_controller.SetVibration(VibrationData(1.0f, 1.0f, 1.0f));
+			//m_controller.SetVibration(VibrationData(1.0f, 1.0f, 1.0f));
 		}
 		catch (...) {
 			throw;
