@@ -167,6 +167,12 @@ namespace basecross {
 			Debug::GetInstance()->Log(L"Button B : Title");
 
 			SoundManager::GetInstance()->PlayLoop(L"ResultBGM");
+
+			AddGameObject<NextSpriteUI>(Vec3(-50, -320, 0));
+			AddGameObject<BackSpriteUI>(Vec3(-430, -320, 0));
+			AddGameObject<AButtonSpriteUI>(Vec3(70, -320, 0));
+			AddGameObject<BButtonSpriteUI>(Vec3(-310, -320, 0));
+
 		}
 		catch (...) {
 			throw;
