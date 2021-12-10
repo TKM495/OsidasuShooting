@@ -8,14 +8,17 @@
 
 namespace basecross {
 	void JONYMDStage::CreateViewLight() {
-		const Vec3 eye(0.0f, 5.0f, -5.0f);
-		const Vec3 at(0.0f);
-		auto PtrView = CreateView<SingleView>();
-		//ビューのカメラの設定
-		auto PtrCamera = ObjectFactory::Create<Camera>();
-		PtrView->SetCamera(PtrCamera);
-		PtrCamera->SetEye(eye);
-		PtrCamera->SetAt(at);
+		const Vec3 eye(0.0f, 25.0f, -30.0f);
+		const Vec3 at(0.0f, 0.0f, -7.0f);
+
+		//camera acquisition
+		auto view = CreateView<SingleView>();
+		auto camera = ObjectFactory::Create<Camera>();
+		view->SetCamera(camera);
+		camera->SetEye(eye);
+		camera->SetAt(at);
+		//camera acquisition...end
+
 		//マルチライトの作成
 		auto PtrMultiLight = CreateLight<MultiLight>();
 		//デフォルトのライティングを指定
@@ -25,21 +28,13 @@ namespace basecross {
 	void JONYMDStage::OnCreate() {
 		try {
 			//ビューとライトの作成
+
 			CreateViewLight();
+			CreateStageArea();
 
-			
 			AddGameObject<Debug>();
-			//Debug::GetInstance()->Log(L"CurrentStage : JONYMDStage");
-
-			//auto countDown = AddGameObject<CountDown>();
-			//SetSharedGameObject(L"CountDown", countDown);
-
-
-			AddGameObject<ItemsCreations>();
-
-
-			auto area = AddGameObject<Area>();
-			SetSharedGameObject(L"Area", area);
+			auto meteoriteCreation = AddGameObject<MeteoriteCreation>();
+			SetSharedGameObject(L"MeteoriteCreation", meteoriteCreation);
 
 		}
 		catch (...) {
@@ -49,5 +44,27 @@ namespace basecross {
 
 
 	void JONYMDStage::OnUpdate() {
+		
+		auto& app = App::GetApp();
+		auto& keyState = app->GetInputDevice().GetKeyState();
+
+		if (keyState.m_bPressedKeyTbl[VK_SPACE]) 
+		{
+			GetSharedGameObject<MeteoriteCreation>(L"MeteoriteCreation")->Spawn();
+		}
+		
 	}
+
+	
+	void JONYMDStage::CreateStageArea() {
+		
+		GameObjecttCSVBuilder builder;
+		builder.Register<Block>(L"Block");
+		auto dir = App::GetApp()->GetDataDirWString();
+		auto path = dir + L"Csv/Stage/Stage1";
+		path += L".csv";
+		builder.Build(GetThis<Stage>(), path);
+		
+	}
+
 }

@@ -8,6 +8,7 @@
 
 namespace basecross {
 	class JONYMDStage : public Stage {
+
 		//ƒrƒ…[‚Ìì¬
 		void CreateViewLight();
 	public:
@@ -15,7 +16,9 @@ namespace basecross {
 		JONYMDStage() :Stage() {}
 		virtual ~JONYMDStage() {}
 		//‰Šú‰»
-		virtual void OnCreate()override;
-		virtual void OnUpdate()override;
+		void OnCreate() override;
+		void OnUpdate() override;
+		void CreateStageArea();
+
 	};
 }

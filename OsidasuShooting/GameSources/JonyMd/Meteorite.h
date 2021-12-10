@@ -8,7 +8,8 @@ namespace basecross {
 		vector<Vec3> spawnArea; 
 		Vec3 spawnScale;
 
-			void CreatingRandomPosition();
+		void CreatingRandomPosition();
+		void ShackCamera();
 	public:
 		bool destroyMeteorite = true;
 		Meteorite(const shared_ptr<Stage>& stage)
@@ -16,6 +17,7 @@ namespace basecross {
 		{}
 
 		void OnCreate() override;
+		void OnUpdate() override;
 
 		void OnCollisionEnter(shared_ptr<GameObject>& other)override;
 
