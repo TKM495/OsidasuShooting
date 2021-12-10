@@ -32,7 +32,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Meteorite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\MeteoriteCreation.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\ShackingCamera.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Manager\ControllerManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\PlayerBuilder.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -110,7 +109,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Meteorite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\MeteoriteCreation.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\ShackingCamera.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Manager\ControllerManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\PlayerBuilder.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUISprites.cpp" />

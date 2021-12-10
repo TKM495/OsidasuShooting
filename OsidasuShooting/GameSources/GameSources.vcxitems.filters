@@ -292,15 +292,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\AdvancedGameObject.cpp">
       <Filter>StageObject</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\BaseSingleton.cpp">
-      <Filter>Utility\BaseSingleton</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\DataExtracted.cpp">
-      <Filter>Utility\DataExtracted</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Area.cpp">
-      <Filter>StageObject\JonyMd</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BombReloadTimeGauge.cpp">
       <Filter>UI\BombReloadTimeGauge</Filter>
     </ClCompile>
@@ -343,9 +334,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\MeteoriteCreation.cpp">
       <Filter>StageObject\JonyMd</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\ShackingCamera.cpp">
-      <Filter>StageObject\JonyMd</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\XMLLoad.cpp">
       <Filter>Utility\XMLLoad</Filter>
     </ClCompile>
@@ -366,6 +354,9 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUISprites.cpp">
       <Filter>UI\CharaSelectUISprite</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\ShackingCamera.cpp">
+      <Filter>JonyMd</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -572,9 +563,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\MeteoriteCreation.h">
       <Filter>StageObject\JonyMd</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\ShackingCamera.h">
-      <Filter>StageObject\JonyMd</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\XMLLoad.h">
       <Filter>Utility\XMLLoad</Filter>
     </ClInclude>
@@ -595,6 +583,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUISprites.h">
       <Filter>UI\CharaSelectUISprite</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\ShackingCamera.h">
+      <Filter>JonyMd</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
