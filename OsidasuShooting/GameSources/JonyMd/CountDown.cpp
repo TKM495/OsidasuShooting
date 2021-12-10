@@ -17,7 +17,7 @@ namespace basecross {
 	void CountDown::CountDownSpriteCreate() {
 		m_numbersOffset = 0;			// 分か秒か判別用
 		m_isMinutes = false;			// 分か秒か
-		m_setOffset = Vec3(-132.5f, 360, 0);	// 一文字目のオブジェクト
+		m_setOffset = Vec3(-102.5f, 360, 0);	// 一文字目のオブジェクト
 		m_addOffset = Vec3(45.0f, 0, 0);	// 一文字の大きさ
 		m_spaceOffset = Vec3(20.0f, 0, 0);	// 分と秒で分けるときのスペース
 		m_posOffset = m_setOffset;		// オッフセット

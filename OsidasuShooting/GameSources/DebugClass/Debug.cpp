@@ -29,11 +29,11 @@ namespace basecross {
 
 	void Debug::OnUpdate() {
 		// ログの数を取得
-		auto logCount = m_logData.size();
+		int logCount = static_cast<int>(m_logData.size());
 		// ログの数が最大表示数より多い場合は
 		// 最新のログから（最新のログー最大表示数）までのログを表示する
 		if (logCount > m_maxLogCount) {
-			int diff = (int)logCount - m_maxLogCount;
+			int diff = logCount - m_maxLogCount;
 			m_displayLogFirstIndex = diff;
 		}
 

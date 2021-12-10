@@ -5,7 +5,7 @@
 
 #pragma once
 #include "stdafx.h"
-#include "Manager/ControllerManager.h"
+#include "Utility/GameController.h"
 #include "StageObject/PlayerBase.h"
 
 namespace basecross {
@@ -14,8 +14,10 @@ namespace basecross {
 	using Player = ManualPlayer;
 
 	class ManualPlayer :public PlayerBase {
+		GameController m_controller;
 		void InputUpdate()override;
-		ControllerManager m_controllerManager;
+		void OnRespawn()override;
+		void OnStopHover()override;
 	public:
 		/**
 		 * @brief コンストラクタ
@@ -28,14 +30,14 @@ namespace basecross {
 			const TransformData& transformData,
 			PlayerNumber playerNumber = PlayerNumber::P1)
 			:PlayerBase(stage, transformData, playerNumber),
-			m_controllerManager(playerNumber)
+			m_controller(playerNumber)
 		{}
 	};
 
 	// リザルト用のプレイヤー
 	class ResultPlayer :public PlayerBase {
 		void InputUpdate()override;
-		ControllerManager m_controllerManager;
+		GameController m_controller;
 	public:
 		/**
 		 * @brief コンストラクタ
@@ -48,7 +50,7 @@ namespace basecross {
 			const TransformData& transformData,
 			PlayerNumber playerNumber = PlayerNumber::P1)
 			:PlayerBase(stage, transformData, playerNumber),
-			m_controllerManager(playerNumber)
+			m_controller(playerNumber)
 		{}
 	};
 }

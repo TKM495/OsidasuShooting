@@ -3,14 +3,17 @@
 
 namespace basecross {
 	void PlayerModel::OnCreate() {
+		auto number = Util::IntToWStr((int)m_owner->GetPlayerNumber() + 1);
+		auto modelKey = L"Player" + number;
+
 		// 描画コンポーネントの追加
 		auto drawComp = AddComponent<PNTStaticModelDraw>();
-		drawComp->SetMultiMeshResource(L"Player");
+		drawComp->SetMultiMeshResource(modelKey);
 		drawComp->SetOwnShadowActive(true);
 
 		// 影の追加
 		auto shadowComp = AddComponent<Shadowmap>();
-		shadowComp->SetMultiMeshResource(L"Player");
+		shadowComp->SetMultiMeshResource(modelKey);
 	}
 
 	void PlayerModel::OnUpdate() {

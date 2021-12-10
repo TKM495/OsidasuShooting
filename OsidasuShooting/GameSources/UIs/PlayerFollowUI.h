@@ -40,4 +40,31 @@ namespace basecross {
 		void OnUpdate()override;
 		void OnDraw()override;
 	};
+
+	class PlayerPositionUI :public BaseUI {
+		// オーナー
+		shared_ptr<PlayerBase> m_owner;
+		// オフセット
+		Vec3 m_offset;
+		vector<shared_ptr<BaseUI>> m_uiObject;
+		/**
+		 * @brief 画面内にクランプ
+		 *
+		 * @param value ベクトル
+		 * @return 画面内にクランプされたベクトル
+		 */
+		Vec3 ClampInScreen(const Vec3& value);
+	public:
+		PlayerPositionUI(const shared_ptr<Stage>& stage,
+			const shared_ptr<PlayerBase>& player,
+			const TransformData& transformData)
+			:BaseUI(stage, transformData), m_owner(player),
+			m_offset(Vec3(0.0f, 0.0f, 0.0f))
+		{
+			SetTransformInit(false);
+		}
+		void OnCreate()override;
+		void OnUpdate()override;
+		void OnDraw()override;
+	};
 }

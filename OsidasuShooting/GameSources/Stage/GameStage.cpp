@@ -39,61 +39,24 @@ namespace basecross {
 			AddGameObject<Debug>();
 			Debug::GetInstance()->Log(L"CurrentStage : GameStage");
 
+			AddGameObject<SimpleSprite>(L"BackGround00")->SetDrawLayer(-1);
+
 			GameObjecttCSVBuilder builder;
 			builder.Register<Block>(L"Block");
+			builder.Register<PlayerBuilder>(L"Player");
 			auto dir = App::GetApp()->GetDataDirWString();
 			auto path = dir + L"Csv/Stage/Stage1";
 			path += L".csv";
 
 			builder.Build(GetThis<Stage>(), path);
 
-			auto player = AddGameObject<ManualPlayer>(
-				TransformData(
-					Vec3(10.0f, 1.0f, -15.0f),
-					Vec3(1.0f),
-					Vec3(0.0f, XMConvertToRadians(135.0f), 0.0f)
-				), PlayerNumber::P1);
-			AddGameObject<PlayerInfo>(player, TransformData(Vec3(-480.0f, -250.0f, 0.0f)));
-			AddGameObject<PlayerFollowUI>(player, TransformData());
-			PlayerManager::GetInstance()->AddPlayer(player);
-
-			player = AddGameObject<ManualPlayer>(
-				TransformData(
-					Vec3(-10.0f, 1.0f, -15.0f),
-					Vec3(1.0f),
-					Vec3(0.0f, XMConvertToRadians(45.0f), 0.0f)
-				), PlayerNumber::P2);
-			AddGameObject<PlayerInfo>(player, TransformData(Vec3(-170.0f, -250.0f, 0.0f)));
-			AddGameObject<PlayerFollowUI>(player, TransformData());
-			PlayerManager::GetInstance()->AddPlayer(player);
-
-			player = AddGameObject<ManualPlayer>(
-				TransformData(
-					Vec3(10.0f, 1.0f, 0.0f),
-					Vec3(1.0f),
-					Vec3(0.0f, XMConvertToRadians(-135.0f), 0.0f)
-				), PlayerNumber::P3);
-			AddGameObject<PlayerInfo>(player, TransformData(Vec3(170.0f, -250.0f, 0.0f)));
-			AddGameObject<PlayerFollowUI>(player, TransformData());
-			PlayerManager::GetInstance()->AddPlayer(player);
-
-			player = AddGameObject<ManualPlayer>(
-				TransformData(
-					Vec3(-10.0f, 1.0f, 0.0f),
-					Vec3(1.0f),
-					Vec3(0.0f, XMConvertToRadians(-45.0f), 0.0f)
-				), PlayerNumber::P4);
-			AddGameObject<PlayerInfo>(player, TransformData(Vec3(480.0f, -250.0f, 0.0f)));
-			AddGameObject<PlayerFollowUI>(player, TransformData());
-			PlayerManager::GetInstance()->AddPlayer(player);
-
 			AddGameObject<FallDecision>();
 			AddGameObject<CurrentFirst>();
 
-			m_countDown = AddGameObject<CountDown>(90.0f);
+			m_countDown = AddGameObject<CountDown>(10.0f);
 			m_startCountDown = AddGameObject<StartCountDown>(TransformData());
 			AddGameObject<TransitionSprite>()->FadeOut();
-			SoundManager::GetInstance()->Play(L"GameBGM", XAUDIO2_LOOP_INFINITE, 0.05f);
+			SoundManager::GetInstance()->PlayLoop(L"Game1BGM");
 		}
 		catch (...) {
 			throw;

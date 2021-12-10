@@ -76,10 +76,10 @@ namespace basecross {
 		Vec3 ParabolaCalculate(const Vec3& startPoint, const Vec3& endPoint, float time);
 
 		/**
-		 * @brief 表示するかどうか
+		 * @brief 色の設定
 		 *
-		 * @param flg true:表示する
+		 * @param color 色
 		 */
-		void SetActive(bool flg);
+		void SetColor(const Col4& color);
 	};
 }

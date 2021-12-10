@@ -19,4 +19,6 @@ cbuffer ConstantBuffer : register(b0)
     float4 Diffuse : packoffset(c5);
     float Ratio : packoffset(c6.x);
     float Threshold : packoffset(c6.y);
+    uint UseGradientTextureFlg : packoffset(c6.z);
+    uint IsBackground : packoffset(c6.w);
 };

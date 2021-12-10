@@ -6,20 +6,21 @@
 #pragma once
 #include "stdafx.h"
 #include "UIs/ResultScore.h"
+#include "StageObject/PlayerBase.h"
 
 namespace basecross {
 	class ResultStage :public Stage {
 		// ÉrÉÖÅ[ÇÃçÏê¨
-		void CreateViewLight(); 
+		void CreateViewLight();
 		wstring str;
-		int m_playersNumber;
+		PlayerNumber m_playersNumber;
 		int m_playersScore;
-		int m_playerTop;
+		PlayerNumber m_playerTop;
 		int m_playerTopScore;
 	public:
 		ResultStage() :
 			Stage(),
-			str() ,
+			str(),
 			m_playersNumber(),
 			m_playersScore(),
 			m_playerTop(),
@@ -32,6 +33,7 @@ namespace basecross {
 
 		void OnCreate() override;
 		void OnUpdate() override;
+		void OnDestroy()override;
 
 		void Players();
 
@@ -40,8 +42,7 @@ namespace basecross {
 
 		void AddWinnwe();
 		void AddWinnerSprite(int player);
-		void AddResultDataSprite(Vec3 pos, int playerNum, int score);
+		void AddResultSprites(Vec3 pos, int playerNum, int score);
 		void BattlePlayerUISet(int value) {} ;
-
 	};
 }

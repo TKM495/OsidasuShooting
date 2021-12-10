@@ -35,41 +35,27 @@ namespace basecross {
 			EfkEffectResource::RegisterEffectResource(L"Jump", TestEffectStr + L"Jump.efk");
 			EfkEffectResource::RegisterEffectResource(L"Hover", TestEffectStr + L"Hover.efk");
 			EfkEffectResource::RegisterEffectResource(L"Bomb", TestEffectStr + L"Bomb.efk");
+			EfkEffectResource::RegisterEffectResource(L"Smoke", TestEffectStr + L"Smoke.efk");
 
 			//ビューとライトの作成
 			CreateViewLight();
 			AddGameObject<Debug>();
 			Debug::GetInstance()->Log(L"CurrentStage : WatanabeStage");
 
+			//XMLファイル
+			XMLLoad::GetInstance()->RegisterFile(L"PlayerStatus", DataDir + L"XML/" + L"PlayerStatus.xml");
+
 			GameObjecttCSVBuilder builder;
 			builder.Register<Block>(L"Block");
+			builder.Register<PlayerBuilder>(L"Player");
 			auto dir = App::GetApp()->GetDataDirWString();
-			auto path = dir + L"Csv/Stage";
+			auto path = dir + L"Csv/Stage/Stage1";
 			path += L".csv";
 
 			builder.Build(GetThis<Stage>(), path);
 
-			auto player = AddGameObject<ManualPlayer>(TransformData(Vec3(10.0f, 1.0f, -15.0f)), PlayerNumber::P1);
-			AddGameObject<PlayerInfo>(player, TransformData(Vec3(-500.0f, -250.0f, 0.0f)));
-			AddGameObject<PlayerFollowUI>(player, TransformData());
-			PlayerManager::GetInstance()->AddPlayer(player);
-
-			player = AddGameObject<ManualPlayer>(TransformData(Vec3(-10.0f, 1.0f, 15.0f)), PlayerNumber::P2);
-			AddGameObject<PlayerInfo>(player, TransformData(Vec3(-200.0f, -250.0f, 0.0f)));
-			AddGameObject<PlayerFollowUI>(player, TransformData());
-			PlayerManager::GetInstance()->AddPlayer(player);
-
-			player = AddGameObject<ManualPlayer>(TransformData(Vec3(-10.0f, 1.0f, 0.0f)), PlayerNumber::P3);
-			AddGameObject<PlayerInfo>(player, TransformData(Vec3(200.0f, -250.0f, 0.0f)));
-			AddGameObject<PlayerFollowUI>(player, TransformData());
-			PlayerManager::GetInstance()->AddPlayer(player);
-
-			player = AddGameObject<ManualPlayer>(TransformData(Vec3(10.0f, 1.0f, 0.0f)), PlayerNumber::P4);
-			AddGameObject<PlayerInfo>(player, TransformData(Vec3(500.0f, -250.0f, 0.0f)));
-			AddGameObject<PlayerFollowUI>(player, TransformData());
-			PlayerManager::GetInstance()->AddPlayer(player);
-
 			AddGameObject<FallDecision>();
+			//m_controller.SetVibration(VibrationData(1.0f, 1.0f, 1.0f));
 		}
 		catch (...) {
 			throw;
@@ -80,5 +66,9 @@ namespace basecross {
 		const auto& keyState = App::GetApp()->GetInputDevice().GetKeyState();
 		if (keyState.m_bPressedKeyTbl['R'])
 			PostEvent(0.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToWatanabeStage");
+	}
+
+	void WatanabeStage::OnDestroy() {
+		m_controller.ResetVibration();
 	}
 }

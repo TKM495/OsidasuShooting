@@ -42,8 +42,12 @@ namespace basecross {
 			Debug::GetInstance()->Log(L"A : CharacterSelect");
 			Debug::GetInstance()->Log(L"B : Exit");
 
+			// 背景
+			AddGameObject<SimpleSprite>(L"BackGround00")->SetDrawLayer(-1);
+
 			AddTitleSprite();
 			AddPushAButtonSprite();
+			SoundManager::GetInstance()->PlayLoop(L"TitleBGM");
 		}
 		catch (...) {
 			throw;
@@ -53,9 +57,19 @@ namespace basecross {
 	void TitleStage::OnUpdate() {
 		auto& app = App::GetApp();
 		const auto& cntlPad = app->GetInputDevice().GetControlerVec()[0];
-		if (cntlPad.wPressedButtons & XINPUT_GAMEPAD_A)
-			PostEvent(0.0f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToCharacterSelectStage");
-		if (cntlPad.wPressedButtons & XINPUT_GAMEPAD_B)
-			PostEvent(0.0f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToExit");
+		// キャラクターセレクトへ
+		if (cntlPad.wPressedButtons & XINPUT_GAMEPAD_A) {
+			SoundManager::GetInstance()->Play(L"DecisionSE");
+			PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToCharacterSelectStage");
+		}
+		// ゲーム終了
+		if (cntlPad.wPressedButtons & XINPUT_GAMEPAD_B) {
+			SoundManager::GetInstance()->Play(L"CancelSE");
+			PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToExit");
+		}
+	}
+
+	void TitleStage::OnDestroy() {
+		SoundManager::GetInstance()->StopAll();
 	}
 }

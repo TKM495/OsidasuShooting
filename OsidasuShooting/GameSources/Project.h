@@ -14,6 +14,7 @@
 #include "Stage/SatoStage.h"
 #include "Stage/TitleStage.h"
 #include "Stage/CharacterSelectStage.h"
+#include "Stage/LoadStage.h"
 #include "Stage/WatanabeStage.h"
 #include "Stage/WatanabeStage2.h"
 // その他
@@ -21,11 +22,14 @@
 #include "Effekseer/EfkEffect.h"
 #include "Utility/BaseSingleton.h"
 #include "Utility/CSVLoad.h"
+#include "Utility/XMLLoad.h"
 #include "Utility/GroundingDecision.h"
 #include "Utility/PredictionLine.h"
 #include "Utility/TimeCounter.h"
 #include "Utility/Utility.h"
 #include "Utility/AdvancedMeshUtil.h"
+#include "Utility/DataExtracter.h"
+#include "Utility/GameController.h"
 // ステージオブジェクト
 #include "SpecialCamera/SpCamera.h"
 #include "StageObject/AdvancedGameObject.h"
@@ -44,7 +48,10 @@
 #include "UIs/BombReloadTimeGauge.h"
 #include "UIs/BombRemainingCount.h"
 #include "UIs/Canvas.h"
+#include "UIs/CharaSelectUILetter.h"
+#include "UIs/CharaSelectUISprites.h"
 #include "UIs/CurrentFirst.h"
+#include "UIs/FreamSprite.h"
 #include "UIs/HoverTimeGauge.h"
 #include "UIs/NumberSprite.h"
 #include "UIs/PlayerFollowUI.h"
@@ -67,9 +74,9 @@
 // メニュー
 #include "UIs/Menu/BaseMenu.h"
 // マネージャー
-#include "Manager/ControllerManager.h"
 #include "Manager/PlayerManager.h"
 #include "Manager/SoundManager.h"
+#include "Manager/PlayerBuilder.h"
 
 
 

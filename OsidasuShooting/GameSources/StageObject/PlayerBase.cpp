@@ -7,9 +7,55 @@
 #include "Project.h"
 
 namespace basecross {
+	PlayerBase::PlayerBase(const shared_ptr<Stage>& stage,
+		const TransformData& transData,
+		PlayerNumber playerNumber)
+		: AdvancedGameObject(stage), m_initialPosition(0.0f),
+		m_moveSpeed(20.0f), m_predictionLine(stage, 10, 2.0f),
+		m_bombPoint(Vec3(0.0f)), m_jumpVerocity(Vec3(0.0f, 10.0f, 0.0f)),
+		m_hoverTime(5.0f), m_currentHoverTime(m_hoverTime),
+		m_defaultArmorPoint(100.0f), m_currentArmorPoint(m_defaultArmorPoint),
+		m_bulletTimer(0.1f, true), m_armorRecoveryTimer(2.0f),
+		m_isRestoreArmor(false), m_isInput(false), m_playerNumber(playerNumber),
+		m_bombReload(1.0f), m_defaultBombCount(5), m_correctAngle(40.0f),
+		m_isDuringReturn(false), m_groundingDecision(), m_countKilledPlayer(0),
+		m_returnTimer(0.5f), m_lastFrontDirection(Vec3(0.0f)), m_smokeTimer(0.2f),
+		m_deadCount(0), m_invincibleTimer(3.0f, true), m_isInvincible(false) {
+		m_transformData = transData;
+		m_transformData.Scale *= 2.0f;
+		auto rot = m_transformData.Rotation;
+		m_lastFrontDirection = Vec3(cosf(rot.y), 0.0f, sinf(rot.y));
+		// 以下のタグを持つオブジェクトを判定から除外
+		m_groundingDecision.AddNotDecisionTag(L"Bomb");
+		m_groundingDecision.AddNotDecisionTag(L"Bullet");
+	}
+
 	void PlayerBase::OnCreate() {
+		// XMLのデータを取得
+		auto xmlData = XMLLoad::GetInstance()->GetData(L"PlayerStatus");
+		auto node = xmlData->GetSelectSingleNode(L"Player/PlayerColor");
+		if (!node) {
+			throw BaseException(
+				L"Player/PlayerColorが見つかりません",
+				L"if (!node)",
+				L"PlayerBase::OnCreate()");
+		}
+		// プレイヤーの色情報を取得
+		wstring data = XmlDocReader::GetText(node);
+		// 4プレイヤー分の色を空白で4つのデータに分ける
+		auto colorStr = DataExtracter::DelimitData(data, L' ');
+		// 自身のプレイヤー番号に応じた色データをRGBAに分類
+		auto color = DataExtracter::DelimitData(colorStr[(UINT)m_playerNumber]);
+		// 分類したものをCol4に変換
+		m_color = DataExtracter::ColorDataExtraction(color);
+		// 0～1に変換
+		m_color = Utility::ConvertColorZeroToOne(m_color);
+
 		// プレイヤーのモデルを追加
-		InstantiateGameObject<PlayerModel>(GetThis<PlayerBase>(), m_transformData);
+		m_model = InstantiateGameObject<PlayerModel>(GetThis<PlayerBase>(), m_transformData);
+
+		// 予測線の色を設定
+		m_predictionLine.SetColor(m_color);
 
 		// 滑るような挙動用のコンポーネントと重力を追加
 		AddComponent<PhysicalBehavior>();
@@ -39,6 +85,7 @@ namespace basecross {
 		m_currentHoverTime = m_hoverTime;
 		m_bombCount = m_defaultBombCount;
 		m_initialPosition = GetTransform()->GetPosition();
+		SoundManager::GetInstance()->InitPlayOverlap(L"HoverSE", 0.06f);
 		// 接地判定の情報を初期化
 		m_groundingDecision.SetRadius(GetTransform()->GetScale());
 	}
@@ -61,6 +108,8 @@ namespace basecross {
 		TestFanc();
 		// 爆弾のリロード
 		BombReload();
+		// 無敵処理
+		Invincible();
 		// 各種ステートマシンの更新
 		m_weaponStateMachine->Update();
 		m_jumpAndHoverStateMachine->Update();
@@ -74,10 +123,25 @@ namespace basecross {
 		auto physicalComp = GetComponent<PhysicalBehavior>();
 		physicalComp->Move(m_inputData.MoveDirection, m_moveSpeed);
 		auto efkComp = GetComponent<EfkComponent>();
+
+		// 移動していて接地している場合
 		if (m_inputData.MoveDirection != Vec3(0.0f) &&
-			m_smokeTimer.Count()) {
-			efkComp->Play(L"Smoke");
-			m_smokeTimer.Reset();
+			m_groundingDecision.Calculate(GetTransform()->GetPosition())) {
+			if (m_smokeTimer.Count()) {
+				efkComp->Play(L"Smoke");
+				m_smokeTimer.Reset();
+			}
+		}
+	}
+
+	void PlayerBase::Invincible() {
+		if (m_invincibleTimer.Count()) {
+			m_isInvincible = false;
+		}
+		else {
+			auto time = m_invincibleTimer.GetElaspedTime() * 10;
+			auto flg = ((int)time % 2) == 0;
+			m_model.lock()->SetDrawActive(flg);
 		}
 	}
 
@@ -85,7 +149,7 @@ namespace basecross {
 		GetComponent<Gravity>()->StartJump(m_jumpVerocity);
 		// エフェクトと効果音の再生
 		GetComponent<EfkComponent>()->Play(L"Jump");
-		SoundManager::GetInstance()->Play(L"Jump");
+		SoundManager::GetInstance()->Play(L"JumpSE", 0, 0.3f);
 	}
 
 	void PlayerBase::Hover() {
@@ -106,6 +170,7 @@ namespace basecross {
 		else {
 			efkComp->SyncPosition(L"Hover");
 		}
+		SoundManager::GetInstance()->PlayOverlap(L"HoverSE", 0.4f);
 	}
 
 	void PlayerBase::HoverTimeRecovery() {
@@ -114,12 +179,11 @@ namespace basecross {
 		}
 		else {
 			m_currentHoverTime = m_hoverTime;
-			m_isHoverMode = false;
 		}
 	}
 
 	void PlayerBase::SpecialSkill() {
-		//GetStage()->AddGameObject<SpecialCamera>();
+		// GetStage()->AddGameObject<SpecialCamera>();
 	}
 
 	void PlayerBase::BulletAimAndLaunch() {
@@ -134,7 +198,7 @@ namespace basecross {
 		if (bulletAim != Vec3(0.0f) && m_bulletTimer.Count()) {
 			m_bulletTimer.Reset();
 			InstantiateGameObject<Bullet>(GetThis<PlayerBase>(), ray);
-			SoundManager::GetInstance()->Play(L"Shot");
+			SoundManager::GetInstance()->Play(L"ShotSE", 0, 0.3f);
 		}
 		TurnFrontToDirection(ray.Direction);
 	}
@@ -158,8 +222,7 @@ namespace basecross {
 
 		// 最も自身に近い位置を求める
 		auto closestPosition = Vec3(INFINITY);
-		for (auto position : positions)
-		{
+		for (auto position : positions) {
 			auto direction = position - GetTransform()->GetPosition();
 			if (direction.lengthSqr() < closestPosition.lengthSqr())
 				closestPosition = position;
@@ -171,8 +234,7 @@ namespace basecross {
 		return direction.normalize();
 	}
 
-	bool PlayerBase::InViewRange(const Vec3& aimDirection, const Vec3& position)
-	{
+	bool PlayerBase::InViewRange(const Vec3& aimDirection, const Vec3& position) {
 		// 自分からpositionへのベクトル
 		Vec3 direction = position - GetTransform()->GetPosition();
 		// 照準方向から見たtargetPosとの角度
@@ -203,6 +265,7 @@ namespace basecross {
 	void PlayerBase::BombLaunch() {
 		InstantiateGameObject<Bomb>(GetThis<PlayerBase>(),
 			m_predictionLine, GetTransform()->GetPosition(), m_bombPoint);
+		SoundManager::GetInstance()->Play(L"ThrowBombSE", 0, 0.3f);
 	}
 
 	void PlayerBase::TurnFrontToDirection(const Vec3& direction) {
@@ -231,10 +294,16 @@ namespace basecross {
 	}
 
 	void PlayerBase::StopHover() {
+		m_isHoverMode = false;
 		GetComponent<EfkComponent>()->Stop(L"Hover");
+		OnStopHover();
 	}
 
 	void PlayerBase::KnockBack(const KnockBackData& data) {
+		// 無敵の場合無視
+		if (m_isInvincible)
+			return;
+
 		m_aggriever = data.Aggriever;
 		m_isDuringReturn = true;
 		m_returnTimer.Reset();
@@ -268,12 +337,22 @@ namespace basecross {
 		if (m_isDuringReturn && m_aggriever.lock() != nullptr) {
 			m_aggriever.lock()->KilledPlayer();
 		}
+		// 復帰判定の初期化
 		m_isDuringReturn = false;
+		// 死亡回数を増やす
+		m_deadCount++;
+		// 各種パラメータを初期化
+		m_currentArmorPoint = m_defaultArmorPoint;
+		m_currentHoverTime = m_hoverTime;
+		m_bombCount = m_defaultBombCount;
 		// エフェクトと効果音の再生
 		GetComponent<EfkComponent>()->Play(L"Explosion");
-		SoundManager::GetInstance()->Play(L"Fall");
+		SoundManager::GetInstance()->Play(L"FallSE", 0, 0.3f);
+		OnRespawn();
 		// 初期位置に戻る
 		GetTransform()->SetPosition(m_initialPosition);
+		m_invincibleTimer.Reset();
+		m_isInvincible = true;
 	}
 
 	void PlayerBase::TestFanc() {
@@ -283,6 +362,28 @@ namespace basecross {
 			m_currentArmorPoint = 0.0f;
 			m_isRestoreArmor = true;
 			Debug::GetInstance()->Log(L"Test:Armor0");
+		}
+
+		if (keyState.m_bPressedKeyTbl['1'] &&
+			m_playerNumber == PlayerNumber::P1) {
+			m_countKilledPlayer += 10;
+			Debug::GetInstance()->Log(L"P1 +10Kill");
+		}
+
+		if (keyState.m_bPressedKeyTbl['2'] &&
+			m_playerNumber == PlayerNumber::P2) {
+			m_countKilledPlayer += 10;
+			Debug::GetInstance()->Log(L"P2 +10Kill");
+		}
+		if (keyState.m_bPressedKeyTbl['3'] &&
+			m_playerNumber == PlayerNumber::P3) {
+			m_countKilledPlayer += 10;
+			Debug::GetInstance()->Log(L"P3 +10Kill");
+		}
+		if (keyState.m_bPressedKeyTbl['4'] &&
+			m_playerNumber == PlayerNumber::P4) {
+			m_countKilledPlayer += 10;
+			Debug::GetInstance()->Log(L"P4 +10Kill");
 		}
 	}
 
@@ -304,7 +405,7 @@ namespace basecross {
 		// 必殺技モードへの遷移
 		if (Obj->m_inputData.IsInvokeSpecialSkill) {
 			// 現在は遷移しないようにする
-			//Obj->m_weaponStateMachine->ChangeState(PlayerSpecialSkillModeState::Instance());
+			// Obj->m_weaponStateMachine->ChangeState(PlayerSpecialSkillModeState::Instance());
 		}
 	}
 	void PlayerBase::PlayerBulletModeState::Exit(const shared_ptr<PlayerBase>& Obj) {}
@@ -334,6 +435,9 @@ namespace basecross {
 			Obj->BombLaunch();
 			// 残弾を減らす
 			Obj->m_bombCount--;
+		}
+		else {
+			SoundManager::GetInstance()->Play(L"EmptyBombSE", 0, 0.3f);
 		}
 		Obj->m_isBombMode = false;
 	}

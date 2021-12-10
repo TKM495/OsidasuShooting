@@ -50,7 +50,7 @@ namespace basecross {
 		m_isExploded = true;
 		// 爆弾によるノックバック処理
 		GetComponent<EfkComponent>()->Play(L"Explosion");
-		SoundManager::GetInstance()->Play(L"Explosion");
+		SoundManager::GetInstance()->Play(L"ExplosionSE", 0, 0.1f);
 		// プレイヤーの取得
 		const auto& players = PlayerManager::GetInstance()->GetAllPlayer();
 		for (auto player : players) {
@@ -59,8 +59,8 @@ namespace basecross {
 			auto distance = (pos - myPos).length();
 			// 爆発半径内にいる場合ノックバック
 			if (distance < m_radius) {
-				PlayerBase::KnockBackData data(
-					PlayerBase::KnockBackData::Category::Bomb,
+				KnockBackData data(
+					KnockBackData::Category::Bomb,
 					pos - myPos, m_power, m_owner
 				);
 				// ノックバック

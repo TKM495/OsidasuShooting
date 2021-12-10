@@ -73,12 +73,13 @@ namespace basecross {
 			auto rad = atan2f(-direction.z, direction.x) + XM_PIDIV2;
 			Vec3 rot(0.0f, rad, 0.0f);
 			m_linePoints[i]->GetTransform()->SetRotation(rot);
+			m_linePoints[i]->SetDrawActive(direction != Vec3(0));
 		}
 	}
 
-	void PredictionLine::SetActive(bool flg) {
-		for (auto linePoint : m_linePoints) {
-			linePoint->SetDrawActive(flg);
+	void PredictionLine::SetColor(const Col4& color) {
+		for (auto point : m_linePoints) {
+			point->SetColor(color);
 		}
 	}
 }
