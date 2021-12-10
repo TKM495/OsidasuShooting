@@ -73,11 +73,11 @@ namespace basecross {
 		triTrans->SetScale(scl);
 		m_Triangle[gamePadID + 4]->SetDrawLayer(1);
 	}
-	 // UIの設置、OnCreateで使用する関数
+	// UIの設置、OnCreateで使用する関数
 	void CharacterSelectStage::UIsSet() {
 		AddGameObject<CharacterStringUI>(Vec3(0, 320, 0));
 		AddGameObject<DecisionSpriteUI>(Vec3(260, -320, 0));
-		AddGameObject<CancelSpriteUI>(Vec3(-340,-320 , 0));
+		AddGameObject<CancelSpriteUI>(Vec3(-340, -320, 0));
 		AddGameObject<AButtonSpriteUI>(Vec3(410, -320, 0));
 		AddGameObject<BButtonSpriteUI>(Vec3(-190, -320, 0));
 		m_Ready = AddGameObject<ReadyToFightUI>(Vec3(0, 0, 0));
@@ -99,10 +99,10 @@ namespace basecross {
 		try {
 			//ビューとライトの作成
 			CreateViewLight();
-			AddGameObject<Debug>();
-			Debug::GetInstance()->Log(L"CurrentStage : CharacterSelectStage");
-			Debug::GetInstance()->Log(L"A : GameStart");
-			Debug::GetInstance()->Log(L"B : ToTitle");
+			//AddGameObject<Debug>();
+			//Debug::GetInstance()->Log(L"CurrentStage : CharacterSelectStage");
+			//Debug::GetInstance()->Log(L"A : GameStart");
+			//Debug::GetInstance()->Log(L"B : ToTitle");
 
 			AddGameObject<SimpleSprite>(L"BackGround00")->SetDrawLayer(-1);
 
@@ -118,7 +118,7 @@ namespace basecross {
 
 			for (int i = 0; i < m_loopForPlayer; i++) {
 				CharacterSelectingPlayers(m_gamePadIDs[i]);
-				Debug::GetInstance()->Log(m_isDecisionPlayer[i]);
+				//Debug::GetInstance()->Log(m_isDecisionPlayer[i]);
 			}
 			//auto addIcons = AddGameObject<CharacterIcon>(L"MissileIcon");
 			//Debug::GetInstance()->Log(m_shiftMovePos);

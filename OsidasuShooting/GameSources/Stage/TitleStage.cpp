@@ -37,10 +37,10 @@ namespace basecross {
 		try {
 			//ビューとライトの作成
 			CreateViewLight();
-			AddGameObject<Debug>();
-			Debug::GetInstance()->Log(L"CurrentStage : TitleStage");
-			Debug::GetInstance()->Log(L"A : CharacterSelect");
-			Debug::GetInstance()->Log(L"B : Exit");
+			//AddGameObject<Debug>();
+			//Debug::GetInstance()->Log(L"CurrentStage : TitleStage");
+			//Debug::GetInstance()->Log(L"A : CharacterSelect");
+			//Debug::GetInstance()->Log(L"B : Exit");
 
 			// 背景
 			AddGameObject<SimpleSprite>(L"BackGround00")->SetDrawLayer(-1);

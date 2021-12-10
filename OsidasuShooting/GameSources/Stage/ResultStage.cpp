@@ -163,8 +163,8 @@ namespace basecross {
 
 			AddWinnerSprite((UINT)m_playerTop + 1);
 
-			Debug::GetInstance()->Log(L"Button A : CharacterSelect");
-			Debug::GetInstance()->Log(L"Button B : Title");
+			//Debug::GetInstance()->Log(L"Button A : CharacterSelect");
+			//Debug::GetInstance()->Log(L"Button B : Title");
 
 			SoundManager::GetInstance()->PlayLoop(L"ResultBGM");
 
@@ -172,7 +172,6 @@ namespace basecross {
 			AddGameObject<GoToTitleSpriteUI>(Vec3(-430, -320, 0));
 			AddGameObject<AButtonSpriteUI>(Vec3(120, -320, 0));
 			AddGameObject<BButtonSpriteUI>(Vec3(-310, -320, 0));
-
 		}
 		catch (...) {
 			throw;

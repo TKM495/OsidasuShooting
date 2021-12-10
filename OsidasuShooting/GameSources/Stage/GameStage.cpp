@@ -36,8 +36,8 @@ namespace basecross {
 
 			//ビューとライトの作成
 			CreateViewLight();
-			AddGameObject<Debug>();
-			Debug::GetInstance()->Log(L"CurrentStage : GameStage");
+			//AddGameObject<Debug>();
+			//Debug::GetInstance()->Log(L"CurrentStage : GameStage");
 
 			AddGameObject<SimpleSprite>(L"BackGround00")->SetDrawLayer(-1);
 
@@ -53,7 +53,7 @@ namespace basecross {
 			AddGameObject<FallDecision>();
 			AddGameObject<CurrentFirst>();
 
-			m_countDown = AddGameObject<CountDown>(10.0f);
+			m_countDown = AddGameObject<CountDown>(90.0f);
 			m_startCountDown = AddGameObject<StartCountDown>(TransformData());
 			AddGameObject<TransitionSprite>()->FadeOut();
 			SoundManager::GetInstance()->PlayLoop(L"Game1BGM");
@@ -75,7 +75,7 @@ namespace basecross {
 		case GameState::STAY:
 			if (m_startCountDown->GetTimer().IsTimeUp()) {
 				m_countDown->Start();
-				Debug::GetInstance()->Log(L"GameStart！！！！！");
+				//Debug::GetInstance()->Log(L"GameStart！！！！！");
 				ChangeGameState(GameState::PLAYING);
 			}
 			break;
@@ -84,7 +84,7 @@ namespace basecross {
 				m_countDown->Stop();
 				m_utilTimer.Reset(2.0f);
 				AddGameObject<FinishSprite>(TransformData());
-				Debug::GetInstance()->Log(L"Finish!!!!!!");
+				//Debug::GetInstance()->Log(L"Finish!!!!!!");
 				ChangeGameState(GameState::CLEAR);
 			}
 			break;

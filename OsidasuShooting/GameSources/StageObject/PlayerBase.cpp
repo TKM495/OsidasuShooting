@@ -356,35 +356,35 @@ namespace basecross {
 	}
 
 	void PlayerBase::TestFanc() {
-		const auto& keyState = App::GetApp()->GetInputDevice().GetKeyState();
-		// アーマーを0にする
-		if (keyState.m_bPressedKeyTbl['0']) {
-			m_currentArmorPoint = 0.0f;
-			m_isRestoreArmor = true;
-			Debug::GetInstance()->Log(L"Test:Armor0");
-		}
+		//const auto& keyState = App::GetApp()->GetInputDevice().GetKeyState();
+		//// アーマーを0にする
+		//if (keyState.m_bPressedKeyTbl['0']) {
+		//	m_currentArmorPoint = 0.0f;
+		//	m_isRestoreArmor = true;
+		//	Debug::GetInstance()->Log(L"Test:Armor0");
+		//}
 
-		if (keyState.m_bPressedKeyTbl['1'] &&
-			m_playerNumber == PlayerNumber::P1) {
-			m_countKilledPlayer += 10;
-			Debug::GetInstance()->Log(L"P1 +10Kill");
-		}
+		//if (keyState.m_bPressedKeyTbl['1'] &&
+		//	m_playerNumber == PlayerNumber::P1) {
+		//	m_countKilledPlayer += 10;
+		//	Debug::GetInstance()->Log(L"P1 +10Kill");
+		//}
 
-		if (keyState.m_bPressedKeyTbl['2'] &&
-			m_playerNumber == PlayerNumber::P2) {
-			m_countKilledPlayer += 10;
-			Debug::GetInstance()->Log(L"P2 +10Kill");
-		}
-		if (keyState.m_bPressedKeyTbl['3'] &&
-			m_playerNumber == PlayerNumber::P3) {
-			m_countKilledPlayer += 10;
-			Debug::GetInstance()->Log(L"P3 +10Kill");
-		}
-		if (keyState.m_bPressedKeyTbl['4'] &&
-			m_playerNumber == PlayerNumber::P4) {
-			m_countKilledPlayer += 10;
-			Debug::GetInstance()->Log(L"P4 +10Kill");
-		}
+		//if (keyState.m_bPressedKeyTbl['2'] &&
+		//	m_playerNumber == PlayerNumber::P2) {
+		//	m_countKilledPlayer += 10;
+		//	Debug::GetInstance()->Log(L"P2 +10Kill");
+		//}
+		//if (keyState.m_bPressedKeyTbl['3'] &&
+		//	m_playerNumber == PlayerNumber::P3) {
+		//	m_countKilledPlayer += 10;
+		//	Debug::GetInstance()->Log(L"P3 +10Kill");
+		//}
+		//if (keyState.m_bPressedKeyTbl['4'] &&
+		//	m_playerNumber == PlayerNumber::P4) {
+		//	m_countKilledPlayer += 10;
+		//	Debug::GetInstance()->Log(L"P4 +10Kill");
+		//}
 	}
 
 	// 武器用ステート

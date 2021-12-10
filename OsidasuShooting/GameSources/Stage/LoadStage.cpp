@@ -56,9 +56,9 @@ namespace basecross {
 		app->RegisterTexture(L"CircleGauge", path + L"CircleGauge.png");
 		app->RegisterTexture(L"BarGauge", path + L"BarGauge.png");
 		app->RegisterTexture(L"GaugeColor", path + L"GaugeColor.png");
-		app->RegisterTexture(L"Wall", path + L"wall.jpg");
+		//app->RegisterTexture(L"Wall", path + L"wall.jpg");
 		app->RegisterTexture(L"Block", path + L"Block.png");
-		app->RegisterTexture(L"Test", path + L"test.png");
+		//app->RegisterTexture(L"Test", path + L"test.png");
 		app->RegisterTexture(L"Winner", path + L"Winner.png");
 
 		app->RegisterTexture(L"BombBack", path + L"BombBackGround.png");
@@ -71,7 +71,7 @@ namespace basecross {
 
 		// CSVファイル
 		path = dir + L"CSV/";
-		CSVLoad::GetInstance()->RegisterFile(L"test", path + L"StringSprite.csv");
+		//CSVLoad::GetInstance()->RegisterFile(L"test", path + L"StringSprite.csv");
 		CSVLoad::GetInstance()->RegisterFile(L"PlayerInfo", path + L"PlayerInfo.csv");
 		CSVLoad::GetInstance()->RegisterFile(L"PlayerFollowUI", path + L"PlayerFollowUI.csv");
 
@@ -142,8 +142,8 @@ namespace basecross {
 		LoadThread.detach();
 
 		CreateViewLight();
-		AddGameObject<Debug>();
-		Debug::GetInstance()->Log(L"CurrentStage : LoadStage");
+		//AddGameObject<Debug>();
+		//Debug::GetInstance()->Log(L"CurrentStage : LoadStage");
 
 		auto sprite = AddGameObject<SimpleSprite>(L"Loading",
 			TransformData(Vec3(350.0f, -300.0f, 0.0f), Vec3(0.7f)));
@@ -158,13 +158,13 @@ namespace basecross {
 				//リソースのロードが終了&指定の時間が経過したらフェード開始
 				TransitionSprite::GetInstance()->FadeIn();
 				m_state = State::FadeOut;
-				Debug::GetInstance()->Log(L"LoadComplete");
+				//Debug::GetInstance()->Log(L"LoadComplete");
 			}
 			break;
 		case State::FadeOut:
 			if (!TransitionSprite::GetInstance()->GetFade()->IsFadeActive()) {
 				//フェードが完了したらタイトルステージに移行
-				PostEvent(0.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToDebugStage");
+				PostEvent(0.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
 			}
 			break;
 		}
