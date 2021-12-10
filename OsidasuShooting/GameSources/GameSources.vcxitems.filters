@@ -292,6 +292,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\AdvancedGameObject.cpp">
       <Filter>StageObject</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\BaseSingleton.cpp">
+      <Filter>Utility\BaseSingleton</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\DataExtracted.cpp">
+      <Filter>Utility\DataExtracted</Filter>
+    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Area.cpp">
       <Filter>StageObject\JonyMd</Filter>
     </ClCompile>
@@ -303,12 +309,6 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CurrentFirst.cpp">
       <Filter>UI\CurrentFirst</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Items.cpp">
-      <Filter>StageObject\JonyMd</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\ItemsCreations.cpp">
-      <Filter>StageObject\JonyMd</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\PlayerFollowUI.cpp">
       <Filter>UI\PlayerFollowUI</Filter>
@@ -341,6 +341,9 @@
       <Filter>StageObject\JonyMd</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\MeteoriteCreation.cpp">
+      <Filter>StageObject\JonyMd</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\ShackingCamera.cpp">
       <Filter>StageObject\JonyMd</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\XMLLoad.cpp">
@@ -527,9 +530,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\DataExtracter.h">
       <Filter>Utility\DataExtracter</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Area.h">
-      <Filter>StageObject\JonyMd</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BombReloadTimeGauge.h">
       <Filter>UI\BombReloadTimeGauge</Filter>
     </ClInclude>
@@ -538,12 +538,6 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CurrentFirst.h">
       <Filter>UI\CurrentFirst</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Items.h">
-      <Filter>StageObject\JonyMd</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\ItemsCreations.h">
-      <Filter>StageObject\JonyMd</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\PlayerFollowUI.h">
       <Filter>UI\PlayerFollowUI</Filter>
@@ -576,6 +570,9 @@
       <Filter>StageObject\JonyMd</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\MeteoriteCreation.h">
+      <Filter>StageObject\JonyMd</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\ShackingCamera.h">
       <Filter>StageObject\JonyMd</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\XMLLoad.h">
@@ -846,7 +843,7 @@
       <UniqueIdentifier>{940a6c39-6a32-4322-9f1c-56e83f764aa5}</UniqueIdentifier>
     </Filter>
     <Filter Include="StageObject\JonyMd">
-      <UniqueIdentifier>{48fc7ecf-3fe5-4de3-8c5b-6f2b0a0e1b58}</UniqueIdentifier>
+      <UniqueIdentifier>{7b3c1e52-c023-40cc-9d7f-07bdd4321a22}</UniqueIdentifier>
     </Filter>
     <Filter Include="Utility\XMLLoad">
       <UniqueIdentifier>{6d062646-cd8a-47b1-a7c7-a50a24930b5d}</UniqueIdentifier>

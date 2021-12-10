@@ -78,9 +78,29 @@
 #include "Manager/SoundManager.h"
 #include "Manager/PlayerBuilder.h"
 
-#include "JonyMd/Area.h"
-#include "JonyMd/CountDown.h"
-#include "JonyMd/Items.h"
-#include "JonyMd/ItemsCreations.h"
+
+
+
+
+
+
+//
+//
+//
+//調整したご削除してもかまいません
+//JonyMd .. release するとき削除されてください
+//JonyMd フォルダまま削除しても構いません
+
+//GameObject
 #include "JonyMd/Meteorite.h"
 #include "JonyMd/MeteoriteCreation.h"
+//GameObject...end
+
+//Camera
+#include "JonyMd/ShackingCamera.h"
+//Camera...end
+
+//調整したご削除してもかまいません。。。終
+//
+//
+//

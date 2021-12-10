@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Project.h"
-#include <time.h>
 
 namespace basecross {
 
@@ -32,6 +31,7 @@ namespace basecross {
 
 		CreatingRandomPosition();//ランダムにｘとｚ座標取得するため
 
+		ShackCamera();
 	}
 
 
@@ -122,5 +122,53 @@ namespace basecross {
 			GetStage()->RemoveGameObject<Meteorite>(GetThis<Meteorite>());
 		}
 	}//OnCollisionEnter。。。終
+	
 
+	void Meteorite::OnUpdate()
+	{
+
+	}
+
+	void Meteorite::ShackCamera()
+	{
+		auto stage = GetStage();
+		auto cameraSelect = stage->GetView()->GetTargetCamera();
+
+		auto camera = dynamic_pointer_cast<Camera>(cameraSelect);
+
+		shared_ptr<MeteoriteCreation> meteoriteCreation;
+
+		auto objs = stage->GetGameObjectVec();
+		//if there is any other ShackingCamera, they will be destroyed
+		for (auto& obj : objs)
+		{
+			auto shackingCamera = dynamic_pointer_cast<ShackingCamera>(obj);
+
+			if(shackingCamera)
+			{
+				GetStage()->RemoveGameObject<ShackingCamera>(shackingCamera);
+			}
+
+		}
+		//if there is any other ShackingCamera, they will be destroyed...end
+
+
+		for (auto& obj : objs)
+		{
+			meteoriteCreation = dynamic_pointer_cast<MeteoriteCreation>(obj);
+
+			if (meteoriteCreation)
+			{
+				break;
+			}
+		}
+
+		if(camera&&meteoriteCreation)
+		{
+			camera->SetEye(meteoriteCreation->GetCameraEye());
+			camera->SetAt(meteoriteCreation->GetCameraAt());
+		}
+
+		GetStage()->AddGameObject<ShackingCamera>(); // create new ShackingCamera...end
+	}
 }
