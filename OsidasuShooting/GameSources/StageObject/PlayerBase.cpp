@@ -345,6 +345,7 @@ namespace basecross {
 		m_currentArmorPoint = m_defaultArmorPoint;
 		m_currentHoverTime = m_hoverTime;
 		m_bombCount = m_defaultBombCount;
+		m_bombReload.Reset();
 		// エフェクトと効果音の再生
 		GetComponent<EfkComponent>()->Play(L"Explosion");
 		SoundManager::GetInstance()->Play(L"FallSE", 0, 0.3f);

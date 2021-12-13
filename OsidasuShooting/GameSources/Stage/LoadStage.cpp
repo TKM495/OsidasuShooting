@@ -56,9 +56,7 @@ namespace basecross {
 		app->RegisterTexture(L"CircleGauge", path + L"CircleGauge.png");
 		app->RegisterTexture(L"BarGauge", path + L"BarGauge.png");
 		app->RegisterTexture(L"GaugeColor", path + L"GaugeColor.png");
-		app->RegisterTexture(L"Wall", path + L"wall.jpg");
 		app->RegisterTexture(L"Block", path + L"Block.png");
-		app->RegisterTexture(L"Test", path + L"test.png");
 		app->RegisterTexture(L"Winner", path + L"Winner.png");
 
 		app->RegisterTexture(L"BombBack", path + L"BombBackGround.png");
@@ -68,10 +66,11 @@ namespace basecross {
 		app->RegisterTexture(L"Start", path + L"Fight.png");
 		app->RegisterTexture(L"Finish", path + L"Finish.png");
 		app->RegisterTexture(L"BackGround00", path + L"BackGround00.png");
+		// テスト用スプライト
+		app->RegisterTexture(L"Test", path + L"test.png");
 
 		// CSVファイル
 		path = dir + L"CSV/";
-		CSVLoad::GetInstance()->RegisterFile(L"test", path + L"StringSprite.csv");
 		CSVLoad::GetInstance()->RegisterFile(L"PlayerInfo", path + L"PlayerInfo.csv");
 		CSVLoad::GetInstance()->RegisterFile(L"PlayerFollowUI", path + L"PlayerFollowUI.csv");
 
