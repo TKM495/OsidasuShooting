@@ -14,6 +14,7 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Manager\StageManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUILetter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\SoundManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\CharacterSelectStage.h" />
@@ -92,6 +93,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\XMLLoad.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Manager\StageManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUILetter.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\SoundManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\CharacterSelectStage.cpp" />

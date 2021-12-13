@@ -358,6 +358,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\ShackingCamera.cpp">
       <Filter>JonyMd</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Manager\StageManager.cpp">
+      <Filter>Manager\StageManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -586,6 +589,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\ShackingCamera.h">
       <Filter>JonyMd</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Manager\StageManager.h">
+      <Filter>Manager\StageManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -847,6 +853,9 @@
     </Filter>
     <Filter Include="Utility\GameController">
       <UniqueIdentifier>{c018e5db-7117-497b-8652-e410f9f938f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\StageManager">
+      <UniqueIdentifier>{c84f4e1f-0915-47d0-96b8-7ad596aa3f6e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
