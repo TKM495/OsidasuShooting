@@ -12,8 +12,8 @@ namespace basecross {
 		PlayerNumber playerNumber)
 		: AdvancedGameObject(stage), m_initialPosition(0.0f),
 		m_moveSpeed(20.0f), m_predictionLine(stage, 10, 2.0f),
-		m_bombPoint(Vec3(0.0f)), m_jumpVerocity(Vec3(0.0f, 10.0f, 0.0f)),
-		m_hoverTime(5.0f), m_currentHoverTime(m_hoverTime),
+		m_bombPoint(Vec3(0.0f)), m_jumpVerocity(Vec3(0.0f, 11.0f, 0.0f)),
+		m_hoverTime(2.0f), m_currentHoverTime(m_hoverTime),
 		m_defaultArmorPoint(100.0f), m_currentArmorPoint(m_defaultArmorPoint),
 		m_bulletTimer(0.1f, true), m_armorRecoveryTimer(2.0f),
 		m_isRestoreArmor(false), m_isInput(false), m_playerNumber(playerNumber),
@@ -59,7 +59,10 @@ namespace basecross {
 
 		// 滑るような挙動用のコンポーネントと重力を追加
 		AddComponent<PhysicalBehavior>();
-		AddComponent<Gravity>();
+		auto gravity = AddComponent<Gravity>();
+		auto defaultGravity = gravity->GetGravity();
+		// 重力をデフォルトの2倍に設定
+		gravity->SetGravity(defaultGravity * 2.0f);
 		// 当たり判定を追加
 		AddComponent<CollisionSphere>()->SetDrawActive(false);
 
