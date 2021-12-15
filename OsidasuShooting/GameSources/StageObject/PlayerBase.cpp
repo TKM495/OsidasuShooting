@@ -187,6 +187,8 @@ namespace basecross {
 
 	void PlayerBase::SpecialSkill() {
 		// GetStage()->AddGameObject<SpecialCamera>();
+		InstantiateGameObject<SpecialLaser>(
+			GetThis<PlayerBase>(), GetTransform()->GetPosition(), m_lastFrontDirection);
 	}
 
 	void PlayerBase::BulletAimAndLaunch() {
@@ -409,7 +411,7 @@ namespace basecross {
 		// •KŽE‹Zƒ‚[ƒh‚Ö‚Ì‘JˆÚ
 		if (Obj->m_inputData.IsInvokeSpecialSkill) {
 			// Œ»Ý‚Í‘JˆÚ‚µ‚È‚¢‚æ‚¤‚É‚·‚é
-			// Obj->m_weaponStateMachine->ChangeState(PlayerSpecialSkillModeState::Instance());
+			Obj->m_weaponStateMachine->ChangeState(PlayerSpecialSkillModeState::Instance());
 		}
 	}
 	void PlayerBase::PlayerBulletModeState::Exit(const shared_ptr<PlayerBase>& Obj) {}
