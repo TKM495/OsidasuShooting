@@ -34,6 +34,7 @@ namespace basecross {
 			EfkEffectResource::RegisterEffectResource(L"Hover", efkpath + L"Hover.efk");
 			EfkEffectResource::RegisterEffectResource(L"Bomb", efkpath + L"Bomb.efk");
 			EfkEffectResource::RegisterEffectResource(L"Smoke", efkpath + L"Smoke.efk");
+			EfkEffectResource::RegisterEffectResource(L"Laser", efkpath + L"Laser.efk");
 
 			//ビューとライトの作成
 			CreateViewLight();
@@ -53,13 +54,12 @@ namespace basecross {
 
 			auto b = AddGameObject<Block>(TransformData(Vec3(0.0f, -1.0f, 0.0f), Vec3(5.0f, 1.0f, 5.0f), Vec3(0.0f, XMConvertToRadians(90.0f), 0.0f)));
 			auto player = AddGameObject<ManualPlayer>(TransformData(Vec3(0.0f, 2.0f, 0.0f), Vec3(1.0f)), PlayerNumber::P1);
-			//AddGameObject<PlayerInfo>(player, TransformData());
+			AddGameObject<PlayerInfo>(player, TransformData());
 			//AddGameObject<PlayerFollowUI>(player, TransformData());
 			//AddGameObject<BattlePlayersUIs>(L"BPsUIs", 6, Vec3(0));
 			//PlayerManager::GetInstance()->AddPlayer(player);
 
-			//AddGameObject<SimpleSprite>(L"Test", TransformData(Vec3(0.0f), Vec3(0.4f)))->SetDrawLayer(-2);
-
+			//AddGameObject<SimpleSprite>(L"Test", TransformData(Vec3(0.0f), Vec3(0.4f)))->SetDrawLayer(-1);
 			//unique_ptr<XmlDocReader> m_XmlDocReader;
 			//m_XmlDocReader.reset(new XmlDocReader(dir + L"XML/PlayerStatus.xml"));
 			//auto CellmapNode = m_XmlDocReader->GetSelectSingleNode(L"PlayerStatus");

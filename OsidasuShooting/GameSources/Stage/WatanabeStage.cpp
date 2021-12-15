@@ -36,6 +36,7 @@ namespace basecross {
 			EfkEffectResource::RegisterEffectResource(L"Hover", TestEffectStr + L"Hover.efk");
 			EfkEffectResource::RegisterEffectResource(L"Bomb", TestEffectStr + L"Bomb.efk");
 			EfkEffectResource::RegisterEffectResource(L"Smoke", TestEffectStr + L"Smoke.efk");
+			EfkEffectResource::RegisterEffectResource(L"Laser", TestEffectStr + L"Laser.efk");
 
 			//ビューとライトの作成
 			CreateViewLight();
@@ -44,6 +45,7 @@ namespace basecross {
 
 			//XMLファイル
 			XMLLoad::GetInstance()->RegisterFile(L"PlayerStatus", DataDir + L"XML/" + L"PlayerStatus.xml");
+			CSVLoad::GetInstance()->RegisterFile(L"PlayerInfo", DataDir + L"CSV/" + L"PlayerInfo.csv");
 
 			GameObjecttCSVBuilder builder;
 			builder.Register<Block>(L"Block");

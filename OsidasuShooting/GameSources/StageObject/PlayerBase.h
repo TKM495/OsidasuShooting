@@ -91,6 +91,8 @@ namespace basecross {
 		float m_currentHoverTime;
 		// 現在のアーマー値
 		float m_currentArmorPoint;
+		// 現在の必殺技のエネルギー
+		float m_currentSkillEnergy;
 		// 弾用のタイマー
 		TimeCounter m_bulletTimer;
 		// アーマー回復開始までの時間
@@ -186,6 +188,8 @@ namespace basecross {
 		float m_defaultArmorPoint;
 		// デフォルトの爆弾の所持数
 		int m_defaultBombCount;
+		// デフォルトの必殺技のエネルギー量
+		float m_defaultSkillEnergy;
 		// 補正する角度（弾の照準）
 		float m_correctAngle;
 		// 入力データ
@@ -206,6 +210,9 @@ namespace basecross {
 		void KnockBack(const KnockBackData& data);
 		//リスポーン
 		void Respawn();
+		// エネルギーの追加
+		void AddEnergy(float amount);
+
 		// テスト関数
 		void TestFanc();
 
@@ -322,6 +329,25 @@ namespace basecross {
 		bool IsInvincible() {
 			return m_isInvincible;
 		}
+
+		/**
+		 * @brief 正面方向の取得
+		 *
+		 * @return 正面方向のベクトル
+		 */
+		Vec3 GetDirectionToFace() {
+			return m_lastFrontDirection;
+		}
+
+		/**
+		 * @brief エネルギーの割合を取得
+		 *
+		 * @return エネルギーの割合
+		 */
+		float GetEnergyRate() {
+			return m_currentSkillEnergy / m_defaultSkillEnergy;
+		}
+
 	private:
 		// 武器用ステート
 #pragma region WeaponState

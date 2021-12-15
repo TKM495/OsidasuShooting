@@ -14,6 +14,7 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Manager\SpecialSkillManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\StageManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUILetter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\SoundManager.h" />
@@ -63,7 +64,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage2.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BattlePlayersUIs.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\ArmorGauge.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\InfoGauge.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BombReloadTimeGauge.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BombRemainingCount.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CurrentFirst.h" />
@@ -93,6 +94,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\XMLLoad.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Manager\SpecialSkillManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\StageManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUILetter.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\SoundManager.cpp" />
@@ -140,7 +142,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage2.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BattlePlayersUIs.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\ArmorGauge.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\InfoGauge.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BombReloadTimeGauge.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BombRemainingCount.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CurrentFirst.cpp" />
