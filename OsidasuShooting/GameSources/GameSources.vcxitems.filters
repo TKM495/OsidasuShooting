@@ -721,9 +721,6 @@
       <Filter>Utility</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\ArmorGauge.cpp">
-      <Filter>UI\ArmorGauge</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\PCTGaugeSprite.cpp">
       <Filter>Component\PCTGaugeSprite</Filter>
     </ClCompile>
@@ -766,7 +763,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\TitleStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BattlePlayersUIs.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\ArmorGauge.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\HoverTimeGauge.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.h" />
