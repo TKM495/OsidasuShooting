@@ -25,15 +25,14 @@ namespace basecross {
 		m_transformData.Position.z += m_zPosSet;
 
 		//m_transformData.Position = m_direction.normalize() * -m_zPosSet;
-		// 寿命の追加
-		AddComponent<LifeSpan>(m_lifeSpan);
 
 		ApplyTransform();
 
 		// エフェクトはオブジェクトの位置の影響を受けるためセットアップのあと
-		auto transData = m_transformData;
+		TransformData transData;
 		transData.Position = m_owner->GetTransform()->GetPosition();
-		transData.Rotation = Utility::ConvertRadVecToDegVec(transData.Rotation);
+		transData.Scale = Vec3(1);
+		transData.Rotation = Utility::ConvertRadVecToDegVec(m_transformData.Rotation);
 		auto efkComp = AddComponent<EfkComponent>();
 		efkComp->SetCoordinateType(CoordinateType::Absolute);
 		efkComp->SetEffectResource(L"Laser", transData);
@@ -83,6 +82,7 @@ namespace basecross {
 
 		// 位置を同期
 		//GetComponent<EfkComponent>()->SyncPosition();
+		m_timer.Count();
 	}
 
 	void SpecialLaser::OnCollisionEnter(shared_ptr<GameObject>& other) {

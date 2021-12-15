@@ -187,8 +187,7 @@ namespace basecross {
 
 	void PlayerBase::SpecialSkill() {
 		// GetStage()->AddGameObject<SpecialCamera>();
-		InstantiateGameObject<SpecialLaser>(
-			GetThis<PlayerBase>(), GetTransform()->GetPosition(), m_lastFrontDirection);
+		SpecialSkillManager::GetInstance()->ActiveSpecialSkill(PlayerType::Laser, GetThis<PlayerBase>());
 	}
 
 	void PlayerBase::BulletAimAndLaunch() {
@@ -460,8 +459,12 @@ namespace basecross {
 		Obj->SpecialSkill();
 	}
 	void PlayerBase::PlayerSpecialSkillModeState::Execute(const shared_ptr<PlayerBase>& Obj) {
+		// I—¹‚µ‚½‚ç
+		if (SpecialSkillManager::GetInstance()->IsEnded())
+			Obj->m_weaponStateMachine->ChangeState(PlayerBulletModeState::Instance());
 	}
 	void PlayerBase::PlayerSpecialSkillModeState::Exit(const shared_ptr<PlayerBase>& Obj) {
+		Debug::GetInstance()->Log(L"end");
 	}
 #pragma endregion
 

@@ -78,6 +78,7 @@
 #include "Manager/SoundManager.h"
 #include "Manager/StageManager.h"
 #include "Manager/PlayerBuilder.h"
+#include "Manager/SpecialSkillManager.h"
 
 //
 //

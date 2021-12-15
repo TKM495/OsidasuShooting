@@ -6,6 +6,7 @@
 #pragma once
 #include "stdafx.h"
 #include "PlayerBase.h"
+#include "Utility/TimeCounter.h"
 
 namespace basecross {
 	struct SkillData {
@@ -24,7 +25,6 @@ namespace basecross {
 
 	class SpecialSkill : public AdvancedGameObject {
 	protected:
-		virtual void SkillData() = 0;
 
 		weak_ptr<PlayerBase> m_owner;
 		Vec3 m_position;
@@ -42,14 +42,14 @@ namespace basecross {
 		{
 			SetTransformInit(false);
 		}
+		// èIóπÇµÇΩÇ©
+		virtual bool IsEnded() = 0;
 
 		//void OnCreate() {};
 		//void OnUpdate() {};
 	};
 
 	class SpecialLaser : public SpecialSkill {
-		void SkillData() {};
-
 		Vec3 m_scale;
 		Vec3 m_position;
 
@@ -57,6 +57,7 @@ namespace basecross {
 
 		float m_lifeSpan;
 		float m_zPosSet;
+		TimeCounter m_timer;
 	public:
 		SpecialLaser(
 			const shared_ptr<Stage>& stage,
@@ -65,12 +66,13 @@ namespace basecross {
 			const Vec3& direction)
 			: SpecialSkill(stage, owner, position, direction),
 			m_lifeSpan(3.0f),
+			m_timer(m_lifeSpan),
 			m_zPosSet(20.0f),
 			m_owner(owner)
 		{
 			m_transformData.Position = position;
 			//m_transformData.Rotation = Vec3(0,0,0);
-			m_transformData.Scale = Vec3(2.0f, 2.0f, m_zPosSet * 2.0f);
+			m_transformData.Scale = Vec3(10.0f, 10.0f, m_zPosSet * 2.0f);
 		}
 
 		SpecialLaser(
@@ -85,5 +87,9 @@ namespace basecross {
 		void OnUpdate() override;
 
 		void OnCollisionEnter(shared_ptr<GameObject>& other) override;
+
+		bool IsEnded()override {
+			return m_timer.IsTimeUp();
+		};
 	};
 }

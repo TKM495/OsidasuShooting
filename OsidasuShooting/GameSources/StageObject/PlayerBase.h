@@ -322,6 +322,15 @@ namespace basecross {
 		bool IsInvincible() {
 			return m_isInvincible;
 		}
+
+		/**
+		 * @brief 正面方向の取得
+		 *
+		 * @return 正面方向のベクトル
+		 */
+		Vec3 GetDirectionToFace() {
+			return m_lastFrontDirection;
+		}
 	private:
 		// 武器用ステート
 #pragma region WeaponState

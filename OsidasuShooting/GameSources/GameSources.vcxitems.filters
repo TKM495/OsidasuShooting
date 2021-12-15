@@ -361,6 +361,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\StageManager.cpp">
       <Filter>Manager\StageManager</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Manager\SpecialSkillManager.cpp">
+      <Filter>Manager\SpecialSkillManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -592,6 +595,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\StageManager.h">
       <Filter>Manager\StageManager</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Manager\SpecialSkillManager.h">
+      <Filter>Manager\SpecialSkillManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -856,6 +862,9 @@
     </Filter>
     <Filter Include="Manager\StageManager">
       <UniqueIdentifier>{c84f4e1f-0915-47d0-96b8-7ad596aa3f6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\SpecialSkillManager">
+      <UniqueIdentifier>{b47e2bb5-de38-42c8-b9fc-932e23f2fed0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
