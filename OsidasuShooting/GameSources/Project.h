@@ -42,7 +42,7 @@
 #include "StageObject/PlayerModel.h"
 #include "StageObject/SpecialSkill.h"
 //UI
-#include "UIs/ArmorGauge.h"
+#include "UIs/InfoGauge.h"
 #include "UIs/BaseUI.h"
 #include "UIs/BattlePlayersUIs.h"
 #include "UIs/BombReloadTimeGauge.h"

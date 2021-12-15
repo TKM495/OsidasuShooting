@@ -45,6 +45,7 @@ namespace basecross {
 
 			//XMLƒtƒ@ƒCƒ‹
 			XMLLoad::GetInstance()->RegisterFile(L"PlayerStatus", DataDir + L"XML/" + L"PlayerStatus.xml");
+			CSVLoad::GetInstance()->RegisterFile(L"PlayerInfo", DataDir + L"CSV/" + L"PlayerInfo.csv");
 
 			GameObjecttCSVBuilder builder;
 			builder.Register<Block>(L"Block");

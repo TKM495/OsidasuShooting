@@ -70,6 +70,7 @@ namespace basecross {
 			);
 			// ノックバック
 			ptr->KnockBack(data);
+			m_owner.lock()->AddEnergy(5.0f);
 		}
 		// 自身を削除
 		Destroy<Bullet>();

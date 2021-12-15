@@ -13,6 +13,11 @@ namespace basecross {
 		bool m_isActive;
 		shared_ptr<SpecialSkill> m_specialSkill;
 	public:
+		// ”­“®‚Å‚«‚é‚©
+		bool IsInvocable() {
+			return !m_isActive;
+		}
+
 		/**
 		 * @brief •KŽE‹Z‚Ì‹N“®
 		 *

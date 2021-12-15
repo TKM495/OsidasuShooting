@@ -19,6 +19,14 @@ namespace basecross {
 		armorGauge->GetTransform()->SetParent(GetThis<PlayerInfo>());
 		m_uiObjects.push_back(armorGauge);
 
+		tokens = DataExtracter::DelimitData(data[5]);
+		transData = DataExtracter::TransformDataExtraction(tokens);
+
+		auto energyGauge = ObjectFactory::Create<EnergyGauge>(GetStage(),
+			m_owner, transData);
+		energyGauge->GetTransform()->SetParent(GetThis<PlayerInfo>());
+		m_uiObjects.push_back(energyGauge);
+
 		tokens = DataExtracter::DelimitData(data[2]);
 		transData = DataExtracter::TransformDataExtraction(tokens);
 

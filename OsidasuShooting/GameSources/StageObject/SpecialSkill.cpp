@@ -12,6 +12,9 @@ namespace basecross {
 		auto PtrColl = AddComponent<CollisionObb>();
 		// 衝突応答を無視
 		PtrColl->SetAfterCollision(AfterCollision::None);
+		// オーナーとステージ構造体は無視
+		PtrColl->AddExcludeCollisionTag(L"Block");
+		PtrColl->AddExcludeCollisionGameObject(m_owner);
 		PtrColl->SetDrawActive(true);
 
 		// 位置の調整
@@ -86,6 +89,15 @@ namespace basecross {
 	}
 
 	void SpecialLaser::OnCollisionEnter(shared_ptr<GameObject>& other) {
-		if (other->FindTag(L"Player") || other->FindTag(L"Bullet")) return;
+		auto ptr = dynamic_pointer_cast<PlayerBase>(other);
+		// プレイヤーの場合
+		if (ptr) {
+			KnockBackData data(
+				KnockBackData::Category::Bullet,
+				m_direction, 100.0f, m_owner
+			);
+			// ノックバック
+			ptr->KnockBack(data);
+		}
 	}
 }

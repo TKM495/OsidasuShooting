@@ -20,7 +20,9 @@ namespace basecross {
 		m_bombReload(1.0f), m_defaultBombCount(5), m_correctAngle(40.0f),
 		m_isDuringReturn(false), m_groundingDecision(), m_countKilledPlayer(0),
 		m_returnTimer(0.5f), m_lastFrontDirection(Vec3(0.0f)), m_smokeTimer(0.2f),
-		m_deadCount(0), m_invincibleTimer(3.0f, true), m_isInvincible(false) {
+		m_deadCount(0), m_invincibleTimer(3.0f, true), m_isInvincible(false),
+		m_defaultSkillEnergy(100.0f), m_currentSkillEnergy(0.0f)
+	{
 		m_transformData = transData;
 		m_transformData.Scale *= 2.0f;
 		auto rot = m_transformData.Rotation;
@@ -332,6 +334,7 @@ namespace basecross {
 		default:
 			break;
 		}
+		AddEnergy(5.0f);
 		GetComponent<PhysicalBehavior>()->Impact(
 			data.Direction, data.Amount * knockBackCorrection);
 	}
@@ -358,6 +361,13 @@ namespace basecross {
 		GetTransform()->SetPosition(m_initialPosition);
 		m_invincibleTimer.Reset();
 		m_isInvincible = true;
+	}
+
+	void PlayerBase::AddEnergy(float amount) {
+		m_currentSkillEnergy += amount;
+		// デフォルトを超える場合デフォルト値に
+		if (m_currentSkillEnergy > m_defaultSkillEnergy)
+			m_currentSkillEnergy = m_defaultSkillEnergy;
 	}
 
 	void PlayerBase::TestFanc() {
@@ -409,8 +419,10 @@ namespace basecross {
 		}
 		// 必殺技モードへの遷移
 		if (Obj->m_inputData.IsInvokeSpecialSkill) {
-			// 現在は遷移しないようにする
-			Obj->m_weaponStateMachine->ChangeState(PlayerSpecialSkillModeState::Instance());
+			// 発動可能な場合のみ遷移
+			if (SpecialSkillManager::GetInstance()->IsInvocable() &&
+				Obj->m_defaultSkillEnergy == Obj->m_currentSkillEnergy)
+				Obj->m_weaponStateMachine->ChangeState(PlayerSpecialSkillModeState::Instance());
 		}
 	}
 	void PlayerBase::PlayerBulletModeState::Exit(const shared_ptr<PlayerBase>& Obj) {}
@@ -455,17 +467,15 @@ namespace basecross {
 		return instance;
 	}
 	void PlayerBase::PlayerSpecialSkillModeState::Enter(const shared_ptr<PlayerBase>& Obj) {
-		// 現時点では一回だけ
 		Obj->SpecialSkill();
+		Obj->m_currentSkillEnergy = 0;
 	}
 	void PlayerBase::PlayerSpecialSkillModeState::Execute(const shared_ptr<PlayerBase>& Obj) {
 		// 終了したら
 		if (SpecialSkillManager::GetInstance()->IsEnded())
 			Obj->m_weaponStateMachine->ChangeState(PlayerBulletModeState::Instance());
 	}
-	void PlayerBase::PlayerSpecialSkillModeState::Exit(const shared_ptr<PlayerBase>& Obj) {
-		Debug::GetInstance()->Log(L"end");
-	}
+	void PlayerBase::PlayerSpecialSkillModeState::Exit(const shared_ptr<PlayerBase>& Obj) {	}
 #pragma endregion
 
 	// ジャンプ
