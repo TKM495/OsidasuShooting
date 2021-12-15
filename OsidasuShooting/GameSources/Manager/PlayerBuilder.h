@@ -14,7 +14,7 @@ namespace basecross {
 		// プレイヤー番号
 		PlayerNumber m_playerNumber;
 		// 操作タイプ
-		OperationType m_type;
+		OperationType m_operationType;
 	public:
 		PlayerBuilder(const shared_ptr<Stage>& stage, const wstring& line);
 

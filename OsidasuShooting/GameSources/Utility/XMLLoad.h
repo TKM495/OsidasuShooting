@@ -28,4 +28,8 @@ namespace basecross {
 		 */
 		shared_ptr<XmlDocReader> GetData(const wstring& key)const;
 	};
+
+	struct XMLHelper {
+		static wstring GetSingleNodeWString(const shared_ptr<XmlDocReader>& reader, const wstring nodeText);
+	};
 }

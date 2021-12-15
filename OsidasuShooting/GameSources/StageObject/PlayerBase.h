@@ -11,6 +11,7 @@
 #include "Utility/TimeCounter.h"
 #include "Utility/GroundingDecision.h"
 #include "StageObject/PlayerModel.h"
+#include "Manager/StageManager.h"
 
 namespace basecross {
 	/**
@@ -141,6 +142,9 @@ namespace basecross {
 		// 無敵か
 		bool m_isInvincible;
 
+		// 自身のプレイヤータイプ
+		PlayerType m_playerType;
+
 		// 移動
 		void Move();
 		// 弾の照準と発射
@@ -177,6 +181,8 @@ namespace basecross {
 		void StopHover();
 		// 無敵処理
 		void Invincible();
+		// ステータスのロード
+		void StatusLoad();
 	protected:
 		// 移動速度（どちらかというとかける力）
 		float m_moveSpeed;
@@ -190,6 +196,12 @@ namespace basecross {
 		int m_defaultBombCount;
 		// デフォルトの必殺技のエネルギー量
 		float m_defaultSkillEnergy;
+		// アーマーが0の時のノックバック倍率
+		float m_armorZeroWhenKnockBackMagnification;
+		// アーマーの回復速度
+		float m_armorRecoveryAmount;
+		// 爆弾の照準の移動速度
+		float m_bombAimMovingDistance;
 		// 補正する角度（弾の照準）
 		float m_correctAngle;
 		// 入力データ
@@ -202,7 +214,8 @@ namespace basecross {
 	public:
 		PlayerBase(const shared_ptr<Stage>& stage,
 			const TransformData& transData,
-			PlayerNumber playerNumber);
+			PlayerNumber playerNumber,
+			PlayerType playerType);
 		void OnCreate()override;
 		void OnUpdate()override;
 
@@ -223,6 +236,15 @@ namespace basecross {
 		 */
 		PlayerNumber GetPlayerNumber() {
 			return m_playerNumber;
+		}
+
+		/**
+		 * @brief プレイヤーのタイプを取得
+		 *
+		 * @return プレイヤータイプ
+		 */
+		PlayerType GetPlayerType() {
+			return m_playerType;
 		}
 
 		/**

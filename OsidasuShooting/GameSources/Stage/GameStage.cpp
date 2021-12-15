@@ -54,7 +54,7 @@ namespace basecross {
 			AddGameObject<FallDecision>();
 			AddGameObject<CurrentFirst>();
 
-			m_countDown = AddGameObject<CountDown>(90.0f);
+			m_countDown = AddGameObject<CountDown>(0.0f);
 			m_startCountDown = AddGameObject<StartCountDown>(TransformData());
 			AddGameObject<TransitionSprite>()->FadeOut();
 			SoundManager::GetInstance()->PlayLoop(L"Game1BGM");

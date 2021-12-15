@@ -24,7 +24,7 @@ namespace basecross {
 		);
 		// 1Å`4Ç0Å`3Ç…ïœä∑
 		m_playerNumber = (PlayerNumber)(_wtof(tokens[10].c_str()) - 1);
-		m_type = OperationType::Manual;
+		m_operationType = OperationType::Manual;
 	}
 
 	void PlayerBuilder::OnCreate() {
@@ -36,11 +36,12 @@ namespace basecross {
 			{PlayerNumber::P4,Vec3(480.0f, -250.0f, 0.0f)},
 		};
 		// É^ÉCÉvÇ≤Ç∆Ç…ç\íz
-		switch (m_type)
+		switch (m_operationType)
 		{
 		case OperationType::Manual:
 		{
-			auto player = InstantiateGameObject<ManualPlayer>(m_transformData, m_playerNumber);
+			auto playerType = StageManager::GetInstance()->GetPlayerType(m_playerNumber);
+			auto player = InstantiateGameObject<ManualPlayer>(m_transformData, m_playerNumber, playerType);
 			InstantiateGameObject<PlayerInfo>(player, TransformData(UIPosMap.at(m_playerNumber)));
 			InstantiateGameObject<PlayerFollowUI>(player, TransformData());
 			InstantiateGameObject<PlayerPositionUI>(player, TransformData());
