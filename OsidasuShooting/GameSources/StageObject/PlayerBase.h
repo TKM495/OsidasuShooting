@@ -181,6 +181,8 @@ namespace basecross {
 		void StopHover();
 		// 無敵処理
 		void Invincible();
+		// ステータスのロード
+		void StatusLoad();
 	protected:
 		// 移動速度（どちらかというとかける力）
 		float m_moveSpeed;
@@ -194,6 +196,12 @@ namespace basecross {
 		int m_defaultBombCount;
 		// デフォルトの必殺技のエネルギー量
 		float m_defaultSkillEnergy;
+		// アーマーが0の時のノックバック倍率
+		float m_armorZeroWhenKnockBackMagnification;
+		// アーマーの回復速度
+		float m_armorRecoveryAmount;
+		// 爆弾の照準の移動速度
+		float m_bombAimMovingDistance;
 		// 補正する角度（弾の照準）
 		float m_correctAngle;
 		// 入力データ

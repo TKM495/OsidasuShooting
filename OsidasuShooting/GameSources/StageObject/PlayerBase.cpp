@@ -23,7 +23,9 @@ namespace basecross {
 		m_isDuringReturn(false), m_groundingDecision(), m_countKilledPlayer(0),
 		m_returnTimer(0.5f), m_lastFrontDirection(Vec3(0.0f)), m_smokeTimer(0.2f),
 		m_deadCount(0), m_invincibleTimer(3.0f, true), m_isInvincible(false),
-		m_defaultSkillEnergy(100.0f), m_currentSkillEnergy(0.0f)
+		m_defaultSkillEnergy(100.0f), m_currentSkillEnergy(0.0f),
+		m_armorZeroWhenKnockBackMagnification(5), m_armorRecoveryAmount(10),
+		m_bombAimMovingDistance(20)
 	{
 		m_transformData = transData;
 		m_transformData.Scale *= 2.0f;
@@ -32,20 +34,15 @@ namespace basecross {
 		// 以下のタグを持つオブジェクトを判定から除外
 		m_groundingDecision.AddNotDecisionTag(L"Bomb");
 		m_groundingDecision.AddNotDecisionTag(L"Bullet");
+		// 外部ファイルからステータスを読み込み
+		StatusLoad();
 	}
 
 	void PlayerBase::OnCreate() {
 		// XMLのデータを取得
 		auto xmlData = XMLLoad::GetInstance()->GetData(L"PlayerStatus");
-		auto node = xmlData->GetSelectSingleNode(L"Player/PlayerColor");
-		if (!node) {
-			throw BaseException(
-				L"Player/PlayerColorが見つかりません",
-				L"if (!node)",
-				L"PlayerBase::OnCreate()");
-		}
 		// プレイヤーの色情報を取得
-		wstring data = XmlDocReader::GetText(node);
+		auto data = XMLHelper::GetSingleNodeWString(xmlData, L"Player/PlayerColor");
 		// 4プレイヤー分の色を空白で4つのデータに分ける
 		auto colorStr = DataExtracter::DelimitData(data, L' ');
 		// 自身のプレイヤー番号に応じた色データをRGBAに分類
@@ -253,7 +250,7 @@ namespace basecross {
 
 	void PlayerBase::BombAim() {
 		auto delta = App::GetApp()->GetElapsedTime();
-		m_bombPoint += m_inputData.BombAim * delta * 20.0f;
+		m_bombPoint += m_inputData.BombAim * delta * m_bombAimMovingDistance;
 		m_predictionLine.Update(GetTransform()->GetPosition(), m_bombPoint, PredictionLine::Type::Bomb);
 		TurnFrontToDirection(m_bombPoint - GetTransform()->GetPosition());
 	}
@@ -298,13 +295,53 @@ namespace basecross {
 			m_isRestoreArmor = false;
 			m_armorRecoveryTimer.Reset();
 		}
-		m_currentArmorPoint += 10.0f * App::GetApp()->GetElapsedTime();
+		m_currentArmorPoint += m_armorRecoveryAmount * App::GetApp()->GetElapsedTime();
 	}
 
 	void PlayerBase::StopHover() {
 		m_isHoverMode = false;
 		GetComponent<EfkComponent>()->Stop(L"Hover");
 		OnStopHover();
+	}
+
+	void PlayerBase::StatusLoad() {
+		// XMLのデータを取得
+		auto xmlData = XMLLoad::GetInstance()->GetData(L"PlayerStatus");
+		wstring type;
+		switch (m_playerType)
+		{
+		case PlayerType::Laser:
+			type = L"LaserStatus";
+			break;
+		case PlayerType::Missile:
+			type = L"MissileStatus";
+			break;
+		default:
+			throw BaseException(
+				L"定義されていないか未実装です。",
+				L"switch (m_playerType)",
+				L"PlayerBase::StatusLoad()"
+			);
+			break;
+		}
+		auto data = XMLHelper::GetSingleNodeWString(xmlData, L"Player/" + type);
+		// 4プレイヤー分の色を空白で4つのデータに分ける
+		auto statusStr = DataExtracter::DelimitData(data, L' ');
+		// 文字列のデータを数値に変換
+		vector<float> status;
+		for (auto stat : statusStr) {
+			status.push_back((float)_wtof(stat.c_str()));
+		}
+
+		m_moveSpeed = status[0];
+		m_jumpVerocity = Vec3(0, status[1], 0);
+		m_hoverTime = status[2];
+		m_defaultBombCount = status[3];
+		// 弾威力
+		// 爆弾威力
+		m_bulletTimer.SetIntervalTime(status[6]);
+		m_bombReload.SetIntervalTime(status[7]);
+		// 爆弾の飛翔時間
 	}
 
 	void PlayerBase::KnockBack(const KnockBackData& data) {
@@ -322,7 +359,7 @@ namespace basecross {
 			knockBackCorrection = 1.0f;
 		}
 		else {
-			knockBackCorrection = 5.0f;
+			knockBackCorrection = m_armorZeroWhenKnockBackMagnification;
 			m_isRestoreArmor = true;
 		}
 		// ダメージ判定
