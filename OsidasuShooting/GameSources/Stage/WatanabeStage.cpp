@@ -9,11 +9,11 @@
 
 namespace basecross {
 	void WatanabeStage::CreateViewLight() {
-		const Vec3 eye(0.0f, 5.0f, -5.0f);
-		const Vec3 at(0.0f);
+		const Vec3 eye(0.0f, 25.0f, -30.0f);
+		const Vec3 at(0.0f, 0.0f, -7.0f);
 		auto PtrView = CreateView<SingleView>();
 		//ƒrƒ…[‚ÌƒJƒƒ‰‚Ìİ’è
-		auto PtrCamera = ObjectFactory::Create<DebugCamera>(20.0f, 5.0f);
+		auto PtrCamera = ObjectFactory::Create<Camera>();
 		PtrView->SetCamera(PtrCamera);
 		PtrCamera->SetEye(eye);
 		PtrCamera->SetAt(at);

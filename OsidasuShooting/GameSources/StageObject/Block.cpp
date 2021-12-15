@@ -34,7 +34,7 @@ namespace basecross {
 		vector<VertexPositionNormalTexture> vertices;
 		vector<uint16_t> indices;
 
-		AdvancedMeshUtil::CreateCube(3.0f, m_transformData.Scale, vertices, indices);
+		AdvancedMeshUtil::CreateCube(2.0f, m_transformData.Scale, vertices, indices);
 
 		auto drawComp = AddComponent<PNTStaticDraw>();
 		drawComp->CreateOriginalMesh(vertices, indices);
