@@ -9,8 +9,10 @@
 namespace basecross {
 	PlayerBase::PlayerBase(const shared_ptr<Stage>& stage,
 		const TransformData& transData,
-		PlayerNumber playerNumber)
-		: AdvancedGameObject(stage), m_initialPosition(0.0f),
+		PlayerNumber playerNumber,
+		PlayerType playerType)
+		: AdvancedGameObject(stage), m_playerType(playerType),
+		m_initialPosition(0.0f),
 		m_moveSpeed(20.0f), m_predictionLine(stage, 10, 2.0f),
 		m_bombPoint(Vec3(0.0f)), m_jumpVerocity(Vec3(0.0f, 11.0f, 0.0f)),
 		m_hoverTime(2.0f), m_currentHoverTime(m_hoverTime),
@@ -189,7 +191,7 @@ namespace basecross {
 
 	void PlayerBase::SpecialSkill() {
 		// GetStage()->AddGameObject<SpecialCamera>();
-		SpecialSkillManager::GetInstance()->ActiveSpecialSkill(PlayerType::Laser, GetThis<PlayerBase>());
+		SpecialSkillManager::GetInstance()->ActiveSpecialSkill(m_playerType, GetThis<PlayerBase>());
 	}
 
 	void PlayerBase::BulletAimAndLaunch() {

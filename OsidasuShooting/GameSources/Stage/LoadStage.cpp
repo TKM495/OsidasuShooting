@@ -79,11 +79,20 @@ namespace basecross {
 		XMLLoad::GetInstance()->RegisterFile(L"PlayerStatus", path + L"PlayerStatus.xml");
 
 		// ƒ‚ƒfƒ‹
+		// Laser
 		path = dir + L"Models/LaserCharacter/";
 		for (int i = 0; i < 4; i++) {
 			auto number = Util::IntToWStr(i + 1);
 			auto modelMesh = MultiMeshResource::CreateStaticModelMultiMesh(path + L"Player" + number + L"/", L"LaserPlayer" + number + L".bmf");
-			app->RegisterResource(L"Player" + number, modelMesh);
+			app->RegisterResource(L"LaserPlayer" + number, modelMesh);
+		}
+		// Missile
+		path = dir + L"Models/MissileCharacter/";
+		for (int i = 0; i < 4; i++) {
+			auto number = Util::IntToWStr(1);
+			auto modelMesh = MultiMeshResource::CreateStaticModelMultiMesh(path + L"Player" + number + L"/", L"TankPlayer" + number + L".bmf");
+			number = Util::IntToWStr(i + 1);
+			app->RegisterResource(L"MissilePlayer" + number, modelMesh);
 		}
 
 		// Œø‰Ê‰¹

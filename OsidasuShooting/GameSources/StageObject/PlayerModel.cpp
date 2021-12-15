@@ -4,7 +4,25 @@
 namespace basecross {
 	void PlayerModel::OnCreate() {
 		auto number = Util::IntToWStr((int)m_owner->GetPlayerNumber() + 1);
-		auto modelKey = L"Player" + number;
+		wstring typeKey;
+		switch (m_owner->GetPlayerType())
+		{
+		case PlayerType::Laser:
+			typeKey = L"Laser";
+			break;
+		case PlayerType::Missile:
+			typeKey = L"Missile";
+			break;
+		default:
+			throw BaseException(
+				L"定義されていないか未実装です。",
+				L"switch (m_owner->GetPlayerType())",
+				L"PlayerModel::OnCreate()"
+			);
+			break;
+		}
+
+		auto modelKey = typeKey + L"Player" + number;
 
 		// 描画コンポーネントの追加
 		auto drawComp = AddComponent<PNTStaticModelDraw>();

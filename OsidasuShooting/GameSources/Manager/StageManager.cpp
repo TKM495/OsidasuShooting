@@ -17,20 +17,23 @@ namespace basecross {
 		if (number < 1 || 4 < number) {
 			throw BaseException(
 				L"不正な値です。",
-				L"if (number < 1 || 4 < number) number:" + Util::IntToWStr(number),
+				L"if (number < 1 || 4 < number) number : " + Util::IntToWStr(number),
 				L"StageManager::SetPlayerType()"
 			);
 		}
-		SetPlayerType((PlayerNumber)(number + 1), type);
+		SetPlayerType((PlayerNumber)(number - 1), type);
 	}
 
 	PlayerType StageManager::GetPlayerType(PlayerNumber number) {
+		// データがない場合
 		if (m_playerTypeMap.count(number) == 0) {
-			throw BaseException(
-				L"該当データが存在しません。",
-				L"if (m_playerTypeMap.count(number) == 0)",
-				L"StageManager::GetPlayerType()"
-			);
+			// 暫定的にデフォルト値を返すが出来れば例外を飛ばしたい
+			return PlayerType::Laser;
+			//throw BaseException(
+			//	L"該当データが存在しません。",
+			//	L"if (m_playerTypeMap.count(number) == 0) number : " + Util::IntToWStr((int)number),
+			//	L"StageManager::GetPlayerType()"
+			//);
 		}
 		return m_playerTypeMap[number];
 	}

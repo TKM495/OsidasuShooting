@@ -11,6 +11,7 @@
 #include "Utility/TimeCounter.h"
 #include "Utility/GroundingDecision.h"
 #include "StageObject/PlayerModel.h"
+#include "Manager/StageManager.h"
 
 namespace basecross {
 	/**
@@ -141,6 +142,9 @@ namespace basecross {
 		// 無敵か
 		bool m_isInvincible;
 
+		// 自身のプレイヤータイプ
+		PlayerType m_playerType;
+
 		// 移動
 		void Move();
 		// 弾の照準と発射
@@ -202,7 +206,8 @@ namespace basecross {
 	public:
 		PlayerBase(const shared_ptr<Stage>& stage,
 			const TransformData& transData,
-			PlayerNumber playerNumber);
+			PlayerNumber playerNumber,
+			PlayerType playerType);
 		void OnCreate()override;
 		void OnUpdate()override;
 
@@ -223,6 +228,15 @@ namespace basecross {
 		 */
 		PlayerNumber GetPlayerNumber() {
 			return m_playerNumber;
+		}
+
+		/**
+		 * @brief プレイヤーのタイプを取得
+		 *
+		 * @return プレイヤータイプ
+		 */
+		PlayerType GetPlayerType() {
+			return m_playerType;
 		}
 
 		/**

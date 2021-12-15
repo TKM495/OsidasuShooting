@@ -128,7 +128,8 @@ namespace basecross {
 			player = PlayerNumber::P4;
 		}
 		auto topPlayer = AddGameObject<ResultPlayer>(
-			TransformData(Vec3(0.0f, 1.0f, 0.0f), Vec3(0.75f), Vec3(0, XMConvertToRadians(-90.0f), 0)), m_playerTop);
+			TransformData(Vec3(0.0f, 1.0f, 0.0f), Vec3(0.75f), Vec3(0, XMConvertToRadians(-90.0f), 0)),
+			m_playerTop, StageManager::GetInstance()->GetPlayerType(m_playerTop));
 		//topPlayer->GetComponent<Gravity>()->SetGravityZero();
 		auto PlayerPos = topPlayer->GetComponent<Transform>()->GetPosition();
 
@@ -172,7 +173,6 @@ namespace basecross {
 			AddGameObject<GoToTitleSpriteUI>(Vec3(-430, -320, 0));
 			AddGameObject<AButtonSpriteUI>(Vec3(120, -320, 0));
 			AddGameObject<BButtonSpriteUI>(Vec3(-310, -320, 0));
-
 		}
 		catch (...) {
 			throw;

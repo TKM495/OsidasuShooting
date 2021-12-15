@@ -48,5 +48,18 @@ namespace basecross {
 		const auto& ctrlPad = m_controller.GetControler();
 		// ジャンプとホバー
 		m_inputData.IsJumpOrHover = ctrlPad.bLeftTrigger > 128.0f;
+
+		// ホバー中なら
+		if (IsHoverMode()) {
+			m_controller.SetVibration(L"Hover", VibrationData(0.25f, 0.125f));
+		}
+	}
+
+	void ResultPlayer::OnRespawn() {
+		m_controller.SetVibration(L"Respawn", VibrationData(1.0f, 1.0f, 0.5f));
+	}
+
+	void ResultPlayer::OnStopHover() {
+		m_controller.StopVibration(L"Hover");
 	}
 }
