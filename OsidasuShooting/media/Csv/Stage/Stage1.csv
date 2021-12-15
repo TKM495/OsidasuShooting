@@ -1,4 +1,4 @@
-name, PosX, PosY, PosZ, ScaleX, ScaleY, ScaleZ, RotX, RotY, RotZ
+name, PosX, PosY, PosZ, ScaleX, ScaleY, ScaleZ, RotX, RotY, RotZ,
 Block,0,0,7,6,4,2,0,0,0,
 Block,0,2,9,18,4,2,0,0,0,
 Block,-6,2,7,6,4,2,0,0,0,
@@ -6,7 +6,7 @@ Block,6,2,7,6,4,2,0,0,0,
 Block,0,-1,-5,30,2,22,0,0,0,
 Block,-5,2,2,4,4,8,0,0,0,
 Block,5,2,2,4,4,8,0,0,0,
-Player,10,1,-15,1,1,1,0,135,0,1
-Player,-10,1,-15,1,1,1,0,45,0,2
+Player,10,1,-13,1,1,1,0,135,0,1
+Player,-10,1,-13,1,1,1,0,45,0,2
 Player,10,1,0,1,1,1,0,-135,0,3
 Player,-10,1,0,1,1,1,0,-45,0,4
