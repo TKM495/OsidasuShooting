@@ -5,6 +5,7 @@
 
 #pragma once
 #include "stdafx.h"
+#include "Manager/StageManager.h"
 
 namespace basecross
 {
@@ -52,6 +53,7 @@ namespace basecross
 
 		void CharacterSelecting();	// スティック、方向パッドでアイコンが変わるようにする
 		void IconsDraw();			// 表示するアイコン
+		void SelectedCharacter();	// キャラクター選択
 	};
 
 	class SelectTriangle : public CharacterIcon {

@@ -358,9 +358,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\ShackingCamera.cpp">
       <Filter>JonyMd</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Manager\StageManager.cpp">
-      <Filter>Manager\StageManager</Filter>
-    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Manager\StageManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -590,9 +588,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\ShackingCamera.h">
       <Filter>JonyMd</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Manager\StageManager.h">
-      <Filter>Manager\StageManager</Filter>
-    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Manager\StageManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
