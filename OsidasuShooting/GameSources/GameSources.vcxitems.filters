@@ -139,9 +139,6 @@
     <Filter Include="UI\CurrentFirst">
       <UniqueIdentifier>{569781e7-47e0-407f-a42d-311bda4d21c3}</UniqueIdentifier>
     </Filter>
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\InfoGauge.cpp">
-      <Filter>UI\InfoGauge</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\Menu\BaseMenu.cpp">
       <Filter>Menu\BaseMenu</Filter>
     </ClCompile>
@@ -355,9 +352,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\StageManager.cpp">
       <Filter>Manager\StageManager</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Manager\SpecialSkillManager.cpp">
-      <Filter>Manager\SpecialSkillManager</Filter>
-    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\ArmorGauge.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -482,9 +477,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\FallDecision.h">
       <Filter>StageObject\FallDecision</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\InfoGauge.h">
-      <Filter>UI\InfoGauge</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\PCTGaugeSprite.h">
       <Filter>Component\PCTGaugeSprite</Filter>
     </ClInclude>
@@ -590,9 +582,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\StageManager.h">
       <Filter>Manager\StageManager</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Manager\SpecialSkillManager.h">
-      <Filter>Manager\SpecialSkillManager</Filter>
-    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\ArmorGauge.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />

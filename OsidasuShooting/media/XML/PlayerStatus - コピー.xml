@@ -7,7 +7,7 @@
         <!--デフォルトのエネルギー値-->
         <DefaultSkillEnergy>100</DefaultSkillEnergy>
         <!--弾の照準の補正角度-->
-        <CorrectAngle>20</CorrectAngle>
+        <CorrectAngle>40</CorrectAngle>
         <!--アーマー0の時のノックバック倍率-->
         <ArmorZeroWhenKnockBackMagnification>5</ArmorZeroWhenKnockBackMagnification>
         <!--アーマーの回復速度-->
@@ -15,13 +15,13 @@
         <!--爆弾の照準の移動量-->
         <BombAimMovingDistance>20</BombAimMovingDistance>
         <!--弾の照準線の長さ-->
-        <BulletAimLineLength>30</BulletAimLineLength>
+        <BulletAimLineLength>3</BulletAimLineLength>
         <!--エネルギー取得量-->
         <EnergyGetAmount>5</EnergyGetAmount>
     </CommonStatus>
     <LaserStatus>
         <!--移動速度-->
-        <MoveSpeed>16</MoveSpeed>
+        <MoveSpeed>20</MoveSpeed>
         <!--ジャンプ量-->
         <JumpAmount>11</JumpAmount>
         <!--ホバー可能時間-->
@@ -31,19 +31,19 @@
         <!--弾の威力-->
         <BulletPower>5</BulletPower>
         <!--爆弾の威力-->
-        <BombPower>15</BombPower>
+        <BombPower>10</BombPower>
         <!--弾の発射速度-->
-        <BulletRateOfFire>0.2</BulletRateOfFire>
+        <BulletRateOfFire>0.1</BulletRateOfFire>
         <!--爆弾のリロード速度-->
-        <BombReloadSpeed>1.5</BombReloadSpeed>
+        <BombReloadSpeed>1</BombReloadSpeed>
         <!--爆弾の飛翔時間-->
-        <BombFlightTime>2.5</BombFlightTime>
+        <BombFlightTime>2</BombFlightTime>
     </LaserStatus>
     <MissileStatus>
         <!--移動速度-->
-        <MoveSpeed>13</MoveSpeed>
+        <MoveSpeed>16</MoveSpeed>
         <!--ジャンプ量-->
-        <JumpAmount>8</JumpAmount>
+        <JumpAmount>9</JumpAmount>
         <!--ホバー可能時間-->
         <HoverTime>2</HoverTime>
         <!--デフォルトの爆弾の所持数-->
@@ -51,9 +51,9 @@
         <!--弾の威力-->
         <BulletPower>5</BulletPower>
         <!--爆弾の威力-->
-        <BombPower>20</BombPower>
+        <BombPower>10</BombPower>
         <!--弾の発射速度-->
-        <BulletRateOfFire>0.4</BulletRateOfFire>
+        <BulletRateOfFire>0.5</BulletRateOfFire>
         <!--爆弾のリロード速度-->
         <BombReloadSpeed>1</BombReloadSpeed>
         <!--爆弾の飛翔時間-->
