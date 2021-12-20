@@ -62,18 +62,28 @@ namespace basecross {
 
 	void Bullet::OnCollisionEnter(shared_ptr<GameObject>& other)
 	{
-		auto ptr = dynamic_pointer_cast<PlayerBase>(other);
-		if (ptr) {
-			KnockBackData data(
-				KnockBackData::Category::Bullet,
-				m_direction, m_knockBackAmount, m_owner
-			);
-			// ノックバック
-			ptr->KnockBack(data);
-			m_owner.lock()->AddEnergy(5.0f);
+		if (other->FindTag(L"Reflector")) {
+			auto reverse = -1;
+			m_direction *= reverse;
+			auto rot = GetTransform()->GetRotation();
+			rot.x *= reverse;
+			rot.z *= reverse;
+			GetTransform()->SetRotation(rot);
 		}
-		// 自身を削除
-		Destroy<Bullet>();
+		else {
+			auto ptr = dynamic_pointer_cast<PlayerBase>(other);
+			if (ptr) {
+				KnockBackData data(
+					KnockBackData::Category::Bullet,
+					m_direction, m_knockBackAmount, m_owner
+				);
+				// ノックバック
+				ptr->KnockBack(data);
+				m_owner.lock()->AddEnergy(5.0f);
+			}
+			// 自身を削除
+			Destroy<Bullet>();
+		}
 	}
 }
 //end basecross
