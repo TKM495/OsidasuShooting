@@ -1,5 +1,5 @@
 /*!
-@file   Reflector.h
+@file   ReflectorBlock.h
 @brief	リフレクターブロッククラス
 */
 #pragma once
@@ -8,7 +8,7 @@
 
 namespace basecross {
 
-	class Reflector : public Block {
+	class ReflectorBlock : public Block {
 	//起動中
 		// 起動中かどうか
 		bool m_isSetUp;
@@ -22,7 +22,7 @@ namespace basecross {
 		bool m_isReflect;
 
 	public:
-		Reflector(
+		ReflectorBlock(
 			shared_ptr<Stage>& stage,
 			const TransformData transformData 
 		):
@@ -38,7 +38,7 @@ namespace basecross {
 			m_transformData = transformData;
 		}
 
-		Reflector(const shared_ptr<Stage>& stage,
+		ReflectorBlock(const shared_ptr<Stage>& stage,
 			const TransformData transformData,
 			const wstring& line);
 

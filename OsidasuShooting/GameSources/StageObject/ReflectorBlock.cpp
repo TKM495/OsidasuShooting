@@ -1,5 +1,5 @@
 /*!
-@file   Reflector.cpp
+@file   ReflectorBlock.cpp
 @brief	リフレクターブロッククラスの実態
 */
 
@@ -8,7 +8,7 @@
 #include "Bullet.h"
 
 namespace basecross {
-	Reflector::Reflector(
+	ReflectorBlock::ReflectorBlock(
 		const shared_ptr<Stage>& stage,
 		const TransformData transformData,
 		const wstring& line
@@ -34,9 +34,11 @@ namespace basecross {
 		);
 	}
 
-	void Reflector::OnCreate() {
+	void ReflectorBlock::OnCreate() {
 		auto ptrDraw = AddComponent<PNTStaticDraw>();
 		ptrDraw->SetMeshResource(L"DEFAULT_CUBE");
+		
+
 		
 		auto ptrColl = AddComponent<CollisionObb>();
 		ptrColl->SetAfterCollision(AfterCollision::None);
@@ -56,15 +58,19 @@ namespace basecross {
 		AddTag(L"Reflector");
 	}
 
-	void Reflector::OnUpdate() {
-		//if (!m_isSetUp) {
+	void ReflectorBlock::OnUpdate() {
+		if (!m_isSetUp) {
 		//	SetUpAnimation();
-		//}
+		}
+		else {
+		auto ptrColl = GetComponent<CollisionObb>();
+		ptrColl->SetAfterCollision(AfterCollision::Auto);
+		}
 
 		m_isSetUp = true;
 	}
 
-	void Reflector::SetUpAnimation() {
+	void ReflectorBlock::SetUpAnimation() {
 		auto pos = GetTransform()->GetPosition();
 		if (pos.y < m_setPosition.y) {
 			pos.y = m_setPosition.y;
