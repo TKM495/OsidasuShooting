@@ -39,6 +39,7 @@
 #include "StageObject/Bullet.h"
 #include "StageObject/FallDecision.h"
 #include "StageObject/ManualPlayer.h"
+#include "StageObject/MoveBlock.h"
 #include "StageObject/PlayerBase.h"
 #include "StageObject/PlayerModel.h"
 #include "StageObject/ReflectorBlock.h"
