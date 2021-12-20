@@ -38,9 +38,9 @@ namespace basecross {
 			m_transformData = transformData;
 		}
 
-		//Reflector(const shared_ptr<Stage>& stage,
-		//	const TransformData transformData,
-		//	const wstring& line);
+		Reflector(const shared_ptr<Stage>& stage,
+			const TransformData transformData,
+			const wstring& line);
 
 		void OnCreate() override;
 		void OnUpdate() override;
