@@ -352,7 +352,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\StageManager.cpp">
       <Filter>Manager\StageManager</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\ArmorGauge.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Manager\SpecialSkillManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\InfoGauge.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Reflector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -582,7 +584,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\StageManager.h">
       <Filter>Manager\StageManager</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\ArmorGauge.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Manager\SpecialSkillManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\InfoGauge.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Reflector.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />

@@ -40,6 +40,7 @@
 #include "StageObject/ManualPlayer.h"
 #include "StageObject/PlayerBase.h"
 #include "StageObject/PlayerModel.h"
+#include "StageObject/Reflector.h"
 #include "StageObject/SpecialSkill.h"
 //UI
 #include "UIs/InfoGauge.h"

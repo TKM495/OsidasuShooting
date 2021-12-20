@@ -52,6 +52,8 @@ namespace basecross {
 			builder.Build(GetThis<Stage>(), path);
 
 			AddGameObject<FallDecision>();
+			AddGameObject<Reflector>(TransformData(Vec3(0,1,-5), Vec3(1)));
+			AddGameObject<Reflector>(TransformData(Vec3(0,1,2), Vec3(1)));
 			AddGameObject<CurrentFirst>();
 
 			m_countDown = AddGameObject<CountDown>(90.0f);

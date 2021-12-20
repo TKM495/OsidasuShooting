@@ -16,6 +16,7 @@
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\SpecialSkillManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\StageManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Reflector.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUILetter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\SoundManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\CharacterSelectStage.h" />
@@ -96,6 +97,7 @@
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\SpecialSkillManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\StageManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Reflector.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUILetter.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\SoundManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\CharacterSelectStage.cpp" />
