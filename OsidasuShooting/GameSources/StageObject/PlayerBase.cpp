@@ -34,8 +34,6 @@ namespace basecross {
 		// 以下のタグを持つオブジェクトを判定から除外
 		m_groundingDecision.AddNotDecisionTag(L"Bomb");
 		m_groundingDecision.AddNotDecisionTag(L"Bullet");
-		// 外部ファイルからステータスを読み込み
-		StatusLoad();
 	}
 
 	void PlayerBase::OnCreate() {
@@ -61,9 +59,8 @@ namespace basecross {
 		// 滑るような挙動用のコンポーネントと重力を追加
 		AddComponent<PhysicalBehavior>();
 		auto gravity = AddComponent<Gravity>();
-		auto defaultGravity = gravity->GetGravity();
-		// 重力をデフォルトの2倍に設定
-		gravity->SetGravity(defaultGravity * 2.0f);
+		// 外部ファイルからステータスを読み込み
+		StatusLoad();
 		// 当たり判定を追加
 		AddComponent<CollisionSphere>()->SetDrawActive(false);
 
@@ -104,8 +101,20 @@ namespace basecross {
 			}
 		}
 
-		// 入力の更新
+		//auto gameStage = GetTypeStage<GameStage>(false);
+		//// 現在のステージがGameStage
+		//if (gameStage) {
+		//	switch (gameStage->GetCurrentGameState())
+		//	{
+		//	case GameStage::GameState::PLAYING:
+		//		// 入力の更新
+		//		InputUpdate();
+		//		break;
+		//	}
+		//}
+
 		InputUpdate();
+
 		// 移動処理
 		Move();
 		// テストコード
@@ -337,10 +346,13 @@ namespace basecross {
 		m_jumpVerocity = Vec3(0, status[1], 0);
 		m_hoverTime = status[2];
 		m_defaultBombCount = status[3];
-		// 弾威力
-		// 爆弾威力
+		BulletPower = status[4]; // 弾威力
+		BombPower = status[5];// 爆弾威力
 		m_bulletTimer.SetIntervalTime(status[6]);
 		m_bombReload.SetIntervalTime(status[7]);
+		auto defaultGravity = GetComponent<Gravity>()->GetGravity();
+		// 重力をデフォルトの2倍に設定
+		GetComponent<Gravity>()->SetGravity(defaultGravity * status[8]);
 		// 爆弾の飛翔時間
 	}
 
@@ -362,20 +374,23 @@ namespace basecross {
 			knockBackCorrection = m_armorZeroWhenKnockBackMagnification;
 			m_isRestoreArmor = true;
 		}
+		float amo = 0;
 		// ダメージ判定
 		switch (data.Type) {
 		case KnockBackData::Category::Bullet:
 			m_currentArmorPoint -= 10;
+			amo = BulletPower;
 			break;
 		case KnockBackData::Category::Bomb:
 			m_currentArmorPoint -= 5;
+			amo = BombPower;
 			break;
 		default:
 			break;
 		}
 		AddEnergy(5.0f);
 		GetComponent<PhysicalBehavior>()->Impact(
-			data.Direction, data.Amount * knockBackCorrection);
+			data.Direction, amo * knockBackCorrection);
 	}
 
 	void PlayerBase::Respawn() {

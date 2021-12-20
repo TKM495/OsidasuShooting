@@ -145,6 +145,9 @@ namespace basecross {
 		// 自身のプレイヤータイプ
 		PlayerType m_playerType;
 
+		float BulletPower;
+		float BombPower;
+
 		// 移動
 		void Move();
 		// 弾の照準と発射

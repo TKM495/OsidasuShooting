@@ -23,41 +23,41 @@
         <!--移動速度-->
         <MoveSpeed>20</MoveSpeed>
         <!--ジャンプ量-->
-        <JumpAmount>11</JumpAmount>
+        <JumpAmount>12</JumpAmount>
         <!--ホバー可能時間-->
         <HoverTime>2</HoverTime>
         <!--デフォルトの爆弾の所持数-->
         <DefaultBombCount>5</DefaultBombCount>
         <!--弾の威力-->
-        <BulletPower>5</BulletPower>
+        <BulletPower>20</BulletPower>
         <!--爆弾の威力-->
-        <BombPower>10</BombPower>
+        <BombPower>50</BombPower>
         <!--弾の発射速度-->
-        <BulletRateOfFire>0.1</BulletRateOfFire>
+        <BulletRateOfFire>0.2</BulletRateOfFire>
         <!--爆弾のリロード速度-->
         <BombReloadSpeed>1</BombReloadSpeed>
-        <!--爆弾の飛翔時間-->
-        <BombFlightTime>2</BombFlightTime>
+        <!--重力の倍率-->
+        <GravityMagnification>3</GravityMagnification>
     </LaserStatus>
     <MissileStatus>
         <!--移動速度-->
-        <MoveSpeed>16</MoveSpeed>
+        <MoveSpeed>20</MoveSpeed>
         <!--ジャンプ量-->
-        <JumpAmount>9</JumpAmount>
+        <JumpAmount>12</JumpAmount>
         <!--ホバー可能時間-->
         <HoverTime>2</HoverTime>
         <!--デフォルトの爆弾の所持数-->
-        <DefaultBombCount>8</DefaultBombCount>
+        <DefaultBombCount>5</DefaultBombCount>
         <!--弾の威力-->
-        <BulletPower>5</BulletPower>
+        <BulletPower>20</BulletPower>
         <!--爆弾の威力-->
-        <BombPower>10</BombPower>
+        <BombPower>50</BombPower>
         <!--弾の発射速度-->
-        <BulletRateOfFire>0.5</BulletRateOfFire>
+        <BulletRateOfFire>0.2</BulletRateOfFire>
         <!--爆弾のリロード速度-->
         <BombReloadSpeed>1</BombReloadSpeed>
-        <!--爆弾の飛翔時間-->
-        <BombFlightTime>2</BombFlightTime>
+        <!--重力の倍率-->
+        <GravityMagnification>3</GravityMagnification>
     </MissileStatus>
     <!--プレイヤーの色（0 ～ 255のRGBA）-->
     <PlayerColor>

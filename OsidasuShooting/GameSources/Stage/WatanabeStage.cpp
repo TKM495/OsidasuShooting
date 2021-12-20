@@ -66,7 +66,8 @@ namespace basecross {
 
 	void WatanabeStage::OnUpdate() {
 		const auto& keyState = App::GetApp()->GetInputDevice().GetKeyState();
-		if (keyState.m_bPressedKeyTbl['R'])
+		const auto& cont = App::GetApp()->GetInputDevice().GetControlerVec()[0];
+		if (cont.wPressedButtons & XINPUT_GAMEPAD_A || keyState.m_bPressedKeyTbl['R'])
 			PostEvent(0.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToWatanabeStage");
 	}
 
