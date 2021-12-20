@@ -70,6 +70,11 @@ namespace basecross {
 			rot.z *= reverse;
 			GetTransform()->SetRotation(rot);
 		}
+		else if(other->FindTag(L"Break")) {
+			other->SetDrawActive(false);
+			other->SetAlphaActive(false);
+			other->SetUpdateActive(false);
+		}
 		else {
 			auto ptr = dynamic_pointer_cast<PlayerBase>(other);
 			if (ptr) {

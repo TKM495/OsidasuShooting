@@ -35,6 +35,7 @@
 #include "StageObject/AdvancedGameObject.h"
 #include "StageObject/Block.h"
 #include "StageObject/Bomb.h"
+#include "StageObject/BreakBlock.h"
 #include "StageObject/Bullet.h"
 #include "StageObject/FallDecision.h"
 #include "StageObject/ManualPlayer.h"

@@ -354,7 +354,8 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\SpecialSkillManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\InfoGauge.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Reflector.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\ReflectorBlock.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\BreakBlock.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -586,7 +587,8 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\SpecialSkillManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\InfoGauge.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Reflector.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\ReflectorBlock.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\BreakBlock.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
