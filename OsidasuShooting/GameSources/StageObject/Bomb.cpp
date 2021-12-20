@@ -65,7 +65,6 @@ namespace basecross {
 				);
 				// ノックバック
 				player->KnockBack(data);
-				m_owner.lock()->AddEnergy(5.0f);
 			}
 		}
 		// 自身を削除

@@ -38,11 +38,12 @@ namespace basecross {
 			const shared_ptr<PlayerBase>& owner,
 			const PredictionLine& predictionLine,
 			const Vec3& startPoint,
-			const Vec3& endPoint)
+			const Vec3& endPoint,
+			float power)
 			:AdvancedGameObject(stage), m_owner(owner),
 			m_predictionLine(predictionLine),
 			m_delta(0.0f), m_startPoint(startPoint), m_endPoint(endPoint),
-			m_timeRate(2.0f), m_radius(3.0f), m_power(20.0f), m_lifeSpan(5.0f),
+			m_timeRate(2.0f), m_radius(3.0f), m_power(power), m_lifeSpan(5.0f),
 			m_isExploded(false)
 		{
 			m_transformData.Position = m_startPoint;

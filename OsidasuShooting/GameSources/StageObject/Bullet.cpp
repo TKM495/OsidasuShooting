@@ -66,11 +66,10 @@ namespace basecross {
 		if (ptr) {
 			KnockBackData data(
 				KnockBackData::Category::Bullet,
-				m_direction, m_knockBackAmount, m_owner
+				m_direction, m_power, m_owner
 			);
 			// ノックバック
 			ptr->KnockBack(data);
-			m_owner.lock()->AddEnergy(5.0f);
 		}
 		// 自身を削除
 		Destroy<Bullet>();

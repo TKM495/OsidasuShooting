@@ -39,9 +39,7 @@ namespace basecross {
 	// リザルト用のプレイヤー
 	class ResultPlayer :public PlayerBase {
 		GameController m_controller;
-		void InputUpdate()override;
-		void OnRespawn()override;
-		void OnStopHover()override;
+		void InputUpdate() {};
 	public:
 		/**
 		 * @brief コンストラクタ
