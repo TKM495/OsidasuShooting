@@ -28,12 +28,10 @@ namespace basecross {
 		m_transformData = transData;
 		m_transformData.Scale *= 2.0f;
 		auto rot = m_transformData.Rotation;
-		m_lastFrontDirection = Vec3(cosf(rot.y), 0.0f, sinf(rot.y));
+		m_lastFrontDirection = Vec3(sinf(rot.y), 0.0f, cosf(rot.y));
 		// 以下のタグを持つオブジェクトを判定から除外
 		m_groundingDecision.AddNotDecisionTag(L"Bomb");
 		m_groundingDecision.AddNotDecisionTag(L"Bullet");
-		// 外部ファイルからステータスを読み込み
-		StatusLoad();
 	}
 
 	void PlayerBase::OnCreate() {
@@ -59,9 +57,11 @@ namespace basecross {
 		// 滑るような挙動用のコンポーネントと重力を追加
 		AddComponent<PhysicalBehavior>();
 		auto gravity = AddComponent<Gravity>();
-		auto defaultGravity = gravity->GetGravity();
-		// 重力をデフォルトの3倍に設定
-		gravity->SetGravity(defaultGravity * 3);
+		//auto defaultGravity = gravity->GetGravity();
+		//// 重力をデフォルトの3倍に設定
+		//gravity->SetGravity(defaultGravity * 3);
+				// 外部ファイルからステータスを読み込み
+		StatusLoad();
 
 		// 当たり判定を追加
 		AddComponent<CollisionSphere>()->SetDrawActive(false);
@@ -89,6 +89,9 @@ namespace basecross {
 		SoundManager::GetInstance()->InitPlayOverlap(L"HoverSE", 0.06f);
 		// 接地判定の情報を初期化
 		m_groundingDecision.SetRadius(GetTransform()->GetScale());
+		//Debug::GetInstance()->Log(m_lastFrontDirection);
+		//m_predictionLine.Update(GetTransform()->GetPosition(),
+		//	GetTransform()->GetPosition() + m_lastFrontDirection * 5, PredictionLine::Type::Bullet);
 	}
 
 	void PlayerBase::OnUpdate() {
@@ -338,6 +341,10 @@ namespace basecross {
 		m_bombPower = status[6];
 		// 弾の連射速度
 		m_bulletTimer.SetIntervalTime(status[7], true);
+		m_bombCoolTimeTimer.SetIntervalTime(status[8], true);
+		auto defaultGravity = GetComponent<Gravity>()->GetGravity();
+		// 重力をデフォルトの3倍に設定
+		GetComponent<Gravity>()->SetGravity(defaultGravity * status[9]);
 	}
 
 	void PlayerBase::ParameterReset() {
@@ -483,7 +490,7 @@ namespace basecross {
 			// 爆弾を発射
 			Obj->BombLaunch();
 			// 残弾を減らす
-			Obj->m_bombCount--;
+			//Obj->m_bombCount--;
 		}
 		else {
 			SoundManager::GetInstance()->Play(L"EmptyBombSE", 0, 0.3f);

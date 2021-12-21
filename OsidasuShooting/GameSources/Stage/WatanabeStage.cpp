@@ -58,6 +58,7 @@ namespace basecross {
 
 			AddGameObject<FallDecision>();
 			//m_controller.SetVibration(VibrationData(1.0f, 1.0f, 1.0f));
+			AddGameObject<SimpleSprite>(L"BackGround00")->SetDrawLayer(-1);
 		}
 		catch (...) {
 			throw;

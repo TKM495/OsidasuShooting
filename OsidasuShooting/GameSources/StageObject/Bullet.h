@@ -25,15 +25,7 @@ namespace basecross {
 		Bullet(const shared_ptr<Stage>& stage,
 			const shared_ptr<PlayerBase>& owner,
 			const Vec3& direction,
-			float power)
-			:AdvancedGameObject(stage), m_owner(owner),
-			m_direction(direction),
-			m_speed(25.0f), m_lifeSpan(5.0f),
-			m_power(power)
-		{
-			m_transformData.Position = owner->GetTransform()->GetPosition();
-			m_transformData.Scale = Vec3(0.5f);
-		}
+			float power);
 
 		void OnCreate() override;
 		void OnUpdate() override;
