@@ -7,6 +7,19 @@
 #include "Project.h"
 
 namespace basecross {
+	Bullet::Bullet(const shared_ptr<Stage>& stage,
+		const shared_ptr<PlayerBase>& owner,
+		const Vec3& direction,
+		float power)
+		:AdvancedGameObject(stage), m_owner(owner),
+		m_direction(direction),
+		m_speed(25.0f), m_lifeSpan(5.0f),
+		m_power(power)
+	{
+		m_transformData.Position = owner->GetTransform()->GetPosition();
+		m_transformData.Scale = Vec3(0.5f);
+	}
+
 	void Bullet::OnCreate()
 	{
 		// 当たり判定の追加
@@ -39,15 +52,13 @@ namespace basecross {
 		AddTag(L"Bullet");
 	}
 
-	void Bullet::OnUpdate()
-	{
+	void Bullet::OnUpdate() {
 		auto transPos = GetTransform()->GetPosition(); //(x,y,z)
 
 		float deltaTime = App::GetApp()->GetElapsedTime();
 
 		transPos += m_direction.normalize() * m_speed * deltaTime;
 		GetTransform()->SetPosition(transPos);
-
 		// 位置を同期
 		GetComponent<EfkComponent>()->SyncPosition(L"Bullet");
 	}
@@ -60,17 +71,15 @@ namespace basecross {
 		efkComp->Play(L"Hit");
 	}
 
-	void Bullet::OnCollisionEnter(shared_ptr<GameObject>& other)
-	{
+	void Bullet::OnCollisionEnter(shared_ptr<GameObject>& other) {
 		auto ptr = dynamic_pointer_cast<PlayerBase>(other);
 		if (ptr) {
 			KnockBackData data(
 				KnockBackData::Category::Bullet,
-				m_direction, m_knockBackAmount, m_owner
+				m_direction, m_power, m_owner
 			);
 			// ノックバック
 			ptr->KnockBack(data);
-			m_owner.lock()->AddEnergy(5.0f);
 		}
 		// 自身を削除
 		Destroy<Bullet>();
