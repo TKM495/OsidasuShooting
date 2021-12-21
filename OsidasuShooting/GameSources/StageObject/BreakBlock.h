@@ -9,12 +9,12 @@
 namespace basecross {
 
 	class BreakBlock : public Block {
-		//起動中
-			// 起動中かどうか
+	//起動中
+		// 起動中かどうか
 		bool m_isSetUp;
 
-		// その他項目
-			// 設置場所
+	// その他項目
+		// 設置場所
 		Vec3 m_setPosition;
 
 	public:
