@@ -133,6 +133,8 @@ namespace basecross {
 			EnergyRecovery();
 		// ”š’e‚ÌƒN[ƒ‹ƒ^ƒCƒ€‚ÌXV
 		m_bombCoolTimeTimer.Count();
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÑƒGï¿½tï¿½Fï¿½Nï¿½gï¿½Ì•`ï¿½ï¿½
+		KnockBackEffectDrawing();
 	}
 
 	void PlayerBase::Move() {
@@ -416,6 +418,18 @@ namespace basecross {
 			// Œ¸‚ç‚¹‚éê‡‚ÍŒ¸‚ç‚·
 			m_currentEnergy -= amount;
 			return true;
+		}
+	}
+
+	void PlayerBase::KnockBackEffectDrawing() {
+		// Gravityï¿½Rï¿½ï¿½ï¿½|ï¿½[ï¿½lï¿½ï¿½ï¿½gï¿½ï¿½PhysicalBehaviorï¿½Rï¿½ï¿½ï¿½|ï¿½[ï¿½lï¿½ï¿½ï¿½gï¿½ï¿½Velocityï¿½ï¿½
+		// ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		auto gravity = GetComponent<Gravity>()->GetGravityVelocity();
+		auto totalVelocity = GetVelocity() + gravity;
+		auto efkComp = GetComponent<EfkComponent>();
+
+		if (totalVelocity.lengthSqr() > 10 * 10) {
+			efkComp->Play(L"Smoke");
 		}
 	}
 

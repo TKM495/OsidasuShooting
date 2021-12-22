@@ -192,7 +192,10 @@ namespace basecross {
 		bool DecrementEnergy(float amount);
 		// ƒpƒ‰ƒ[ƒ^‚ÌƒŠƒZƒbƒg
 		void ParameterReset();
-
+		/**
+		 * @brief ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ‚ÌƒGï¿½tï¿½Fï¿½Nï¿½gï¿½`ï¿½ï¿½
+		 */
+		void KnockBackEffectDrawing();
 	protected:
 		// ˆÚ“®‘¬“xi‚Ç‚¿‚ç‚©‚Æ‚¢‚¤‚Æ‚©‚¯‚é—Íj
 		float m_moveSpeed;
