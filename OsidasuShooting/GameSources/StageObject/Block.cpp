@@ -74,23 +74,17 @@ namespace basecross {
 	}
 
 	void Bumper::OnCreate() {
-		vector<VertexPositionNormalTexture> vertices;
-		vector<uint16_t> indices;
-
-		AdvancedMeshUtil::CreateCube(3.0f, m_transformData.Scale, vertices, indices);
-
-		auto drawComp = AddComponent<PNTStaticDraw>();
-		drawComp->CreateOriginalMesh(vertices, indices);
-		drawComp->SetOriginalMeshUse(true);
-		//drawComp->SetTextureResource(L"Block");
+		// 描画コンポーネントの追加
+		auto drawComp = AddComponent<PNTStaticModelDraw>();
+		drawComp->SetMeshResource(L"Bumper");
 		drawComp->SetOwnShadowActive(true);
-		drawComp->SetSamplerState(SamplerState::LinearWrap);
+		drawComp->SetDiffuse(Col4(1, 0, 0, 1));
 
 		auto collComp = AddComponent<CollisionObb>();
 		collComp->SetFixed(true);
-		collComp->SetDrawActive(true);
+		//collComp->SetDrawActive(true);
 
 		auto shadowComp = AddComponent<Shadowmap>();
-		shadowComp->SetMeshResource(L"DEFAULT_CUBE");
+		shadowComp->SetMeshResource(L"Bumper");
 	}
 }

@@ -89,11 +89,17 @@ namespace basecross {
 		// Missile
 		path = dir + L"Models/MissileCharacter/";
 		for (int i = 0; i < 4; i++) {
+			// まだ1Pのみのモデルなので強制的に1
 			auto number = Util::IntToWStr(1);
 			auto modelMesh = MultiMeshResource::CreateStaticModelMultiMesh(path + L"Player" + number + L"/", L"TankPlayer" + number + L".bmf");
 			number = Util::IntToWStr(i + 1);
 			app->RegisterResource(L"MissilePlayer" + number, modelMesh);
 		}
+
+		// バンパー
+		path = dir + L"Models/Bumper/";
+		auto modelMesh = MeshResource::CreateStaticModelMesh(path, L"Bumper.bmf");
+		app->RegisterResource(L"Bumper", modelMesh);
 
 		// 効果音
 		path = dir + L"Sound/SE/";

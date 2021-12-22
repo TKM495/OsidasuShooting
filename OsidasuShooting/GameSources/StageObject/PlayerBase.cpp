@@ -357,12 +357,9 @@ namespace basecross {
 		if (m_isInvincible)
 			return;
 
-		// バンパーの場合はダメージ判定なし
-		if (data.Type != KnockBackData::Category::Bumper) {
-			m_aggriever = data.Aggriever;
-			m_isDuringReturn = true;
-			m_returnTimer.Reset();
-		}
+		m_aggriever = data.Aggriever;
+		m_isDuringReturn = true;
+		m_returnTimer.Reset();
 		// ノックバック倍率
 		float knockBackCorrection = 1.0f;
 		//// アーマーが回復中でない　かつ　アーマーが0より大きい
@@ -457,8 +454,11 @@ namespace basecross {
 		// 衝突したオブジェクトがプレイヤーの場合
 		auto ptr = dynamic_pointer_cast<Bumper>(other);
 		if (ptr) {
+			auto gravity = GetComponent<Gravity>()->GetGravityVelocity();
+			auto totalVelocity = GetVelocity() + gravity;
+			//Debug::GetInstance()->Log(gravity);
 			// ノックバック
-			GetComponent<PhysicalBehavior>()->Impact(-GetVelocity() * 4);
+			GetComponent<PhysicalBehavior>()->Impact(-totalVelocity * 4);
 		}
 	}
 
