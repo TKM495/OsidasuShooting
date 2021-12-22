@@ -17,7 +17,7 @@
     </CommonStatus>
     <LaserStatus>
         <!--移動速度-->
-        <MoveSpeed>20</MoveSpeed>
+        <MoveSpeed>30</MoveSpeed>
         <!--ジャンプ量-->
         <JumpAmount>12</JumpAmount>
         <!--弾の発射に使用するエネルギー(1発あたり)-->
@@ -25,7 +25,7 @@
         <!--ホバーで消費するエネルギー(毎秒)-->
         <UseEnergyInHover>35</UseEnergyInHover>
         <!--エネルギーの回復速度-->
-        <EnergyRecoveryAmount>20</EnergyRecoveryAmount>
+        <EnergyRecoveryAmount>100</EnergyRecoveryAmount>
         <!--弾の威力-->
         <BulletPower>20</BulletPower>
         <!--爆弾の威力-->

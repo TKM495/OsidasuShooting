@@ -79,8 +79,8 @@ namespace basecross {
 		 *
 		 * @return Œ»İ‚Ì‘¬“x
 		 */
-		float GetSpeed() {
-			return m_velocity.length();
+		Vec3 GetVelocity() {
+			return m_velocity;
 		}
 	};
 }

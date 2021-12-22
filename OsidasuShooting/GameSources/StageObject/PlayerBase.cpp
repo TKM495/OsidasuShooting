@@ -357,9 +357,12 @@ namespace basecross {
 		if (m_isInvincible)
 			return;
 
-		m_aggriever = data.Aggriever;
-		m_isDuringReturn = true;
-		m_returnTimer.Reset();
+		// バンパーの場合はダメージ判定なし
+		if (data.Type != KnockBackData::Category::Bumper) {
+			m_aggriever = data.Aggriever;
+			m_isDuringReturn = true;
+			m_returnTimer.Reset();
+		}
 		// ノックバック倍率
 		float knockBackCorrection = 1.0f;
 		//// アーマーが回復中でない　かつ　アーマーが0より大きい
@@ -447,6 +450,15 @@ namespace basecross {
 			m_playerNumber == PlayerNumber::P4) {
 			m_countKilledPlayer += 10;
 			Debug::GetInstance()->Log(L"P4 +10Kill");
+		}
+	}
+
+	void PlayerBase::OnCollisionEnter(shared_ptr<GameObject>& other) {
+		// 衝突したオブジェクトがプレイヤーの場合
+		auto ptr = dynamic_pointer_cast<Bumper>(other);
+		if (ptr) {
+			// ノックバック
+			GetComponent<PhysicalBehavior>()->Impact(-GetVelocity() * 4);
 		}
 	}
 

@@ -4,6 +4,7 @@
 */
 
 #pragma once
+#include "stdafx.h"
 #include "AdvancedGameObject.h"
 #include "Manager/PlayerManager.h"
 #include "Manager/StageManager.h"
@@ -11,7 +12,7 @@
 #include "Utility/GroundingDecision.h"
 #include "Utility/PredictionLine.h"
 #include "Utility/TimeCounter.h"
-#include "stdafx.h"
+#include "Component/PhysicalBehavior.h"
 
 namespace basecross {
 	/**
@@ -68,7 +69,8 @@ namespace basecross {
 			Category type,
 			const Vec3& direction,
 			float amount,
-			const weak_ptr<PlayerBase>& aggriever) {
+			const weak_ptr<PlayerBase>& aggriever)
+		{
 			this->Type = type;
 			this->Direction = direction;
 			this->Amount = amount;
@@ -223,6 +225,7 @@ namespace basecross {
 			PlayerType playerType);
 		void OnCreate() override;
 		void OnUpdate() override;
+		void OnCollisionEnter(shared_ptr<GameObject>& other) override;
 
 		// ノックバック
 		void KnockBack(const KnockBackData& data);
@@ -344,6 +347,15 @@ namespace basecross {
 		 */
 		Vec3 GetDirectionToFace() {
 			return m_lastFrontDirection;
+		}
+
+		/**
+		 * @brief 現在の速度を取得
+		 *
+		 * @return 現在の速度
+		 */
+		Vec3 GetVelocity() {
+			return GetComponent<PhysicalBehavior>()->GetVelocity();
 		}
 
 	private:
