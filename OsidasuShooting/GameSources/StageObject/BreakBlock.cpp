@@ -1,6 +1,6 @@
 /*!
 @file   BreakBlock.cpp
-@brief	リフレクターブロッククラスの実態
+@brief	壊れるブロッククラスの実態
 */
 
 #include "stdafx.h"
@@ -44,12 +44,14 @@ namespace basecross {
 		ptrColl->AddExcludeCollisionTag(L"Block");
 		ptrColl->SetFixed(true);
 
-		// 本来の一個下に設置
-		m_setPosition = GetTransform()->GetPosition();
-		auto setPos = m_setPosition;
-		setPos.y = -1;
-		GetTransform()->SetPosition(setPos);
-		ApplyTransform();
+		//// 本来の一個下に設置
+		//m_setPosition = GetTransform()->GetPosition();
+		//auto setPos = m_setPosition;
+		//setPos.y = -1;
+		//GetTransform()->SetPosition(setPos);
+		//ApplyTransform();
+
+		m_nowHp = m_hp;
 
 		AddTag(L"Break");
 	}
@@ -59,11 +61,26 @@ namespace basecross {
 		//	SetUpAnimation();
 		}
 		else {
+			auto findBlock = GetDrawActive();
 			auto ptrColl = GetComponent<CollisionObb>();
-			ptrColl->SetAfterCollision(AfterCollision::Auto);
+			if(findBlock) ptrColl->SetAfterCollision(AfterCollision::Auto);
+			else {
+				const auto& app = App::GetApp();
+				const auto delta = app->GetElapsedTime();
+				ptrColl->SetAfterCollision(AfterCollision::None);
+				if (m_wakeupTime >= m_nowTime) {
+					m_nowTime += delta;
+				}
+				else {
+					SetDrawActive(true);
+					m_nowHp = m_hp;
+					m_nowTime = 0;
+				}
+			}
 		}
 
 		m_isSetUp = true;
+
 	}
 
 	void BreakBlock::SetUpAnimation() {
@@ -86,10 +103,19 @@ namespace basecross {
 
 	}
 
-	void BreakBlock::OnCollisionEnter(shared_ptr<GameObject>& other) {
-		if (other->FindTag(L"Bullet") || other->FindTag(L"Player")) {
-			this->SetDrawActive(false);
-			this->SetUpdateActive(false);
+	//void BreakBlock::OnCollisionEnter(shared_ptr<GameObject>& other) {
+	//	if (other->FindTag(L"Bullet")) {
+	//		SetDrawActive(false);
+	//		SetUpdateActive(false);
+	//	}
+	//}
+
+	void BreakBlock::BlockDamage(float damage) {
+		if (m_nowHp >= 0) {
+			m_nowHp -= damage;		
+		}
+		else {
+			SetDrawActive(false);
 		}
 	}
 
