@@ -60,31 +60,62 @@ namespace basecross {
 		efkComp->Play(L"Hit");
 	}
 
+
+	void Bullet::Reflect(shared_ptr<GameObject>& reflect) {
+		auto ptrTrans = GetTransform();
+		auto pos = ptrTrans->GetPosition();
+		auto rot = ptrTrans->GetRotation();
+
+		auto blockTrans = reflect->GetComponent<Transform>();
+		auto blockPos = blockTrans->GetPosition();
+		auto blockScl = blockTrans->GetScale();
+		auto blockHalfSize = 0.4f;
+
+		auto reverse = -1;
+
+		// 全方向反転
+
+		auto brockSizeX = blockHalfSize * blockScl.x;
+		auto brockSizeZ = blockHalfSize * blockScl.z;
+
+		// 横方向反転
+		if (pos.x >= blockPos.x + brockSizeX ||
+			pos.x <= blockPos.x - brockSizeX) {
+			m_direction.x *= reverse;
+		}
+
+		// 縦方向反転
+		if (pos.z >= blockPos.z + brockSizeZ ||
+			pos.z <= blockPos.z - brockSizeZ) {
+			m_direction.z *= reverse;
+		}
+		rot.y += rot.y * -2;
+		ptrTrans->SetRotation(rot);
+
+	}
+
 	void Bullet::OnCollisionEnter(shared_ptr<GameObject>& other)
 	{
 		if (other->FindTag(L"Reflector")) {
-			auto reverse = -1;
-			m_direction *= reverse;
-			auto rot = GetTransform()->GetRotation();
-			rot.x *= reverse;
-			rot.z *= reverse;
-			GetTransform()->SetRotation(rot);
-		}
-		else if(other->FindTag(L"Break")) {
-			other->SetDrawActive(false);
-			other->SetAlphaActive(false);
-			other->SetUpdateActive(false);
+			Reflect(other);
 		}
 		else {
-			auto ptr = dynamic_pointer_cast<PlayerBase>(other);
-			if (ptr) {
-				KnockBackData data(
-					KnockBackData::Category::Bullet,
-					m_direction, m_knockBackAmount, m_owner
-				);
-				// ノックバック
-				ptr->KnockBack(data);
-				m_owner.lock()->AddEnergy(5.0f);
+			if (other->FindTag(L"Break")) {
+				auto breakBlock = dynamic_pointer_cast<BreakBlock>(other);
+				breakBlock->BlockDamage(1);
+
+			}
+			else {
+				auto ptr = dynamic_pointer_cast<PlayerBase>(other);
+				if (ptr) {
+					KnockBackData data(
+						KnockBackData::Category::Bullet,
+						m_direction, m_knockBackAmount, m_owner
+					);
+					// ノックバック
+					ptr->KnockBack(data);
+					m_owner.lock()->AddEnergy(5.0f);
+				}
 			}
 			// 自身を削除
 			Destroy<Bullet>();
