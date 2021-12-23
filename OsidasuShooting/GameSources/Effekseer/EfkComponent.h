@@ -118,6 +118,9 @@ namespace basecross {
 		 */
 		void Pause(const wstring& key);
 
+		void SetRotation(const wstring& key, const Vec3& rotation);
+
+
 		/**
 		 * @brief ˆÊ’u‚Ì“¯Šú
 		 *

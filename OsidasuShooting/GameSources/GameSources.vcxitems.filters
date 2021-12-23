@@ -356,6 +356,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\InfoGauge.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\ReflectorBlock.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\BreakBlock.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\MoveBlock.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -589,6 +590,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\InfoGauge.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\ReflectorBlock.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\BreakBlock.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\MoveBlock.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />

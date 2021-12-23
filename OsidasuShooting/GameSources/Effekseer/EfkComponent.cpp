@@ -81,9 +81,10 @@ namespace basecross {
 	//	m_playSpeed = speed;
 	//}
 
-	//void EfkComponent::SetRotation(const Vec3& rotation) {
-	//	m_rotation = rotation;
-	//}
+	void EfkComponent::SetRotation(const wstring& key,const Vec3& rotation) {
+		auto data = m_effectDataMap[key];
+		m_manager->SetRotation(data.Handle, rotation.x, rotation.y, rotation.z);
+	}
 
 	//void EfkComponent::SetScale(const Vec3& scale) {
 	//	m_scale = scale;

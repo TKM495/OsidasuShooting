@@ -71,6 +71,8 @@ namespace basecross {
 		auto blockScl = blockTrans->GetScale();
 		auto blockHalfSize = 0.4f;
 
+		auto ptrEfk = GetComponent<EfkComponent>();
+
 		auto reverse = -1;
 
 		// ‘S•ûŒü”½“]
@@ -89,7 +91,11 @@ namespace basecross {
 			pos.z <= blockPos.z - brockSizeZ) {
 			m_direction.z *= reverse;
 		}
-		rot.y += rot.y * -2;
+
+		auto rad = atan2f(-m_direction.z, m_direction.x) + XM_PIDIV2;
+		rot.y = rad;
+
+		ptrEfk->SetRotation(L"Bullet", rot);
 		ptrTrans->SetRotation(rot);
 
 	}

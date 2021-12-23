@@ -17,6 +17,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\SpecialSkillManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\StageManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\BreakBlock.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\MoveBlock.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\ReflectorBlock.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUILetter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\SoundManager.h" />
@@ -99,6 +100,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\SpecialSkillManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\StageManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\BreakBlock.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\MoveBlock.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\ReflectorBlock.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUILetter.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\SoundManager.cpp" />
