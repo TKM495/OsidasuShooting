@@ -33,7 +33,7 @@ namespace basecross {
 	}
 
 	void ManualPlayer::OnRespawn() {
-		m_controller.SetVibration(L"Respawn", VibrationData(1.0f, 1.0f, 0.5f));
+		m_controller.SetVibration(L"Died", VibrationData(1.0f, 1.0f, 0.5f));
 	}
 
 	void ManualPlayer::OnStopHover() {

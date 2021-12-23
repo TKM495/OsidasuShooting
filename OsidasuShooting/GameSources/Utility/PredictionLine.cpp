@@ -66,20 +66,26 @@ namespace basecross {
 			break;
 		}
 
+		auto direction = endPoint - startPoint;
 		for (int i = 0; i < points.size(); i++) {
 			m_linePoints[i]->GetTransform()->SetPosition(points[i]);
-			auto direction = endPoint - startPoint;
 			direction.normalize();
 			auto rad = atan2f(-direction.z, direction.x) + XM_PIDIV2;
 			Vec3 rot(0.0f, rad, 0.0f);
 			m_linePoints[i]->GetTransform()->SetRotation(rot);
-			m_linePoints[i]->SetDrawActive(direction != Vec3(0));
 		}
+		SetActive(direction != Vec3(0));
 	}
 
 	void PredictionLine::SetColor(const Col4& color) {
 		for (auto point : m_linePoints) {
 			point->SetColor(color);
+		}
+	}
+
+	void PredictionLine::SetActive(bool flg) {
+		for (auto point : m_linePoints) {
+			point->SetDrawActive(flg);
 		}
 	}
 }

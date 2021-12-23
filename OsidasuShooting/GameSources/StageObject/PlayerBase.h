@@ -85,6 +85,8 @@ namespace basecross {
 		unique_ptr<StateMachine<PlayerBase>> m_weaponStateMachine;
 		// ƒWƒƒƒ“ƒv‚Æƒzƒo[—p‚ÌƒXƒe[ƒgƒ}ƒVƒ“
 		unique_ptr<StateMachine<PlayerBase>> m_jumpAndHoverStateMachine;
+		// ƒŠƒXƒ|[ƒ“—p‚ÌƒXƒe[ƒgƒ}ƒVƒ“
+		unique_ptr<StateMachine<PlayerBase>> m_respawnStateMachine;
 		// —\‘ªü•\¦ƒNƒ‰ƒX
 		PredictionLine m_predictionLine;
 		// ”š’e‚Ì’…’eƒ|ƒCƒ“ƒg
@@ -129,6 +131,8 @@ namespace basecross {
 		TimeCounter m_smokeTimer;
 		// –³“Gƒ^ƒCƒ}[
 		TimeCounter m_invincibleTimer;
+		// ˆê’èŠÔŒã‚ÉƒŠƒXƒ|[ƒ“‚·‚é‚½‚ß‚Ìƒ^ƒCƒ}[
+		TimeCounter m_respawnTimer;
 
 		//F
 		Col4 m_color;
@@ -146,6 +150,9 @@ namespace basecross {
 		float m_energyRequiredInBulletLaunch;
 		// ƒzƒo[‚É•K—v‚ÈƒGƒlƒ‹ƒM[i1•b‚ ‚½‚èj
 		float m_energyRequiredInHover;
+
+		// ƒAƒNƒeƒBƒu‚©‚Ç‚¤‚©
+		bool m_isActive;
 
 		// ˆÚ“®
 		void Move();
@@ -169,6 +176,8 @@ namespace basecross {
 		void Jump();
 		// ƒzƒo[
 		void Hover();
+		// ƒ^ƒbƒNƒ‹
+		void Tackle() {}
 		// ƒGƒlƒ‹ƒM[‚Ì‰ñ•œ
 		void EnergyRecovery();
 		// ”š’e‚Ì”­Ë
@@ -193,9 +202,15 @@ namespace basecross {
 		// ƒpƒ‰ƒ[ƒ^‚ÌƒŠƒZƒbƒg
 		void ParameterReset();
 		/**
-		 * @brief ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ‚ÌƒGï¿½tï¿½Fï¿½Nï¿½gï¿½`ï¿½ï¿½
+		 * @brief ‚Á”ò‚Ñ‚ÌƒGƒtƒFƒNƒg•`‰æ
 		 */
 		void KnockBackEffectDrawing();
+		// ’Êí‚ÌXVˆ—
+		void NormalUpdate();
+		// €‚ñ‚¾‚Æ‚«‚Ì‰Šú‰»ˆ—
+		void DiedInit();
+		// ƒŠƒXƒ|[ƒ“‚Ì‰Šú‰»ˆ—
+		void RespawnInit();
 	protected:
 		// ˆÚ“®‘¬“xi‚Ç‚¿‚ç‚©‚Æ‚¢‚¤‚Æ‚©‚¯‚é—Íj
 		float m_moveSpeed;
@@ -232,8 +247,13 @@ namespace basecross {
 
 		// ƒmƒbƒNƒoƒbƒN
 		void KnockBack(const KnockBackData& data);
-		//ƒŠƒXƒ|[ƒ“
-		void Respawn();
+		// €–S
+		void Died();
+
+		void SetActive(bool flg);
+		bool GetActive() {
+			return m_isActive;
+		}
 
 		// ƒeƒXƒgŠÖ”
 		void TestFanc();
@@ -362,6 +382,27 @@ namespace basecross {
 		}
 
 	private:
+#pragma region RespawnState
+		// ’Êí‚ÌƒXƒe[ƒg
+		class PlayerNormalState :public ObjState<PlayerBase> {
+			PlayerNormalState() {}
+		public:
+			static shared_ptr<PlayerNormalState> Instance();
+			virtual void Enter(const shared_ptr<PlayerBase>& Obj) override;
+			virtual void Execute(const shared_ptr<PlayerBase>& Obj) override;
+			virtual void Exit(const shared_ptr<PlayerBase>& Obj) override;
+		};
+		// €–S‚ÌƒXƒe[ƒg
+		class PlayerDiedState :public ObjState<PlayerBase> {
+			PlayerDiedState() {}
+		public:
+			static shared_ptr<PlayerDiedState> Instance();
+			virtual void Enter(const shared_ptr<PlayerBase>& Obj) override;
+			virtual void Execute(const shared_ptr<PlayerBase>& Obj) override;
+			virtual void Exit(const shared_ptr<PlayerBase>& Obj) override;
+		};
+#pragma endregion
+
 		// •Ší—pƒXƒe[ƒg
 #pragma region WeaponState
 		// ’e‚ÌÆ€‚â”­Ëó‘ÔiƒfƒtƒHƒ‹ƒgj

@@ -23,7 +23,7 @@ namespace basecross {
 		m_returnTimer(0.5f), m_lastFrontDirection(Vec3(0.0f)), m_smokeTimer(0.2f),
 		m_deadCount(0), m_invincibleTimer(3.0f, true), m_isInvincible(false),
 		m_armorZeroWhenKnockBackMagnification(5), m_energyRecoveryAmount(10),
-		m_bombAimMovingDistance(20)
+		m_bombAimMovingDistance(20), m_respawnTimer(3.0f), m_isActive(true)
 	{
 		m_transformData = transData;
 		m_transformData.Scale *= 2.0f;
@@ -70,6 +70,8 @@ namespace basecross {
 		efkComp->SetEffectResource(L"Jump", TransformData(Vec3(0.0f, -0.5f, 0.0f), m_transformData.Scale));
 		efkComp->SetEffectResource(L"Hover", TransformData(Vec3(0.0f, -0.5f, 0.0f), m_transformData.Scale));
 		efkComp->SetEffectResource(L"Smoke", TransformData(Vec3(0.0f, -0.5f, 0.0f), m_transformData.Scale), true);
+		efkComp->SetEffectResource(L"BombPlus", TransformData(Vec3(0), m_transformData.Scale));
+		efkComp->SetEffectResource(L"Respawn", TransformData(Vec3(0.0f, -0.5f, 0.0f)));
 		// —‚¿‚½‚Æ‚«‚ÌƒGƒtƒFƒNƒg‚Ì‘ã‚í‚è
 		efkComp->SetEffectResource(L"Explosion", TransformData(Vec3(0.0f), Vec3(1.0f, 5.0f, 1.0f)));
 
@@ -79,6 +81,9 @@ namespace basecross {
 		// ƒWƒƒƒ“ƒv•ƒzƒo[ƒXƒe[ƒgƒ}ƒVƒ“‚Ì\’z‚Æİ’è
 		m_jumpAndHoverStateMachine.reset(new StateMachine<PlayerBase>(GetThis<PlayerBase>()));
 		m_jumpAndHoverStateMachine->ChangeState(PlayerJumpState::Instance());
+		// ƒŠƒXƒ|[ƒ“—pƒXƒe[ƒgƒ}ƒVƒ“‚Ì\’z‚Æİ’è
+		m_respawnStateMachine.reset(new StateMachine<PlayerBase>(GetThis<PlayerBase>()));
+		m_respawnStateMachine->ChangeState(PlayerNormalState::Instance());
 
 		// ƒ^ƒO‚Ì’Ç‰Á
 		AddTag(L"Player");
@@ -92,9 +97,14 @@ namespace basecross {
 		//Debug::GetInstance()->Log(m_lastFrontDirection);
 		//m_predictionLine.Update(GetTransform()->GetPosition(),
 		//	GetTransform()->GetPosition() + m_lastFrontDirection * 5, PredictionLine::Type::Bullet);
+		Debug::GetInstance()->Log(m_initialPosition);
 	}
 
 	void PlayerBase::OnUpdate() {
+		m_respawnStateMachine->Update();
+	}
+
+	void PlayerBase::NormalUpdate() {
 		// •œ‹A’†‚ÅÚ’n‚µ‚Ä‚¢‚é‚©‚Â
 		if (m_isDuringReturn &&
 			m_groundingDecision.Calculate(GetTransform()->GetPosition())) {
@@ -133,7 +143,7 @@ namespace basecross {
 			EnergyRecovery();
 		// ”š’e‚ÌƒN[ƒ‹ƒ^ƒCƒ€‚ÌXV
 		m_bombCoolTimeTimer.Count();
-		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÑƒGï¿½tï¿½Fï¿½Nï¿½gï¿½Ì•`ï¿½ï¿½
+		// ‚Á”ò‚ÑƒGƒtƒFƒNƒg‚Ì•`‰æ
 		KnockBackEffectDrawing();
 	}
 
@@ -387,7 +397,24 @@ namespace basecross {
 			data.Direction, data.Amount * knockBackCorrection);
 	}
 
-	void PlayerBase::Respawn() {
+	void PlayerBase::SetActive(bool flg) {
+		// d—Í
+		auto gravity = GetComponent<Gravity>();
+		gravity->SetUpdateActive(flg);
+		// ƒ‚ƒfƒ‹
+		m_model.lock()->SetDrawActive(flg);
+		// “–‚½‚è”»’è
+		GetComponent<Collision>()->SetUpdateActive(flg);
+		// —\‘ªü•\¦
+		m_predictionLine.SetActive(flg);
+		m_isActive = flg;
+	}
+
+	void PlayerBase::Died() {
+		m_respawnStateMachine->ChangeState(PlayerDiedState::Instance());
+	}
+
+	void PlayerBase::DiedInit() {
 		// •œ‹A’†‚É€‚ñ‚¾ê‡‰ÁŠQÒ‚É“|‚µ‚½’Ê’m‚ğs‚¤
 		if (m_isDuringReturn && m_aggriever.lock() != nullptr) {
 			m_aggriever.lock()->KilledPlayer();
@@ -398,14 +425,22 @@ namespace basecross {
 		m_deadCount++;
 		// Šeíƒpƒ‰ƒ[ƒ^‚ğ‰Šú‰»
 		ParameterReset();
+		// ‘¬“x‚ğ0‚É
+		GetComponent<PhysicalBehavior>()->SetVelocityZero();
+		SetActive(false);
 		// ƒGƒtƒFƒNƒg‚ÆŒø‰Ê‰¹‚ÌÄ¶
 		GetComponent<EfkComponent>()->Play(L"Explosion");
 		SoundManager::GetInstance()->Play(L"FallSE", 0, 0.3f);
 		OnRespawn();
 		// ‰ŠúˆÊ’u‚É–ß‚é
 		GetTransform()->SetPosition(m_initialPosition);
+	}
+
+	void PlayerBase::RespawnInit() {
+		SetActive(true);
 		m_invincibleTimer.Reset();
 		m_isInvincible = true;
+		GetComponent<EfkComponent>()->Play(L"Respawn");
 	}
 
 	bool PlayerBase::DecrementEnergy(float amount) {
@@ -422,8 +457,8 @@ namespace basecross {
 	}
 
 	void PlayerBase::KnockBackEffectDrawing() {
-		// Gravityï¿½Rï¿½ï¿½ï¿½|ï¿½[ï¿½lï¿½ï¿½ï¿½gï¿½ï¿½PhysicalBehaviorï¿½Rï¿½ï¿½ï¿½|ï¿½[ï¿½lï¿½ï¿½ï¿½gï¿½ï¿½Velocityï¿½ï¿½
-		// ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		// GravityƒRƒ“ƒ|[ƒlƒ“ƒg‚ÆPhysicalBehaviorƒRƒ“ƒ|[ƒlƒ“ƒg‚ÌVelocity‚ğ
+		// æ“¾‚µ‡¬
 		auto gravity = GetComponent<Gravity>()->GetGravityVelocity();
 		auto totalVelocity = GetVelocity() + gravity;
 		auto efkComp = GetComponent<EfkComponent>();
@@ -439,7 +474,9 @@ namespace basecross {
 		if (keyState.m_bPressedKeyTbl['0']) {
 			m_currentEnergy = 0.0f;
 			Debug::GetInstance()->Log(L"Test:Energy0");
+			GetComponent<EfkComponent>()->Play(L"BombPlus");
 		}
+		GetComponent<EfkComponent>()->SyncPosition(L"BombPlus");
 
 		if (keyState.m_bPressedKeyTbl['1'] &&
 			m_playerNumber == PlayerNumber::P1) {
@@ -462,6 +499,9 @@ namespace basecross {
 			m_countKilledPlayer += 10;
 			Debug::GetInstance()->Log(L"P4 +10Kill");
 		}
+		if (keyState.m_bPressedKeyTbl['5']) {
+			GetComponent<EfkComponent>()->Play(L"Respawn");
+		}
 	}
 
 	void PlayerBase::OnCollisionEnter(shared_ptr<GameObject>& other) {
@@ -475,6 +515,39 @@ namespace basecross {
 			GetComponent<PhysicalBehavior>()->Impact(-totalVelocity * 4);
 		}
 	}
+
+	// ’Êí‚ÌƒXƒe[ƒg
+#pragma region PlayerNormalState
+	shared_ptr<PlayerBase::PlayerNormalState> PlayerBase::PlayerNormalState::Instance() {
+		static shared_ptr<PlayerNormalState> instance(new PlayerNormalState);
+		return instance;
+	}
+	void PlayerBase::PlayerNormalState::Enter(const shared_ptr<PlayerBase>& Obj) {}
+	void PlayerBase::PlayerNormalState::Execute(const shared_ptr<PlayerBase>& Obj) {
+		Obj->NormalUpdate();
+	}
+	void PlayerBase::PlayerNormalState::Exit(const shared_ptr<PlayerBase>& Obj) {}
+#pragma endregion
+
+	// €–S‚ÌƒXƒe[ƒg
+#pragma region PlayerDiedState
+	shared_ptr<PlayerBase::PlayerDiedState> PlayerBase::PlayerDiedState::Instance() {
+		static shared_ptr<PlayerDiedState> instance(new PlayerDiedState);
+		return instance;
+	}
+	void PlayerBase::PlayerDiedState::Enter(const shared_ptr<PlayerBase>& Obj) {
+		Obj->DiedInit();
+		Obj->m_respawnTimer.Reset();
+	}
+	void PlayerBase::PlayerDiedState::Execute(const shared_ptr<PlayerBase>& Obj) {
+		if (Obj->m_respawnTimer.Count())
+			Obj->m_respawnStateMachine->ChangeState(PlayerNormalState::Instance());
+	}
+	void PlayerBase::PlayerDiedState::Exit(const shared_ptr<PlayerBase>& Obj) {
+		Obj->RespawnInit();
+	}
+
+#pragma endregion
 
 	// •Ší—pƒXƒe[ƒg
 	// ’e‚ÌÆ€‚â”­Ëó‘ÔiƒfƒtƒHƒ‹ƒgj
