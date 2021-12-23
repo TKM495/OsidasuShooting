@@ -81,15 +81,17 @@
 #include "Manager/SpecialSkillManager.h"
 
 //
-//
-//
-//調整したご削除してもかまいません
-//JonyMd .. release するとき削除されてください
-//JonyMd フォルダまま削除しても構いません
+
+//Empty GameObject
+#include "JonyMd/ItemCreation.h"
+#include "JonyMd/MeteoriteCreation.h"
+//Empty GameObject
+
 
 //GameObject
+#include "JonyMd/Item.h"
+#include "JonyMd/Area.h"
 #include "JonyMd/Meteorite.h"
-#include "JonyMd/MeteoriteCreation.h"
 //GameObject...end
 
 //Camera

@@ -358,6 +358,15 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\SpecialSkillManager.cpp">
       <Filter>Manager\SpecialSkillManager</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\ItemCreation.cpp">
+      <Filter>StageObject\JonyMd</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Item.cpp">
+      <Filter>StageObject\JonyMd</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\area.cpp">
+      <Filter>StageObject\JonyMd</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -592,6 +601,15 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\SpecialSkillManager.h">
       <Filter>Manager\SpecialSkillManager</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\ItemCreation.h">
+      <Filter>StageObject\JonyMd</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Item.h">
+      <Filter>StageObject\JonyMd</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\area.h">
+      <Filter>StageObject\JonyMd</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
