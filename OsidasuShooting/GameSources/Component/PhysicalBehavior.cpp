@@ -22,7 +22,7 @@ namespace basecross {
 		pos += m_velocity * delta;
 		transComp->SetPosition(pos);
 
-		// Ú’n‚µ‚Ä‚¢‚éê‡‚Í’n–Ê‚Ì’ïRF‹t‚Í‹ó‹C‚Ì’ïR‚ðŽg—p
+		// Ú’n‚µ‚Ä‚¢‚éê‡‚Í’n–Ê‚Ì’ïRF‹t‚Í‹ó’†‚Å‚Ì’ïR‚ðŽg—p
 		auto drag = m_groundingDecision->Calculate(pos) ? m_groundDrag : m_airDrag;
 
 		// ˆÚ“®•ûŒü‚Ì‹t‚É’ïR—Íi–€ŽC‚È‚Çj‚ð‰Á‚¦‚é
@@ -38,8 +38,15 @@ namespace basecross {
 	}
 
 	void PhysicalBehavior::Move(const Vec3& force) {
+		// ˆÊ’u‚ÌŽæ“¾
+		auto transComp = GetGameObject()->GetComponent<Transform>();
+		auto pos = transComp->GetPosition();
 		float delta = App::GetApp()->GetElapsedTime();
-		m_velocity += force * delta;
+
+		// ’nã‚æ‚è‘¬‚­ˆÚ“®‚Å‚«‚é‚Ì‚ð–h‚®‚½‚ß‹ó’†‚É‚¢‚é‚Æ‚«‚Í
+		// ‚©‚¯‚é—Íiforcej‚ð¬‚³‚­‚·‚é
+		auto rate = m_groundingDecision->Calculate(pos) ? 1 : m_airDrag / m_groundDrag;
+		m_velocity += force * rate * delta;
 	}
 
 	void PhysicalBehavior::Move(const Vec3& direction, float force) {
