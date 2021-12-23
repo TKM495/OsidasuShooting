@@ -151,6 +151,9 @@ namespace basecross {
 		// ホバーに必要なエネルギー（1秒あたり）
 		float m_energyRequiredInHover;
 
+		// アクティブかどうか
+		bool m_isActive;
+
 		// 移動
 		void Move();
 		// 弾の照準発射
@@ -248,6 +251,9 @@ namespace basecross {
 		void Died();
 
 		void SetActive(bool flg);
+		bool GetActive() {
+			return m_isActive;
+		}
 
 		// テスト関数
 		void TestFanc();

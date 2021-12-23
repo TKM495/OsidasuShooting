@@ -45,6 +45,10 @@ namespace basecross {
 		}
 	}
 	void PlayerFollowUI::OnDraw() {
+		// プレイヤーが非アクティブの場合描画しない
+		if (!m_owner->GetActive())
+			return;
+
 		for (auto uiObject : m_objectsData) {
 			switch (uiObject.Type)
 			{
@@ -89,6 +93,10 @@ namespace basecross {
 	}
 
 	void PlayerPositionUI::OnDraw() {
+		// プレイヤーが非アクティブの場合描画しない
+		if (!m_owner->GetActive())
+			return;
+
 		for (auto uiObject : m_uiObject) {
 			uiObject->OnDraw();
 		}

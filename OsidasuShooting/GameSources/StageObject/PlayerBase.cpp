@@ -23,7 +23,7 @@ namespace basecross {
 		m_returnTimer(0.5f), m_lastFrontDirection(Vec3(0.0f)), m_smokeTimer(0.2f),
 		m_deadCount(0), m_invincibleTimer(3.0f, true), m_isInvincible(false),
 		m_armorZeroWhenKnockBackMagnification(5), m_energyRecoveryAmount(10),
-		m_bombAimMovingDistance(20), m_respawnTimer(3.0f)
+		m_bombAimMovingDistance(20), m_respawnTimer(3.0f), m_isActive(true)
 	{
 		m_transformData = transData;
 		m_transformData.Scale *= 2.0f;
@@ -71,6 +71,7 @@ namespace basecross {
 		efkComp->SetEffectResource(L"Hover", TransformData(Vec3(0.0f, -0.5f, 0.0f), m_transformData.Scale));
 		efkComp->SetEffectResource(L"Smoke", TransformData(Vec3(0.0f, -0.5f, 0.0f), m_transformData.Scale), true);
 		efkComp->SetEffectResource(L"BombPlus", TransformData(Vec3(0), m_transformData.Scale));
+		efkComp->SetEffectResource(L"Respawn", TransformData(Vec3(0.0f, -0.5f, 0.0f)));
 		// 落ちたときのエフェクトの代わり
 		efkComp->SetEffectResource(L"Explosion", TransformData(Vec3(0.0f), Vec3(1.0f, 5.0f, 1.0f)));
 
@@ -404,6 +405,9 @@ namespace basecross {
 		m_model.lock()->SetDrawActive(flg);
 		// 当たり判定
 		GetComponent<Collision>()->SetUpdateActive(flg);
+		// 予測線表示
+		m_predictionLine.SetActive(flg);
+		m_isActive = flg;
 	}
 
 	void PlayerBase::Died() {
@@ -436,6 +440,7 @@ namespace basecross {
 		SetActive(true);
 		m_invincibleTimer.Reset();
 		m_isInvincible = true;
+		GetComponent<EfkComponent>()->Play(L"Respawn");
 	}
 
 	bool PlayerBase::DecrementEnergy(float amount) {
@@ -493,6 +498,9 @@ namespace basecross {
 			m_playerNumber == PlayerNumber::P4) {
 			m_countKilledPlayer += 10;
 			Debug::GetInstance()->Log(L"P4 +10Kill");
+		}
+		if (keyState.m_bPressedKeyTbl['5']) {
+			GetComponent<EfkComponent>()->Play(L"Respawn");
 		}
 	}
 
