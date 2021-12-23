@@ -82,5 +82,12 @@ namespace basecross {
 		Vec3 GetVelocity() {
 			return m_velocity;
 		}
+
+		/**
+		 * @brief ‘¬“x‚ð0‚É‚·‚é
+		 */
+		void SetVelocityZero() {
+			m_velocity = Vec3(0);
+		}
 	};
 }

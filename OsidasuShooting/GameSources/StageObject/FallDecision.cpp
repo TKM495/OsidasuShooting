@@ -24,6 +24,7 @@ namespace basecross {
 	void FallDecision::OnCreate() {
 		auto collComp = AddComponent<CollisionObb>();
 		collComp->AddExcludeCollisionTag(L"FallDecision");
+		collComp->SetAfterCollision(AfterCollision::None);
 		collComp->SetDrawActive(true);
 		AddTag(L"FallDecision");
 	}

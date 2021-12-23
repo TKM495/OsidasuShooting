@@ -399,6 +399,8 @@ namespace basecross {
 		m_deadCount++;
 		// 各種パラメータを初期化
 		ParameterReset();
+		// 速度を0に
+		GetComponent<PhysicalBehavior>()->SetVelocityZero();
 		// エフェクトと効果音の再生
 		GetComponent<EfkComponent>()->Play(L"Explosion");
 		SoundManager::GetInstance()->Play(L"FallSE", 0, 0.3f);
