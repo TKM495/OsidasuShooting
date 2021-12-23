@@ -169,6 +169,8 @@ namespace basecross {
 		void Jump();
 		// ƒzƒo[
 		void Hover();
+		// ƒ^ƒbƒNƒ‹
+		void Tackle();
 		// ƒGƒlƒ‹ƒM[‚Ì‰ñ•œ
 		void EnergyRecovery();
 		// ”š’e‚Ì”­Ë
@@ -193,7 +195,7 @@ namespace basecross {
 		// ƒpƒ‰ƒ[ƒ^‚ÌƒŠƒZƒbƒg
 		void ParameterReset();
 		/**
-		 * @brief ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ‚ÌƒGï¿½tï¿½Fï¿½Nï¿½gï¿½`ï¿½ï¿½
+		 * @brief ‚Á”ò‚Ñ‚ÌƒGƒtƒFƒNƒg•`‰æ
 		 */
 		void KnockBackEffectDrawing();
 	protected:

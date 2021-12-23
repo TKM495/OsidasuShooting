@@ -70,6 +70,7 @@ namespace basecross {
 		efkComp->SetEffectResource(L"Jump", TransformData(Vec3(0.0f, -0.5f, 0.0f), m_transformData.Scale));
 		efkComp->SetEffectResource(L"Hover", TransformData(Vec3(0.0f, -0.5f, 0.0f), m_transformData.Scale));
 		efkComp->SetEffectResource(L"Smoke", TransformData(Vec3(0.0f, -0.5f, 0.0f), m_transformData.Scale), true);
+		efkComp->SetEffectResource(L"BombPlus", TransformData(Vec3(0), m_transformData.Scale));
 		// —‚¿‚½‚Æ‚«‚ÌƒGƒtƒFƒNƒg‚Ì‘ã‚í‚è
 		efkComp->SetEffectResource(L"Explosion", TransformData(Vec3(0.0f), Vec3(1.0f, 5.0f, 1.0f)));
 
@@ -133,7 +134,7 @@ namespace basecross {
 			EnergyRecovery();
 		// ”š’e‚ÌƒN[ƒ‹ƒ^ƒCƒ€‚ÌXV
 		m_bombCoolTimeTimer.Count();
-		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÑƒGï¿½tï¿½Fï¿½Nï¿½gï¿½Ì•`ï¿½ï¿½
+		// ‚Á”ò‚ÑƒGƒtƒFƒNƒg‚Ì•`‰æ
 		KnockBackEffectDrawing();
 	}
 
@@ -422,8 +423,8 @@ namespace basecross {
 	}
 
 	void PlayerBase::KnockBackEffectDrawing() {
-		// Gravityï¿½Rï¿½ï¿½ï¿½|ï¿½[ï¿½lï¿½ï¿½ï¿½gï¿½ï¿½PhysicalBehaviorï¿½Rï¿½ï¿½ï¿½|ï¿½[ï¿½lï¿½ï¿½ï¿½gï¿½ï¿½Velocityï¿½ï¿½
-		// ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		// GravityƒRƒ“ƒ|[ƒlƒ“ƒg‚ÆPhysicalBehaviorƒRƒ“ƒ|[ƒlƒ“ƒg‚ÌVelocity‚ğ
+		// æ“¾‚µ‡¬
 		auto gravity = GetComponent<Gravity>()->GetGravityVelocity();
 		auto totalVelocity = GetVelocity() + gravity;
 		auto efkComp = GetComponent<EfkComponent>();
@@ -439,7 +440,9 @@ namespace basecross {
 		if (keyState.m_bPressedKeyTbl['0']) {
 			m_currentEnergy = 0.0f;
 			Debug::GetInstance()->Log(L"Test:Energy0");
+			GetComponent<EfkComponent>()->Play(L"BombPlus");
 		}
+		GetComponent<EfkComponent>()->SyncPosition(L"BombPlus");
 
 		if (keyState.m_bPressedKeyTbl['1'] &&
 			m_playerNumber == PlayerNumber::P1) {
