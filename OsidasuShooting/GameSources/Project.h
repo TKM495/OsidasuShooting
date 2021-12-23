@@ -80,13 +80,13 @@
 #include "Manager/PlayerBuilder.h"
 #include "Manager/SpecialSkillManager.h"
 
-//
 
+
+//JonyMd Folder
 //Empty GameObject
 #include "JonyMd/ItemCreation.h"
 #include "JonyMd/MeteoriteCreation.h"
 //Empty GameObject
-
 
 //GameObject
 #include "JonyMd/Item.h"
@@ -97,8 +97,4 @@
 //Camera
 #include "JonyMd/ShackingCamera.h"
 //Camera...end
-
-//調整したご削除してもかまいません。。。終
-//
-//
 //
