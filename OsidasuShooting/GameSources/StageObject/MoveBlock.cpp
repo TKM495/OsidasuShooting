@@ -32,13 +32,17 @@ namespace basecross {
 			XMConvertToRadians((float)_wtof(tokens[8].c_str())),
 			XMConvertToRadians((float)_wtof(tokens[9].c_str()))
 		);
+		// âùïúínì_
+		m_markPosition = Vec3(
+			(float)_wtof(tokens[11].c_str()),
+			(float)_wtof(tokens[12].c_str()),
+			(float)_wtof(tokens[13].c_str())
+		);
 	}
 
 	void MoveBlock::OnCreate() {
 		auto ptrDraw = AddComponent<PNTStaticDraw>();
 		ptrDraw->SetMeshResource(L"DEFAULT_CUBE");
-
-
 
 		auto ptrColl = AddComponent<CollisionObb>();
 		ptrColl->SetAfterCollision(AfterCollision::None);

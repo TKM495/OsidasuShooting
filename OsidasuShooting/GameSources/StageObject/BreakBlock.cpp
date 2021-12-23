@@ -32,6 +32,8 @@ namespace basecross {
 			XMConvertToRadians((float)_wtof(tokens[8].c_str())),
 			XMConvertToRadians((float)_wtof(tokens[9].c_str()))
 		);
+		//m_hp = (float)_wtof(tokens[14].c_str()); // HP
+		//m_wakeupTime = (float)_wtof(tokens[15].c_str()); // •œŠˆŽžŠÔ
 	}
 
 	void BreakBlock::OnCreate() {
@@ -100,15 +102,7 @@ namespace basecross {
 		//	}
 		//}
 		//GetTransform()->SetPosition(pos);
-
 	}
-
-	//void BreakBlock::OnCollisionEnter(shared_ptr<GameObject>& other) {
-	//	if (other->FindTag(L"Bullet")) {
-	//		SetDrawActive(false);
-	//		SetUpdateActive(false);
-	//	}
-	//}
 
 	void BreakBlock::BlockDamage(float damage) {
 		if (m_nowHp >= 0) {
