@@ -133,6 +133,8 @@ namespace basecross {
 			EnergyRecovery();
 		// ”š’e‚ÌƒN[ƒ‹ƒ^ƒCƒ€‚ÌXV
 		m_bombCoolTimeTimer.Count();
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÑƒGï¿½tï¿½Fï¿½Nï¿½gï¿½Ì•`ï¿½ï¿½
+		KnockBackEffectDrawing();
 	}
 
 	void PlayerBase::Move() {
@@ -419,6 +421,18 @@ namespace basecross {
 		}
 	}
 
+	void PlayerBase::KnockBackEffectDrawing() {
+		// Gravityï¿½Rï¿½ï¿½ï¿½|ï¿½[ï¿½lï¿½ï¿½ï¿½gï¿½ï¿½PhysicalBehaviorï¿½Rï¿½ï¿½ï¿½|ï¿½[ï¿½lï¿½ï¿½ï¿½gï¿½ï¿½Velocityï¿½ï¿½
+		// ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		auto gravity = GetComponent<Gravity>()->GetGravityVelocity();
+		auto totalVelocity = GetVelocity() + gravity;
+		auto efkComp = GetComponent<EfkComponent>();
+
+		if (totalVelocity.lengthSqr() > 10 * 10) {
+			efkComp->Play(L"Smoke");
+		}
+	}
+
 	void PlayerBase::TestFanc() {
 		const auto& keyState = App::GetApp()->GetInputDevice().GetKeyState();
 		// ƒA[ƒ}[‚ğ0‚É‚·‚é
@@ -447,6 +461,18 @@ namespace basecross {
 			m_playerNumber == PlayerNumber::P4) {
 			m_countKilledPlayer += 10;
 			Debug::GetInstance()->Log(L"P4 +10Kill");
+		}
+	}
+
+	void PlayerBase::OnCollisionEnter(shared_ptr<GameObject>& other) {
+		// Õ“Ë‚µ‚½ƒIƒuƒWƒFƒNƒg‚ªƒvƒŒƒCƒ„[‚Ìê‡
+		auto ptr = dynamic_pointer_cast<Bumper>(other);
+		if (ptr) {
+			auto gravity = GetComponent<Gravity>()->GetGravityVelocity();
+			auto totalVelocity = GetVelocity() + gravity;
+			//Debug::GetInstance()->Log(gravity);
+			// ƒmƒbƒNƒoƒbƒN
+			GetComponent<PhysicalBehavior>()->Impact(-totalVelocity * 4);
 		}
 	}
 

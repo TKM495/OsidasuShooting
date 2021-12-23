@@ -4,6 +4,7 @@
 */
 
 #pragma once
+#include "stdafx.h"
 #include "AdvancedGameObject.h"
 #include "Manager/PlayerManager.h"
 #include "Manager/StageManager.h"
@@ -11,7 +12,7 @@
 #include "Utility/GroundingDecision.h"
 #include "Utility/PredictionLine.h"
 #include "Utility/TimeCounter.h"
-#include "stdafx.h"
+#include "Component/PhysicalBehavior.h"
 
 namespace basecross {
 	/**
@@ -68,7 +69,8 @@ namespace basecross {
 			Category type,
 			const Vec3& direction,
 			float amount,
-			const weak_ptr<PlayerBase>& aggriever) {
+			const weak_ptr<PlayerBase>& aggriever)
+		{
 			this->Type = type;
 			this->Direction = direction;
 			this->Amount = amount;
@@ -190,7 +192,10 @@ namespace basecross {
 		bool DecrementEnergy(float amount);
 		// ƒpƒ‰ƒ[ƒ^‚ÌƒŠƒZƒbƒg
 		void ParameterReset();
-
+		/**
+		 * @brief ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ‚ÌƒGï¿½tï¿½Fï¿½Nï¿½gï¿½`ï¿½ï¿½
+		 */
+		void KnockBackEffectDrawing();
 	protected:
 		// ˆÚ“®‘¬“xi‚Ç‚¿‚ç‚©‚Æ‚¢‚¤‚Æ‚©‚¯‚é—Íj
 		float m_moveSpeed;
@@ -223,6 +228,7 @@ namespace basecross {
 			PlayerType playerType);
 		void OnCreate() override;
 		void OnUpdate() override;
+		void OnCollisionEnter(shared_ptr<GameObject>& other) override;
 
 		// ƒmƒbƒNƒoƒbƒN
 		void KnockBack(const KnockBackData& data);
@@ -344,6 +350,15 @@ namespace basecross {
 		 */
 		Vec3 GetDirectionToFace() {
 			return m_lastFrontDirection;
+		}
+
+		/**
+		 * @brief Œ»İ‚Ì‘¬“x‚ğæ“¾
+		 *
+		 * @return Œ»İ‚Ì‘¬“x
+		 */
+		Vec3 GetVelocity() {
+			return GetComponent<PhysicalBehavior>()->GetVelocity();
 		}
 
 	private:
