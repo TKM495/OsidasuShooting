@@ -18,7 +18,6 @@ namespace basecross {
 	{
 		auto tokens = DataExtracter::DelimitData(line);
 		m_transformData = DataExtracter::TransformDataExtraction(tokens);
-		Debug::GetInstance()->Log(m_transformData.Scale);
 	}
 
 	void FallDecision::OnCreate() {
@@ -32,7 +31,7 @@ namespace basecross {
 	void FallDecision::OnCollisionEnter(shared_ptr<GameObject>& other) {
 		auto ptr = dynamic_pointer_cast<PlayerBase>(other);
 		if (ptr) {
-			ptr->Respawn();
+			ptr->Died();
 		}
 		else {
 			GetStage()->RemoveGameObject<GameObject>(other);

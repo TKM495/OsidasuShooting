@@ -85,6 +85,8 @@ namespace basecross {
 		unique_ptr<StateMachine<PlayerBase>> m_weaponStateMachine;
 		// ジャンプとホバー用のステートマシン
 		unique_ptr<StateMachine<PlayerBase>> m_jumpAndHoverStateMachine;
+		// リスポーン用のステートマシン
+		unique_ptr<StateMachine<PlayerBase>> m_respawnStateMachine;
 		// 予測線表示クラス
 		PredictionLine m_predictionLine;
 		// 爆弾の着弾ポイント
@@ -129,6 +131,8 @@ namespace basecross {
 		TimeCounter m_smokeTimer;
 		// 無敵タイマー
 		TimeCounter m_invincibleTimer;
+		// 一定時間後にリスポーンするためのタイマー
+		TimeCounter m_respawnTimer;
 
 		//色
 		Col4 m_color;
@@ -170,7 +174,7 @@ namespace basecross {
 		// ホバー
 		void Hover();
 		// タックル
-		void Tackle();
+		void Tackle() {}
 		// エネルギーの回復
 		void EnergyRecovery();
 		// 爆弾の発射
@@ -198,6 +202,12 @@ namespace basecross {
 		 * @brief 吹っ飛びのエフェクト描画
 		 */
 		void KnockBackEffectDrawing();
+		// 通常時の更新処理
+		void NormalUpdate();
+		// 死んだときの初期化処理
+		void DiedInit();
+		// リスポーン時の初期化処理
+		void RespawnInit();
 	protected:
 		// 移動速度（どちらかというとかける力）
 		float m_moveSpeed;
@@ -234,8 +244,10 @@ namespace basecross {
 
 		// ノックバック
 		void KnockBack(const KnockBackData& data);
-		//リスポーン
-		void Respawn();
+		// 死亡
+		void Died();
+
+		void SetActive(bool flg);
 
 		// テスト関数
 		void TestFanc();
@@ -364,6 +376,27 @@ namespace basecross {
 		}
 
 	private:
+#pragma region RespawnState
+		// 通常時のステート
+		class PlayerNormalState :public ObjState<PlayerBase> {
+			PlayerNormalState() {}
+		public:
+			static shared_ptr<PlayerNormalState> Instance();
+			virtual void Enter(const shared_ptr<PlayerBase>& Obj) override;
+			virtual void Execute(const shared_ptr<PlayerBase>& Obj) override;
+			virtual void Exit(const shared_ptr<PlayerBase>& Obj) override;
+		};
+		// 死亡時のステート
+		class PlayerDiedState :public ObjState<PlayerBase> {
+			PlayerDiedState() {}
+		public:
+			static shared_ptr<PlayerDiedState> Instance();
+			virtual void Enter(const shared_ptr<PlayerBase>& Obj) override;
+			virtual void Execute(const shared_ptr<PlayerBase>& Obj) override;
+			virtual void Exit(const shared_ptr<PlayerBase>& Obj) override;
+		};
+#pragma endregion
+
 		// 武器用ステート
 #pragma region WeaponState
 		// 弾の照準や発射状態（デフォルト）

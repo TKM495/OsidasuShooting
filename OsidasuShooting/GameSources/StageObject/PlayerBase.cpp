@@ -23,7 +23,7 @@ namespace basecross {
 		m_returnTimer(0.5f), m_lastFrontDirection(Vec3(0.0f)), m_smokeTimer(0.2f),
 		m_deadCount(0), m_invincibleTimer(3.0f, true), m_isInvincible(false),
 		m_armorZeroWhenKnockBackMagnification(5), m_energyRecoveryAmount(10),
-		m_bombAimMovingDistance(20)
+		m_bombAimMovingDistance(20), m_respawnTimer(3.0f)
 	{
 		m_transformData = transData;
 		m_transformData.Scale *= 2.0f;
@@ -80,6 +80,9 @@ namespace basecross {
 		// ジャンプ＆ホバーステートマシンの構築と設定
 		m_jumpAndHoverStateMachine.reset(new StateMachine<PlayerBase>(GetThis<PlayerBase>()));
 		m_jumpAndHoverStateMachine->ChangeState(PlayerJumpState::Instance());
+		// リスポーン用ステートマシンの構築と設定
+		m_respawnStateMachine.reset(new StateMachine<PlayerBase>(GetThis<PlayerBase>()));
+		m_respawnStateMachine->ChangeState(PlayerNormalState::Instance());
 
 		// タグの追加
 		AddTag(L"Player");
@@ -93,9 +96,14 @@ namespace basecross {
 		//Debug::GetInstance()->Log(m_lastFrontDirection);
 		//m_predictionLine.Update(GetTransform()->GetPosition(),
 		//	GetTransform()->GetPosition() + m_lastFrontDirection * 5, PredictionLine::Type::Bullet);
+		Debug::GetInstance()->Log(m_initialPosition);
 	}
 
 	void PlayerBase::OnUpdate() {
+		m_respawnStateMachine->Update();
+	}
+
+	void PlayerBase::NormalUpdate() {
 		// 復帰中で接地しているかつ
 		if (m_isDuringReturn &&
 			m_groundingDecision.Calculate(GetTransform()->GetPosition())) {
@@ -388,7 +396,21 @@ namespace basecross {
 			data.Direction, data.Amount * knockBackCorrection);
 	}
 
-	void PlayerBase::Respawn() {
+	void PlayerBase::SetActive(bool flg) {
+		// 重力
+		auto gravity = GetComponent<Gravity>();
+		gravity->SetUpdateActive(flg);
+		// モデル
+		m_model.lock()->SetDrawActive(flg);
+		// 当たり判定
+		GetComponent<Collision>()->SetUpdateActive(flg);
+	}
+
+	void PlayerBase::Died() {
+		m_respawnStateMachine->ChangeState(PlayerDiedState::Instance());
+	}
+
+	void PlayerBase::DiedInit() {
 		// 復帰中に死んだ場合加害者に倒した通知を行う
 		if (m_isDuringReturn && m_aggriever.lock() != nullptr) {
 			m_aggriever.lock()->KilledPlayer();
@@ -401,12 +423,17 @@ namespace basecross {
 		ParameterReset();
 		// 速度を0に
 		GetComponent<PhysicalBehavior>()->SetVelocityZero();
+		SetActive(false);
 		// エフェクトと効果音の再生
 		GetComponent<EfkComponent>()->Play(L"Explosion");
 		SoundManager::GetInstance()->Play(L"FallSE", 0, 0.3f);
 		OnRespawn();
 		// 初期位置に戻る
 		GetTransform()->SetPosition(m_initialPosition);
+	}
+
+	void PlayerBase::RespawnInit() {
+		SetActive(true);
 		m_invincibleTimer.Reset();
 		m_isInvincible = true;
 	}
@@ -480,6 +507,39 @@ namespace basecross {
 			GetComponent<PhysicalBehavior>()->Impact(-totalVelocity * 4);
 		}
 	}
+
+	// 通常時のステート
+#pragma region PlayerNormalState
+	shared_ptr<PlayerBase::PlayerNormalState> PlayerBase::PlayerNormalState::Instance() {
+		static shared_ptr<PlayerNormalState> instance(new PlayerNormalState);
+		return instance;
+	}
+	void PlayerBase::PlayerNormalState::Enter(const shared_ptr<PlayerBase>& Obj) {}
+	void PlayerBase::PlayerNormalState::Execute(const shared_ptr<PlayerBase>& Obj) {
+		Obj->NormalUpdate();
+	}
+	void PlayerBase::PlayerNormalState::Exit(const shared_ptr<PlayerBase>& Obj) {}
+#pragma endregion
+
+	// 死亡時のステート
+#pragma region PlayerDiedState
+	shared_ptr<PlayerBase::PlayerDiedState> PlayerBase::PlayerDiedState::Instance() {
+		static shared_ptr<PlayerDiedState> instance(new PlayerDiedState);
+		return instance;
+	}
+	void PlayerBase::PlayerDiedState::Enter(const shared_ptr<PlayerBase>& Obj) {
+		Obj->DiedInit();
+		Obj->m_respawnTimer.Reset();
+	}
+	void PlayerBase::PlayerDiedState::Execute(const shared_ptr<PlayerBase>& Obj) {
+		if (Obj->m_respawnTimer.Count())
+			Obj->m_respawnStateMachine->ChangeState(PlayerNormalState::Instance());
+	}
+	void PlayerBase::PlayerDiedState::Exit(const shared_ptr<PlayerBase>& Obj) {
+		Obj->RespawnInit();
+	}
+
+#pragma endregion
 
 	// 武器用ステート
 	// 弾の照準や発射状態（デフォルト）
