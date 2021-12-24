@@ -5,13 +5,14 @@
 
 #pragma once
 #include "stdafx.h"
-#include "Manager/PlayerManager.h"
 #include "AdvancedGameObject.h"
+#include "Manager/PlayerManager.h"
+#include "Manager/StageManager.h"
+#include "StageObject/PlayerModel.h"
+#include "Utility/GroundingDecision.h"
 #include "Utility/PredictionLine.h"
 #include "Utility/TimeCounter.h"
-#include "Utility/GroundingDecision.h"
-#include "StageObject/PlayerModel.h"
-#include "Manager/StageManager.h"
+#include "Component/PhysicalBehavior.h"
 
 namespace basecross {
 	/**
@@ -24,11 +25,11 @@ namespace basecross {
 		Vec3 BulletAim;
 		// 爆弾モード時の照準操作
 		Vec3 BombAim;
+		// 撃つかどうか
+		bool IsFire;
 
 		// 爆弾モードへの切り替え（爆弾の発射も兼ねる）
 		bool IsSwitchBombMode;
-		// 必殺技発動
-		bool IsInvokeSpecialSkill;
 		// ジャンプorホバー
 		bool IsJumpOrHover;
 
@@ -36,8 +37,8 @@ namespace basecross {
 			this->MoveDirection = Vec3(0.0f);
 			this->BulletAim = Vec3(0.0f);
 			this->BombAim = Vec3(0.0f);
+			this->IsFire = false;
 			this->IsSwitchBombMode = false;
-			this->IsInvokeSpecialSkill = false;
 			this->IsJumpOrHover = false;
 		}
 	};
@@ -50,8 +51,8 @@ namespace basecross {
 		 * @brief ノックバックのタイプ
 		 */
 		enum class Category {
-			Bullet,	// 弾
-			Bomb	// 爆弾
+			Bullet, // 弾
+			Bomb    // 爆弾
 		};
 
 		// タイプ
@@ -68,15 +69,15 @@ namespace basecross {
 			Category type,
 			const Vec3& direction,
 			float amount,
-			const weak_ptr<PlayerBase>& aggriever
-		) {
+			const weak_ptr<PlayerBase>& aggriever)
+		{
 			this->Type = type;
 			this->Direction = direction;
 			this->Amount = amount;
 			this->Aggriever = aggriever;
 		}
 	};
-	class PlayerBase :public AdvancedGameObject {
+	class PlayerBase : public AdvancedGameObject {
 	private:
 		// 初期位置
 		Vec3 m_initialPosition;
@@ -84,26 +85,20 @@ namespace basecross {
 		unique_ptr<StateMachine<PlayerBase>> m_weaponStateMachine;
 		// ジャンプとホバー用のステートマシン
 		unique_ptr<StateMachine<PlayerBase>> m_jumpAndHoverStateMachine;
+		// リスポーン用のステートマシン
+		unique_ptr<StateMachine<PlayerBase>> m_respawnStateMachine;
 		// 予測線表示クラス
 		PredictionLine m_predictionLine;
 		// 爆弾の着弾ポイント
 		Vec3 m_bombPoint;
-		// 現在のホバー可能時間
-		float m_currentHoverTime;
-		// 現在のアーマー値
-		float m_currentArmorPoint;
-		// 現在の必殺技のエネルギー
-		float m_currentSkillEnergy;
+		// 現在のエネルギー値
+		float m_currentEnergy;
 		// 弾用のタイマー
 		TimeCounter m_bulletTimer;
-		// アーマー回復開始までの時間
-		TimeCounter m_armorRecoveryTimer;
 		// 爆弾のリロードタイマー
-		TimeCounter m_bombReload;
+		TimeCounter m_bombCoolTimeTimer;
 		// 爆弾の個数
 		int m_bombCount;
-		// アーマーが回復中か
-		bool m_isRestoreArmor;
 		// ジャンプ＆ホバーステート用の連続押し検出用フラグ
 		// (Stateはシングルトンであり状態が共有されてしまうため)
 		bool m_isInput;
@@ -136,6 +131,8 @@ namespace basecross {
 		TimeCounter m_smokeTimer;
 		// 無敵タイマー
 		TimeCounter m_invincibleTimer;
+		// 一定時間後にリスポーンするためのタイマー
+		TimeCounter m_respawnTimer;
 
 		//色
 		Col4 m_color;
@@ -145,10 +142,24 @@ namespace basecross {
 		// 自身のプレイヤータイプ
 		PlayerType m_playerType;
 
+		// 弾の威力
+		float m_bulletPower;
+		// 爆弾の威力
+		float m_bombPower;
+		// 弾の発射に必要なエネルギー（1発あたり）
+		float m_energyRequiredInBulletLaunch;
+		// ホバーに必要なエネルギー（1秒あたり）
+		float m_energyRequiredInHover;
+
+		// アクティブかどうか
+		bool m_isActive;
+
 		// 移動
 		void Move();
-		// 弾の照準と発射
-		void BulletAimAndLaunch();
+		// 弾の照準発射
+		Vec3 BulletAim();
+		// 弾の発射
+		void BulletLaunch(const Vec3& bulletAim);
 		// 弾の照準補正
 		Vec3 BulletAimCorrection(const Vec3& launchDirection);
 		/**
@@ -161,45 +172,58 @@ namespace basecross {
 		bool InViewRange(const Vec3& aimDirection, const Vec3& position);
 		// 爆弾の照準
 		void BombAim();
-		// 爆弾のリロード
-		void BombReload();
 		// ジャンプ
 		void Jump();
 		// ホバー
 		void Hover();
-		// ホバー可能時間回復
-		void HoverTimeRecovery();
-		// アーマーの回復
-		void ArmorRecovery();
+		// タックル
+		void Tackle() {}
+		// エネルギーの回復
+		void EnergyRecovery();
 		// 爆弾の発射
 		void BombLaunch();
-		// 必殺技の発動
-		void SpecialSkill();
-		// 特定の方向に正面を向ける
-		void TurnFrontToDirection(const Vec3& direction);
+		//// 必殺技の発動
+		// void SpecialSkill();
+		//  特定の方向に正面を向ける
+		Vec3 TurnFrontToDirection(const Vec3& direction);
 		// ホバー停止時の処理
 		void StopHover();
 		// 無敵処理
 		void Invincible();
 		// ステータスのロード
 		void StatusLoad();
+		/**
+		 * @brief エネルギーを減らす（残量 < 減らす量の場合何もしない）
+		 *
+		 * @param amount 減らす量
+		 * @return 減らせるかどうか
+		 */
+		bool DecrementEnergy(float amount);
+		// パラメータのリセット
+		void ParameterReset();
+		/**
+		 * @brief 吹っ飛びのエフェクト描画
+		 */
+		void KnockBackEffectDrawing();
+		// 通常時の更新処理
+		void NormalUpdate();
+		// 死んだときの初期化処理
+		void DiedInit();
+		// リスポーン時の初期化処理
+		void RespawnInit();
 	protected:
 		// 移動速度（どちらかというとかける力）
 		float m_moveSpeed;
 		// ジャンプ速度
 		Vec3 m_jumpVerocity;
-		// ホバー可能時間
-		float m_hoverTime;
-		// デフォルトのアーマー値
-		float m_defaultArmorPoint;
+		// デフォルトのエネルギー値
+		float m_defaultEnergy;
 		// デフォルトの爆弾の所持数
 		int m_defaultBombCount;
-		// デフォルトの必殺技のエネルギー量
-		float m_defaultSkillEnergy;
 		// アーマーが0の時のノックバック倍率
 		float m_armorZeroWhenKnockBackMagnification;
-		// アーマーの回復速度
-		float m_armorRecoveryAmount;
+		// エネルギーの回復速度
+		float m_energyRecoveryAmount;
 		// 爆弾の照準の移動速度
 		float m_bombAimMovingDistance;
 		// 補正する角度（弾の照準）
@@ -211,20 +235,25 @@ namespace basecross {
 		// リスポーン時の追加処理
 		virtual void OnRespawn() {}
 		virtual void OnStopHover() {}
+
 	public:
 		PlayerBase(const shared_ptr<Stage>& stage,
 			const TransformData& transData,
 			PlayerNumber playerNumber,
 			PlayerType playerType);
-		void OnCreate()override;
-		void OnUpdate()override;
+		void OnCreate() override;
+		void OnUpdate() override;
+		void OnCollisionEnter(shared_ptr<GameObject>& other) override;
 
 		// ノックバック
 		void KnockBack(const KnockBackData& data);
-		//リスポーン
-		void Respawn();
-		// エネルギーの追加
-		void AddEnergy(float amount);
+		// 死亡
+		void Died();
+
+		void SetActive(bool flg);
+		bool GetActive() {
+			return m_isActive;
+		}
 
 		// テスト関数
 		void TestFanc();
@@ -248,30 +277,12 @@ namespace basecross {
 		}
 
 		/**
-		 * @brief アーマーの(現在値 / 最大値)を取得する
+		 * @brief Energyの(現在値 / 最大値)を取得する
 		 *
 		 * @return (現在値 / 最大値)
 		 */
-		float GetArmorPointRate() {
-			return m_currentArmorPoint / m_defaultArmorPoint;
-		}
-
-		/**
-		 * @brief ホバー可能時間の(現在値 / 最大値)を取得する
-		 *
-		 * @return (現在値 / 最大値)
-		 */
-		float GetHoverTimeRate() {
-			return m_currentHoverTime / m_hoverTime;
-		}
-
-		/**
-		 * @brief 爆弾のリロードの時間の割合を取得する
-		 *
-		 * @return爆弾のリロードの時間の割合
-		 */
-		float GetBombReloadRate() {
-			return m_bombReload.GetTimeRate();
+		float GetEnergyRate() {
+			return m_currentEnergy / m_defaultEnergy;
 		}
 
 		/**
@@ -284,12 +295,12 @@ namespace basecross {
 		}
 
 		/**
-		 * @brief 爆弾の残弾数の割合を取得する
+		 * @brief 爆弾のクールタイムの割合を取得
 		 *
-		 * @return 割合
+		 * @return クールタイムの割合
 		 */
-		float GetBombCountRate() {
-			return (float)GetBombCount() / (float)m_defaultBombCount;
+		float GetBombCoolTimeRate() {
+			return m_bombCoolTimeTimer.GetTimeRate();
 		}
 
 		/**
@@ -362,67 +373,82 @@ namespace basecross {
 		}
 
 		/**
-		 * @brief エネルギーの割合を取得
+		 * @brief 現在の速度を取得
 		 *
-		 * @return エネルギーの割合
+		 * @return 現在の速度
 		 */
-		float GetEnergyRate() {
-			return m_currentSkillEnergy / m_defaultSkillEnergy;
+		Vec3 GetVelocity() {
+			return GetComponent<PhysicalBehavior>()->GetVelocity();
 		}
 
 	private:
+#pragma region RespawnState
+		// 通常時のステート
+		class PlayerNormalState :public ObjState<PlayerBase> {
+			PlayerNormalState() {}
+		public:
+			static shared_ptr<PlayerNormalState> Instance();
+			virtual void Enter(const shared_ptr<PlayerBase>& Obj) override;
+			virtual void Execute(const shared_ptr<PlayerBase>& Obj) override;
+			virtual void Exit(const shared_ptr<PlayerBase>& Obj) override;
+		};
+		// 死亡時のステート
+		class PlayerDiedState :public ObjState<PlayerBase> {
+			PlayerDiedState() {}
+		public:
+			static shared_ptr<PlayerDiedState> Instance();
+			virtual void Enter(const shared_ptr<PlayerBase>& Obj) override;
+			virtual void Execute(const shared_ptr<PlayerBase>& Obj) override;
+			virtual void Exit(const shared_ptr<PlayerBase>& Obj) override;
+		};
+#pragma endregion
+
 		// 武器用ステート
 #pragma region WeaponState
-	// 弾の照準や発射状態（デフォルト）
+		// 弾の照準や発射状態（デフォルト）
 		class PlayerBulletModeState : public ObjState<PlayerBase> {
 			PlayerBulletModeState() {}
+
 		public:
 			static shared_ptr<PlayerBulletModeState> Instance();
-			virtual void Enter(const shared_ptr<PlayerBase>& Obj)override;
-			virtual void Execute(const shared_ptr<PlayerBase>& Obj)override;
-			virtual void Exit(const shared_ptr<PlayerBase>& Obj)override;
+			virtual void Enter(const shared_ptr<PlayerBase>& Obj) override;
+			virtual void Execute(const shared_ptr<PlayerBase>& Obj) override;
+			virtual void Exit(const shared_ptr<PlayerBase>& Obj) override;
 		};
 
 		// 爆弾の照準や発射状態
 		class PlayerBombModeState : public ObjState<PlayerBase> {
 			PlayerBombModeState() {}
+
 		public:
 			static shared_ptr<PlayerBombModeState> Instance();
-			virtual void Enter(const shared_ptr<PlayerBase>& Obj)override;
-			virtual void Execute(const shared_ptr<PlayerBase>& Obj)override;
-			virtual void Exit(const shared_ptr<PlayerBase>& Obj)override;
-		};
-
-		// 必殺技発動状態
-		class PlayerSpecialSkillModeState : public ObjState<PlayerBase> {
-			PlayerSpecialSkillModeState() {}
-		public:
-			static shared_ptr<PlayerSpecialSkillModeState> Instance();
-			virtual void Enter(const shared_ptr<PlayerBase>& Obj)override;
-			virtual void Execute(const shared_ptr<PlayerBase>& Obj)override;
-			virtual void Exit(const shared_ptr<PlayerBase>& Obj)override;
+			virtual void Enter(const shared_ptr<PlayerBase>& Obj) override;
+			virtual void Execute(const shared_ptr<PlayerBase>& Obj) override;
+			virtual void Exit(const shared_ptr<PlayerBase>& Obj) override;
 		};
 #pragma endregion
 
 		// ジャンプとホバー用のステート
 #pragma region JumpAndHoverState
-	// ジャンプ（デフォルト）
+		// ジャンプ（デフォルト）
 		class PlayerJumpState : public ObjState<PlayerBase> {
 			PlayerJumpState() {}
+
 		public:
 			static shared_ptr<PlayerJumpState> Instance();
-			virtual void Enter(const shared_ptr<PlayerBase>& Obj)override;
-			virtual void Execute(const shared_ptr<PlayerBase>& Obj)override;
-			virtual void Exit(const shared_ptr<PlayerBase>& Obj)override;
+			virtual void Enter(const shared_ptr<PlayerBase>& Obj) override;
+			virtual void Execute(const shared_ptr<PlayerBase>& Obj) override;
+			virtual void Exit(const shared_ptr<PlayerBase>& Obj) override;
 		};
 		// ホバー
 		class PlayerHoverState : public ObjState<PlayerBase> {
 			PlayerHoverState() {}
+
 		public:
 			static shared_ptr<PlayerHoverState> Instance();
-			virtual void Enter(const shared_ptr<PlayerBase>& Obj)override;
-			virtual void Execute(const shared_ptr<PlayerBase>& Obj)override;
-			virtual void Exit(const shared_ptr<PlayerBase>& Obj)override;
+			virtual void Enter(const shared_ptr<PlayerBase>& Obj) override;
+			virtual void Execute(const shared_ptr<PlayerBase>& Obj) override;
+			virtual void Exit(const shared_ptr<PlayerBase>& Obj) override;
 		};
 #pragma endregion
 	};

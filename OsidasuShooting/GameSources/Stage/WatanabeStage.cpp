@@ -37,6 +37,7 @@ namespace basecross {
 			EfkEffectResource::RegisterEffectResource(L"Bomb", TestEffectStr + L"Bomb.efk");
 			EfkEffectResource::RegisterEffectResource(L"Smoke", TestEffectStr + L"Smoke.efk");
 			EfkEffectResource::RegisterEffectResource(L"Laser", TestEffectStr + L"Laser.efk");
+			EfkEffectResource::RegisterEffectResource(L"BombPlus", TestEffectStr + L"BombPlus.efk");
 
 			//ビューとライトの作成
 			CreateViewLight();
@@ -49,15 +50,15 @@ namespace basecross {
 
 			GameObjecttCSVBuilder builder;
 			builder.Register<Block>(L"Block");
+			builder.Register<Bumper>(L"Bumper");
 			builder.Register<PlayerBuilder>(L"Player");
+			builder.Register<FallDecision>(L"FallDecision");
 			auto dir = App::GetApp()->GetDataDirWString();
-			auto path = dir + L"Csv/Stage/Stage1";
-			path += L".csv";
+			auto path = dir + L"Csv/Stage/";
+			builder.Build(GetThis<Stage>(), path + L"StageBase.csv");
+			builder.Build(GetThis<Stage>(), path + L"Stage1.csv");
 
-			builder.Build(GetThis<Stage>(), path);
-
-			AddGameObject<FallDecision>();
-			//m_controller.SetVibration(VibrationData(1.0f, 1.0f, 1.0f));
+			AddGameObject<SimpleSprite>(L"BackGround00")->SetDrawLayer(-1);
 		}
 		catch (...) {
 			throw;
@@ -66,7 +67,8 @@ namespace basecross {
 
 	void WatanabeStage::OnUpdate() {
 		const auto& keyState = App::GetApp()->GetInputDevice().GetKeyState();
-		if (keyState.m_bPressedKeyTbl['R'])
+		const auto& con = App::GetApp()->GetInputDevice().GetControlerVec()[0];
+		if (keyState.m_bPressedKeyTbl['R'] || con.wPressedButtons & XINPUT_GAMEPAD_Y)
 			PostEvent(0.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToWatanabeStage");
 	}
 

@@ -55,7 +55,6 @@
 #include "UIs/CharaSelectUISprites.h"
 #include "UIs/CurrentFirst.h"
 #include "UIs/FreamSprite.h"
-#include "UIs/HoverTimeGauge.h"
 #include "UIs/NumberSprite.h"
 #include "UIs/PlayerFollowUI.h"
 #include "UIs/PlayerInfo.h"
@@ -83,23 +82,21 @@
 #include "Manager/PlayerBuilder.h"
 #include "Manager/SpecialSkillManager.h"
 
-//
-//
-//
-//調整したご削除してもかまいません
-//JonyMd .. release するとき削除されてください
-//JonyMd フォルダまま削除しても構いません
+
+
+//JonyMd Folder
+//Empty GameObject
+#include "JonyMd/ItemCreation.h"
+#include "JonyMd/MeteoriteCreation.h"
+//Empty GameObject
 
 //GameObject
+#include "JonyMd/Item.h"
+#include "JonyMd/Area.h"
 #include "JonyMd/Meteorite.h"
-#include "JonyMd/MeteoriteCreation.h"
 //GameObject...end
 
 //Camera
 #include "JonyMd/ShackingCamera.h"
 //Camera...end
-
-//調整したご削除してもかまいません。。。終
-//
-//
 //

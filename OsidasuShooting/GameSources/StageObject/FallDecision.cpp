@@ -7,14 +7,31 @@
 #include "Project.h"
 
 namespace basecross {
+	FallDecision::FallDecision(const shared_ptr<Stage>& stage)
+		:AdvancedGameObject(stage) {
+		m_transformData.Position = Vec3(0, -20, 0);
+		m_transformData.Scale = Vec3(200, 1, 200);
+	}
+
+	FallDecision::FallDecision(const shared_ptr<Stage>& stage, const wstring& line)
+		: AdvancedGameObject(stage)
+	{
+		auto tokens = DataExtracter::DelimitData(line);
+		m_transformData = DataExtracter::TransformDataExtraction(tokens);
+	}
+
 	void FallDecision::OnCreate() {
-		AddComponent<CollisionObb>();
+		auto collComp = AddComponent<CollisionObb>();
+		collComp->AddExcludeCollisionTag(L"FallDecision");
+		collComp->SetAfterCollision(AfterCollision::None);
+		collComp->SetDrawActive(true);
+		AddTag(L"FallDecision");
 	}
 
 	void FallDecision::OnCollisionEnter(shared_ptr<GameObject>& other) {
 		auto ptr = dynamic_pointer_cast<PlayerBase>(other);
 		if (ptr) {
-			ptr->Respawn();
+			ptr->Died();
 		}
 		else {
 			GetStage()->RemoveGameObject<GameObject>(other);

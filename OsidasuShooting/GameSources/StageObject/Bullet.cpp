@@ -1,30 +1,43 @@
 /*!
 @file   Bullet.cpp
-@brief  ’eƒNƒ‰ƒX‚ÌÀ‘Ì
+@brief  å¼¾ã‚¯ãƒ©ã‚¹ã®å®Ÿä½“
 */
 
 #include "stdafx.h"
 #include "Project.h"
 
 namespace basecross {
+	Bullet::Bullet(const shared_ptr<Stage>& stage,
+		const shared_ptr<PlayerBase>& owner,
+		const Vec3& direction,
+		float power)
+		:AdvancedGameObject(stage), m_owner(owner),
+		m_direction(direction),
+		m_speed(25.0f), m_lifeSpan(5.0f),
+		m_power(power)
+	{
+		m_transformData.Position = owner->GetTransform()->GetPosition();
+		m_transformData.Scale = Vec3(0.5f);
+	}
+
 	void Bullet::OnCreate()
 	{
-		// “–‚½‚è”»’è‚Ì’Ç‰Á
+		// å½“ãŸã‚Šåˆ¤å®šã®è¿½åŠ 
 		auto PtrColl = AddComponent<CollisionSphere>();
-		// Õ“Ë‰“š‚ğ–³‹
+		// è¡çªå¿œç­”ã‚’ç„¡è¦–
 		PtrColl->SetAfterCollision(AfterCollision::None);
-		// ƒI[ƒi[‚Æ’e‚Æ‚Ì“–‚½‚è”»’è‚ğ–³‹
+		// ã‚ªãƒ¼ãƒŠãƒ¼ã¨å¼¾ã¨ã®å½“ãŸã‚Šåˆ¤å®šã‚’ç„¡è¦–
 		PtrColl->AddExcludeCollisionGameObject(m_owner.lock());
 		PtrColl->AddExcludeCollisionTag(L"Bullet");
 
-		// ”­Ë•ûŒü‚É³–Ê‚ğŒü‚¯‚é
+		// ç™ºå°„æ–¹å‘ã«æ­£é¢ã‚’å‘ã‘ã‚‹
 		auto rad = atan2f(-m_direction.z, m_direction.x) + XM_PIDIV2;
 		m_transformData.Rotation.y = XMConvertToDegrees(rad);
 
-		// õ–½‚Ì’Ç‰Á
+		// å¯¿å‘½ã®è¿½åŠ 
 		AddComponent<LifeSpan>(m_lifeSpan);
 
-		// ƒGƒtƒFƒNƒg
+		// ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
 		auto effectTrans = m_transformData;
 		effectTrans.Position = Vec3(0.0f);
 		auto efkComp = AddComponent<EfkComponent>();
@@ -32,35 +45,32 @@ namespace basecross {
 		efkComp->SetEffectResource(L"Hit", effectTrans);
 		efkComp->Play(L"Bullet");
 
-		// ‰e
+		// å½±
 		auto shadow = AddComponent<Shadowmap>();
 		shadow->SetMeshResource(L"DEFAULT_SPHERE");
 
 		AddTag(L"Bullet");
 	}
 
-	void Bullet::OnUpdate()
-	{
+	void Bullet::OnUpdate() {
 		auto transPos = GetTransform()->GetPosition(); //(x,y,z)
 
 		float deltaTime = App::GetApp()->GetElapsedTime();
 
 		transPos += m_direction.normalize() * m_speed * deltaTime;
 		GetTransform()->SetPosition(transPos);
-
-		// ˆÊ’u‚ğ“¯Šú
+		// ä½ç½®ã‚’åŒæœŸ
 		GetComponent<EfkComponent>()->SyncPosition(L"Bullet");
 	}
 
 	void Bullet::OnDestroy() {
-		// ƒIƒuƒWƒFƒNƒgíœ‚É’e‚ÌƒGƒtƒFƒNƒg‚ğ’â~‚µA
-		// ƒqƒbƒg‚ÌƒGƒtƒFƒNƒg‚ğÄ¶
+		// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆå‰Šé™¤æ™‚ã«å¼¾ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’åœæ­¢ã—ã€
+		// ãƒ’ãƒƒãƒˆæ™‚ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’å†ç”Ÿ
 		auto efkComp = GetComponent<EfkComponent>();
 		efkComp->Stop(L"Bullet");
 		efkComp->Play(L"Hit");
 	}
-
-
+  
 	void Bullet::Reflect(shared_ptr<GameObject>& reflect) {
 		auto ptrTrans = GetTransform();
 		auto pos = ptrTrans->GetPosition();
@@ -75,18 +85,18 @@ namespace basecross {
 
 		auto reverse = -1;
 
-		// ‘S•ûŒü”½“]
+		// å…¨æ–¹å‘åè»¢
 
 		auto brockSizeX = blockHalfSize * blockScl.x;
 		auto brockSizeZ = blockHalfSize * blockScl.z;
 
-		// ‰¡•ûŒü”½“]
+		// æ¨ªæ–¹å‘åè»¢
 		if (pos.x >= blockPos.x + brockSizeX ||
 			pos.x <= blockPos.x - brockSizeX) {
 			m_direction.x *= reverse;
 		}
 
-		// c•ûŒü”½“]
+		// ç¸¦æ–¹å‘åè»¢
 		if (pos.z >= blockPos.z + brockSizeZ ||
 			pos.z <= blockPos.z - brockSizeZ) {
 			m_direction.z *= reverse;
@@ -118,12 +128,12 @@ namespace basecross {
 						KnockBackData::Category::Bullet,
 						m_direction, m_knockBackAmount, m_owner
 					);
-					// ƒmƒbƒNƒoƒbƒN
+					// ãƒãƒƒã‚¯ãƒãƒƒã‚¯
 					ptr->KnockBack(data);
 					m_owner.lock()->AddEnergy(5.0f);
 				}
 			}
-			// ©g‚ğíœ
+			// è‡ªèº«ã‚’å‰Šé™¤
 			Destroy<Bullet>();
 		}
 	}
