@@ -58,6 +58,11 @@ namespace basecross {
 			m_startCountDown = AddGameObject<StartCountDown>(TransformData());
 			AddGameObject<TransitionSprite>()->FadeOut();
 			SoundManager::GetInstance()->PlayLoop(L"Game1BGM");
+
+			//AddGameObject<ReflectorBlock>(TransformData(Vec3(0,1,-5), Vec3(2)));
+			//AddGameObject<BreakBlock>(TransformData(Vec3(0,1,2), Vec3(2)),5,3);
+			//AddGameObject<MoveBlock>(TransformData(Vec3(5, 1, -4), Vec3(2)),Vec3(-9,1,-8));
+			//AddGameObject<MoveBlock>(TransformData(Vec3(-13, 1, -4), Vec3(2)),Vec3(13,1,-8));
 		}
 		catch (...) {
 			throw;
