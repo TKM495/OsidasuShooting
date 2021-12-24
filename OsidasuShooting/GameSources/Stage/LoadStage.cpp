@@ -164,6 +164,7 @@ namespace basecross {
 		EfkEffectResource::RegisterEffectResource(L"Laser", path + L"Laser.efk");
 		EfkEffectResource::RegisterEffectResource(L"BombPlus", path + L"BombPlus.efk");
 		EfkEffectResource::RegisterEffectResource(L"Respawn", path + L"Respawn.efk");
+		EfkEffectResource::RegisterEffectResource(L"BreakBlock", path + L"BreakBlock.efk");
 
 		//他のリソースを読み込むスレッドのスタート
 		thread LoadThread(LoadResourceFunc);

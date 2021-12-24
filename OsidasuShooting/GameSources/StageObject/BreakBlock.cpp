@@ -56,6 +56,11 @@ namespace basecross {
 		auto shadowComp = AddComponent<Shadowmap>();
 		shadowComp->SetMeshResource(L"DEFAULT_CUBE");
 
+		TransformData effectTrans;
+		effectTrans.Scale = m_transformData.Scale;
+		auto efkComp = AddComponent<EfkComponent>();
+		efkComp->SetEffectResource(L"BreakBlock", effectTrans);
+
 		//auto ptrDraw = AddComponent<PNTStaticDraw>();
 		//ptrDraw->SetMeshResource(L"DEFAULT_CUBE");
 
@@ -128,6 +133,7 @@ namespace basecross {
 		}
 		else {
 			SetDrawActive(false);
+			GetComponent<EfkComponent>()->Play(L"BreakBlock");
 		}
 	}
 }
