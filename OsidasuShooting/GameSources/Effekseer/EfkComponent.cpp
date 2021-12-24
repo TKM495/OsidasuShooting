@@ -89,6 +89,13 @@ namespace basecross {
 	//	m_scale = scale;
 	//}
 
+	void EfkComponent::SetPosition(const wstring& key, const Vec3& position) {
+		if (!IsPlaying(key))
+			return;
+		auto data = m_effectDataMap[key];
+		m_manager->SetLocation(data.Handle, position.x, position.y, position.z);
+	}
+
 	bool EfkComponent::IsPlaying(const wstring& key) {
 		return m_manager->Exists(m_effectDataMap[key].Handle);
 	}
@@ -104,11 +111,9 @@ namespace basecross {
 	}
 
 	void EfkComponent::SyncPosition(const wstring& key) {
-		if (!IsPlaying(key))
-			return;
 		auto data = m_effectDataMap[key];
 		auto parentPosition = GetGameObjectPosition() + data.Offset.Position;
-		m_manager->SetLocation(data.Handle, parentPosition.x, parentPosition.y, parentPosition.z);
+		SetPosition(key, parentPosition);
 	}
 
 	Vec3 EfkComponent::GetGameObjectPosition() {

@@ -72,8 +72,6 @@ namespace basecross {
 		efkComp->SetEffectResource(L"Smoke", TransformData(Vec3(0.0f, -0.5f, 0.0f), m_transformData.Scale), true);
 		efkComp->SetEffectResource(L"BombPlus", TransformData(Vec3(0), m_transformData.Scale));
 		efkComp->SetEffectResource(L"Respawn", TransformData(Vec3(0.0f, -0.5f, 0.0f)));
-		// 落ちたときのエフェクトの代わり
-		efkComp->SetEffectResource(L"Explosion", TransformData(Vec3(0.0f), Vec3(1.0f, 5.0f, 1.0f)));
 
 		// 武器ステートマシンの構築と設定
 		m_weaponStateMachine.reset(new StateMachine<PlayerBase>(GetThis<PlayerBase>()));
@@ -429,8 +427,7 @@ namespace basecross {
 		// 速度を0に
 		GetComponent<PhysicalBehavior>()->SetVelocityZero();
 		SetActive(false);
-		// エフェクトと効果音の再生
-		GetComponent<EfkComponent>()->Play(L"Explosion");
+		// 効果音の再生
 		SoundManager::GetInstance()->Play(L"FallSE", 0, 0.3f);
 		OnRespawn();
 		// 初期位置に戻る

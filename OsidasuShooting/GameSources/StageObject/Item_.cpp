@@ -7,12 +7,13 @@ namespace basecross {
 	namespace modifiedClass {
 		void Item::OnCreate()
 		{
-			auto drawComp = AddComponent<PNTStaticDraw>();
+			auto drawComp = AddComponent<BcPNTStaticDraw>();
 			drawComp->SetMeshResource(L"DEFAULT_CAPSULE");
 
 			switch (spawnItem)
 			{
 			case ItemType::Bomb:
+				drawComp->SetDiffuse(Col4(0.5f));
 				break;
 			case ItemType::totalItems:
 				break;

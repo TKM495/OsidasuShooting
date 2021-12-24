@@ -125,6 +125,8 @@ namespace basecross {
 		 */
 		void SyncPosition(const wstring& key);
 
+		void SetPosition(const wstring& key, const Vec3& position);
+
 		/**
 		 * @brief キーのエフェクトが再生中か
 		 *

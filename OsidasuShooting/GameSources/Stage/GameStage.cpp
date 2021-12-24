@@ -106,7 +106,7 @@ namespace basecross {
 	}
 
 	void GameStage::ItemGeneration() {
-		auto flg = (int)m_countDown->GetTime() % 2 == 0;
+		auto flg = (int)m_countDown->GetTime() % 5 == 0;
 		if (flg && !m_bOnceItem) {
 			m_itemCreation->RandomlySpawn();
 			m_bOnceItem = true;
