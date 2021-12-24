@@ -10,10 +10,9 @@
 namespace basecross {
 	ReflectorBlock::ReflectorBlock(
 		const shared_ptr<Stage>& stage,
-		const TransformData transformData,
 		const wstring& line
-	):
-		Block(stage, transformData)
+	) :
+		AdvancedGameObject(stage)
 	{
 		vector<wstring> tokens;
 		Util::WStrToTokenVector(tokens, line, L',');
@@ -37,9 +36,7 @@ namespace basecross {
 	void ReflectorBlock::OnCreate() {
 		auto ptrDraw = AddComponent<PNTStaticDraw>();
 		ptrDraw->SetMeshResource(L"DEFAULT_CUBE");
-		
 
-		
 		auto ptrColl = AddComponent<CollisionObb>();
 		ptrColl->SetAfterCollision(AfterCollision::None);
 		// ÉuÉçÉbÉNÇ∆ÇÃìñÇΩÇËîªíËÇñ≥éã
@@ -60,11 +57,11 @@ namespace basecross {
 
 	void ReflectorBlock::OnUpdate() {
 		if (!m_isSetUp) {
-		//	SetUpAnimation();
+			//	SetUpAnimation();
 		}
 		else {
-		auto ptrColl = GetComponent<CollisionObb>();
-		ptrColl->SetAfterCollision(AfterCollision::Auto);
+			auto ptrColl = GetComponent<CollisionObb>();
+			ptrColl->SetAfterCollision(AfterCollision::Auto);
 		}
 
 		m_isSetUp = true;
@@ -90,7 +87,5 @@ namespace basecross {
 			}
 		}
 		GetTransform()->SetPosition(pos);
-
 	}
-
 }

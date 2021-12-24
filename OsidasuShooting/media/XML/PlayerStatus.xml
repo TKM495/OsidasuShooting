@@ -31,7 +31,7 @@
         <!--爆弾の威力-->
         <BombPower>50</BombPower>
         <!--弾の発射速度-->
-        <BulletRateOfFire>0.2</BulletRateOfFire>
+        <BulletRateOfFire>0.1</BulletRateOfFire>
         <!--爆弾のリロード速度-->
         <BombReloadSpeed>1</BombReloadSpeed>
         <!--重力-->

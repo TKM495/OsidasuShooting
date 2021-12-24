@@ -10,10 +10,9 @@
 namespace basecross {
 	BreakBlock::BreakBlock(
 		const shared_ptr<Stage>& stage,
-		const TransformData transformData,
 		const wstring& line
 	) :
-		Block(stage, transformData)
+		AdvancedGameObject(stage)
 	{
 		vector<wstring> tokens;
 		Util::WStrToTokenVector(tokens, line, L',');
@@ -34,6 +33,8 @@ namespace basecross {
 		);
 		//m_hp = (float)_wtof(tokens[14].c_str()); // HP
 		//m_wakeupTime = (float)_wtof(tokens[15].c_str()); // •œŠˆŽžŠÔ
+		m_hp = 5;
+		m_wakeupTime = 3;
 	}
 
 	void BreakBlock::OnCreate() {
@@ -60,12 +61,12 @@ namespace basecross {
 
 	void BreakBlock::OnUpdate() {
 		if (!m_isSetUp) {
-		//	SetUpAnimation();
+			//	SetUpAnimation();
 		}
 		else {
 			auto findBlock = GetDrawActive();
 			auto ptrColl = GetComponent<CollisionObb>();
-			if(findBlock) ptrColl->SetAfterCollision(AfterCollision::Auto);
+			if (findBlock) ptrColl->SetAfterCollision(AfterCollision::Auto);
 			else {
 				const auto& app = App::GetApp();
 				const auto delta = app->GetElapsedTime();
@@ -82,7 +83,6 @@ namespace basecross {
 		}
 
 		m_isSetUp = true;
-
 	}
 
 	void BreakBlock::SetUpAnimation() {
@@ -106,11 +106,10 @@ namespace basecross {
 
 	void BreakBlock::BlockDamage(float damage) {
 		if (m_nowHp >= 0) {
-			m_nowHp -= damage;		
+			m_nowHp -= damage;
 		}
 		else {
 			SetDrawActive(false);
 		}
 	}
-
 }
