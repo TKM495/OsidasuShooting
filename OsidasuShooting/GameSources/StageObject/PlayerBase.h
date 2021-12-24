@@ -13,6 +13,7 @@
 #include "Utility/PredictionLine.h"
 #include "Utility/TimeCounter.h"
 #include "Component/PhysicalBehavior.h"
+#include "Item_.h"
 
 namespace basecross {
 	/**
@@ -211,6 +212,10 @@ namespace basecross {
 		void DiedInit();
 		// リスポーン時の初期化処理
 		void RespawnInit();
+		// アイテムの効果の処理
+		void ItemEffect(modifiedClass::ItemType type);
+		// アイテムを取得したときのエフェクトをプレイヤーに追従させる
+		void ItemGetEffectSync();
 	protected:
 		// 移動速度（どちらかというとかける力）
 		float m_moveSpeed;

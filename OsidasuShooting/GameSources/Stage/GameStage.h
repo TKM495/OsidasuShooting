@@ -7,7 +7,8 @@
 #include "stdafx.h"
 #include "Effekseer/EfkInterface.h"
 #include "Utility/TimeCounter.h"
-#include "JonyMd/CountDown.h"
+#include "UIs/CountDown_.h"
+#include "StageObject/ItemCreation_.h"
 #include "UIs/GameStartAndFinish.h"
 
 namespace basecross {
@@ -26,16 +27,21 @@ namespace basecross {
 		//現在のステート
 		GameState m_gameState;
 		// タイマーの表示オブジェクト
-		shared_ptr<CountDown> m_countDown;
+		shared_ptr<modifiedClass::CountDown> m_countDown;
 		// スタート時のカウントダウン
 		shared_ptr<StartCountDown> m_startCountDown;
+		// アイテム生成オブジェクト
+		shared_ptr<modifiedClass::ItemCreation> m_itemCreation;
+		bool m_bOnceItem;
 		// 汎用的なタイマー
 		TimeCounter m_utilTimer;
 		// ビューの作成
 		void CreateViewLight();
+		void ItemGeneration();
 	public:
 		GameStage()
-			: Stage(), m_gameState(GameState::FADEOUT), m_utilTimer(0.0f)
+			: Stage(), m_gameState(GameState::FADEOUT), m_utilTimer(0.0f),
+			m_bOnceItem(false)
 		{}
 		~GameStage() {}
 

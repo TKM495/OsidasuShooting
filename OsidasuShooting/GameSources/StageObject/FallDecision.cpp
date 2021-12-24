@@ -26,11 +26,26 @@ namespace basecross {
 		collComp->SetAfterCollision(AfterCollision::None);
 		collComp->SetDrawActive(true);
 		AddTag(L"FallDecision");
+
+		auto myRot = GetTransform()->GetRotation();
+		auto efkComp = AddComponent<EfkComponent>();
+		// 落ちたときのエフェクトの代わり
+		efkComp->SetEffectResource(L"Explosion",
+			TransformData(
+				Vec3(0.0f),
+				Vec3(1.0f, 5.0f, 1.0f),
+				Utility::ConvertRadVecToDegVec(myRot))
+		);
 	}
 
 	void FallDecision::OnCollisionEnter(shared_ptr<GameObject>& other) {
 		auto ptr = dynamic_pointer_cast<PlayerBase>(other);
 		if (ptr) {
+			auto pos = other->GetComponent<Transform>()->GetPosition();
+			auto efkComp = GetComponent<EfkComponent>();
+			efkComp->Play(L"Explosion");
+			efkComp->SetPosition(L"Explosion", pos);
+
 			ptr->Died();
 		}
 		else {

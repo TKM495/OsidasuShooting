@@ -25,15 +25,6 @@ namespace basecross {
 	void GameStage::OnCreate() {
 		try {
 			AddGameObject<EfkInterface>();
-			auto efkpath = App::GetApp()->GetDataDirWString() + L"Effects/";
-			EfkEffectResource::RegisterEffectResource(L"Bullet", efkpath + L"Bullet.efk");
-			EfkEffectResource::RegisterEffectResource(L"Explosion", efkpath + L"fire.efk");
-			EfkEffectResource::RegisterEffectResource(L"Hit", efkpath + L"Hit.efk");
-			EfkEffectResource::RegisterEffectResource(L"Jump", efkpath + L"Jump.efk");
-			EfkEffectResource::RegisterEffectResource(L"Hover", efkpath + L"Hover.efk");
-			EfkEffectResource::RegisterEffectResource(L"Bomb", efkpath + L"Bomb.efk");
-			EfkEffectResource::RegisterEffectResource(L"Smoke", efkpath + L"Smoke.efk");
-			EfkEffectResource::RegisterEffectResource(L"Laser", efkpath + L"Laser.efk");
 
 			//ビューとライトの作成
 			CreateViewLight();
@@ -44,18 +35,21 @@ namespace basecross {
 
 			GameObjecttCSVBuilder builder;
 			builder.Register<Block>(L"Block");
+			builder.Register<Bumper>(L"Bumper");
 			builder.Register<PlayerBuilder>(L"Player");
+			builder.Register<FallDecision>(L"FallDecision");
 			auto dir = App::GetApp()->GetDataDirWString();
-			auto path = dir + L"Csv/Stage/Stage1";
-			path += L".csv";
+			auto path = dir + L"Csv/Stage/";
+			builder.Build(GetThis<Stage>(), path + L"StageBase.csv");
+			builder.Build(GetThis<Stage>(), path + L"Stage1.csv");
 
-			builder.Build(GetThis<Stage>(), path);
-
-			AddGameObject<FallDecision>();
 			AddGameObject<CurrentFirst>();
+			AddGameObject<modifiedClass::Area>(TransformData(Vec3(0, 0, -6), Vec3(27, 1, 21)));
 
-			m_countDown = AddGameObject<CountDown>(90.0f);
+			m_countDown = AddGameObject<modifiedClass::CountDown>(90.0f);
 			m_startCountDown = AddGameObject<StartCountDown>(TransformData());
+			m_itemCreation = AddGameObject<modifiedClass::ItemCreation>();
+
 			AddGameObject<TransitionSprite>()->FadeOut();
 			SoundManager::GetInstance()->PlayLoop(L"Game1BGM");
 
@@ -86,6 +80,8 @@ namespace basecross {
 			}
 			break;
 		case GameState::PLAYING:
+			// アイテムの生成
+			ItemGeneration();
 			if (m_countDown->GetTime() <= 0.0f) {
 				m_countDown->Stop();
 				m_utilTimer.Reset(2.0f);
@@ -112,6 +108,17 @@ namespace basecross {
 
 	void GameStage::OnDestroy() {
 		SoundManager::GetInstance()->StopAll();
+	}
+
+	void GameStage::ItemGeneration() {
+		auto flg = (int)m_countDown->GetTime() % 5 == 0;
+		if (flg && !m_bOnceItem) {
+			m_itemCreation->RandomlySpawn();
+			m_bOnceItem = true;
+		}
+		if (!flg) {
+			m_bOnceItem = false;
+		}
 	}
 
 	void GameStage::ChangeGameState(GameState state) {

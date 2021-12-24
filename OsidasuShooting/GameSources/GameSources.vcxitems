@@ -22,6 +22,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\BreakBlock.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\MoveBlock.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\ReflectorBlock.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\area_.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Item_.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\ItemCreation_.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUILetter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\SoundManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\CharacterSelectStage.h" />
@@ -44,6 +47,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUISprites.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CountDown_.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\FreamSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\PlayerModel.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\LoadStage.h" />
@@ -107,6 +111,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\BreakBlock.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\MoveBlock.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\ReflectorBlock.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\area_.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Item_.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\ItemCreation_.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUILetter.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\SoundManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\CharacterSelectStage.cpp" />
@@ -127,6 +134,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\PlayerBuilder.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUISprites.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CountDown_.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\FreamSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\PlayerModel.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\LoadStage.cpp" />

@@ -72,8 +72,6 @@ namespace basecross {
 		efkComp->SetEffectResource(L"Smoke", TransformData(Vec3(0.0f, -0.5f, 0.0f), m_transformData.Scale), true);
 		efkComp->SetEffectResource(L"BombPlus", TransformData(Vec3(0), m_transformData.Scale));
 		efkComp->SetEffectResource(L"Respawn", TransformData(Vec3(0.0f, -0.5f, 0.0f)));
-		// 落ちたときのエフェクトの代わり
-		efkComp->SetEffectResource(L"Explosion", TransformData(Vec3(0.0f), Vec3(1.0f, 5.0f, 1.0f)));
 
 		// 武器ステートマシンの構築と設定
 		m_weaponStateMachine.reset(new StateMachine<PlayerBase>(GetThis<PlayerBase>()));
@@ -90,6 +88,7 @@ namespace basecross {
 
 		// 各値の初期化
 		ParameterReset();
+		m_bombCount = m_defaultBombCount;
 		m_initialPosition = GetTransform()->GetPosition();
 		SoundManager::GetInstance()->InitPlayOverlap(L"HoverSE", 0.06f);
 		// 接地判定の情報を初期化
@@ -145,6 +144,7 @@ namespace basecross {
 		m_bombCoolTimeTimer.Count();
 		// 吹っ飛びエフェクトの描画
 		KnockBackEffectDrawing();
+		ItemGetEffectSync();
 	}
 
 	void PlayerBase::Move() {
@@ -361,7 +361,6 @@ namespace basecross {
 
 	void PlayerBase::ParameterReset() {
 		m_currentEnergy = m_defaultEnergy;
-		m_bombCount = m_defaultBombCount;
 	}
 
 	void PlayerBase::KnockBack(const KnockBackData& data) {
@@ -428,8 +427,7 @@ namespace basecross {
 		// 速度を0に
 		GetComponent<PhysicalBehavior>()->SetVelocityZero();
 		SetActive(false);
-		// エフェクトと効果音の再生
-		GetComponent<EfkComponent>()->Play(L"Explosion");
+		// 効果音の再生
 		SoundManager::GetInstance()->Play(L"FallSE", 0, 0.3f);
 		OnRespawn();
 		// 初期位置に戻る
@@ -468,15 +466,38 @@ namespace basecross {
 		}
 	}
 
+	void PlayerBase::ItemEffect(modifiedClass::ItemType type) {
+		switch (type)
+		{
+		case modifiedClass::ItemType::Bomb:
+			if (m_bombCount < 9) {
+				// 爆弾の残弾を増やす
+				m_bombCount++;
+				GetComponent<EfkComponent>()->Play(L"BombPlus");
+			}
+			break;
+			//case modifiedClass::Item::ItemType::Energy:
+			//	Debug::GetInstance()->Log(L"Energy");
+			//	break;
+			//case modifiedClass::Item::ItemType::Debuff:
+			//	Debug::GetInstance()->Log(L"Debuff");
+			//	break;
+		default:
+			break;
+		}
+	}
+
+	void PlayerBase::ItemGetEffectSync() {
+		GetComponent<EfkComponent>()->SyncPosition(L"BombPlus");
+	}
+
 	void PlayerBase::TestFanc() {
 		const auto& keyState = App::GetApp()->GetInputDevice().GetKeyState();
 		// アーマーを0にする
 		if (keyState.m_bPressedKeyTbl['0']) {
 			m_currentEnergy = 0.0f;
 			Debug::GetInstance()->Log(L"Test:Energy0");
-			GetComponent<EfkComponent>()->Play(L"BombPlus");
 		}
-		GetComponent<EfkComponent>()->SyncPosition(L"BombPlus");
 
 		if (keyState.m_bPressedKeyTbl['1'] &&
 			m_playerNumber == PlayerNumber::P1) {
@@ -506,13 +527,22 @@ namespace basecross {
 
 	void PlayerBase::OnCollisionEnter(shared_ptr<GameObject>& other) {
 		// 衝突したオブジェクトがプレイヤーの場合
-		auto ptr = dynamic_pointer_cast<Bumper>(other);
-		if (ptr) {
+		auto bumperPtr = dynamic_pointer_cast<Bumper>(other);
+		if (bumperPtr) {
 			auto gravity = GetComponent<Gravity>()->GetGravityVelocity();
 			auto totalVelocity = GetVelocity() + gravity;
 			//Debug::GetInstance()->Log(gravity);
 			// ノックバック
 			GetComponent<PhysicalBehavior>()->Impact(-totalVelocity * 4);
+		}
+
+		// アイテムの場合
+		auto itemPtr = dynamic_pointer_cast<modifiedClass::Item>(other);
+		if (itemPtr) {
+			// 効果音の再生
+			SoundManager::GetInstance()->Play(L"GetItemSE", 0, 0.3f);
+			ItemEffect(itemPtr->GetItemType());
+			GetStage()->RemoveGameObject<GameObject>(other);
 		}
 	}
 
@@ -589,10 +619,10 @@ namespace basecross {
 			// 爆弾を発射
 			Obj->BombLaunch();
 			// 残弾を減らす
-			//Obj->m_bombCount--;
+			Obj->m_bombCount--;
 		}
 		else {
-			SoundManager::GetInstance()->Play(L"EmptyBombSE", 0, 0.3f);
+			//SoundManager::GetInstance()->Play(L"EmptyBombSE", 0, 0.3f);
 		}
 		// 爆弾モードを終了（弾モードへ遷移）
 		if (!Obj->m_inputData.IsSwitchBombMode) {
