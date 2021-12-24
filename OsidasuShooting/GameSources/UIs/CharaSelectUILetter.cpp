@@ -1,6 +1,6 @@
 /*!
 @file CharaSelectUILetter.cpp
-@brief ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã‚»ãƒ¬ã‚¯ãƒˆç”»é¢ã®æ–‡å­—UIã®å®Ÿä½“
+@brief ƒLƒƒƒ‰ƒNƒ^[ƒZƒŒƒNƒg‰æ–Ê‚Ì•¶šUI‚ÌÀ‘Ì
 */
 
 #include "stdafx.h"
@@ -9,12 +9,12 @@
 namespace basecross
 {
 	void BaseSprite::CreateSprite(wstring textureKey, float sideSize, float fSidSize, float highSize, float fHigSize) {
-		m_textureKey = textureKey;	// ãƒ†ã‚¯ã‚¹ãƒãƒ£
-		m_sideSize = sideSize;		// æ¨ªå¹…
-		m_highSize = highSize;		// ç¸¦å¹…
+		m_textureKey = textureKey;	// ƒeƒNƒXƒ`ƒƒ
+		m_sideSize = sideSize;		// ‰¡•
+		m_highSize = highSize;		// c•
 
-		m_fSidSize = fSidSize;		// ä½¿ç”¨ã™ã‚‹ç”»åƒã®æ¨ªå¹…å…¨ä½“
-		m_fHigSize = fHigSize;		// ä½¿ç”¨ã™ã‚‹ç”»åƒã®ç¸¦å¹…å…¨ä½“
+		m_fSidSize = fSidSize;		// g—p‚·‚é‰æ‘œ‚Ì‰¡•‘S‘Ì
+		m_fHigSize = fHigSize;		// g—p‚·‚é‰æ‘œ‚Ìc•‘S‘Ì
 
 		Col4 color = { 1.0f,1.0f,1.0f,1.0f };
 		vector<VertexPositionColorTexture> vertices = {
@@ -56,7 +56,7 @@ namespace basecross
 
 	//-----------------------------------------------------------------//
 
-	// CharacterSelectã¨æ›¸ã‹ã‚ŒãŸã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®æƒ…å ±
+	// CharacterSelect‚Æ‘‚©‚ê‚½ƒXƒvƒ‰ƒCƒg‚ğ•\¦‚·‚é‚½‚ß‚Ìî•ñ
 	void CharacterStringUI::OnCreate() {
 		auto wstring = L"CharacterSelect";
 		auto sideSize = 1024.0f;
@@ -69,7 +69,7 @@ namespace basecross
 
 	//-----------------------------------------------------------------//
 
-	// ã‚±ãƒƒãƒ†ã‚¤(æ±ºå®š)ã¨æ›¸ã‹ã‚ŒãŸã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®æƒ…å ±
+	// ƒPƒbƒeƒC(Œˆ’è)‚Æ‘‚©‚ê‚½ƒXƒvƒ‰ƒCƒg‚ğ•\¦‚·‚é‚½‚ß‚Ìî•ñ
 	void DecisionSpriteUI::OnCreate(){
 		auto wstring = L"Decision";
 		auto sideSize = 512.0f;
@@ -82,7 +82,7 @@ namespace basecross
 
 	//-----------------------------------------------------------------//
 
-	// ã‚­ãƒ£ãƒ³ã‚»ãƒ«ã¨æ›¸ã‹ã‚ŒãŸã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®æƒ…å ±
+	// ƒLƒƒƒ“ƒZƒ‹‚Æ‘‚©‚ê‚½ƒXƒvƒ‰ƒCƒg‚ğ•\¦‚·‚é‚½‚ß‚Ìî•ñ
 	void CancelSpriteUI::OnCreate() {
 		auto wstring = L"Cancel";
 		auto sideSize = 512.0f;
@@ -95,7 +95,7 @@ namespace basecross
 
 	//-----------------------------------------------------------------//
 	// 
-	// ãƒ¢ãƒ‰ãƒ«(æˆ»ã‚‹)ã¨æ›¸ã‹ã‚ŒãŸã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®æƒ…å ±
+	// ƒ‚ƒhƒ‹(–ß‚é)‚Æ‘‚©‚ê‚½ƒXƒvƒ‰ƒCƒg‚ğ•\¦‚·‚é‚½‚ß‚Ìî•ñ
 	void GoToTitleSpriteUI::OnCreate() {
 		auto wstring = L"GoToTitle";
 		auto sideSize = 512.0f;
@@ -108,7 +108,7 @@ namespace basecross
 
 	//-----------------------------------------------------------------//
 
-	// ã‚¹ã‚¹ãƒ (é€²ã‚€)ã¨æ›¸ã‹ã‚ŒãŸã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®æƒ…å ±
+	// ƒXƒXƒ€(i‚Ş)‚Æ‘‚©‚ê‚½ƒXƒvƒ‰ƒCƒg‚ğ•\¦‚·‚é‚½‚ß‚Ìî•ñ
 	void GoToSelectSpriteUI::OnCreate() {
 		auto wstring = L"GoToSelect";
 		auto sideSize = 512.0f;
@@ -121,7 +121,7 @@ namespace basecross
 
 	//-----------------------------------------------------------------//
 
-	// Aã¨æ›¸ã‹ã‚ŒãŸã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®æƒ…å ±
+	// A‚Æ‘‚©‚ê‚½ƒXƒvƒ‰ƒCƒg‚ğ•\¦‚·‚é‚½‚ß‚Ìî•ñ
 	void AButtonSpriteUI::OnCreate() {
 		auto wstring = L"AButton";
 		auto sideSize = 256.0f;
@@ -134,7 +134,7 @@ namespace basecross
 
 	//-----------------------------------------------------------------//
 
-	// Bã¨æ›¸ã‹ã‚ŒãŸã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®æƒ…å ±
+	// B‚Æ‘‚©‚ê‚½ƒXƒvƒ‰ƒCƒg‚ğ•\¦‚·‚é‚½‚ß‚Ìî•ñ
 	void BButtonSpriteUI::OnCreate() {
 		auto wstring = L"BButton";
 		auto sideSize = 256.0f;
@@ -147,7 +147,7 @@ namespace basecross
 
 	//-----------------------------------------------------------------//
 
-	// ReadytoFightã¨æ›¸ã‹ã‚ŒãŸã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®æƒ…å ±
+	// ReadytoFight‚Æ‘‚©‚ê‚½ƒXƒvƒ‰ƒCƒg‚ğ•\¦‚·‚é‚½‚ß‚Ìî•ñ
 	void ReadyToFightUI::OnCreate() {
 		auto wstring = L"ReadyToFight";
 		auto sideSize = 1024.0f;
@@ -168,7 +168,7 @@ namespace basecross
 
 	//-----------------------------------------------------------------//
 
-	// OK!!ã¨æ›¸ã‹ã‚ŒãŸã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®æƒ…å ±
+	// OK!!‚Æ‘‚©‚ê‚½ƒXƒvƒ‰ƒCƒg‚ğ•\¦‚·‚é‚½‚ß‚Ìî•ñ
 	void OKSpriteUI::OnCreate() {
 		auto wstring = L"OK";
 		auto sideSize = 256.0f;

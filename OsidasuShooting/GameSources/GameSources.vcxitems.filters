@@ -361,6 +361,18 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\area.cpp">
       <Filter>StageObject\JonyMd</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CountDown_.cpp">
+      <Filter>UI\CountDownTimer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\area_.cpp">
+      <Filter>StageObject\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Item_.cpp">
+      <Filter>StageObject\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\ItemCreation_.cpp">
+      <Filter>StageObject\Item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -601,6 +613,18 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\area.h">
       <Filter>StageObject\JonyMd</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CountDown_.h">
+      <Filter>UI\CountDownTimer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\area_.h">
+      <Filter>StageObject\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Item_.h">
+      <Filter>StageObject\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\ItemCreation_.h">
+      <Filter>StageObject\Item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -866,6 +890,12 @@
     </Filter>
     <Filter Include="UI\PlayerInfo">
       <UniqueIdentifier>{f612adde-52c8-447e-8bc5-849448ad1fe8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\CountDownTimer">
+      <UniqueIdentifier>{e406b862-d96c-4dd6-afad-2591ad7be52c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StageObject\Item">
+      <UniqueIdentifier>{9d9f93b8-7e24-4920-ac6a-fc8b17ccdd48}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

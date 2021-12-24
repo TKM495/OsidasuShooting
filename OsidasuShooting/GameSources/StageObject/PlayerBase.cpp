@@ -468,6 +468,23 @@ namespace basecross {
 		}
 	}
 
+	void PlayerBase::ItemEffect(modifiedClass::Item::ItemType type) {
+		switch (type)
+		{
+		case modifiedClass::Item::ItemType::Bomb:
+			Debug::GetInstance()->Log(L"Bomb");
+			break;
+		case modifiedClass::Item::ItemType::Energy:
+			Debug::GetInstance()->Log(L"Energy");
+			break;
+		case modifiedClass::Item::ItemType::Debuff:
+			Debug::GetInstance()->Log(L"Debuff");
+			break;
+		default:
+			break;
+		}
+	}
+
 	void PlayerBase::TestFanc() {
 		const auto& keyState = App::GetApp()->GetInputDevice().GetKeyState();
 		// アーマーを0にする
@@ -506,13 +523,20 @@ namespace basecross {
 
 	void PlayerBase::OnCollisionEnter(shared_ptr<GameObject>& other) {
 		// 衝突したオブジェクトがプレイヤーの場合
-		auto ptr = dynamic_pointer_cast<Bumper>(other);
-		if (ptr) {
+		auto bumperPtr = dynamic_pointer_cast<Bumper>(other);
+		if (bumperPtr) {
 			auto gravity = GetComponent<Gravity>()->GetGravityVelocity();
 			auto totalVelocity = GetVelocity() + gravity;
 			//Debug::GetInstance()->Log(gravity);
 			// ノックバック
 			GetComponent<PhysicalBehavior>()->Impact(-totalVelocity * 4);
+		}
+
+		// アイテムの場合
+		auto itemPtr = dynamic_pointer_cast<modifiedClass::Item>(other);
+		if (itemPtr) {
+			ItemEffect(itemPtr->GetItemType());
+			GetStage()->RemoveGameObject<GameObject>(other);
 		}
 	}
 
@@ -592,7 +616,7 @@ namespace basecross {
 			//Obj->m_bombCount--;
 		}
 		else {
-			SoundManager::GetInstance()->Play(L"EmptyBombSE", 0, 0.3f);
+			//SoundManager::GetInstance()->Play(L"EmptyBombSE", 0, 0.3f);
 		}
 		// 爆弾モードを終了（弾モードへ遷移）
 		if (!Obj->m_inputData.IsSwitchBombMode) {
