@@ -57,6 +57,7 @@ namespace basecross {
 		app->RegisterTexture(L"BarGauge", path + L"BarGauge.png");
 		app->RegisterTexture(L"GaugeColor", path + L"GaugeColor.png");
 		app->RegisterTexture(L"Block", path + L"Block.png");
+		app->RegisterTexture(L"BreakBlock", path + L"BreakBlock.png");
 		app->RegisterTexture(L"Winner", path + L"Winner.png");
 
 		app->RegisterTexture(L"BombBack", path + L"BombBackGround.png");

@@ -38,14 +38,32 @@ namespace basecross {
 	}
 
 	void BreakBlock::OnCreate() {
-		auto ptrDraw = AddComponent<PNTStaticDraw>();
-		ptrDraw->SetMeshResource(L"DEFAULT_CUBE");
+		vector<VertexPositionNormalTexture> vertices;
+		vector<uint16_t> indices;
 
-		auto ptrColl = AddComponent<CollisionObb>();
-		ptrColl->SetAfterCollision(AfterCollision::None);
-		// ブロックとの当たり判定を無視
-		ptrColl->AddExcludeCollisionTag(L"Block");
-		ptrColl->SetFixed(true);
+		AdvancedMeshUtil::CreateCube(3.0f, m_transformData.Scale, vertices, indices);
+
+		auto drawComp = AddComponent<PNTStaticDraw>();
+		drawComp->CreateOriginalMesh(vertices, indices);
+		drawComp->SetOriginalMeshUse(true);
+		drawComp->SetTextureResource(L"BreakBlock");
+		drawComp->SetOwnShadowActive(true);
+		drawComp->SetSamplerState(SamplerState::LinearWrap);
+
+		auto collComp = AddComponent<CollisionObb>();
+		collComp->SetFixed(true);
+
+		auto shadowComp = AddComponent<Shadowmap>();
+		shadowComp->SetMeshResource(L"DEFAULT_CUBE");
+
+		//auto ptrDraw = AddComponent<PNTStaticDraw>();
+		//ptrDraw->SetMeshResource(L"DEFAULT_CUBE");
+
+		//auto ptrColl = AddComponent<CollisionObb>();
+		//ptrColl->SetAfterCollision(AfterCollision::None);
+		//// ブロックとの当たり判定を無視
+		//ptrColl->AddExcludeCollisionTag(L"Block");
+		//ptrColl->SetFixed(true);
 
 		//// 本来の一個下に設置
 		//m_setPosition = GetTransform()->GetPosition();
@@ -66,11 +84,11 @@ namespace basecross {
 		else {
 			auto findBlock = GetDrawActive();
 			auto ptrColl = GetComponent<CollisionObb>();
-			if (findBlock) ptrColl->SetAfterCollision(AfterCollision::Auto);
+			if (findBlock) ptrColl->SetUpdateActive(true);
 			else {
 				const auto& app = App::GetApp();
 				const auto delta = app->GetElapsedTime();
-				ptrColl->SetAfterCollision(AfterCollision::None);
+				ptrColl->SetUpdateActive(false);
 				if (m_wakeupTime >= m_nowTime) {
 					m_nowTime += delta;
 				}
