@@ -5,7 +5,7 @@ namespace basecross {
 	namespace modifiedClass {
 		void ItemCreation::OnCreate()
 		{
-			YPosition = 10.0f;
+			YPosition = 20.0f;
 			isUniquePosition = false;
 			spawnArea = SpawnArea::Block;
 		}

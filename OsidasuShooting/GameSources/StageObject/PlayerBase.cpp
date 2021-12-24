@@ -90,6 +90,7 @@ namespace basecross {
 
 		// Še’l‚Ì‰Šú‰»
 		ParameterReset();
+		m_bombCount = m_defaultBombCount;
 		m_initialPosition = GetTransform()->GetPosition();
 		SoundManager::GetInstance()->InitPlayOverlap(L"HoverSE", 0.06f);
 		// Ú’n”»’è‚Ìî•ñ‚ð‰Šú‰»
@@ -145,6 +146,7 @@ namespace basecross {
 		m_bombCoolTimeTimer.Count();
 		// ‚Á”ò‚ÑƒGƒtƒFƒNƒg‚Ì•`‰æ
 		KnockBackEffectDrawing();
+		ItemGetEffectSync();
 	}
 
 	void PlayerBase::Move() {
@@ -361,7 +363,6 @@ namespace basecross {
 
 	void PlayerBase::ParameterReset() {
 		m_currentEnergy = m_defaultEnergy;
-		m_bombCount = m_defaultBombCount;
 	}
 
 	void PlayerBase::KnockBack(const KnockBackData& data) {
@@ -472,17 +473,25 @@ namespace basecross {
 		switch (type)
 		{
 		case modifiedClass::Item::ItemType::Bomb:
-			Debug::GetInstance()->Log(L"Bomb");
+			if (m_bombCount < 9) {
+				// ”š’e‚ÌŽc’e‚ð‘‚â‚·
+				m_bombCount++;
+				GetComponent<EfkComponent>()->Play(L"BombPlus");
+			}
 			break;
-		case modifiedClass::Item::ItemType::Energy:
-			Debug::GetInstance()->Log(L"Energy");
-			break;
-		case modifiedClass::Item::ItemType::Debuff:
-			Debug::GetInstance()->Log(L"Debuff");
-			break;
+			//case modifiedClass::Item::ItemType::Energy:
+			//	Debug::GetInstance()->Log(L"Energy");
+			//	break;
+			//case modifiedClass::Item::ItemType::Debuff:
+			//	Debug::GetInstance()->Log(L"Debuff");
+			//	break;
 		default:
 			break;
 		}
+	}
+
+	void PlayerBase::ItemGetEffectSync() {
+		GetComponent<EfkComponent>()->SyncPosition(L"BombPlus");
 	}
 
 	void PlayerBase::TestFanc() {
@@ -491,9 +500,7 @@ namespace basecross {
 		if (keyState.m_bPressedKeyTbl['0']) {
 			m_currentEnergy = 0.0f;
 			Debug::GetInstance()->Log(L"Test:Energy0");
-			GetComponent<EfkComponent>()->Play(L"BombPlus");
 		}
-		GetComponent<EfkComponent>()->SyncPosition(L"BombPlus");
 
 		if (keyState.m_bPressedKeyTbl['1'] &&
 			m_playerNumber == PlayerNumber::P1) {
@@ -613,7 +620,7 @@ namespace basecross {
 			// ”š’e‚ð”­ŽË
 			Obj->BombLaunch();
 			// Žc’e‚ðŒ¸‚ç‚·
-			//Obj->m_bombCount--;
+			Obj->m_bombCount--;
 		}
 		else {
 			//SoundManager::GetInstance()->Play(L"EmptyBombSE", 0, 0.3f);

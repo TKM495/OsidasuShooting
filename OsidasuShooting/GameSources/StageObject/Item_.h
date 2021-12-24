@@ -16,8 +16,8 @@ namespace basecross {
 				//Cube,
 				//Sphere,
 				Bomb,
-				Energy,
-				Debuff,
+				//Energy,
+				//Debuff,
 				totalItems // do not delete , used for randomly get above value
 			};
 			ItemType spawnItem;
