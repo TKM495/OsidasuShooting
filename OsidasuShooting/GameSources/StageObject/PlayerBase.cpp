@@ -539,6 +539,8 @@ namespace basecross {
 		// ƒAƒCƒeƒ€‚Ìê‡
 		auto itemPtr = dynamic_pointer_cast<modifiedClass::Item>(other);
 		if (itemPtr) {
+			// Œø‰Ê‰¹‚ÌÄ¶
+			SoundManager::GetInstance()->Play(L"GetItemSE", 0, 0.3f);
 			ItemEffect(itemPtr->GetItemType());
 			GetStage()->RemoveGameObject<GameObject>(other);
 		}
