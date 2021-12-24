@@ -346,11 +346,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\StageManager.cpp">
       <Filter>Manager\StageManager</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Manager\SpecialSkillManager.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\InfoGauge.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\ReflectorBlock.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\BreakBlock.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\MoveBlock.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\ItemCreation.cpp">
       <Filter>StageObject\JonyMd</Filter>
     </ClCompile>
@@ -371,6 +366,21 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\ItemCreation_.cpp">
       <Filter>StageObject\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\InfoGauge.cpp">
+      <Filter>UI\InfoGauge</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Manager\SpecialSkillManager.cpp">
+      <Filter>Manager\SpecialSkillManager</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\ReflectorBlock.cpp">
+      <Filter>StageObject\Block</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\MoveBlock.cpp">
+      <Filter>StageObject\Block</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\BreakBlock.cpp">
+      <Filter>StageObject\Block</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -598,10 +608,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\StageManager.h">
       <Filter>Manager\StageManager</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\InfoGauge.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\ReflectorBlock.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\BreakBlock.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\MoveBlock.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\SpecialSkillManager.h">
       <Filter>Manager\SpecialSkillManager</Filter>
     </ClInclude>
@@ -625,6 +631,18 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\ItemCreation_.h">
       <Filter>StageObject\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\InfoGauge.h">
+      <Filter>UI\InfoGauge</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\ReflectorBlock.h">
+      <Filter>StageObject\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\MoveBlock.h">
+      <Filter>StageObject\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\BreakBlock.h">
+      <Filter>StageObject\Block</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
