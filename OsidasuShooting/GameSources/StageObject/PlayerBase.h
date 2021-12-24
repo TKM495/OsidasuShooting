@@ -213,7 +213,7 @@ namespace basecross {
 		// リスポーン時の初期化処理
 		void RespawnInit();
 		// アイテムの効果の処理
-		void ItemEffect(modifiedClass::Item::ItemType type);
+		void ItemEffect(modifiedClass::ItemType type);
 		// アイテムを取得したときのエフェクトをプレイヤーに追従させる
 		void ItemGetEffectSync();
 	protected:

@@ -7,16 +7,25 @@ namespace basecross {
 	namespace modifiedClass {
 		void Item::OnCreate()
 		{
-			auto drawComp = AddComponent<BcPNTStaticDraw>();
-			drawComp->SetMeshResource(L"DEFAULT_CUBE");
+			auto drawComp = AddComponent<PNTStaticDraw>();
+			drawComp->SetMeshResource(L"DEFAULT_CAPSULE");
 
+			switch (spawnItem)
+			{
+			case ItemType::Bomb:
+				break;
+			case ItemType::totalItems:
+				break;
+			default:
+				break;
+			}
 			auto transform = GetComponent<Transform>();
 
 			auto gravity = AddComponent<Gravity>();
 			auto collision = AddComponent<CollisionObb>();
 
 			auto shadowComp = AddComponent<Shadowmap>();
-			shadowComp->SetMeshResource(L"DEFAULT_CUBE");
+			shadowComp->SetMeshResource(L"DEFAULT_CAPSULE");
 		}
 	}
 }

@@ -3,24 +3,24 @@
 
 namespace basecross {
 	namespace modifiedClass {
+		enum class ItemType {
+			//Cube,
+			//Sphere,
+			Bomb,
+			//Energy,
+			//Debuff,
+			totalItems // do not delete , used for randomly get above value
+		};
 		class Item : public GameObject
 		{
+			ItemType spawnItem;
+
 		public:
-			Item(const shared_ptr<Stage>& stage)
-				:GameObject(stage)
+			Item(const shared_ptr<Stage>& stage, ItemType type)
+				:GameObject(stage), spawnItem(type)
 			{}
 
 			void OnCreate() override;
-
-			enum class ItemType {
-				//Cube,
-				//Sphere,
-				Bomb,
-				//Energy,
-				//Debuff,
-				totalItems // do not delete , used for randomly get above value
-			};
-			ItemType spawnItem;
 
 			ItemType GetItemType()
 			{

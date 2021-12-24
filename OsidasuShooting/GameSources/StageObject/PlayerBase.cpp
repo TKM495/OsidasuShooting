@@ -469,10 +469,10 @@ namespace basecross {
 		}
 	}
 
-	void PlayerBase::ItemEffect(modifiedClass::Item::ItemType type) {
+	void PlayerBase::ItemEffect(modifiedClass::ItemType type) {
 		switch (type)
 		{
-		case modifiedClass::Item::ItemType::Bomb:
+		case modifiedClass::ItemType::Bomb:
 			if (m_bombCount < 9) {
 				// ”š’e‚ÌŽc’e‚ð‘‚â‚·
 				m_bombCount++;

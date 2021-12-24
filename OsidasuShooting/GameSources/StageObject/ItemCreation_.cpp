@@ -27,21 +27,21 @@ namespace basecross {
 			int index = rand() % areaPositionList.size();
 			//setting random position...end
 
+			//for the enum class ItemType
+			int totalItems = (int)ItemType::totalItems; //last enum member used as total members
+			srand(time(0));
+			int randItems = rand() % totalItems;
+			auto itemType = static_cast<ItemType>(randItems); //assigning random value to the enum to set the current enum member
+			//for the enum class ItemType ...end
+
 			//spawn on that position
-			auto spawn = GetStage()->AddGameObject<Item>();
+			auto spawn = GetStage()->AddGameObject<Item>(itemType);
 			spawn->GetComponent<Transform>()->SetPosition(areaPositionList[index]);
 			if (spawnScale == Vec3(0, 0, 0))
 			{
 				spawnScale = spawn->GetComponent<Transform>()->GetScale();
 			}
 			//spawn on that position...end
-
-			//for the enum class ItemType
-			int totalItems = (int)Item::ItemType::totalItems; //last enum member used as total members
-			srand(time(0));
-			int randItems = rand() % totalItems;
-			spawn->spawnItem = static_cast<Item::ItemType>(randItems); //assigning random value to the enum to set the current enum member
-			//for the enum class ItemType ...end
 
 			//changing Shape according enum value
 			//auto currentItem = spawn->spawnItem;
