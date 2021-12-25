@@ -10,10 +10,9 @@
 namespace basecross {
 	MoveBlock::MoveBlock(
 		const shared_ptr<Stage>& stage,
-		const TransformData transformData,
 		const wstring& line
 	) :
-		Block(stage, transformData)
+		AdvancedGameObject(stage)
 	{
 		vector<wstring> tokens;
 		Util::WStrToTokenVector(tokens, line, L',');
@@ -78,7 +77,6 @@ namespace basecross {
 
 		auto rootMoving = m_moveRoot * delta * 0.1f;// ˆÚ“®
 
-
 		if (!m_isWait) {
 			if (m_startPosition.x >= m_markPosition.x) {// m_startPos‚Ì•û‚ª‘å‚«‚¢ê‡
 				if (pos.x > m_startPosition.x ||
@@ -107,7 +105,7 @@ namespace basecross {
 			if (m_isReturnBlock) pos -= rootMoving;
 			else pos += rootMoving;
 
-			if(!m_isWait) ptrTrans->SetPosition(pos);
+			if (!m_isWait) ptrTrans->SetPosition(pos);
 		}
 		else {
 			if (m_waitTime > 1) {
@@ -150,5 +148,4 @@ namespace basecross {
 		}
 		GetTransform()->SetPosition(pos);
 	}
-
 }

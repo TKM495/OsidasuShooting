@@ -70,7 +70,7 @@ namespace basecross {
 		efkComp->Stop(L"Bullet");
 		efkComp->Play(L"Hit");
 	}
-  
+
 	void Bullet::Reflect(shared_ptr<GameObject>& reflect) {
 		auto ptrTrans = GetTransform();
 		auto pos = ptrTrans->GetPosition();
@@ -107,7 +107,6 @@ namespace basecross {
 
 		ptrEfk->SetRotation(L"Bullet", rot);
 		ptrTrans->SetRotation(rot);
-
 	}
 
 	void Bullet::OnCollisionEnter(shared_ptr<GameObject>& other)
@@ -119,18 +118,16 @@ namespace basecross {
 			if (other->FindTag(L"Break")) {
 				auto breakBlock = dynamic_pointer_cast<BreakBlock>(other);
 				breakBlock->BlockDamage(1);
-
 			}
 			else {
 				auto ptr = dynamic_pointer_cast<PlayerBase>(other);
 				if (ptr) {
 					KnockBackData data(
 						KnockBackData::Category::Bullet,
-						m_direction, m_knockBackAmount, m_owner
+						m_direction, m_power, m_owner
 					);
 					// ノックバック
 					ptr->KnockBack(data);
-					m_owner.lock()->AddEnergy(5.0f);
 				}
 			}
 			// 自身を削除

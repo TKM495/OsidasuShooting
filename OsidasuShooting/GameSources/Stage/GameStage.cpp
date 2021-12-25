@@ -36,6 +36,8 @@ namespace basecross {
 			GameObjecttCSVBuilder builder;
 			builder.Register<Block>(L"Block");
 			builder.Register<Bumper>(L"Bumper");
+			builder.Register<ReflectorBlock>(L"Reflecter");
+			builder.Register<BreakBlock>(L"BreakableBlock");
 			builder.Register<PlayerBuilder>(L"Player");
 			builder.Register<FallDecision>(L"FallDecision");
 			auto dir = App::GetApp()->GetDataDirWString();

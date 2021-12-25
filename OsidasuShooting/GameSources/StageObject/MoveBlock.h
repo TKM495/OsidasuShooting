@@ -4,16 +4,16 @@
 */
 #pragma once
 #include "stdafx.h"
-#include "Block.h"
+#include "AdvancedGameObject.h"
 
 namespace basecross {
-	class MoveBlock : public Block {
-	// 起動中
-		// 起動中かどうか
+	class MoveBlock : public AdvancedGameObject {
+		// 起動中
+			// 起動中かどうか
 		bool m_isSetUp;
 
-	// 移動関連
-		// 往復するポジション
+		// 移動関連
+			// 往復するポジション
 		Vec3 m_startPosition;
 		Vec3 m_markPosition;
 		//// 往復する基準
@@ -27,8 +27,8 @@ namespace basecross {
 		// 進むか戻るか
 		bool m_isReturnBlock;
 
-	// その他項目
-		// 設置場所
+		// その他項目
+			// 設置場所
 		Vec3 m_setPosition;
 
 	public:
@@ -38,7 +38,7 @@ namespace basecross {
 			const Vec3 markPosition//,
 			//const bool posXorZ
 		) :
-			Block(stage, transformData),
+			AdvancedGameObject(stage),
 			// 起動中
 			m_isSetUp(false),
 			// 移動関連
@@ -54,7 +54,6 @@ namespace basecross {
 		}
 
 		MoveBlock(const shared_ptr<Stage>& stage,
-			const TransformData transformData,
 			const wstring& line);
 
 		void OnCreate() override;
