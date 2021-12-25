@@ -33,6 +33,8 @@ namespace basecross {
 		bool IsSwitchBombMode;
 		// ジャンプorホバー
 		bool IsJumpOrHover;
+		// タックルモードか
+		bool IsTackleMode;
 
 		PlayerInputData() {
 			this->MoveDirection = Vec3(0.0f);
@@ -41,6 +43,7 @@ namespace basecross {
 			this->IsFire = false;
 			this->IsSwitchBombMode = false;
 			this->IsJumpOrHover = false;
+			this->IsTackleMode = false;
 		}
 	};
 
@@ -134,6 +137,10 @@ namespace basecross {
 		TimeCounter m_invincibleTimer;
 		// 一定時間後にリスポーンするためのタイマー
 		TimeCounter m_respawnTimer;
+		// タックル用のタイマー
+		TimeCounter m_tackleTimer;
+		// タックル中か
+		bool m_isDuringTackle;
 
 		//色
 		Col4 m_color;
@@ -178,7 +185,7 @@ namespace basecross {
 		// ホバー
 		void Hover();
 		// タックル
-		void Tackle() {}
+		void Tackle();
 		// エネルギーの回復
 		void EnergyRecovery();
 		// 爆弾の発射

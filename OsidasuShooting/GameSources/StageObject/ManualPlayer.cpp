@@ -15,6 +15,8 @@ namespace basecross {
 
 		// ジャンプとホバー
 		m_inputData.IsJumpOrHover = m_controller.GetButtons(ControllerButton::A);
+		// タックル
+		m_inputData.IsTackleMode = m_controller.GetButtons(ControllerButton::B);
 
 		// モードに応じたAim操作
 		if (m_inputData.IsSwitchBombMode) {
