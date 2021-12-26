@@ -106,6 +106,27 @@ namespace basecross {
 				}
 			}
 
+	}
+
+	//void BreakBlock::SetUpAnimation() {
+		//auto pos = GetTransform()->GetPosition();
+		//if (pos.y < m_setPosition.y) {
+		//	pos.y = m_setPosition.y;
+
+		//	m_isSetUp = true;
+		//}
+		//else {
+		//	if (pos.y > m_setPosition.y - 0.5f) {
+		//		pos = m_setPosition;
+		//	}
+		//	else {
+		//		auto movePosY = (m_setPosition.y - pos.y) * 0.5f;
+		//		pos.y = movePosY;
+		//	}
+		//}
+		//GetTransform()->SetPosition(pos);
+	//}
+
 	void BreakBlock::BlockDamage(float damage) {
 		if (m_nowHp >= damage) {
 			m_nowHp -= damage;

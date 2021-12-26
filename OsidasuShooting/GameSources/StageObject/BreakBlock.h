@@ -8,10 +8,6 @@
 
 namespace basecross {
 	class BreakBlock : public AdvancedGameObject {
-		//起動中
-			// 起動中かどうか
-		bool m_isSetUp;
-
 		// ステータス
 			// ブロックのHP
 		float m_hp;
@@ -27,18 +23,16 @@ namespace basecross {
 	public:
 		BreakBlock(
 			shared_ptr<Stage>& stage,
-			const TransformData transformData,
+			const TransformData transformData/*,
 			const float hp,
-			const float wakeupTime
+			const float wakeupTime*/
 		) :
 			AdvancedGameObject(stage),
-			// 起動中
-			m_isSetUp(false),
 
 			// ステータス
-			m_hp(hp),
+			m_hp(3),
 			m_nowHp(0),
-			m_wakeupTime(wakeupTime),
+			m_wakeupTime(5),
 			m_nowTime(0),
 
 			// その他項目
@@ -54,7 +48,7 @@ namespace basecross {
 		void OnUpdate() override;
 		void OnCollisionEnter(shared_ptr<GameObject>& other) {};
 
-		void SetUpAnimation();
+		//void SetUpAnimation();
 		void BlockDamage(float damage);
 	};
 }

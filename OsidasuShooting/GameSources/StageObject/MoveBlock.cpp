@@ -118,34 +118,8 @@ namespace basecross {
 	}
 
 	void MoveBlock::OnUpdate() {
-		if (!m_isSetUp) {
-			//	SetUpAnimation();
-		}
-		else {
-			auto ptrColl = GetComponent<CollisionObb>();
-			ptrColl->SetAfterCollision(AfterCollision::Auto);
-		}
-
-		m_isSetUp = true;
+		auto ptrColl = GetComponent<CollisionObb>();
+		ptrColl->SetAfterCollision(AfterCollision::Auto);
 		MovingBlock();
-	}
-
-	void MoveBlock::SetUpAnimation() {
-		auto pos = GetTransform()->GetPosition();
-		if (pos.y < m_setPosition.y) {
-			pos.y = m_setPosition.y;
-
-			m_isSetUp = true;
-		}
-		else {
-			if (pos.y > m_setPosition.y - 0.5f) {
-				pos = m_setPosition;
-			}
-			else {
-				auto movePosY = (m_setPosition.y - pos.y) * 0.5f;
-				pos.y = movePosY;
-			}
-		}
-		GetTransform()->SetPosition(pos);
 	}
 }

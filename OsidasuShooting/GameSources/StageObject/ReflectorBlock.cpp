@@ -56,15 +56,8 @@ namespace basecross {
 	}
 
 	void ReflectorBlock::OnUpdate() {
-		if (!m_isSetUp) {
-			//	SetUpAnimation();
-		}
-		else {
-			auto ptrColl = GetComponent<CollisionObb>();
-			ptrColl->SetAfterCollision(AfterCollision::Auto);
-		}
-
-		m_isSetUp = true;
+		auto ptrColl = GetComponent<CollisionObb>();
+		ptrColl->SetAfterCollision(AfterCollision::Auto);
 	}
 
 	void ReflectorBlock::SetUpAnimation() {
