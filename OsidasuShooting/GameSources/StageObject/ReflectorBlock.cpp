@@ -60,25 +60,25 @@ namespace basecross {
 		ptrColl->SetAfterCollision(AfterCollision::Auto);
 	}
 
-	void ReflectorBlock::SetUpAnimation() {
-		auto pos = GetTransform()->GetPosition();
-		if (pos.y < m_setPosition.y) {
-			pos.y = m_setPosition.y;
-			RemoveTag(L"Block");
-			AddTag(L"Reflector");
+	//void ReflectorBlock::SetUpAnimation() {
+	//	auto pos = GetTransform()->GetPosition();
+	//	if (pos.y < m_setPosition.y) {
+	//		pos.y = m_setPosition.y;
+	//		RemoveTag(L"Block");
+	//		AddTag(L"Reflector");
 
-			m_isSetUp = true;
-			m_isReflect = true;
-		}
-		else {
-			if (pos.y > m_setPosition.y - 0.5f) {
-				pos = m_setPosition;
-			}
-			else {
-				auto movePosY = (m_setPosition.y - pos.y) * 0.5f;
-				pos.y = movePosY;
-			}
-		}
-		GetTransform()->SetPosition(pos);
-	}
+	//		m_isSetUp = true;
+	//		m_isReflect = true;
+	//	}
+	//	else {
+	//		if (pos.y > m_setPosition.y - 0.5f) {
+	//			pos = m_setPosition;
+	//		}
+	//		else {
+	//			auto movePosY = (m_setPosition.y - pos.y) * 0.5f;
+	//			pos.y = movePosY;
+	//		}
+	//	}
+	//	GetTransform()->SetPosition(pos);
+	//}
 }
