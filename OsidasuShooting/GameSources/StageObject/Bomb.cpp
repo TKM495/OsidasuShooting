@@ -54,25 +54,32 @@ namespace basecross {
 		SoundManager::GetInstance()->Play(L"ExplosionSE", 0, 0.1f);
 
 		// 爆風の処理
-		const auto& players = PlayerManager::GetInstance()->GetAllPlayer();
-		for (auto player : players) {
-			auto pos = player->GetTransform()->GetPosition();
-			auto myPos = GetTransform()->GetPosition();
-			auto distance = (pos - myPos).length();
-			// 爆発半径内にいる場合ノックバック
-			if (distance <= m_maxRadius) {
-				auto rate = 1.0f;
-				// 最小距離より遠い場合
-				if (distance > m_minimumRadius) {
-					// 爆弾より距離が遠ざかると威力を減らすようにする
-					rate = 1 - ((distance - m_minimumRadius) / (m_maxRadius - m_minimumRadius));
+
+		if (other->FindTag(L"Break")) {
+			auto breakBlock = dynamic_pointer_cast<BreakBlock>(other);
+			breakBlock->BlockDamage(10);
+		}
+		else {
+			const auto& players = PlayerManager::GetInstance()->GetAllPlayer();
+			for (auto player : players) {
+				auto pos = player->GetTransform()->GetPosition();
+				auto myPos = GetTransform()->GetPosition();
+				auto distance = (pos - myPos).length();
+				// 爆発半径内にいる場合ノックバック
+				if (distance <= m_maxRadius) {
+					auto rate = 1.0f;
+					// 最小距離より遠い場合
+					if (distance > m_minimumRadius) {
+						// 爆弾より距離が遠ざかると威力を減らすようにする
+						rate = 1 - ((distance - m_minimumRadius) / (m_maxRadius - m_minimumRadius));
+					}
+					KnockBackData data(
+						KnockBackData::Category::Bomb,
+						pos - myPos, m_power * rate, m_owner
+					);
+					// ノックバック
+					player->KnockBack(data);
 				}
-				KnockBackData data(
-					KnockBackData::Category::Bomb,
-					pos - myPos, m_power * rate, m_owner
-				);
-				// ノックバック
-				player->KnockBack(data);
 			}
 		}
 		// 自身を削除
