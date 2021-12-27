@@ -86,12 +86,14 @@
 //Empty GameObject
 #include "JonyMd/ItemCreation.h"
 #include "JonyMd/MeteoriteCreation.h"
+#include "JonyMd/FenceController.h"
 //Empty GameObject
 
 //GameObject
 #include "JonyMd/Item.h"
 #include "JonyMd/Area.h"
 #include "JonyMd/Meteorite.h"
+#include "JonyMd/Fencing.h"
 //GameObject...end
 
 //Camera

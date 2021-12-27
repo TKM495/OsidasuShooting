@@ -367,6 +367,10 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\area.cpp">
       <Filter>StageObject\JonyMd</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Fencing.cpp">
+      <Filter>StageObject\JonyMd</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\Game Creation %282021-09-27%29\Oshidasu-Shooting\OsidasuShooting\GameSources\JonyMd\FenceController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -611,6 +615,10 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\area.h">
       <Filter>StageObject\JonyMd</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Fencing.h">
+      <Filter>StageObject\JonyMd</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\Game Creation %282021-09-27%29\Oshidasu-Shooting\OsidasuShooting\GameSources\JonyMd\FenceController.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
