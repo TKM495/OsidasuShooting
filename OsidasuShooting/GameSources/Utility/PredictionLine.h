@@ -81,5 +81,12 @@ namespace basecross {
 		 * @param color F
 		 */
 		void SetColor(const Col4& color);
+
+		/**
+		 * @brief —LŒø–³Œø‚ğİ’è
+		 *
+		 * @param flg true:—LŒø
+		 */
+		void SetActive(bool flg);
 	};
 }

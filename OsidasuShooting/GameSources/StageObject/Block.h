@@ -20,6 +20,19 @@ namespace basecross {
 		Block(const shared_ptr<Stage>& stage, const wstring& line);
 
 		void OnCreate()override;
-		void OnUpdate()override;
+	};
+
+	class Bumper :public AdvancedGameObject {
+	public:
+		// 手動追加用コンストラクタ
+		Bumper(const shared_ptr<Stage>& stage, const TransformData& transData)
+			:AdvancedGameObject(stage)
+		{
+			m_transformData = transData;
+		}
+		// オブジェクトビルダー用のコンストラクタ
+		Bumper(const shared_ptr<Stage>& stage, const wstring& line);
+
+		void OnCreate()override;
 	};
 }

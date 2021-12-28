@@ -5,24 +5,32 @@
 
 #pragma once
 #include "stdafx.h"
+#include "Utility/GroundingDecision.h"
 
 namespace basecross {
 	class PhysicalBehavior :public Component {
-		// 抵抗力
-		float m_drag;
+		// 空気抵抗
+		float m_airDrag;
+		// 地面の抵抗
+		float m_groundDrag;
+		// 最大速度
+		float m_maxSpeed;
 		// 現在の速度
 		Vec3 m_velocity;
 		// しきい値（移動速度がこの値より小さい場合0とみなす）
 		float m_threshold;
+		// 接地判定クラス
+		unique_ptr<GroundingDecision> m_groundingDecision;
 	public:
 		// コンストラクタ
 		PhysicalBehavior(const shared_ptr<GameObject>& gameObjectPtr)
 			:Component(gameObjectPtr),
-			m_velocity(Vec3(0.0f)), m_drag(3.0f), m_threshold(0.05f)
+			m_velocity(Vec3(0.0f)), m_groundDrag(3.0f), m_airDrag(1.0f),
+			m_maxSpeed(200.0f), m_threshold(0.05f)
 		{}
 
 		// コンポーネントの生成
-		void OnCreate()override {}
+		void OnCreate()override;
 		// コンポーネントの更新
 		void OnUpdate()override;
 		// コンポーネントの描画
@@ -58,29 +66,19 @@ namespace basecross {
 		void Impact(const Vec3& direction, float force);
 
 		/**
-		 * @brief Dragを設定
-		 *
-		 * @param drag 設定値
-		 */
-		void SetDrag(float drag) {
-			m_drag = drag;
-		}
-		/**
-		 * @brief Dragを取得
-		 *
-		 * @return 現在のDrag
-		 */
-		float GetDrag() {
-			return m_drag;
-		}
-
-		/**
 		 * @brief 現在の速度を取得
 		 *
 		 * @return 現在の速度
 		 */
-		float GetSpeed() {
-			return m_velocity.length();
+		Vec3 GetVelocity() {
+			return m_velocity;
+		}
+
+		/**
+		 * @brief 速度を0にする
+		 */
+		void SetVelocityZero() {
+			m_velocity = Vec3(0);
 		}
 	};
 }

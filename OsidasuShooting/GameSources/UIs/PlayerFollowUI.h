@@ -9,7 +9,6 @@ namespace basecross {
 		enum class UIType {
 			Normal,	// 普通
 			Bomb,	// 爆弾関係
-			Hover	// ホバー関係
 		};
 		// オブジェクトデータ
 		struct ObjectData {

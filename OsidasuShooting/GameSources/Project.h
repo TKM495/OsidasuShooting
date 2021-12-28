@@ -35,12 +35,18 @@
 #include "StageObject/AdvancedGameObject.h"
 #include "StageObject/Block.h"
 #include "StageObject/Bomb.h"
+#include "StageObject/BreakBlock.h"
 #include "StageObject/Bullet.h"
 #include "StageObject/FallDecision.h"
 #include "StageObject/ManualPlayer.h"
+#include "StageObject/MoveBlock.h"
 #include "StageObject/PlayerBase.h"
 #include "StageObject/PlayerModel.h"
+#include "StageObject/ReflectorBlock.h"
 #include "StageObject/SpecialSkill.h"
+#include "StageObject/area_.h"
+#include "StageObject/Item_.h"
+#include "StageObject/ItemCreation_.h"
 //UI
 #include "UIs/InfoGauge.h"
 #include "UIs/BaseUI.h"
@@ -52,7 +58,6 @@
 #include "UIs/CharaSelectUISprites.h"
 #include "UIs/CurrentFirst.h"
 #include "UIs/FreamSprite.h"
-#include "UIs/HoverTimeGauge.h"
 #include "UIs/NumberSprite.h"
 #include "UIs/PlayerFollowUI.h"
 #include "UIs/PlayerInfo.h"
@@ -65,6 +70,7 @@
 #include "UIs/CurrentFirst.h"
 #include "UIs/TransitionSprite.h"
 #include "UIs/GameStartAndFinish.h"
+#include "UIs/CountDown_.h"
 // コンポーネント
 #include "Component/FadeComponent.h"
 #include "Component/LifeSpan.h"
@@ -79,8 +85,6 @@
 #include "Manager/StageManager.h"
 #include "Manager/PlayerBuilder.h"
 #include "Manager/SpecialSkillManager.h"
-
-
 
 //JonyMd Folder
 //Empty GameObject

@@ -15,22 +15,21 @@ namespace basecross {
 		m_initialPosition(0.0f),
 		m_moveSpeed(20.0f), m_predictionLine(stage, 10, 2.0f),
 		m_bombPoint(Vec3(0.0f)), m_jumpVerocity(Vec3(0.0f, 11.0f, 0.0f)),
-		m_hoverTime(2.0f), m_currentHoverTime(m_hoverTime),
-		m_defaultArmorPoint(100.0f), m_currentArmorPoint(m_defaultArmorPoint),
-		m_bulletTimer(0.1f, true), m_armorRecoveryTimer(2.0f),
-		m_isRestoreArmor(false), m_isInput(false), m_playerNumber(playerNumber),
-		m_bombReload(1.0f), m_defaultBombCount(5), m_correctAngle(40.0f),
+		m_defaultEnergy(100.0f), m_currentEnergy(0.0f),
+		m_bulletTimer(0.1f, true), m_bombCoolTimeTimer(1, true),
+		m_isInput(false), m_playerNumber(playerNumber),
+		m_defaultBombCount(5), m_correctAngle(40.0f),
 		m_isDuringReturn(false), m_groundingDecision(), m_countKilledPlayer(0),
 		m_returnTimer(0.5f), m_lastFrontDirection(Vec3(0.0f)), m_smokeTimer(0.2f),
 		m_deadCount(0), m_invincibleTimer(3.0f, true), m_isInvincible(false),
-		m_defaultSkillEnergy(100.0f), m_currentSkillEnergy(0.0f),
-		m_armorZeroWhenKnockBackMagnification(5), m_armorRecoveryAmount(10),
-		m_bombAimMovingDistance(20)
+		m_armorZeroWhenKnockBackMagnification(5), m_energyRecoveryAmount(10),
+		m_bombAimMovingDistance(20), m_respawnTimer(3.0f), m_isActive(true),
+		m_tackleTimer(0.5f, true), m_isDuringTackle(false)
 	{
 		m_transformData = transData;
 		m_transformData.Scale *= 2.0f;
 		auto rot = m_transformData.Rotation;
-		m_lastFrontDirection = Vec3(cosf(rot.y), 0.0f, sinf(rot.y));
+		m_lastFrontDirection = Vec3(sinf(rot.y), 0.0f, cosf(rot.y));
 		// 以下のタグを持つオブジェクトを判定から除外
 		m_groundingDecision.AddNotDecisionTag(L"Bomb");
 		m_groundingDecision.AddNotDecisionTag(L"Bullet");
@@ -59,8 +58,12 @@ namespace basecross {
 		// 滑るような挙動用のコンポーネントと重力を追加
 		AddComponent<PhysicalBehavior>();
 		auto gravity = AddComponent<Gravity>();
-		// 外部ファイルからステータスを読み込み
+		//auto defaultGravity = gravity->GetGravity();
+		//// 重力をデフォルトの3倍に設定
+		//gravity->SetGravity(defaultGravity * 3);
+				// 外部ファイルからステータスを読み込み
 		StatusLoad();
+
 		// 当たり判定を追加
 		AddComponent<CollisionSphere>()->SetDrawActive(false);
 
@@ -68,8 +71,8 @@ namespace basecross {
 		efkComp->SetEffectResource(L"Jump", TransformData(Vec3(0.0f, -0.5f, 0.0f), m_transformData.Scale));
 		efkComp->SetEffectResource(L"Hover", TransformData(Vec3(0.0f, -0.5f, 0.0f), m_transformData.Scale));
 		efkComp->SetEffectResource(L"Smoke", TransformData(Vec3(0.0f, -0.5f, 0.0f), m_transformData.Scale), true);
-		// 落ちたときのエフェクトの代わり
-		efkComp->SetEffectResource(L"Explosion", TransformData(Vec3(0.0f), Vec3(1.0f, 5.0f, 1.0f)));
+		efkComp->SetEffectResource(L"BombPlus", TransformData(Vec3(0), m_transformData.Scale));
+		efkComp->SetEffectResource(L"Respawn", TransformData(Vec3(0.0f, -0.5f, 0.0f)));
 
 		// 武器ステートマシンの構築と設定
 		m_weaponStateMachine.reset(new StateMachine<PlayerBase>(GetThis<PlayerBase>()));
@@ -77,21 +80,31 @@ namespace basecross {
 		// ジャンプ＆ホバーステートマシンの構築と設定
 		m_jumpAndHoverStateMachine.reset(new StateMachine<PlayerBase>(GetThis<PlayerBase>()));
 		m_jumpAndHoverStateMachine->ChangeState(PlayerJumpState::Instance());
+		// リスポーン用ステートマシンの構築と設定
+		m_respawnStateMachine.reset(new StateMachine<PlayerBase>(GetThis<PlayerBase>()));
+		m_respawnStateMachine->ChangeState(PlayerNormalState::Instance());
 
 		// タグの追加
 		AddTag(L"Player");
 
 		// 各値の初期化
-		m_currentArmorPoint = m_defaultArmorPoint;
-		m_currentHoverTime = m_hoverTime;
+		ParameterReset();
 		m_bombCount = m_defaultBombCount;
 		m_initialPosition = GetTransform()->GetPosition();
 		SoundManager::GetInstance()->InitPlayOverlap(L"HoverSE", 0.06f);
 		// 接地判定の情報を初期化
 		m_groundingDecision.SetRadius(GetTransform()->GetScale());
+		//Debug::GetInstance()->Log(m_lastFrontDirection);
+		//m_predictionLine.Update(GetTransform()->GetPosition(),
+		//	GetTransform()->GetPosition() + m_lastFrontDirection * 5, PredictionLine::Type::Bullet);
+		Debug::GetInstance()->Log(m_initialPosition);
 	}
 
 	void PlayerBase::OnUpdate() {
+		m_respawnStateMachine->Update();
+	}
+
+	void PlayerBase::NormalUpdate() {
 		// 復帰中で接地しているかつ
 		if (m_isDuringReturn &&
 			m_groundingDecision.Calculate(GetTransform()->GetPosition())) {
@@ -101,9 +114,9 @@ namespace basecross {
 			}
 		}
 
-		//auto gameStage = GetTypeStage<GameStage>(false);
+		// auto gameStage = GetTypeStage<GameStage>(false);
 		//// 現在のステージがGameStage
-		//if (gameStage) {
+		// if (gameStage) {
 		//	switch (gameStage->GetCurrentGameState())
 		//	{
 		//	case GameStage::GameState::PLAYING:
@@ -111,7 +124,7 @@ namespace basecross {
 		//		InputUpdate();
 		//		break;
 		//	}
-		//}
+		// }
 
 		InputUpdate();
 
@@ -119,27 +132,45 @@ namespace basecross {
 		Move();
 		// テストコード
 		TestFanc();
-		// 爆弾のリロード
-		BombReload();
+
 		// 無敵処理
 		Invincible();
 		// 各種ステートマシンの更新
 		m_weaponStateMachine->Update();
 		m_jumpAndHoverStateMachine->Update();
-		// アーマー回復フラグがtrueの場合
-		if (m_isRestoreArmor)
-			// アーマーを回復
-			ArmorRecovery();
+		// 接地しているときだけエネルギーを回復
+		if (m_groundingDecision.Calculate(GetTransform()->GetPosition()))
+			EnergyRecovery();
+		// 爆弾のクールタイムの更新
+		m_bombCoolTimeTimer.Count();
+		// 吹っ飛びエフェクトの描画
+		KnockBackEffectDrawing();
+		ItemGetEffectSync();
 	}
 
 	void PlayerBase::Move() {
+		if (m_tackleTimer.Count())
+			m_isDuringTackle = false;
+
+		// 入力がない場合は何もしない
+		if (m_inputData.MoveDirection == Vec3(0))
+			return;
+
 		auto physicalComp = GetComponent<PhysicalBehavior>();
+
+		//if (m_inputData.IsTackleMode) {
+		//	if (!m_isDuringTackle) {
+		//		m_tackleTimer.Reset();
+		//		physicalComp->Impact(m_inputData.MoveDirection, 30);
+		//		m_isDuringTackle = true;
+		//	}
+		//}
+		//else {
 		physicalComp->Move(m_inputData.MoveDirection, m_moveSpeed);
 		auto efkComp = GetComponent<EfkComponent>();
 
 		// 移動していて接地している場合
-		if (m_inputData.MoveDirection != Vec3(0.0f) &&
-			m_groundingDecision.Calculate(GetTransform()->GetPosition())) {
+		if (m_groundingDecision.Calculate(GetTransform()->GetPosition())) {
 			if (m_smokeTimer.Count()) {
 				efkComp->Play(L"Smoke");
 				m_smokeTimer.Reset();
@@ -167,13 +198,13 @@ namespace basecross {
 
 	void PlayerBase::Hover() {
 		m_isHoverMode = true;
-		// ホバー可能時間が0以上の場合はホバー
-		if (m_currentHoverTime < 0.0f) {
+		auto delta = App::GetApp()->GetElapsedTime();
+		// エネルギーがない場合はホバーを停止
+		if (!DecrementEnergy(m_energyRequiredInHover * delta)) {
 			StopHover();
 			return;
 		}
 		GetComponent<Gravity>()->SetGravityVerocityZero();
-		m_currentHoverTime -= App::GetApp()->GetElapsedTime();
 
 		// ホバーエフェクト
 		auto efkComp = GetComponent<EfkComponent>();
@@ -186,35 +217,34 @@ namespace basecross {
 		SoundManager::GetInstance()->PlayOverlap(L"HoverSE", 0.4f);
 	}
 
-	void PlayerBase::HoverTimeRecovery() {
-		if (m_hoverTime > m_currentHoverTime) {
-			m_currentHoverTime += App::GetApp()->GetElapsedTime();
-		}
-		else {
-			m_currentHoverTime = m_hoverTime;
-		}
+	void PlayerBase::Tackle() {
 	}
 
-	void PlayerBase::SpecialSkill() {
-		// GetStage()->AddGameObject<SpecialCamera>();
-		SpecialSkillManager::GetInstance()->ActiveSpecialSkill(m_playerType, GetThis<PlayerBase>());
-	}
-
-	void PlayerBase::BulletAimAndLaunch() {
-		auto userPosition = GetTransform()->GetPosition();
-		auto bulletAim = BulletAimCorrection(m_inputData.BulletAim.normalize());
-
-		Ray ray(userPosition, bulletAim);
+	Vec3 PlayerBase::BulletAim() {
+		// 位置と方向
+		Ray ray(
+			GetTransform()->GetPosition(),
+			BulletAimCorrection(m_inputData.BulletAim.normalize())
+		);
 		// 予測線はStartとEndの2点の情報が必要
 		m_predictionLine.Update(ray.Origin, ray.GetPoint(3.0f), PredictionLine::Type::Bullet);
+		// 照準方向を正面にして、正面方向を返す
+		return TurnFrontToDirection(ray.Direction);
+	}
+
+	void PlayerBase::BulletLaunch(const Vec3& bulletAim) {
+		if (bulletAim == Vec3(0))
+			return;
 
 		// 弾の発射
-		if (bulletAim != Vec3(0.0f) && m_bulletTimer.Count()) {
-			m_bulletTimer.Reset();
-			InstantiateGameObject<Bullet>(GetThis<PlayerBase>(), ray);
-			SoundManager::GetInstance()->Play(L"ShotSE", 0, 0.3f);
+		if (m_bulletTimer.Count() && m_inputData.IsFire) {
+			// エネルギーを使える場合弾を発射
+			if (DecrementEnergy(m_energyRequiredInBulletLaunch)) {
+				m_bulletTimer.Reset();
+				InstantiateGameObject<Bullet>(GetThis<PlayerBase>(), bulletAim, m_bulletPower);
+				SoundManager::GetInstance()->Play(L"ShotSE", 0, 0.3f);
+			}
 		}
-		TurnFrontToDirection(ray.Direction);
 	}
 
 	Vec3 PlayerBase::BulletAimCorrection(const Vec3& launchDirection) {
@@ -264,47 +294,41 @@ namespace basecross {
 		TurnFrontToDirection(m_bombPoint - GetTransform()->GetPosition());
 	}
 
-	void PlayerBase::BombReload() {
-		// 現在の爆弾の数が最大数以上の場合は何もしない
-		if (m_bombCount < m_defaultBombCount) {
-			// 一定の時間が経過したら
-			if (m_bombReload.Count()) {
-				// 残弾を増やし、タイマーをリセット
-				m_bombCount++;
-				m_bombReload.Reset();
-			}
+	void PlayerBase::BombLaunch() {
+		if (m_bombCount > 0 && m_bombCoolTimeTimer.IsTimeUp()) {
+			m_bombCoolTimeTimer.Reset();
+			InstantiateGameObject<Bomb>(GetThis<PlayerBase>(),
+				m_predictionLine, GetTransform()->GetPosition(), m_bombPoint, m_bombPower);
+			// 残弾を減らす
+			m_bombCount--;
+			SoundManager::GetInstance()->Play(L"ThrowBombSE", 0, 0.3f);
+		}
+		else {
+			//SoundManager::GetInstance()->Play(L"EmptyBombSE", 0, 0.3f);
 		}
 	}
 
-	void PlayerBase::BombLaunch() {
-		InstantiateGameObject<Bomb>(GetThis<PlayerBase>(),
-			m_predictionLine, GetTransform()->GetPosition(), m_bombPoint);
-		SoundManager::GetInstance()->Play(L"ThrowBombSE", 0, 0.3f);
-	}
-
-	void PlayerBase::TurnFrontToDirection(const Vec3& direction) {
+	Vec3 PlayerBase::TurnFrontToDirection(const Vec3& direction) {
 		Vec3 rot(0.0f);
 		// directionがVec3(0.0f)だったら前回の方向のまま維持
 		Vec3 _direction = direction != Vec3(0.0f) ? direction : m_lastFrontDirection;
+		_direction.y = 0;
 		// 方向に正面を向ける
 		auto rad = atan2f(-_direction.z, _direction.x) - XM_PIDIV2;
 		rot.y = rad;
 		GetTransform()->SetRotation(rot);
 		m_lastFrontDirection = _direction;
+		return _direction;
 	}
 
-	void PlayerBase::ArmorRecovery() {
-		// アーマーが0になってから一定時間後に回復
-		if (!m_armorRecoveryTimer.Count())
+	void PlayerBase::EnergyRecovery() {
+		// デフォルト値を超えたら回復停止
+		if (m_currentEnergy >= m_defaultEnergy) {
+			m_currentEnergy = m_defaultEnergy;
 			return;
-
-		// m_defaultArmorPointを超えたら回復停止
-		if (m_currentArmorPoint >= m_defaultArmorPoint) {
-			m_currentArmorPoint = m_defaultArmorPoint;
-			m_isRestoreArmor = false;
-			m_armorRecoveryTimer.Reset();
 		}
-		m_currentArmorPoint += m_armorRecoveryAmount * App::GetApp()->GetElapsedTime();
+		m_currentEnergy +=
+			m_energyRecoveryAmount * App::GetApp()->GetElapsedTime();
 	}
 
 	void PlayerBase::StopHover() {
@@ -317,8 +341,7 @@ namespace basecross {
 		// XMLのデータを取得
 		auto xmlData = XMLLoad::GetInstance()->GetData(L"PlayerStatus");
 		wstring type;
-		switch (m_playerType)
-		{
+		switch (m_playerType) {
 		case PlayerType::Laser:
 			type = L"LaserStatus";
 			break;
@@ -329,8 +352,7 @@ namespace basecross {
 			throw BaseException(
 				L"定義されていないか未実装です。",
 				L"switch (m_playerType)",
-				L"PlayerBase::StatusLoad()"
-			);
+				L"PlayerBase::StatusLoad()");
 			break;
 		}
 		auto data = XMLHelper::GetSingleNodeWString(xmlData, L"Player/" + type);
@@ -342,18 +364,32 @@ namespace basecross {
 			status.push_back((float)_wtof(stat.c_str()));
 		}
 
+		// 移動速度
 		m_moveSpeed = status[0];
+		// ジャンプ量
 		m_jumpVerocity = Vec3(0, status[1], 0);
-		m_hoverTime = status[2];
-		m_defaultBombCount = status[3];
-		BulletPower = status[4]; // 弾威力
-		BombPower = status[5];// 爆弾威力
-		m_bulletTimer.SetIntervalTime(status[6]);
-		m_bombReload.SetIntervalTime(status[7]);
+		// 弾の発射に必要なエネルギー
+		m_energyRequiredInBulletLaunch = status[2];
+		// ホバーに必要なエネルギー
+		m_energyRequiredInHover = status[3];
+		// エネルギーの回復速度
+		m_energyRecoveryAmount = status[4];
+		// 弾の威力
+		m_bulletPower = status[5];
+		// 爆弾の威力
+		m_bombPower = status[6];
+		// 弾の連射速度
+		m_bulletTimer.SetIntervalTime(status[7], true);
+		m_bombCoolTimeTimer.SetIntervalTime(status[8], true);
 		auto defaultGravity = GetComponent<Gravity>()->GetGravity();
-		// 重力をデフォルトの2倍に設定
-		GetComponent<Gravity>()->SetGravity(defaultGravity * status[8]);
-		// 爆弾の飛翔時間
+		// 重力をデフォルトの3倍に設定
+		GetComponent<Gravity>()->SetGravity(defaultGravity * status[9]);
+	}
+
+	void PlayerBase::ParameterReset() {
+		m_currentEnergy = m_defaultEnergy;
+		m_isHoverMode = false;
+		m_isBombMode = false;
 	}
 
 	void PlayerBase::KnockBack(const KnockBackData& data) {
@@ -365,35 +401,48 @@ namespace basecross {
 		m_isDuringReturn = true;
 		m_returnTimer.Reset();
 		// ノックバック倍率
-		float knockBackCorrection;
-		// アーマーが回復中でない　かつ　アーマーが0より大きい
-		if (m_currentArmorPoint > 0 && !m_isRestoreArmor) {
-			knockBackCorrection = 1.0f;
-		}
-		else {
-			knockBackCorrection = m_armorZeroWhenKnockBackMagnification;
-			m_isRestoreArmor = true;
-		}
-		float amo = 0;
+		float knockBackCorrection = 1.0f;
+		//// アーマーが回復中でない　かつ　アーマーが0より大きい
+		//if (m_currentArmorPoint > 0 && !m_isRestoreArmor) {
+		//	knockBackCorrection = 1.0f;
+		//}
+		//else {
+		//	knockBackCorrection = m_armorZeroWhenKnockBackMagnification;
+		//	m_isRestoreArmor = true;
+		//}
 		// ダメージ判定
 		switch (data.Type) {
 		case KnockBackData::Category::Bullet:
-			m_currentArmorPoint -= 10;
-			amo = BulletPower;
+			DecrementEnergy(10);
 			break;
 		case KnockBackData::Category::Bomb:
-			m_currentArmorPoint -= 5;
-			amo = BombPower;
+			DecrementEnergy(5);
 			break;
 		default:
 			break;
 		}
-		AddEnergy(5.0f);
 		GetComponent<PhysicalBehavior>()->Impact(
-			data.Direction, amo * knockBackCorrection);
+			data.Direction, data.Amount * knockBackCorrection);
 	}
 
-	void PlayerBase::Respawn() {
+	void PlayerBase::SetActive(bool flg) {
+		// 重力
+		auto gravity = GetComponent<Gravity>();
+		gravity->SetUpdateActive(flg);
+		// モデル
+		m_model.lock()->SetDrawActive(flg);
+		// 当たり判定
+		GetComponent<Collision>()->SetUpdateActive(flg);
+		// 予測線表示
+		m_predictionLine.SetActive(flg);
+		m_isActive = flg;
+	}
+
+	void PlayerBase::Died() {
+		m_respawnStateMachine->ChangeState(PlayerDiedState::Instance());
+	}
+
+	void PlayerBase::DiedInit() {
 		// 復帰中に死んだ場合加害者に倒した通知を行う
 		if (m_isDuringReturn && m_aggriever.lock() != nullptr) {
 			m_aggriever.lock()->KilledPlayer();
@@ -403,34 +452,80 @@ namespace basecross {
 		// 死亡回数を増やす
 		m_deadCount++;
 		// 各種パラメータを初期化
-		m_currentArmorPoint = m_defaultArmorPoint;
-		m_currentHoverTime = m_hoverTime;
-		m_bombCount = m_defaultBombCount;
-		m_bombReload.Reset();
-		// エフェクトと効果音の再生
-		GetComponent<EfkComponent>()->Play(L"Explosion");
+		ParameterReset();
+		// 速度を0に
+		GetComponent<PhysicalBehavior>()->SetVelocityZero();
+		SetActive(false);
+		// 効果音の再生
 		SoundManager::GetInstance()->Play(L"FallSE", 0, 0.3f);
 		OnRespawn();
 		// 初期位置に戻る
 		GetTransform()->SetPosition(m_initialPosition);
-		m_invincibleTimer.Reset();
-		m_isInvincible = true;
 	}
 
-	void PlayerBase::AddEnergy(float amount) {
-		m_currentSkillEnergy += amount;
-		// デフォルトを超える場合デフォルト値に
-		if (m_currentSkillEnergy > m_defaultSkillEnergy)
-			m_currentSkillEnergy = m_defaultSkillEnergy;
+	void PlayerBase::RespawnInit() {
+		SetActive(true);
+		m_invincibleTimer.Reset();
+		m_isInvincible = true;
+		GetComponent<EfkComponent>()->Play(L"Respawn");
+	}
+
+	bool PlayerBase::DecrementEnergy(float amount) {
+		// 残量が減らす量より少ない場合（マイナスになる場合）
+		if (m_currentEnergy < amount) {
+			// 何もしない
+			return false;
+		}
+		else {
+			// 減らせる場合は減らす
+			m_currentEnergy -= amount;
+			return true;
+		}
+	}
+
+	void PlayerBase::KnockBackEffectDrawing() {
+		// GravityコンポーネントとPhysicalBehaviorコンポーネントのVelocityを
+		// 取得し合成
+		auto gravity = GetComponent<Gravity>()->GetGravityVelocity();
+		auto totalVelocity = GetVelocity() + gravity;
+		auto efkComp = GetComponent<EfkComponent>();
+
+		if (totalVelocity.lengthSqr() > 10 * 10) {
+			efkComp->Play(L"Smoke");
+		}
+	}
+
+	void PlayerBase::ItemEffect(modifiedClass::ItemType type) {
+		switch (type)
+		{
+		case modifiedClass::ItemType::Bomb:
+			if (m_bombCount < 9) {
+				// 爆弾の残弾を増やす
+				m_bombCount++;
+				GetComponent<EfkComponent>()->Play(L"BombPlus");
+			}
+			break;
+			//case modifiedClass::Item::ItemType::Energy:
+			//	Debug::GetInstance()->Log(L"Energy");
+			//	break;
+			//case modifiedClass::Item::ItemType::Debuff:
+			//	Debug::GetInstance()->Log(L"Debuff");
+			//	break;
+		default:
+			break;
+		}
+	}
+
+	void PlayerBase::ItemGetEffectSync() {
+		GetComponent<EfkComponent>()->SyncPosition(L"BombPlus");
 	}
 
 	void PlayerBase::TestFanc() {
 		const auto& keyState = App::GetApp()->GetInputDevice().GetKeyState();
 		// アーマーを0にする
 		if (keyState.m_bPressedKeyTbl['0']) {
-			m_currentArmorPoint = 0.0f;
-			m_isRestoreArmor = true;
-			Debug::GetInstance()->Log(L"Test:Armor0");
+			m_currentEnergy = 0.0f;
+			Debug::GetInstance()->Log(L"Test:Energy0");
 		}
 
 		if (keyState.m_bPressedKeyTbl['1'] &&
@@ -454,7 +549,64 @@ namespace basecross {
 			m_countKilledPlayer += 10;
 			Debug::GetInstance()->Log(L"P4 +10Kill");
 		}
+		if (keyState.m_bPressedKeyTbl['5']) {
+			GetComponent<EfkComponent>()->Play(L"Respawn");
+		}
 	}
+
+	void PlayerBase::OnCollisionEnter(shared_ptr<GameObject>& other) {
+		// 衝突したオブジェクトがプレイヤーの場合
+		auto bumperPtr = dynamic_pointer_cast<Bumper>(other);
+		if (bumperPtr) {
+			auto gravity = GetComponent<Gravity>()->GetGravityVelocity();
+			auto totalVelocity = GetVelocity() + gravity;
+			//Debug::GetInstance()->Log(gravity);
+			// ノックバック
+			GetComponent<PhysicalBehavior>()->Impact(-totalVelocity * 4);
+		}
+
+		// アイテムの場合
+		auto itemPtr = dynamic_pointer_cast<modifiedClass::Item>(other);
+		if (itemPtr) {
+			// 効果音の再生
+			SoundManager::GetInstance()->Play(L"GetItemSE", 0, 0.3f);
+			ItemEffect(itemPtr->GetItemType());
+			GetStage()->RemoveGameObject<GameObject>(other);
+		}
+	}
+
+	// 通常時のステート
+#pragma region PlayerNormalState
+	shared_ptr<PlayerBase::PlayerNormalState> PlayerBase::PlayerNormalState::Instance() {
+		static shared_ptr<PlayerNormalState> instance(new PlayerNormalState);
+		return instance;
+	}
+	void PlayerBase::PlayerNormalState::Enter(const shared_ptr<PlayerBase>& Obj) {}
+	void PlayerBase::PlayerNormalState::Execute(const shared_ptr<PlayerBase>& Obj) {
+		Obj->NormalUpdate();
+	}
+	void PlayerBase::PlayerNormalState::Exit(const shared_ptr<PlayerBase>& Obj) {}
+#pragma endregion
+
+	// 死亡時のステート
+#pragma region PlayerDiedState
+	shared_ptr<PlayerBase::PlayerDiedState> PlayerBase::PlayerDiedState::Instance() {
+		static shared_ptr<PlayerDiedState> instance(new PlayerDiedState);
+		return instance;
+	}
+	void PlayerBase::PlayerDiedState::Enter(const shared_ptr<PlayerBase>& Obj) {
+		Obj->DiedInit();
+		Obj->m_respawnTimer.Reset();
+	}
+	void PlayerBase::PlayerDiedState::Execute(const shared_ptr<PlayerBase>& Obj) {
+		if (Obj->m_respawnTimer.Count())
+			Obj->m_respawnStateMachine->ChangeState(PlayerNormalState::Instance());
+	}
+	void PlayerBase::PlayerDiedState::Exit(const shared_ptr<PlayerBase>& Obj) {
+		Obj->RespawnInit();
+	}
+
+#pragma endregion
 
 	// 武器用ステート
 	// 弾の照準や発射状態（デフォルト）
@@ -466,17 +618,10 @@ namespace basecross {
 	void PlayerBase::PlayerBulletModeState::Enter(const shared_ptr<PlayerBase>& Obj) {}
 	void PlayerBase::PlayerBulletModeState::Execute(const shared_ptr<PlayerBase>& Obj) {
 		// 弾の照準と発射
-		Obj->BulletAimAndLaunch();
+		Obj->BulletLaunch(Obj->BulletAim());
 		// 爆弾モードへの遷移
 		if (Obj->m_inputData.IsSwitchBombMode) {
 			Obj->m_weaponStateMachine->ChangeState(PlayerBombModeState::Instance());
-		}
-		// 必殺技モードへの遷移
-		if (Obj->m_inputData.IsInvokeSpecialSkill) {
-			// 発動可能な場合のみ遷移
-			if (SpecialSkillManager::GetInstance()->IsInvocable() &&
-				Obj->m_defaultSkillEnergy == Obj->m_currentSkillEnergy)
-				Obj->m_weaponStateMachine->ChangeState(PlayerSpecialSkillModeState::Instance());
 		}
 	}
 	void PlayerBase::PlayerBulletModeState::Exit(const shared_ptr<PlayerBase>& Obj) {}
@@ -494,42 +639,20 @@ namespace basecross {
 	void PlayerBase::PlayerBombModeState::Execute(const shared_ptr<PlayerBase>& Obj) {
 		// 爆弾の照準
 		Obj->BombAim();
+
+		// 爆弾の残弾がある場合 and ボタンが押された場合
+		if (Obj->m_inputData.IsFire) {
+			// 爆弾を発射
+			Obj->BombLaunch();
+		}
 		// 爆弾モードを終了（弾モードへ遷移）
 		if (!Obj->m_inputData.IsSwitchBombMode) {
 			Obj->m_weaponStateMachine->ChangeState(PlayerBulletModeState::Instance());
 		}
 	}
 	void PlayerBase::PlayerBombModeState::Exit(const shared_ptr<PlayerBase>& Obj) {
-		// 爆弾の残弾がある場合
-		if (Obj->m_bombCount > 0) {
-			// 弾モードへ遷移時に爆弾を発射
-			Obj->BombLaunch();
-			// 残弾を減らす
-			Obj->m_bombCount--;
-		}
-		else {
-			SoundManager::GetInstance()->Play(L"EmptyBombSE", 0, 0.3f);
-		}
 		Obj->m_isBombMode = false;
 	}
-#pragma endregion
-
-	// 必殺技発動状態
-#pragma region PlayerSpecialSkillModeState
-	shared_ptr<PlayerBase::PlayerSpecialSkillModeState> PlayerBase::PlayerSpecialSkillModeState::Instance() {
-		static shared_ptr<PlayerSpecialSkillModeState> instance(new PlayerSpecialSkillModeState);
-		return instance;
-	}
-	void PlayerBase::PlayerSpecialSkillModeState::Enter(const shared_ptr<PlayerBase>& Obj) {
-		Obj->SpecialSkill();
-		Obj->m_currentSkillEnergy = 0;
-	}
-	void PlayerBase::PlayerSpecialSkillModeState::Execute(const shared_ptr<PlayerBase>& Obj) {
-		// 終了したら
-		if (SpecialSkillManager::GetInstance()->IsEnded())
-			Obj->m_weaponStateMachine->ChangeState(PlayerBulletModeState::Instance());
-	}
-	void PlayerBase::PlayerSpecialSkillModeState::Exit(const shared_ptr<PlayerBase>& Obj) {	}
 #pragma endregion
 
 	// ジャンプ
@@ -557,8 +680,6 @@ namespace basecross {
 		else {
 			Obj->m_isInput = false;
 		}
-		// ホバー可能時間回復
-		Obj->HoverTimeRecovery();
 	}
 	void PlayerBase::PlayerJumpState::Exit(const shared_ptr<PlayerBase>& Obj) {}
 #pragma endregion

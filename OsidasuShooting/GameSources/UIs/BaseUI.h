@@ -22,5 +22,6 @@ namespace basecross {
 			const TransformData& transData)
 			:BaseUI(stage, transData, Align(), Anchor())
 		{}
+		virtual void OnPreCreate()override;
 	};
 }
