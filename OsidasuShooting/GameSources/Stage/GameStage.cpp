@@ -31,7 +31,8 @@ namespace basecross {
 			AddGameObject<Debug>();
 			Debug::GetInstance()->Log(L"CurrentStage : GameStage");
 
-			AddGameObject<SimpleSprite>(L"BackGround00")->SetDrawLayer(-1);
+			AddGameObject<SimpleSprite>(L"BackGround00")->SetDrawLayer(-2);
+			AddGameObject<BackPlanet>(L"Planet")->SetDrawLayer(-1);
 
 			GameObjecttCSVBuilder builder;
 			builder.Register<Block>(L"Block");

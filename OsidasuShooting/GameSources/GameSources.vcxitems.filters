@@ -382,6 +382,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\BreakBlock.cpp">
       <Filter>StageObject\Block</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BackPlanet.cpp">
+      <Filter>UI\BackGround</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -643,6 +646,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\BreakBlock.h">
       <Filter>StageObject\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BackPlanet.h">
+      <Filter>UI\BackGround</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -914,6 +920,9 @@
     </Filter>
     <Filter Include="StageObject\Item">
       <UniqueIdentifier>{9d9f93b8-7e24-4920-ac6a-fc8b17ccdd48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\BackGround">
+      <UniqueIdentifier>{260ff698-3e27-4323-9f10-c3fcafc6d864}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
