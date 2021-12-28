@@ -8,10 +8,6 @@
 
 namespace basecross {
 	class MoveBlock : public AdvancedGameObject {
-		// 起動中
-			// 起動中かどうか
-		bool m_isSetUp;
-
 		// 移動関連
 			// 往復するポジション
 		Vec3 m_startPosition;
@@ -39,8 +35,6 @@ namespace basecross {
 			//const bool posXorZ
 		) :
 			AdvancedGameObject(stage),
-			// 起動中
-			m_isSetUp(false),
 			// 移動関連
 			m_markPosition(markPosition),
 			m_moveRoot(0),
@@ -59,7 +53,6 @@ namespace basecross {
 		void OnCreate() override;
 		void OnUpdate() override;
 
-		void SetUpAnimation();
 		void MovingBlock();
 	};
 }

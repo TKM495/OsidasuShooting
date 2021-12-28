@@ -37,13 +37,13 @@ namespace basecross {
 		AdvancedMeshUtil::CreateCube(3.0f, m_transformData.Scale, vertices, indices);
 
 		auto drawComp = AddComponent<PNTStaticDraw>();
-		drawComp->CreateOriginalMesh(vertices, indices);
-		drawComp->SetOriginalMeshUse(true);
+		drawComp->SetMeshResource(L"DEFAULT_CUBE");
 		drawComp->SetTextureResource(L"Block");
 		drawComp->SetOwnShadowActive(true);
 		drawComp->SetSamplerState(SamplerState::LinearWrap);
 
 		auto collComp = AddComponent<CollisionObb>();
+		collComp->AddExcludeCollisionTag(L"Block");
 		collComp->SetFixed(true);
 
 		auto shadowComp = AddComponent<Shadowmap>();

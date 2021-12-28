@@ -33,8 +33,8 @@ namespace basecross {
 		);
 		//m_hp = (float)_wtof(tokens[14].c_str()); // HP
 		//m_wakeupTime = (float)_wtof(tokens[15].c_str()); // •œŠˆŽžŠÔ
-		m_hp = 5;
-		m_wakeupTime = 3;
+		m_hp = 3;
+		m_wakeupTime = 5;
 	}
 
 	void BreakBlock::OnCreate() {
@@ -83,17 +83,16 @@ namespace basecross {
 	}
 
 	void BreakBlock::OnUpdate() {
-		if (!m_isSetUp) {
-			//	SetUpAnimation();
-		}
-		else {
 			auto findBlock = GetDrawActive();
 			auto ptrColl = GetComponent<CollisionObb>();
-			if (findBlock) ptrColl->SetUpdateActive(true);
+			if (findBlock) ptrColl->SetAfterCollision(AfterCollision::Auto);
 			else {
 				const auto& app = App::GetApp();
 				const auto delta = app->GetElapsedTime();
-				ptrColl->SetUpdateActive(false);
+				ptrColl->SetAfterCollision(AfterCollision::None);
+				ptrColl->AddExcludeCollisionTag(L"Player");
+				ptrColl->AddExcludeCollisionTag(L"Bullet");
+				ptrColl->AddExcludeCollisionTag(L"Bomb");
 				if (m_wakeupTime >= m_nowTime) {
 					m_nowTime += delta;
 				}
@@ -101,14 +100,15 @@ namespace basecross {
 					SetDrawActive(true);
 					m_nowHp = m_hp;
 					m_nowTime = 0;
+					ptrColl->RemoveExcludeCollisionTag(L"Player");
+					ptrColl->RemoveExcludeCollisionTag(L"Bullet");
+					ptrColl->RemoveExcludeCollisionTag(L"Bomb");
 				}
 			}
-		}
 
-		m_isSetUp = true;
 	}
 
-	void BreakBlock::SetUpAnimation() {
+	//void BreakBlock::SetUpAnimation() {
 		//auto pos = GetTransform()->GetPosition();
 		//if (pos.y < m_setPosition.y) {
 		//	pos.y = m_setPosition.y;
@@ -125,10 +125,10 @@ namespace basecross {
 		//	}
 		//}
 		//GetTransform()->SetPosition(pos);
-	}
+	//}
 
 	void BreakBlock::BlockDamage(float damage) {
-		if (m_nowHp >= 0) {
+		if (m_nowHp >= damage) {
 			m_nowHp -= damage;
 		}
 		else {

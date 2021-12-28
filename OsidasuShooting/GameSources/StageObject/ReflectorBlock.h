@@ -10,9 +10,9 @@ namespace basecross {
 	class ReflectorBlock : public AdvancedGameObject {
 		//起動中
 			// 起動中かどうか
-		bool m_isSetUp;
+		//bool m_isSetUp;
 		// 起動中アニメーション
-		float m_setReflectSpin;
+		//float m_setReflectSpin;
 
 		// その他項目
 			// 設置場所
@@ -27,8 +27,8 @@ namespace basecross {
 		) :
 			AdvancedGameObject(stage),
 			// 起動中
-			m_isSetUp(false),
-			m_setReflectSpin(0),
+			//m_isSetUp(false),
+			//m_setReflectSpin(0),
 
 			// その他項目
 			m_setPosition(0),
