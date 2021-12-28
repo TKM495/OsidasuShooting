@@ -23,7 +23,8 @@ namespace basecross {
 		m_returnTimer(0.5f), m_lastFrontDirection(Vec3(0.0f)), m_smokeTimer(0.2f),
 		m_deadCount(0), m_invincibleTimer(3.0f, true), m_isInvincible(false),
 		m_armorZeroWhenKnockBackMagnification(5), m_energyRecoveryAmount(10),
-		m_bombAimMovingDistance(20), m_respawnTimer(3.0f), m_isActive(true)
+		m_bombAimMovingDistance(20), m_respawnTimer(3.0f), m_isActive(true),
+		m_tackleTimer(0.5f, true), m_isDuringTackle(false)
 	{
 		m_transformData = transData;
 		m_transformData.Scale *= 2.0f;
@@ -148,13 +149,28 @@ namespace basecross {
 	}
 
 	void PlayerBase::Move() {
+		if (m_tackleTimer.Count())
+			m_isDuringTackle = false;
+
+		// ì¸óÕÇ™Ç»Ç¢èÍçáÇÕâΩÇ‡ÇµÇ»Ç¢
+		if (m_inputData.MoveDirection == Vec3(0))
+			return;
+
 		auto physicalComp = GetComponent<PhysicalBehavior>();
+
+		//if (m_inputData.IsTackleMode) {
+		//	if (!m_isDuringTackle) {
+		//		m_tackleTimer.Reset();
+		//		physicalComp->Impact(m_inputData.MoveDirection, 30);
+		//		m_isDuringTackle = true;
+		//	}
+		//}
+		//else {
 		physicalComp->Move(m_inputData.MoveDirection, m_moveSpeed);
 		auto efkComp = GetComponent<EfkComponent>();
 
 		// à⁄ìÆÇµÇƒÇ¢Çƒê⁄ínÇµÇƒÇ¢ÇÈèÍçá
-		if (m_inputData.MoveDirection != Vec3(0.0f) &&
-			m_groundingDecision.Calculate(GetTransform()->GetPosition())) {
+		if (m_groundingDecision.Calculate(GetTransform()->GetPosition())) {
 			if (m_smokeTimer.Count()) {
 				efkComp->Play(L"Smoke");
 				m_smokeTimer.Reset();
@@ -199,6 +215,9 @@ namespace basecross {
 			efkComp->SyncPosition(L"Hover");
 		}
 		SoundManager::GetInstance()->PlayOverlap(L"HoverSE", 0.4f);
+	}
+
+	void PlayerBase::Tackle() {
 	}
 
 	Vec3 PlayerBase::BulletAim() {
@@ -276,9 +295,17 @@ namespace basecross {
 	}
 
 	void PlayerBase::BombLaunch() {
-		InstantiateGameObject<Bomb>(GetThis<PlayerBase>(),
-			m_predictionLine, GetTransform()->GetPosition(), m_bombPoint, m_bombPower);
-		SoundManager::GetInstance()->Play(L"ThrowBombSE", 0, 0.3f);
+		if (m_bombCount > 0 && m_bombCoolTimeTimer.IsTimeUp()) {
+			m_bombCoolTimeTimer.Reset();
+			InstantiateGameObject<Bomb>(GetThis<PlayerBase>(),
+				m_predictionLine, GetTransform()->GetPosition(), m_bombPoint, m_bombPower);
+			// écíeÇå∏ÇÁÇ∑
+			m_bombCount--;
+			SoundManager::GetInstance()->Play(L"ThrowBombSE", 0, 0.3f);
+		}
+		else {
+			//SoundManager::GetInstance()->Play(L"EmptyBombSE", 0, 0.3f);
+		}
 	}
 
 	Vec3 PlayerBase::TurnFrontToDirection(const Vec3& direction) {
@@ -361,6 +388,8 @@ namespace basecross {
 
 	void PlayerBase::ParameterReset() {
 		m_currentEnergy = m_defaultEnergy;
+		m_isHoverMode = false;
+		m_isBombMode = false;
 	}
 
 	void PlayerBase::KnockBack(const KnockBackData& data) {
@@ -612,17 +641,9 @@ namespace basecross {
 		Obj->BombAim();
 
 		// îöíeÇÃécíeÇ™Ç†ÇÈèÍçá and É{É^ÉìÇ™âüÇ≥ÇÍÇΩèÍçá
-		if (Obj->m_bombCount > 0 &&
-			Obj->m_inputData.IsFire &&
-			Obj->m_bombCoolTimeTimer.IsTimeUp()) {
-			Obj->m_bombCoolTimeTimer.Reset();
+		if (Obj->m_inputData.IsFire) {
 			// îöíeÇî≠éÀ
 			Obj->BombLaunch();
-			// écíeÇå∏ÇÁÇ∑
-			Obj->m_bombCount--;
-		}
-		else {
-			//SoundManager::GetInstance()->Play(L"EmptyBombSE", 0, 0.3f);
 		}
 		// îöíeÉÇÅ[ÉhÇèIóπÅiíeÉÇÅ[ÉhÇ÷ëJà⁄Åj
 		if (!Obj->m_inputData.IsSwitchBombMode) {
