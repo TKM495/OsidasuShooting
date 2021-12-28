@@ -158,23 +158,22 @@ namespace basecross {
 
 		auto physicalComp = GetComponent<PhysicalBehavior>();
 
-		if (m_inputData.IsTackleMode) {
-			if (!m_isDuringTackle) {
-				m_tackleTimer.Reset();
-				physicalComp->Impact(m_inputData.MoveDirection, 30);
-				m_isDuringTackle = true;
-			}
-		}
-		else {
-			physicalComp->Move(m_inputData.MoveDirection, m_moveSpeed);
-			auto efkComp = GetComponent<EfkComponent>();
+		//if (m_inputData.IsTackleMode) {
+		//	if (!m_isDuringTackle) {
+		//		m_tackleTimer.Reset();
+		//		physicalComp->Impact(m_inputData.MoveDirection, 30);
+		//		m_isDuringTackle = true;
+		//	}
+		//}
+		//else {
+		physicalComp->Move(m_inputData.MoveDirection, m_moveSpeed);
+		auto efkComp = GetComponent<EfkComponent>();
 
-			// ˆÚ“®‚µ‚Ä‚¢‚ÄÚ’n‚µ‚Ä‚¢‚éê‡
-			if (m_groundingDecision.Calculate(GetTransform()->GetPosition())) {
-				if (m_smokeTimer.Count()) {
-					efkComp->Play(L"Smoke");
-					m_smokeTimer.Reset();
-				}
+		// ˆÚ“®‚µ‚Ä‚¢‚ÄÚ’n‚µ‚Ä‚¢‚éê‡
+		if (m_groundingDecision.Calculate(GetTransform()->GetPosition())) {
+			if (m_smokeTimer.Count()) {
+				efkComp->Play(L"Smoke");
+				m_smokeTimer.Reset();
 			}
 		}
 	}
