@@ -34,7 +34,6 @@ namespace basecross {
 
 			//AddGameObject<Debug>();
 
-			AddGameObject<FenceController>();
 			AddGameObject<Fencing>();
 
 
