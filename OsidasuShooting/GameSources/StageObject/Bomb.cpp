@@ -54,25 +54,15 @@ namespace basecross {
 		SoundManager::GetInstance()->Play(L"ExplosionSE", 0, 0.1f);
 
 		// 爆風の処理
-
-		if (other->FindTag(L"Break")) {
-			auto breakBlock = dynamic_pointer_cast<BreakBlock>(other);
-			breakBlock->BlockDamage(10);
-		}
-		else {
-			const auto& players = PlayerManager::GetInstance()->GetAllPlayer();
-			for (auto player : players) {
+		auto gameObjects = GetStage()->GetGameObjectVec();
+		for (auto obj : gameObjects) {
+			auto player = dynamic_pointer_cast<PlayerBase>(obj);
+			if (player) {
 				auto pos = player->GetTransform()->GetPosition();
 				auto myPos = GetTransform()->GetPosition();
 				auto distance = (pos - myPos).length();
-				// 爆発半径内にいる場合ノックバック
-				if (distance <= m_maxRadius) {
-					auto rate = 1.0f;
-					// 最小距離より遠い場合
-					if (distance > m_minimumRadius) {
-						// 爆弾より距離が遠ざかると威力を減らすようにする
-						rate = 1 - ((distance - m_minimumRadius) / (m_maxRadius - m_minimumRadius));
-					}
+				auto rate = PowerCalc(distance);
+				if (rate > 0) {
 					KnockBackData data(
 						KnockBackData::Category::Bomb,
 						pos - myPos, m_power * rate, m_owner
@@ -81,8 +71,31 @@ namespace basecross {
 					player->KnockBack(data);
 				}
 			}
+
+			auto breakBlock = dynamic_pointer_cast<BreakBlock>(obj);
+			if (breakBlock) {
+				auto pos = breakBlock->GetTransform()->GetPosition();
+				auto myPos = GetTransform()->GetPosition();
+				auto distance = (pos - myPos).length();
+				auto rate = PowerCalc(distance);
+				breakBlock->BlockDamage(rate * 5);
+			}
 		}
 		// 自身を削除
 		Destroy<Bomb>();
+	}
+
+	float Bomb::PowerCalc(float distance) {
+		float rate = 0.0f;
+		// 爆発半径内にいる場合ノックバック
+		if (distance <= m_maxRadius) {
+			rate = 1.0f;
+			// 最小距離より遠い場合
+			if (distance > m_minimumRadius) {
+				// 爆弾より距離が遠ざかると威力を減らすようにする
+				rate = 1 - ((distance - m_minimumRadius) / (m_maxRadius - m_minimumRadius));
+			}
+		}
+		return rate;
 	}
 }

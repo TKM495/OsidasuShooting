@@ -21,11 +21,11 @@
         <!--ジャンプ量-->
         <JumpAmount>12</JumpAmount>
         <!--弾の発射に使用するエネルギー(1発あたり)-->
-        <EnergyUseInBulletShot>5</EnergyUseInBulletShot>
+        <EnergyUseInBulletShot>10</EnergyUseInBulletShot>
         <!--ホバーで消費するエネルギー(毎秒)-->
         <UseEnergyInHover>35</UseEnergyInHover>
         <!--エネルギーの回復速度-->
-        <EnergyRecoveryAmount>100</EnergyRecoveryAmount>
+        <EnergyRecoveryAmount>40</EnergyRecoveryAmount>
         <!--弾の威力-->
         <BulletPower>20</BulletPower>
         <!--爆弾の威力-->
