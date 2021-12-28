@@ -8,8 +8,20 @@
 
 namespace basecross {
 	void GameStage::CreateViewLight() {
-		const Vec3 eye(0.0f, 25.0f, -30.0f);
-		const Vec3 at(0.0f, 0.0f, -7.0f);
+		auto line = CSVLoad::GetInstance()->GetData(L"Camera");
+		auto data = DataExtracter::DelimitData(line[1]);
+		const Vec3 eye = Vec3(
+			(float)_wtof(data[1].c_str()),
+			(float)_wtof(data[2].c_str()),
+			(float)_wtof(data[3].c_str())
+		);
+		const Vec3 at = Vec3(
+			(float)_wtof(data[4].c_str()),
+			(float)_wtof(data[5].c_str()),
+			(float)_wtof(data[6].c_str())
+		);
+		//const Vec3 eye(0.0f, 25.0f, -30.0f);
+		//const Vec3 at(0.0f, 0.0f, -7.0f);
 		auto PtrView = CreateView<SingleView>();
 		//ƒrƒ…[‚ÌƒJƒƒ‰‚Ìİ’è
 		auto PtrCamera = ObjectFactory::Create<Camera>();

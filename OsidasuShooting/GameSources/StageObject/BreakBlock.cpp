@@ -41,7 +41,7 @@ namespace basecross {
 		vector<VertexPositionNormalTexture> vertices;
 		vector<uint16_t> indices;
 
-		AdvancedMeshUtil::CreateCube(3.0f, m_transformData.Scale, vertices, indices);
+		AdvancedMeshUtil::CreateCube(2.0f, m_transformData.Scale, vertices, indices);
 
 		auto drawComp = AddComponent<PNTStaticDraw>();
 		drawComp->CreateOriginalMesh(vertices, indices);
@@ -83,29 +83,28 @@ namespace basecross {
 	}
 
 	void BreakBlock::OnUpdate() {
-			auto findBlock = GetDrawActive();
-			auto ptrColl = GetComponent<CollisionObb>();
-			if (findBlock) ptrColl->SetAfterCollision(AfterCollision::Auto);
-			else {
-				const auto& app = App::GetApp();
-				const auto delta = app->GetElapsedTime();
-				ptrColl->SetAfterCollision(AfterCollision::None);
-				ptrColl->AddExcludeCollisionTag(L"Player");
-				ptrColl->AddExcludeCollisionTag(L"Bullet");
-				ptrColl->AddExcludeCollisionTag(L"Bomb");
-				if (m_wakeupTime >= m_nowTime) {
-					m_nowTime += delta;
-				}
-				else {
-					SetDrawActive(true);
-					m_nowHp = m_hp;
-					m_nowTime = 0;
-					ptrColl->RemoveExcludeCollisionTag(L"Player");
-					ptrColl->RemoveExcludeCollisionTag(L"Bullet");
-					ptrColl->RemoveExcludeCollisionTag(L"Bomb");
-				}
+		auto findBlock = GetDrawActive();
+		auto ptrColl = GetComponent<CollisionObb>();
+		if (findBlock) ptrColl->SetAfterCollision(AfterCollision::Auto);
+		else {
+			const auto& app = App::GetApp();
+			const auto delta = app->GetElapsedTime();
+			ptrColl->SetAfterCollision(AfterCollision::None);
+			ptrColl->AddExcludeCollisionTag(L"Player");
+			ptrColl->AddExcludeCollisionTag(L"Bullet");
+			ptrColl->AddExcludeCollisionTag(L"Bomb");
+			if (m_wakeupTime >= m_nowTime) {
+				m_nowTime += delta;
 			}
-
+			else {
+				SetDrawActive(true);
+				m_nowHp = m_hp;
+				m_nowTime = 0;
+				ptrColl->RemoveExcludeCollisionTag(L"Player");
+				ptrColl->RemoveExcludeCollisionTag(L"Bullet");
+				ptrColl->RemoveExcludeCollisionTag(L"Bomb");
+			}
+		}
 	}
 
 	//void BreakBlock::SetUpAnimation() {

@@ -34,10 +34,11 @@ namespace basecross {
 		vector<VertexPositionNormalTexture> vertices;
 		vector<uint16_t> indices;
 
-		AdvancedMeshUtil::CreateCube(3.0f, m_transformData.Scale, vertices, indices);
+		AdvancedMeshUtil::CreateCube(2.0f, m_transformData.Scale, vertices, indices);
 
 		auto drawComp = AddComponent<PNTStaticDraw>();
-		drawComp->SetMeshResource(L"DEFAULT_CUBE");
+		drawComp->CreateOriginalMesh(vertices, indices);
+		drawComp->SetOriginalMeshUse(true);
 		drawComp->SetTextureResource(L"Block");
 		drawComp->SetOwnShadowActive(true);
 		drawComp->SetSamplerState(SamplerState::LinearWrap);

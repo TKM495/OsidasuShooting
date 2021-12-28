@@ -74,6 +74,7 @@ namespace basecross {
 		path = dir + L"CSV/";
 		CSVLoad::GetInstance()->RegisterFile(L"PlayerInfo", path + L"PlayerInfo.csv");
 		CSVLoad::GetInstance()->RegisterFile(L"PlayerFollowUI", path + L"PlayerFollowUI.csv");
+		CSVLoad::GetInstance()->RegisterFile(L"Camera", path + L"Camera.csv");
 
 		//XMLƒtƒ@ƒCƒ‹
 		path = dir + L"XML/";
@@ -155,7 +156,8 @@ namespace basecross {
 		AddGameObject<EfkInterface>();
 		path = dir + L"Effects/";
 		EfkEffectResource::RegisterEffectResource(L"Bullet", path + L"Bullet.efk");
-		EfkEffectResource::RegisterEffectResource(L"Explosion", path + L"fire.efk");
+		EfkEffectResource::RegisterEffectResource(L"Explosion", path + L"Explosion.efk");
+		EfkEffectResource::RegisterEffectResource(L"Death", path + L"fire.efk");
 		EfkEffectResource::RegisterEffectResource(L"Hit", path + L"Hit.efk");
 		EfkEffectResource::RegisterEffectResource(L"Jump", path + L"Jump.efk");
 		EfkEffectResource::RegisterEffectResource(L"Hover", path + L"Hover.efk");
