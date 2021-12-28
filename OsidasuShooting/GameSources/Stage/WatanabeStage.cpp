@@ -75,6 +75,7 @@ namespace basecross {
 			auto path = dir + L"Csv/Stage/";
 			builder.Build(GetThis<Stage>(), path + L"StageBase.csv");
 			builder.Build(GetThis<Stage>(), path + L"Stage1.csv");
+			AddGameObject<CurrentFirst>();
 
 			AddGameObject<SimpleSprite>(L"BackGround00")->SetDrawLayer(-1);
 		}
