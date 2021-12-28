@@ -36,6 +36,7 @@ namespace basecross {
 	void ReflectorBlock::OnCreate() {
 		auto ptrDraw = AddComponent<PNTStaticDraw>();
 		ptrDraw->SetMeshResource(L"DEFAULT_CUBE");
+		ptrDraw->SetTextureResource(L"Reflector");
 
 		auto ptrColl = AddComponent<CollisionObb>();
 		ptrColl->SetAfterCollision(AfterCollision::None);
