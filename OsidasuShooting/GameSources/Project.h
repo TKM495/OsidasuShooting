@@ -90,7 +90,6 @@
 //Empty GameObject
 #include "JonyMd/ItemCreation.h"
 #include "JonyMd/MeteoriteCreation.h"
-#include "JonyMd/FenceController.h"
 //Empty GameObject
 
 //GameObject

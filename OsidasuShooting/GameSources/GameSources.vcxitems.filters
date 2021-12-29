@@ -358,9 +358,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Fencing.cpp">
       <Filter>StageObject\JonyMd</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\FenceController.cpp">
-      <Filter>StageObject\JonyMd</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CountDown_.cpp">
       <Filter>UI\CountDownTimer</Filter>
     </ClCompile>
@@ -627,9 +624,6 @@
       <Filter>StageObject\JonyMd</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Fencing.h">
-      <Filter>StageObject\JonyMd</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\FenceController.h">
       <Filter>StageObject\JonyMd</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CountDown_.h">

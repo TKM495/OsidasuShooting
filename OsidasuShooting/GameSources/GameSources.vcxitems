@@ -15,7 +15,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\area.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\FenceController.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Fencing.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Item.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\ItemCreation.h" />
@@ -106,7 +105,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\area.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\FenceController.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Fencing.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Item.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\ItemCreation.cpp" />
