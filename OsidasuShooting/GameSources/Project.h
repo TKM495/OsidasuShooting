@@ -49,6 +49,7 @@
 #include "StageObject/ItemCreation_.h"
 //UI
 #include "UIs/InfoGauge.h"
+#include "UIs/BackPlanet.h"
 #include "UIs/BaseUI.h"
 #include "UIs/BattlePlayersUIs.h"
 #include "UIs/BombReloadTimeGauge.h"
