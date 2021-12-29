@@ -42,6 +42,17 @@ namespace basecross {
 		}
 	};
 
+	/**
+	 * @brief コントローラーのボタン
+	 */
+	enum class ControllerButton {
+		A, B, X, Y,
+		DPAD_UP, DPAD_DOWN, DPAD_LEFT, DPAD_RIGHT,
+		START, BACK,
+		LEFT_THUMB, RIGHT_THUMB,
+		LEFT_SHOULDER, RIGHT_SHOULDER
+	};
+
 	class GameController {
 		/**
 		 * @brief スティックの種類
@@ -73,6 +84,14 @@ namespace basecross {
 		 * @return トリガーのデータ（bool）
 		 */
 		bool GetTrigger(Direction direction);
+
+		/**
+		 * @brief ControllerButtonを定数に変換
+		 *
+		 * @param button ボタンの種類
+		 * @return XINPUT_GAMEPADの定数
+		 */
+		int GetButtonConstants(ControllerButton button);
 
 		/**
 		 * @brief バイブレーションのアクティブ（スレッド用関数）
@@ -126,6 +145,42 @@ namespace basecross {
 		 * @return trueなら押されている
 		 */
 		bool GetLeftTrigger();
+
+		/**
+		 * @brief ボタンの取得
+		 *
+		 * @param button 判定するボタン
+		 * @return bool
+		 */
+		bool GetButtons(ControllerButton button);
+		/**
+		 * @brief 状態が変わったかどうかの判定をする
+		 *
+		 * @param button 判定するボタン
+		 * @return bool
+		 */
+		bool GetNowUpdateButtons(ControllerButton button);
+		/**
+		 * @brief 押された瞬間を判定する
+		 *
+		 * @param button 判定するボタン
+		 * @return bool
+		 */
+		bool GetPressedButtons(ControllerButton button);
+		/**
+		 * @brief 離された瞬間を判定する
+		 *
+		 * @param button 判定するボタン
+		 * @return bool
+		 */
+		bool GetReleasedButtons(ControllerButton button);
+		/**
+		 * @brief 一つ前のボタンの取得
+		 *
+		 * @param button 判定するボタン
+		 * @return bool
+		 */
+		bool GetLastButtons(ControllerButton button);
 
 		/**
 		 * @brief バイブレーションのセット

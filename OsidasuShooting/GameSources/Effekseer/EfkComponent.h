@@ -118,12 +118,17 @@ namespace basecross {
 		 */
 		void Pause(const wstring& key);
 
+		void SetRotation(const wstring& key, const Vec3& rotation);
+
+
 		/**
 		 * @brief 位置の同期
 		 *
 		 * @param key エフェクトのキー
 		 */
 		void SyncPosition(const wstring& key);
+
+		void SetPosition(const wstring& key, const Vec3& position);
 
 		/**
 		 * @brief キーのエフェクトが再生中か

@@ -57,6 +57,7 @@ namespace basecross {
 		app->RegisterTexture(L"BarGauge", path + L"BarGauge.png");
 		app->RegisterTexture(L"GaugeColor", path + L"GaugeColor.png");
 		app->RegisterTexture(L"Block", path + L"Block.png");
+		app->RegisterTexture(L"BreakBlock", path + L"BreakBlock.png");
 		app->RegisterTexture(L"Winner", path + L"Winner.png");
 
 		app->RegisterTexture(L"BombBack", path + L"BombBackGround.png");
@@ -89,11 +90,17 @@ namespace basecross {
 		// Missile
 		path = dir + L"Models/MissileCharacter/";
 		for (int i = 0; i < 4; i++) {
+			// まだ1Pのみのモデルなので強制的に1
 			auto number = Util::IntToWStr(1);
 			auto modelMesh = MultiMeshResource::CreateStaticModelMultiMesh(path + L"Player" + number + L"/", L"TankPlayer" + number + L".bmf");
 			number = Util::IntToWStr(i + 1);
 			app->RegisterResource(L"MissilePlayer" + number, modelMesh);
 		}
+
+		// バンパー
+		path = dir + L"Models/Bumper/";
+		auto modelMesh = MeshResource::CreateStaticModelMesh(path, L"Bumper.bmf");
+		app->RegisterResource(L"Bumper", modelMesh);
 
 		// 効果音
 		path = dir + L"Sound/SE/";
@@ -110,6 +117,7 @@ namespace basecross {
 		app->RegisterWav(L"ShotSE", path + L"Shot.wav");
 		app->RegisterWav(L"ThrowBombSE", path + L"ThrowBomb.wav");
 		app->RegisterWav(L"WarningSE", path + L"Warning.wav");
+		app->RegisterWav(L"GetItemSE", path + L"GetItem.wav");
 
 		// BGM
 		path = dir + L"Sound/BGM/";
@@ -143,6 +151,20 @@ namespace basecross {
 		// スプライト
 		auto path = dir + L"Sprite/";
 		app->RegisterTexture(L"Loading", path + L"NowLoading.png");
+
+		AddGameObject<EfkInterface>();
+		path = dir + L"Effects/";
+		EfkEffectResource::RegisterEffectResource(L"Bullet", path + L"Bullet.efk");
+		EfkEffectResource::RegisterEffectResource(L"Explosion", path + L"fire.efk");
+		EfkEffectResource::RegisterEffectResource(L"Hit", path + L"Hit.efk");
+		EfkEffectResource::RegisterEffectResource(L"Jump", path + L"Jump.efk");
+		EfkEffectResource::RegisterEffectResource(L"Hover", path + L"Hover.efk");
+		EfkEffectResource::RegisterEffectResource(L"Bomb", path + L"Bomb.efk");
+		EfkEffectResource::RegisterEffectResource(L"Smoke", path + L"Smoke.efk");
+		EfkEffectResource::RegisterEffectResource(L"Laser", path + L"Laser.efk");
+		EfkEffectResource::RegisterEffectResource(L"BombPlus", path + L"BombPlus.efk");
+		EfkEffectResource::RegisterEffectResource(L"Respawn", path + L"Respawn.efk");
+		EfkEffectResource::RegisterEffectResource(L"BreakBlock", path + L"BreakBlock.efk");
 
 		//他のリソースを読み込むスレッドのスタート
 		thread LoadThread(LoadResourceFunc);

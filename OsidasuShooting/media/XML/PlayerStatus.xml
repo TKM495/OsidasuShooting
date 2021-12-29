@@ -2,63 +2,63 @@
 <Player>
     <!--プレイヤー共通のステータス-->
     <CommonStatus>
-        <!--デフォルトのアーマー値-->
-        <DefaultArmorPoint>100</DefaultArmorPoint>
         <!--デフォルトのエネルギー値-->
-        <DefaultSkillEnergy>100</DefaultSkillEnergy>
+        <DefaultEnergy>100</DefaultEnergy>
         <!--弾の照準の補正角度-->
         <CorrectAngle>40</CorrectAngle>
-        <!--アーマー0の時のノックバック倍率-->
-        <ArmorZeroWhenKnockBackMagnification>5</ArmorZeroWhenKnockBackMagnification>
-        <!--アーマーの回復速度-->
-        <ArmorRecoveryAmount>10</ArmorRecoveryAmount>
+        <!--エネルギー0の時のノックバック倍率-->
+        <EnergyZeroWhenKnockBackMagnification>5</EnergyZeroWhenKnockBackMagnification>
         <!--爆弾の照準の移動量-->
         <BombAimMovingDistance>20</BombAimMovingDistance>
         <!--弾の照準線の長さ-->
         <BulletAimLineLength>3</BulletAimLineLength>
-        <!--エネルギー取得量-->
-        <EnergyGetAmount>5</EnergyGetAmount>
+        <!--デフォルトの爆弾の所持数-->
+        <DefaultBombCount>5</DefaultBombCount>
     </CommonStatus>
     <LaserStatus>
         <!--移動速度-->
-        <MoveSpeed>20</MoveSpeed>
+        <MoveSpeed>30</MoveSpeed>
         <!--ジャンプ量-->
         <JumpAmount>12</JumpAmount>
-        <!--ホバー可能時間-->
-        <HoverTime>2</HoverTime>
-        <!--デフォルトの爆弾の所持数-->
-        <DefaultBombCount>5</DefaultBombCount>
+        <!--弾の発射に使用するエネルギー(1発あたり)-->
+        <EnergyUseInBulletShot>5</EnergyUseInBulletShot>
+        <!--ホバーで消費するエネルギー(毎秒)-->
+        <UseEnergyInHover>35</UseEnergyInHover>
+        <!--エネルギーの回復速度-->
+        <EnergyRecoveryAmount>100</EnergyRecoveryAmount>
         <!--弾の威力-->
         <BulletPower>20</BulletPower>
         <!--爆弾の威力-->
         <BombPower>50</BombPower>
         <!--弾の発射速度-->
-        <BulletRateOfFire>0.2</BulletRateOfFire>
+        <BulletRateOfFire>0.1</BulletRateOfFire>
         <!--爆弾のリロード速度-->
         <BombReloadSpeed>1</BombReloadSpeed>
-        <!--重力の倍率-->
+        <!--重力-->
         <GravityMagnification>3</GravityMagnification>
     </LaserStatus>
-    <MissileStatus>
+    <MissleStatus>
         <!--移動速度-->
         <MoveSpeed>20</MoveSpeed>
         <!--ジャンプ量-->
         <JumpAmount>12</JumpAmount>
-        <!--ホバー可能時間-->
-        <HoverTime>2</HoverTime>
-        <!--デフォルトの爆弾の所持数-->
-        <DefaultBombCount>5</DefaultBombCount>
+        <!--弾の発射に使用するエネルギー(1発当たり)-->
+        <EnergyUseInBulletShot>5</EnergyUseInBulletShot>
+        <!--ホバーで消費するエネルギー(毎秒)-->
+        <UseEnergyInHover>20</UseEnergyInHover>
+        <!--エネルギーの回復速度-->
+        <EnergyRecoveryAmount>10</EnergyRecoveryAmount>
         <!--弾の威力-->
         <BulletPower>20</BulletPower>
         <!--爆弾の威力-->
         <BombPower>50</BombPower>
         <!--弾の発射速度-->
-        <BulletRateOfFire>0.2</BulletRateOfFire>
+        <BulletRateOfFire>0.1</BulletRateOfFire>
         <!--爆弾のリロード速度-->
         <BombReloadSpeed>1</BombReloadSpeed>
         <!--重力の倍率-->
         <GravityMagnification>3</GravityMagnification>
-    </MissileStatus>
+    </MissleStatus>
     <!--プレイヤーの色（0 ～ 255のRGBA）-->
     <PlayerColor>
         <P1>0,186,255,255</P1>

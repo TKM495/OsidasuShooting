@@ -10,11 +10,6 @@ namespace basecross {
 		auto tokens = DataExtracter::DelimitData(data[1]);
 		auto transData = DataExtracter::TransformDataExtraction(tokens);
 
-		auto armorGauge = ObjectFactory::Create<HoverTimeGauge>(GetStage(),
-			m_owner, transData);
-		armorGauge->GetTransform()->SetParent(GetThis<PlayerFollowUI>());
-		m_objectsData.push_back(ObjectData(UIType::Hover, armorGauge));
-
 		tokens = DataExtracter::DelimitData(data[5]);
 		transData = DataExtracter::TransformDataExtraction(tokens);
 
@@ -38,17 +33,6 @@ namespace basecross {
 		bombCount->GetTransform()->SetParent(GetThis<PlayerFollowUI>());
 		m_objectsData.push_back(ObjectData(UIType::Bomb, bombCount));
 
-		//tokens = DataExtracter::DelimitData(data[4]);
-		//transData = DataExtracter::TransformDataExtraction(tokens);
-
-		//int playerNumber = (int)m_owner->GetPlayerNumber();
-		//auto t = ObjectFactory::Create<BattlePlayersUIs>(GetStage(), L"BPsUIs", playerNumber + 1, Vec3(0));
-		//t->GetTransform()->SetPosition(transData.Position);
-		//t->GetTransform()->SetScale(transData.Scale);
-		//t->GetTransform()->SetParent(GetThis<PlayerFollowUI>());
-		//t->GetDynamicComponent<SpriteBaseDraw>()->SetDiffuse(m_owner->GetColor());
-		//m_objectsData.push_back(ObjectData(UIType::Normal, t));
-
 		ApplyTransform();
 	}
 	void PlayerFollowUI::OnUpdate() {
@@ -61,6 +45,10 @@ namespace basecross {
 		}
 	}
 	void PlayerFollowUI::OnDraw() {
+		// プレイヤーが非アクティブの場合描画しない
+		if (!m_owner->GetActive())
+			return;
+
 		for (auto uiObject : m_objectsData) {
 			switch (uiObject.Type)
 			{
@@ -68,11 +56,7 @@ namespace basecross {
 				uiObject.UIObject->OnDraw();
 				break;
 			case UIType::Bomb:
-				if (m_owner->IsBombMode() || m_owner->GetBombCountRate() < 1)
-					uiObject.UIObject->OnDraw();
-				break;
-			case UIType::Hover:
-				if (m_owner->IsHoverMode() || m_owner->GetHoverTimeRate() < 1)
+				if (m_owner->IsBombMode())
 					uiObject.UIObject->OnDraw();
 				break;
 			default:
@@ -109,6 +93,10 @@ namespace basecross {
 	}
 
 	void PlayerPositionUI::OnDraw() {
+		// プレイヤーが非アクティブの場合描画しない
+		if (!m_owner->GetActive())
+			return;
+
 		for (auto uiObject : m_uiObject) {
 			uiObject->OnDraw();
 		}
