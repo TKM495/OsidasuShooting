@@ -36,6 +36,7 @@ namespace basecross {
 
 		// オーナー
 		weak_ptr<PlayerBase> m_owner;
+		float PowerCalc(float distance);
 	public:
 		Bomb(const shared_ptr<Stage>& stage,
 			const shared_ptr<PlayerBase>& owner,

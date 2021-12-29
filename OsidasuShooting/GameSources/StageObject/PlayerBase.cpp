@@ -71,8 +71,9 @@ namespace basecross {
 		efkComp->SetEffectResource(L"Jump", TransformData(Vec3(0.0f, -0.5f, 0.0f), m_transformData.Scale));
 		efkComp->SetEffectResource(L"Hover", TransformData(Vec3(0.0f, -0.5f, 0.0f), m_transformData.Scale));
 		efkComp->SetEffectResource(L"Smoke", TransformData(Vec3(0.0f, -0.5f, 0.0f), m_transformData.Scale), true);
-		efkComp->SetEffectResource(L"BombPlus", TransformData(Vec3(0), m_transformData.Scale));
 		efkComp->SetEffectResource(L"Respawn", TransformData(Vec3(0.0f, -0.5f, 0.0f)));
+		efkComp->SetEffectResource(L"BombPlus", TransformData(Vec3(0), m_transformData.Scale));
+		efkComp->SetEffectResource(L"EnergyPlus", TransformData(Vec3(0), m_transformData.Scale));
 
 		// 武器ステートマシンの構築と設定
 		m_weaponStateMachine.reset(new StateMachine<PlayerBase>(GetThis<PlayerBase>()));
@@ -459,6 +460,11 @@ namespace basecross {
 		// 効果音の再生
 		SoundManager::GetInstance()->Play(L"FallSE", 0, 0.3f);
 		OnRespawn();
+		// 現在のステージがGameStageの場合
+		auto gameStage = GetTypeStage<GameStage>(false);
+		// アイテムをスポーン
+		if (gameStage)
+			gameStage->GetItemCreation()->SpawnItem(modifiedClass::ItemType::Bomb);
 		// 初期位置に戻る
 		GetTransform()->SetPosition(m_initialPosition);
 	}
@@ -490,7 +496,7 @@ namespace basecross {
 		auto totalVelocity = GetVelocity() + gravity;
 		auto efkComp = GetComponent<EfkComponent>();
 
-		if (totalVelocity.lengthSqr() > 10 * 10) {
+		if (totalVelocity.lengthSqr() > 20 * 20) {
 			efkComp->Play(L"Smoke");
 		}
 	}
@@ -505,9 +511,14 @@ namespace basecross {
 				GetComponent<EfkComponent>()->Play(L"BombPlus");
 			}
 			break;
-			//case modifiedClass::Item::ItemType::Energy:
-			//	Debug::GetInstance()->Log(L"Energy");
-			//	break;
+		case modifiedClass::ItemType::Energy:
+			m_currentEnergy += m_defaultEnergy * 0.5f;
+			// デフォルトを超える場合はクランプ
+			if (m_currentEnergy > m_defaultEnergy) {
+				m_currentEnergy = m_defaultEnergy;
+			}
+			GetComponent<EfkComponent>()->Play(L"EnergyPlus");
+			break;
 			//case modifiedClass::Item::ItemType::Debuff:
 			//	Debug::GetInstance()->Log(L"Debuff");
 			//	break;
@@ -518,6 +529,7 @@ namespace basecross {
 
 	void PlayerBase::ItemGetEffectSync() {
 		GetComponent<EfkComponent>()->SyncPosition(L"BombPlus");
+		GetComponent<EfkComponent>()->SyncPosition(L"EnergyPlus");
 	}
 
 	void PlayerBase::TestFanc() {
@@ -551,6 +563,9 @@ namespace basecross {
 		}
 		if (keyState.m_bPressedKeyTbl['5']) {
 			GetComponent<EfkComponent>()->Play(L"Respawn");
+		}
+		if (keyState.m_bPressedKeyTbl['6']) {
+			GetComponent<EfkComponent>()->Play(L"BombPlus");
 		}
 	}
 

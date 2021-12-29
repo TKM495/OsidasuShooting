@@ -61,5 +61,9 @@ namespace basecross {
 		 * @return 現在のステート
 		 */
 		GameState GetCurrentGameState();
+
+		shared_ptr<modifiedClass::ItemCreation> GetItemCreation() {
+			return m_itemCreation;
+		}
 	};
 }

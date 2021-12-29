@@ -1,5 +1,6 @@
 #pragma once
 #include "stdafx.h"
+#include "Item_.h"
 
 namespace basecross {
 	namespace modifiedClass {
@@ -36,6 +37,8 @@ namespace basecross {
 
 			//Y position is fixed, X and Z position will be calculated by Randomly. isUniquePosition = if other GameObject is on that position will not spawn
 			void RandomlySpawn();
+
+			void SpawnItem(ItemType type);
 
 			//Set a Value for Y Position
 			void SetYposition(float number)

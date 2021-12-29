@@ -30,7 +30,7 @@ namespace basecross {
 		auto myRot = GetTransform()->GetRotation();
 		auto efkComp = AddComponent<EfkComponent>();
 		// 落ちたときのエフェクトの代わり
-		efkComp->SetEffectResource(L"Explosion",
+		efkComp->SetEffectResource(L"Death",
 			TransformData(
 				Vec3(0.0f),
 				Vec3(1.0f, 5.0f, 1.0f),
@@ -43,8 +43,8 @@ namespace basecross {
 		if (ptr) {
 			auto pos = other->GetComponent<Transform>()->GetPosition();
 			auto efkComp = GetComponent<EfkComponent>();
-			efkComp->Play(L"Explosion");
-			efkComp->SetPosition(L"Explosion", pos);
+			efkComp->Play(L"Death");
+			efkComp->SetPosition(L"Death", pos);
 
 			ptr->Died();
 		}

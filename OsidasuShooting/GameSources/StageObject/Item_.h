@@ -7,7 +7,7 @@ namespace basecross {
 			//Cube,
 			//Sphere,
 			Bomb,
-			//Energy,
+			Energy,
 			//Debuff,
 			totalItems // do not delete , used for randomly get above value
 		};

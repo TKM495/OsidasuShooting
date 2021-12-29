@@ -5,13 +5,12 @@ namespace basecross {
 	namespace modifiedClass {
 		void ItemCreation::OnCreate()
 		{
-			YPosition = 20.0f;
+			YPosition = 30.0f;
 			isUniquePosition = false;
 			spawnArea = SpawnArea::Block;
 		}
 
-		void ItemCreation::RandomlySpawn()
-		{
+		void ItemCreation::SpawnItem(ItemType type) {
 			if (areaPositionList.size() < 1)
 			{
 				SetArea();
@@ -27,15 +26,8 @@ namespace basecross {
 			int index = rand() % areaPositionList.size();
 			//setting random position...end
 
-			//for the enum class ItemType
-			int totalItems = (int)ItemType::totalItems; //last enum member used as total members
-			srand(time(0));
-			int randItems = rand() % totalItems;
-			auto itemType = static_cast<ItemType>(randItems); //assigning random value to the enum to set the current enum member
-			//for the enum class ItemType ...end
-
 			//spawn on that position
-			auto spawn = GetStage()->AddGameObject<Item>(itemType);
+			auto spawn = GetStage()->AddGameObject<Item>(type);
 			spawn->GetComponent<Transform>()->SetPosition(areaPositionList[index]);
 			if (spawnScale == Vec3(0, 0, 0))
 			{
@@ -72,6 +64,18 @@ namespace basecross {
 				}
 			}
 			//for not to repeat purposes...end
+		}
+
+		void ItemCreation::RandomlySpawn()
+		{
+			//for the enum class ItemType
+			int totalItems = (int)ItemType::totalItems; //last enum member used as total members
+			srand(time(0));
+			int randItems = rand() % totalItems;
+			auto itemType = static_cast<ItemType>(randItems); //assigning random value to the enum to set the current enum member
+			//for the enum class ItemType ...end
+
+			SpawnItem(itemType);
 		}
 
 		void ItemCreation::AdjustingAreaPosition()
