@@ -159,11 +159,11 @@ namespace basecross
 	}
 
 	void ReadyToFightUI::OnUpdate() {
-		auto& app = App::GetApp();
-		const auto& ctrlVec = app->GetInputDevice().GetControlerVec()[0];
-		if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_A) {
-			PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToGameStage");
-		}
+		//auto& app = App::GetApp();
+		//const auto& ctrlVec = app->GetInputDevice().GetControlerVec()[0];
+		//if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_A) {
+		//	PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToGameStage");
+		//}
 	}
 
 	//-----------------------------------------------------------------//

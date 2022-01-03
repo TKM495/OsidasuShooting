@@ -137,10 +137,12 @@ namespace basecross {
 			m_ifEntryPlayer[gamePadID] = true;
 			if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_A) {
 				m_isDecisionPlayer[gamePadID] = true;
+				if (!m_sceneChangeBlock)
 				SoundManager::GetInstance()->Play(L"CharacterDecisionSE");
 			}
 			if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_B) {
 				m_isDecisionPlayer[gamePadID] = false;
+				if(!m_sceneChangeBlock)
 				SoundManager::GetInstance()->Play(L"CancelSE");
 			}
 		}
@@ -178,28 +180,36 @@ namespace basecross {
 	}
 
 	void CharacterSelectStage::CheckSelectedPlayers() {
+		auto& app = App::GetApp();
+		for (int i = 0; i < m_loopForPlayer; i++) {
+			const auto& ctrlVec = app->GetInputDevice().GetControlerVec()[i];
+			if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_A 
+				&& !m_sceneChangeBlock && m_Ready->GetUpdateActive()) {
+				PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToGameStage");
+				m_sceneChangeBlock = true;
+			}
+			if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_B
+				&& !m_sceneChangeBlock && !m_Ready->GetUpdateActive()) {
+				if (m_isBPushPlayer[i]) {
+					PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToTitleStage");
+					m_sceneChangeBlock = true;
+				}
+				else m_isBPushPlayer[i] = true;
+			}
+		}
+
 		if (m_isDecisionPlayer[0] && m_isDecisionPlayer[1] &&
 			m_isDecisionPlayer[2] && m_isDecisionPlayer[3])
 		{
 			m_Ready->SetDrawActive(true);
 			m_Ready->SetUpdateActive(true);
+
 		}
 		else if (m_isDecisionPlayer[0] || m_isDecisionPlayer[1] ||
 			m_isDecisionPlayer[2] || m_isDecisionPlayer[3])
 		{
 			m_Ready->SetDrawActive(false);
 			m_Ready->SetUpdateActive(false);
-
-			auto& app = App::GetApp();
-			for (int i = 0; i < m_loopForPlayer; i++) {
-				const auto& ctrlVec = app->GetInputDevice().GetControlerVec()[i];
-				if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_B) {
-					if (m_isBPushPlayer[i]) {
-						PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToTitleStage");
-					}
-					else m_isBPushPlayer[i] = true;
-				}
-			}
 		}
 	}
 

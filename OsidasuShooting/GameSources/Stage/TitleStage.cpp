@@ -58,17 +58,20 @@ namespace basecross {
 		auto& app = App::GetApp();
 		const auto& cntlPad = app->GetInputDevice().GetControlerVec()[0];
 		// キャラクターセレクトへ
-		if (cntlPad.wPressedButtons & XINPUT_GAMEPAD_A) {
-			SoundManager::GetInstance()->Play(L"DecisionSE");
-			PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToCharacterSelectStage");
-		}
-		// ゲーム終了
-		if (cntlPad.wPressedButtons & XINPUT_GAMEPAD_B) {
-			SoundManager::GetInstance()->Play(L"CancelSE");
-			PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToExit");
+		if (!m_sceneChangeBlock) {
+			if (cntlPad.wPressedButtons & XINPUT_GAMEPAD_A) {
+				SoundManager::GetInstance()->Play(L"DecisionSE");
+				PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToCharacterSelectStage");
+				m_sceneChangeBlock = true;
+			}
+			// ゲーム終了
+			if (cntlPad.wPressedButtons & XINPUT_GAMEPAD_B) {
+				SoundManager::GetInstance()->Play(L"CancelSE");
+				PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToExit");
+				m_sceneChangeBlock = true;
+			}
 		}
 	}
-
 	void TitleStage::OnDestroy() {
 		SoundManager::GetInstance()->StopAll();
 	}

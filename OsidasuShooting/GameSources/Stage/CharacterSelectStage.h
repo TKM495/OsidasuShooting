@@ -26,6 +26,7 @@ namespace basecross {
 		shared_ptr<SelectTriangle> m_Triangle[8];	// 三角1セット * プレイヤー数
 		shared_ptr<ReadyToFightUI> m_Ready;
 
+		bool m_sceneChangeBlock;
 		//shared_ptr<CharacterIcon> charaIcon;
 	public:
 		CharacterSelectStage(
@@ -40,7 +41,8 @@ namespace basecross {
 			m_gamePadIDs{},
 			m_ifEntryPlayer{ false,false,false,false },
 			m_isBPushPlayer{ false,false,false,false },
-			m_isDecisionPlayer{ false,false,false,false }
+			m_isDecisionPlayer{ false,false,false,false },
+			m_sceneChangeBlock(false)
 		{}
 		~CharacterSelectStage() {}
 
