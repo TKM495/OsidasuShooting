@@ -15,9 +15,7 @@ namespace basecross {
 		auto PtrMultiLight = CreateLight<MultiLight>();
 		//デフォルトのライティングを指定
 		PtrMultiLight->SetDefaultLighting();
-	}
-
-	// フレーム設置
+	}// フレーム設置
 	void CharacterSelectStage::PlayerFreamPosition(Vec3 pos, int gamePadID) {
 		m_gamePadIDs[gamePadID] = gamePadID;	// ゲームパッドの番号を登録
 		m_isDecisionPlayer[gamePadID] = false;
@@ -35,8 +33,8 @@ namespace basecross {
 
 	// アイコン設置
 	void CharacterSelectStage::PlayerCharacterSelect(Vec3 pos, int gamePadID) {
-		for (int i = 0; i < 3; i++) {
-			auto gamePadLinkIcons = i + 3 * gamePadID;
+		for (int i = 0; i < m_loopForIcon; i++) {
+			auto gamePadLinkIcons = i + m_loopForIcon * gamePadID;
 			m_Icons[gamePadLinkIcons] = AddGameObject<CharacterIcon>(m_charaName[i], gamePadID, m_shiftMovePos, pos);
 			auto iconTrans = m_Icons[gamePadLinkIcons]->GetComponent<Transform>();
 
@@ -73,11 +71,11 @@ namespace basecross {
 		triTrans->SetScale(scl);
 		m_Triangle[gamePadID + 4]->SetDrawLayer(1);
 	}
-	 // UIの設置、OnCreateで使用する関数
+	// UIの設置、OnCreateで使用する関数
 	void CharacterSelectStage::UIsSet() {
 		AddGameObject<CharacterStringUI>(Vec3(0, 320, 0));
 		AddGameObject<DecisionSpriteUI>(Vec3(260, -320, 0));
-		AddGameObject<CancelSpriteUI>(Vec3(-340,-320 , 0));
+		AddGameObject<CancelSpriteUI>(Vec3(-340, -320, 0));
 		AddGameObject<AButtonSpriteUI>(Vec3(410, -320, 0));
 		AddGameObject<BButtonSpriteUI>(Vec3(-190, -320, 0));
 		m_Ready = AddGameObject<ReadyToFightUI>(Vec3(0, 0, 0));
@@ -91,7 +89,7 @@ namespace basecross {
 
 		m_charaName[0] = (L"LaserIcon");
 		m_charaName[1] = (L"MissileIcon");
-		m_charaName[2] = (L"3WayIcon");
+		//m_charaName[2] = (L"3WayIcon");
 		//m_charaName[3] = (L"MissileIcon");
 	}
 
@@ -160,8 +158,8 @@ namespace basecross {
 			m_Triangle[gamePadID + 4]->SetDrawActive(false);
 			m_Triangle[gamePadID + 4]->SetUpdateActive(false);
 
-			for (int i = 0; i < 3; i++) {
-				auto gamePadLinkIcons = i + 3 * gamePadID;
+			for (int i = 0; i < m_loopForIcon; i++) {
+				auto gamePadLinkIcons = i + m_loopForIcon * gamePadID;
 				m_Icons[gamePadLinkIcons]->SetUpdateActive(false);
 			}
 		}
