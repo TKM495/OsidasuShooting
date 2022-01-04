@@ -182,13 +182,17 @@ namespace basecross {
 	void ResultStage::OnUpdate() {
 		auto& app = App::GetApp();
 		const auto& cntlPad = app->GetInputDevice().GetControlerVec()[0];
-		if (cntlPad.wPressedButtons & XINPUT_GAMEPAD_A) {
-			SoundManager::GetInstance()->Play(L"DecisionSE");
-			PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToCharacterSelectStage");
-		}
-		if (cntlPad.wPressedButtons & XINPUT_GAMEPAD_B) {
-			SoundManager::GetInstance()->Play(L"DecisionSE");
-			PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToTitleStage");
+		if (!m_sceneChangeBlock) {
+			if (cntlPad.wPressedButtons & XINPUT_GAMEPAD_A) {
+				SoundManager::GetInstance()->Play(L"DecisionSE");
+				PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToCharacterSelectStage");
+				m_sceneChangeBlock = true;
+			}
+			if (cntlPad.wPressedButtons & XINPUT_GAMEPAD_B) {
+				SoundManager::GetInstance()->Play(L"DecisionSE");
+				PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToTitleStage");
+				m_sceneChangeBlock = true;
+			}
 		}
 	}
 

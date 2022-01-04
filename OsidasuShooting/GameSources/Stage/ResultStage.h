@@ -17,6 +17,8 @@ namespace basecross {
 		int m_playersScore;
 		PlayerNumber m_playerTop;
 		int m_playerTopScore;
+
+		bool m_sceneChangeBlock;
 	public:
 		ResultStage() :
 			Stage(),
@@ -24,7 +26,8 @@ namespace basecross {
 			m_playersNumber(),
 			m_playersScore(),
 			m_playerTop(),
-			m_playerTopScore()
+			m_playerTopScore(),
+			m_sceneChangeBlock(false)
 		{}
 
 		~ResultStage() {}
