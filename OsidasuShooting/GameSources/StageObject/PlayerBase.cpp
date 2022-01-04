@@ -95,10 +95,6 @@ namespace basecross {
 		SoundManager::GetInstance()->InitPlayOverlap(L"HoverSE", 0.06f);
 		// Ú’n”»’è‚Ìî•ñ‚ð‰Šú‰»
 		m_groundingDecision.SetRadius(GetTransform()->GetScale());
-		//Debug::GetInstance()->Log(m_lastFrontDirection);
-		//m_predictionLine.Update(GetTransform()->GetPosition(),
-		//	GetTransform()->GetPosition() + m_lastFrontDirection * 5, PredictionLine::Type::Bullet);
-		Debug::GetInstance()->Log(m_initialPosition);
 	}
 
 	void PlayerBase::OnUpdate() {
@@ -566,6 +562,9 @@ namespace basecross {
 		}
 		if (keyState.m_bPressedKeyTbl['6']) {
 			GetComponent<EfkComponent>()->Play(L"BombPlus");
+		}
+		if (keyState.m_bPressedKeyTbl['7']) {
+			GetComponent<EfkComponent>()->Play(L"EnergyPlus");
 		}
 	}
 

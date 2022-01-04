@@ -52,6 +52,8 @@ namespace basecross {
 		ApplyTransform();
 
 		//AddTag(L"Block");
+		auto shadowComp = AddComponent<Shadowmap>();
+		shadowComp->SetMeshResource(L"DEFAULT_CUBE");
 
 		AddTag(L"Reflector");
 	}

@@ -24,7 +24,7 @@ namespace basecross {
 		auto collComp = AddComponent<CollisionObb>();
 		collComp->AddExcludeCollisionTag(L"FallDecision");
 		collComp->SetAfterCollision(AfterCollision::None);
-		collComp->SetDrawActive(true);
+		//collComp->SetDrawActive(true);
 		AddTag(L"FallDecision");
 
 		auto myRot = GetTransform()->GetRotation();
