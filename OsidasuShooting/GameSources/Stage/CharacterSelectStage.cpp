@@ -88,7 +88,7 @@ namespace basecross {
 		//m_charaName[i] = cvs;
 
 		m_charaName[0] = (L"LaserIcon");
-		m_charaName[1] = (L"MissileIcon");
+		m_charaName[1] = (L"TankIcon");
 		//m_charaName[2] = (L"3WayIcon");
 		//m_charaName[3] = (L"MissileIcon");
 	}
