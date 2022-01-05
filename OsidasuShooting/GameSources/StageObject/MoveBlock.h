@@ -8,6 +8,14 @@
 
 namespace basecross {
 	class MoveBlock : public AdvancedGameObject {
+	public:
+		// ブロックの種類
+		enum class BlockType {
+			Normal,
+			Bumper,
+			Reflector
+		};
+	private:
 		// 移動関連
 			// 往復するポジション
 		Vec3 m_startPosition;
@@ -27,11 +35,20 @@ namespace basecross {
 			// 設置場所
 		Vec3 m_setPosition;
 
+		// ブロックのタイプ
+		BlockType m_type;
+		// ブロックのオブジェクト
+		shared_ptr<AdvancedGameObject> m_block;
+		// 移動速度
+		float m_moveSpeed;
+		// 待機時間
+		float m_latency;
 	public:
 		MoveBlock(
 			shared_ptr<Stage>& stage,
 			const TransformData transformData,
-			const Vec3 markPosition//,
+			const Vec3 markPosition,
+			BlockType type//,
 			//const bool posXorZ
 		) :
 			AdvancedGameObject(stage),
@@ -42,7 +59,10 @@ namespace basecross {
 			m_isWait(false),
 			m_isReturnBlock(false),
 			// その他項目
-			m_setPosition(0)
+			m_setPosition(0),
+			m_type(type),
+			m_moveSpeed(1.0f),
+			m_latency(1.0f)
 		{
 			m_transformData = transformData;
 		}
