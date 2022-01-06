@@ -36,18 +36,8 @@ namespace basecross {
 	}
 
 	void PlayerBase::OnCreate() {
-		// XMLのデータを取得
-		auto xmlData = XMLLoad::GetInstance()->GetData(L"PlayerStatus");
-		// プレイヤーの色情報を取得
-		auto data = XMLHelper::GetSingleNodeWString(xmlData, L"Player/PlayerColor");
-		// 4プレイヤー分の色を空白で4つのデータに分ける
-		auto colorStr = DataExtracter::DelimitData(data, L' ');
-		// 自身のプレイヤー番号に応じた色データをRGBAに分類
-		auto color = DataExtracter::DelimitData(colorStr[(UINT)m_playerNumber]);
-		// 分類したものをCol4に変換
-		m_color = DataExtracter::ColorDataExtraction(color);
-		// 0～1に変換
-		m_color = Utility::ConvertColorZeroToOne(m_color);
+		// 色の取得
+		m_color = PlayerStatus::GetInstance()->GetPlayerColor(m_playerNumber);
 
 		// プレイヤーのモデルを追加
 		m_model = InstantiateGameObject<PlayerModel>(GetThis<PlayerBase>(), m_transformData);

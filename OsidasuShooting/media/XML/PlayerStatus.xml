@@ -43,19 +43,19 @@
         <!--ジャンプ量-->
         <JumpAmount>12</JumpAmount>
         <!--弾の発射に使用するエネルギー(1発当たり)-->
-        <EnergyUseInBulletShot>5</EnergyUseInBulletShot>
+        <EnergyUseInBulletShot>30</EnergyUseInBulletShot>
         <!--ホバーで消費するエネルギー(毎秒)-->
-        <UseEnergyInHover>20</UseEnergyInHover>
+        <UseEnergyInHover>70</UseEnergyInHover>
         <!--エネルギーの回復速度-->
-        <EnergyRecoveryAmount>10</EnergyRecoveryAmount>
+        <EnergyRecoveryAmount>40</EnergyRecoveryAmount>
         <!--弾の威力-->
-        <BulletPower>20</BulletPower>
+        <BulletPower>30</BulletPower>
         <!--爆弾の威力-->
-        <BombPower>50</BombPower>
+        <BombPower>70</BombPower>
         <!--弾の発射速度-->
-        <BulletRateOfFire>0.1</BulletRateOfFire>
+        <BulletRateOfFire>0.3</BulletRateOfFire>
         <!--爆弾のリロード速度-->
-        <BombReloadSpeed>1</BombReloadSpeed>
+        <BombReloadSpeed>3</BombReloadSpeed>
         <!--重力の倍率-->
         <GravityMagnification>3</GravityMagnification>
     </MissileStatus>

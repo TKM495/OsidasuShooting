@@ -14,6 +14,7 @@
 #include "Utility/TimeCounter.h"
 #include "Component/PhysicalBehavior.h"
 #include "Item_.h"
+#include "Utility/PlayerStatus.h"
 
 namespace basecross {
 	/**

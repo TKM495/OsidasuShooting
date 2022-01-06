@@ -30,6 +30,7 @@
 #include "Utility/AdvancedMeshUtil.h"
 #include "Utility/DataExtracter.h"
 #include "Utility/GameController.h"
+#include "Utility/PlayerStatus.h"
 // ステージオブジェクト
 #include "SpecialCamera/SpCamera.h"
 #include "StageObject/AdvancedGameObject.h"
