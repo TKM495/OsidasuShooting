@@ -102,7 +102,8 @@ namespace basecross {
 			Debug::GetInstance()->Log(L"A : GameStart");
 			Debug::GetInstance()->Log(L"B : ToTitle");
 
-			AddGameObject<SimpleSprite>(L"BackGround00")->SetDrawLayer(-1);
+			m_BackGround = AddGameObject<SimpleSprite>(L"BackGround00");
+			m_BackGround->SetDrawLayer(-1);
 
 			SetCharaName();
 			auto side = 300.0f;
@@ -198,18 +199,28 @@ namespace basecross {
 			}
 		}
 
+		auto color = m_BackGround->GetComponent<PCTSpriteDraw>();
 		if (m_isDecisionPlayer[0] && m_isDecisionPlayer[1] &&
 			m_isDecisionPlayer[2] && m_isDecisionPlayer[3])
 		{
 			m_Ready->SetDrawActive(true);
 			m_Ready->SetUpdateActive(true);
-
+			auto rgba = color->GetDiffuse();
+			rgba.x = 0.5f;
+			rgba.y = 0.5f;
+			rgba.z = 0.5f;
+			color->SetDiffuse(rgba);
 		}
 		else if (m_isDecisionPlayer[0] || m_isDecisionPlayer[1] ||
 			m_isDecisionPlayer[2] || m_isDecisionPlayer[3])
 		{
 			m_Ready->SetDrawActive(false);
 			m_Ready->SetUpdateActive(false);
+			auto rgba = color->GetDiffuse();
+			rgba.x = 1;
+			rgba.y = 1;
+			rgba.z = 1;
+			color->SetDiffuse(rgba);
 		}
 	}
 
