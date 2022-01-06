@@ -515,9 +515,9 @@ namespace basecross {
 			}
 			GetComponent<EfkComponent>()->Play(L"EnergyPlus");
 			break;
-			//case modifiedClass::Item::ItemType::Debuff:
-			//	Debug::GetInstance()->Log(L"Debuff");
-			//	break;
+			//case modifiedClass::ItemType::Debuff:
+				//Debug::GetInstance()->Log(L"Debuff");
+				//break;
 		default:
 			break;
 		}
