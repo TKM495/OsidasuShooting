@@ -24,7 +24,8 @@ namespace basecross {
 		m_deadCount(0), m_invincibleTimer(3.0f, true), m_isInvincible(false),
 		m_armorZeroWhenKnockBackMagnification(5), m_energyRecoveryAmount(10),
 		m_bombAimMovingDistance(20), m_respawnTimer(3.0f), m_isActive(true),
-		m_tackleTimer(0.5f, true), m_isDuringTackle(false)
+		m_tackleTimer(0.5f, true), m_isDuringTackle(false), m_weight(1),
+		m_bulletAimLineLength(3)
 	{
 		m_transformData = transData;
 		m_transformData.Scale *= 2.0f;
@@ -47,12 +48,7 @@ namespace basecross {
 
 		// 滑るような挙動用のコンポーネントと重力を追加
 		AddComponent<PhysicalBehavior>();
-		auto gravity = AddComponent<Gravity>();
-		//auto defaultGravity = gravity->GetGravity();
-		//// 重力をデフォルトの3倍に設定
-		//gravity->SetGravity(defaultGravity * 3);
-				// 外部ファイルからステータスを読み込み
-		StatusLoad();
+		AddComponent<Gravity>();
 
 		// 当たり判定を追加
 		AddComponent<CollisionSphere>()->SetDrawActive(false);
@@ -77,6 +73,9 @@ namespace basecross {
 
 		// タグの追加
 		AddTag(L"Player");
+
+		// ステータスのセット
+		PlayerStatus::GetInstance()->SetPlayerData(GetThis<PlayerBase>());
 
 		// 各値の初期化
 		ParameterReset();
@@ -214,7 +213,7 @@ namespace basecross {
 			BulletAimCorrection(m_inputData.BulletAim.normalize())
 		);
 		// 予測線はStartとEndの2点の情報が必要
-		m_predictionLine.Update(ray.Origin, ray.GetPoint(3.0f), PredictionLine::Type::Bullet);
+		m_predictionLine.Update(ray.Origin, ray.GetPoint(m_bulletAimLineLength), PredictionLine::Type::Bullet);
 		// 照準方向を正面にして、正面方向を返す
 		return TurnFrontToDirection(ray.Direction);
 	}
@@ -322,55 +321,6 @@ namespace basecross {
 		m_isHoverMode = false;
 		GetComponent<EfkComponent>()->Stop(L"Hover");
 		OnStopHover();
-	}
-
-	void PlayerBase::StatusLoad() {
-		// XMLのデータを取得
-		auto xmlData = XMLLoad::GetInstance()->GetData(L"PlayerStatus");
-		wstring type;
-		switch (m_playerType) {
-		case PlayerType::Laser:
-			type = L"LaserStatus";
-			break;
-		case PlayerType::Missile:
-			type = L"MissileStatus";
-			break;
-		default:
-			throw BaseException(
-				L"定義されていないか未実装です。",
-				L"switch (m_playerType)",
-				L"PlayerBase::StatusLoad()");
-			break;
-		}
-		auto data = XMLHelper::GetSingleNodeWString(xmlData, L"Player/" + type);
-		// 4プレイヤー分の色を空白で4つのデータに分ける
-		auto statusStr = DataExtracter::DelimitData(data, L' ');
-		// 文字列のデータを数値に変換
-		vector<float> status;
-		for (auto stat : statusStr) {
-			status.push_back((float)_wtof(stat.c_str()));
-		}
-
-		// 移動速度
-		m_moveSpeed = status[0];
-		// ジャンプ量
-		m_jumpVerocity = Vec3(0, status[1], 0);
-		// 弾の発射に必要なエネルギー
-		m_energyRequiredInBulletLaunch = status[2];
-		// ホバーに必要なエネルギー
-		m_energyRequiredInHover = status[3];
-		// エネルギーの回復速度
-		m_energyRecoveryAmount = status[4];
-		// 弾の威力
-		m_bulletPower = status[5];
-		// 爆弾の威力
-		m_bombPower = status[6];
-		// 弾の連射速度
-		m_bulletTimer.SetIntervalTime(status[7], true);
-		m_bombCoolTimeTimer.SetIntervalTime(status[8], true);
-		auto defaultGravity = GetComponent<Gravity>()->GetGravity();
-		// 重力をデフォルトの3倍に設定
-		GetComponent<Gravity>()->SetGravity(defaultGravity * status[9]);
 	}
 
 	void PlayerBase::ParameterReset() {

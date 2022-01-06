@@ -84,6 +84,7 @@ namespace basecross {
 	};
 	class PlayerBase : public AdvancedGameObject {
 	private:
+		friend class PlayerStatus;
 		// 初期位置
 		Vec3 m_initialPosition;
 		// 武器用ステートマシーン
@@ -159,6 +160,10 @@ namespace basecross {
 		float m_energyRequiredInBulletLaunch;
 		// ホバーに必要なエネルギー（1秒あたり）
 		float m_energyRequiredInHover;
+		// 重さ
+		float m_weight;
+		// 弾の予測線の長さ
+		float m_bulletAimLineLength;
 
 		// アクティブかどうか
 		bool m_isActive;
@@ -199,8 +204,6 @@ namespace basecross {
 		void StopHover();
 		// 無敵処理
 		void Invincible();
-		// ステータスのロード
-		void StatusLoad();
 		/**
 		 * @brief エネルギーを減らす（残量 < 減らす量の場合何もしない）
 		 *
