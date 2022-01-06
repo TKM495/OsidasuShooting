@@ -15,6 +15,7 @@ namespace basecross {
 		wstring str;
 		PlayerNumber m_playersNumber;
 		int m_playersScore;
+		int m_playersDead;
 		PlayerNumber m_playerTop;
 		int m_playerTopScore;
 
@@ -25,6 +26,7 @@ namespace basecross {
 			str(),
 			m_playersNumber(),
 			m_playersScore(),
+			m_playersDead(),
 			m_playerTop(),
 			m_playerTopScore(),
 			m_sceneChangeBlock(false)
@@ -45,7 +47,7 @@ namespace basecross {
 
 		void AddWinnwe();
 		void AddWinnerSprite(int player);
-		void AddResultSprites(Vec3 pos, int playerNum, int score);
+		void AddResultSprites(Vec3 pos, int playerNum, int score, int dead);
 		void BattlePlayerUISet(int value) {} ;
 	};
 }

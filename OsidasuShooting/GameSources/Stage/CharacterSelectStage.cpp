@@ -15,7 +15,9 @@ namespace basecross {
 		auto PtrMultiLight = CreateLight<MultiLight>();
 		//デフォルトのライティングを指定
 		PtrMultiLight->SetDefaultLighting();
-	}// フレーム設置
+	}
+	
+	// フレーム設置
 	void CharacterSelectStage::PlayerFreamPosition(Vec3 pos, int gamePadID) {
 		m_gamePadIDs[gamePadID] = gamePadID;	// ゲームパッドの番号を登録
 		m_isDecisionPlayer[gamePadID] = false;
@@ -117,7 +119,7 @@ namespace basecross {
 
 			for (int i = 0; i < m_loopForPlayer; i++) {
 				CharacterSelectingPlayers(m_gamePadIDs[i]);
-				Debug::GetInstance()->Log(m_isDecisionPlayer[i]);
+				//Debug::GetInstance()->Log(m_isDecisionPlayer[i]);
 			}
 			//auto addIcons = AddGameObject<CharacterIcon>(L"MissileIcon");
 			//Debug::GetInstance()->Log(m_shiftMovePos);

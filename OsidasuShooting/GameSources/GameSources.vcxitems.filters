@@ -385,6 +385,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BackPlanet.cpp">
       <Filter>UI\BackGround</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Fencing.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -650,6 +651,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BackPlanet.h">
       <Filter>UI\BackGround</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Fencing.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />

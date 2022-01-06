@@ -36,7 +36,7 @@ namespace basecross {
 		playUIsTrans->SetScale(Vec3(1.1f));
 	}
 
-	void ResultStage::AddResultSprites(Vec3 pos, int playerNum, int score)
+	void ResultStage::AddResultSprites(Vec3 pos, int playerNum, int score, int dead)
 	{
 		auto fream = AddGameObject<FreamSprite>(L"Fream", pos, 1.2f);
 		auto freamTrans = fream->GetComponent<Transform>();
@@ -47,18 +47,23 @@ namespace basecross {
 		auto playerNumPos = pos;
 		auto playerNumber = AddGameObject<BattlePlayersUIs>(L"BPsUIs", playerNum, Vec3(0));
 		auto playUIsTrans = playerNumber->GetComponent<Transform>();
-		playerNumPos.x -= 120.0f;
-		playerNumPos.y += 30.0f;
+		playerNumPos.x -= 160.0f;
+		playerNumPos.y += 90.0f;
 		playUIsTrans->SetPosition(playerNumPos);
 		playUIsTrans->SetScale(Vec3(0.4f));
 		playerNumber->SetDrawLayer(2);
 
 		auto scorePos = pos;
-		scorePos.x += 0.0f;
-		scorePos.y += 40.0f;
+		scorePos.x += 20.0f;
+		scorePos.y += 65.0f;
 		m_score = AddGameObject<ResultScore>(score, scorePos);
+		scorePos.y -= 60.0f;
 		m_score->SetDrawLayer(2);
+		m_score = AddGameObject<ResultScore>(dead, scorePos);
+		m_score->SetDrawLayer(2);
+		
 	}
+
 
 	void ResultStage::PlayersResult() {
 		float addVec = 0;
@@ -74,21 +79,25 @@ namespace basecross {
 				str = L"P1";
 				m_playersNumber = player->GetPlayerNumber();
 				m_playersScore = player->GetCountKilledPlayer();
+				m_playersDead = player->GetDeadCount();
 				break;
 			case PlayerNumber::P2:
 				str = L"P2";
 				m_playersNumber = player->GetPlayerNumber();
 				m_playersScore = player->GetCountKilledPlayer();
+				m_playersDead = player->GetDeadCount();
 				break;
 			case PlayerNumber::P3:
 				str = L"P3";
 				m_playersNumber = player->GetPlayerNumber();
 				m_playersScore = player->GetCountKilledPlayer();
+				m_playersDead = player->GetDeadCount();
 				break;
 			case PlayerNumber::P4:
 				str = L"P4";
 				m_playersNumber = player->GetPlayerNumber();
 				m_playersScore = player->GetCountKilledPlayer();
+				m_playersDead = player->GetDeadCount();
 				break;
 			default:
 				break;
@@ -97,7 +106,8 @@ namespace basecross {
 			//Debug::GetInstance()->Log(str);
 			//Debug::GetInstance()->Log(player->GetCountKilledPlayer());
 
-			AddResultSprites(Vec3(400 + addVec, 250 + setPosY, 0), (UINT)m_playersNumber + 1, m_playersScore);
+			AddResultSprites(Vec3(400 + addVec, 250 + setPosY, 0), 
+				(UINT)m_playersNumber + 1, m_playersScore, m_playersDead);
 			addVec += 12.5f;
 			setPosY -= 170;
 
