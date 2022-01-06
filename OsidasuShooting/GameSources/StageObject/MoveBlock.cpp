@@ -33,26 +33,70 @@ namespace basecross {
 		);
 		// 往復地点
 		m_markPosition = Vec3(
+			(float)_wtof(tokens[10].c_str()),
 			(float)_wtof(tokens[11].c_str()),
-			(float)_wtof(tokens[12].c_str()),
-			(float)_wtof(tokens[13].c_str())
+			(float)_wtof(tokens[12].c_str())
 		);
+		// 移動速度
+		m_moveSpeed = (float)_wtof(tokens[13].c_str());
+		// 待機時間
+		m_latency = (float)_wtof(tokens[14].c_str());
+
+		// 文字列→enumの変換
+		auto data = tokens[15];
+		if (data == L"Block") {
+			m_type = BlockType::Normal;
+		}
+		else if (data == L"Bumper") {
+			m_type = BlockType::Bumper;
+		}
+		else if (data == L"Reflector") {
+			m_type = BlockType::Reflector;
+		}
+		else {
+			throw BaseException(
+				L"不正な値です。",
+				L"if(data == L\"\")",
+				L"MoveBlock::MoveBlock()"
+			);
+		}
 	}
 
 	void MoveBlock::OnCreate() {
-		auto ptrDraw = AddComponent<PNTStaticDraw>();
-		ptrDraw->SetMeshResource(L"DEFAULT_CUBE");
+		//auto ptrDraw = AddComponent<PNTStaticDraw>();
+		//ptrDraw->SetMeshResource(L"DEFAULT_CUBE");
 
-		auto ptrColl = AddComponent<CollisionObb>();
-		ptrColl->SetAfterCollision(AfterCollision::None);
-		// ブロックとの当たり判定を無視
-		ptrColl->AddExcludeCollisionTag(L"Block");
-		ptrColl->SetFixed(true);
+		//auto ptrColl = AddComponent<CollisionObb>();
+		//ptrColl->SetAfterCollision(AfterCollision::None);
+		//// ブロックとの当たり判定を無視
+		//ptrColl->AddExcludeCollisionTag(L"Block");
+		//ptrColl->SetFixed(true);
+
+		switch (m_type)
+		{
+		case BlockType::Normal:
+			m_block = InstantiateGameObject<Block>(m_transformData);
+			break;
+		case BlockType::Bumper:
+			m_block = InstantiateGameObject<Bumper>(m_transformData);
+			break;
+		case BlockType::Reflector:
+			m_block = InstantiateGameObject<ReflectorBlock>(m_transformData);
+			break;
+		default:
+			throw BaseException(
+				L"未定義の値です。",
+				L"switch (m_type)",
+				L"void MoveBlock::OnCreate()"
+			);
+			break;
+		}
 
 		auto ptrTrans = GetTransform();
 		m_startPosition = ptrTrans->GetPosition();
 
 		m_moveRoot = m_startPosition - m_markPosition; // 距離の取得
+		m_moveRoot.normalize(); // 正規化
 		m_waitTime = 0;
 		m_isWait = true;
 
@@ -63,7 +107,7 @@ namespace basecross {
 		//GetTransform()->SetPosition(setPos);
 		//ApplyTransform();
 
-		AddTag(L"Block");
+		AddTag(L"MoveBlock");
 	}
 
 	void MoveBlock::MovingBlock() {
@@ -75,7 +119,7 @@ namespace basecross {
 		auto ptrTrans = GetTransform();
 		auto pos = ptrTrans->GetPosition();
 
-		auto rootMoving = m_moveRoot * delta * 0.1f;// 移動
+		auto rootMoving = m_moveRoot * delta * m_moveSpeed;// 移動
 
 		if (!m_isWait) {
 			if (m_startPosition.x >= m_markPosition.x) {// m_startPosの方が大きい場合
@@ -108,7 +152,7 @@ namespace basecross {
 			if (!m_isWait) ptrTrans->SetPosition(pos);
 		}
 		else {
-			if (m_waitTime > 1) {
+			if (m_waitTime > m_latency) {
 				m_isWait = false;
 			}
 			else {
@@ -118,8 +162,10 @@ namespace basecross {
 	}
 
 	void MoveBlock::OnUpdate() {
-		auto ptrColl = GetComponent<CollisionObb>();
-		ptrColl->SetAfterCollision(AfterCollision::Auto);
+		//auto ptrColl = GetComponent<CollisionObb>();
+		//ptrColl->SetAfterCollision(AfterCollision::Auto);
 		MovingBlock();
+		auto currentLocation = GetTransform()->GetPosition();
+		m_block->GetTransform()->SetPosition(currentLocation);
 	}
 }
