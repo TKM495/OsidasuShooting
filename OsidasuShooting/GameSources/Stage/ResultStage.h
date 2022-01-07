@@ -12,6 +12,7 @@ namespace basecross {
 	class ResultStage :public Stage {
 		// ƒrƒ…[‚Ìì¬
 		void CreateViewLight();
+
 		wstring str;
 		PlayerNumber m_playersNumber;
 		int m_playersScore;
@@ -35,6 +36,7 @@ namespace basecross {
 		~ResultStage() {}
 
 		shared_ptr<ResultScore> m_score;
+		shared_ptr<ResultScore> m_dead;
 
 		void OnCreate() override;
 		void OnUpdate() override;

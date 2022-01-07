@@ -54,13 +54,22 @@ namespace basecross {
 		playerNumber->SetDrawLayer(2);
 
 		auto scorePos = pos;
-		scorePos.x += 20.0f;
-		scorePos.y += 65.0f;
+		scorePos.x += 50.0f;
+		scorePos.y += 65.0f;	
 		m_score = AddGameObject<ResultScore>(score, scorePos);
+		m_score->SetDrawLayer(2);
 		scorePos.y -= 60.0f;
-		m_score->SetDrawLayer(2);
-		m_score = AddGameObject<ResultScore>(dead, scorePos);
-		m_score->SetDrawLayer(2);
+		auto deadPos = scorePos;
+
+		scorePos.x -= 50;
+		scorePos.y += 24;
+		AddGameObject<KillIcon>(scorePos)->SetDrawLayer(2);
+
+		m_dead = AddGameObject<ResultScore>(dead, deadPos);
+		m_dead->SetDrawLayer(2);
+		deadPos.x -= 50;
+		deadPos.y -= 36;
+		AddGameObject<DeadIcon>(deadPos)->SetDrawLayer(2);
 		
 	}
 
