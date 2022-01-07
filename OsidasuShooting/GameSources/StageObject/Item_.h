@@ -9,15 +9,16 @@ namespace basecross {
 			Bomb,
 			Energy,
 			//Debuff,
+			//Random,
 			totalItems // do not delete , used for randomly get above value
 		};
 		class Item : public GameObject
 		{
 			ItemType spawnItem;
-
+			bool m_isRandom;
 		public:
-			Item(const shared_ptr<Stage>& stage, ItemType type)
-				:GameObject(stage), spawnItem(type)
+			Item(const shared_ptr<Stage>& stage, ItemType type, bool isRandom)
+				:GameObject(stage), spawnItem(type), m_isRandom(false)
 			{}
 
 			void OnCreate() override;

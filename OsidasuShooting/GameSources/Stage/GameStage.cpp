@@ -49,10 +49,11 @@ namespace basecross {
 			GameObjecttCSVBuilder builder;
 			builder.Register<Block>(L"Block");
 			builder.Register<Bumper>(L"Bumper");
-			builder.Register<ReflectorBlock>(L"Reflecter");
+			builder.Register<ReflectorBlock>(L"Reflector");
 			builder.Register<BreakBlock>(L"BreakableBlock");
 			builder.Register<PlayerBuilder>(L"Player");
 			builder.Register<FallDecision>(L"FallDecision");
+			builder.Register<MoveBlock>(L"MovingBlock");
 			auto dir = App::GetApp()->GetDataDirWString();
 			auto path = dir + L"Csv/Stage/";
 			builder.Build(GetThis<Stage>(), path + L"StageBase.csv");

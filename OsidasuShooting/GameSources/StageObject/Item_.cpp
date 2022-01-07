@@ -10,18 +10,25 @@ namespace basecross {
 			auto drawComp = AddComponent<PNTStaticDraw>();
 			drawComp->SetMeshResource(L"DEFAULT_CUBE");
 
-			switch (spawnItem)
-			{
-			case ItemType::Bomb:
-				drawComp->SetTextureResource(L"BombItem");
-				break;
-			case ItemType::Energy:
-				drawComp->SetTextureResource(L"EnergyItem");
-				break;
-			case ItemType::totalItems:
-				break;
-			default:
-				break;
+			if (m_isRandom) {
+				drawComp->SetTextureResource(L"RandomItem");
+			}
+			else {
+				switch (spawnItem)
+				{
+				case ItemType::Bomb:
+					drawComp->SetTextureResource(L"BombItem");
+					break;
+				case ItemType::Energy:
+					drawComp->SetTextureResource(L"EnergyItem");
+					break;
+					//case ItemType::Debuff:
+						//break;
+				case ItemType::totalItems:
+					break;
+				default:
+					break;
+				}
 			}
 			//auto transform = GetComponent<Transform>();
 

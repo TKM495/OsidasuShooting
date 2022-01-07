@@ -38,7 +38,7 @@ namespace basecross {
 			//Y position is fixed, X and Z position will be calculated by Randomly. isUniquePosition = if other GameObject is on that position will not spawn
 			void RandomlySpawn();
 
-			void SpawnItem(ItemType type);
+			void SpawnItem(ItemType type, bool isRandom = false);
 
 			//Set a Value for Y Position
 			void SetYposition(float number)

@@ -79,6 +79,8 @@ namespace basecross {
 
 		app->RegisterTexture(L"BombItem", path + L"BombItem.png");
 		app->RegisterTexture(L"EnergyItem", path + L"EnergyItem.png");
+		app->RegisterTexture(L"RandomItem", path + L"RandomItem.png");
+
 		// テスト用スプライト
 		app->RegisterTexture(L"Test", path + L"test.png");
 
