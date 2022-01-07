@@ -62,7 +62,7 @@ namespace basecross {
 			AddGameObject<CurrentFirst>();
 			AddGameObject<modifiedClass::Area>(TransformData(Vec3(0, 0, -6), Vec3(27, 1, 21)));
 
-			m_countDown = AddGameObject<modifiedClass::CountDown>(90.0f);
+			m_countDown = AddGameObject<modifiedClass::CountDown>(0.0f);
 			m_startCountDown = AddGameObject<StartCountDown>(TransformData());
 			m_itemCreation = AddGameObject<modifiedClass::ItemCreation>();
 

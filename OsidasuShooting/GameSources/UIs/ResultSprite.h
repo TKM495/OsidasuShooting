@@ -25,4 +25,30 @@ namespace basecross {
 		void OnCreate() override;
 		void OnUpdate() {};
 	};
+
+	class KillIcon : public BaseSprite {
+		Vec3 m_setPos;
+	public:
+		KillIcon(
+			const shared_ptr<Stage>& stage,
+			Vec3 position
+		):
+			BaseSprite(stage,position),
+			m_setPos(position)
+		{}
+		void OnCreate() override;
+	};
+
+	class DeadIcon : public BaseSprite {
+		Vec3 m_setPos;
+	public:
+		DeadIcon(
+			const shared_ptr<Stage>& stage,
+			Vec3 position
+		):
+			BaseSprite(stage,position),
+			m_setPos(position)
+		{}
+		void OnCreate() override;
+	};
 }
