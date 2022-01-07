@@ -101,6 +101,57 @@ namespace basecross {
 		return false;
 	}
 
+	int GameController::GetButtonConstants(ControllerButton button) {
+		switch (button)
+		{
+		case ControllerButton::A:
+			return XINPUT_GAMEPAD_A;
+		case ControllerButton::B:
+			return XINPUT_GAMEPAD_B;
+		case ControllerButton::X:
+			return XINPUT_GAMEPAD_X;
+		case ControllerButton::Y:
+			return XINPUT_GAMEPAD_Y;
+		case ControllerButton::DPAD_UP:
+			return XINPUT_GAMEPAD_DPAD_UP;
+		case ControllerButton::DPAD_DOWN:
+			return XINPUT_GAMEPAD_DPAD_DOWN;
+		case ControllerButton::DPAD_LEFT:
+			return XINPUT_GAMEPAD_DPAD_LEFT;
+		case ControllerButton::DPAD_RIGHT:
+			return XINPUT_GAMEPAD_DPAD_RIGHT;
+		case ControllerButton::START:
+			return XINPUT_GAMEPAD_START;
+		case ControllerButton::BACK:
+			return XINPUT_GAMEPAD_BACK;
+		case ControllerButton::LEFT_THUMB:
+			return XINPUT_GAMEPAD_LEFT_THUMB;
+		case ControllerButton::RIGHT_THUMB:
+			return XINPUT_GAMEPAD_RIGHT_THUMB;
+		case ControllerButton::LEFT_SHOULDER:
+			return XINPUT_GAMEPAD_LEFT_SHOULDER;
+		case ControllerButton::RIGHT_SHOULDER:
+			return XINPUT_GAMEPAD_RIGHT_SHOULDER;
+		}
+		return -1;
+	}
+
+	bool GameController::GetButtons(ControllerButton button) {
+		return GetControler().wButtons & GetButtonConstants(button);
+	}
+	bool GameController::GetNowUpdateButtons(ControllerButton button) {
+		return GetControler().wNowUpdateButtons & GetButtonConstants(button);
+	}
+	bool GameController::GetPressedButtons(ControllerButton button) {
+		return GetControler().wPressedButtons & GetButtonConstants(button);
+	}
+	bool GameController::GetReleasedButtons(ControllerButton button) {
+		return GetControler().wReleasedButtons & GetButtonConstants(button);
+	}
+	bool GameController::GetLastButtons(ControllerButton button) {
+		return GetControler().wLastButtons & GetButtonConstants(button);
+	}
+
 	void GameController::ActiveVibrationThread(const wstring& key, const VibrationData& data) {
 		// バイブレーション開始
 		XINPUT_VIBRATION vibration = { data.LeftMotorSpeed,data.RightMotorSpeed };

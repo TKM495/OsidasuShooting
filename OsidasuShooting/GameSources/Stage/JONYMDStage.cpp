@@ -32,9 +32,19 @@ namespace basecross {
 			CreateViewLight();
 			CreateStageArea();
 
-			AddGameObject<Debug>();
-			auto meteoriteCreation = AddGameObject<MeteoriteCreation>();
-			SetSharedGameObject(L"MeteoriteCreation", meteoriteCreation);
+			//AddGameObject<Debug>();
+
+			//AddGameObject<Fencing>();
+
+
+			//auto area = AddGameObject<Area>();
+			//SetSharedGameObject(L"Area", area);
+
+			auto itemCreation = AddGameObject<ItemCreation>();
+			SetSharedGameObject(L"ItemCreation", itemCreation);
+			
+			//auto meteoriteCreation = AddGameObject<MeteoriteCreation>();
+			//SetSharedGameObject(L"MeteoriteCreation", meteoriteCreation);
 
 		}
 		catch (...) {
@@ -50,18 +60,23 @@ namespace basecross {
 
 		if (keyState.m_bPressedKeyTbl[VK_SPACE]) 
 		{
-			GetSharedGameObject<MeteoriteCreation>(L"MeteoriteCreation")->Spawn();
+			auto itemCreation = GetSharedGameObject<ItemCreation>(L"ItemCreation");
+			itemCreation->RandomlySpawn();
 		}
 		
 	}
 
 	
-	void JONYMDStage::CreateStageArea() {
-		
+	void JONYMDStage::CreateStageArea()
+	{
+		auto& app = App::GetApp();
+		auto dir = app->GetDataDirWString();
+		auto pathSprite = dir + L"Sprite/";
+		app->RegisterTexture(L"Block", pathSprite + L"Block.png");
+
 		GameObjecttCSVBuilder builder;
 		builder.Register<Block>(L"Block");
-		auto dir = App::GetApp()->GetDataDirWString();
-		auto path = dir + L"Csv/Stage/Stage1";
+		auto path = dir + L"Csv/Stage/Stage1_Before";
 		path += L".csv";
 		builder.Build(GetThis<Stage>(), path);
 		

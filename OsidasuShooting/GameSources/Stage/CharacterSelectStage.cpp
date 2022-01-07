@@ -16,7 +16,7 @@ namespace basecross {
 		//デフォルトのライティングを指定
 		PtrMultiLight->SetDefaultLighting();
 	}
-
+	
 	// フレーム設置
 	void CharacterSelectStage::PlayerFreamPosition(Vec3 pos, int gamePadID) {
 		m_gamePadIDs[gamePadID] = gamePadID;	// ゲームパッドの番号を登録
@@ -35,8 +35,8 @@ namespace basecross {
 
 	// アイコン設置
 	void CharacterSelectStage::PlayerCharacterSelect(Vec3 pos, int gamePadID) {
-		for (int i = 0; i < 3; i++) {
-			auto gamePadLinkIcons = i + 3 * gamePadID;
+		for (int i = 0; i < m_loopForIcon; i++) {
+			auto gamePadLinkIcons = i + m_loopForIcon * gamePadID;
 			m_Icons[gamePadLinkIcons] = AddGameObject<CharacterIcon>(m_charaName[i], gamePadID, m_shiftMovePos, pos);
 			auto iconTrans = m_Icons[gamePadLinkIcons]->GetComponent<Transform>();
 
@@ -90,8 +90,8 @@ namespace basecross {
 		//m_charaName[i] = cvs;
 
 		m_charaName[0] = (L"LaserIcon");
-		m_charaName[1] = (L"MissileIcon");
-		m_charaName[2] = (L"3WayIcon");
+		m_charaName[1] = (L"TankIcon");
+		//m_charaName[2] = (L"3WayIcon");
 		//m_charaName[3] = (L"MissileIcon");
 	}
 
@@ -104,7 +104,8 @@ namespace basecross {
 			//Debug::GetInstance()->Log(L"A : GameStart");
 			//Debug::GetInstance()->Log(L"B : ToTitle");
 
-			AddGameObject<SimpleSprite>(L"BackGround00")->SetDrawLayer(-1);
+			m_BackGround = AddGameObject<SimpleSprite>(L"BackGround00");
+			m_BackGround->SetDrawLayer(-1);
 
 			SetCharaName();
 			auto side = 300.0f;
@@ -139,10 +140,12 @@ namespace basecross {
 			m_ifEntryPlayer[gamePadID] = true;
 			if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_A) {
 				m_isDecisionPlayer[gamePadID] = true;
+				if (!m_sceneChangeBlock)
 				SoundManager::GetInstance()->Play(L"CharacterDecisionSE");
 			}
 			if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_B) {
 				m_isDecisionPlayer[gamePadID] = false;
+				if(!m_sceneChangeBlock)
 				SoundManager::GetInstance()->Play(L"CancelSE");
 			}
 		}
@@ -160,8 +163,8 @@ namespace basecross {
 			m_Triangle[gamePadID + 4]->SetDrawActive(false);
 			m_Triangle[gamePadID + 4]->SetUpdateActive(false);
 
-			for (int i = 0; i < 3; i++) {
-				auto gamePadLinkIcons = i + 3 * gamePadID;
+			for (int i = 0; i < m_loopForIcon; i++) {
+				auto gamePadLinkIcons = i + m_loopForIcon * gamePadID;
 				m_Icons[gamePadLinkIcons]->SetUpdateActive(false);
 			}
 		}
@@ -180,28 +183,46 @@ namespace basecross {
 	}
 
 	void CharacterSelectStage::CheckSelectedPlayers() {
+		auto& app = App::GetApp();
+		for (int i = 0; i < m_loopForPlayer; i++) {
+			const auto& ctrlVec = app->GetInputDevice().GetControlerVec()[i];
+			if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_A 
+				&& !m_sceneChangeBlock && m_Ready->GetUpdateActive()) {
+				PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToGameStage");
+				m_sceneChangeBlock = true;
+			}
+			if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_B
+				&& !m_sceneChangeBlock && !m_Ready->GetUpdateActive()) {
+				if (m_isBPushPlayer[i]) {
+					PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToTitleStage");
+					m_sceneChangeBlock = true;
+				}
+				else m_isBPushPlayer[i] = true;
+			}
+		}
+
+		auto color = m_BackGround->GetComponent<PCTSpriteDraw>();
 		if (m_isDecisionPlayer[0] && m_isDecisionPlayer[1] &&
 			m_isDecisionPlayer[2] && m_isDecisionPlayer[3])
 		{
 			m_Ready->SetDrawActive(true);
 			m_Ready->SetUpdateActive(true);
+			auto rgba = color->GetDiffuse();
+			rgba.x = 0.5f;
+			rgba.y = 0.5f;
+			rgba.z = 0.5f;
+			color->SetDiffuse(rgba);
 		}
 		else if (m_isDecisionPlayer[0] || m_isDecisionPlayer[1] ||
 			m_isDecisionPlayer[2] || m_isDecisionPlayer[3])
 		{
 			m_Ready->SetDrawActive(false);
 			m_Ready->SetUpdateActive(false);
-
-			auto& app = App::GetApp();
-			for (int i = 0; i < m_loopForPlayer; i++) {
-				const auto& ctrlVec = app->GetInputDevice().GetControlerVec()[i];
-				if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_B) {
-					if (m_isBPushPlayer[i]) {
-						PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToTitleStage");
-					}
-					else m_isBPushPlayer[i] = true;
-				}
-			}
+			auto rgba = color->GetDiffuse();
+			rgba.x = 1;
+			rgba.y = 1;
+			rgba.z = 1;
+			color->SetDiffuse(rgba);
 		}
 	}
 

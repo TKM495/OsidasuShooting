@@ -88,6 +88,31 @@ namespace basecross
 		ptrTrans->SetPosition(pos);
 		ptrTrans->SetScale(scl);
 
+		m_alpha = 1;
 	}
 
+	void PushAButtonSprite::OnUpdate() {
+		auto delta = App::GetApp()->GetElapsedTime();
+
+		auto ptrDraw = GetComponent<PCTSpriteDraw>();
+		auto col = ptrDraw->GetDiffuse();
+		// フェードイン
+		if (m_isFadeIn) {
+			m_alpha += delta;
+
+			if (m_alpha >= 1) {
+				m_isFadeIn = false;
+			}
+		}
+		// フェードアウト
+		else {
+			m_alpha -= delta;
+
+			if (m_alpha <= 0) {
+				m_isFadeIn = true;
+			}
+		}
+		col = Col4{ col.x,col.y,col.y,m_alpha };
+		ptrDraw->SetDiffuse(col);
+	}
 }

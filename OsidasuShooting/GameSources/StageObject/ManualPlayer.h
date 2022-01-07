@@ -7,6 +7,7 @@
 #include "stdafx.h"
 #include "Utility/GameController.h"
 #include "StageObject/PlayerBase.h"
+#include "Manager/StageManager.h"
 
 namespace basecross {
 	// 後で消す（SpCameraで使用中）
@@ -28,16 +29,17 @@ namespace basecross {
 		 */
 		ManualPlayer(const shared_ptr<Stage>& stage,
 			const TransformData& transformData,
-			PlayerNumber playerNumber = PlayerNumber::P1)
-			:PlayerBase(stage, transformData, playerNumber),
+			PlayerNumber playerNumber = PlayerNumber::P1,
+			PlayerType playerType = PlayerType::Laser)
+			:PlayerBase(stage, transformData, playerNumber, playerType),
 			m_controller(playerNumber)
 		{}
 	};
 
 	// リザルト用のプレイヤー
 	class ResultPlayer :public PlayerBase {
-		void InputUpdate()override;
 		GameController m_controller;
+		void InputUpdate() {};
 	public:
 		/**
 		 * @brief コンストラクタ
@@ -48,8 +50,9 @@ namespace basecross {
 		 */
 		ResultPlayer(const shared_ptr<Stage>& stage,
 			const TransformData& transformData,
-			PlayerNumber playerNumber = PlayerNumber::P1)
-			:PlayerBase(stage, transformData, playerNumber),
+			PlayerNumber playerNumber = PlayerNumber::P1,
+			PlayerType playerType = PlayerType::Laser)
+			:PlayerBase(stage, transformData, playerNumber, playerType),
 			m_controller(playerNumber)
 		{}
 	};

@@ -35,22 +35,26 @@ namespace basecross
 		//bool m_trace;
 		//Vec2 m_startScale;
 		//Vec2 m_startPos;
-		wstring m_textureKey;	
+		wstring m_textureKey; 
+		bool m_isFadeIn;
+		float m_alpha;
 
 	public:
-		PushAButtonSprite(const shared_ptr<Stage>& stage,const wstring& TextureKey/*, bool Trace,
+		PushAButtonSprite(const shared_ptr<Stage>& stage, const wstring& TextureKey/*, bool Trace,
 			const Vec2& StartScale,const Vec2& StartPos*/) :
 			GameObject(stage),
-			m_textureKey(TextureKey)/*,
-			m_trace(Trace),
+			m_textureKey(TextureKey),
+			/*m_trace(Trace),
 			m_startScale(StartScale),
 			m_startPos(StartPos)*/
+			m_isFadeIn(false),
+			m_alpha(0)
 		{}
 			
 		virtual ~PushAButtonSprite() {};
 
 		void OnCreate() ;
-		void OnUpdate() {};
+		void OnUpdate() ;
 
 	};
 }

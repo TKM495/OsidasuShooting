@@ -71,7 +71,19 @@ namespace basecross {
 		 * @param interval 計測時間
 		 */
 		void SetIntervalTime(float interval) {
+			SetIntervalTime(interval, false);
+		}
+
+		/**
+		 * @brief 計測時間を設定
+		 *
+		 * @param interval 計測時間
+		 * @param isReloadTimer リロードタイマーか
+		 */
+		void SetIntervalTime(float interval, bool isReloadTimer) {
 			m_intervalTime = interval;
+			if (isReloadTimer)
+				m_elaspedTime = m_intervalTime;
 		}
 
 		/**

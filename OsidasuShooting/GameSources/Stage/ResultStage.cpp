@@ -36,7 +36,7 @@ namespace basecross {
 		playUIsTrans->SetScale(Vec3(1.1f));
 	}
 
-	void ResultStage::AddResultSprites(Vec3 pos, int playerNum, int score)
+	void ResultStage::AddResultSprites(Vec3 pos, int playerNum, int score, int dead)
 	{
 		auto fream = AddGameObject<FreamSprite>(L"Fream", pos, 1.2f);
 		auto freamTrans = fream->GetComponent<Transform>();
@@ -47,18 +47,32 @@ namespace basecross {
 		auto playerNumPos = pos;
 		auto playerNumber = AddGameObject<BattlePlayersUIs>(L"BPsUIs", playerNum, Vec3(0));
 		auto playUIsTrans = playerNumber->GetComponent<Transform>();
-		playerNumPos.x -= 120.0f;
-		playerNumPos.y += 30.0f;
+		playerNumPos.x -= 160.0f;
+		playerNumPos.y += 90.0f;
 		playUIsTrans->SetPosition(playerNumPos);
 		playUIsTrans->SetScale(Vec3(0.4f));
 		playerNumber->SetDrawLayer(2);
 
 		auto scorePos = pos;
-		scorePos.x += 0.0f;
-		scorePos.y += 40.0f;
+		scorePos.x += 50.0f;
+		scorePos.y += 65.0f;	
 		m_score = AddGameObject<ResultScore>(score, scorePos);
 		m_score->SetDrawLayer(2);
+		scorePos.y -= 60.0f;
+		auto deadPos = scorePos;
+
+		scorePos.x -= 50;
+		scorePos.y += 24;
+		AddGameObject<KillIcon>(scorePos)->SetDrawLayer(2);
+
+		m_dead = AddGameObject<ResultScore>(dead, deadPos);
+		m_dead->SetDrawLayer(2);
+		deadPos.x -= 50;
+		deadPos.y -= 36;
+		AddGameObject<DeadIcon>(deadPos)->SetDrawLayer(2);
+		
 	}
+
 
 	void ResultStage::PlayersResult() {
 		float addVec = 0;
@@ -74,21 +88,25 @@ namespace basecross {
 				str = L"P1";
 				m_playersNumber = player->GetPlayerNumber();
 				m_playersScore = player->GetCountKilledPlayer();
+				m_playersDead = player->GetDeadCount();
 				break;
 			case PlayerNumber::P2:
 				str = L"P2";
 				m_playersNumber = player->GetPlayerNumber();
 				m_playersScore = player->GetCountKilledPlayer();
+				m_playersDead = player->GetDeadCount();
 				break;
 			case PlayerNumber::P3:
 				str = L"P3";
 				m_playersNumber = player->GetPlayerNumber();
 				m_playersScore = player->GetCountKilledPlayer();
+				m_playersDead = player->GetDeadCount();
 				break;
 			case PlayerNumber::P4:
 				str = L"P4";
 				m_playersNumber = player->GetPlayerNumber();
 				m_playersScore = player->GetCountKilledPlayer();
+				m_playersDead = player->GetDeadCount();
 				break;
 			default:
 				break;
@@ -97,7 +115,8 @@ namespace basecross {
 			//Debug::GetInstance()->Log(str);
 			//Debug::GetInstance()->Log(player->GetCountKilledPlayer());
 
-			AddResultSprites(Vec3(400 + addVec, 250 + setPosY, 0), (UINT)m_playersNumber + 1, m_playersScore);
+			AddResultSprites(Vec3(400 + addVec, 250 + setPosY, 0), 
+				(UINT)m_playersNumber + 1, m_playersScore, m_playersDead);
 			addVec += 12.5f;
 			setPosY -= 170;
 
@@ -128,7 +147,8 @@ namespace basecross {
 			player = PlayerNumber::P4;
 		}
 		auto topPlayer = AddGameObject<ResultPlayer>(
-			TransformData(Vec3(0.0f, 1.0f, 0.0f), Vec3(0.75f), Vec3(0, XMConvertToRadians(-90.0f), 0)), m_playerTop);
+			TransformData(Vec3(0.0f, 1.0f, 0.0f), Vec3(0.75f), Vec3(0, XMConvertToRadians(180.0f), 0)),
+			m_playerTop, StageManager::GetInstance()->GetPlayerType(m_playerTop));
 		//topPlayer->GetComponent<Gravity>()->SetGravityZero();
 		auto PlayerPos = topPlayer->GetComponent<Transform>()->GetPosition();
 
@@ -181,13 +201,17 @@ namespace basecross {
 	void ResultStage::OnUpdate() {
 		auto& app = App::GetApp();
 		const auto& cntlPad = app->GetInputDevice().GetControlerVec()[0];
-		if (cntlPad.wPressedButtons & XINPUT_GAMEPAD_A) {
-			SoundManager::GetInstance()->Play(L"DecisionSE");
-			PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToCharacterSelectStage");
-		}
-		if (cntlPad.wPressedButtons & XINPUT_GAMEPAD_B) {
-			SoundManager::GetInstance()->Play(L"DecisionSE");
-			PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToTitleStage");
+		if (!m_sceneChangeBlock) {
+			if (cntlPad.wPressedButtons & XINPUT_GAMEPAD_A) {
+				SoundManager::GetInstance()->Play(L"DecisionSE");
+				PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToCharacterSelectStage");
+				m_sceneChangeBlock = true;
+			}
+			if (cntlPad.wPressedButtons & XINPUT_GAMEPAD_B) {
+				SoundManager::GetInstance()->Play(L"DecisionSE");
+				PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToTitleStage");
+				m_sceneChangeBlock = true;
+			}
 		}
 	}
 

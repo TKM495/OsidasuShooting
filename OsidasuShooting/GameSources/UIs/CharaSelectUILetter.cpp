@@ -1,6 +1,6 @@
 /*!
 @file CharaSelectUILetter.cpp
-@brief ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã‚»ãƒ¬ã‚¯ãƒˆç”»é¢ã®æ–‡å­—UIã®å®Ÿä½“
+@brief ƒLƒƒƒ‰ƒNƒ^[ƒZƒŒƒNƒg‰æ–Ê‚Ì•¶šUI‚ÌÀ‘Ì
 */
 
 #include "stdafx.h"
@@ -8,15 +8,32 @@
 
 namespace basecross
 {
-	void BaseSprite::CreateSprite(wstring textureKey, float sideSize, float fSidSize, float highSize, float fHigSize) {
-		m_textureKey = textureKey;	// ãƒ†ã‚¯ã‚¹ãƒãƒ£
-		m_sideSize = sideSize;		// æ¨ªå¹…
-		m_highSize = highSize;		// ç¸¦å¹…
+	void BaseSprite::CreateSprite(wstring textureKey, float sideSize, float highSize) {
+		m_textureKey = textureKey;	// ƒeƒNƒXƒ`ƒƒ
+		Vec2 origin(0.0f);
+		auto size = Utility::GetTextureSize(m_textureKey);
+		// ƒeƒNƒXƒ`ƒƒÀ•W‚ÅUV‚ğ’è‹`
+		vector<Vec2> uvs, uv = {
+			origin,
+			origin + Vec2(size.x,0.0f),
+			origin + Vec2(0.0f, size.y),
+			origin + size
+		};
 
-		m_fSidSize = fSidSize;		// ä½¿ç”¨ã™ã‚‹ç”»åƒã®æ¨ªå¹…å…¨ä½“
-		m_fHigSize = fHigSize;		// ä½¿ç”¨ã™ã‚‹ç”»åƒã®ç¸¦å¹…å…¨ä½“
+		if (sideSize == NULL) m_sideSize = m_oneSize;
+		else m_sideSize = sideSize;	// ‰¡•
 
-		Col4 color = { 1.0f,1.0f,1.0f,1.0f };
+		if (m_highSize == NULL) m_highSize = m_oneSize;
+		else m_highSize = highSize;	// c•
+
+		m_fSidSize = size.x;		// g—p‚·‚é‰æ‘œ‚Ì‰¡•‘S‘Ì
+		m_fHigSize = -size.y;		// g—p‚·‚é‰æ‘œ‚Ìc•‘S‘Ì
+
+		m_sideSize = m_fSidSize / m_sideSize;
+		m_highSize = m_fHigSize / m_highSize;
+
+		Col4 color(1.0f);
+
 		vector<VertexPositionColorTexture> vertices = {
 			{Vec3(m_zeroSize, m_zeroSize, m_zeroSize), color, Vec2(m_zeroSize, m_zeroSize)},
 			{Vec3(m_sideSize, m_zeroSize, m_zeroSize), color, Vec2(m_oneSize,  m_zeroSize)},
@@ -56,129 +73,111 @@ namespace basecross
 
 	//-----------------------------------------------------------------//
 
-	// CharacterSelectã¨æ›¸ã‹ã‚ŒãŸã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®æƒ…å ±
+	// CharacterSelect‚Æ‘‚©‚ê‚½ƒXƒvƒ‰ƒCƒg‚ğ•\¦‚·‚é‚½‚ß‚Ìî•ñ
 	void CharacterStringUI::OnCreate() {
-		auto wstring = L"CharacterSelect";
-		auto sideSize = 1024.0f;
-		auto highSize = -128.0f;
+		auto texture = L"CharacterSelect";
 
-		BaseSprite::CreateSprite(wstring, sideSize, NULL, highSize, NULL); 
+		BaseSprite::CreateSprite(texture, NULL, NULL);
 		BaseSprite::SettingScale(0.9f);
 		BaseSprite::SettingPosition(m_setPos);
 	}
 
 	//-----------------------------------------------------------------//
 
-	// ã‚±ãƒƒãƒ†ã‚¤(æ±ºå®š)ã¨æ›¸ã‹ã‚ŒãŸã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®æƒ…å ±
+	// ƒPƒbƒeƒC(Œˆ’è)‚Æ‘‚©‚ê‚½ƒXƒvƒ‰ƒCƒg‚ğ•\¦‚·‚é‚½‚ß‚Ìî•ñ
 	void DecisionSpriteUI::OnCreate(){
-		auto wstring = L"Decision";
-		auto sideSize = 512.0f;
-		auto highSize = -256.0f;
+		auto texture = L"Decision";
 
-		BaseSprite::CreateSprite(wstring, sideSize, NULL, highSize, NULL); 
+		BaseSprite::CreateSprite(texture, NULL, NULL);
 		BaseSprite::SettingScale(0.5);
 		BaseSprite::SettingPosition(m_setPos);
 	}
 
 	//-----------------------------------------------------------------//
 
-	// ã‚­ãƒ£ãƒ³ã‚»ãƒ«ã¨æ›¸ã‹ã‚ŒãŸã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®æƒ…å ±
+	// ƒLƒƒƒ“ƒZƒ‹‚Æ‘‚©‚ê‚½ƒXƒvƒ‰ƒCƒg‚ğ•\¦‚·‚é‚½‚ß‚Ìî•ñ
 	void CancelSpriteUI::OnCreate() {
-		auto wstring = L"Cancel";
-		auto sideSize = 512.0f;
-		auto highSize = -256.0f;
+		auto texture = L"Cancel";
 
-		BaseSprite::CreateSprite(wstring, sideSize, NULL, highSize, NULL);
+		BaseSprite::CreateSprite(texture, NULL, NULL);
 		BaseSprite::SettingScale(0.5);
 		BaseSprite::SettingPosition(m_setPos);
 	}
 
 	//-----------------------------------------------------------------//
 	// 
-	// ãƒ¢ãƒ‰ãƒ«(æˆ»ã‚‹)ã¨æ›¸ã‹ã‚ŒãŸã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®æƒ…å ±
+	// ƒ‚ƒhƒ‹(–ß‚é)‚Æ‘‚©‚ê‚½ƒXƒvƒ‰ƒCƒg‚ğ•\¦‚·‚é‚½‚ß‚Ìî•ñ
 	void GoToTitleSpriteUI::OnCreate() {
-		auto wstring = L"GoToTitle";
-		auto sideSize = 512.0f;
-		auto highSize = -256.0f;
+		auto texture = L"GoToTitle";
 
-		BaseSprite::CreateSprite(wstring, sideSize, NULL, highSize, NULL);
+		BaseSprite::CreateSprite(texture, NULL, NULL);
 		BaseSprite::SettingScale(0.5);
 		BaseSprite::SettingPosition(m_setPos);
 	}
 
 	//-----------------------------------------------------------------//
 
-	// ã‚¹ã‚¹ãƒ (é€²ã‚€)ã¨æ›¸ã‹ã‚ŒãŸã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®æƒ…å ±
+	// ƒXƒXƒ€(i‚Ş)‚Æ‘‚©‚ê‚½ƒXƒvƒ‰ƒCƒg‚ğ•\¦‚·‚é‚½‚ß‚Ìî•ñ
 	void GoToSelectSpriteUI::OnCreate() {
-		auto wstring = L"GoToSelect";
-		auto sideSize = 512.0f;
-		auto highSize = -256.0f;
+		auto texture = L"GoToSelect";
 
-		BaseSprite::CreateSprite(wstring, sideSize, NULL, highSize, NULL);
+		BaseSprite::CreateSprite(texture, NULL, NULL);
 		BaseSprite::SettingScale(0.5);
 		BaseSprite::SettingPosition(m_setPos);
 	}
 
 	//-----------------------------------------------------------------//
 
-	// Aã¨æ›¸ã‹ã‚ŒãŸã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®æƒ…å ±
+	// A‚Æ‘‚©‚ê‚½ƒXƒvƒ‰ƒCƒg‚ğ•\¦‚·‚é‚½‚ß‚Ìî•ñ
 	void AButtonSpriteUI::OnCreate() {
-		auto wstring = L"AButton";
-		auto sideSize = 256.0f;
-		auto highSize = -256.0f;
+		auto texture = L"AButton";
 
-		BaseSprite::CreateSprite(wstring, sideSize, NULL, highSize, NULL); 
+		BaseSprite::CreateSprite(texture, NULL, NULL);
 		BaseSprite::SettingScale(0.4f);
 		BaseSprite::SettingPosition(m_setPos);
 	}
 
 	//-----------------------------------------------------------------//
 
-	// Bã¨æ›¸ã‹ã‚ŒãŸã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®æƒ…å ±
+	// B‚Æ‘‚©‚ê‚½ƒXƒvƒ‰ƒCƒg‚ğ•\¦‚·‚é‚½‚ß‚Ìî•ñ
 	void BButtonSpriteUI::OnCreate() {
-		auto wstring = L"BButton";
-		auto sideSize = 256.0f;
-		auto highSize = -256.0f;
+		auto texture = L"BButton";
 
-		BaseSprite::CreateSprite(wstring, sideSize, NULL, highSize, NULL);
+		BaseSprite::CreateSprite(texture, NULL, NULL);
 		BaseSprite::SettingScale(0.4f);
 		BaseSprite::SettingPosition(m_setPos);
 	}
 
 	//-----------------------------------------------------------------//
 
-	// ReadytoFightã¨æ›¸ã‹ã‚ŒãŸã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®æƒ…å ±
+	// ReadytoFight‚Æ‘‚©‚ê‚½ƒXƒvƒ‰ƒCƒg‚ğ•\¦‚·‚é‚½‚ß‚Ìî•ñ
 	void ReadyToFightUI::OnCreate() {
-		auto wstring = L"ReadyToFight";
-		auto sideSize = 1024.0f;
-		auto highSize = -128.0f;
+		auto texture = L"ReadyToFight";
 
-		BaseSprite::CreateSprite(wstring, sideSize, NULL, highSize, NULL);
+		BaseSprite::CreateSprite(texture, NULL, NULL);
 		BaseSprite::SettingScale(1);
 		BaseSprite::SettingPosition(m_setPos);
 	}
 
 	void ReadyToFightUI::OnUpdate() {
-		auto& app = App::GetApp();
-		const auto& ctrlVec = app->GetInputDevice().GetControlerVec()[0];
-		if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_A) {
-			PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToGameStage");
-		}
+		//auto& app = App::GetApp();
+		//const auto& ctrlVec = app->GetInputDevice().GetControlerVec()[0];
+		//if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_A) {
+		//	PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToGameStage");
+		//}
 	}
 
 	//-----------------------------------------------------------------//
 
-	// OK!!ã¨æ›¸ã‹ã‚ŒãŸã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®æƒ…å ±
+	// OK!!‚Æ‘‚©‚ê‚½ƒXƒvƒ‰ƒCƒg‚ğ•\¦‚·‚é‚½‚ß‚Ìî•ñ
 	void OKSpriteUI::OnCreate() {
-		auto wstring = L"OK";
-		auto sideSize = 256.0f;
-		auto highSize = -256.0f;
+		auto texture = L"OK";
 
 		auto ptrTrans = GetComponent<Transform>();
 		auto pos = ptrTrans->GetPosition();
 		ptrTrans->SetPosition(m_setPos);
 
-		BaseSprite::CreateSprite(wstring, sideSize, NULL, highSize, NULL);
+		BaseSprite::CreateSprite(texture, NULL, NULL);
 		BaseSprite::SettingScale(1);
 		BaseSprite::SettingPosition(m_setPos);
 	}

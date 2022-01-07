@@ -30,19 +30,27 @@
 #include "Utility/AdvancedMeshUtil.h"
 #include "Utility/DataExtracter.h"
 #include "Utility/GameController.h"
+#include "Utility/PlayerStatus.h"
 // ステージオブジェクト
 #include "SpecialCamera/SpCamera.h"
 #include "StageObject/AdvancedGameObject.h"
 #include "StageObject/Block.h"
 #include "StageObject/Bomb.h"
+#include "StageObject/BreakBlock.h"
 #include "StageObject/Bullet.h"
 #include "StageObject/FallDecision.h"
 #include "StageObject/ManualPlayer.h"
+#include "StageObject/MoveBlock.h"
 #include "StageObject/PlayerBase.h"
 #include "StageObject/PlayerModel.h"
+#include "StageObject/ReflectorBlock.h"
 #include "StageObject/SpecialSkill.h"
+#include "StageObject/area_.h"
+#include "StageObject/Item_.h"
+#include "StageObject/ItemCreation_.h"
 //UI
-#include "UIs/ArmorGauge.h"
+#include "UIs/InfoGauge.h"
+#include "UIs/BackPlanet.h"
 #include "UIs/BaseUI.h"
 #include "UIs/BattlePlayersUIs.h"
 #include "UIs/BombReloadTimeGauge.h"
@@ -52,7 +60,6 @@
 #include "UIs/CharaSelectUISprites.h"
 #include "UIs/CurrentFirst.h"
 #include "UIs/FreamSprite.h"
-#include "UIs/HoverTimeGauge.h"
 #include "UIs/NumberSprite.h"
 #include "UIs/PlayerFollowUI.h"
 #include "UIs/PlayerInfo.h"
@@ -65,6 +72,7 @@
 #include "UIs/CurrentFirst.h"
 #include "UIs/TransitionSprite.h"
 #include "UIs/GameStartAndFinish.h"
+#include "UIs/CountDown_.h"
 // コンポーネント
 #include "Component/FadeComponent.h"
 #include "Component/LifeSpan.h"
@@ -76,31 +84,24 @@
 // マネージャー
 #include "Manager/PlayerManager.h"
 #include "Manager/SoundManager.h"
+#include "Manager/StageManager.h"
 #include "Manager/PlayerBuilder.h"
+#include "Manager/SpecialSkillManager.h"
 
-
-
-
-
-
-
-//
-//
-//
-//調整したご削除してもかまいません
-//JonyMd .. release するとき削除されてください
-//JonyMd フォルダまま削除しても構いません
+//JonyMd Folder
+//Empty GameObject
+#include "JonyMd/ItemCreation.h"
+#include "JonyMd/MeteoriteCreation.h"
+//Empty GameObject
 
 //GameObject
+#include "JonyMd/Item.h"
+#include "JonyMd/Area.h"
 #include "JonyMd/Meteorite.h"
-#include "JonyMd/MeteoriteCreation.h"
+#include "JonyMd/Fencing.h"
 //GameObject...end
 
 //Camera
 #include "JonyMd/ShackingCamera.h"
 //Camera...end
-
-//調整したご削除してもかまいません。。。終
-//
-//
 //

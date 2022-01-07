@@ -12,8 +12,12 @@ namespace basecross {
 		void CreateViewLight();
 		void AddTitleSprite();
 		void AddPushAButtonSprite();
+
+		bool m_sceneChangeBlock;
 	public:
-		TitleStage() :Stage() {}
+		TitleStage() :Stage(), 
+			m_sceneChangeBlock(false)
+		{}
 		~TitleStage() {}
 
 		void OnCreate()override;

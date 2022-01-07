@@ -114,9 +114,30 @@ namespace basecross
 		}
 	}
 
+	void CharacterIcon::SelectedCharacter() {
+		const auto& ctrlVec = App::GetApp()->GetInputDevice().GetControlerVec()[m_gamePadID];
+		auto gamePadID = m_gamePadID + 1;
+		if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_A) {
+			switch (m_characterId)
+			{
+			case 0:
+				StageManager::GetInstance()->SetPlayerType(gamePadID, PlayerType::Laser);
+				break;
+
+			case 1:
+				StageManager::GetInstance()->SetPlayerType(gamePadID, PlayerType::Missile);
+				break;
+
+			default:
+				break;
+			}
+		}
+	}
+
 	void CharacterIcon::OnUpdate() {
 		CharacterSelecting();
 		IconsDraw();
+		SelectedCharacter();
 	}
 
 	void SelectTriangle::OnCreate() {

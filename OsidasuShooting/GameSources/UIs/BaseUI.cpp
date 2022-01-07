@@ -2,4 +2,8 @@
 #include "Project.h"
 
 namespace basecross {
+	void BaseUI::OnPreCreate() {
+		AdvancedGameObject::OnPreCreate();
+		SetDrawLayer(1);
+	}
 }

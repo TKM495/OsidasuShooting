@@ -8,7 +8,11 @@
 
 namespace basecross {
 	EfkComponent::EfkComponent(const shared_ptr<GameObject>& gameObjectPtr)
-		: Component(gameObjectPtr), m_playSpeed(1)
+		:EfkComponent(gameObjectPtr, SpaceType::Local) {}
+
+	EfkComponent::EfkComponent(const shared_ptr<GameObject>& gameObjectPtr, SpaceType useSpace)
+		: Component(gameObjectPtr), m_playSpeed(1), m_useSpace(useSpace),
+		m_coordinateType(CoordinateType::Relative)
 	{
 		// マネージャーのポインタを取得
 		m_manager = EfkInterface::GetInstance()->GetManager();
@@ -34,7 +38,17 @@ namespace basecross {
 			// 前回のエフェクトを停止
 			Stop(key);
 		}
-		auto pos = GetGameObjectPosition() + data.Offset.Position;
+		Vec3 pos(0);
+		switch (m_coordinateType)
+		{
+		case CoordinateType::Absolute:
+			pos = data.Offset.Position;
+			break;
+		case CoordinateType::Relative:
+			pos = GetGameObjectPosition() + data.Offset.Position;
+			break;
+		}
+
 		// 再生
 		data.Handle = m_manager->Play(data.EffectData, pos.x, pos.y, pos.z);
 		// ハンドルがないと設定できないのでここで再生速度を設定
@@ -67,13 +81,21 @@ namespace basecross {
 	//	m_playSpeed = speed;
 	//}
 
-	//void EfkComponent::SetRotation(const Vec3& rotation) {
-	//	m_rotation = rotation;
-	//}
+	void EfkComponent::SetRotation(const wstring& key,const Vec3& rotation) {
+		auto data = m_effectDataMap[key];
+		m_manager->SetRotation(data.Handle, rotation.x, rotation.y, rotation.z);
+	}
 
 	//void EfkComponent::SetScale(const Vec3& scale) {
 	//	m_scale = scale;
 	//}
+
+	void EfkComponent::SetPosition(const wstring& key, const Vec3& position) {
+		if (!IsPlaying(key))
+			return;
+		auto data = m_effectDataMap[key];
+		m_manager->SetLocation(data.Handle, position.x, position.y, position.z);
+	}
 
 	bool EfkComponent::IsPlaying(const wstring& key) {
 		return m_manager->Exists(m_effectDataMap[key].Handle);
@@ -90,14 +112,25 @@ namespace basecross {
 	}
 
 	void EfkComponent::SyncPosition(const wstring& key) {
-		if (!IsPlaying(key))
-			return;
 		auto data = m_effectDataMap[key];
 		auto parentPosition = GetGameObjectPosition() + data.Offset.Position;
-		m_manager->SetLocation(data.Handle, parentPosition.x, parentPosition.y, parentPosition.z);
+		SetPosition(key, parentPosition);
 	}
 
 	Vec3 EfkComponent::GetGameObjectPosition() {
-		return GetGameObject()->GetComponent<Transform>()->GetPosition();
+		auto transComp = GetGameObject()->GetComponent<Transform>();
+		switch (m_useSpace)
+		{
+		case SpaceType::World:
+			return transComp->GetWorldPosition();
+		case SpaceType::Local:
+			return transComp->GetPosition();
+		default:
+			return transComp->GetPosition();
+		}
+	}
+
+	void EfkComponent::SetCoordinateType(CoordinateType coordinateType) {
+		m_coordinateType = coordinateType;
 	}
 }

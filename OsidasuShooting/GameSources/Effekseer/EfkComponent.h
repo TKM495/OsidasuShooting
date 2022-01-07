@@ -10,9 +10,24 @@
 
 namespace basecross {
 	/**
+	 * @brief 空間タイプ
+	 */
+	enum class SpaceType {
+		World,	// ワールド
+		Local	// ローカル
+	};
+	/**
+	 * @brief 座標指定
+	 */
+	enum class CoordinateType {
+		Absolute,	// 絶対
+		Relative	// 相対
+	};
+	/**
 	 * @brief エフェクトコンポーネント
 	 */
 	class EfkComponent : public Component {
+	private:
 		// エフェクトデータ構造体
 		struct EfkData {
 			// エフェクトデータのポインタ
@@ -39,6 +54,10 @@ namespace basecross {
 		Effekseer::ManagerRef m_manager;
 		// 再生速度
 		float m_playSpeed;
+		// 使用する空間
+		SpaceType m_useSpace;
+		// 座標指定
+		CoordinateType m_coordinateType;
 		/**
 		 * @brief ゲームオブジェクトの位置を取得
 		 *
@@ -47,6 +66,7 @@ namespace basecross {
 		Vec3 GetGameObjectPosition();
 	public:
 		EfkComponent(const shared_ptr<GameObject>& gameObjectPtr);
+		EfkComponent(const shared_ptr<GameObject>& gameObjectPtr, SpaceType useSpace);
 		~EfkComponent() {}
 
 		void OnCreate() override {}
@@ -98,12 +118,17 @@ namespace basecross {
 		 */
 		void Pause(const wstring& key);
 
+		void SetRotation(const wstring& key, const Vec3& rotation);
+
+
 		/**
 		 * @brief 位置の同期
 		 *
 		 * @param key エフェクトのキー
 		 */
 		void SyncPosition(const wstring& key);
+
+		void SetPosition(const wstring& key, const Vec3& position);
 
 		/**
 		 * @brief キーのエフェクトが再生中か
@@ -119,5 +144,7 @@ namespace basecross {
 		 * @return 再生している:true/再生していない:false
 		 */
 		bool IsPlaying();
+
+		void SetCoordinateType(CoordinateType coordinateType);
 	};
 }

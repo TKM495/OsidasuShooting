@@ -2,9 +2,10 @@
 #include "Project.h"
 
 namespace basecross {
-	void HoverTimeGauge::OnCreate() {
+	void EnergyGauge::OnCreate() {
 		Vec2 origin(0.0f);
 		auto size = Utility::GetTextureSize(m_textureKey);
+		//size *= 0.5f;
 		// テクスチャ座標でUVを定義
 		vector<Vec2> uvs, uv = {
 			origin,
@@ -34,8 +35,8 @@ namespace basecross {
 		ptrDraw->SetGaugeColor(m_player->GetColor());
 		SetAlphaActive(true);
 	}
-	void HoverTimeGauge::OnUpdate() {
+	void EnergyGauge::OnUpdate() {
 		auto ptrDraw = GetComponent<PCTGaugeSprite>();
-		ptrDraw->SetRate(m_player->GetHoverTimeRate());
+		ptrDraw->SetRate(m_player->GetEnergyRate());
 	}
 }

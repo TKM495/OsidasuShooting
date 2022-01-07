@@ -10,12 +10,8 @@
 namespace basecross {
 	class FallDecision :public AdvancedGameObject {
 	public:
-		FallDecision(const shared_ptr<Stage>& stage)
-			:AdvancedGameObject(stage)
-		{
-			m_transformData.Position = Vec3(0.0f, -20.0f, 0.0f);
-			m_transformData.Scale = Vec3(200.0f, 1.0f, 200.0f);
-		}
+		FallDecision(const shared_ptr<Stage>& stage);
+		FallDecision(const shared_ptr<Stage>& stage, const wstring& line);
 
 		void OnCreate()override;
 		void OnCollisionEnter(shared_ptr<GameObject>& other) override;

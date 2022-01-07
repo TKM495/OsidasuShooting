@@ -12,24 +12,31 @@ namespace basecross {
 	class ResultStage :public Stage {
 		// ÉrÉÖÅ[ÇÃçÏê¨
 		void CreateViewLight();
+
 		wstring str;
 		PlayerNumber m_playersNumber;
 		int m_playersScore;
+		int m_playersDead;
 		PlayerNumber m_playerTop;
 		int m_playerTopScore;
+
+		bool m_sceneChangeBlock;
 	public:
 		ResultStage() :
 			Stage(),
 			str(),
 			m_playersNumber(),
 			m_playersScore(),
+			m_playersDead(),
 			m_playerTop(),
-			m_playerTopScore()
+			m_playerTopScore(),
+			m_sceneChangeBlock(false)
 		{}
 
 		~ResultStage() {}
 
 		shared_ptr<ResultScore> m_score;
+		shared_ptr<ResultScore> m_dead;
 
 		void OnCreate() override;
 		void OnUpdate() override;
@@ -42,7 +49,7 @@ namespace basecross {
 
 		void AddWinnwe();
 		void AddWinnerSprite(int player);
-		void AddResultSprites(Vec3 pos, int playerNum, int score);
+		void AddResultSprites(Vec3 pos, int playerNum, int score, int dead);
 		void BattlePlayerUISet(int value) {} ;
 	};
 }

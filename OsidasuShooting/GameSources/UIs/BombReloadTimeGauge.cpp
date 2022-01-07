@@ -37,6 +37,6 @@ namespace basecross {
 	}
 	void BombReloadTimeGauge::OnUpdate() {
 		auto ptrDraw = GetComponent<PCTGaugeSprite>();
-		ptrDraw->SetRate(m_player->GetBombReloadRate());
+		ptrDraw->SetRate(m_player->GetBombCoolTimeRate());
 	}
 }

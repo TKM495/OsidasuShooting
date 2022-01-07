@@ -14,6 +14,19 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BackPlanet.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\area.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Fencing.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Item.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\ItemCreation.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Manager\SpecialSkillManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Manager\StageManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\BreakBlock.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\MoveBlock.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\ReflectorBlock.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\area_.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Item_.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\ItemCreation_.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUILetter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\SoundManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\CharacterSelectStage.h" />
@@ -36,6 +49,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUISprites.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CountDown_.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\FreamSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\PlayerModel.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\LoadStage.h" />
@@ -62,11 +76,10 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage2.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BattlePlayersUIs.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\ArmorGauge.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\InfoGauge.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BombReloadTimeGauge.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BombRemainingCount.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CurrentFirst.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\HoverTimeGauge.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\PlayerFollowUI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\PlayerInfo.h" />
@@ -76,6 +89,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\BaseSingleton.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\DataExtracter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\GameController.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\PlayerStatus.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BaseUI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\Canvas.h" />
@@ -92,6 +106,19 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\XMLLoad.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BackPlanet.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\area.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Fencing.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Item.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\ItemCreation.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Manager\SpecialSkillManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Manager\StageManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\BreakBlock.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\MoveBlock.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\ReflectorBlock.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\area_.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Item_.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\ItemCreation_.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUILetter.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\SoundManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\CharacterSelectStage.cpp" />
@@ -112,6 +139,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\PlayerBuilder.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUISprites.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CountDown_.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\FreamSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\PlayerModel.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\LoadStage.cpp" />
@@ -138,11 +166,10 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\WatanabeStage2.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BattlePlayersUIs.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\ArmorGauge.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\InfoGauge.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BombReloadTimeGauge.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BombRemainingCount.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CurrentFirst.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\HoverTimeGauge.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\PlayerFollowUI.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\PlayerInfo.cpp" />
@@ -150,6 +177,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\TransitionSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\AdvancedMeshUtil.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\GameController.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\PlayerStatus.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BaseUI.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\Canvas.cpp" />

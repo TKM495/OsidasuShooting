@@ -16,4 +16,17 @@ namespace basecross {
 	shared_ptr<XmlDocReader> XMLLoad::GetData(const wstring& key) const {
 		return m_data.at(key);
 	}
+
+	wstring XMLHelper::GetSingleNodeWString(const shared_ptr<XmlDocReader>& reader, const wstring nodeText) {
+		auto node = reader->GetSelectSingleNode(nodeText.c_str());
+		if (!node) {
+			throw BaseException(
+				nodeText + L"‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ",
+				L"if (!node)",
+				L"XMLHelper::GetSingleNodeWString()"
+			);
+		}
+		// •¶Žš—ñ‚ðŽæ“¾
+		return XmlDocReader::GetText(node);
+	}
 }

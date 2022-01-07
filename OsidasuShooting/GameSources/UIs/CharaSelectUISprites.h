@@ -5,6 +5,7 @@
 
 #pragma once
 #include "stdafx.h"
+#include "Manager/StageManager.h"
 
 namespace basecross
 {
@@ -20,7 +21,7 @@ namespace basecross
 		vector<VertexPositionColorTexture> vertices;
 
 		int m_characterId;	// enumで設定
-		int m_enumLength;	// enumの最大値CharacterIcon
+		int m_enumLength;	// enumの最大値CharacterIcon、選べるキャラクターの選択範囲
 		bool m_isSetStick;	// キャラクターセレクト用
 
 		int m_gamePadID;	// コントロール用
@@ -37,7 +38,7 @@ namespace basecross
 		) :
 			GameObject(stage),
 			m_textureKey(textureKey),
-			m_enumLength(2),
+			m_enumLength(1),
 			m_characterId(0),
 			m_movePos(iconShift),
 			m_isSetStick(false),
@@ -52,6 +53,7 @@ namespace basecross
 
 		void CharacterSelecting();	// スティック、方向パッドでアイコンが変わるようにする
 		void IconsDraw();			// 表示するアイコン
+		void SelectedCharacter();	// キャラクター選択
 	};
 
 	class SelectTriangle : public CharacterIcon {
