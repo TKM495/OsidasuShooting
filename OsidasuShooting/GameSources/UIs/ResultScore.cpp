@@ -18,11 +18,11 @@ namespace basecross {
 
 	void ResultScore::NumbersDrawSpriteCreate() {
 
-		m_addOffset = Vec3(45.0f, 0, 0);	// 一文字の大きさ
-		m_spaceOffset = Vec3(20.0f, 0, 0);	// 分と秒で分けるときのスペース
+		m_addOffset = Vec3(40.0f, 0, 0);	// 一文字の大きさ
+		m_spaceOffset = Vec3(10.0f, 0, 0);	// 分と秒で分けるときのスペース
 		m_posOffset = m_setOffset;		// オッフセット
 
-		m_scaleValue = 0.7f;
+		m_scaleValue = 0.55f;
 		m_scaleOffset = Vec3(m_scaleValue);
 
 		m_numbers.resize(2);
