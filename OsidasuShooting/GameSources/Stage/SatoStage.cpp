@@ -75,6 +75,9 @@ namespace basecross {
 
 	void SatoStage::OnCreate() {
 		try {
+			// 爆弾アイコン(確認用)
+			AddGameObject<BombIcon>(Vec3(-0, -0, 0))->SetDrawLayer(99);
+
 			AddGameObject<EfkInterface>();
 			wstring DataDir;
 			App::GetApp()->GetDataDirectory(DataDir);
