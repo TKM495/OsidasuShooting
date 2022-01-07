@@ -99,4 +99,13 @@ namespace basecross
 	{
 		PlayersNumberUICreate();
 	}
+
+
+	void BombIcon::OnCreate() {
+		auto texture = L"BomberUI";
+
+		BaseSprite::CreateSprite(texture, NULL, NULL);
+		BaseSprite::SettingScale(1);
+		BaseSprite::SettingPosition(m_setPos);
+	}
 }

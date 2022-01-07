@@ -50,4 +50,18 @@ namespace basecross
 		// Crown = 6
 		void SetPlayerNumValue(int value);
 	};
+
+
+	class BombIcon : public BaseSprite {
+		Vec3 m_setPos;
+	public:
+		BombIcon(
+			const shared_ptr<Stage>& stage,
+			Vec3 position
+		) :
+			BaseSprite(stage, position),
+			m_setPos(position)
+		{}
+		void OnCreate() override;
+	};
 }

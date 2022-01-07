@@ -154,7 +154,6 @@ namespace basecross
 			m_setPos(setPosition)
 		{}
 		void OnCreate() override;
-		void OnUpdate() override;
 	};
 
 	// OK!�̉摜
