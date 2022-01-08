@@ -385,6 +385,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BackPlanet.cpp">
       <Filter>UI\BackGround</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Fencing.cpp">
+      <Filter>StageObject\JonyMd</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Blinking.cpp">
+      <Filter>StageObject\JonyMd</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -649,6 +655,12 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BackPlanet.h">
       <Filter>UI\BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Fencing.h">
+      <Filter>StageObject\JonyMd</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Blinking.h">
+      <Filter>StageObject\JonyMd</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

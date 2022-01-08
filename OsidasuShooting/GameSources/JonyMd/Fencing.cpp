@@ -1,5 +1,3 @@
-//adjust the variable .... Item
-
 #include "stdafx.h"
 #include "Project.h"
 
@@ -7,106 +5,75 @@ namespace basecross {
 
 	void Fencing::OnCreate()
 	{
-		start = 3;
-		show = 10;
-		hide = 6;
+		blinkingTime = 3.0f;
+		blinkShowTime = 0.1f;
+		blinkHideTime = 0.3f;
 
-		repeat = -1;// <0 ‚Í–³§ŒÀ
-		totalRepeated = 0;
+		showTime = 1.0f;
+		hideTime = 1.0f;
+		auto component = AddComponent<BcPNTStaticDraw>();
+		component->SetMeshResource(L"DEFAULT_CUBE");
 
-		status = Fencing::Status::Start;
-		switch (Fencing::status)
+		auto stage = GetStage();
+		auto blinking = stage->AddGameObject<Blinking>();
+		stage->SetSharedGameObject(L"BlinkForFencing", blinking);
+		blinking->SetComponent(component);
+	}
+
+	void Fencing::OnUpdate()
+	{
+		
+		auto& app = App::GetApp();
+		auto deltaTime = app->GetElapsedTime();
+
+		timeChecker -= deltaTime;
+
+
+		if (timeChecker > 0)
 		{
-		case Fencing::Status::Show:
-			countDown = show;
+			return;
+		}
+
+		auto blinking = GetStage()->GetSharedGameObject<Blinking>(L"BlinkForFencing");
+
+
+		switch (status)
+		{
+		case Fencing::Status::Showing:
+			timeChecker = showTime;
+			status = Fencing::Status::BlinkingToHide;
+			SetDrawActive(true); 
 			break;
-		case Fencing::Status::Hide:
-			countDown = hide;
+		case Fencing::Status::BlinkingToHide:
+			blinking->SetShowTime(blinkShowTime);
+			blinking->SetHideTime(blinkHideTime);
+			blinking->SetBlinkingTime(blinkingTime);
+			blinking->SetIsBlinking();
+
+			timeChecker = blinkingTime;
+			status = Fencing::Status::Hiding;
+
+			break;
+		case Fencing::Status::Hiding:
+			timeChecker = hideTime;
+			status = Fencing::Status::BlinkingToShow;
 			SetDrawActive(false);
 			break;
-		case Fencing::Status::Start:
-			countDown = start;
-			break;
-		case Fencing::Status::Stop:
-			SetUpdateActive(false);
+		case Fencing::Status::BlinkingToShow:
+			SetDrawActive(true);
+
+			//swap purposes
+			blinking->SetShowTime(blinkHideTime);
+			blinking->SetHideTime(blinkShowTime);
+			//swap purposes...end
+			blinking->SetBlinkingTime(blinkingTime);
+			blinking->SetIsBlinking();
+
+			timeChecker = blinkingTime;
+			status = Fencing::Status::Showing;
 			break;
 		default:
 			break;
 		}
-
-
-
-
-		auto drawComp = AddComponent<BcPNTStaticDraw>();
-		drawComp->SetMeshResource(L"DEFAULT_CUBE");
-
-		auto transform = GetComponent<Transform>();
-
-		Vec3 position = transform->GetPosition();
-		Vec3 scale = transform->GetScale();
-
-		position = Vec3(0,0,0);
-		scale = Vec3(10,1,10);
-
-		transform->SetPosition(position);
-		transform->SetScale(scale);
-
-
 	}
-
-
-
-	void Fencing::OnUpdate()
-	{
-		auto& app = App::GetApp();
-		float deltaTime = app->GetElapsedTime();
-
-		if (countDown < 0)
-		{
-			bool ishide = false;
-			switch (Fencing::status)
-			{
-			case Fencing::Status::Show:
-				totalRepeated++;
-				if (repeat < 0 || repeat > totalRepeated)
-				{
-					ishide = true;
-				}
-				else
-				{
-					status = Fencing::Status::Stop;
-					SetUpdateActive(false);
-				}
-				break;
-			case Fencing::Status::Hide:
-				SetDrawActive(true);
-				status = Fencing::Status::Show;
-				countDown = show;
-				break;
-			case Fencing::Status::Start:
-				ishide = true;
-				break;
-			default:
-				break;
-			}
-
-			if (ishide)
-			{
-				SetDrawActive(false);
-				status = Fencing::Status::Hide;
-				countDown = hide;
-			}
-		}
-
-
-		if (countDown > 0)
-		{
-			countDown -= deltaTime;
-		}
-
-
-	}
-
-
-
 }

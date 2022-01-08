@@ -91,6 +91,7 @@
 //Empty GameObject
 #include "JonyMd/ItemCreation.h"
 #include "JonyMd/MeteoriteCreation.h"
+#include "JonyMd/Blinking.h"
 //Empty GameObject
 
 //GameObject
