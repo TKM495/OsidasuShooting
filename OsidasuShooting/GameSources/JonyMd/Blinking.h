@@ -25,7 +25,6 @@ namespace basecross {
 		{
 			component = componentValue;
 		}
-
 		void SetBlinkingTime(float value)
 		{
 			blinkingTime = value;

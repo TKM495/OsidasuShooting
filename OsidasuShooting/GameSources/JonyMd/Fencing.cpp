@@ -36,7 +36,6 @@ namespace basecross {
 
 		auto blinking = GetStage()->GetSharedGameObject<Blinking>(L"BlinkForFencing");
 
-
 		switch (status)
 		{
 		case Fencing::Status::Showing:

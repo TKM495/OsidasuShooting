@@ -22,7 +22,6 @@ namespace basecross {
 			return;
 		}
 
-
 		timeChecker += deltaTime;
 		if (timeChecker < showingTime)
 		{
