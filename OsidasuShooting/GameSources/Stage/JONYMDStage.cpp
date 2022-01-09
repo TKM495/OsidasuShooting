@@ -30,9 +30,9 @@ namespace basecross {
 			//ビューとライトの作成
 
 			CreateViewLight();
-			//CreateStageArea();
+			CreateStageArea();
 
-			//AddGameObject<Debug>();
+			AddGameObject<Debug>();
 
 			AddGameObject<Fencing>();
 
@@ -40,8 +40,8 @@ namespace basecross {
 			//auto area = AddGameObject<Area>();
 			//SetSharedGameObject(L"Area", area);
 
-			//auto itemCreation = AddGameObject<ItemCreation>();
-			//SetSharedGameObject(L"ItemCreation", itemCreation);
+			auto itemCreation = AddGameObject<ItemCreation>();
+			SetSharedGameObject(L"ItemCreation", itemCreation);
 			
 			//auto meteoriteCreation = AddGameObject<MeteoriteCreation>();
 			//SetSharedGameObject(L"MeteoriteCreation", meteoriteCreation);

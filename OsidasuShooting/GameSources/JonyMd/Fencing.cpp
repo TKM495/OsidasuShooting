@@ -11,8 +11,23 @@ namespace basecross {
 
 		showTime = 1.0f;
 		hideTime = 1.0f;
+		
+		
 		auto component = AddComponent<BcPNTStaticDraw>();
 		component->SetMeshResource(L"DEFAULT_CUBE");
+		Col4 color = Col4(0.0f, 0.5f, 0.0f, 0.0f);
+		component->SetDiffuse(color);
+
+		auto transform = GetComponent<Transform>();
+
+		Vec3 position = transform->GetPosition();
+		Vec3 scale = transform->GetScale();
+
+		position = Vec3(0,0,0);
+		scale = Vec3(10,1,10);
+
+		transform->SetPosition(position);
+		transform->SetScale(scale);
 
 		auto stage = GetStage();
 		auto blinking = stage->AddGameObject<Blinking>();
@@ -36,6 +51,7 @@ namespace basecross {
 
 		auto blinking = GetStage()->GetSharedGameObject<Blinking>(L"BlinkForFencing");
 
+
 		switch (status)
 		{
 		case Fencing::Status::Showing:
@@ -44,10 +60,7 @@ namespace basecross {
 			SetDrawActive(true); 
 			break;
 		case Fencing::Status::BlinkingToHide:
-			blinking->SetShowTime(blinkShowTime);
-			blinking->SetHideTime(blinkHideTime);
-			blinking->SetBlinkingTime(blinkingTime);
-			blinking->SetIsBlinking();
+			blinking->SetShowHideTime(blinkShowTime, blinkHideTime, blinkingTime);
 
 			timeChecker = blinkingTime;
 			status = Fencing::Status::Hiding;
@@ -61,12 +74,7 @@ namespace basecross {
 		case Fencing::Status::BlinkingToShow:
 			SetDrawActive(true);
 
-			//swap purposes
-			blinking->SetShowTime(blinkHideTime);
-			blinking->SetHideTime(blinkShowTime);
-			//swap purposes...end
-			blinking->SetBlinkingTime(blinkingTime);
-			blinking->SetIsBlinking();
+			blinking->SetShowHideTime(blinkHideTime, blinkShowTime, blinkingTime);// showTime and hideTime has been swaped
 
 			timeChecker = blinkingTime;
 			status = Fencing::Status::Showing;

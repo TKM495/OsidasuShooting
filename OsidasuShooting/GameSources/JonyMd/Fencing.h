@@ -14,6 +14,7 @@ namespace basecross {
 
 		Status status = Fencing::Status::Showing;
 
+
 		float blinkingTime;
 		float blinkShowTime;
 		float blinkHideTime;

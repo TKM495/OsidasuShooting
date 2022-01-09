@@ -5,43 +5,60 @@ namespace basecross {
 
 	class Blinking : public GameObject
 	{
+		//list of private variables
 		shared_ptr<BcPNTStaticDraw> component;
 
 		float blinkingTime;
 		float timeChecker;
-		float showingTime;
-		float hidingTime;
 
 		bool isBlinking = false;
 
+		//for Toggle HideAndShow
+		float showingTime;
+		float hidingTime;
+
+
+		//for Toggle FadeInOut
+		float fadingInTime;
+		float fadingOutTime;
+		float fadeInOutSpeed;
+		float fadeInOutStay;
+		Col4 originalColor;
+
+		//list of private variables...end
+
+
+		//private enum
+		enum Toggle
+		{
+			HideAndShow,
+			FadeInOut
+		};
+		Toggle toggle = Blinking::Toggle::HideAndShow;
+		//private enum...end
+
+
+		//list of private functions
+		void SetIsBlinking(float blinkTime);
+		void ProgressOfHideShow();
+
+		void ProgressOfFadeInOut();
+		void SetAdjustColor(float colorValue);
 	public:
 		Blinking(const shared_ptr<Stage>& stage)
 			:GameObject(stage)
 		{}
 
+		//override functions
 		void OnUpdate() override;
 
-		void SetComponent(shared_ptr<BcPNTStaticDraw>& componentValue)
+		//list of normal functions
+		void SetComponent(shared_ptr<BcPNTStaticDraw>& componentValue);
+		void SetShowHideTime(float showTime, float hideTime, float blinkTime);
+		void SetFadeInOutTime(float fadeInTime, float fadeOutTime, float blinkTime);
+		shared_ptr<BcPNTStaticDraw> GetLoanedComponent()
 		{
-			component = componentValue;
-		}
-		void SetBlinkingTime(float value)
-		{
-			blinkingTime = value;
-		}
-		void SetShowTime(float value)
-		{
-			showingTime = value;
-		}
-		void SetHideTime(float value)
-		{
-			hidingTime = showingTime + value;
-		}
-		void SetIsBlinking()
-		{
-			timeChecker = 0;
-			SetUpdateActive(true);
-			isBlinking = true;
+			return component;
 		}
 	};
 
