@@ -25,8 +25,6 @@ namespace basecross {
 		// 文字列表示領域のサイズを変更
 		m_ssComp->SetTextRect(Rect2D<float>(10, 10, 500, 400));
 		m_ssComp->SetText(L"");
-		SetUpdateActive(false);
-		SetDrawActive(false);
 	}
 
 	void Debug::OnUpdate() {
@@ -82,7 +80,7 @@ namespace basecross {
 	}
 
 	void Debug::RegisterLog(const wstring& text) {
-		//m_logData.push_back(GetNowTimeString() + L" " + text + L"\n");
+		m_logData.push_back(GetNowTimeString() + L" " + text + L"\n");
 	}
 
 	void Debug::ClearLog() {

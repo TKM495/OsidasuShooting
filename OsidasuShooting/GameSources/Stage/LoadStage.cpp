@@ -54,7 +54,7 @@ namespace basecross {
 		app->RegisterTexture(L"PushAButton", path + L"PushAButton.png");
 		app->RegisterTexture(L"Number", path + L"Number.png");
 		app->RegisterTexture(L"BPsUIs", path + L"BattlePlayersUI256x256.png");
-		//app->RegisterTexture(L"BomberUI", path + L"BomberUI.png");
+		app->RegisterTexture(L"BomberUI", path + L"BomberUI.png");
 		app->RegisterTexture(L"CircleGauge", path + L"CircleGauge.png");
 		app->RegisterTexture(L"BarGauge", path + L"BarGauge.png");
 		app->RegisterTexture(L"GaugeColor", path + L"GaugeColor.png");
@@ -211,7 +211,7 @@ namespace basecross {
 		case State::FadeOut:
 			if (!TransitionSprite::GetInstance()->GetFade()->IsFadeActive()) {
 				//フェードが完了したらタイトルステージに移行
-				PostEvent(0.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
+				PostEvent(0.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToDebugStage");
 			}
 			break;
 		}
