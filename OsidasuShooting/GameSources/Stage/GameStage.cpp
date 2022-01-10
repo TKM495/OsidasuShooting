@@ -61,7 +61,7 @@ namespace basecross {
 			AddGameObject<CurrentFirst>();
 			AddGameObject<modifiedClass::Area>(TransformData(Vec3(0, 0, -6), Vec3(27, 1, 21)));
 
-			m_countDown = AddGameObject<modifiedClass::CountDown>(0.0f);
+			m_countDown = AddGameObject<modifiedClass::CountDown>(90.0f);
 			m_startCountDown = AddGameObject<StartCountDown>(TransformData());
 			m_itemCreation = AddGameObject<modifiedClass::ItemCreation>();
 
@@ -70,8 +70,9 @@ namespace basecross {
 
 			//AddGameObject<ReflectorBlock>(TransformData(Vec3(0,1,-5), Vec3(2)));
 			//AddGameObject<BreakBlock>(TransformData(Vec3(0,1,2), Vec3(2)),5,3);
-			//AddGameObject<MoveBlock>(TransformData(Vec3(5, 1, -4), Vec3(2)),Vec3(-9,1,-8));
-			//AddGameObject<MoveBlock>(TransformData(Vec3(-13, 1, -4), Vec3(2)),Vec3(13,1,-8));
+			//AddGameObject<MoveBlock>(TransformData(Vec3(5, 2, -4), Vec3(2)),Vec3(-9,2,-8));
+			//AddGameObject<MoveBlock>(TransformData(Vec3(-13, 2, -4), Vec3(2)),Vec3(13,2,-8));
+			//AddGameObject<MoveBlock>(TransformData(Vec3(0, 2, 9), Vec3(2)),Vec3(0,2,-8));
 		}
 		catch (...) {
 			throw;

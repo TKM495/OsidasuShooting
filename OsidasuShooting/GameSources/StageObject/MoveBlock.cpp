@@ -66,6 +66,12 @@ namespace basecross {
 		AddTag(L"Block");
 	}
 
+	void MoveBlock::MoveSwitch() {
+		auto ptrTrans = GetTransform();
+		auto pos = ptrTrans->GetPosition();
+
+	}
+
 	void MoveBlock::MovingBlock() {
 		// デルタタイム取得
 		const auto& app = App::GetApp();
@@ -75,37 +81,29 @@ namespace basecross {
 		auto ptrTrans = GetTransform();
 		auto pos = ptrTrans->GetPosition();
 
-		auto rootMoving = m_moveRoot * delta * 0.1f;// 移動
+		Easing<Vec3> easing;
+
+		//auto rootMoving = m_moveRoot * delta * 0.1f;// 移動
 
 		if (!m_isWait) {
-			if (m_startPosition.x >= m_markPosition.x) {// m_startPosの方が大きい場合
-				if (pos.x > m_startPosition.x ||
-					pos.x < m_markPosition.x) {
-					m_isWait = true;
-					m_waitTime = 0;
-					if (m_isReturnBlock) m_isReturnBlock = false;
-					else m_isReturnBlock = true;
+			m_totalTime += delta;
+			if (m_totalTime >= 4.0f) {
+				m_totalTime = 0;
+				m_isWait = true;
+				m_waitTime = 0;
 
-					if (pos.x > m_startPosition.x) ptrTrans->SetPosition(m_startPosition);
-					else if (pos.x < m_markPosition.x) ptrTrans->SetPosition(m_markPosition);
-				}
+				if (m_isGotoMarkPos) m_isGotoMarkPos = false;
+				else m_isGotoMarkPos = true;
 			}
-			else {										// m_startPosの方が小さい場合
-				if (pos.x < m_startPosition.x ||
-					pos.x > m_markPosition.x) {
-					m_isWait = true;
-					m_waitTime = 0;
-					if (m_isReturnBlock) m_isReturnBlock = false;
-					else m_isReturnBlock = true;
+			Vec3 rootMoving;
+			if (!m_isGotoMarkPos)
+				rootMoving = easing.EaseInOut(
+					EasingType::Quadratic, m_startPosition, m_markPosition, m_totalTime, 4.0f);
+			else
+				rootMoving = easing.EaseInOut(
+					EasingType::Quadratic, m_markPosition, m_startPosition, m_totalTime, 4.0f);
 
-					if (pos.x < m_startPosition.x) ptrTrans->SetPosition(m_startPosition);
-					else if (pos.x > m_markPosition.x) ptrTrans->SetPosition(m_markPosition);
-				}
-			}
-			if (m_isReturnBlock) pos -= rootMoving;
-			else pos += rootMoving;
-
-			if (!m_isWait) ptrTrans->SetPosition(pos);
+			ptrTrans->SetPosition(rootMoving);
 		}
 		else {
 			if (m_waitTime > 1) {

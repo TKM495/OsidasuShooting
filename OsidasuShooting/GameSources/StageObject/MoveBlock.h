@@ -16,12 +16,14 @@ namespace basecross {
 		//bool m_posXorZ;
 		// 2点の差
 		Vec3 m_moveRoot;
+		// 移動
+		float m_totalTime;
 		// 到着してからの待機時間
 		float m_waitTime;
 		// 待機中
 		bool m_isWait;
 		// 進むか戻るか
-		bool m_isReturnBlock;
+		bool m_isGotoMarkPos;
 
 		// その他項目
 			// 設置場所
@@ -38,9 +40,10 @@ namespace basecross {
 			// 移動関連
 			m_markPosition(markPosition),
 			m_moveRoot(0),
+			m_totalTime(0),
 			m_waitTime(0),
 			m_isWait(false),
-			m_isReturnBlock(false),
+			m_isGotoMarkPos(false),
 			// その他項目
 			m_setPosition(0)
 		{
@@ -54,5 +57,6 @@ namespace basecross {
 		void OnUpdate() override;
 
 		void MovingBlock();
+		void MoveSwitch();
 	};
 }
