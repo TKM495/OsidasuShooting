@@ -56,6 +56,7 @@ namespace basecross {
 		// 爆風の処理
 		auto gameObjects = GetStage()->GetGameObjectVec();
 		for (auto obj : gameObjects) {
+			// プレイヤーの場合
 			auto player = dynamic_pointer_cast<PlayerBase>(obj);
 			if (player) {
 				auto pos = player->GetTransform()->GetPosition();
@@ -72,6 +73,7 @@ namespace basecross {
 				}
 			}
 
+			// 壊れるブロックの場合
 			auto breakBlock = dynamic_pointer_cast<BreakBlock>(obj);
 			if (breakBlock) {
 				auto pos = breakBlock->GetTransform()->GetPosition();
@@ -79,6 +81,19 @@ namespace basecross {
 				auto distance = (pos - myPos).length();
 				auto rate = PowerCalc(distance);
 				breakBlock->BlockDamage(rate * 5);
+			}
+
+			// アイテムの場合
+			auto item = dynamic_pointer_cast<modifiedClass::Item>(obj);
+			if (item) {
+				auto pos = item->GetComponent<Transform>()->GetPosition();
+				auto myPos = GetTransform()->GetPosition();
+				auto distance = (pos - myPos).length();
+				auto rate = PowerCalc(distance);
+				if (rate > 0) {
+					item->GetComponent<PhysicalBehavior>()->
+						Impact(pos - myPos, m_power * rate);
+				}
 			}
 		}
 		// 自身を削除

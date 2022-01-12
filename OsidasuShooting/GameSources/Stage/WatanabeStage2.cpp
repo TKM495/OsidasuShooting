@@ -26,15 +26,6 @@ namespace basecross {
 	void WatanabeStage2::OnCreate() {
 		try {
 			AddGameObject<EfkInterface>();
-			auto efkpath = App::GetApp()->GetDataDirWString() + L"Effects/";
-			EfkEffectResource::RegisterEffectResource(L"Bullet", efkpath + L"Bullet.efk");
-			EfkEffectResource::RegisterEffectResource(L"Explosion", efkpath + L"fire.efk");
-			EfkEffectResource::RegisterEffectResource(L"Hit", efkpath + L"Hit.efk");
-			EfkEffectResource::RegisterEffectResource(L"Jump", efkpath + L"Jump.efk");
-			EfkEffectResource::RegisterEffectResource(L"Hover", efkpath + L"Hover.efk");
-			EfkEffectResource::RegisterEffectResource(L"Bomb", efkpath + L"Bomb.efk");
-			EfkEffectResource::RegisterEffectResource(L"Smoke", efkpath + L"Smoke.efk");
-			EfkEffectResource::RegisterEffectResource(L"Laser", efkpath + L"Laser.efk");
 
 			//ビューとライトの作成
 			CreateViewLight();
@@ -59,7 +50,7 @@ namespace basecross {
 			//AddGameObject<BattlePlayersUIs>(L"BPsUIs", 6, Vec3(0));
 			//PlayerManager::GetInstance()->AddPlayer(player);
 
-			//AddGameObject<SimpleSprite>(L"Test", TransformData(Vec3(0.0f), Vec3(0.4f)))->SetDrawLayer(-1);
+			AddGameObject<SimpleSprite>(L"Test", TransformData(Vec3(0.0f), Vec3(0.4f)))->SetDrawLayer(0);
 			//unique_ptr<XmlDocReader> m_XmlDocReader;
 			//m_XmlDocReader.reset(new XmlDocReader(dir + L"XML/PlayerStatus.xml"));
 			//auto CellmapNode = m_XmlDocReader->GetSelectSingleNode(L"PlayerStatus");
@@ -78,7 +69,7 @@ namespace basecross {
 	void WatanabeStage2::OnUpdate() {
 		const auto& keyState = App::GetApp()->GetInputDevice().GetKeyState();
 		const auto& cont = App::GetApp()->GetInputDevice().GetControlerVec()[0];
-		if (cont.wPressedButtons & XINPUT_GAMEPAD_A || keyState.m_bPressedKeyTbl['R'])
-			PostEvent(0.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToWatanabeStage");
+		if (cont.wPressedButtons & XINPUT_GAMEPAD_Y || keyState.m_bPressedKeyTbl['R'])
+			PostEvent(0.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToWatanabeStage2");
 	}
 }
