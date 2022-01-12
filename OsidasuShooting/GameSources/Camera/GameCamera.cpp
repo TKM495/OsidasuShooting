@@ -54,6 +54,9 @@ namespace basecross {
 			sumVec += player->GetTransform()->GetPosition();
 		}
 		m_def = sumVec;
+		auto averageAt = sumVec / players.size();
+		SetAt(m_defaultAt + averageAt);
+		SetEye(GetAt() + m_defaultLocalEye);
 	}
 
 	void GameCamera::Update() {
@@ -73,7 +76,15 @@ namespace basecross {
 	}
 
 	void GameCamera::SetAtAndEye(const Vec3& at) {
-		SetAt(at);
+		auto delta = App::GetApp()->GetElapsedTime();
+
+		auto _at = Lerp::CalculateLerp(
+			GetAt(), at,
+			0, 1,
+			6.0f * delta,
+			Lerp::rate::Linear
+		);
+		SetAt(_at);
 		SetEye(GetAt() + m_defaultLocalEye);
 	}
 }
