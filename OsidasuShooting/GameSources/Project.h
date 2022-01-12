@@ -19,6 +19,7 @@
 #include "Stage/WatanabeStage2.h"
 // ‚»‚Ì‘¼
 #include "DebugClass/Debug.h"
+#include "Camera/GameCamera.h"
 #include "Effekseer/EfkEffect.h"
 #include "Utility/BaseSingleton.h"
 #include "Utility/CSVLoad.h"
