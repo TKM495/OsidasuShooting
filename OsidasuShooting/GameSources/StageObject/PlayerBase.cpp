@@ -388,6 +388,9 @@ namespace basecross {
 		m_isDuringReturn = false;
 		// 死亡回数を増やす
 		m_deadCount++;
+		// 爆弾の残弾をへらす
+		if (m_bombCount > 0)
+			m_bombCount--;
 		// 各種パラメータを初期化
 		ParameterReset();
 		// 速度を0に
