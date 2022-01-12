@@ -1,6 +1,6 @@
 #pragma once
 #include "stdafx.h"
-#include "UIs/CharaSelectUILetter.h"
+#include "UIs/CharaSelectUIs.h"
 #include "UIs/CharaSelectUISprites.h"
 #include "UIs/SimpleSprite.h"
 

@@ -334,7 +334,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\FreamSprite.cpp">
       <Filter>UI\Fream</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUILetter.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUIs.cpp">
       <Filter>UI\CharacterSelectUI</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUISprites.cpp">
@@ -388,15 +388,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Fencing.cpp">
       <Filter>StageObject\JonyMd</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Blinking.cpp">
-      <Filter>StageObject\JonyMd</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\PlayerStatus.cpp">
-      <Filter>Utility\PlayerStatus</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Blinking_.cpp">
-      <Filter>StageObject\Blinking</Filter>
-    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Blinking_.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Blinking.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\PlayerStatus.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -611,7 +605,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\FreamSprite.h">
       <Filter>UI\Fream</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUILetter.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUIs.h">
       <Filter>UI\CharacterSelectUI</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUISprites.h">
@@ -665,15 +659,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Fencing.h">
       <Filter>StageObject\JonyMd</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Blinking.h">
-      <Filter>StageObject\JonyMd</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\PlayerStatus.h">
-      <Filter>Utility\PlayerStatus</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Blinking_.h">
-      <Filter>StageObject\Blinking</Filter>
-    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Blinking_.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Blinking.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\PlayerStatus.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
