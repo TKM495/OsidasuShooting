@@ -1,6 +1,6 @@
 /*!
 @file   MoveBlock.cpp
-@brief	ƒŠƒtƒŒƒNƒ^[ƒuƒƒbƒNƒNƒ‰ƒX‚ÌÀ‘Ô
+@brief	ãƒªãƒ•ãƒ¬ã‚¯ã‚¿ãƒ¼ãƒ–ãƒ­ãƒƒã‚¯ã‚¯ãƒ©ã‚¹ã®å®Ÿæ…‹
 */
 
 #include "stdafx.h"
@@ -31,18 +31,18 @@ namespace basecross {
 			XMConvertToRadians((float)_wtof(tokens[8].c_str())),
 			XMConvertToRadians((float)_wtof(tokens[9].c_str()))
 		);
-		// ‰•œ’n“_
+		// å¾€å¾©åœ°ç‚¹
 		m_markPosition = Vec3(
 			(float)_wtof(tokens[10].c_str()),
 			(float)_wtof(tokens[11].c_str()),
 			(float)_wtof(tokens[12].c_str())
 		);
-		// ˆÚ“®‘¬“x
+		// ç§»å‹•é€Ÿåº¦
 		m_moveSpeed = (float)_wtof(tokens[13].c_str());
-		// ‘Ò‹@ŠÔ
+		// å¾…æ©Ÿæ™‚é–“
 		m_latency = (float)_wtof(tokens[14].c_str());
 
-		// •¶š—ñ¨enum‚Ì•ÏŠ·
+		// æ–‡å­—åˆ—â†’enumã®å¤‰æ›
 		auto data = tokens[15];
 		if (data == L"Block") {
 			m_type = BlockType::Normal;
@@ -55,7 +55,7 @@ namespace basecross {
 		}
 		else {
 			throw BaseException(
-				L"•s³‚È’l‚Å‚·B",
+				L"ä¸æ­£ãªå€¤ã§ã™ã€‚",
 				L"if(data == L\"\")",
 				L"MoveBlock::MoveBlock()"
 			);
@@ -68,7 +68,7 @@ namespace basecross {
 
 		//auto ptrColl = AddComponent<CollisionObb>();
 		//ptrColl->SetAfterCollision(AfterCollision::None);
-		//// ƒuƒƒbƒN‚Æ‚Ì“–‚½‚è”»’è‚ğ–³‹
+		//// ãƒ–ãƒ­ãƒƒã‚¯ã¨ã®å½“ãŸã‚Šåˆ¤å®šã‚’ç„¡è¦–
 		//ptrColl->AddExcludeCollisionTag(L"Block");
 		//ptrColl->SetFixed(true);
 
@@ -85,7 +85,7 @@ namespace basecross {
 			break;
 		default:
 			throw BaseException(
-				L"–¢’è‹`‚Ì’l‚Å‚·B",
+				L"æœªå®šç¾©ã®å€¤ã§ã™ã€‚",
 				L"switch (m_type)",
 				L"void MoveBlock::OnCreate()"
 			);
@@ -95,12 +95,12 @@ namespace basecross {
 		auto ptrTrans = GetTransform();
 		m_startPosition = ptrTrans->GetPosition();
 
-		m_moveRoot = m_startPosition - m_markPosition; // ‹——£‚Ìæ“¾
-		m_moveRoot.normalize(); // ³‹K‰»
+		m_moveRoot = m_startPosition - m_markPosition; // è·é›¢ã®å–å¾—
+		m_moveRoot.normalize(); // æ­£è¦åŒ–
 		m_waitTime = 0;
 		m_isWait = true;
 
-		//// –{—ˆ‚ÌˆêŒÂ‰º‚Éİ’u
+		//// æœ¬æ¥ã®ä¸€å€‹ä¸‹ã«è¨­ç½®
 		//m_setPosition = GetTransform()->GetPosition();
 		//auto setPos = m_setPosition;
 		//setPos.y = -1;
@@ -110,46 +110,44 @@ namespace basecross {
 		AddTag(L"MoveBlock");
 	}
 
-	void MoveBlock::MovingBlock() {
-		// ƒfƒ‹ƒ^ƒ^ƒCƒ€æ“¾
-		const auto& app = App::GetApp();
-		const auto delta = app->GetElapsedTime();
-
-		// Œ»İ‚Ìƒ|ƒWƒVƒ‡ƒ“
+	void MoveBlock::MoveSwitch() {
 		auto ptrTrans = GetTransform();
 		auto pos = ptrTrans->GetPosition();
 
-		auto rootMoving = m_moveRoot * delta * m_moveSpeed;// ˆÚ“®
+	}
+
+	void MoveBlock::MovingBlock() {
+		// ãƒ‡ãƒ«ã‚¿ã‚¿ã‚¤ãƒ å–å¾—
+		const auto& app = App::GetApp();
+		const auto delta = app->GetElapsedTime();
+
+		// ç¾åœ¨ã®ãƒã‚¸ã‚·ãƒ§ãƒ³
+		auto ptrTrans = GetTransform();
+		auto pos = ptrTrans->GetPosition();
+
+		Easing<Vec3> easing;
+
+		//auto rootMoving = m_moveRoot * delta * 0.1f;// ç§»å‹•
 
 		if (!m_isWait) {
-			if (m_startPosition.x >= m_markPosition.x) {// m_startPos‚Ì•û‚ª‘å‚«‚¢ê‡
-				if (pos.x > m_startPosition.x ||
-					pos.x < m_markPosition.x) {
-					m_isWait = true;
-					m_waitTime = 0;
-					if (m_isReturnBlock) m_isReturnBlock = false;
-					else m_isReturnBlock = true;
+			m_totalTime += delta;
+			if (m_totalTime >= 4.0f) {
+				m_totalTime = 0;
+				m_isWait = true;
+				m_waitTime = 0;
 
-					if (pos.x > m_startPosition.x) ptrTrans->SetPosition(m_startPosition);
-					else if (pos.x < m_markPosition.x) ptrTrans->SetPosition(m_markPosition);
-				}
+				if (m_isGotoMarkPos) m_isGotoMarkPos = false;
+				else m_isGotoMarkPos = true;
 			}
-			else {										// m_startPos‚Ì•û‚ª¬‚³‚¢ê‡
-				if (pos.x < m_startPosition.x ||
-					pos.x > m_markPosition.x) {
-					m_isWait = true;
-					m_waitTime = 0;
-					if (m_isReturnBlock) m_isReturnBlock = false;
-					else m_isReturnBlock = true;
+			Vec3 rootMoving;
+			if (!m_isGotoMarkPos)
+				rootMoving = easing.EaseInOut(
+					EasingType::Quadratic, m_startPosition, m_markPosition, m_totalTime, 4.0f);
+			else
+				rootMoving = easing.EaseInOut(
+					EasingType::Quadratic, m_markPosition, m_startPosition, m_totalTime, 4.0f);
 
-					if (pos.x < m_startPosition.x) ptrTrans->SetPosition(m_startPosition);
-					else if (pos.x > m_markPosition.x) ptrTrans->SetPosition(m_markPosition);
-				}
-			}
-			if (m_isReturnBlock) pos -= rootMoving;
-			else pos += rootMoving;
-
-			if (!m_isWait) ptrTrans->SetPosition(pos);
+			ptrTrans->SetPosition(rootMoving);
 		}
 		else {
 			if (m_waitTime > m_latency) {
