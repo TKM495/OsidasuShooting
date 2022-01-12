@@ -133,6 +133,7 @@ namespace basecross {
 		case ControllerButton::RIGHT_SHOULDER:
 			return XINPUT_GAMEPAD_RIGHT_SHOULDER;
 		}
+		return -1;
 	}
 
 	bool GameController::GetButtons(ControllerButton button) {

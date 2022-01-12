@@ -49,4 +49,20 @@ namespace basecross {
 		ptrTrans->SetScale(scl);
 
 	}
+
+	void KillIcon::OnCreate() {
+		auto texture = L"Kill";
+
+		BaseSprite::CreateSprite(texture, NULL, NULL);
+		BaseSprite::SettingScale(0.5f);
+		BaseSprite::SettingPosition(m_setPos);
+	}
+
+	void DeadIcon::OnCreate() {
+		auto texture = L"Dead";
+
+		BaseSprite::CreateSprite(texture, NULL, NULL);
+		BaseSprite::SettingScale(0.5f);
+		BaseSprite::SettingPosition(m_setPos);
+	}
 }

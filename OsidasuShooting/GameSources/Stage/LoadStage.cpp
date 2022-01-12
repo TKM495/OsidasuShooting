@@ -54,13 +54,19 @@ namespace basecross {
 		app->RegisterTexture(L"PushAButton", path + L"PushAButton.png");
 		app->RegisterTexture(L"Number", path + L"Number.png");
 		app->RegisterTexture(L"BPsUIs", path + L"BattlePlayersUI256x256.png");
+		app->RegisterTexture(L"BomberUI", path + L"BomberUI.png");
 		app->RegisterTexture(L"CircleGauge", path + L"CircleGauge.png");
 		app->RegisterTexture(L"BarGauge", path + L"BarGauge.png");
 		app->RegisterTexture(L"GaugeColor", path + L"GaugeColor.png");
 		app->RegisterTexture(L"Block", path + L"Block.png");
 		app->RegisterTexture(L"Reflector", path + L"Reflector.png");
 		app->RegisterTexture(L"BreakBlock", path + L"BreakBlock.png");
+
 		app->RegisterTexture(L"Winner", path + L"Winner.png");
+		app->RegisterTexture(L"KillIcon", path + L"KillIcon.png");
+		app->RegisterTexture(L"DeadIcon", path + L"DeadIcon.png");
+		app->RegisterTexture(L"Kill", path + L"Kill.png");
+		app->RegisterTexture(L"Dead", path + L"Dead.png");
 
 		app->RegisterTexture(L"BombBack", path + L"BombBackGround.png");
 		app->RegisterTexture(L"GaugeBackGround", path + L"GaugeBackGround.png");
@@ -73,6 +79,8 @@ namespace basecross {
 
 		app->RegisterTexture(L"BombItem", path + L"BombItem.png");
 		app->RegisterTexture(L"EnergyItem", path + L"EnergyItem.png");
+		app->RegisterTexture(L"RandomItem", path + L"RandomItem.png");
+
 		// テスト用スプライト
 		app->RegisterTexture(L"Test", path + L"test.png");
 

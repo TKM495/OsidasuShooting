@@ -38,7 +38,7 @@ namespace basecross
 			m_scale(0)
 		{}
 
-		virtual void CreateSprite(wstring textureKey,float sideSize,float fSidSize,float highSize,float fHigSize);
+		virtual void CreateSprite(wstring textureKey,float sideSize,float highSize);
 		virtual void SettingScale(float sizes);
 		virtual void SettingPosition(Vec3 position);
 
@@ -154,7 +154,6 @@ namespace basecross
 			m_setPos(setPosition)
 		{}
 		void OnCreate() override;
-		void OnUpdate() override;
 	};
 
 	// OK!�̉摜

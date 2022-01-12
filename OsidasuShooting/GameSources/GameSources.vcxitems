@@ -90,6 +90,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\BaseSingleton.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\DataExtracter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\GameController.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\PlayerStatus.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BaseUI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\Canvas.h" />
@@ -178,6 +179,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\TransitionSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\AdvancedMeshUtil.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\GameController.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\PlayerStatus.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BaseUI.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\Canvas.cpp" />
