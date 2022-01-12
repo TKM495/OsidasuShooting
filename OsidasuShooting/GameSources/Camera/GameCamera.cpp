@@ -1,9 +1,14 @@
+/*!
+@file GameCamera.cpp
+@brief ゲームカメラの実体
+*/
+
 #include "stdafx.h"
 #include "Project.h"
 
 namespace basecross {
 	GameCamera::GameCamera()
-		:Camera(), m_state(State::Init)
+		:Camera(), m_state(State::Init), m_followUpVelocity(2.0f)
 	{}
 
 	void GameCamera::OnCreate() {
@@ -53,8 +58,7 @@ namespace basecross {
 		for (const auto& player : players) {
 			sumVec += player->GetTransform()->GetPosition();
 		}
-		m_def = sumVec;
-		auto averageAt = sumVec / players.size();
+		auto averageAt = sumVec / (float)players.size();
 		SetAt(m_defaultAt + averageAt);
 		SetEye(GetAt() + m_defaultLocalEye);
 	}
@@ -62,28 +66,25 @@ namespace basecross {
 	void GameCamera::Update() {
 		auto players = PlayerManager::GetInstance()->GetAllPlayer();
 
-		// Atを各プレイヤーの位置の中心を見るような処理
+		// 各プレイヤーの中心をとって注視点・カメラ座標を移動させる処理
 		Vec3 sumVec(0);
 		for (const auto& player : players) {
 			sumVec += player->GetTransform()->GetPosition();
 		}
-		auto averageAt = sumVec / players.size();
+		auto averageAt = sumVec / (float)players.size();
 		SetAtAndEye(m_defaultAt + averageAt);
-
-		//sumVec.length();
-		//SetFovY(sumVec.length() / 10.0f);
-		//SetFovY(Utility::Clamp(sumVec.length(), m_def.length() - 0.1f, m_def.length() + 0.1f));
 	}
 
 	void GameCamera::SetAtAndEye(const Vec3& at) {
 		auto delta = App::GetApp()->GetElapsedTime();
-
+		// 遅れて追従させる
 		auto _at = Lerp::CalculateLerp(
 			GetAt(), at,
 			0, 1,
-			6.0f * delta,
+			m_followUpVelocity * delta,
 			Lerp::rate::Linear
 		);
+		// AtとEyeをセット
 		SetAt(_at);
 		SetEye(GetAt() + m_defaultLocalEye);
 	}
