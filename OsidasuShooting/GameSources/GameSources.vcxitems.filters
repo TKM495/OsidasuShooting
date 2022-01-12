@@ -388,6 +388,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Fencing.cpp">
       <Filter>StageObject\JonyMd</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Blinking.cpp">
+      <Filter>StageObject\JonyMd</Filter>
+    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\PlayerStatus.cpp">
       <Filter>Utility\PlayerStatus</Filter>
     </ClCompile>
@@ -657,6 +660,9 @@
       <Filter>UI\BackGround</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Fencing.h">
+      <Filter>StageObject\JonyMd</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Blinking.h">
       <Filter>StageObject\JonyMd</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\PlayerStatus.h">
