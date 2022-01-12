@@ -64,6 +64,9 @@ namespace basecross {
 		else if (event->m_MsgStr == L"ToWatanabeStage") {
 			ResetActiveStage<WatanabeStage>();
 		}
+		else if (event->m_MsgStr == L"ToWatanabeStage2") {
+			ResetActiveStage<WatanabeStage2>();
+		}
 		else if (event->m_MsgStr == L"ToSatoStage") {
 			ResetActiveStage<SatoStage>();
 		}

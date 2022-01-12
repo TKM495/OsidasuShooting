@@ -39,6 +39,21 @@ namespace basecross {
 		t->GetDynamicComponent<SpriteBaseDraw>()->SetDiffuse(m_owner->GetColor());
 		m_uiObjects.push_back(t);
 
+		tokens = DataExtracter::DelimitData(data[5]);
+		transData = DataExtracter::TransformDataExtraction(tokens);
+
+		auto bombBack = ObjectFactory::Create<SimpleSprite>(GetStage(), L"BomberUI", transData);
+		bombBack->GetTransform()->SetParent(GetThis<PlayerInfo>());
+		m_uiObjects.push_back(bombBack);
+
+		tokens = DataExtracter::DelimitData(data[6]);
+		transData = DataExtracter::TransformDataExtraction(tokens);
+
+		auto bombCount = ObjectFactory::Create<BombRemainingCount>(GetStage(),
+			m_owner, transData);
+		bombCount->GetTransform()->SetParent(GetThis<PlayerInfo>());
+		m_uiObjects.push_back(bombCount);
+
 		ApplyTransform();
 	}
 	void PlayerInfo::OnUpdate() {
