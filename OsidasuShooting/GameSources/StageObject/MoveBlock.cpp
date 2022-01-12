@@ -1,11 +1,10 @@
 /*!
 @file   MoveBlock.cpp
-@brief	ãƒªãƒ•ãƒ¬ã‚¯ã‚¿ãƒ¼ãƒ–ãƒ­ãƒƒã‚¯ã‚¯ãƒ©ã‚¹ã®å®Ÿæ…‹
+@brief	ƒŠƒtƒŒƒNƒ^[ƒuƒƒbƒNƒNƒ‰ƒX‚ÌÀ‘Ô
 */
 
 #include "stdafx.h"
 #include "Project.h"
-#include "Bullet.h"
 
 namespace basecross {
 	MoveBlock::MoveBlock(
@@ -31,18 +30,18 @@ namespace basecross {
 			XMConvertToRadians((float)_wtof(tokens[8].c_str())),
 			XMConvertToRadians((float)_wtof(tokens[9].c_str()))
 		);
-		// å¾€å¾©åœ°ç‚¹
+		// ‰•œ’n“_
 		m_markPosition = Vec3(
 			(float)_wtof(tokens[10].c_str()),
 			(float)_wtof(tokens[11].c_str()),
 			(float)_wtof(tokens[12].c_str())
 		);
-		// ç§»å‹•é€Ÿåº¦
+		// ˆÚ“®‘¬“x
 		m_moveSpeed = (float)_wtof(tokens[13].c_str());
-		// å¾…æ©Ÿæ™‚é–“
+		// ‘Ò‹@ŠÔ
 		m_latency = (float)_wtof(tokens[14].c_str());
 
-		// æ–‡å­—åˆ—â†’enumã®å¤‰æ›
+		// •¶š—ñ¨enum‚Ì•ÏŠ·
 		auto data = tokens[15];
 		if (data == L"Block") {
 			m_type = BlockType::Normal;
@@ -55,7 +54,7 @@ namespace basecross {
 		}
 		else {
 			throw BaseException(
-				L"ä¸æ­£ãªå€¤ã§ã™ã€‚",
+				L"•s³‚È’l‚Å‚·B",
 				L"if(data == L\"\")",
 				L"MoveBlock::MoveBlock()"
 			);
@@ -68,7 +67,7 @@ namespace basecross {
 
 		//auto ptrColl = AddComponent<CollisionObb>();
 		//ptrColl->SetAfterCollision(AfterCollision::None);
-		//// ãƒ–ãƒ­ãƒƒã‚¯ã¨ã®å½“ãŸã‚Šåˆ¤å®šã‚’ç„¡è¦–
+		//// ƒuƒƒbƒN‚Æ‚Ì“–‚½‚è”»’è‚ğ–³‹
 		//ptrColl->AddExcludeCollisionTag(L"Block");
 		//ptrColl->SetFixed(true);
 
@@ -85,7 +84,7 @@ namespace basecross {
 			break;
 		default:
 			throw BaseException(
-				L"æœªå®šç¾©ã®å€¤ã§ã™ã€‚",
+				L"–¢’è‹`‚Ì’l‚Å‚·B",
 				L"switch (m_type)",
 				L"void MoveBlock::OnCreate()"
 			);
@@ -95,12 +94,12 @@ namespace basecross {
 		auto ptrTrans = GetTransform();
 		m_startPosition = ptrTrans->GetPosition();
 
-		m_moveRoot = m_startPosition - m_markPosition; // è·é›¢ã®å–å¾—
-		m_moveRoot.normalize(); // æ­£è¦åŒ–
+		m_moveRoot = m_startPosition - m_markPosition; // ‹——£‚Ìæ“¾
+		m_moveRoot.normalize(); // ³‹K‰»
 		m_waitTime = 0;
 		m_isWait = true;
 
-		//// æœ¬æ¥ã®ä¸€å€‹ä¸‹ã«è¨­ç½®
+		//// –{—ˆ‚ÌˆêŒÂ‰º‚Éİ’u
 		//m_setPosition = GetTransform()->GetPosition();
 		//auto setPos = m_setPosition;
 		//setPos.y = -1;
@@ -113,21 +112,20 @@ namespace basecross {
 	void MoveBlock::MoveSwitch() {
 		auto ptrTrans = GetTransform();
 		auto pos = ptrTrans->GetPosition();
-
 	}
 
 	void MoveBlock::MovingBlock() {
-		// ãƒ‡ãƒ«ã‚¿ã‚¿ã‚¤ãƒ å–å¾—
+		// ƒfƒ‹ƒ^ƒ^ƒCƒ€æ“¾
 		const auto& app = App::GetApp();
 		const auto delta = app->GetElapsedTime();
 
-		// ç¾åœ¨ã®ãƒã‚¸ã‚·ãƒ§ãƒ³
+		// Œ»İ‚Ìƒ|ƒWƒVƒ‡ƒ“
 		auto ptrTrans = GetTransform();
 		auto pos = ptrTrans->GetPosition();
 
 		Easing<Vec3> easing;
 
-		//auto rootMoving = m_moveRoot * delta * 0.1f;// ç§»å‹•
+		//auto rootMoving = m_moveRoot * delta * 0.1f;// ˆÚ“®
 
 		if (!m_isWait) {
 			m_totalTime += delta;
