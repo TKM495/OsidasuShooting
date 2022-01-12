@@ -159,14 +159,6 @@ namespace basecross
 		BaseSprite::SettingPosition(m_setPos);
 	}
 
-	void ReadyToFightUI::OnUpdate() {
-		//auto& app = App::GetApp();
-		//const auto& ctrlVec = app->GetInputDevice().GetControlerVec()[0];
-		//if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_A) {
-		//	PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToGameStage");
-		//}
-	}
-
 	//-----------------------------------------------------------------//
 
 	// OK!!と書かれたスプライトを表示するための情報
