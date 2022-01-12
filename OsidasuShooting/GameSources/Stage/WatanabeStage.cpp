@@ -74,5 +74,6 @@ namespace basecross {
 
 	void WatanabeStage::OnDestroy() {
 		m_controller.ResetVibration();
+		PlayerManager::GetInstance()->DeleteInstance();
 	}
 }

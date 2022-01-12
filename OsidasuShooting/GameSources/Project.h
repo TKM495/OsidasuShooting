@@ -19,7 +19,6 @@
 #include "Stage/WatanabeStage2.h"
 // ‚»‚Ì‘¼
 #include "DebugClass/Debug.h"
-#include "Camera/GameCamera.h"
 #include "Effekseer/EfkEffect.h"
 #include "Utility/BaseSingleton.h"
 #include "Utility/CSVLoad.h"
@@ -89,6 +88,9 @@
 #include "Manager/StageManager.h"
 #include "Manager/PlayerBuilder.h"
 #include "Manager/SpecialSkillManager.h"
+
+// ƒJƒƒ‰
+#include "Camera/GameCamera.h"
 
 //JonyMd Folder
 //Empty GameObject

@@ -2,6 +2,10 @@
 #include "Project.h"
 
 namespace basecross {
+	GameCamera::GameCamera()
+		:Camera(), m_state(State::Init)
+	{}
+
 	void GameCamera::OnCreate() {
 		wstring DataDir;
 		App::GetApp()->GetDataDirectory(DataDir);
@@ -24,12 +28,52 @@ namespace basecross {
 	}
 
 	void GameCamera::OnUpdate() {
-		auto players = PlayerManager::GetInstance()->GetAllPlayer();
-		// プレイヤーの格納が
-		if (players.empty()) {
-			SetEye(m_defaultAt + m_defaultLocalEye);
-			SetAt(m_defaultAt);
-			return;
+		switch (m_state)
+		{
+		case State::Init:
+			Init();
+			m_state = State::Update;
+			break;
+		case State::Update:
+			Update();
+			break;
+		default:
+			throw BaseException(
+				L"未定義の値です。",
+				L"switch (m_state)",
+				L"void GameCamera::OnUpdate()"
+			);
+			break;
 		}
+	}
+
+	void GameCamera::Init() {
+		auto players = PlayerManager::GetInstance()->GetAllPlayer();
+		Vec3 sumVec(0);
+		for (const auto& player : players) {
+			sumVec += player->GetTransform()->GetPosition();
+		}
+		m_def = sumVec;
+	}
+
+	void GameCamera::Update() {
+		auto players = PlayerManager::GetInstance()->GetAllPlayer();
+
+		// Atを各プレイヤーの位置の中心を見るような処理
+		Vec3 sumVec(0);
+		for (const auto& player : players) {
+			sumVec += player->GetTransform()->GetPosition();
+		}
+		auto averageAt = sumVec / players.size();
+		SetAtAndEye(m_defaultAt + averageAt);
+
+		//sumVec.length();
+		//SetFovY(sumVec.length() / 10.0f);
+		//SetFovY(Utility::Clamp(sumVec.length(), m_def.length() - 0.1f, m_def.length() + 0.1f));
+	}
+
+	void GameCamera::SetAtAndEye(const Vec3& at) {
+		SetAt(at);
+		SetEye(GetAt() + m_defaultLocalEye);
 	}
 }
