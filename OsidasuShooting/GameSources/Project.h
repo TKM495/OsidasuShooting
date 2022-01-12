@@ -48,6 +48,7 @@
 #include "StageObject/area_.h"
 #include "StageObject/Item_.h"
 #include "StageObject/ItemCreation_.h"
+#include "StageObject/Blinking_.h"
 //UI
 #include "UIs/InfoGauge.h"
 #include "UIs/BackPlanet.h"

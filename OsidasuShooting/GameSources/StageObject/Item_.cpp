@@ -10,34 +10,34 @@ namespace basecross {
 			auto drawComp = AddComponent<PNTStaticDraw>();
 			drawComp->SetMeshResource(L"DEFAULT_CUBE");
 
-			if (m_isRandom) {
-				drawComp->SetTextureResource(L"RandomItem");
+			switch (spawnItem)
+			{
+			case ItemType::Bomb:
+				drawComp->SetTextureResource(L"BombItem");
+				break;
+			case ItemType::Energy:
+				drawComp->SetTextureResource(L"EnergyItem");
+				break;
+			case ItemType::totalItems:
+				break;
+			default:
+				break;
 			}
-			else {
-				switch (spawnItem)
-				{
-				case ItemType::Bomb:
-					drawComp->SetTextureResource(L"BombItem");
-					break;
-				case ItemType::Energy:
-					drawComp->SetTextureResource(L"EnergyItem");
-					break;
-					//case ItemType::Debuff:
-						//break;
-				case ItemType::totalItems:
-					break;
-				default:
-					break;
-				}
-			}
-			//auto transform = GetComponent<Transform>();
+			auto transform = GetComponent<Transform>();
 
 			auto gravity = AddComponent<Gravity>();
 			auto collision = AddComponent<CollisionObb>();
 
 			auto shadowComp = AddComponent<Shadowmap>();
 			shadowComp->SetMeshResource(L"DEFAULT_CUBE");
+
+			AddComponent<PhysicalBehavior>();
+
+			auto stage = GetStage();
+			blinking = stage->AddGameObject<modifiedClass::Blinking>();
+			blinking->SetComponent(drawComp);
 		}
+
 		void Item::OnUpdate()
 		{
 			auto& app = App::GetApp();
@@ -50,50 +50,20 @@ namespace basecross {
 			}
 			//泊まるが時間が終わったら点滅が始まります
 
+			auto drawComp = GetComponent<PNTStaticDraw>();
+
 			//点滅の処理
-			blinkingTime -= deltaTime;
-			timeChecker += deltaTime;
-			float colorAdjustment;
-
-			if (timeChecker < blinkFadeInTime)
+			if (blinkTimeChecker == blinkTime)
 			{
-				colorAdjustment = timeChecker / blinkFadeInTime;
+				blinking->SetFadeInOutTime(fadeInTime, fadeOutTime, blinkTime);
 			}
-			else if (timeChecker < (blinkFadeInTime + blinkStayTime))
-			{
-				colorAdjustment = 1.0f;
-			}
-			else if (timeChecker < (blinkFadeInTime + blinkStayTime + blinkFadeOutTime))
-			{
-				colorAdjustment = 1.0f - (timeChecker - (blinkFadeInTime + blinkStayTime)) / blinkFadeOutTime;
-			}
-			else
-			{
-				timeChecker = 0;
-				colorAdjustment = 0.0f;
-
-				// 毎回点滅が終わったら点滅の速度が増える
-				blinkingSpeed += 0.0001f;
-				blinkFadeInTime -= blinkingSpeed;
-				blinkFadeOutTime -= blinkingSpeed;
-
-				if (blinkFadeInTime < 0)
-				{
-					blinkFadeInTime = blinkingSpeed;
-				}
-				if (blinkFadeOutTime < 0)
-				{
-					blinkFadeOutTime = blinkingSpeed;
-				}
-				// 毎回点滅が終わったら点滅の速度が増える..終了
-			}
-
-			SetAdjustColor(colorAdjustment);
 			//点滅の処理..終了
 
 			//　点滅の時間が終わったら物体が消える
-			if (blinkingTime < 0)
+			blinkTime -= deltaTime;
+			if (blinkTime < 0)
 			{
+				GetStage()->RemoveGameObject<Blinking>(blinking);
 				GetStage()->RemoveGameObject<Item>(GetThis<Item>());
 			}
 		}

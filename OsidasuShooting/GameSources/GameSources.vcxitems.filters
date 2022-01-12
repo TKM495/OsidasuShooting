@@ -394,6 +394,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\PlayerStatus.cpp">
       <Filter>Utility\PlayerStatus</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Blinking_.cpp">
+      <Filter>StageObject\Blinking</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -667,6 +670,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\PlayerStatus.h">
       <Filter>Utility\PlayerStatus</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Blinking_.h">
+      <Filter>StageObject\Blinking</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -944,6 +950,9 @@
     </Filter>
     <Filter Include="Utility\PlayerStatus">
       <UniqueIdentifier>{b665db82-243e-481c-b9a4-5dc69d9bf16c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StageObject\Blinking">
+      <UniqueIdentifier>{cd05b88f-797f-405d-9e2b-b8d1d93323d8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
