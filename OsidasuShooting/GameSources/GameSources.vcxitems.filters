@@ -385,7 +385,15 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BackPlanet.cpp">
       <Filter>UI\BackGround</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Fencing.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Fencing.cpp">
+      <Filter>StageObject\JonyMd</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Blinking.cpp">
+      <Filter>StageObject\JonyMd</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\PlayerStatus.cpp">
+      <Filter>Utility\PlayerStatus</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -651,7 +659,15 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BackPlanet.h">
       <Filter>UI\BackGround</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Fencing.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Fencing.h">
+      <Filter>StageObject\JonyMd</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Blinking.h">
+      <Filter>StageObject\JonyMd</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\PlayerStatus.h">
+      <Filter>Utility\PlayerStatus</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
@@ -925,6 +941,9 @@
     </Filter>
     <Filter Include="UI\BackGround">
       <UniqueIdentifier>{260ff698-3e27-4323-9f10-c3fcafc6d864}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\PlayerStatus">
+      <UniqueIdentifier>{b665db82-243e-481c-b9a4-5dc69d9bf16c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

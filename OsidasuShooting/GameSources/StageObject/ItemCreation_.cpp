@@ -10,7 +10,7 @@ namespace basecross {
 			spawnArea = SpawnArea::Block;
 		}
 
-		void ItemCreation::SpawnItem(ItemType type) {
+		void ItemCreation::SpawnItem(ItemType type, bool isRandom) {
 			if (areaPositionList.size() < 1)
 			{
 				SetArea();
@@ -27,7 +27,7 @@ namespace basecross {
 			//setting random position...end
 
 			//spawn on that position
-			auto spawn = GetStage()->AddGameObject<Item>(type);
+			auto spawn = GetStage()->AddGameObject<modifiedClass::Item>(type, isRandom);
 			spawn->GetComponent<Transform>()->SetPosition(areaPositionList[index]);
 			if (spawnScale == Vec3(0, 0, 0))
 			{
@@ -75,7 +75,7 @@ namespace basecross {
 			auto itemType = static_cast<ItemType>(randItems); //assigning random value to the enum to set the current enum member
 			//for the enum class ItemType ...end
 
-			SpawnItem(itemType);
+			SpawnItem(itemType, true);
 		}
 
 		void ItemCreation::AdjustingAreaPosition()

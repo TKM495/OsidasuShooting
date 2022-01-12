@@ -1,6 +1,6 @@
 /*!
 @file   MoveBlock.cpp
-@brief	ƒŠƒtƒŒƒNƒ^[ƒuƒƒbƒNƒNƒ‰ƒX‚ÌÀ‘Ô
+@brief	ãƒªãƒ•ãƒ¬ã‚¯ã‚¿ãƒ¼ãƒ–ãƒ­ãƒƒã‚¯ã‚¯ãƒ©ã‚¹ã®å®Ÿæ…‹
 */
 
 #include "stdafx.h"
@@ -31,39 +31,83 @@ namespace basecross {
 			XMConvertToRadians((float)_wtof(tokens[8].c_str())),
 			XMConvertToRadians((float)_wtof(tokens[9].c_str()))
 		);
-		// ‰•œ’n“_
+		// å¾€å¾©åœ°ç‚¹
 		m_markPosition = Vec3(
+			(float)_wtof(tokens[10].c_str()),
 			(float)_wtof(tokens[11].c_str()),
-			(float)_wtof(tokens[12].c_str()),
-			(float)_wtof(tokens[13].c_str())
+			(float)_wtof(tokens[12].c_str())
 		);
+		// ç§»å‹•é€Ÿåº¦
+		m_moveSpeed = (float)_wtof(tokens[13].c_str());
+		// å¾…æ©Ÿæ™‚é–“
+		m_latency = (float)_wtof(tokens[14].c_str());
+
+		// æ–‡å­—åˆ—â†’enumã®å¤‰æ›
+		auto data = tokens[15];
+		if (data == L"Block") {
+			m_type = BlockType::Normal;
+		}
+		else if (data == L"Bumper") {
+			m_type = BlockType::Bumper;
+		}
+		else if (data == L"Reflector") {
+			m_type = BlockType::Reflector;
+		}
+		else {
+			throw BaseException(
+				L"ä¸æ­£ãªå€¤ã§ã™ã€‚",
+				L"if(data == L\"\")",
+				L"MoveBlock::MoveBlock()"
+			);
+		}
 	}
 
 	void MoveBlock::OnCreate() {
-		auto ptrDraw = AddComponent<PNTStaticDraw>();
-		ptrDraw->SetMeshResource(L"DEFAULT_CUBE");
+		//auto ptrDraw = AddComponent<PNTStaticDraw>();
+		//ptrDraw->SetMeshResource(L"DEFAULT_CUBE");
 
-		auto ptrColl = AddComponent<CollisionObb>();
-		ptrColl->SetAfterCollision(AfterCollision::None);
-		// ƒuƒƒbƒN‚Æ‚Ì“–‚½‚è”»’è‚ğ–³‹
-		ptrColl->AddExcludeCollisionTag(L"Block");
-		ptrColl->SetFixed(true);
+		//auto ptrColl = AddComponent<CollisionObb>();
+		//ptrColl->SetAfterCollision(AfterCollision::None);
+		//// ãƒ–ãƒ­ãƒƒã‚¯ã¨ã®å½“ãŸã‚Šåˆ¤å®šã‚’ç„¡è¦–
+		//ptrColl->AddExcludeCollisionTag(L"Block");
+		//ptrColl->SetFixed(true);
+
+		switch (m_type)
+		{
+		case BlockType::Normal:
+			m_block = InstantiateGameObject<Block>(m_transformData);
+			break;
+		case BlockType::Bumper:
+			m_block = InstantiateGameObject<Bumper>(m_transformData);
+			break;
+		case BlockType::Reflector:
+			m_block = InstantiateGameObject<ReflectorBlock>(m_transformData);
+			break;
+		default:
+			throw BaseException(
+				L"æœªå®šç¾©ã®å€¤ã§ã™ã€‚",
+				L"switch (m_type)",
+				L"void MoveBlock::OnCreate()"
+			);
+			break;
+		}
 
 		auto ptrTrans = GetTransform();
 		m_startPosition = ptrTrans->GetPosition();
 
-		m_moveRoot = m_startPosition - m_markPosition; // ‹——£‚Ìæ“¾
+		m_moveRoot = m_startPosition - m_markPosition; // è·é›¢ã®å–å¾—
+		m_moveRoot.normalize(); // æ­£è¦åŒ–
 		m_waitTime = 0;
 		m_isWait = true;
 
-		//// –{—ˆ‚ÌˆêŒÂ‰º‚Éİ’u
+		//// æœ¬æ¥ã®ä¸€å€‹ä¸‹ã«è¨­ç½®
 		//m_setPosition = GetTransform()->GetPosition();
 		//auto setPos = m_setPosition;
 		//setPos.y = -1;
 		//GetTransform()->SetPosition(setPos);
 		//ApplyTransform();
 
-		AddTag(L"Block");
+		AddTag(L"MoveBlock");
 	}
 
 	void MoveBlock::MoveSwitch() {
@@ -73,17 +117,17 @@ namespace basecross {
 	}
 
 	void MoveBlock::MovingBlock() {
-		// ƒfƒ‹ƒ^ƒ^ƒCƒ€æ“¾
+		// ãƒ‡ãƒ«ã‚¿ã‚¿ã‚¤ãƒ å–å¾—
 		const auto& app = App::GetApp();
 		const auto delta = app->GetElapsedTime();
 
-		// Œ»İ‚Ìƒ|ƒWƒVƒ‡ƒ“
+		// ç¾åœ¨ã®ãƒã‚¸ã‚·ãƒ§ãƒ³
 		auto ptrTrans = GetTransform();
 		auto pos = ptrTrans->GetPosition();
 
 		Easing<Vec3> easing;
 
-		//auto rootMoving = m_moveRoot * delta * 0.1f;// ˆÚ“®
+		//auto rootMoving = m_moveRoot * delta * 0.1f;// ç§»å‹•
 
 		if (!m_isWait) {
 			m_totalTime += delta;
@@ -106,7 +150,7 @@ namespace basecross {
 			ptrTrans->SetPosition(rootMoving);
 		}
 		else {
-			if (m_waitTime > 1) {
+			if (m_waitTime > m_latency) {
 				m_isWait = false;
 			}
 			else {
@@ -116,8 +160,10 @@ namespace basecross {
 	}
 
 	void MoveBlock::OnUpdate() {
-		auto ptrColl = GetComponent<CollisionObb>();
-		ptrColl->SetAfterCollision(AfterCollision::Auto);
+		//auto ptrColl = GetComponent<CollisionObb>();
+		//ptrColl->SetAfterCollision(AfterCollision::Auto);
 		MovingBlock();
+		auto currentLocation = GetTransform()->GetPosition();
+		m_block->GetTransform()->SetPosition(currentLocation);
 	}
 }

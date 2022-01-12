@@ -5,6 +5,21 @@ namespace basecross {
 
 	class Item : public GameObject
 	{
+		shared_ptr<Blinking> blinking;
+
+
+		// (一定時間)秒として表示されています。
+		float stayTime = 3.0f;//　物体の泊まる時間
+
+		//点滅用
+		//全　数字　は秒として表示されています。
+		float blinkTime = 3.0f;//　物体の点滅する時間
+		float blinkTimeChecker = blinkTime;//　物体の点滅する時間
+
+		float fadeInTime = 0.05f;
+		float fadeOutTime = 0.10f;
+
+		//点滅用..終了
 
 	public:
 		Item(const shared_ptr<Stage>& stage)
@@ -12,6 +27,7 @@ namespace basecross {
 		{}
 
 		void OnCreate() override;
+		void OnUpdate() override;
 
 
 		enum class ItemType {
