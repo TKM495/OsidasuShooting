@@ -21,11 +21,14 @@ namespace basecross {
 		Vec3 m_defaultAt;
 		// 追従速度
 		float m_followUpVelocity;
-
-		float m_minZoom = 50;
-		float m_maxZoom = 30;
-		float m_zoomLimiter = 40;
-
+		// 最小ズーム
+		float m_minZoom;
+		// 最大ズーム
+		float m_maxZoom;
+		// ズーム値の範囲
+		float m_zoomLimiter;
+		// 最小Y座標
+		float m_minimumY;
 		// 現在のステート
 		State m_state;
 		// 初期化処理
@@ -38,6 +41,11 @@ namespace basecross {
 		 * @param at Atの位置
 		 */
 		void SetAtAndEye(const Vec3& at);
+		/**
+		 * @brief ズームのセット
+		 *
+		 * @param level 視野角(rad)
+		 */
 		void SetZoomLevel(float level);
 		/**
 		 * @brief 各プレイヤーが入るAABBを取得

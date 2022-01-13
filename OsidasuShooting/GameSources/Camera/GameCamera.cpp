@@ -8,7 +8,9 @@
 
 namespace basecross {
 	GameCamera::GameCamera()
-		:Camera(), m_state(State::Init), m_followUpVelocity(2.0f)
+		:Camera(), m_state(State::Init), m_followUpVelocity(2.0f),
+		m_minZoom(50), m_maxZoom(40), m_zoomLimiter(45),
+		m_minimumY(-3.0f)
 	{}
 
 	void GameCamera::OnCreate() {
@@ -120,7 +122,9 @@ namespace basecross {
 			Lerp::rate::Linear
 		);
 		// At‚ÆEye‚ðƒZƒbƒg
+		_at.y = Utility::Clamp(_at.y, m_minimumY, INFINITY);
 		SetAt(_at);
+
 		SetEye(GetAt() + m_defaultLocalEye);
 	}
 }
