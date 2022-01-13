@@ -333,10 +333,12 @@ namespace basecross {
 		// 無敵の場合無視
 		if (m_isInvincible)
 			return;
-
-		m_aggriever = data.Aggriever;
-		m_isDuringReturn = true;
-		m_returnTimer.Reset();
+		// 加害者が自分自身の場合（自分の攻撃に自分があたった場合）は無視
+		if (data.Aggriever.lock() != GetThis<PlayerBase>()) {
+			m_aggriever = data.Aggriever;
+			m_isDuringReturn = true;
+			m_returnTimer.Reset();
+		}
 		// ノックバック倍率
 		float knockBackCorrection = 1.0f;
 		//// アーマーが回復中でない　かつ　アーマーが0より大きい

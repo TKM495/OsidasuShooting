@@ -31,6 +31,8 @@ namespace basecross {
 		auto drawComp = AddComponent<PCStaticDraw>();
 		drawComp->CreateOriginalMesh(vertices, indices);
 		drawComp->SetOriginalMeshUse(true);
+
+		SetAlphaActive(true);
 	}
 
 	void LinePoint::SetColor(const Col4& color) {
