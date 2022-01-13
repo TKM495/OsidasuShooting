@@ -231,7 +231,7 @@ namespace basecross
 
 	void SelectCursor::OnUpdate() {
 		CursorController();
-		MoveCursor();
+		//MoveCursor();
 	}
 
 	void SelectCursor::CursorController() {

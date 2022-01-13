@@ -58,7 +58,7 @@ namespace basecross {
 		void PlayerFreamPosition(Vec3 pos, int gamePadID);
 		void PlayerCharacterSelect(Vec3 pos);
 		void PlayerCursorCreate(int gamePadID);
-		void PlayerCursorUpdata(int gamePadID);
+		void SelectCharacter(int gamePadID);
 		//void PlayerSelectTriangle(Vec3 pos, Vec3 scl, int gamePadID);
 		void UIsSet();
 		void SetCharaName();

@@ -167,13 +167,23 @@ namespace basecross {
 		const auto& ctrlVec = app->GetInputDevice().GetControlerVec()[gamePadID];
 		if (ctrlVec.bConnected) {
 			m_ifEntryPlayer[gamePadID] = true;
+
 			if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_A) {
 				m_isDecisionPlayer[gamePadID] = true;
+				SelectCharacter(gamePadID);
+
+				m_SelectCursor[gamePadID]->SetDrawActive(false);
+				m_SelectCursor[gamePadID]->SetUpdateActive(false);
+
 				if (!m_sceneChangeBlock)
-				SoundManager::GetInstance()->Play(L"CharacterDecisionSE");
+					SoundManager::GetInstance()->Play(L"CharacterDecisionSE");
 			}
 			if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_B) {
 				m_isDecisionPlayer[gamePadID] = false;
+				
+				m_SelectCursor[gamePadID]->SetDrawActive(true);
+				m_SelectCursor[gamePadID]->SetUpdateActive(true);
+
 				if(!m_sceneChangeBlock)
 					SoundManager::GetInstance()->Play(L"CancelSE");
 			}
@@ -189,16 +199,14 @@ namespace basecross {
 			m_SelectCursor[gamePadID]->SetDrawActive(false);
 			m_SelectCursor[gamePadID]->SetUpdateActive(false);
 
-
-			for (int i = 0; i < m_loopForIcon; i++) {
-				auto gamePadLinkIcons = i + m_loopForIcon * gamePadID;
-				m_Icons[gamePadLinkIcons]->SetUpdateActive(false);
-			}
+			//for (int i = 0; i < m_loopForIcon; i++) {
+			//	auto gamePadLinkIcons = i + m_loopForIcon * gamePadID;
+			//	m_Icons[gamePadLinkIcons]->SetUpdateActive(false);
+			//}
 		}
 		else {
 			m_SelectCursor[gamePadID]->SetDrawActive(true);
 			m_SelectCursor[gamePadID]->SetUpdateActive(true);
-
 
 			//for (int i = 0; i < 3; i++) {
 			//	auto gamePadLinkIcons = i + 3 * gamePadID;
@@ -207,13 +215,22 @@ namespace basecross {
 		}
 	}
 
-	void CharacterSelectStage::PlayerCursorUpdata(int gamePadID){
-		auto charaID = m_SelectCursor[gamePadID]->SetCharacterID();
+	void CharacterSelectStage::SelectCharacter(int gamePadID){
+		int charaID = m_SelectCursor[gamePadID]->SetCharacterID();
+		auto setGamePadID = gamePadID + 1;
 		switch (charaID)
 		{
+		case 0:
+			StageManager::GetInstance()->SetPlayerType(setGamePadID, PlayerType::Laser);
+			break;
+
+		case 1:
+			StageManager::GetInstance()->SetPlayerType(setGamePadID, PlayerType::Missile);
+			break;
 
 		default:
 			break;
+
 		}
 	}
 
@@ -264,7 +281,7 @@ namespace basecross {
 	void CharacterSelectStage::OnUpdate() {
 		auto& app = App::GetApp();
 		for (int i = 0; i < m_loopForPlayer; i++) {
-			PlayerCursorUpdata(i);
+			CharacterSelectingPlayers(i);
 
 			const auto& ctrlVec = app->GetInputDevice().GetControlerVec()[i];
 			if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_A) {
