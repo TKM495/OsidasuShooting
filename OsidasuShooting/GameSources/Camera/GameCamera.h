@@ -21,6 +21,11 @@ namespace basecross {
 		Vec3 m_defaultAt;
 		// 追従速度
 		float m_followUpVelocity;
+
+		float m_minZoom = 50;
+		float m_maxZoom = 30;
+		float m_zoomLimiter = 40;
+
 		// 現在のステート
 		State m_state;
 		// 初期化処理
@@ -33,12 +38,25 @@ namespace basecross {
 		 * @param at Atの位置
 		 */
 		void SetAtAndEye(const Vec3& at);
+		void SetZoomLevel(float level);
+		/**
+		 * @brief 各プレイヤーが入るAABBを取得
+		 *
+		 * @return 各プレイヤーが入るAABB
+		 */
+		AABB GetAABB();
 		/**
 		 * @brief 中心点を取得
 		 *
-		 * @return プレイヤーの中心点
+		 * @return 各プレイヤーの中心点
 		 */
 		Vec3 GetCenterPoint();
+		/**
+		 * @brief 各プレイヤーの最大距離を取得
+		 *
+		 * @return 各プレイヤーの最大距離
+		 */
+		float GetGreatestDistance();
 	public:
 		GameCamera();
 

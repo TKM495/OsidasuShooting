@@ -55,13 +55,29 @@ namespace basecross {
 	void GameCamera::Init() {
 		SetAt(m_defaultAt + GetCenterPoint());
 		SetEye(GetAt() + m_defaultLocalEye);
+		auto newZoom = Lerp::CalculateLerp(
+			m_maxZoom,
+			m_minZoom,
+			0, 1,
+			GetGreatestDistance() / m_zoomLimiter
+			, Lerp::rate::Linear
+		);
+		SetFovY(XMConvertToRadians(newZoom));
 	}
 
 	void GameCamera::Update() {
 		SetAtAndEye(m_defaultAt + GetCenterPoint());
+		auto newZoom = Lerp::CalculateLerp(
+			m_maxZoom,
+			m_minZoom,
+			0, 1,
+			GetGreatestDistance() / m_zoomLimiter
+			, Lerp::rate::Linear
+		);
+		SetZoomLevel(XMConvertToRadians(newZoom));
 	}
 
-	Vec3 GameCamera::GetCenterPoint() {
+	AABB GameCamera::GetAABB() {
 		auto players = PlayerManager::GetInstance()->GetAllPlayer();
 
 		AABB aabb(players[0]->GetTransform()->GetPosition(), 0, 0, 0);
@@ -69,7 +85,29 @@ namespace basecross {
 			if (players[0] == player)continue;
 			aabb.UnionAABB(AABB(player->GetTransform()->GetPosition(), 0, 0, 0));
 		}
-		return aabb.GetCenter();
+		return aabb;
+	}
+
+	float GameCamera::GetGreatestDistance() {
+		auto width = GetAABB().GetWidth();
+		auto depth = GetAABB().GetDepth();
+		return width > depth ? width : depth;
+	}
+
+	Vec3 GameCamera::GetCenterPoint() {
+		return GetAABB().GetCenter();
+	}
+
+	void GameCamera::SetZoomLevel(float level) {
+		auto delta = App::GetApp()->GetElapsedTime();
+		// íxÇÍÇƒí«è]Ç≥ÇπÇÈ
+		auto _fovY = Lerp::CalculateLerp(
+			GetFovY(), level,
+			0, 1,
+			m_followUpVelocity * delta,
+			Lerp::rate::Linear
+		);
+		SetFovY(_fovY);
 	}
 
 	void GameCamera::SetAtAndEye(const Vec3& at) {
