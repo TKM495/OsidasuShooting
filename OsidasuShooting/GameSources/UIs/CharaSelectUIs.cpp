@@ -215,12 +215,29 @@ namespace basecross
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
 		BaseSprite::SettingScale(1);
-		BaseSprite::SettingPositionSenter(m_setPos);
 	}
 
-	void SelectCursor::MoveCursor() {
+	// アイコンのそれぞれの位置とアイコンの最大値
+	void SelectCursor::GetIconDatas(int number,Vec3 pos) {
+		m_iconPos[number] = pos;
+		m_iconMaxNumber = number;
+		//m_iconMaxNumber = number;
+
+		//m_iconPos[0] = Vec3(-50.0f, 0.0f, 0.0f);
+		//m_iconPos[1] = Vec3(50.0f, 0.0f, 0.0f);
+
+		//m_iconMaxNumber = 1;
+	}
+
+	void SelectCursor::OnUpdate() {
+		CursorController();
+		MoveCursor();
+	}
+
+	void SelectCursor::CursorController() {
 		// スティック、方向パッド
-		const auto& ctrlVec = App::GetApp()->GetInputDevice().GetControlerVec()[m_gamePadID];
+		const auto& ctrlVec = 
+			App::GetApp()->GetInputDevice().GetControlerVec()[m_gamePadID];
 		auto ctrlX = 0.0f;
 		//auto ctrlY = 0.0f;
 		if (ctrlVec.bConnected) {
@@ -229,14 +246,58 @@ namespace basecross
 		}
 		auto trans = GetComponent<Transform>();
 		auto transPos  = trans->GetPosition();
-		auto moveLeft  = ctrlX <= -1.0f || ctrlVec.wPressedButtons & XINPUT_GAMEPAD_DPAD_LEFT;
 		auto moveRight = ctrlX >=  1.0f || ctrlVec.wPressedButtons & XINPUT_GAMEPAD_DPAD_RIGHT;
+		auto moveLeft  = ctrlX <= -1.0f || ctrlVec.wPressedButtons & XINPUT_GAMEPAD_DPAD_LEFT;
 		//auto moveDown  = ctrlY <= -1.0f || ctrlVec.wPressedButtons & XINPUT_GAMEPAD_DPAD_DOWN;
-		//auto moveUp	   = ctrlY >=  1.0f || ctrlVec.wPressedButtons & XINPUT_GAMEPAD_DPAD_UP;
+		//auto moveUp	   = ctrlY >=  1.0f || ctrlVec.wPressedButtons & XINPUT_GAMEPAD_DPAD_UP;	
+
+		if (!m_isSetStick) {
+			m_moveTime = 0; // 初期化
+			// 右へ
+			if (moveRight) {
+				m_isSetStick = true;
+				if (m_iconNumber < m_iconMaxNumber) {
+					m_iconNumber++;
+					SoundManager::GetInstance()->Play(L"CharacterSelectingSE");
+					//m_nowPos = GetComponent<Transform>()->GetPosition();
+				}
+				else NotMoveAnimetion();
+			}
+			// 左へ
+			else if(moveLeft) {
+				m_isSetStick = true;
+				if (m_iconNumber > 0) {
+					m_iconNumber--;
+					SoundManager::GetInstance()->Play(L"CharacterSelectingSE");
+					//m_nowPos = GetComponent<Transform>()->GetPosition();
+				}
+				else NotMoveAnimetion();
+			}
+		}
+		else if (!moveLeft && !moveRight) m_isSetStick = false;
+		//MoveCursor();
+		GetComponent<Transform>()->SetPosition(m_iconPos[m_iconNumber]);
 	}
 
-	void SelectCursor::OnUpdate() {
+	void SelectCursor::CursorControl() {}
 
+	void SelectCursor::NotMoveAnimetion() {}
+
+	void SelectCursor::MoveCursor() {
+		if (m_moveTime >= m_moveSpeed) {
+			const auto& app = App::GetApp();
+			const auto& delta = app->GetElapsedTime();
+
+			m_moveTime += delta;
+		}
+
+		if (m_nowPos != m_iconPos[m_iconNumber]) {
+			Vec3 easPos;
+			Easing<Vec3> easing;
+			easPos = easing.EaseInOut(EasingType::Quadratic, m_nowPos, m_iconPos[m_iconNumber], m_moveTime, m_moveSpeed);
+			GetComponent<Transform>()->SetPosition(easPos);
+		}
 	}
 
+	int SelectCursor::SetCharacterID() { return m_iconNumber; }
 }

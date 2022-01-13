@@ -84,7 +84,7 @@ namespace basecross {
 	void CharacterSelectStage::PlayerCharacterSelect(Vec3 pos) {
 		auto addPosX = 100;
 		for (int i = 0; i < m_loopForIcon; i++) {
-			AddGameObject<CharaIcon>(pos,i);
+			m_Icons[i] = AddGameObject<CharaIcon>(pos,i);
 			pos.x += addPosX;
 		}
 	}
@@ -103,7 +103,12 @@ namespace basecross {
 	}
 
 	void CharacterSelectStage::PlayerCursorCreate(int gamePadID){
-		m_SelectCursor[gamePadID] = AddGameObject<SelectCursor>(Vec3(0, 0, 0),gamePadID);
+		auto defaultPos = m_Icons[0]->GetComponent<Transform>()->GetPosition();
+		m_SelectCursor[gamePadID] = AddGameObject<SelectCursor>(defaultPos, gamePadID);
+		for (int i = 0; i < m_loopForIcon; i++) {
+			auto iconPos = m_Icons[i]->GetComponent<Transform>()->GetPosition();
+			m_SelectCursor[gamePadID]->GetIconDatas(i,iconPos);
+		}
 	}
 
 	void CharacterSelectStage::SetCharaName() {
@@ -139,7 +144,11 @@ namespace basecross {
 			UIsSet();
 
 			for (int i = 0; i < m_loopForPlayer; i++) {
-				PlayerCursorCreate(i);
+
+				const auto& ctrlVec = App::GetApp()->GetInputDevice().GetControlerVec()[i];
+				if (ctrlVec.bConnected) {
+					PlayerCursorCreate(i);
+				}
 			}
 			//auto addIcons = AddGameObject<CharacterIcon>(L"MissileIcon");
 			//Debug::GetInstance()->Log(m_shiftMovePos);
@@ -175,35 +184,37 @@ namespace basecross {
 		}
 	}
 
-	//void CharacterSelectStage::CharacterSelectedPlayers(int gamePadID) {
-	//	if (m_isDecisionPlayer[gamePadID]) {
-	//		m_Triangle[gamePadID]->SetDrawActive(false);
-	//		m_Triangle[gamePadID]->SetUpdateActive(false);
+	void CharacterSelectStage::CharacterSelectedPlayers(int gamePadID) {
+		if (m_isDecisionPlayer[gamePadID]) {
+			m_SelectCursor[gamePadID]->SetDrawActive(false);
+			m_SelectCursor[gamePadID]->SetUpdateActive(false);
 
-	//		m_Triangle[gamePadID + 4]->SetDrawActive(false);
-	//		m_Triangle[gamePadID + 4]->SetUpdateActive(false);
 
-	//		for (int i = 0; i < m_loopForIcon; i++) {
-	//			auto gamePadLinkIcons = i + m_loopForIcon * gamePadID;
-	//			m_Icons[gamePadLinkIcons]->SetUpdateActive(false);
-	//		}
-	//	}
-	//	else {
-	//		m_Triangle[gamePadID]->SetDrawActive(true);
-	//		m_Triangle[gamePadID]->SetUpdateActive(true);
+			for (int i = 0; i < m_loopForIcon; i++) {
+				auto gamePadLinkIcons = i + m_loopForIcon * gamePadID;
+				m_Icons[gamePadLinkIcons]->SetUpdateActive(false);
+			}
+		}
+		else {
+			m_SelectCursor[gamePadID]->SetDrawActive(true);
+			m_SelectCursor[gamePadID]->SetUpdateActive(true);
 
-	//		m_Triangle[gamePadID + 4]->SetDrawActive(true);
-	//		m_Triangle[gamePadID + 4]->SetUpdateActive(true);
 
-	//		for (int i = 0; i < 3; i++) {
-	//			auto gamePadLinkIcons = i + 3 * gamePadID;
-	//			m_Icons[gamePadLinkIcons]->SetUpdateActive(true);
-	//		}
-	//	}
-	//}
+			//for (int i = 0; i < 3; i++) {
+			//	auto gamePadLinkIcons = i + 3 * gamePadID;
+			//	m_Icons[gamePadLinkIcons]->SetUpdateActive(true);
+			//}
+		}
+	}
 
 	void CharacterSelectStage::PlayerCursorUpdata(int gamePadID){
+		auto charaID = m_SelectCursor[gamePadID]->SetCharacterID();
+		switch (charaID)
+		{
 
+		default:
+			break;
+		}
 	}
 
 	void CharacterSelectStage::CheckSelectedPlayers() {

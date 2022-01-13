@@ -189,8 +189,20 @@ namespace basecross
 
 	// SelectCursorのスプライト
 	class SelectCursor : public BaseSprite {
-		Vec3 m_setPos;
-		int m_gamePadID;
+		Vec3 m_setPos;					// 初期位置
+		Vec3 m_nowPos;					// 今カーソルがあるポジション
+		Vec3 m_iconPos[2];	// アイコンの位置
+
+		int m_gamePadID;	// 操作するゲームパッドの番号
+		int m_iconNumber;	// 今カーソルがあるアイコンのナンバー
+		int m_iconMaxNumber;// アイコンの最大値 
+
+		float m_moveTime;	// 次のアイコンに移動するまでにかかった時間
+		float m_moveSpeed;  // 移動時間
+
+		bool m_isRightStick;// スティックが右に倒されているかどうか
+		bool m_isSetStick;	// スティックが倒されているかどうか
+
 	public:
 		SelectCursor(
 			const shared_ptr<Stage>& stage,
@@ -199,11 +211,28 @@ namespace basecross
 		) :
 			BaseSprite(stage, setPosition),
 			m_setPos(setPosition),
-			m_gamePadID(gamePadID)
+			m_iconPos{},
+			m_gamePadID(gamePadID),
+			m_iconNumber(),
+			m_iconMaxNumber(),
+			m_moveTime(),
+			m_moveSpeed(4.0f),
+			m_isRightStick(false),
+			m_isSetStick(false)
 		{}
 		void OnCreate() override;
 		void OnUpdate() override;
 
+		// コントローラの入力
+		void CursorController();// 入力
+		void CursorControl();	// 処理
+		// アイコンのそれぞれの位置とアイコンの最大値
+		void GetIconDatas(int number,Vec3 pos);
+		// カーソルを移動させる
 		void MoveCursor();
+		// アニメーション
+		void NotMoveAnimetion();
+		//
+		int SetCharacterID();
 	};
 }
