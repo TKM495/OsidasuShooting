@@ -89,6 +89,9 @@
 #include "Manager/PlayerBuilder.h"
 #include "Manager/SpecialSkillManager.h"
 
+// ƒJƒƒ‰
+#include "Camera/GameCamera.h"
+
 //JonyMd Folder
 //Empty GameObject
 #include "JonyMd/ItemCreation.h"

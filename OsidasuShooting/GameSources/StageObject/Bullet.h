@@ -17,6 +17,8 @@ namespace basecross {
 		float m_lifeSpan;
 		// 威力
 		float m_power;
+		// 弾が有効になるまでの時間計測タイマー
+		TimeCounter m_timer;
 		// 移動方向
 		Vec3 m_direction;
 		// オーナー
