@@ -55,7 +55,7 @@ namespace basecross {
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
 		BaseSprite::SettingScale(0.5f);
-		BaseSprite::SettingPosition(m_setPos);
+		BaseSprite::SettingPositionSenter(m_setPos);
 	}
 
 	void DeadIcon::OnCreate() {
@@ -63,6 +63,6 @@ namespace basecross {
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
 		BaseSprite::SettingScale(0.5f);
-		BaseSprite::SettingPosition(m_setPos);
+		BaseSprite::SettingPositionSenter(m_setPos);
 	}
 }

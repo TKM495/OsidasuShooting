@@ -61,7 +61,8 @@ namespace basecross
 		ptrTrans->SetScale(scl);
 	}
 
-	void BaseSprite::SettingPosition(Vec3 position) {
+	// ポジションをセンターに合わせる
+	void BaseSprite::SettingPositionSenter(Vec3 position) {
 		auto ptrTrans = GetComponent<Transform>();
 		auto xSntrPos = m_sideSize * m_helfSize * m_tqatSize;
 		auto ySntrPos = m_highSize * m_helfSize * m_tqatSize;
@@ -79,7 +80,7 @@ namespace basecross
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
 		BaseSprite::SettingScale(0.9f);
-		BaseSprite::SettingPosition(m_setPos);
+		BaseSprite::SettingPositionSenter(m_setPos);
 	}
 
 	//-----------------------------------------------------------------//
@@ -90,7 +91,7 @@ namespace basecross
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
 		BaseSprite::SettingScale(0.5);
-		BaseSprite::SettingPosition(m_setPos);
+		BaseSprite::SettingPositionSenter(m_setPos);
 	}
 
 	//-----------------------------------------------------------------//
@@ -101,7 +102,7 @@ namespace basecross
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
 		BaseSprite::SettingScale(0.5);
-		BaseSprite::SettingPosition(m_setPos);
+		BaseSprite::SettingPositionSenter(m_setPos);
 	}
 
 	//-----------------------------------------------------------------//
@@ -112,7 +113,7 @@ namespace basecross
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
 		BaseSprite::SettingScale(0.5);
-		BaseSprite::SettingPosition(m_setPos);
+		BaseSprite::SettingPositionSenter(m_setPos);
 	}
 
 	//-----------------------------------------------------------------//
@@ -123,7 +124,7 @@ namespace basecross
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
 		BaseSprite::SettingScale(0.5);
-		BaseSprite::SettingPosition(m_setPos);
+		BaseSprite::SettingPositionSenter(m_setPos);
 	}
 
 	//-----------------------------------------------------------------//
@@ -134,7 +135,7 @@ namespace basecross
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
 		BaseSprite::SettingScale(0.4f);
-		BaseSprite::SettingPosition(m_setPos);
+		BaseSprite::SettingPositionSenter(m_setPos);
 	}
 
 	//-----------------------------------------------------------------//
@@ -145,7 +146,7 @@ namespace basecross
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
 		BaseSprite::SettingScale(0.4f);
-		BaseSprite::SettingPosition(m_setPos);
+		BaseSprite::SettingPositionSenter(m_setPos);
 	}
 
 	//-----------------------------------------------------------------//
@@ -156,7 +157,7 @@ namespace basecross
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
 		BaseSprite::SettingScale(1);
-		BaseSprite::SettingPosition(m_setPos);
+		BaseSprite::SettingPositionSenter(m_setPos);
 	}
 
 	//-----------------------------------------------------------------//
@@ -171,6 +172,71 @@ namespace basecross
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
 		BaseSprite::SettingScale(1);
-		BaseSprite::SettingPosition(m_setPos);
+		BaseSprite::SettingPositionSenter(m_setPos);
 	}
+
+	//-----------------------------------------------------------------//
+
+	// Icon
+	void CharaIcon::OnCreate() {
+		auto texture = L"";
+		switch (m_iconNumber)
+		{
+		case 0:
+			texture = L"LaserIcon";
+			break;
+
+		case 1:
+			texture = L"TankIcon";
+			break;
+
+		default:
+			texture = L"LaserIcon";
+		}
+
+		auto ptrTrans = GetComponent<Transform>();
+		auto pos = ptrTrans->GetPosition();
+		ptrTrans->SetPosition(m_setPos);
+
+		BaseSprite::CreateSprite(texture, NULL, NULL);
+		BaseSprite::SettingScale(1);
+		BaseSprite::SettingPositionSenter(m_setPos);
+	}
+
+	//-----------------------------------------------------------------//
+
+	// カーソルスプライトを表示するための情報
+	void SelectCursor::OnCreate() {
+		auto texture = L"SelectCursor";
+
+		auto ptrTrans = GetComponent<Transform>();
+		auto pos = ptrTrans->GetPosition();
+		ptrTrans->SetPosition(m_setPos);
+
+		BaseSprite::CreateSprite(texture, NULL, NULL);
+		BaseSprite::SettingScale(1);
+		BaseSprite::SettingPositionSenter(m_setPos);
+	}
+
+	void SelectCursor::MoveCursor() {
+		// スティック、方向パッド
+		const auto& ctrlVec = App::GetApp()->GetInputDevice().GetControlerVec()[m_gamePadID];
+		auto ctrlX = 0.0f;
+		//auto ctrlY = 0.0f;
+		if (ctrlVec.bConnected) {
+			ctrlX = ctrlVec.fThumbLX;
+			//ctrlY = ctrlVec.fThumbLY;
+		}
+		auto trans = GetComponent<Transform>();
+		auto transPos  = trans->GetPosition();
+		auto moveLeft  = ctrlX <= -1.0f || ctrlVec.wPressedButtons & XINPUT_GAMEPAD_DPAD_LEFT;
+		auto moveRight = ctrlX >=  1.0f || ctrlVec.wPressedButtons & XINPUT_GAMEPAD_DPAD_RIGHT;
+		//auto moveDown  = ctrlY <= -1.0f || ctrlVec.wPressedButtons & XINPUT_GAMEPAD_DPAD_DOWN;
+		//auto moveUp	   = ctrlY >=  1.0f || ctrlVec.wPressedButtons & XINPUT_GAMEPAD_DPAD_UP;
+	}
+
+	void SelectCursor::OnUpdate() {
+
+	}
+
 }

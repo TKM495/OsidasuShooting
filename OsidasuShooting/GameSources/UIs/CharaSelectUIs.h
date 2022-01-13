@@ -40,7 +40,7 @@ namespace basecross
 
 		virtual void CreateSprite(wstring textureKey,float sideSize,float highSize);
 		virtual void SettingScale(float sizes);
-		virtual void SettingPosition(Vec3 position);
+		virtual void SettingPositionSenter(Vec3 position);
 
 	};
 
@@ -168,5 +168,42 @@ namespace basecross
 			m_setPos(setPosition)
 		{}
 		void OnCreate() override;
+	};
+
+	// Iconの画像
+	class CharaIcon : public BaseSprite {
+		Vec3 m_setPos;
+		int m_iconNumber;
+	public:
+		CharaIcon(
+			const shared_ptr<Stage>& stage,
+			const Vec3 setPosition,
+			int iconNumber
+		) :
+			BaseSprite(stage, setPosition),
+			m_setPos(setPosition),
+			m_iconNumber(iconNumber)
+		{}
+		void OnCreate() override;
+	};
+
+	// SelectCursorのスプライト
+	class SelectCursor : public BaseSprite {
+		Vec3 m_setPos;
+		int m_gamePadID;
+	public:
+		SelectCursor(
+			const shared_ptr<Stage>& stage,
+			const Vec3 setPosition,
+			int gamePadID
+		) :
+			BaseSprite(stage, setPosition),
+			m_setPos(setPosition),
+			m_gamePadID(gamePadID)
+		{}
+		void OnCreate() override;
+		void OnUpdate() override;
+
+		void MoveCursor();
 	};
 }

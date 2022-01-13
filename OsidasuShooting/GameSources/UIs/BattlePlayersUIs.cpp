@@ -106,6 +106,6 @@ namespace basecross
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
 		BaseSprite::SettingScale(0.4f);
-		BaseSprite::SettingPosition(m_setPos);
+		BaseSprite::SettingPositionSenter(m_setPos);
 	}
 }

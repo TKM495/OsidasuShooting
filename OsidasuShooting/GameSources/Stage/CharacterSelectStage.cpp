@@ -29,50 +29,66 @@ namespace basecross {
 		fream->SetDrawLayer(0);
 
 		const auto& ctrlVec = App::GetApp()->GetInputDevice().GetControlerVec()[gamePadID];
-		PlayerCharacterSelect(m_freamPos[gamePadID], gamePadID);
-		PlayerSelectTriangle(m_freamPos[gamePadID], Vec3(0.5f), gamePadID);
-	}
-
-	// アイコン設置
-	void CharacterSelectStage::PlayerCharacterSelect(Vec3 pos, int gamePadID) {
-		for (int i = 0; i < m_loopForIcon; i++) {
-			auto gamePadLinkIcons = i + m_loopForIcon * gamePadID;
-			m_Icons[gamePadLinkIcons] = AddGameObject<CharacterIcon>(m_charaName[i], gamePadID, m_shiftMovePos, pos);
-			auto iconTrans = m_Icons[gamePadLinkIcons]->GetComponent<Transform>();
-
-			auto posSet = m_posOffsetX + m_shiftMovePos * (i + 1);
-
-			iconTrans->SetPosition(pos + Vec3(posSet, m_posOffsetY, 0));
-			m_Icons[gamePadLinkIcons]->SetDrawLayer(1);
-			// Debug::GetInstance()->Log(iconTrans->GetPosition().x);
-		}
-
 		auto player = AddGameObject<BattlePlayersUIs>(L"BPsUIs", gamePadID + 1, Vec3(0));
 		auto playerTrans = player->GetComponent<Transform>();
-		pos.y += 10;
+		pos.x -= 260;
+		pos.y += 140;
 		playerTrans->SetPosition(pos);
+
+		//PlayerCharacterSelect(m_freamPos[gamePadID], gamePadID);
+		//PlayerSelectTriangle(m_freamPos[gamePadID], Vec3(0.5f), gamePadID);
 	}
 
-	// 三角設置
-	void CharacterSelectStage::PlayerSelectTriangle(Vec3 pos, Vec3 scl, int gamePadID) {
-		// 正位置
+	//// アイコン設置
+	//void CharacterSelectStage::PlayerCharacterSelect(Vec3 pos, int gamePadID) {
+	//	for (int i = 0; i < m_loopForIcon; i++) {
+	//		auto gamePadLinkIcons = i + m_loopForIcon * gamePadID;
+	//		m_Icons[gamePadLinkIcons] = AddGameObject<CharacterIcon>(m_charaName[i], gamePadID, m_shiftMovePos, pos);
+	//		auto iconTrans = m_Icons[gamePadLinkIcons]->GetComponent<Transform>();
 
-		m_Triangle[gamePadID] = AddGameObject<SelectTriangle>(L"Triangle", gamePadID, 0, pos, scl, false);
-		auto triTrans = m_Triangle[gamePadID]->GetComponent<Transform>();
+	//		auto posSet = m_posOffsetX + m_shiftMovePos * (i + 1);
 
-		auto posX = pos.x + 190;
-		auto posY = pos.y - 60.0f;
+	//		iconTrans->SetPosition(pos + Vec3(posSet, m_posOffsetY, 0));
+	//		m_Icons[gamePadLinkIcons]->SetDrawLayer(1);
+	//		// Debug::GetInstance()->Log(iconTrans->GetPosition().x);
+	//	}
 
-		triTrans->SetPosition(Vec3(-m_shiftMovePos + posX, posY, 0));
-		triTrans->SetScale(scl);
-		m_Triangle[gamePadID]->SetDrawLayer(1);
+	//	auto player = AddGameObject<BattlePlayersUIs>(L"BPsUIs", gamePadID + 1, Vec3(0));
+	//	auto playerTrans = player->GetComponent<Transform>();
+	//	pos.y += 10;
+	//	playerTrans->SetPosition(pos);
+	//}
 
-		m_Triangle[gamePadID + 4] = AddGameObject<SelectTriangle>(L"ReTriangle", gamePadID, 0, pos, scl, true);
-		triTrans = m_Triangle[gamePadID + 4]->GetComponent<Transform>();
-		triTrans->SetPosition(Vec3(m_shiftMovePos + posX, posY, 0));
-		triTrans->SetScale(scl);
-		m_Triangle[gamePadID + 4]->SetDrawLayer(1);
+	//// 三角設置
+	//void CharacterSelectStage::PlayerSelectTriangle(Vec3 pos, Vec3 scl, int gamePadID) {
+	//	// 正位置
+
+	//	m_Triangle[gamePadID] = AddGameObject<SelectTriangle>(L"Triangle", gamePadID, 0, pos, scl, false);
+	//	auto triTrans = m_Triangle[gamePadID]->GetComponent<Transform>();
+
+	//	auto posX = pos.x + 190;
+	//	auto posY = pos.y - 60.0f;
+
+	//	triTrans->SetPosition(Vec3(-m_shiftMovePos + posX, posY, 0));
+	//	triTrans->SetScale(scl);
+	//	m_Triangle[gamePadID]->SetDrawLayer(1);
+
+	//	m_Triangle[gamePadID + 4] = AddGameObject<SelectTriangle>(L"ReTriangle", gamePadID, 0, pos, scl, true);
+	//	triTrans = m_Triangle[gamePadID + 4]->GetComponent<Transform>();
+	//	triTrans->SetPosition(Vec3(m_shiftMovePos + posX, posY, 0));
+	//	triTrans->SetScale(scl);
+	//	m_Triangle[gamePadID + 4]->SetDrawLayer(1);
+	//}
+	
+	// アイコン設置
+	void CharacterSelectStage::PlayerCharacterSelect(Vec3 pos) {
+		auto addPosX = 100;
+		for (int i = 0; i < m_loopForIcon; i++) {
+			AddGameObject<CharaIcon>(pos,i);
+			pos.x += addPosX;
+		}
 	}
+
 	// UIの設置、OnCreateで使用する関数
 	void CharacterSelectStage::UIsSet() {
 		AddGameObject<CharacterStringUI>(Vec3(0, 320, 0));
@@ -84,6 +100,10 @@ namespace basecross {
 
 		m_Ready->SetDrawActive(false);
 		m_Ready->SetUpdateActive(false);
+	}
+
+	void CharacterSelectStage::PlayerCursorCreate(int gamePadID){
+		m_SelectCursor[gamePadID] = AddGameObject<SelectCursor>(Vec3(0, 0, 0),gamePadID);
 	}
 
 	void CharacterSelectStage::SetCharaName() {
@@ -115,11 +135,11 @@ namespace basecross {
 			PlayerFreamPosition(Vec3(-side, -higth, 0), 2);
 			PlayerFreamPosition(Vec3(side, -higth, 0), 3);
 
+			PlayerCharacterSelect(Vec3(-50.0f, 0.0f, 0.0f));
 			UIsSet();
 
 			for (int i = 0; i < m_loopForPlayer; i++) {
-				CharacterSelectingPlayers(m_gamePadIDs[i]);
-				//Debug::GetInstance()->Log(m_isDecisionPlayer[i]);
+				PlayerCursorCreate(i);
 			}
 			//auto addIcons = AddGameObject<CharacterIcon>(L"MissileIcon");
 			//Debug::GetInstance()->Log(m_shiftMovePos);
@@ -146,7 +166,7 @@ namespace basecross {
 			if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_B) {
 				m_isDecisionPlayer[gamePadID] = false;
 				if(!m_sceneChangeBlock)
-				SoundManager::GetInstance()->Play(L"CancelSE");
+					SoundManager::GetInstance()->Play(L"CancelSE");
 			}
 		}
 		else {
@@ -155,31 +175,35 @@ namespace basecross {
 		}
 	}
 
-	void CharacterSelectStage::CharacterSelectedPlayers(int gamePadID) {
-		if (m_isDecisionPlayer[gamePadID]) {
-			m_Triangle[gamePadID]->SetDrawActive(false);
-			m_Triangle[gamePadID]->SetUpdateActive(false);
+	//void CharacterSelectStage::CharacterSelectedPlayers(int gamePadID) {
+	//	if (m_isDecisionPlayer[gamePadID]) {
+	//		m_Triangle[gamePadID]->SetDrawActive(false);
+	//		m_Triangle[gamePadID]->SetUpdateActive(false);
 
-			m_Triangle[gamePadID + 4]->SetDrawActive(false);
-			m_Triangle[gamePadID + 4]->SetUpdateActive(false);
+	//		m_Triangle[gamePadID + 4]->SetDrawActive(false);
+	//		m_Triangle[gamePadID + 4]->SetUpdateActive(false);
 
-			for (int i = 0; i < m_loopForIcon; i++) {
-				auto gamePadLinkIcons = i + m_loopForIcon * gamePadID;
-				m_Icons[gamePadLinkIcons]->SetUpdateActive(false);
-			}
-		}
-		else {
-			m_Triangle[gamePadID]->SetDrawActive(true);
-			m_Triangle[gamePadID]->SetUpdateActive(true);
+	//		for (int i = 0; i < m_loopForIcon; i++) {
+	//			auto gamePadLinkIcons = i + m_loopForIcon * gamePadID;
+	//			m_Icons[gamePadLinkIcons]->SetUpdateActive(false);
+	//		}
+	//	}
+	//	else {
+	//		m_Triangle[gamePadID]->SetDrawActive(true);
+	//		m_Triangle[gamePadID]->SetUpdateActive(true);
 
-			m_Triangle[gamePadID + 4]->SetDrawActive(true);
-			m_Triangle[gamePadID + 4]->SetUpdateActive(true);
+	//		m_Triangle[gamePadID + 4]->SetDrawActive(true);
+	//		m_Triangle[gamePadID + 4]->SetUpdateActive(true);
 
-			for (int i = 0; i < 3; i++) {
-				auto gamePadLinkIcons = i + 3 * gamePadID;
-				m_Icons[gamePadLinkIcons]->SetUpdateActive(true);
-			}
-		}
+	//		for (int i = 0; i < 3; i++) {
+	//			auto gamePadLinkIcons = i + 3 * gamePadID;
+	//			m_Icons[gamePadLinkIcons]->SetUpdateActive(true);
+	//		}
+	//	}
+	//}
+
+	void CharacterSelectStage::PlayerCursorUpdata(int gamePadID){
+
 	}
 
 	void CharacterSelectStage::CheckSelectedPlayers() {
@@ -229,8 +253,7 @@ namespace basecross {
 	void CharacterSelectStage::OnUpdate() {
 		auto& app = App::GetApp();
 		for (int i = 0; i < m_loopForPlayer; i++) {
-			CharacterSelectingPlayers(i);
-			CharacterSelectedPlayers(i);
+			PlayerCursorUpdata(i);
 
 			const auto& ctrlVec = app->GetInputDevice().GetControlerVec()[i];
 			if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_A) {

@@ -34,6 +34,8 @@ namespace basecross {
 		app->RegisterTexture(L"OK", path + L"OK.png");
 		app->RegisterTexture(L"PushAButton", path + L"PushAButton.png");
 
+		app->RegisterTexture(L"SelectCursor", path + L"SelectCursor.png");
+
 		app->RegisterTexture(L"3WayIcon", path + L"3WayIcon.png");
 		app->RegisterTexture(L"LaserIcon", path + L"LaserIcon.png");
 		app->RegisterTexture(L"MissileIcon", path + L"MissileIcon.png");
