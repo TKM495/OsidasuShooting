@@ -33,6 +33,12 @@ namespace basecross {
 		 * @param at Atの位置
 		 */
 		void SetAtAndEye(const Vec3& at);
+		/**
+		 * @brief 中心点を取得
+		 *
+		 * @return プレイヤーの中心点
+		 */
+		Vec3 GetCenterPoint();
 	public:
 		GameCamera();
 

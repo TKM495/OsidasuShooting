@@ -53,26 +53,23 @@ namespace basecross {
 	}
 
 	void GameCamera::Init() {
-		auto players = PlayerManager::GetInstance()->GetAllPlayer();
-		Vec3 sumVec(0);
-		for (const auto& player : players) {
-			sumVec += player->GetTransform()->GetPosition();
-		}
-		auto averageAt = sumVec / (float)players.size();
-		SetAt(m_defaultAt + averageAt);
+		SetAt(m_defaultAt + GetCenterPoint());
 		SetEye(GetAt() + m_defaultLocalEye);
 	}
 
 	void GameCamera::Update() {
+		SetAtAndEye(m_defaultAt + GetCenterPoint());
+	}
+
+	Vec3 GameCamera::GetCenterPoint() {
 		auto players = PlayerManager::GetInstance()->GetAllPlayer();
 
-		// 各プレイヤーの中心をとって注視点・カメラ座標を移動させる処理
-		Vec3 sumVec(0);
+		AABB aabb(players[0]->GetTransform()->GetPosition(), 0, 0, 0);
 		for (const auto& player : players) {
-			sumVec += player->GetTransform()->GetPosition();
+			if (players[0] == player)continue;
+			aabb.UnionAABB(AABB(player->GetTransform()->GetPosition(), 0, 0, 0));
 		}
-		auto averageAt = sumVec / (float)players.size();
-		SetAtAndEye(m_defaultAt + averageAt);
+		return aabb.GetCenter();
 	}
 
 	void GameCamera::SetAtAndEye(const Vec3& at) {
