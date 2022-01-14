@@ -22,7 +22,7 @@ namespace basecross
 		float m_helfSize = 0.5f;	// 1/2
 		float m_tqatSize = 0.75f;	// 3/4
 
-		float m_scale;
+		Vec3 m_scale;
 		Vec3 m_setPos;
 	public:
 		BaseSprite(
@@ -39,7 +39,7 @@ namespace basecross
 		{}
 
 		virtual void CreateSprite(wstring textureKey,float sideSize,float highSize);
-		virtual void SettingScale(float sizes);
+		virtual void SettingScale(Vec3 sizes);
 		virtual void SettingPositionSenter(Vec3 position);
 
 	};
@@ -234,5 +234,22 @@ namespace basecross
 		void NotMoveAnimetion();
 		//
 		int SetCharacterID();
+	};
+
+	// ステータス項目の画像
+	class StatusSpriteUI : public BaseSprite {
+		Vec3 m_setPos;
+		int m_spriteNumber;
+	public:
+		StatusSpriteUI(
+			const shared_ptr<Stage>& stage,
+			const Vec3 setPosition,
+			int spriteNumber
+		) :
+			BaseSprite(stage, setPosition),
+			m_setPos(setPosition),
+			m_spriteNumber(spriteNumber)
+		{}
+		void OnCreate() override;
 	};
 }

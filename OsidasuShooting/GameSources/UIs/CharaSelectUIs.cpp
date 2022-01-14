@@ -53,11 +53,11 @@ namespace basecross
 		SetAlphaActive(true);
 	}
 
-	void BaseSprite::SettingScale(float sizes) {
+	void BaseSprite::SettingScale(Vec3 sizes) {
 		m_scale = sizes;
 		auto ptrTrans = GetComponent<Transform>();
 		auto spriteSize = m_scale * m_tqatSize;
-		Vec3 scl(spriteSize, spriteSize, m_oneSize);
+		Vec3 scl(spriteSize.x, spriteSize.y, m_oneSize);
 		ptrTrans->SetScale(scl);
 	}
 
@@ -69,7 +69,9 @@ namespace basecross
 
 		auto pos = ptrTrans->GetPosition();
 		Vec3 senterPos(xSntrPos, ySntrPos, 0);
-		ptrTrans->SetPosition((pos - senterPos * m_scale) + position);
+		pos.x = (pos.x - senterPos.x * m_scale.x) + position.x;
+		pos.y = (pos.y - senterPos.y * m_scale.y) + position.y;
+		ptrTrans->SetPosition(pos);
 	}
 
 	//-----------------------------------------------------------------//
@@ -79,7 +81,7 @@ namespace basecross
 		auto texture = L"CharacterSelect";
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
-		BaseSprite::SettingScale(0.9f);
+		BaseSprite::SettingScale(Vec3(0.7f));
 		BaseSprite::SettingPositionSenter(m_setPos);
 	}
 
@@ -90,7 +92,7 @@ namespace basecross
 		auto texture = L"Decision";
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
-		BaseSprite::SettingScale(0.5);
+		BaseSprite::SettingScale(Vec3(0.5f));
 		BaseSprite::SettingPositionSenter(m_setPos);
 	}
 
@@ -101,7 +103,7 @@ namespace basecross
 		auto texture = L"Cancel";
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
-		BaseSprite::SettingScale(0.5);
+		BaseSprite::SettingScale(Vec3(0.5f));
 		BaseSprite::SettingPositionSenter(m_setPos);
 	}
 
@@ -112,7 +114,7 @@ namespace basecross
 		auto texture = L"GoToTitle";
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
-		BaseSprite::SettingScale(0.5);
+		BaseSprite::SettingScale(Vec3(0.5f));
 		BaseSprite::SettingPositionSenter(m_setPos);
 	}
 
@@ -123,7 +125,7 @@ namespace basecross
 		auto texture = L"GoToSelect";
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
-		BaseSprite::SettingScale(0.5);
+		BaseSprite::SettingScale(Vec3(0.5f));
 		BaseSprite::SettingPositionSenter(m_setPos);
 	}
 
@@ -134,7 +136,7 @@ namespace basecross
 		auto texture = L"AButton";
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
-		BaseSprite::SettingScale(0.4f);
+		BaseSprite::SettingScale(Vec3(0.4f));
 		BaseSprite::SettingPositionSenter(m_setPos);
 	}
 
@@ -145,7 +147,7 @@ namespace basecross
 		auto texture = L"BButton";
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
-		BaseSprite::SettingScale(0.4f);
+		BaseSprite::SettingScale(Vec3(0.4f));
 		BaseSprite::SettingPositionSenter(m_setPos);
 	}
 
@@ -156,7 +158,7 @@ namespace basecross
 		auto texture = L"ReadyToFight";
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
-		BaseSprite::SettingScale(1);
+		BaseSprite::SettingScale(Vec3(1.0f));
 		BaseSprite::SettingPositionSenter(m_setPos);
 	}
 
@@ -171,7 +173,7 @@ namespace basecross
 		ptrTrans->SetPosition(m_setPos);
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
-		BaseSprite::SettingScale(1);
+		BaseSprite::SettingScale(Vec3(1.0f));
 		BaseSprite::SettingPositionSenter(m_setPos);
 	}
 
@@ -199,7 +201,7 @@ namespace basecross
 		ptrTrans->SetPosition(m_setPos);
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
-		BaseSprite::SettingScale(1);
+		BaseSprite::SettingScale(Vec3(0.9f));
 		BaseSprite::SettingPositionSenter(m_setPos);
 	}
 
@@ -214,23 +216,21 @@ namespace basecross
 		ptrTrans->SetPosition(m_setPos);
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
-		BaseSprite::SettingScale(1);
+		BaseSprite::SettingScale(Vec3(0.9f));
 	}
 
 	// アイコンのそれぞれの位置とアイコンの最大値
 	void SelectCursor::GetIconDatas(int number,Vec3 pos) {
 		m_iconPos[number] = pos;
 		m_iconMaxNumber = number;
-		//m_iconMaxNumber = number;
-
-		//m_iconPos[0] = Vec3(-50.0f, 0.0f, 0.0f);
-		//m_iconPos[1] = Vec3(50.0f, 0.0f, 0.0f);
-
-		//m_iconMaxNumber = 1;
 	}
 
 	void SelectCursor::OnUpdate() {
 		CursorController();
+
+		auto ptrTrans = GetComponent<Transform>();
+		auto pos = ptrTrans->GetPosition();
+
 		//MoveCursor();
 	}
 
@@ -300,4 +300,40 @@ namespace basecross
 	}
 
 	int SelectCursor::SetCharacterID() { return m_iconNumber; }
+
+	//-----------------------------------------------------------------//
+
+	// 各ステータス項目を表示するための情報
+	void StatusSpriteUI::OnCreate() {
+		auto texture = L"";
+		switch (m_spriteNumber)
+		{
+		case 0:
+			texture = L"Power";
+			break;
+
+		case 1:
+			texture = L"Speed";
+			break;
+
+		case 2:
+			texture = L"Weight";
+			break;
+
+		default:
+			break;
+		}
+
+		auto ptrTrans = GetComponent<Transform>();
+		auto pos = ptrTrans->GetPosition();
+		ptrTrans->SetPosition(m_setPos);
+
+		BaseSprite::CreateSprite(texture, NULL, NULL);
+		BaseSprite::SettingScale(Vec3(0.5f));
+		BaseSprite::SettingPositionSenter(m_setPos);
+	}
+
+	//-----------------------------------------------------------------//
+
+
 }

@@ -25,8 +25,9 @@ namespace basecross {
 
 		//shared_ptr<CharacterIcon> m_Icons[12];		// キャラ数 * プレイヤー数
 		//shared_ptr<SelectTriangle> m_Triangle[8];	// 三角1セット * プレイヤー数
-
-		shared_ptr<CharaIcon> m_Icons[2];		// キャラ数
+		
+		// キャラ数
+		shared_ptr<CharaIcon> m_Icons[2];		
 		shared_ptr<SelectCursor> m_SelectCursor[4];
 		shared_ptr<ReadyToFightUI> m_Ready;
 		shared_ptr<SimpleSprite> m_BackGround;

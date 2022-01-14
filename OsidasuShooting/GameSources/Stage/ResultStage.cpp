@@ -38,7 +38,7 @@ namespace basecross {
 
 	void ResultStage::AddResultSprites(Vec3 pos, int playerNum, int score, int dead)
 	{
-		auto fream = AddGameObject<FreamSprite>(L"Fream", pos, 1.2f);
+		auto fream = AddGameObject<FreamSprite>(L"Fream", pos, Vec3(1.2f));
 		auto freamTrans = fream->GetComponent<Transform>();
 		auto freamPos = freamTrans->GetPosition();
 		fream->SetDrawLayer(1);

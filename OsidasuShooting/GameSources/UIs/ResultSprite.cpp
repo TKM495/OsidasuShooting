@@ -54,7 +54,7 @@ namespace basecross {
 		auto texture = L"Kill";
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
-		BaseSprite::SettingScale(0.5f);
+		BaseSprite::SettingScale(Vec3(0.5f));
 		BaseSprite::SettingPositionSenter(m_setPos);
 	}
 
@@ -62,7 +62,7 @@ namespace basecross {
 		auto texture = L"Dead";
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
-		BaseSprite::SettingScale(0.5f);
+		BaseSprite::SettingScale(Vec3(0.5f));
 		BaseSprite::SettingPositionSenter(m_setPos);
 	}
 }

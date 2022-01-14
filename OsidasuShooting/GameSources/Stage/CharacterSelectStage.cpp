@@ -19,66 +19,48 @@ namespace basecross {
 	
 	// フレーム設置
 	void CharacterSelectStage::PlayerFreamPosition(Vec3 pos, int gamePadID) {
-		m_gamePadIDs[gamePadID] = gamePadID;	// ゲームパッドの番号を登録
+		// カラーの取得
+		auto playerNum = PlayerStatus::GetInstance()->GetPlayerColor(gamePadID + 1);
+
+		// ゲームパッドの番号を登録
+		m_gamePadIDs[gamePadID] = gamePadID;	
 		m_isDecisionPlayer[gamePadID] = false;
 
-		auto scale = 2.0f;
+		// フレームの生成
+		auto scale = Vec3(2.0f,1.5f,1.0f);
 		auto fream = AddGameObject<FreamSprite>(L"Fream", pos, scale);
 		auto freamTrans = fream->GetComponent<Transform>();
 		m_freamPos[gamePadID] = freamTrans->GetPosition();
+
 		fream->SetDrawLayer(0);
 
-		const auto& ctrlVec = App::GetApp()->GetInputDevice().GetControlerVec()[gamePadID];
+		// ステータス項目の生成
+		auto stutase = 3;
+		Vec3 stutasePos = pos;
+		if (gamePadID % 2 == 0)
+			 stutasePos.x = pos.x + 72.0f;
+		else stutasePos.x = pos.x - 72.0f;
+
+		if (gamePadID > 1)
+			 stutasePos.y = pos.y + 59.5f;
+		else stutasePos.y = pos.y - 110.5f;
+		for (int i = 0; i < stutase; i++) {
+			AddGameObject<StatusSpriteUI>(stutasePos, i)->SetDrawLayer(1);
+			stutasePos.y += 25.0f;
+		}
+
 		auto player = AddGameObject<BattlePlayersUIs>(L"BPsUIs", gamePadID + 1, Vec3(0));
+		player->GetComponent<PCTSpriteDraw>()->SetDiffuse(playerNum);
 		auto playerTrans = player->GetComponent<Transform>();
-		pos.x -= 260;
-		pos.y += 140;
+		
+		if (gamePadID % 2 == 0)
+			 pos.x += -315;
+		else pos.x += 186;
+		if(gamePadID < 2)
+			 pos.y += 157;
+		else pos.y += -28;
 		playerTrans->SetPosition(pos);
-
-		//PlayerCharacterSelect(m_freamPos[gamePadID], gamePadID);
-		//PlayerSelectTriangle(m_freamPos[gamePadID], Vec3(0.5f), gamePadID);
 	}
-
-	//// アイコン設置
-	//void CharacterSelectStage::PlayerCharacterSelect(Vec3 pos, int gamePadID) {
-	//	for (int i = 0; i < m_loopForIcon; i++) {
-	//		auto gamePadLinkIcons = i + m_loopForIcon * gamePadID;
-	//		m_Icons[gamePadLinkIcons] = AddGameObject<CharacterIcon>(m_charaName[i], gamePadID, m_shiftMovePos, pos);
-	//		auto iconTrans = m_Icons[gamePadLinkIcons]->GetComponent<Transform>();
-
-	//		auto posSet = m_posOffsetX + m_shiftMovePos * (i + 1);
-
-	//		iconTrans->SetPosition(pos + Vec3(posSet, m_posOffsetY, 0));
-	//		m_Icons[gamePadLinkIcons]->SetDrawLayer(1);
-	//		// Debug::GetInstance()->Log(iconTrans->GetPosition().x);
-	//	}
-
-	//	auto player = AddGameObject<BattlePlayersUIs>(L"BPsUIs", gamePadID + 1, Vec3(0));
-	//	auto playerTrans = player->GetComponent<Transform>();
-	//	pos.y += 10;
-	//	playerTrans->SetPosition(pos);
-	//}
-
-	//// 三角設置
-	//void CharacterSelectStage::PlayerSelectTriangle(Vec3 pos, Vec3 scl, int gamePadID) {
-	//	// 正位置
-
-	//	m_Triangle[gamePadID] = AddGameObject<SelectTriangle>(L"Triangle", gamePadID, 0, pos, scl, false);
-	//	auto triTrans = m_Triangle[gamePadID]->GetComponent<Transform>();
-
-	//	auto posX = pos.x + 190;
-	//	auto posY = pos.y - 60.0f;
-
-	//	triTrans->SetPosition(Vec3(-m_shiftMovePos + posX, posY, 0));
-	//	triTrans->SetScale(scl);
-	//	m_Triangle[gamePadID]->SetDrawLayer(1);
-
-	//	m_Triangle[gamePadID + 4] = AddGameObject<SelectTriangle>(L"ReTriangle", gamePadID, 0, pos, scl, true);
-	//	triTrans = m_Triangle[gamePadID + 4]->GetComponent<Transform>();
-	//	triTrans->SetPosition(Vec3(m_shiftMovePos + posX, posY, 0));
-	//	triTrans->SetScale(scl);
-	//	m_Triangle[gamePadID + 4]->SetDrawLayer(1);
-	//}
 	
 	// アイコン設置
 	void CharacterSelectStage::PlayerCharacterSelect(Vec3 pos) {
@@ -103,9 +85,17 @@ namespace basecross {
 	}
 
 	void CharacterSelectStage::PlayerCursorCreate(int gamePadID){
+		// カラーの取得
+		auto playerNum = PlayerStatus::GetInstance()->GetPlayerColor(gamePadID + 1);
+		// 初期位置
 		auto defaultPos = m_Icons[0]->GetComponent<Transform>()->GetPosition();
+		// カーソル生成
 		m_SelectCursor[gamePadID] = AddGameObject<SelectCursor>(defaultPos, gamePadID);
+		// カラー変更
+		m_SelectCursor[gamePadID]->GetComponent<PCTSpriteDraw>()->SetDiffuse(playerNum);
+		// アイコンの数だけループ
 		for (int i = 0; i < m_loopForIcon; i++) {
+			// 各アイコンのポジションを取得
 			auto iconPos = m_Icons[i]->GetComponent<Transform>()->GetPosition();
 			m_SelectCursor[gamePadID]->GetIconDatas(i,iconPos);
 		}
@@ -133,12 +123,12 @@ namespace basecross {
 			m_BackGround->SetDrawLayer(-1);
 
 			SetCharaName();
-			auto side = 300.0f;
-			auto higth = 150.0f;
-			PlayerFreamPosition(Vec3(-side, higth, 0), 0);
-			PlayerFreamPosition(Vec3(side, higth, 0), 1);
+			auto side = 280.0f;
+			auto higth = 170.0f;
+			PlayerFreamPosition(Vec3(-side,  higth, 0), 0);
+			PlayerFreamPosition(Vec3( side,  higth, 0), 1);
 			PlayerFreamPosition(Vec3(-side, -higth, 0), 2);
-			PlayerFreamPosition(Vec3(side, -higth, 0), 3);
+			PlayerFreamPosition(Vec3( side, -higth, 0), 3);
 
 			PlayerCharacterSelect(Vec3(-50.0f, 0.0f, 0.0f));
 			UIsSet();
