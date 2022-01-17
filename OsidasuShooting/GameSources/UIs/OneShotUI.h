@@ -26,5 +26,10 @@ namespace basecross {
 
 		void OnCreate()override;
 		void OnUpdate()override;
+
+		void SetColor(const Col4 color) {
+			GetComponent<PCTSpriteDraw>()->SetDiffuse(color);
+			GetComponent<FadeComponent>()->SetFadeColor(color);
+		}
 	};
 }
