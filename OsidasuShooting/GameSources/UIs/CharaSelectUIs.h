@@ -5,6 +5,7 @@
 
 #pragma once
 #include "stdafx.h"
+#include "StageObject/PlayerBase.h"
 
 namespace basecross
 {
@@ -24,6 +25,8 @@ namespace basecross
 
 		Vec3 m_scale;
 		Vec3 m_setPos;
+		Col4 m_setColor;
+
 	public:
 		BaseSprite(
 			const shared_ptr<Stage>& stage,
@@ -35,7 +38,8 @@ namespace basecross
 			m_fSidSize(0),
 			m_highSize(0),
 			m_fHigSize(0),
-			m_scale(0)
+			m_scale(0),
+			m_setColor{0}
 		{}
 
 		virtual void CreateSprite(wstring textureKey,float sideSize,float highSize);
@@ -189,8 +193,8 @@ namespace basecross
 
 	// SelectCursorのスプライト
 	class SelectCursor : public BaseSprite {
-		Vec3 m_setPos;					// 初期位置
-		Vec3 m_nowPos;					// 今カーソルがあるポジション
+		Vec3 m_setPos;		// 初期位置
+		Vec3 m_nowPos;		// 今カーソルがあるポジション
 		Vec3 m_iconPos[2];	// アイコンの位置
 
 		int m_gamePadID;	// 操作するゲームパッドの番号
@@ -234,6 +238,7 @@ namespace basecross
 		void NotMoveAnimetion();
 		//
 		int SetCharacterID();
+		Vec3 GetIconPos(int number);
 	};
 
 	// ステータス項目の画像
@@ -249,6 +254,57 @@ namespace basecross
 			BaseSprite(stage, setPosition),
 			m_setPos(setPosition),
 			m_spriteNumber(spriteNumber)
+		{}
+		void OnCreate() override;
+	};
+
+	// ステータス項目のゲージ
+	class StatusGauge : public BaseSprite {
+		Vec3 m_setPos;
+		Vec3 m_setScale;
+		int m_gamePadID;
+		int m_spriteNumber;
+		float m_defaultGauge;
+		Vec3 m_power;
+		Vec3 m_speed;
+		Vec3 m_weight;
+
+		shared_ptr<SelectCursor> m_selectCursor;
+	public:
+		StatusGauge(
+			const shared_ptr<Stage>& stage,
+			const Vec3 setPosition,
+			const int gamePadID,
+			int spriteNumber
+		) :
+			BaseSprite(stage, setPosition),
+			m_setPos(setPosition),
+			m_setScale(),
+			m_gamePadID(gamePadID),
+			m_spriteNumber(spriteNumber),
+			m_defaultGauge(),
+			m_power(),m_speed(),m_weight()
+		{}
+		void OnCreate() override;
+		void OnUpdate() override;
+
+		void GetCharaStutas(int charaNumber, int stutasNumber);
+		Vec3 GetLaserStutas(int stutasNumber);
+		Vec3 GetTankStutas (int stutasNumber);
+		void SetCharaStutas(float power, float speed, float weight);
+
+	};
+
+	// ゲージの後ろ
+	class StatusGaugeBack : public BaseSprite {
+		Vec3 m_setPos;
+	public:
+		StatusGaugeBack(
+			const shared_ptr<Stage>& stage,
+			const Vec3 setPosition
+		) :
+			BaseSprite(stage, setPosition),
+			m_setPos(setPosition)
 		{}
 		void OnCreate() override;
 	};

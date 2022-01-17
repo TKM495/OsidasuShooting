@@ -31,6 +31,8 @@ namespace basecross {
 		shared_ptr<SelectCursor> m_SelectCursor[4];
 		shared_ptr<ReadyToFightUI> m_Ready;
 		shared_ptr<SimpleSprite> m_BackGround;
+		shared_ptr<StatusGauge> m_Gauge[12];	// ÉLÉÉÉâêî * ÉQÅ[ÉWêî
+		float m_gaugeNum;						// 3 * gamePadID
 
 		bool m_sceneChangeBlock;
 		//shared_ptr<CharacterIcon> charaIcon;
@@ -48,6 +50,7 @@ namespace basecross {
 			m_ifEntryPlayer{ false,false,false,false },
 			m_isBPushPlayer{ false,false,false,false },
 			m_isDecisionPlayer{ false,false,false,false },
+			m_gaugeNum(),
 			m_sceneChangeBlock(false)
 		{}
 		~CharacterSelectStage() {}
@@ -66,6 +69,7 @@ namespace basecross {
 
 		void CharacterSelectingPlayers(int gamePadID);
 		void CharacterSelectedPlayers(int gamePadID);
+		void CharacterStetusGauge(int gamePadID);
 		void CheckSelectedPlayers();
 
 	};

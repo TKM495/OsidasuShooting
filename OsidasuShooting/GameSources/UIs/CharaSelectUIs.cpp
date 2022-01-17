@@ -32,13 +32,13 @@ namespace basecross
 		m_sideSize = m_fSidSize / m_sideSize;
 		m_highSize = m_fHigSize / m_highSize;
 
-		Col4 color(1.0f);
+		auto color = Col4{ 1.0f };
 
 		vector<VertexPositionColorTexture> vertices = {
 			{Vec3(m_zeroSize, m_zeroSize, m_zeroSize), color, Vec2(m_zeroSize, m_zeroSize)},
-			{Vec3(m_sideSize, m_zeroSize, m_zeroSize), color, Vec2(m_oneSize,  m_zeroSize)},
+			{Vec3(m_sideSize, m_zeroSize, m_zeroSize), color, Vec2( m_oneSize, m_zeroSize)},
 			{Vec3(m_zeroSize, m_highSize, m_zeroSize), color, Vec2(m_zeroSize,  m_oneSize)},
-			{Vec3(m_sideSize, m_highSize, m_zeroSize), color, Vec2(m_oneSize,  m_oneSize)}
+			{Vec3(m_sideSize, m_highSize, m_zeroSize), color, Vec2( m_oneSize,  m_oneSize)}
 		};
 
 		vector<uint16_t> indeces = {
@@ -73,6 +73,8 @@ namespace basecross
 		pos.y = (pos.y - senterPos.y * m_scale.y) + position.y;
 		ptrTrans->SetPosition(pos);
 	}
+	
+
 
 	//-----------------------------------------------------------------//
 
@@ -284,22 +286,24 @@ namespace basecross
 	void SelectCursor::NotMoveAnimetion() {}
 
 	void SelectCursor::MoveCursor() {
-		if (m_moveTime >= m_moveSpeed) {
-			const auto& app = App::GetApp();
-			const auto& delta = app->GetElapsedTime();
+		//if (m_moveTime >= m_moveSpeed) {
+		//	const auto& app = App::GetApp();
+		//	const auto& delta = app->GetElapsedTime();
 
-			m_moveTime += delta;
-		}
+		//	m_moveTime += delta;
+		//}
 
-		if (m_nowPos != m_iconPos[m_iconNumber]) {
-			Vec3 easPos;
-			Easing<Vec3> easing;
-			easPos = easing.EaseInOut(EasingType::Quadratic, m_nowPos, m_iconPos[m_iconNumber], m_moveTime, m_moveSpeed);
-			GetComponent<Transform>()->SetPosition(easPos);
-		}
+		//if (m_nowPos != m_iconPos[m_iconNumber]) {
+		//	Vec3 easPos;
+		//	Easing<Vec3> easing;
+		//	easPos = easing.EaseInOut(EasingType::Quadratic, m_nowPos, m_iconPos[m_iconNumber], m_moveTime, m_moveSpeed);
+		//	GetComponent<Transform>()->SetPosition(easPos);
+		//}
 	}
 
 	int SelectCursor::SetCharacterID() { return m_iconNumber; }
+
+	Vec3 SelectCursor::GetIconPos(int iconNum) { return m_iconPos[iconNum]; }
 
 	//-----------------------------------------------------------------//
 
@@ -329,11 +333,120 @@ namespace basecross
 		ptrTrans->SetPosition(m_setPos);
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
-		BaseSprite::SettingScale(Vec3(0.5f));
+		BaseSprite::SettingScale(Vec3(0.4f));
 		BaseSprite::SettingPositionSenter(m_setPos);
 	}
 
 	//-----------------------------------------------------------------//
 
+	// ステータスを表示するための情報
+	void StatusGauge::OnCreate() {
+		auto texture = L"Gauge";
+		auto color = Col4{};	
+		switch (m_spriteNumber)
+		{
+		case 0:
+			break;
 
+		case 1:
+			break;
+
+		case 2:
+			break;
+
+		default:
+			break;
+		}
+
+		auto ptrTrans = GetComponent<Transform>();
+		auto pos = ptrTrans->GetPosition();
+		ptrTrans->SetPosition(m_setPos);
+
+		BaseSprite::CreateSprite(texture, NULL, NULL);
+		BaseSprite::SettingScale(Vec3(0.865f,0.445f,1.0f));
+
+		m_defaultGauge = ptrTrans->GetScale().x;
+		//BaseSprite::SettingPositionSenter(m_setPos);
+	}
+
+	void StatusGauge::GetCharaStutas(int charaNumber, int stutasNumber) {
+		switch (charaNumber) {
+		case 0:
+			m_setScale = GetLaserStutas(stutasNumber);
+			break;
+
+		case 1:
+			m_setScale = GetTankStutas(stutasNumber);
+			break;
+		}
+
+		auto ptrTrans = GetComponent<Transform>();
+		auto gauge = ptrTrans->GetScale();
+		auto spriteSize = m_setScale;
+		Vec3 scl(spriteSize.x, spriteSize.y, 1);
+		ptrTrans->SetScale(scl);
+
+	}
+
+	Vec3 StatusGauge::GetLaserStutas(int stutasNumber) {
+		auto gauge = GetComponent<Transform>()->GetScale();
+		switch (stutasNumber) {
+		case 0:
+			m_power = Vec3(m_defaultGauge * 0.5f, gauge.y, gauge.z);
+			return m_power;
+			break;
+		case 1:
+			m_speed = Vec3(m_defaultGauge * 0.5f, gauge.y, gauge.z);
+			return m_speed;
+			break;
+		case 2:
+			m_weight = Vec3(m_defaultGauge * 0.5f, gauge.y, gauge.z);
+			return m_weight;
+			break;
+		}
+	}
+
+	Vec3 StatusGauge::GetTankStutas(int stutasNumber) {
+		auto gauge = GetComponent<Transform>()->GetScale();
+		switch (stutasNumber) {
+		case 0:
+			m_power = Vec3(m_defaultGauge * 0.75f, gauge.y, gauge.z);
+			return m_power;
+			break;
+		case 1:
+			m_speed = Vec3(m_defaultGauge * 0.75f, gauge.y, gauge.z);
+			return m_speed;
+			break;
+		case 2:
+			m_weight = Vec3(m_defaultGauge * 0.25f, gauge.y, gauge.z);
+			return m_weight;
+			break;
+		}
+	}
+
+	void StatusGauge::SetCharaStutas(float power, float speed, float weight) {
+		//m_power = power;
+		//m_speed = speed;
+		//m_weight = weight;
+	}
+
+	void StatusGauge::OnUpdate() {
+	}
+
+	//-----------------------------------------------------------------//
+
+	// ゲージの後ろを表示するための情報
+	void StatusGaugeBack::OnCreate() {
+		auto texture = L"GaugeBackGround";
+
+		auto ptrTrans = GetComponent<Transform>();
+		auto pos = ptrTrans->GetPosition();
+		ptrTrans->SetPosition(m_setPos);
+
+		BaseSprite::CreateSprite(texture, NULL, NULL);
+		BaseSprite::SettingScale(Vec3(0.9f, 0.6f, 1.0f));
+		//BaseSprite::SettingPositionSenter(m_setPos);
+	}
+
+	//-----------------------------------------------------------------//
 }

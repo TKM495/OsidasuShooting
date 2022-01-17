@@ -38,15 +38,25 @@ namespace basecross {
 		auto stutase = 3;
 		Vec3 stutasePos = pos;
 		if (gamePadID % 2 == 0)
-			 stutasePos.x = pos.x + 72.0f;
-		else stutasePos.x = pos.x - 72.0f;
+			 stutasePos.x = pos.x + 62.0f;
+		else stutasePos.x = pos.x - 220.0f;
 
 		if (gamePadID > 1)
-			 stutasePos.y = pos.y + 59.5f;
-		else stutasePos.y = pos.y - 110.5f;
+			 stutasePos.y = pos.y + 110.0f;
+		else stutasePos.y = pos.y - 60.0f;
 		for (int i = 0; i < stutase; i++) {
-			AddGameObject<StatusSpriteUI>(stutasePos, i)->SetDrawLayer(1);
-			stutasePos.y += 25.0f;
+			auto statusUI = AddGameObject<StatusSpriteUI>(stutasePos, i);
+			auto stsUIPos = statusUI->GetComponent<Transform>()->GetPosition();
+			statusUI->SetDrawLayer(1);
+
+			stsUIPos.x += 150.0f;
+			stsUIPos.y -= 27.0f;
+			auto GaugeBack = AddGameObject<StatusGaugeBack>(stsUIPos);
+			auto GaugePos = GaugeBack->GetComponent<Transform>()->GetPosition();
+			GaugePos += Vec3(3.25f, -3.75f, 0.0f);
+			m_Gauge[i + (gamePadID * stutase)] = AddGameObject<StatusGauge>(GaugePos,gamePadID,i);
+
+			stutasePos.y -= 25.0f;
 		}
 
 		auto player = AddGameObject<BattlePlayersUIs>(L"BPsUIs", gamePadID + 1, Vec3(0));
@@ -135,10 +145,7 @@ namespace basecross {
 
 			for (int i = 0; i < m_loopForPlayer; i++) {
 
-				const auto& ctrlVec = App::GetApp()->GetInputDevice().GetControlerVec()[i];
-				if (ctrlVec.bConnected) {
-					PlayerCursorCreate(i);
-				}
+				PlayerCursorCreate(i);
 			}
 			//auto addIcons = AddGameObject<CharacterIcon>(L"MissileIcon");
 			//Debug::GetInstance()->Log(m_shiftMovePos);
@@ -155,12 +162,12 @@ namespace basecross {
 	void CharacterSelectStage::CharacterSelectingPlayers(int gamePadID) {
 		auto& app = App::GetApp();
 		const auto& ctrlVec = app->GetInputDevice().GetControlerVec()[gamePadID];
+		SelectCharacter(gamePadID);
 		if (ctrlVec.bConnected) {
 			m_ifEntryPlayer[gamePadID] = true;
 
 			if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_A) {
 				m_isDecisionPlayer[gamePadID] = true;
-				SelectCharacter(gamePadID);
 
 				m_SelectCursor[gamePadID]->SetDrawActive(false);
 				m_SelectCursor[gamePadID]->SetUpdateActive(false);
@@ -178,10 +185,6 @@ namespace basecross {
 					SoundManager::GetInstance()->Play(L"CancelSE");
 			}
 		}
-		else {
-			m_ifEntryPlayer[gamePadID] = false;
-			m_isDecisionPlayer[gamePadID] = true;
-		}
 	}
 
 	void CharacterSelectStage::CharacterSelectedPlayers(int gamePadID) {
@@ -189,19 +192,11 @@ namespace basecross {
 			m_SelectCursor[gamePadID]->SetDrawActive(false);
 			m_SelectCursor[gamePadID]->SetUpdateActive(false);
 
-			//for (int i = 0; i < m_loopForIcon; i++) {
-			//	auto gamePadLinkIcons = i + m_loopForIcon * gamePadID;
-			//	m_Icons[gamePadLinkIcons]->SetUpdateActive(false);
-			//}
 		}
 		else {
 			m_SelectCursor[gamePadID]->SetDrawActive(true);
 			m_SelectCursor[gamePadID]->SetUpdateActive(true);
 
-			//for (int i = 0; i < 3; i++) {
-			//	auto gamePadLinkIcons = i + 3 * gamePadID;
-			//	m_Icons[gamePadLinkIcons]->SetUpdateActive(true);
-			//}
 		}
 	}
 
@@ -220,7 +215,16 @@ namespace basecross {
 
 		default:
 			break;
+		}
+		CharacterStetusGauge(gamePadID);
+	}
 
+	void CharacterSelectStage::CharacterStetusGauge(int gamePadID) {
+		int charaID = m_SelectCursor[gamePadID]->SetCharacterID();
+		auto stutasNum = 3;
+		for (int i = 0; i < stutasNum; i++) {
+			auto controlNum = gamePadID * stutasNum + i;
+			m_Gauge[controlNum]->GetCharaStutas(charaID,i);
 		}
 	}
 
@@ -276,6 +280,13 @@ namespace basecross {
 			const auto& ctrlVec = app->GetInputDevice().GetControlerVec()[i];
 			if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_A) {
 				m_isBPushPlayer[i] = false;
+			}
+
+			if (!ctrlVec.bConnected) {
+				m_ifEntryPlayer[i] = false;
+				m_isDecisionPlayer[i] = true;
+				m_SelectCursor[i]->SetDrawActive(false);
+				m_SelectCursor[i]->SetUpdateActive(false);
 			}
 		}
 		CheckSelectedPlayers();
