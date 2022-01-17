@@ -58,8 +58,6 @@ namespace basecross {
 		efkComp->SetEffectResource(L"Hover", TransformData(Vec3(0.0f, -0.5f, 0.0f), m_transformData.Scale));
 		efkComp->SetEffectResource(L"Smoke", TransformData(Vec3(0.0f, -0.5f, 0.0f), m_transformData.Scale), true);
 		efkComp->SetEffectResource(L"Respawn", TransformData(Vec3(0.0f, -0.5f, 0.0f)));
-		efkComp->SetEffectResource(L"BombPlus", TransformData(Vec3(0), m_transformData.Scale));
-		efkComp->SetEffectResource(L"EnergyPlus", TransformData(Vec3(0), m_transformData.Scale));
 
 		// 武器ステートマシンの構築と設定
 		m_weaponStateMachine.reset(new StateMachine<PlayerBase>(GetThis<PlayerBase>()));
@@ -131,7 +129,6 @@ namespace basecross {
 		m_bombCoolTimeTimer.Count();
 		// 吹っ飛びエフェクトの描画
 		KnockBackEffectDrawing();
-		ItemGetEffectSync();
 	}
 
 	void PlayerBase::Move() {
@@ -449,7 +446,10 @@ namespace basecross {
 			if (m_bombCount < 9) {
 				// 爆弾の残弾を増やす
 				m_bombCount++;
-				GetComponent<EfkComponent>()->Play(L"BombPlus");
+				InstantiateGameObject<OneShotUI>(
+					GetThis<PlayerBase>(),
+					0.5f, L"BombPlus", TransformData(Vec3(0, 30, 0), Vec3(0.1f))
+					);
 			}
 			break;
 		case modifiedClass::ItemType::Energy:
@@ -458,19 +458,14 @@ namespace basecross {
 			if (m_currentEnergy > m_defaultEnergy) {
 				m_currentEnergy = m_defaultEnergy;
 			}
-			GetComponent<EfkComponent>()->Play(L"EnergyPlus");
+			InstantiateGameObject<OneShotUI>(
+				GetThis<PlayerBase>(),
+				0.5f, L"EnergyPlus", TransformData(Vec3(0, 30, 0), Vec3(0.1f))
+				);
 			break;
-			//case modifiedClass::ItemType::Debuff:
-				//Debug::GetInstance()->Log(L"Debuff");
-				//break;
 		default:
 			break;
 		}
-	}
-
-	void PlayerBase::ItemGetEffectSync() {
-		GetComponent<EfkComponent>()->SyncPosition(L"BombPlus");
-		GetComponent<EfkComponent>()->SyncPosition(L"EnergyPlus");
 	}
 
 	void PlayerBase::TestFanc() {
@@ -506,10 +501,16 @@ namespace basecross {
 			GetComponent<EfkComponent>()->Play(L"Respawn");
 		}
 		if (keyState.m_bPressedKeyTbl['6']) {
-			GetComponent<EfkComponent>()->Play(L"BombPlus");
+			InstantiateGameObject<OneShotUI>(
+				GetThis<PlayerBase>(),
+				0.5f, L"BombPlus", TransformData(Vec3(0, 30, 0), Vec3(0.1f))
+				);
 		}
 		if (keyState.m_bPressedKeyTbl['7']) {
-			GetComponent<EfkComponent>()->Play(L"EnergyPlus");
+			InstantiateGameObject<OneShotUI>(
+				GetThis<PlayerBase>(),
+				0.5f, L"EnergyPlus", TransformData(Vec3(0, 30, 0), Vec3(0.1f))
+				);
 		}
 	}
 
