@@ -75,5 +75,7 @@ namespace basecross {
 		auto ownerPos = m_owner->GetComponent<Transform>()->GetPosition();
 		auto uiPos = Utility::ConvertWorldToScreen(GetStage()->GetView(), ownerPos);
 		GetTransform()->SetPosition(uiPos + m_transformData.Position);
+
+		m_transformData.Position.y += App::GetApp()->GetElapsedTime() * 10;
 	}
 }

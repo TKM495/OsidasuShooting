@@ -448,7 +448,7 @@ namespace basecross {
 				m_bombCount++;
 				InstantiateGameObject<OneShotUI>(
 					GetThis<PlayerBase>(),
-					0.5f, L"BombPlus", TransformData(Vec3(0, 30, 0), Vec3(0.1f))
+					0.5f, L"BombPlus", TransformData(Vec3(0, 25, 0), Vec3(0.1f))
 					);
 			}
 			break;
@@ -460,7 +460,7 @@ namespace basecross {
 			}
 			InstantiateGameObject<OneShotUI>(
 				GetThis<PlayerBase>(),
-				0.5f, L"EnergyPlus", TransformData(Vec3(0, 30, 0), Vec3(0.1f))
+				0.5f, L"EnergyPlus", TransformData(Vec3(0, 25, 0), Vec3(0.1f))
 				);
 			break;
 		default:
@@ -503,13 +503,13 @@ namespace basecross {
 		if (keyState.m_bPressedKeyTbl['6']) {
 			InstantiateGameObject<OneShotUI>(
 				GetThis<PlayerBase>(),
-				0.5f, L"BombPlus", TransformData(Vec3(0, 30, 0), Vec3(0.1f))
+				0.5f, L"BombPlus", TransformData(Vec3(0, 25, 0), Vec3(0.1f))
 				);
 		}
 		if (keyState.m_bPressedKeyTbl['7']) {
 			InstantiateGameObject<OneShotUI>(
 				GetThis<PlayerBase>(),
-				0.5f, L"EnergyPlus", TransformData(Vec3(0, 30, 0), Vec3(0.1f))
+				0.5f, L"EnergyPlus", TransformData(Vec3(0, 25, 0), Vec3(0.1f))
 				);
 		}
 	}
