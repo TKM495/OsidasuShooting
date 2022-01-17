@@ -224,7 +224,7 @@ namespace basecross {
 		// リスポーン時の初期化処理
 		void RespawnInit();
 		// アイテムの効果の処理
-		void ItemEffect(modifiedClass::ItemType type);
+		bool ItemEffect(modifiedClass::ItemType type);
 	protected:
 		// 移動速度（どちらかというとかける力）
 		float m_moveSpeed;

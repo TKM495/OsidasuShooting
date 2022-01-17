@@ -439,7 +439,7 @@ namespace basecross {
 		}
 	}
 
-	void PlayerBase::ItemEffect(modifiedClass::ItemType type) {
+	bool PlayerBase::ItemEffect(modifiedClass::ItemType type) {
 		switch (type)
 		{
 		case modifiedClass::ItemType::Bomb:
@@ -450,8 +450,9 @@ namespace basecross {
 					GetThis<PlayerBase>(),
 					0.5f, L"BombPlus", TransformData(Vec3(0, 25, 0), Vec3(0.1f))
 					);
+				return true;
 			}
-			break;
+			return false;
 		case modifiedClass::ItemType::Energy:
 			m_currentEnergy += m_defaultEnergy * 0.5f;
 			// デフォルトを超える場合はクランプ
@@ -462,7 +463,7 @@ namespace basecross {
 				GetThis<PlayerBase>(),
 				0.5f, L"EnergyPlus", TransformData(Vec3(0, 25, 0), Vec3(0.1f))
 				);
-			break;
+			return true;
 		default:
 			break;
 		}
@@ -528,9 +529,10 @@ namespace basecross {
 		// アイテムの場合
 		auto itemPtr = dynamic_pointer_cast<modifiedClass::Item>(other);
 		if (itemPtr) {
-			// 効果音の再生
-			SoundManager::GetInstance()->Play(L"GetItemSE", 0, 0.3f);
-			ItemEffect(itemPtr->GetItemType());
+			if (ItemEffect(itemPtr->GetItemType())) {
+				// 効果音の再生
+				SoundManager::GetInstance()->Play(L"GetItemSE", 0, 0.3f);
+			}
 			GetStage()->RemoveGameObject<GameObject>(other);
 		}
 	}

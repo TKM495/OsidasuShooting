@@ -29,6 +29,7 @@ namespace basecross {
 			}
 
 			auto collComp = AddComponent<CollisionObb>();
+			//collComp->SetDrawActive(true);
 
 			auto gravity = AddComponent<Gravity>();
 
@@ -37,6 +38,8 @@ namespace basecross {
 			auto stage = GetStage();
 			blinking = stage->AddGameObject<modifiedClass::Blinking>();
 			blinking->SetComponent(GetDynamicComponent<SmBaseDraw>());
+
+			GetComponent<Transform>()->SetScale(Vec3(2));
 		}
 
 		void Item::OnUpdate()
