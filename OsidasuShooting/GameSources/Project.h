@@ -74,6 +74,7 @@
 #include "UIs/TransitionSprite.h"
 #include "UIs/GameStartAndFinish.h"
 #include "UIs/CountDown_.h"
+#include "UIs/OneShotUI.h"
 // コンポーネント
 #include "Component/FadeComponent.h"
 #include "Component/LifeSpan.h"

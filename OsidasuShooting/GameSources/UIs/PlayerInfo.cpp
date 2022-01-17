@@ -55,11 +55,29 @@ namespace basecross {
 		m_uiObjects.push_back(bombCount);
 
 		ApplyTransform();
+
+		m_lastKillCount = m_owner->GetCountKilledPlayer();
 	}
 	void PlayerInfo::OnUpdate() {
 		for (auto uiObject : m_uiObjects) {
 			uiObject->OnUpdate();
 		}
+		if (m_owner->GetCountKilledPlayer() != m_lastKillCount) {
+			int count = m_owner->GetCountKilledPlayer() - m_lastKillCount;
+			auto transData = TransformData(
+				m_transformData.Position + Vec3(40, 10, 0),
+				Vec3(0.2f)
+			);
+
+			for (int i = 0; i < count; i++) {
+				auto obj = InstantiateGameObject<OneShotUI>(
+					nullptr,
+					1.0f, L"Kill", transData
+					);
+				obj->SetColor(m_owner->GetColor());
+			}
+		}
+		m_lastKillCount = m_owner->GetCountKilledPlayer();
 	}
 	void PlayerInfo::OnDraw() {
 		for (auto uiObject : m_uiObjects) {

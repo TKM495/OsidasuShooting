@@ -400,6 +400,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Camera\GameCamera.cpp">
       <Filter>Camera\GameCamera</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\OneShotUI.cpp">
+      <Filter>UI\OneShotUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -679,6 +682,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Camera\GameCamera.h">
       <Filter>Camera\GameCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\OneShotUI.h">
+      <Filter>UI\OneShotUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -962,6 +968,9 @@
     </Filter>
     <Filter Include="Camera\GameCamera">
       <UniqueIdentifier>{74bfcd5b-6cbd-4d7b-9096-034e5e5b92d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\OneShotUI">
+      <UniqueIdentifier>{068997fc-aa6c-4da4-987d-532302d1d5c9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -81,6 +81,9 @@ namespace basecross {
 		app->RegisterTexture(L"EnergyItem", path + L"EnergyItem.png");
 		app->RegisterTexture(L"RandomItem", path + L"RandomItem.png");
 
+		app->RegisterTexture(L"BombPlus", path + L"BombPlus.png");
+		app->RegisterTexture(L"EnergyPlus", path + L"EnergyPlus.png");
+
 		// テスト用スプライト
 		app->RegisterTexture(L"Test", path + L"test.png");
 
@@ -178,8 +181,6 @@ namespace basecross {
 		EfkEffectResource::RegisterEffectResource(L"Bomb", path + L"Bomb.efk");
 		EfkEffectResource::RegisterEffectResource(L"Smoke", path + L"Smoke.efk");
 		EfkEffectResource::RegisterEffectResource(L"Laser", path + L"Laser.efk");
-		EfkEffectResource::RegisterEffectResource(L"BombPlus", path + L"BombPlus.efk");
-		EfkEffectResource::RegisterEffectResource(L"EnergyPlus", path + L"EnergyPlus.efk");
 		EfkEffectResource::RegisterEffectResource(L"Respawn", path + L"Respawn.efk");
 		EfkEffectResource::RegisterEffectResource(L"BreakBlock", path + L"BreakBlock.efk");
 
