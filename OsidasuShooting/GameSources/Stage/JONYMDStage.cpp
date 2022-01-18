@@ -32,9 +32,9 @@ namespace basecross {
 			CreateViewLight();
 			CreateStageArea();
 
-			AddGameObject<Debug>();
+			//AddGameObject<Debug>();
 
-			AddGameObject<Fencing>();
+			//AddGameObject<Fencing>();
 
 
 			//auto area = AddGameObject<Area>();

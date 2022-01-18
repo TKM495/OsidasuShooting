@@ -73,7 +73,7 @@
 #include "UIs/CurrentFirst.h"
 #include "UIs/TransitionSprite.h"
 #include "UIs/GameStartAndFinish.h"
-#include "UIs/CountDown_.h"
+//#include "UIs/CountDown_.h"
 // コンポーネント
 #include "Component/FadeComponent.h"
 #include "Component/LifeSpan.h"
@@ -94,6 +94,7 @@
 #include "JonyMd/ItemCreation.h"
 #include "JonyMd/MeteoriteCreation.h"
 #include "JonyMd/Blinking.h"
+#include "JonyMd/CountDown.h"
 //Empty GameObject
 
 //GameObject

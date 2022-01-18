@@ -27,7 +27,7 @@ namespace basecross {
 		//現在のステート
 		GameState m_gameState;
 		// タイマーの表示オブジェクト
-		shared_ptr<modifiedClass::CountDown> m_countDown;
+		//shared_ptr<CountDown> m_countDown;
 		// スタート時のカウントダウン
 		shared_ptr<StartCountDown> m_startCountDown;
 		// アイテム生成オブジェクト

@@ -8,10 +8,6 @@ namespace basecross {
 
 		if (!isBlinking)
 		{
-			if (toggle == Blinking::FadeInOut)
-			{
-				component->SetDiffuse(originalColor);
-			}
 			SetUpdateActive(false);
 			return;
 		}
@@ -48,12 +44,30 @@ namespace basecross {
 	{
 		component = componentValue;
 	}
+	void Blinking::SetOriginalColor(Col4 color)
+	{
+		originalColor = color;
+	}
 
-	void Blinking::SetIsBlinking(float blinkTime)
+	float Blinking::GetAdjustedAlpha()
+	{
+		return changedAlpha;
+	}
+	Col4 Blinking::GetAdjustedColor()
+	{
+		return changedColor;
+	}
+
+	void Blinking::StartBlinking(float blinkTime)
 	{
 		blinkingTime = blinkTime;
 		SetUpdateActive(true);
 		isBlinking = true;
+	}
+	void Blinking::StopBlinking()
+	{
+		SetUpdateActive(false);
+		isBlinking = false;
 	}
 
 
@@ -63,22 +77,24 @@ namespace basecross {
 		showingTime = showTime;
 		hidingTime = showingTime + hideTime;
 		toggle = Blinking::Toggle::HideAndShow;
-		timeChecker = 0;//showingTime　から始まる	
-		SetIsBlinking(blinkTime);
+		timeChecker = 0;//showingTime　から始まる
+
+		StartBlinking(blinkTime);
 	}
 	
 	void Blinking::SetFadeInOutTime(float fadeInTime, float fadeOutTime, float blinkTime)
 	{
 		fadingInTime = fadeInTime;
 		fadingOutTime = fadingInTime + fadeOutTime;
-		fadeInOutSpeed = 0.002f;
+		//fadeInOutSpeed = 0.002f;
+		fadeInOutSpeed = 0.0f;
 		fadeInOutStay = 0.01f;
 		timeChecker = fadingInTime + fadeInOutStay; //fadingOutTime　から始まる	
 
-		originalColor = component->GetDiffuse();
+		//originalColor = component->GetDiffuse();
 		toggle = Blinking::Toggle::FadeInOut;
 
-		SetIsBlinking(blinkTime);
+		StartBlinking(blinkTime);
 	}
 
 
@@ -134,26 +150,49 @@ namespace basecross {
 		{
 			timeChecker = 0;
 			colorAdjustment = 0.0f;
-			fadeInOutSpeed += fadeInOutSpeed * 5 / 100;
-			fadingInTime -= fadeInOutSpeed;
-			fadingOutTime -= fadeInOutSpeed;
+			if (fadeInOutSpeed > 0)
+			{
+				fadeInOutSpeed += fadeInOutSpeed * 5 / 100;
+				fadingInTime -= fadeInOutSpeed;
+				fadingOutTime -= fadeInOutSpeed;
 
-			if (fadingInTime < 0)
-			{
-				fadingInTime = fadeInOutSpeed;
-			}
-			if (fadingOutTime < 0)
-			{
-				fadingOutTime = fadeInOutSpeed;
+				if (fadingInTime < 0)
+				{
+					fadingInTime = fadeInOutSpeed;
+				}
+				if (fadingOutTime < 0)
+				{
+					fadingOutTime = fadeInOutSpeed;
+				}
 			}
 		}
 
 		SetAdjustColor(colorAdjustment);
+
 	}
 
 	void Blinking::SetAdjustColor(float colorValue)
 	{
 		Col4 color = Col4(colorValue, colorValue, colorValue, 0.0f);
-		component->SetDiffuse(color);
+		
+		if (originalColor.x != originalColor.y || originalColor.x != originalColor.z)
+		{
+			if (color.x < originalColor.x)
+			{
+				color.x = originalColor.x;
+			}
+			if (color.y < originalColor.y)
+			{
+				color.y = originalColor.y;
+			}
+			if (color.z < originalColor.z)
+			{
+				color.z = originalColor.z;
+			}
+
+		}
+		
+		changedColor = color;
+		changedAlpha = colorValue;
 	}
 }
