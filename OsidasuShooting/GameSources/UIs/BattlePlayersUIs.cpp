@@ -105,7 +105,7 @@ namespace basecross
 		auto texture = L"BomberUI";
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
-		BaseSprite::SettingScale(Vec3(0.4f));
+		BaseSprite::SettingScale(Vec3(0.3f));
 		BaseSprite::SettingPositionSenter(m_setPos);
 	}
 }

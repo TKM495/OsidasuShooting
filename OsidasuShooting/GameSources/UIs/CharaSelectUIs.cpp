@@ -56,16 +56,15 @@ namespace basecross
 	void BaseSprite::SettingScale(Vec3 sizes) {
 		m_scale = sizes;
 		auto ptrTrans = GetComponent<Transform>();
-		auto spriteSize = m_scale * m_tqatSize;
-		Vec3 scl(spriteSize.x, spriteSize.y, m_oneSize);
+		auto scl = m_scale;
 		ptrTrans->SetScale(scl);
 	}
 
 	// ポジションをセンターに合わせる
 	void BaseSprite::SettingPositionSenter(Vec3 position) {
 		auto ptrTrans = GetComponent<Transform>();
-		auto xSntrPos = m_sideSize * m_helfSize * m_tqatSize;
-		auto ySntrPos = m_highSize * m_helfSize * m_tqatSize;
+		auto xSntrPos = m_sideSize * m_helfSize;
+		auto ySntrPos = m_highSize * m_helfSize;
 
 		auto pos = ptrTrans->GetPosition();
 		Vec3 senterPos(xSntrPos, ySntrPos, 0);
@@ -83,7 +82,7 @@ namespace basecross
 		auto texture = L"CharacterSelect";
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
-		BaseSprite::SettingScale(Vec3(0.7f));
+		BaseSprite::SettingScale(Vec3(0.525f));
 		BaseSprite::SettingPositionSenter(m_setPos);
 	}
 
@@ -94,7 +93,7 @@ namespace basecross
 		auto texture = L"Decision";
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
-		BaseSprite::SettingScale(Vec3(0.5f));
+		BaseSprite::SettingScale(Vec3(0.375f));
 		BaseSprite::SettingPositionSenter(m_setPos);
 	}
 
@@ -105,7 +104,7 @@ namespace basecross
 		auto texture = L"Cancel";
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
-		BaseSprite::SettingScale(Vec3(0.5f));
+		BaseSprite::SettingScale(Vec3(0.375f));
 		BaseSprite::SettingPositionSenter(m_setPos);
 	}
 
@@ -116,7 +115,7 @@ namespace basecross
 		auto texture = L"GoToTitle";
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
-		BaseSprite::SettingScale(Vec3(0.5f));
+		BaseSprite::SettingScale(Vec3(0.375f));
 		BaseSprite::SettingPositionSenter(m_setPos);
 	}
 
@@ -127,7 +126,7 @@ namespace basecross
 		auto texture = L"GoToSelect";
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
-		BaseSprite::SettingScale(Vec3(0.5f));
+		BaseSprite::SettingScale(Vec3(0.375f));
 		BaseSprite::SettingPositionSenter(m_setPos);
 	}
 
@@ -138,7 +137,7 @@ namespace basecross
 		auto texture = L"AButton";
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
-		BaseSprite::SettingScale(Vec3(0.4f));
+		BaseSprite::SettingScale(Vec3(0.3f));
 		BaseSprite::SettingPositionSenter(m_setPos);
 	}
 
@@ -149,7 +148,7 @@ namespace basecross
 		auto texture = L"BButton";
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
-		BaseSprite::SettingScale(Vec3(0.4f));
+		BaseSprite::SettingScale(Vec3(0.3f));
 		BaseSprite::SettingPositionSenter(m_setPos);
 	}
 
@@ -160,7 +159,7 @@ namespace basecross
 		auto texture = L"ReadyToFight";
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
-		BaseSprite::SettingScale(Vec3(1.0f));
+		BaseSprite::SettingScale(Vec3(0.75f));
 		BaseSprite::SettingPositionSenter(m_setPos);
 	}
 
@@ -175,7 +174,7 @@ namespace basecross
 		ptrTrans->SetPosition(m_setPos);
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
-		BaseSprite::SettingScale(Vec3(1.0f));
+		BaseSprite::SettingScale(Vec3(0.75f));
 		BaseSprite::SettingPositionSenter(m_setPos);
 	}
 
@@ -203,7 +202,7 @@ namespace basecross
 		ptrTrans->SetPosition(m_setPos);
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
-		BaseSprite::SettingScale(Vec3(0.9f));
+		BaseSprite::SettingScale(Vec3(0.675f));
 		BaseSprite::SettingPositionSenter(m_setPos);
 	}
 
@@ -218,7 +217,7 @@ namespace basecross
 		ptrTrans->SetPosition(m_setPos);
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
-		BaseSprite::SettingScale(Vec3(0.9f));
+		BaseSprite::SettingScale(Vec3(0.675f));
 	}
 
 	// アイコンのそれぞれの位置とアイコンの最大値
@@ -365,7 +364,7 @@ namespace basecross
 		ptrTrans->SetPosition(m_setPos);
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
-		BaseSprite::SettingScale(Vec3(0.4f));
+		BaseSprite::SettingScale(Vec3(0.325f));
 		BaseSprite::SettingPositionSenter(m_setPos);
 	}
 
@@ -395,7 +394,7 @@ namespace basecross
 		ptrTrans->SetPosition(m_setPos);
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
-		BaseSprite::SettingScale(Vec3(0.865f,0.445f,1.0f));
+		BaseSprite::SettingScale(Vec3(0.675f, 0.5f, 1.0f)* 0.75f);
 
 		m_defaultGauge = ptrTrans->GetScale().x;
 		//BaseSprite::SettingPositionSenter(m_setPos);
@@ -414,8 +413,7 @@ namespace basecross
 
 		auto ptrTrans = GetComponent<Transform>();
 		auto gauge = ptrTrans->GetScale();
-		auto spriteSize = m_setScale;
-		Vec3 scl(spriteSize.x, spriteSize.y, 1);
+		auto scl = m_setScale;
 		ptrTrans->SetScale(scl);
 
 	}
@@ -476,7 +474,7 @@ namespace basecross
 		ptrTrans->SetPosition(m_setPos);
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
-		BaseSprite::SettingScale(Vec3(0.9f, 0.6f, 1.0f));
+		BaseSprite::SettingScale(Vec3(0.675f, 0.5f, 1.0f));
 		//BaseSprite::SettingPositionSenter(m_setPos);
 	}
 
