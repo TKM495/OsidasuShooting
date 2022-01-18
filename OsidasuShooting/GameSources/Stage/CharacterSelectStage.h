@@ -2,6 +2,7 @@
 #include "stdafx.h"
 #include "UIs/CharaSelectUIs.h"
 #include "UIs/CharaSelectUISprites.h"
+#include "UIs/PlayerCharaPicture.h"
 #include "UIs/SimpleSprite.h"
 
 namespace basecross {
@@ -27,12 +28,14 @@ namespace basecross {
 		//shared_ptr<SelectTriangle> m_Triangle[8];	// 三角1セット * プレイヤー数
 		
 		// キャラ数
-		shared_ptr<CharaIcon> m_Icons[2];		
-		shared_ptr<SelectCursor> m_SelectCursor[4];
-		shared_ptr<ReadyToFightUI> m_Ready;
-		shared_ptr<SimpleSprite> m_BackGround;
-		shared_ptr<StatusGauge> m_Gauge[12];	// キャラ数 * ゲージ数
-		float m_gaugeNum;						// 3 * gamePadID
+		shared_ptr<CharaIcon> m_Icons[2];				// キャラ数
+		shared_ptr<PlayerCharaPicture> m_Picture[8];	// キャラ数 * プレイヤー数
+		int m_pictureNum;								// 2 * gamePadID
+		shared_ptr<SelectCursor> m_SelectCursor[4];		// プレイヤー数
+		shared_ptr<ReadyToFightUI> m_Ready;				// 
+		shared_ptr<SimpleSprite> m_BackGround;			//
+		shared_ptr<StatusGauge> m_Gauge[12];			// キャラ数 * ゲージ数
+		int m_gaugeNum;								// 3 * gamePadID
 
 		bool m_sceneChangeBlock;
 		//shared_ptr<CharacterIcon> charaIcon;
@@ -50,6 +53,7 @@ namespace basecross {
 			m_ifEntryPlayer{ false,false,false,false },
 			m_isBPushPlayer{ false,false,false,false },
 			m_isDecisionPlayer{ false,false,false,false },
+			m_pictureNum(),
 			m_gaugeNum(),
 			m_sceneChangeBlock(false)
 		{}
@@ -70,7 +74,10 @@ namespace basecross {
 		void CharacterSelectingPlayers(int gamePadID);
 		void CharacterSelectedPlayers(int gamePadID);
 		void CharacterStetusGauge(int gamePadID);
+
 		void CheckSelectedPlayers();
+
+		void DrawCharaPicture(int gamePadID);
 
 	};
 }

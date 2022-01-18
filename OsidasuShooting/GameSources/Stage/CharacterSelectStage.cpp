@@ -44,8 +44,11 @@ namespace basecross {
 		if (gamePadID > 1)
 			 stutasePos.y = pos.y + 110.0f;
 		else stutasePos.y = pos.y - 60.0f;
+
+		// ゲージ配置
+		auto gaugePos = stutasePos;
 		for (int i = 0; i < stutase; i++) {
-			auto statusUI = AddGameObject<StatusSpriteUI>(stutasePos, i);
+			auto statusUI = AddGameObject<StatusSpriteUI>(gaugePos, i);
 			auto stsUIPos = statusUI->GetComponent<Transform>()->GetPosition();
 			statusUI->SetDrawLayer(1);
 
@@ -54,9 +57,23 @@ namespace basecross {
 			auto GaugeBack = AddGameObject<StatusGaugeBack>(stsUIPos);
 			auto GaugePos = GaugeBack->GetComponent<Transform>()->GetPosition();
 			GaugePos += Vec3(3.25f, -3.75f, 0.0f);
-			m_Gauge[i + (gamePadID * stutase)] = AddGameObject<StatusGauge>(GaugePos,gamePadID,i);
+			m_Gauge[i + (gamePadID * stutase)] = AddGameObject<StatusGauge>(GaugePos, gamePadID, i);
 
-			stutasePos.y -= 25.0f;
+			gaugePos.y -= 25.0f;
+		}
+		
+		// キャラクターの画像
+		auto pictchar = m_loopForIcon; // キャラ数 = キャラアイコン数
+		auto picturePos = stutasePos;
+
+		picturePos.x = pos.x + 82.0f;
+		if (gamePadID > 1)
+			 picturePos.y += -40.0f;
+		else picturePos.y += +140.0f;
+		for (int i = 0; i < pictchar; i++) {
+			auto pictureNum = i + (gamePadID * m_loopForIcon);
+			m_Picture[pictureNum] = AddGameObject<PlayerCharaPicture>(picturePos,i, gamePadID);
+			m_Picture[pictureNum]->SetDrawLayer(1);
 		}
 
 		auto player = AddGameObject<BattlePlayersUIs>(L"BPsUIs", gamePadID + 1, Vec3(0));
@@ -187,19 +204,6 @@ namespace basecross {
 		}
 	}
 
-	void CharacterSelectStage::CharacterSelectedPlayers(int gamePadID) {
-		if (m_isDecisionPlayer[gamePadID]) {
-			m_SelectCursor[gamePadID]->SetDrawActive(false);
-			m_SelectCursor[gamePadID]->SetUpdateActive(false);
-
-		}
-		else {
-			m_SelectCursor[gamePadID]->SetDrawActive(true);
-			m_SelectCursor[gamePadID]->SetUpdateActive(true);
-
-		}
-	}
-
 	void CharacterSelectStage::SelectCharacter(int gamePadID){
 		int charaID = m_SelectCursor[gamePadID]->SetCharacterID();
 		auto setGamePadID = gamePadID + 1;
@@ -217,14 +221,39 @@ namespace basecross {
 			break;
 		}
 		CharacterStetusGauge(gamePadID);
+		DrawCharaPicture(gamePadID);
 	}
 
 	void CharacterSelectStage::CharacterStetusGauge(int gamePadID) {
 		int charaID = m_SelectCursor[gamePadID]->SetCharacterID();
 		auto stutasNum = 3;
 		for (int i = 0; i < stutasNum; i++) {
-			auto controlNum = gamePadID * stutasNum + i;
+			auto controlNum = i + gamePadID * stutasNum;
 			m_Gauge[controlNum]->GetCharaStutas(charaID,i);
+		}
+	}
+
+	void CharacterSelectStage::DrawCharaPicture(int gamePadID) {
+		for (int i = 0; i < m_loopForIcon; i++) {
+			auto pictureNum = i + (gamePadID * m_loopForIcon);
+			m_Picture[pictureNum]->SetDrawActive(false);
+		}
+
+		int charaID = m_SelectCursor[gamePadID]->SetCharacterID();
+		auto pictureNum = charaID + (gamePadID * m_loopForIcon);
+		m_Picture[pictureNum]->SetDrawActive(true);
+	}
+
+	void CharacterSelectStage::CharacterSelectedPlayers(int gamePadID) {
+		if (m_isDecisionPlayer[gamePadID]) {
+			m_SelectCursor[gamePadID]->SetDrawActive(false);
+			m_SelectCursor[gamePadID]->SetUpdateActive(false);
+
+		}
+		else {
+			m_SelectCursor[gamePadID]->SetDrawActive(true);
+			m_SelectCursor[gamePadID]->SetUpdateActive(true);
+
 		}
 	}
 

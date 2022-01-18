@@ -11,20 +11,27 @@
 namespace basecross
 {
 	// i‚Ş‚Ì•¶š‚Ì‰æ‘œ
-	class PlayerCharaUI : public BaseSprite {
+	class PlayerCharaPicture : public BaseSprite {
 		Vec3 m_setPos;
-		int m_playerNumebr;
+		int m_gamePadIDs;
+		int m_charaID;
 	public:
-		PlayerCharaUI(
+		PlayerCharaPicture(
 			const shared_ptr<Stage>& stage,
 			Vec3 setPosition,
-			int playerNumber
+			int characterNumber,
+			int gamePadID
 		) :
 			BaseSprite(stage, setPosition),
 			m_setPos(setPosition),
-			m_playerNumebr(playerNumber)
+			m_charaID(characterNumber),
+			m_gamePadIDs(gamePadID)
 		{}
 		void OnCreate() override;
 		void OnUpdate() override;
+		wstring PlayerCharacter();
+		wstring PlayerNumber();
+		
+		void DrawCharacter(int gamePadID);
 	};
 }
