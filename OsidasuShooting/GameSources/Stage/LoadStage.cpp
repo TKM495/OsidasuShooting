@@ -40,10 +40,25 @@ namespace basecross {
 		app->RegisterTexture(L"Speed", path + L"Speed.png");
 		app->RegisterTexture(L"Weight", path + L"Weight.png");
 
+		// 3Way
 		app->RegisterTexture(L"3WayIcon", path + L"3WayIcon.png");
+
+		// LaserUI/Icon
 		app->RegisterTexture(L"LaserIcon", path + L"LaserIcon.png");
+		app->RegisterTexture(L"LaserPicture1", path + L"LaserPicture1.png");
+		app->RegisterTexture(L"LaserPicture2", path + L"LaserPicture2.png");
+		app->RegisterTexture(L"LaserPicture3", path + L"LaserPicture3.png");
+		app->RegisterTexture(L"LaserPicture4", path + L"LaserPicture4.png");
+
+		// Missile
 		app->RegisterTexture(L"MissileIcon", path + L"MissileIcon.png");
+
+		// TankUI/Icon
 		app->RegisterTexture(L"TankIcon", path + L"Tank.png");
+		app->RegisterTexture(L"TankPicture1", path + L"TankPicture1.png");
+		app->RegisterTexture(L"TankPicture2", path + L"TankPicture2.png");
+		app->RegisterTexture(L"TankPicture3", path + L"TankPicture3.png");
+		app->RegisterTexture(L"TankPicture4", path + L"TankPicture4.png");
 
 		app->RegisterTexture(L"CharacterSelect", path + L"CharacterSelect.png");
 		app->RegisterTexture(L"ReTriangle", path + L"ReTriangle.png");
@@ -59,8 +74,9 @@ namespace basecross {
 		app->RegisterTexture(L"Title", path + L"Title.png");
 		app->RegisterTexture(L"PushAButton", path + L"PushAButton.png");
 		app->RegisterTexture(L"Number", path + L"Number.png");
-		app->RegisterTexture(L"BPsUIs", path + L"BattlePlayersUI256x256.png");
-		app->RegisterTexture(L"BomberUI", path + L"BomberUI.png");
+		app->RegisterTexture(L"BPsUIs", path + L"BattlePlayersUI256x256.png");	// ゲーム中のアイコン
+		app->RegisterTexture(L"BPsUIs", path + L"BattlePlayersUI256x256_2.png");//
+		app->RegisterTexture(L"BomberUI", path + L"BomberUI.png");				// ゲージ下の爆弾数アイコン
 		app->RegisterTexture(L"CircleGauge", path + L"CircleGauge.png");
 		app->RegisterTexture(L"BarGauge", path + L"BarGauge.png");
 		app->RegisterTexture(L"GaugeColor", path + L"GaugeColor.png");
