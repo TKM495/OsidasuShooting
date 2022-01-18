@@ -229,11 +229,11 @@ namespace basecross
 
 	void SelectCursor::OnUpdate() {
 		CursorController();
-
 		auto ptrTrans = GetComponent<Transform>();
 		auto pos = ptrTrans->GetPosition();
 
 		//MoveCursor();
+		WaitAnimetion();
 	}
 
 	void SelectCursor::CursorController() {
@@ -282,6 +282,38 @@ namespace basecross
 	}
 
 	void SelectCursor::CursorControl() {}
+
+	void SelectCursor::WaitAnimetion() {
+		const auto& app = App::GetApp();
+		const auto& delta = app->GetElapsedTime();
+
+		auto ptrDraw = GetComponent<PCTSpriteDraw>();
+		auto color = ptrDraw->GetDiffuse();
+
+		auto ptrTrans = GetComponent<Transform>();
+		auto scale = ptrTrans->GetScale();
+		auto pos = ptrTrans->GetPosition();
+
+		if (color.w <= 0)  m_waitAnime = true;
+		else if (color.w >= 1) m_waitAnime = false;
+
+		if (m_waitAnime) {
+			color.w += delta;
+			scale -= delta * 0.005f;
+			//pos.x += delta;
+			//pos.y -= delta ;
+		}
+		else{
+			color.w -= delta;
+			scale += delta * 0.005f;
+			//pos.x -= delta * 2;
+			//pos.y += delta * 2;
+		}
+
+		ptrDraw->SetDiffuse(color);
+		//ptrTrans->SetScale(scale);
+		//ptrTrans->SetPosition(pos);
+	}
 
 	void SelectCursor::NotMoveAnimetion() {}
 
@@ -414,11 +446,11 @@ namespace basecross
 			return m_power;
 			break;
 		case 1:
-			m_speed = Vec3(m_defaultGauge * 0.75f, gauge.y, gauge.z);
+			m_speed = Vec3(m_defaultGauge * 0.25f, gauge.y, gauge.z);
 			return m_speed;
 			break;
 		case 2:
-			m_weight = Vec3(m_defaultGauge * 0.25f, gauge.y, gauge.z);
+			m_weight = Vec3(m_defaultGauge * 0.75f, gauge.y, gauge.z);
 			return m_weight;
 			break;
 		}

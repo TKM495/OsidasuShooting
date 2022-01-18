@@ -207,6 +207,8 @@ namespace basecross
 		bool m_isRightStick;// スティックが右に倒されているかどうか
 		bool m_isSetStick;	// スティックが倒されているかどうか
 
+		bool m_waitAnime;
+
 	public:
 		SelectCursor(
 			const shared_ptr<Stage>& stage,
@@ -222,7 +224,8 @@ namespace basecross
 			m_moveTime(),
 			m_moveSpeed(4.0f),
 			m_isRightStick(false),
-			m_isSetStick(false)
+			m_isSetStick(false),
+			m_waitAnime(false)
 		{}
 		void OnCreate() override;
 		void OnUpdate() override;
@@ -235,6 +238,7 @@ namespace basecross
 		// カーソルを移動させる
 		void MoveCursor();
 		// アニメーション
+		void WaitAnimetion();
 		void NotMoveAnimetion();
 		//
 		int SetCharacterID();
