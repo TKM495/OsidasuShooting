@@ -9,7 +9,7 @@
 namespace basecross {
 	GameCamera::GameCamera()
 		:Camera(), m_state(State::Init), m_followUpVelocity(2.0f),
-		m_minZoom(50), m_maxZoom(40), m_zoomLimiter(45),
+		m_minZoom(50), m_maxZoom(20), m_zoomLimiter(35),
 		m_minimumY(-3.0f)
 	{}
 

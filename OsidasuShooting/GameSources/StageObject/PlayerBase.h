@@ -242,6 +242,8 @@ namespace basecross {
 		float m_bombAimMovingDistance;
 		// 補正する角度（弾の照準）
 		float m_correctAngle;
+		// シールドが使えるエネルギーの割合
+		float m_shieldRate;
 		// 入力データ
 		PlayerInputData m_inputData;
 		// 入力の更新

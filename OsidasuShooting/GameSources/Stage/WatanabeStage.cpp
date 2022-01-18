@@ -44,6 +44,8 @@ namespace basecross {
 			XMLLoad::GetInstance()->RegisterFile(L"PlayerStatus", DataDir + L"XML/" + L"PlayerStatus.xml");
 			CSVLoad::GetInstance()->RegisterFile(L"PlayerInfo", DataDir + L"CSV/" + L"PlayerInfo.csv");
 
+			PlayerStatus::GetInstance()->DataExtraction();
+
 			GameObjecttCSVBuilder builder;
 			builder.Register<Block>(L"Block");
 			builder.Register<Bumper>(L"Bumper");
@@ -74,6 +76,9 @@ namespace basecross {
 		if (con.wPressedButtons & XINPUT_GAMEPAD_X) {
 			auto item = AddGameObject<modifiedClass::Item>(modifiedClass::ItemType::Bomb, false);
 			item->GetComponent<Transform>()->SetPosition(Vec3(0, 5, 0));
+		}
+		if (keyState.m_bPressedKeyTbl['W']) {
+			m_itemCreation->RandomlySpawn();
 		}
 	}
 

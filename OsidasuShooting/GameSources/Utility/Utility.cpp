@@ -150,5 +150,10 @@ namespace basecross {
 			auto z = Clamp(value.z, _min.z, _max.z);
 			return Vec3(x, y, z);
 		}
+
+		float Remap(float val, float inMin, float inMax, float outMin, float outMax)
+		{
+			return Clamp(outMin + (val - inMin) * (outMax - outMin) / (inMax - inMin), outMin, outMax);
+		}
 	}
 }
