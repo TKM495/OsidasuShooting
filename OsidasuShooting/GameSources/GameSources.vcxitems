@@ -15,6 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Blinking.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\PlayerCharaPicture.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Blinking_.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BackPlanet.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\area.h" />
@@ -109,6 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Blinking.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\PlayerCharaPicture.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Blinking_.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BackPlanet.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\area.cpp" />

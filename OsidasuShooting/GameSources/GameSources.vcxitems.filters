@@ -391,6 +391,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Blinking_.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Blinking.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\PlayerStatus.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\PlayerCharaPicture.cpp">
+      <Filter>UI\PlayerCharaPict</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -662,6 +665,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Blinking_.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Blinking.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\PlayerStatus.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\PlayerCharaPicture.h">
+      <Filter>UI\PlayerCharaPict</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
@@ -941,6 +947,9 @@
     </Filter>
     <Filter Include="StageObject\Blinking">
       <UniqueIdentifier>{cd05b88f-797f-405d-9e2b-b8d1d93323d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\PlayerCharaPict">
+      <UniqueIdentifier>{98ded540-2bdc-4d60-8608-af2647705f88}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -64,6 +64,7 @@
 #include "UIs/NumberSprite.h"
 #include "UIs/PlayerFollowUI.h"
 #include "UIs/PlayerInfo.h"
+#include "UIs/PlayerCharaPicture.h"
 #include "UIs/ResultScore.h"
 #include "UIs/ResultSprite.h"
 #include "UIs/SimpleSprite.h"
@@ -74,6 +75,7 @@
 #include "UIs/TransitionSprite.h"
 #include "UIs/GameStartAndFinish.h"
 #include "UIs/CountDown_.h"
+
 // コンポーネント
 #include "Component/FadeComponent.h"
 #include "Component/LifeSpan.h"
