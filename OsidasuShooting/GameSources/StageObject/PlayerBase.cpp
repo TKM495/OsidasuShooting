@@ -350,7 +350,7 @@ namespace basecross {
 		switch (data.Type) {
 		case KnockBackData::Category::Bullet:
 		{
-			DecrementEnergy(data.Amount);
+			DecrementEnergy(data.Amount * 3);
 		}
 		break;
 		case KnockBackData::Category::Bomb:
@@ -362,7 +362,6 @@ namespace basecross {
 		}
 		GetComponent<PhysicalBehavior>()->Impact(
 			data.Direction, data.Amount * knockBackCorrection);
-		Debug::GetInstance()->Log(knockBackCorrection);
 	}
 
 	void PlayerBase::SetActive(bool flg) {
@@ -520,14 +519,25 @@ namespace basecross {
 	}
 
 	void PlayerBase::OnCollisionEnter(shared_ptr<GameObject>& other) {
-		// 衝突したオブジェクトがプレイヤーの場合
+		// 衝突したオブジェクトがバンパーの場合
 		auto bumperPtr = dynamic_pointer_cast<Bumper>(other);
 		if (bumperPtr) {
 			auto gravity = GetComponent<Gravity>()->GetGravityVelocity();
 			auto totalVelocity = GetVelocity() + gravity;
-			//Debug::GetInstance()->Log(gravity);
+
+			// 自身の位置からバンパーの位置に向かうベクトルを作成
+
+			auto myPos = GetTransform()->GetPosition() + totalVelocity * 0.01f;
+			auto bumperPos = bumperPtr->GetTransform()->GetPosition();
+			auto dir = myPos - bumperPos;
+
+			// 動いていないときはバンパーから見たプレイヤーの方に飛ばす
+			auto impactDir =
+				totalVelocity == Vec3(0) ?
+				dir.normalize() : totalVelocity.reflect(dir).normalize();
 			// ノックバック
-			GetComponent<PhysicalBehavior>()->Impact(-totalVelocity * 4);
+			GetComponent<PhysicalBehavior>()->Impact(
+				impactDir, totalVelocity.length() + 25);
 		}
 
 		// アイテムの場合
