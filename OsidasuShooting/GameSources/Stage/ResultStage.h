@@ -15,10 +15,13 @@ namespace basecross {
 
 		wstring str;
 		PlayerNumber m_playersNumber;
-		int m_playersScore;
-		int m_playersDead;
+		int  m_playersScore;
+		int  m_playersDead;
+		Col4 m_playerColor;
+
 		PlayerNumber m_playerTop;
-		int m_playerTopScore;
+		int  m_playerTopScore;
+		Col4 m_playerTopColor;
 
 		bool m_sceneChangeBlock;
 	public:
@@ -28,8 +31,10 @@ namespace basecross {
 			m_playersNumber(),
 			m_playersScore(),
 			m_playersDead(),
+			m_playerColor(),
 			m_playerTop(),
 			m_playerTopScore(),
+			m_playerTopColor(),
 			m_sceneChangeBlock(false)
 		{}
 

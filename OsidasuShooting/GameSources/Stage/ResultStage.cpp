@@ -31,6 +31,7 @@ namespace basecross {
 		auto winnerUIsPos = winnerUIsTrans->GetPosition();
 
 		auto playerNumber = AddGameObject<BattlePlayersUIs>(L"BPsUIs", player, Vec3(0));
+		playerNumber->GetComponent<PCTSpriteDraw>()->SetDiffuse(m_playerTopColor);
 		auto playUIsTrans = playerNumber->GetComponent<Transform>();
 		playUIsTrans->SetPosition(winnerUIsPos - Vec3(-412.0f, -27.0f, 0));
 		playUIsTrans->SetScale(Vec3(1.1f));
@@ -91,24 +92,28 @@ namespace basecross {
 				m_playersNumber = player->GetPlayerNumber();
 				m_playersScore = player->GetCountKilledPlayer();
 				m_playersDead = player->GetDeadCount();
+				m_playerColor = PlayerStatus::GetInstance()->GetPlayerColor(i + 1);
 				break;
 			case PlayerNumber::P2:
 				str = L"P2";
 				m_playersNumber = player->GetPlayerNumber();
 				m_playersScore = player->GetCountKilledPlayer();
 				m_playersDead = player->GetDeadCount();
+				m_playerColor = PlayerStatus::GetInstance()->GetPlayerColor(i + 1);
 				break;
 			case PlayerNumber::P3:
 				str = L"P3";
 				m_playersNumber = player->GetPlayerNumber();
 				m_playersScore = player->GetCountKilledPlayer();
 				m_playersDead = player->GetDeadCount();
+				m_playerColor = PlayerStatus::GetInstance()->GetPlayerColor(i + 1);
 				break;
 			case PlayerNumber::P4:
 				str = L"P4";
 				m_playersNumber = player->GetPlayerNumber();
 				m_playersScore = player->GetCountKilledPlayer();
 				m_playersDead = player->GetDeadCount();
+				m_playerColor = PlayerStatus::GetInstance()->GetPlayerColor(i + 1);
 				break;
 			default:
 				break;
@@ -125,10 +130,12 @@ namespace basecross {
 			if (i > 0) {
 				m_playerTop = m_playersNumber;
 				m_playerTopScore = m_playersScore;
+				m_playerTopColor = m_playerColor;
 			}
 			else if (player->GetCountKilledPlayer() > m_playerTopScore) {
 				m_playerTop = m_playersNumber;
 				m_playerTopScore = m_playersScore;
+				m_playerTopColor = m_playerColor;
 			}
 			i++;
 		}
@@ -153,8 +160,6 @@ namespace basecross {
 			m_playerTop, StageManager::GetInstance()->GetPlayerType(m_playerTop));
 		//topPlayer->GetComponent<Gravity>()->SetGravityZero();
 		auto PlayerPos = topPlayer->GetComponent<Transform>()->GetPosition();
-
-		//AddGameObject<SpecialLaser>(topPlayer, Vec3(0, 0, 0), Vec3(0, 0, 0));
 
 		AddGameObject<Block>(TransformData(Vec3(0, -1, 0), Vec3(100, 1, 100)));
 	}
