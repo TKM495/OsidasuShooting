@@ -68,9 +68,6 @@ namespace basecross {
 		drawComp->SetOriginalMeshUse(true);
 		drawComp->CreateOriginalMesh(vertices, indices);
 		drawComp->SetTextureResource(m_textureKey);
-		// テクスチャの繰り返し設定(Wrap)
-		drawComp->SetSamplerState(SamplerState::AnisotropicWrap);
-		drawComp->SetDepthStencilState(DepthStencilState::Read);
 
 		SetAlphaActive(true); // 透明をサポートする&両面描画になる
 		SetUpdateActive(false);

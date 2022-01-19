@@ -2,13 +2,15 @@
 #include "Project.h"
 
 namespace basecross {
-	CircleShadow::CircleShadow(const shared_ptr<GameObject>& gameObjectPtr)
-		:Component(gameObjectPtr)
+	CircleShadow::CircleShadow(const shared_ptr<GameObject>& gameObjectPtr,
+		float scale)
+		:Component(gameObjectPtr), m_scale(scale)
 	{}
 
 	void CircleShadow::OnCreate() {
 		m_shadow = ObjectFactory::Create<BoardPoly>(
-			GetStage(), L"CircleShadow", TransformData(Vec3(0), Vec3(2)));
+			GetStage(), L"CircleShadow", TransformData(Vec3(0), Vec3(m_scale)));
+		m_shadow->GetComponent<PNTStaticDraw>()->SetDiffuse(Col4(1, 1, 1, 0.75f));
 	}
 
 	void CircleShadow::OnUpdate() {
@@ -26,7 +28,7 @@ namespace basecross {
 			if (ColObb) {
 				auto Obb = ColObb->GetObb();
 				// OBB‚Æü•ª‚ÌÕ“Ë”»’è
-				if (HitTest::SEGMENT_OBB(pos, pos + Vec3(0, -10, 0), Obb))
+				if (HitTest::SEGMENT_OBB(pos, pos + Vec3(0, -100, 0), Obb))
 				{
 					shadowPos.y = Obb.m_Center.y + Obb.m_Size.y + 0.01f;
 					break;
@@ -37,6 +39,7 @@ namespace basecross {
 	}
 
 	void CircleShadow::OnDraw() {
-		m_shadow->OnDraw();
+		if (GetGameObject()->GetDrawActive())
+			m_shadow->OnDraw();
 	}
 }

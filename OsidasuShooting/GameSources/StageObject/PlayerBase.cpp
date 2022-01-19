@@ -49,7 +49,6 @@ namespace basecross {
 		// 滑るような挙動用のコンポーネントと重力を追加
 		AddComponent<PhysicalBehavior>();
 		AddComponent<Gravity>();
-		AddComponent<CircleShadow>();
 
 		// 当たり判定を追加
 		AddComponent<CollisionSphere>()->SetDrawActive(false);

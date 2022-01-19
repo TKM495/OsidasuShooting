@@ -10,17 +10,17 @@ namespace basecross {
 			auto drawComp = AddComponent<PNTStaticModelDraw>();
 			drawComp->SetOwnShadowActive(true);
 
-			auto shadowComp = AddComponent<Shadowmap>();
-
+			//auto shadowComp = AddComponent<Shadowmap>();
+			AddComponent<CircleShadow>(1.0f);
 			switch (spawnItem)
 			{
 			case ItemType::Bomb:
 				drawComp->SetMeshResource(L"BombItemModel");
-				shadowComp->SetMeshResource(L"BombItemModel");
+				//shadowComp->SetMeshResource(L"BombItemModel");
 				break;
 			case ItemType::Energy:
 				drawComp->SetMeshResource(L"EnergyItemModel");
-				shadowComp->SetMeshResource(L"EnergyItemModel");
+				//shadowComp->SetMeshResource(L"EnergyItemModel");
 				break;
 			case ItemType::totalItems:
 				break;

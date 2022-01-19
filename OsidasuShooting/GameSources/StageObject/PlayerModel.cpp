@@ -29,9 +29,10 @@ namespace basecross {
 		drawComp->SetMultiMeshResource(modelKey);
 		drawComp->SetOwnShadowActive(true);
 
-		// ‰e‚Ì’Ç‰Á
-		auto shadowComp = AddComponent<Shadowmap>();
-		shadowComp->SetMultiMeshResource(modelKey);
+		//// ‰e‚Ì’Ç‰Á
+		//auto shadowComp = AddComponent<Shadowmap>();
+		//shadowComp->SetMultiMeshResource(modelKey);
+		AddComponent<CircleShadow>(2.5f);
 	}
 
 	void PlayerModel::OnUpdate() {

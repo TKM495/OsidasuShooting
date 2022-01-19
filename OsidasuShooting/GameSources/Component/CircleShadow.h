@@ -5,8 +5,10 @@
 namespace basecross {
 	class CircleShadow :public Component {
 		shared_ptr<BoardPoly> m_shadow;
+		float m_scale;
 	public:
-		CircleShadow(const shared_ptr<GameObject>& gameObjectPtr);
+		CircleShadow(const shared_ptr<GameObject>& gameObjectPtr,
+			float scale);
 
 		void OnCreate()override;
 		void OnUpdate()override;
