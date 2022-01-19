@@ -23,6 +23,8 @@ namespace basecross {
 		int  m_playerTopScore;
 		Col4 m_playerTopColor;
 
+		bool m_isTopOnly; // トップのプレイヤーが一人かどうか
+
 		bool m_sceneChangeBlock;
 	public:
 		ResultStage() :
@@ -35,6 +37,7 @@ namespace basecross {
 			m_playerTop(),
 			m_playerTopScore(),
 			m_playerTopColor(),
+			m_isTopOnly(false),
 			m_sceneChangeBlock(false)
 		{}
 

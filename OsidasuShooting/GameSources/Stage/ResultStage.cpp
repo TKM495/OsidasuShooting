@@ -26,15 +26,17 @@ namespace basecross {
 
 	void ResultStage::AddWinnerSprite(int player)
 	{
-		auto winnerUIs = AddGameObject<ResultWinnerSprite>(L"Winner");
-		auto winnerUIsTrans = winnerUIs->GetComponent<Transform>();
-		auto winnerUIsPos = winnerUIsTrans->GetPosition();
+		if (m_isTopOnly) {
+			auto winnerUIs = AddGameObject<ResultWinOrDrowSprite>(Vec3(-280, -220, 0), true);
+			auto winnerUIsTrans = winnerUIs->GetComponent<Transform>();
+			auto winnerUIsPos = winnerUIsTrans->GetPosition();
 
-		auto playerNumber = AddGameObject<BattlePlayersUIs>(L"BPsUIs", player, Vec3(0));
-		playerNumber->GetComponent<PCTSpriteDraw>()->SetDiffuse(m_playerTopColor);
-		auto playUIsTrans = playerNumber->GetComponent<Transform>();
-		playUIsTrans->SetPosition(winnerUIsPos - Vec3(-412.0f, -27.0f, 0));
-		playUIsTrans->SetScale(Vec3(1.1f));
+			auto playerNumber = AddGameObject<BattlePlayersUIs>(L"BPsUIs", player, Vec3(0));
+			playerNumber->GetComponent<PCTSpriteDraw>()->SetDiffuse(m_playerTopColor);
+			auto playUIsTrans = playerNumber->GetComponent<Transform>();
+			playUIsTrans->SetPosition(winnerUIsPos - Vec3(-412.0f, -27.0f, 0));
+			playUIsTrans->SetScale(Vec3(1.1f));
+		}
 	}
 
 	void ResultStage::AddResultSprites(Vec3 pos, int playerNum, int score, int dead)
