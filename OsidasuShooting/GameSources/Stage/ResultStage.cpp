@@ -165,12 +165,17 @@ namespace basecross {
 		else if ((int)m_playerTop == 4) {
 			player = PlayerNumber::P4;
 		}
-		auto topPlayer = AddGameObject<ResultPlayer>(
-			TransformData(Vec3(0.0f, 1.0f, 0.0f), Vec3(0.75f), Vec3(0, XMConvertToRadians(180.0f), 0)),
-			m_playerTop, StageManager::GetInstance()->GetPlayerType(m_playerTop));
-		//topPlayer->GetComponent<Gravity>()->SetGravityZero();
-		auto PlayerPos = topPlayer->GetComponent<Transform>()->GetPosition();
 
+		if (m_isTopOnly) {
+			auto topPlayer = AddGameObject<ResultPlayer>(
+				TransformData(Vec3(0.0f, 1.0f, 0.0f), Vec3(0.75f), Vec3(0, XMConvertToRadians(180.0f), 0)),
+				m_playerTop, StageManager::GetInstance()->GetPlayerType(m_playerTop));
+			//topPlayer->GetComponent<Gravity>()->SetGravityZero();
+			//auto PlayerPos = topPlayer->GetComponent<Transform>()->GetPosition();
+		}
+		else {
+
+		}
 		AddGameObject<Block>(TransformData(Vec3(0, -1, 0), Vec3(100, 1, 100)));
 	}
 
