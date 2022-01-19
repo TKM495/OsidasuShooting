@@ -21,7 +21,10 @@ namespace basecross {
 
 		PlayerNumber m_playerTop;
 		int  m_playerTopScore;
+		int  m_playerTopDead;
 		Col4 m_playerTopColor;
+
+		PlayerNumber m_playerDraw[3];
 
 		bool m_isTopOnly; // トップのプレイヤーが一人かどうか
 
@@ -36,7 +39,9 @@ namespace basecross {
 			m_playerColor(),
 			m_playerTop(),
 			m_playerTopScore(),
+			m_playerTopDead(),
 			m_playerTopColor(),
+			m_playerDraw{},
 			m_isTopOnly(false),
 			m_sceneChangeBlock(false)
 		{}
