@@ -147,10 +147,10 @@ namespace basecross {
 		try {
 			//ビューとライトの作成
 			CreateViewLight();
-			AddGameObject<Debug>();
-			Debug::GetInstance()->Log(L"CurrentStage : CharacterSelectStage");
-			Debug::GetInstance()->Log(L"A : GameStart");
-			Debug::GetInstance()->Log(L"B : ToTitle");
+			//AddGameObject<Debug>();
+			//Debug::GetInstance()->Log(L"CurrentStage : CharacterSelectStage");
+			//Debug::GetInstance()->Log(L"A : GameStart");
+			//Debug::GetInstance()->Log(L"B : ToTitle");
 
 			m_BackGround = AddGameObject<SimpleSprite>(L"BackGround00");
 			m_BackGround->SetDrawLayer(-1);
@@ -230,6 +230,7 @@ namespace basecross {
 		DrawCharaPicture(gamePadID);
 	}
 
+	// キャラクターのステータスを表示する
 	void CharacterSelectStage::CharacterStetusGauge(int gamePadID) {
 		int charaID = m_SelectCursor[gamePadID]->SetCharacterID();
 		auto stutasNum = 3;
@@ -239,6 +240,7 @@ namespace basecross {
 		}
 	}
 
+	// 表示するキャラクターの画像
 	void CharacterSelectStage::DrawCharaPicture(int gamePadID) {
 		for (int i = 0; i < m_loopForIcon; i++) {
 			auto pictureNum = i + (gamePadID * m_loopForIcon);
@@ -250,6 +252,7 @@ namespace basecross {
 		m_Picture[pictureNum]->SetDrawActive(true);
 	}
 
+	// キャラクターの選択が完了、コントローラが繋がれていない場合はカーソルを非表示
 	void CharacterSelectStage::CharacterSelectedPlayers(int gamePadID) {
 		if (m_isDecisionPlayer[gamePadID]) {
 			m_SelectCursor[gamePadID]->SetDrawActive(false);
@@ -263,6 +266,7 @@ namespace basecross {
 		}
 	}
 
+	// キャラクターの選択を完了しているか
 	void CharacterSelectStage::CheckSelectedPlayers() {
 		auto& app = App::GetApp();
 		for (int i = 0; i < m_loopForPlayer; i++) {
