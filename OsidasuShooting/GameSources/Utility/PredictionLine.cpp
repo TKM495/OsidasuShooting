@@ -61,7 +61,10 @@ namespace basecross {
 		auto vn = (diffY - m_gravity * 0.5f * m_flightTime * m_flightTime) / m_flightTime;
 
 		// 水平方向の座標を求める (x,z座標)
-		auto p = Lerp::CalculateLerp(startPoint, endPoint, 0.0f, 1.0f, time / m_flightTime, Lerp::rate::Linear);
+		// Easingクラスを使用し(time / m_flightTime)が1以上のときも計算する
+		Easing<Vec3> horizontal;
+		auto _endPoint = endPoint;
+		auto p = horizontal.Linear(startPoint, _endPoint, time / m_flightTime, 1.0f);
 		// 鉛直方向の座標 y
 		p.y = startPoint.y + vn * time + 0.5f * m_gravity * time * time;
 		return p;
