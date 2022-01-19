@@ -406,6 +406,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Blinking_.cpp">
       <Filter>StageObject\Blinking</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\CircleShadow.cpp">
+      <Filter>Component\CircleShadow</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -692,6 +695,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Blinking_.h">
       <Filter>StageObject\Blinking</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\CircleShadow.h">
+      <Filter>Component\CircleShadow</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
@@ -977,6 +983,9 @@
     </Filter>
     <Filter Include="UI\OneShotUI">
       <UniqueIdentifier>{068997fc-aa6c-4da4-987d-532302d1d5c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\CircleShadow">
+      <UniqueIdentifier>{4bc56232-3ea8-42fd-9942-7040508e898b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

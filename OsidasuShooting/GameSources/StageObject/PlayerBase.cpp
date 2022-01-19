@@ -49,6 +49,7 @@ namespace basecross {
 		// 滑るような挙動用のコンポーネントと重力を追加
 		AddComponent<PhysicalBehavior>();
 		AddComponent<Gravity>();
+		AddComponent<CircleShadow>();
 
 		// 当たり判定を追加
 		AddComponent<CollisionSphere>()->SetDrawActive(false);
@@ -274,7 +275,6 @@ namespace basecross {
 		auto delta = App::GetApp()->GetElapsedTime();
 		m_bombPoint += m_inputData.BombAim * delta * m_bombAimMovingDistance;
 		m_bombPoint = RayHitPosition(m_bombPoint);
-		Debug::GetInstance()->Log(m_bombPoint);
 		m_predictionLine.Update(GetTransform()->GetPosition(), m_bombPoint, PredictionLine::Type::Bomb);
 		TurnFrontToDirection(m_bombPoint - GetTransform()->GetPosition());
 	}
