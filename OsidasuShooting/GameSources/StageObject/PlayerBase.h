@@ -225,6 +225,8 @@ namespace basecross {
 		void RespawnInit();
 		// アイテムの効果の処理
 		bool ItemEffect(modifiedClass::ItemType type);
+		// レイの判定
+		Vec3 RayHitPosition(const Vec3& pos);
 	protected:
 		// 移動速度（どちらかというとかける力）
 		float m_moveSpeed;

@@ -36,6 +36,8 @@ namespace basecross {
 				numberTrans->SetScale(m_scaleOffset);
 				m_posOffset += m_addOffset;
 
+				numberTrans->SetPivot(GetComponent<Transform>()->GetPosition());
+
 				if (m_numbersOffset == 2 && !m_isMinutes) {
 					m_isMinutes = false;
 					m_posOffset += m_spaceOffset;

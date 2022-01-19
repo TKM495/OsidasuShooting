@@ -13,4 +13,17 @@ namespace basecross {
 
 		void OnCreate()override;
 	};
+
+	class BoardPoly :public AdvancedGameObject {
+		wstring m_textureKey;
+	public:
+		BoardPoly(const shared_ptr<Stage>& stage, const wstring& textureKey,
+			const TransformData& transformData = TransformData())
+			:AdvancedGameObject(stage), m_textureKey(textureKey)
+		{
+			m_transformData = transformData;
+		}
+
+		void OnCreate()override;
+	};
 }

@@ -76,6 +76,7 @@
 #include "Component/MySpriteBaseDraw.h"
 #include "Component/PCTGaugeSprite.h"
 #include "Component/PhysicalBehavior.h"
+#include "Component/CircleShadow.h"
 // メニュー
 #include "UIs/Menu/BaseMenu.h"
 // マネージャー

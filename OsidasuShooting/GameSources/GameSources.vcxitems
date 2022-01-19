@@ -15,6 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Camera\GameCamera.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\CircleShadow.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Blinking.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Blinking_.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BackPlanet.h" />
@@ -111,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Camera\GameCamera.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\CircleShadow.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Blinking.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Blinking_.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BackPlanet.cpp" />

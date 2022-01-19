@@ -44,7 +44,7 @@ namespace basecross {
 					}
 				}
 				if (hasTag)
-					break;
+					continue;
 
 				auto Obb = ColObb->GetObb();
 				// OBB‚Æü•ª‚ÌÕ“Ë”»’è
