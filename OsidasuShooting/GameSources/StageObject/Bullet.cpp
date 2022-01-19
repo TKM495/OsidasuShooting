@@ -14,7 +14,7 @@ namespace basecross {
 		:AdvancedGameObject(stage), m_owner(owner),
 		m_direction(direction),
 		m_speed(25.0f), m_lifeSpan(5.0f),
-		m_power(power)
+		m_power(power), m_timer(0.1f)
 	{
 		m_transformData.Position = owner->GetTransform()->GetPosition();
 		m_transformData.Scale = Vec3(0.5f);
@@ -27,7 +27,6 @@ namespace basecross {
 		// 衝突応答を無視
 		PtrColl->SetAfterCollision(AfterCollision::None);
 		// オーナーと弾との当たり判定を無視
-		PtrColl->AddExcludeCollisionGameObject(m_owner.lock());
 		PtrColl->AddExcludeCollisionTag(L"Bullet");
 
 		// 発射方向に正面を向ける
@@ -61,6 +60,7 @@ namespace basecross {
 		GetTransform()->SetPosition(transPos);
 		// 位置を同期
 		GetComponent<EfkComponent>()->SyncPosition(L"Bullet");
+		m_timer.Count();
 	}
 
 	void Bullet::OnDestroy() {
@@ -122,12 +122,18 @@ namespace basecross {
 			else {
 				auto ptr = dynamic_pointer_cast<PlayerBase>(other);
 				if (ptr) {
-					KnockBackData data(
-						KnockBackData::Category::Bullet,
-						m_direction, m_power, m_owner
-					);
-					// ノックバック
-					ptr->KnockBack(data);
+					// カウントが終わった場合
+					if (m_timer.IsTimeUp() || m_owner.lock() != ptr) {
+						KnockBackData data(
+							KnockBackData::Category::Bullet,
+							m_direction, m_power, m_owner
+						);
+						// ノックバック
+						ptr->KnockBack(data);
+					}
+					else {
+						return;
+					}
 				}
 			}
 			// 自身を削除

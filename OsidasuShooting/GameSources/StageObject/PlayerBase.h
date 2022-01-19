@@ -225,8 +225,6 @@ namespace basecross {
 		void RespawnInit();
 		// アイテムの効果の処理
 		void ItemEffect(modifiedClass::ItemType type);
-		// アイテムを取得したときのエフェクトをプレイヤーに追従させる
-		void ItemGetEffectSync();
 	protected:
 		// 移動速度（どちらかというとかける力）
 		float m_moveSpeed;
