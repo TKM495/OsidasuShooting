@@ -62,11 +62,11 @@ namespace basecross {
 		Col4 color(1.0f);
 		// 頂点のデータ (番号は左上から右下まで)
 		vector<VertexPositionColorTexture> vertices = {
-			{Vec3(-halfSize.x,+halfSize.y,0.0f),color,uvs[0]}, //0
-			{Vec3(+halfSize.x,+halfSize.y,0.0f),color,uvs[1]}, //1
+			{Vec3(-halfSize.x,0.0f,+halfSize.y),color,uvs[0]}, //0
+			{Vec3(+halfSize.x,0.0f,+halfSize.y),color,uvs[1]}, //1
 
-			{Vec3(-halfSize.x,-halfSize.y,0.0f),color,uvs[2]}, //2
-			{Vec3(+halfSize.x,-halfSize.y,0.0f),color,uvs[3]},  //3
+			{Vec3(-halfSize.x,0.0f,-halfSize.y),color,uvs[2]}, //2
+			{Vec3(+halfSize.x,0.0f,-halfSize.y),color,uvs[3]},  //3
 		};
 		// 頂点インデックス
 		vector<uint16_t> indices = {

@@ -22,7 +22,7 @@ namespace basecross {
 		m_impactPoint =
 			stage->AddGameObject<BoardPoly>(
 				L"ImpactPoint",
-				TransformData(Vec3(0), Vec3(2.0f), Vec3(XMConvertToRadians(90), 0, 0)));
+				TransformData(Vec3(0), Vec3(2.0f)));
 	}
 
 	vector<Vec3> PredictionLine::BulletCalculate(const Vec3& startPoint, const Vec3& endPoint) {
@@ -87,11 +87,14 @@ namespace basecross {
 		m_impactPoint->SetDrawActive(type == Type::Bomb);
 
 		auto direction = endPoint - startPoint;
+		direction.normalize();
+		auto rad = atan2f(-direction.z, direction.x) + XM_PIDIV2;
+		auto IPRot = m_impactPoint->GetTransform()->GetRotation();
+		Vec3 rot(0.0f, rad, 0.0f);
+		m_impactPoint->GetTransform()->SetRotation(rot);
+
 		for (int i = 0; i < points.size(); i++) {
 			m_linePoints[i]->GetTransform()->SetPosition(points[i]);
-			direction.normalize();
-			auto rad = atan2f(-direction.z, direction.x) + XM_PIDIV2;
-			Vec3 rot(0.0f, rad, 0.0f);
 			m_linePoints[i]->GetTransform()->SetRotation(rot);
 		}
 		SetActive(direction != Vec3(0));
