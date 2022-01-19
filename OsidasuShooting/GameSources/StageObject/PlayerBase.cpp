@@ -25,7 +25,7 @@ namespace basecross {
 		m_armorZeroWhenKnockBackMagnification(5), m_energyRecoveryAmount(10),
 		m_bombAimMovingDistance(20), m_respawnTimer(3.0f), m_isActive(true),
 		m_tackleTimer(0.5f, true), m_isDuringTackle(false), m_weight(1),
-		m_bulletAimLineLength(3)
+		m_bulletAimLineLength(3), m_shieldRate(0.5f)
 	{
 		m_transformData = transData;
 		m_transformData.Scale *= 2.0f;
@@ -336,24 +336,27 @@ namespace basecross {
 			m_isDuringReturn = true;
 			m_returnTimer.Reset();
 		}
-		// ノックバック倍率
-		float knockBackCorrection = 1.0f;
-		//// アーマーが回復中でない　かつ　アーマーが0より大きい
-		//if (m_currentArmorPoint > 0 && !m_isRestoreArmor) {
-		//	knockBackCorrection = 1.0f;
-		//}
-		//else {
-		//	knockBackCorrection = m_armorZeroWhenKnockBackMagnification;
-		//	m_isRestoreArmor = true;
-		//}
+
+		// 押されにくさ（重いほど押されにくい）
+		auto resistanceToPush = (m_weight - 1) * 0.1f;
+		// ノックバック倍率（最小で0.5f倍）
+		float knockBackCorrection = 1;
+		float inverseEnergyRate = (1 - GetEnergyRate());
+		knockBackCorrection += (inverseEnergyRate * 2) * (inverseEnergyRate * 2);
+		//	1.0f - resistanceToPush;
+		//knockBackCorrection *= 1 - Utility::Remap(GetEnergyRate(), 0, 1, 0, 0.5f);
+
 		// ダメージ判定
 		switch (data.Type) {
 		case KnockBackData::Category::Bullet:
-			DecrementEnergy(10);
-			break;
+		{
+			DecrementEnergy(data.Amount * 3);
+		}
+		break;
 		case KnockBackData::Category::Bomb:
+		{
 			DecrementEnergy(5);
-			break;
+		}
 		default:
 			break;
 		}
@@ -439,7 +442,7 @@ namespace basecross {
 		}
 	}
 
-	void PlayerBase::ItemEffect(modifiedClass::ItemType type) {
+	bool PlayerBase::ItemEffect(modifiedClass::ItemType type) {
 		switch (type)
 		{
 		case modifiedClass::ItemType::Bomb:
@@ -450,8 +453,9 @@ namespace basecross {
 					GetThis<PlayerBase>(),
 					0.5f, L"BombPlus", TransformData(Vec3(0, 25, 0), Vec3(0.1f))
 					);
+				return true;
 			}
-			break;
+			return false;
 		case modifiedClass::ItemType::Energy:
 			m_currentEnergy += m_defaultEnergy * 0.5f;
 			// デフォルトを超える場合はクランプ
@@ -462,7 +466,7 @@ namespace basecross {
 				GetThis<PlayerBase>(),
 				0.5f, L"EnergyPlus", TransformData(Vec3(0, 25, 0), Vec3(0.1f))
 				);
-			break;
+			return true;
 		default:
 			break;
 		}
@@ -515,22 +519,34 @@ namespace basecross {
 	}
 
 	void PlayerBase::OnCollisionEnter(shared_ptr<GameObject>& other) {
-		// 衝突したオブジェクトがプレイヤーの場合
+		// 衝突したオブジェクトがバンパーの場合
 		auto bumperPtr = dynamic_pointer_cast<Bumper>(other);
 		if (bumperPtr) {
 			auto gravity = GetComponent<Gravity>()->GetGravityVelocity();
 			auto totalVelocity = GetVelocity() + gravity;
-			//Debug::GetInstance()->Log(gravity);
+
+			// 自身の位置からバンパーの位置に向かうベクトルを作成
+
+			auto myPos = GetTransform()->GetPosition() + totalVelocity * 0.01f;
+			auto bumperPos = bumperPtr->GetTransform()->GetPosition();
+			auto dir = myPos - bumperPos;
+
+			// 動いていないときはバンパーから見たプレイヤーの方に飛ばす
+			auto impactDir =
+				totalVelocity == Vec3(0) ?
+				dir.normalize() : totalVelocity.reflect(dir).normalize();
 			// ノックバック
-			GetComponent<PhysicalBehavior>()->Impact(-totalVelocity * 4);
+			GetComponent<PhysicalBehavior>()->Impact(
+				impactDir, totalVelocity.length() + 25);
 		}
 
 		// アイテムの場合
 		auto itemPtr = dynamic_pointer_cast<modifiedClass::Item>(other);
 		if (itemPtr) {
-			// 効果音の再生
-			SoundManager::GetInstance()->Play(L"GetItemSE", 0, 0.3f);
-			ItemEffect(itemPtr->GetItemType());
+			if (ItemEffect(itemPtr->GetItemType())) {
+				// 効果音の再生
+				SoundManager::GetInstance()->Play(L"GetItemSE", 0, 0.3f);
+			}
 			GetStage()->RemoveGameObject<GameObject>(other);
 		}
 	}

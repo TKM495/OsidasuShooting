@@ -44,6 +44,8 @@ namespace basecross {
 			XMLLoad::GetInstance()->RegisterFile(L"PlayerStatus", DataDir + L"XML/" + L"PlayerStatus.xml");
 			CSVLoad::GetInstance()->RegisterFile(L"PlayerInfo", DataDir + L"CSV/" + L"PlayerInfo.csv");
 
+			PlayerStatus::GetInstance()->DataExtraction();
+
 			GameObjecttCSVBuilder builder;
 			builder.Register<Block>(L"Block");
 			builder.Register<Bumper>(L"Bumper");
@@ -58,6 +60,8 @@ namespace basecross {
 			builder.Build(GetThis<Stage>(), path + L"Stage1.csv");
 			AddGameObject<CurrentFirst>();
 			AddGameObject<SimpleSprite>(L"BackGround00")->SetDrawLayer(-1);
+
+			m_itemCreation = AddGameObject<modifiedClass::ItemCreation>();
 		}
 		catch (...) {
 			throw;
@@ -69,6 +73,13 @@ namespace basecross {
 		const auto& con = App::GetApp()->GetInputDevice().GetControlerVec()[0];
 		if (keyState.m_bPressedKeyTbl['R'] || con.wPressedButtons & XINPUT_GAMEPAD_Y)
 			PostEvent(0.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToWatanabeStage");
+		if (con.wPressedButtons & XINPUT_GAMEPAD_X) {
+			auto item = AddGameObject<modifiedClass::Item>(modifiedClass::ItemType::Bomb, false);
+			item->GetComponent<Transform>()->SetPosition(Vec3(0, 5, 0));
+		}
+		if (keyState.m_bPressedKeyTbl['W']) {
+			m_itemCreation->RandomlySpawn();
+		}
 	}
 
 	void WatanabeStage::OnDestroy() {

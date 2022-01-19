@@ -7,35 +7,39 @@ namespace basecross {
 	namespace modifiedClass {
 		void Item::OnCreate()
 		{
-			auto drawComp = AddComponent<PNTStaticDraw>();
-			drawComp->SetMeshResource(L"DEFAULT_CUBE");
+			auto drawComp = AddComponent<PNTStaticModelDraw>();
+			drawComp->SetOwnShadowActive(true);
+
+			auto shadowComp = AddComponent<Shadowmap>();
 
 			switch (spawnItem)
 			{
 			case ItemType::Bomb:
-				drawComp->SetTextureResource(L"BombItem");
+				drawComp->SetMeshResource(L"BombItemModel");
+				shadowComp->SetMeshResource(L"BombItemModel");
 				break;
 			case ItemType::Energy:
-				drawComp->SetTextureResource(L"EnergyItem");
+				drawComp->SetMeshResource(L"EnergyItemModel");
+				shadowComp->SetMeshResource(L"EnergyItemModel");
 				break;
 			case ItemType::totalItems:
 				break;
 			default:
 				break;
 			}
-			auto transform = GetComponent<Transform>();
+
+			auto collComp = AddComponent<CollisionObb>();
+			//collComp->SetDrawActive(true);
 
 			auto gravity = AddComponent<Gravity>();
-			auto collision = AddComponent<CollisionObb>();
-
-			auto shadowComp = AddComponent<Shadowmap>();
-			shadowComp->SetMeshResource(L"DEFAULT_CUBE");
 
 			AddComponent<PhysicalBehavior>();
 
 			auto stage = GetStage();
 			blinking = stage->AddGameObject<modifiedClass::Blinking>();
-			blinking->SetComponent(drawComp);
+			blinking->SetComponent(GetDynamicComponent<SmBaseDraw>());
+
+			GetComponent<Transform>()->SetScale(Vec3(2));
 		}
 
 		void Item::OnUpdate()
@@ -49,8 +53,6 @@ namespace basecross {
 				return;
 			}
 			//泊まるが時間が終わったら点滅が始まります
-
-			auto drawComp = GetComponent<PNTStaticDraw>();
 
 			//点滅の処理
 			if (blinkTimeChecker == blinkTime)

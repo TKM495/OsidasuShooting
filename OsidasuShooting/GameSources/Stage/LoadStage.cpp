@@ -77,10 +77,6 @@ namespace basecross {
 		app->RegisterTexture(L"Planet", path + L"Planet.png");
 		app->RegisterTexture(L"BackGround00", path + L"BackGround00.png");
 
-		app->RegisterTexture(L"BombItem", path + L"BombItem.png");
-		app->RegisterTexture(L"EnergyItem", path + L"EnergyItem.png");
-		app->RegisterTexture(L"RandomItem", path + L"RandomItem.png");
-
 		app->RegisterTexture(L"BombPlus", path + L"BombPlus.png");
 		app->RegisterTexture(L"EnergyPlus", path + L"EnergyPlus.png");
 
@@ -119,6 +115,13 @@ namespace basecross {
 		path = dir + L"Models/Bumper/";
 		auto modelMesh = MeshResource::CreateStaticModelMesh(path, L"Bumper.bmf");
 		app->RegisterResource(L"Bumper", modelMesh);
+
+		// ƒAƒCƒeƒ€
+		path = dir + L"Models/Item/";
+		modelMesh = MeshResource::CreateStaticModelMesh(path, L"Energy.bmf");
+		app->RegisterResource(L"EnergyItemModel", modelMesh);
+		modelMesh = MeshResource::CreateStaticModelMesh(path, L"Bomb.bmf");
+		app->RegisterResource(L"BombItemModel", modelMesh);
 
 		// Œø‰Ê‰¹
 		path = dir + L"Sound/SE/";

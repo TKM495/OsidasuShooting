@@ -224,7 +224,7 @@ namespace basecross {
 		// リスポーン時の初期化処理
 		void RespawnInit();
 		// アイテムの効果の処理
-		void ItemEffect(modifiedClass::ItemType type);
+		bool ItemEffect(modifiedClass::ItemType type);
 	protected:
 		// 移動速度（どちらかというとかける力）
 		float m_moveSpeed;
@@ -242,6 +242,8 @@ namespace basecross {
 		float m_bombAimMovingDistance;
 		// 補正する角度（弾の照準）
 		float m_correctAngle;
+		// シールドが使えるエネルギーの割合
+		float m_shieldRate;
 		// 入力データ
 		PlayerInputData m_inputData;
 		// 入力の更新
