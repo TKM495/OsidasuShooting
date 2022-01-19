@@ -56,8 +56,14 @@ namespace basecross {
 			stsUIPos.y -= 27.0f;
 			auto GaugeBack = AddGameObject<StatusGaugeBack>(stsUIPos);
 			auto GaugePos = GaugeBack->GetComponent<Transform>()->GetPosition();
-			GaugePos += Vec3(3.25f, -3.75f, 0.0f);
-			m_Gauge[i + (gamePadID * stutase)] = AddGameObject<StatusGauge>(GaugePos, gamePadID, i);
+			GaugePos += Vec3(3.25f, -2.5f, 0.0f);
+			auto gaugeNum = i + (gamePadID * stutase);
+			m_Gauge[gaugeNum] = AddGameObject<StatusGauge>(GaugePos, gamePadID, i);
+
+			// ƒJƒ‰[•ÏX
+			//auto color = statusUI->StetusColor();
+			//statusUI->GetComponent<PCTSpriteDraw>()->SetDiffuse(color);
+			//m_Gauge[gaugeNum]->GetComponent<PCTSpriteDraw>()->SetDiffuse(color);
 
 			gaugePos.y -= 25.0f;
 		}

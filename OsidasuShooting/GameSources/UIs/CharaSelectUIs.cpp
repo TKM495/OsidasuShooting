@@ -368,6 +368,29 @@ namespace basecross
 		BaseSprite::SettingPositionSenter(m_setPos);
 	}
 
+	Col4 StatusSpriteUI::StetusColor() {
+		auto color = Col4();
+		switch (m_spriteNumber)
+		{
+		case 0:
+			color = Col4(1.0f, 0.0f, 0.0f, 1.0f);
+			break;
+
+		case 1:
+			color = Col4(0.3f, 0.3f, 1.0f, 1.0f);
+			break;
+
+		case 2:
+			color = Col4(0.3f, 1.0f, 0.3f, 1.0f);
+			break;
+
+		default:
+			break;
+		}
+
+		return color;
+	}
+
 	//-----------------------------------------------------------------//
 
 	// ステータスを表示するための情報
@@ -394,7 +417,7 @@ namespace basecross
 		ptrTrans->SetPosition(m_setPos);
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
-		BaseSprite::SettingScale(Vec3(0.675f, 0.5f, 1.0f)* 0.75f);
+		BaseSprite::SettingScale(Vec3(0.675f, 0.55f, 1.0f)* 0.75f);
 
 		m_defaultGauge = ptrTrans->GetScale().x;
 		//BaseSprite::SettingPositionSenter(m_setPos);

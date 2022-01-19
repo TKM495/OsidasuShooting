@@ -259,7 +259,8 @@ namespace basecross
 			m_setPos(setPosition),
 			m_spriteNumber(spriteNumber)
 		{}
-		void OnCreate() override;
+		void OnCreate()  override;
+		Col4 StetusColor();
 	};
 
 	// ステータス項目のゲージ
