@@ -394,6 +394,11 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\PlayerCharaPicture.cpp">
       <Filter>UI\PlayerCharaPict</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Camera\GameCamera.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\CircleShadow.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Camera\TitleCamera.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Confetti.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\OneShotUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -668,6 +673,11 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\PlayerCharaPicture.h">
       <Filter>UI\PlayerCharaPict</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Camera\GameCamera.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\CircleShadow.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Camera\TitleCamera.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Confetti.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\OneShotUI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />

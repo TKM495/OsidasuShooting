@@ -53,7 +53,7 @@
 #include "UIs/BombReloadTimeGauge.h"
 #include "UIs/BombRemainingCount.h"
 #include "UIs/Canvas.h"
-#include "UIs/CharaSelectUILetter.h"
+#include "UIs/CharaSelectUIs.h"
 #include "UIs/CharaSelectUISprites.h"
 #include "UIs/CurrentFirst.h"
 #include "UIs/FreamSprite.h"

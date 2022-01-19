@@ -44,8 +44,10 @@ namespace basecross {
 		fream->SetDrawLayer(1);
 		//freamTrans->SetPosition(resultPos);
 
+		auto playerColor = PlayerStatus::GetInstance()->GetPlayerColor(playerNum);
 		auto playerNumPos = pos;
 		auto playerNumber = AddGameObject<BattlePlayersUIs>(L"BPsUIs", playerNum, Vec3(0));
+		playerNumber->GetComponent<PCTSpriteDraw>()->SetDiffuse(playerColor);
 		auto playUIsTrans = playerNumber->GetComponent<Transform>();
 		playerNumPos.x -= 160.0f;
 		playerNumPos.y += 90.0f;
