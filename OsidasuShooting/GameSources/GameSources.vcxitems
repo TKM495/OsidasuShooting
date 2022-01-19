@@ -16,8 +16,10 @@
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Camera\GameCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\CircleShadow.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Camera\TitleCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Blinking.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Blinking_.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Confetti.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BackPlanet.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\area.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Fencing.h" />
@@ -113,8 +115,10 @@
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Camera\GameCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\CircleShadow.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Camera\TitleCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Blinking.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Blinking_.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Confetti.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BackPlanet.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\area.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Fencing.cpp" />

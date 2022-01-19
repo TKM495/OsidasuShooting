@@ -409,6 +409,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\CircleShadow.cpp">
       <Filter>Component\CircleShadow</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Camera\TitleCamera.cpp">
+      <Filter>Camera\TitleCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Confetti.cpp">
+      <Filter>StageObject\Confetti</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -698,6 +704,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\CircleShadow.h">
       <Filter>Component\CircleShadow</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Camera\TitleCamera.h">
+      <Filter>Camera\TitleCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Confetti.h">
+      <Filter>StageObject\Confetti</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
@@ -986,6 +998,12 @@
     </Filter>
     <Filter Include="Component\CircleShadow">
       <UniqueIdentifier>{4bc56232-3ea8-42fd-9942-7040508e898b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Camera\TitleCamera">
+      <UniqueIdentifier>{64334581-2937-49a2-9fb7-5b19c3cb1524}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StageObject\Confetti">
+      <UniqueIdentifier>{ee740187-bfde-4202-89a3-2d84421d7bcf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

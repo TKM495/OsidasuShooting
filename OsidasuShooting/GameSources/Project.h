@@ -44,6 +44,7 @@
 #include "StageObject/Item_.h"
 #include "StageObject/ItemCreation_.h"
 #include "StageObject/Blinking_.h"
+#include "StageObject/Confetti.h"
 //UI
 #include "UIs/InfoGauge.h"
 #include "UIs/BackPlanet.h"
@@ -88,6 +89,7 @@
 
 // ÉJÉÅÉâ
 #include "Camera/GameCamera.h"
+#include "Camera/TitleCamera.h"
 
 //JonyMd Folder
 //Empty GameObject
