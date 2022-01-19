@@ -1,6 +1,6 @@
 /*!
 @file   Bullet.cpp
-@brief  å¼¾ã‚¯ãƒ©ã‚¹ã®å®Ÿä½“
+@brief  ’eƒNƒ‰ƒX‚ÌÀ‘Ì
 */
 
 #include "stdafx.h"
@@ -22,21 +22,21 @@ namespace basecross {
 
 	void Bullet::OnCreate()
 	{
-		// å½“ãŸã‚Šåˆ¤å®šã®è¿½åŠ 
+		// “–‚½‚è”»’è‚Ì’Ç‰Á
 		auto PtrColl = AddComponent<CollisionSphere>();
-		// è¡çªå¿œç­”ã‚’ç„¡è¦–
+		// Õ“Ë‰“š‚ğ–³‹
 		PtrColl->SetAfterCollision(AfterCollision::None);
-		// ã‚ªãƒ¼ãƒŠãƒ¼ã¨å¼¾ã¨ã®å½“ãŸã‚Šåˆ¤å®šã‚’ç„¡è¦–
+		// ƒI[ƒi[‚Æ’e‚Æ‚Ì“–‚½‚è”»’è‚ğ–³‹
 		PtrColl->AddExcludeCollisionTag(L"Bullet");
 
-		// ç™ºå°„æ–¹å‘ã«æ­£é¢ã‚’å‘ã‘ã‚‹
+		// ”­Ë•ûŒü‚É³–Ê‚ğŒü‚¯‚é
 		auto rad = atan2f(-m_direction.z, m_direction.x) + XM_PIDIV2;
 		m_transformData.Rotation.y = XMConvertToDegrees(rad);
 
-		// å¯¿å‘½ã®è¿½åŠ 
+		// õ–½‚Ì’Ç‰Á
 		AddComponent<LifeSpan>(m_lifeSpan);
 
-		// ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
+		// ƒGƒtƒFƒNƒg
 		auto effectTrans = m_transformData;
 		effectTrans.Position = Vec3(0.0f);
 		auto efkComp = AddComponent<EfkComponent>();
@@ -44,7 +44,7 @@ namespace basecross {
 		efkComp->SetEffectResource(L"Hit", effectTrans);
 		efkComp->Play(L"Bullet");
 
-		// å½±
+		// ‰e
 		auto shadow = AddComponent<Shadowmap>();
 		shadow->SetMeshResource(L"DEFAULT_SPHERE");
 
@@ -58,14 +58,14 @@ namespace basecross {
 
 		transPos += m_direction.normalize() * m_speed * deltaTime;
 		GetTransform()->SetPosition(transPos);
-		// ä½ç½®ã‚’åŒæœŸ
+		// ˆÊ’u‚ğ“¯Šú
 		GetComponent<EfkComponent>()->SyncPosition(L"Bullet");
 		m_timer.Count();
 	}
 
 	void Bullet::OnDestroy() {
-		// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆå‰Šé™¤æ™‚ã«å¼¾ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’åœæ­¢ã—ã€
-		// ãƒ’ãƒƒãƒˆæ™‚ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’å†ç”Ÿ
+		// ƒIƒuƒWƒFƒNƒgíœ‚É’e‚ÌƒGƒtƒFƒNƒg‚ğ’â~‚µA
+		// ƒqƒbƒg‚ÌƒGƒtƒFƒNƒg‚ğÄ¶
 		auto efkComp = GetComponent<EfkComponent>();
 		efkComp->Stop(L"Bullet");
 		efkComp->Play(L"Hit");
@@ -85,18 +85,18 @@ namespace basecross {
 
 		auto reverse = -1;
 
-		// å…¨æ–¹å‘åè»¢
+		// ‘S•ûŒü”½“]
 
 		auto brockSizeX = blockHalfSize * blockScl.x;
 		auto brockSizeZ = blockHalfSize * blockScl.z;
 
-		// æ¨ªæ–¹å‘åè»¢
+		// ‰¡•ûŒü”½“]
 		if (pos.x >= blockPos.x + brockSizeX ||
 			pos.x <= blockPos.x - brockSizeX) {
 			m_direction.x *= reverse;
 		}
 
-		// ç¸¦æ–¹å‘åè»¢
+		// c•ûŒü”½“]
 		if (pos.z >= blockPos.z + brockSizeZ ||
 			pos.z <= blockPos.z - brockSizeZ) {
 			m_direction.z *= reverse;
@@ -122,13 +122,13 @@ namespace basecross {
 			else {
 				auto ptr = dynamic_pointer_cast<PlayerBase>(other);
 				if (ptr) {
-					// ã‚«ã‚¦ãƒ³ãƒˆãŒçµ‚ã‚ã£ãŸå ´åˆ
+					// ƒJƒEƒ“ƒg‚ªI‚í‚Á‚½ê‡
 					if (m_timer.IsTimeUp() || m_owner.lock() != ptr) {
 						KnockBackData data(
 							KnockBackData::Category::Bullet,
 							m_direction, m_power, m_owner
 						);
-						// ãƒãƒƒã‚¯ãƒãƒƒã‚¯
+						// ƒmƒbƒNƒoƒbƒN
 						ptr->KnockBack(data);
 					}
 					else {
@@ -136,7 +136,7 @@ namespace basecross {
 					}
 				}
 			}
-			// è‡ªèº«ã‚’å‰Šé™¤
+			// ©g‚ğíœ
 			Destroy<Bullet>();
 		}
 	}

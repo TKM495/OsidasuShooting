@@ -2,9 +2,7 @@
 #include "Project.h"
 
 namespace basecross {
-
 	void CountDown::OnCreate() {
-
 		redColor = Col4(1.0f, 0.0f, 0.0f, 0.0f);
 		m_warningTime = 10.0f;
 
@@ -12,10 +10,6 @@ namespace basecross {
 		auto blinking = stage->AddGameObject<Blinking>();
 		stage->SetSharedGameObject(L"BlinkForCountDown", blinking);
 		blinking->SetOriginalColor(redColor);
-
-
-		initialTime = 13;
-
 
 		currentTime = initialTime;
 
@@ -161,10 +155,9 @@ namespace basecross {
 				colon->SetColor(redColor);
 			}
 
-
 			float alpha = blinking->GetAdjustedAlpha();
 
-			if (m_timerNumbers<=0)
+			if (m_timerNumbers <= 0)
 			{
 				//color = redColor;
 				alpha = 1;

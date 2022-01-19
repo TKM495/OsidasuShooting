@@ -41,7 +41,7 @@ namespace basecross {
 			auto dir = App::GetApp()->GetDataDirWString();
 			auto path = dir + L"Csv/Stage/";
 			builder.Build(GetThis<Stage>(), path + L"StageBase.csv");
-			builder.Build(GetThis<Stage>(), path + L"Stage4.csv");
+			builder.Build(GetThis<Stage>(), path + L"Stage1.csv");
 
 			AddGameObject<CurrentFirst>();
 			AddGameObject<modifiedClass::Area>(TransformData(Vec3(0, 0, -6), Vec3(27, 1, 21)));
@@ -77,7 +77,6 @@ namespace basecross {
 			break;
 		case GameState::STAY:
 			if (m_startCountDown->GetTimer().IsTimeUp()) {
-				
 				m_countDown->Start();
 				Debug::GetInstance()->Log(L"GameStart！！！！！");
 				ChangeGameState(GameState::PLAYING);
