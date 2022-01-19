@@ -273,8 +273,32 @@ namespace basecross {
 	void PlayerBase::BombAim() {
 		auto delta = App::GetApp()->GetElapsedTime();
 		m_bombPoint += m_inputData.BombAim * delta * m_bombAimMovingDistance;
+		m_bombPoint = RayHitPosition(m_bombPoint);
+		Debug::GetInstance()->Log(m_bombPoint);
 		m_predictionLine.Update(GetTransform()->GetPosition(), m_bombPoint, PredictionLine::Type::Bomb);
 		TurnFrontToDirection(m_bombPoint - GetTransform()->GetPosition());
+	}
+
+	Vec3 PlayerBase::RayHitPosition(const Vec3& pos) {
+		// ステージ上のすべてのゲームオブジェクトを取得
+		auto objs = App::GetApp()->GetScene<Scene>()->GetActiveStage()->GetGameObjectVec();
+		for (auto obj : objs) {
+			// CollisionObbコンポーネントがある場合
+			auto ColObb = obj->GetComponent<CollisionObb>(false);
+			if (ColObb) {
+				auto Obb = ColObb->GetObb();
+				// OBBと線分の衝突判定
+				if (HitTest::SEGMENT_OBB(pos - Vec3(0, 10, 0), pos + Vec3(0, 10, 0), Obb))
+				{
+					auto half = Obb.m_Size.y;
+					auto _pos = pos;
+					_pos.y = Obb.m_Center.y + half;
+					_pos.y += 0.01f;
+					return _pos;
+				}
+			}
+		}
+		return pos;
 	}
 
 	void PlayerBase::BombLaunch() {
