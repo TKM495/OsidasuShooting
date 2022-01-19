@@ -61,9 +61,9 @@ namespace basecross {
 			m_Gauge[gaugeNum] = AddGameObject<StatusGauge>(GaugePos, gamePadID, i);
 
 			// カラー変更
-			//auto color = statusUI->StetusColor();
-			//statusUI->GetComponent<PCTSpriteDraw>()->SetDiffuse(color);
-			//m_Gauge[gaugeNum]->GetComponent<PCTSpriteDraw>()->SetDiffuse(color);
+			auto color = statusUI->StetusColor();
+			statusUI->GetComponent<PCTSpriteDraw>()->SetDiffuse(color);
+			m_Gauge[gaugeNum]->GetComponent<PCTSpriteDraw>()->SetDiffuse(color);
 
 			gaugePos.y -= 25.0f;
 		}
@@ -106,7 +106,7 @@ namespace basecross {
 
 	// UIの設置、OnCreateで使用する関数
 	void CharacterSelectStage::UIsSet() {
-		AddGameObject<CharacterStringUI>(Vec3(0, 320, 0));
+		AddGameObject<CharacterStringUI>(Vec3(-380, 320, 0));
 		AddGameObject<DecisionSpriteUI>(Vec3(260, -320, 0));
 		AddGameObject<CancelSpriteUI>(Vec3(-340, -320, 0));
 		AddGameObject<AButtonSpriteUI>(Vec3(410, -320, 0));

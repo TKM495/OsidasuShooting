@@ -373,15 +373,15 @@ namespace basecross
 		switch (m_spriteNumber)
 		{
 		case 0:
-			color = Col4(1.0f, 0.0f, 0.0f, 1.0f);
+			color = Col4(1.0f, 0.5f, 0.5f, 1.0f);
 			break;
 
 		case 1:
-			color = Col4(0.3f, 0.3f, 1.0f, 1.0f);
+			color = Col4(0.5f, 1.0f, 1.0f, 1.0f);
 			break;
 
 		case 2:
-			color = Col4(0.3f, 1.0f, 0.3f, 1.0f);
+			color = Col4(1.0f, 1.0f, 0.5f, 1.0f);
 			break;
 
 		default:
@@ -396,22 +396,21 @@ namespace basecross
 	// ステータスを表示するための情報
 	void StatusGauge::OnCreate() {
 		auto texture = L"Gauge";
-		auto color = Col4{};	
-		switch (m_spriteNumber)
-		{
-		case 0:
-			break;
+		//auto color = Col4{};	
+		//switch (m_spriteNumber)
+		//{
+		//case 0:
+		//	break;
 
-		case 1:
-			break;
+		//case 1:
+		//	break;
 
-		case 2:
-			break;
+		//case 2:
+		//	break;
 
-		default:
-			break;
-		}
-
+		//default:
+		//	break;
+		//}
 		auto ptrTrans = GetComponent<Transform>();
 		auto pos = ptrTrans->GetPosition();
 		ptrTrans->SetPosition(m_setPos);
