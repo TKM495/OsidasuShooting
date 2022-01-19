@@ -8,6 +8,23 @@
 #include "LinePoint.h"
 
 namespace basecross {
+	PredictionLine::PredictionLine(
+		const shared_ptr<Stage>& stage,
+		int pointCount,
+		float flightTime,
+		float gravity)
+		:stages(stage), m_pointCount(pointCount),
+		m_flightTime(flightTime), m_gravity(gravity),
+		m_type(Type::Bullet)
+	{
+		for (int i = 0; i < m_pointCount + 1; i++)
+			CreateLinePoint();
+		m_impactPoint =
+			stage->AddGameObject<BoardPoly>(
+				L"ImpactPoint",
+				TransformData(Vec3(0), Vec3(2.0f), Vec3(XMConvertToRadians(90), 0, 0)));
+	}
+
 	vector<Vec3> PredictionLine::BulletCalculate(const Vec3& startPoint, const Vec3& endPoint) {
 		vector<Vec3> points;
 		// 方向を計算
@@ -33,6 +50,7 @@ namespace basecross {
 		}
 		// 終点座標へ補正
 		points.push_back(endPoint);
+		m_impactPoint->GetTransform()->SetPosition(endPoint);
 		return points;
 	}
 
@@ -60,11 +78,13 @@ namespace basecross {
 		{
 		case Type::Bullet:
 			points = BulletCalculate(startPoint, endPoint);
+
 			break;
 		case Type::Bomb:
 			points = BombCalculate(startPoint, endPoint);
 			break;
 		}
+		m_impactPoint->SetDrawActive(type == Type::Bomb);
 
 		auto direction = endPoint - startPoint;
 		for (int i = 0; i < points.size(); i++) {
