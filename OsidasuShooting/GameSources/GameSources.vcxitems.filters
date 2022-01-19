@@ -391,6 +391,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Blinking.cpp">
       <Filter>StageObject\JonyMd</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Blinking_.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\PlayerStatus.cpp">
       <Filter>Utility\PlayerStatus</Filter>
     </ClCompile>
@@ -674,6 +675,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Blinking.h">
       <Filter>StageObject\JonyMd</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Blinking_.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\PlayerStatus.h">
       <Filter>Utility\PlayerStatus</Filter>
     </ClInclude>
