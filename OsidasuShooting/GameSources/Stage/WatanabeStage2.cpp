@@ -56,7 +56,7 @@ namespace basecross {
 
 			GetView()->GetTargetCamera()->SetCameraObject(AddGameObject<TitleCamera>());
 			GetView()->GetTargetCamera()->SetUp(Vec3(0.2f, 0.9f, 0).normalize());
-			//AddGameObject<Confetti>(TransformData(Vec3(0, 10, 0)));
+			m_confetti = AddGameObject<Confetti>(TransformData(Vec3(0, 5, 0)));
 		}
 		catch (...) {
 			throw;
@@ -68,5 +68,8 @@ namespace basecross {
 		const auto& cont = App::GetApp()->GetInputDevice().GetControlerVec()[0];
 		if (cont.wPressedButtons & XINPUT_GAMEPAD_Y || keyState.m_bPressedKeyTbl['R'])
 			PostEvent(0.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToWatanabeStage2");
+		if (keyState.m_bPressedKeyTbl['W']) {
+			m_confetti->GetComponent<EfkComponent>()->Play(L"Hit");
+		}
 	}
 }

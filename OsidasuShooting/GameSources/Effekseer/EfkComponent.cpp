@@ -18,10 +18,21 @@ namespace basecross {
 		m_manager = EfkInterface::GetInstance()->GetManager();
 	}
 
+	void EfkComponent::OnUpdate() {
+		for (auto map : m_effectDataMap) {
+			auto key = map.first;
+			auto data = map.second;
+			if (data.IsSync) {
+				auto parentPosition = GetGameObjectPosition() + data.Offset.Position;
+				SetPosition(key, parentPosition);
+			}
+		}
+	}
+
 	void EfkComponent::SetEffectResource(const wstring& key, const TransformData& offset, bool noStopLastEffect) {
 		auto effectRes = App::GetApp()->GetResource<EfkEffectResource>(key + EfkKey);
 		auto data = effectRes->GetEffectData();
-		m_effectDataMap[key] = EfkData(data, offset, noStopLastEffect);
+		m_effectDataMap[key] = EfkData(data, offset, noStopLastEffect, false);
 	}
 
 	void EfkComponent::SetEffectResource(const wstring& key, const TransformData& offset) {
@@ -81,7 +92,7 @@ namespace basecross {
 	//	m_playSpeed = speed;
 	//}
 
-	void EfkComponent::SetRotation(const wstring& key,const Vec3& rotation) {
+	void EfkComponent::SetRotation(const wstring& key, const Vec3& rotation) {
 		auto data = m_effectDataMap[key];
 		m_manager->SetRotation(data.Handle, rotation.x, rotation.y, rotation.z);
 	}
@@ -111,10 +122,8 @@ namespace basecross {
 		return false;
 	}
 
-	void EfkComponent::SyncPosition(const wstring& key) {
-		auto data = m_effectDataMap[key];
-		auto parentPosition = GetGameObjectPosition() + data.Offset.Position;
-		SetPosition(key, parentPosition);
+	void EfkComponent::IsSyncPosition(const wstring& key, bool flg) {
+		m_effectDataMap[key].IsSync = flg;
 	}
 
 	Vec3 EfkComponent::GetGameObjectPosition() {

@@ -41,12 +41,12 @@ namespace basecross {
 		effectTrans.Position = Vec3(0.0f);
 		auto efkComp = AddComponent<EfkComponent>();
 		efkComp->SetEffectResource(L"Bullet", effectTrans);
+		efkComp->IsSyncPosition(L"Bullet", true);
 		efkComp->SetEffectResource(L"Hit", effectTrans);
 		efkComp->Play(L"Bullet");
 
 		// ‰e
-		auto shadow = AddComponent<Shadowmap>();
-		shadow->SetMeshResource(L"DEFAULT_SPHERE");
+		AddComponent<CircleShadow>();
 
 		AddTag(L"Bullet");
 	}
@@ -58,8 +58,6 @@ namespace basecross {
 
 		transPos += m_direction.normalize() * m_speed * deltaTime;
 		GetTransform()->SetPosition(transPos);
-		// ˆÊ’u‚ð“¯Šú
-		GetComponent<EfkComponent>()->SyncPosition(L"Bullet");
 		m_timer.Count();
 	}
 
