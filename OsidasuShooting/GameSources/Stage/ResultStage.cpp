@@ -53,8 +53,8 @@ namespace basecross {
 		auto playerNumber = AddGameObject<BattlePlayersUIs>(L"BPsUIs", playerNum, Vec3(0));
 		playerNumber->GetComponent<PCTSpriteDraw>()->SetDiffuse(playerColor);
 		auto playUIsTrans = playerNumber->GetComponent<Transform>();
-		playerNumPos.x -= 160.0f;
-		playerNumPos.y += 90.0f;
+		playerNumPos.x -= 200.0f;
+		playerNumPos.y += 130.0f;
 		playUIsTrans->SetPosition(playerNumPos);
 		playUIsTrans->SetScale(Vec3(0.4f));
 		playerNumber->SetDrawLayer(2);
@@ -185,7 +185,7 @@ namespace basecross {
 
 			auto resultPosX = resultDrawPlayer;
 			auto setPosX = 0.75f;
-			auto setPosZ = resultDrawPlayer;
+			auto setPosZ = (float)resultDrawPlayer;
 			auto setScale = Vec3(0.75f) * (1 - 0.1f * (resultDrawPlayer * 1.25f)); 
 
 			auto topPlayer = AddGameObject<ResultPlayer>(
