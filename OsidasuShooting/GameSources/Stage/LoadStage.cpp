@@ -204,6 +204,7 @@ namespace basecross {
 		EfkEffectResource::RegisterEffectResource(L"Explosion", path + L"Explosion.efk");
 		EfkEffectResource::RegisterEffectResource(L"Death", path + L"fire.efk");
 		EfkEffectResource::RegisterEffectResource(L"Hit", path + L"Hit.efk");
+		EfkEffectResource::RegisterEffectResource(L"HeavyHit", path + L"HeavyHit.efk");
 		EfkEffectResource::RegisterEffectResource(L"Jump", path + L"Jump.efk");
 		EfkEffectResource::RegisterEffectResource(L"Hover", path + L"Hover.efk");
 		EfkEffectResource::RegisterEffectResource(L"Bomb", path + L"Bomb.efk");
@@ -212,6 +213,7 @@ namespace basecross {
 		EfkEffectResource::RegisterEffectResource(L"Respawn", path + L"Respawn.efk");
 		EfkEffectResource::RegisterEffectResource(L"BreakBlock", path + L"BreakBlock.efk");
 		EfkEffectResource::RegisterEffectResource(L"Confetti", path + L"Confetti.efk");
+		EfkEffectResource::RegisterEffectResource(L"Shield", path + L"Shield.efk");
 
 		//他のリソースを読み込むスレッドのスタート
 		thread LoadThread(LoadResourceFunc);

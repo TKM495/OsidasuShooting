@@ -6,6 +6,9 @@ namespace basecross {
 		float scale)
 		:Component(gameObjectPtr), m_scale(scale)
 	{}
+	CircleShadow::CircleShadow(const shared_ptr<GameObject>& gameObjectPtr)
+		: CircleShadow(gameObjectPtr, 1.0f)
+	{}
 
 	void CircleShadow::OnCreate() {
 		m_shadow = ObjectFactory::Create<BoardPoly>(

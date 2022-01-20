@@ -35,6 +35,7 @@ namespace basecross {
 			EfkEffectResource::RegisterEffectResource(L"Laser", TestEffectStr + L"Laser.efk");
 			EfkEffectResource::RegisterEffectResource(L"Respawn", TestEffectStr + L"Respawn.efk");
 			EfkEffectResource::RegisterEffectResource(L"BreakBlock", TestEffectStr + L"BreakBlock.efk");			//ビューとライトの作成
+			EfkEffectResource::RegisterEffectResource(L"Shield", TestEffectStr + L"Shield.efk");
 
 			CreateViewLight();
 			AddGameObject<Debug>();

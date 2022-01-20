@@ -264,7 +264,7 @@ namespace basecross {
 		void OnCollisionEnter(shared_ptr<GameObject>& other) override;
 
 		// ノックバック
-		void KnockBack(const KnockBackData& data);
+		float KnockBack(const KnockBackData& data);
 		// 死亡
 		void Died();
 
