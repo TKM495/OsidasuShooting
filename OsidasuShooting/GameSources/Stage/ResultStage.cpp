@@ -144,51 +144,65 @@ namespace basecross {
 			}
 			else if (drawDead) {
 				m_playerDraw[drawPlayer] = m_playersNumber;
-				m_isPlayerDraw[loopCount] = true;
+				m_isPlayerDraw[drawPlayer] = true;
 				m_isTopOnly = false;
 				drawPlayer++;
 			}
 			loopCount++;
 		}
+
 		// トップのプレイヤー
-		m_playerTop = allPlayer[0]->GetPlayerNumber();
+		//m_playerTop = allPlayer[0]->GetPlayerNumber();
 	}
 
 	void ResultStage::WinnerPlayer() {
 		PlayersResult();
-		auto player = PlayerNumber::P1;
-		if ((int)m_playerTop == 2) {
-			player = PlayerNumber::P2;
-		}
-		else if ((int)m_playerTop == 3) {
-			player = PlayerNumber::P3;
-		}
-		else if ((int)m_playerTop == 4) {
-			player = PlayerNumber::P4;
-		}
+		//auto player = PlayerNumber::P1;
+		//if ((int)m_playerTop == 2) {
+		//	player = PlayerNumber::P2;
+		//}
+		//else if ((int)m_playerTop == 3) {
+		//	player = PlayerNumber::P3;
+		//}
+		//else if ((int)m_playerTop == 4) {
+		//	player = PlayerNumber::P4;
+		//}
 
 		if (m_isTopOnly) {
 			auto topPlayer = AddGameObject<ResultPlayer>(
 				TransformData(Vec3(0.0f, 1.0f, 0.0f), Vec3(0.75f), Vec3(0, XMConvertToRadians(180.0f), 0)),
 				m_playerTop, StageManager::GetInstance()->GetPlayerType(m_playerTop));
-			//auto PlayerPos = topPlayer->GetComponent<Transform>()->GetPosition();
 		}
 		else {
-			auto topPlayer = AddGameObject<ResultPlayer>(
-				TransformData(Vec3(0.0f, 1.0f, 0.0f), Vec3(0.75f), Vec3(0, XMConvertToRadians(180.0f), 0)),
-				m_playerTop, StageManager::GetInstance()->GetPlayerType(m_playerTop));
-			auto PlayerPos = topPlayer->GetComponent<Transform>()->GetPosition();
-
 			auto maxDrawPlayer = 3;
+			auto resultDrawPlayer = 0;
+			auto posX = 0.5f;
 			for (int i = 0; i < maxDrawPlayer; i++) {
 				if (m_isPlayerDraw[i] == true) {
-					auto drawPlayer = AddGameObject<ResultPlayer>(
-						TransformData(Vec3(0.0f, 1.0f, 0.0f), Vec3(0.75f), Vec3(0, XMConvertToRadians(180.0f), 0)),
-						m_playerTop, StageManager::GetInstance()->GetPlayerType(m_playerTop));
-					auto PlayerPos = topPlayer->GetComponent<Transform>()->GetPosition();
-
+					resultDrawPlayer++;
 				}
 			}
+
+			auto resultPosX = resultDrawPlayer;
+			auto setPosX = 0.75f;
+			auto setPosZ = resultDrawPlayer;
+			auto setScale = Vec3(0.75f) * (1 - 0.1f * (resultDrawPlayer * 1.25f)); 
+
+			auto topPlayer = AddGameObject<ResultPlayer>(
+				TransformData(Vec3(resultPosX * setPosX, 1.0f, setPosZ), setScale, Vec3(0, XMConvertToRadians(180.0f), 0)),
+				m_playerTop, StageManager::GetInstance()->GetPlayerType(m_playerTop));
+
+			for (int i = 0; i < maxDrawPlayer; i++) {
+				if (m_isPlayerDraw[i] == true) {
+					resultPosX -= 2;
+					auto drawPlayer = AddGameObject<ResultPlayer>(
+						TransformData(Vec3(resultPosX * setPosX, 1.0f, setPosZ), setScale, Vec3(0, XMConvertToRadians(180.0f), 0)),
+						m_playerDraw[i], StageManager::GetInstance()->GetPlayerType(m_playerDraw[i]));
+					posX += 1.0f;
+					resultDrawPlayer++;
+				}
+			}
+
 		}
 		AddGameObject<Block>(TransformData(Vec3(0, -1, 0), Vec3(100, 1, 100)));
 	}
@@ -212,7 +226,7 @@ namespace basecross {
 
 			AddGameObject<SimpleSprite>(L"BackGround00")->SetDrawLayer(-1);
 
-			PlayersResult();
+			//PlayersResult();
 			WinnerPlayer();
 
 			PlayerManager::DeleteInstance();
