@@ -3,7 +3,6 @@
 #include "UIs/NumberSprite.h"
 
 namespace basecross {
-
 	class CountDown : public GameObject
 	{
 	private:

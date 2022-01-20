@@ -1,11 +1,6 @@
-/*!
-@file Project.h
-@brief ã‚³ãƒ³ãƒEƒ³ãƒE”¨ã®ãƒ˜ãƒƒãƒ€ã‚’ã¾ã¨ã‚ã‚‹
-*/
-
 #pragma once
 
-// åŸºæœ¬
+// ã‚¹ãƒ†ãƒ¼ã‚¸
 #include "Scene.h"
 #include "Stage/DebugStage.h"
 #include "Stage/GameStage.h"
@@ -17,7 +12,7 @@
 #include "Stage/LoadStage.h"
 #include "Stage/WatanabeStage.h"
 #include "Stage/WatanabeStage2.h"
-// ‚»‚Ì‘¼
+// ãã®ä»–
 #include "DebugClass/Debug.h"
 #include "Effekseer/EfkEffect.h"
 #include "Utility/BaseSingleton.h"
@@ -31,7 +26,7 @@
 #include "Utility/DataExtracter.h"
 #include "Utility/GameController.h"
 #include "Utility/PlayerStatus.h"
-// ƒXƒe[ƒWƒIƒuƒWƒFƒNƒg
+// ã‚¹ãƒ†ãƒ¼ã‚¸ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 #include "SpecialCamera/SpCamera.h"
 #include "StageObject/AdvancedGameObject.h"
 #include "StageObject/Block.h"
@@ -49,6 +44,7 @@
 #include "StageObject/Item_.h"
 #include "StageObject/ItemCreation_.h"
 #include "StageObject/Blinking_.h"
+#include "StageObject/Confetti.h"
 //UI
 #include "UIs/InfoGauge.h"
 #include "UIs/BackPlanet.h"
@@ -57,13 +53,14 @@
 #include "UIs/BombReloadTimeGauge.h"
 #include "UIs/BombRemainingCount.h"
 #include "UIs/Canvas.h"
-#include "UIs/CharaSelectUILetter.h"
+#include "UIs/CharaSelectUIs.h"
 #include "UIs/CharaSelectUISprites.h"
 #include "UIs/CurrentFirst.h"
 #include "UIs/FreamSprite.h"
 #include "UIs/NumberSprite.h"
 #include "UIs/PlayerFollowUI.h"
 #include "UIs/PlayerInfo.h"
+#include "UIs/PlayerCharaPicture.h"
 #include "UIs/ResultScore.h"
 #include "UIs/ResultSprite.h"
 #include "UIs/SimpleSprite.h"
@@ -74,20 +71,26 @@
 #include "UIs/TransitionSprite.h"
 #include "UIs/GameStartAndFinish.h"
 //#include "UIs/CountDown_.h"
-// ƒRƒ“ƒ|[ƒlƒ“ƒg
+#include "UIs/OneShotUI.h"
+// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
 #include "Component/FadeComponent.h"
 #include "Component/LifeSpan.h"
 #include "Component/MySpriteBaseDraw.h"
 #include "Component/PCTGaugeSprite.h"
 #include "Component/PhysicalBehavior.h"
-// ƒƒjƒ…[
+#include "Component/CircleShadow.h"
+// ãƒ¡ãƒ‹ãƒ¥ãƒ¼
 #include "UIs/Menu/BaseMenu.h"
-// ƒ}ƒl[ƒWƒƒ[
+// ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼
 #include "Manager/PlayerManager.h"
 #include "Manager/SoundManager.h"
 #include "Manager/StageManager.h"
 #include "Manager/PlayerBuilder.h"
 #include "Manager/SpecialSkillManager.h"
+
+// ã‚«ãƒ¡ãƒ©
+#include "Camera/GameCamera.h"
+#include "Camera/TitleCamera.h"
 
 //JonyMd Folder
 //Empty GameObject

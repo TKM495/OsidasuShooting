@@ -38,14 +38,17 @@ namespace basecross {
 			TransformData Offset;
 			// 前回のエフェクトを停止せずに再生を開始するか
 			bool NoStopLastEffect;
+			// 位置を同期するか
+			bool IsSync;
 			EfkData()
-				:EfkData(nullptr, TransformData(), false)
+				:EfkData(nullptr, TransformData(), false, false)
 			{}
-			EfkData(const Effekseer::EffectRef& data, const TransformData& offset, bool flg) {
+			EfkData(const Effekseer::EffectRef& data, const TransformData& offset, bool flg, bool syncFlg) {
 				this->EffectData = data;
 				this->Handle = -1;
 				this->Offset = offset;
 				this->NoStopLastEffect = flg;
+				this->IsSync = syncFlg;
 			}
 		};
 		// キー,エフェクトデータのマップ
@@ -70,7 +73,7 @@ namespace basecross {
 		~EfkComponent() {}
 
 		void OnCreate() override {}
-		void OnUpdate() override {}
+		void OnUpdate() override;
 		void OnDraw()override {}
 
 		/**
@@ -120,13 +123,12 @@ namespace basecross {
 
 		void SetRotation(const wstring& key, const Vec3& rotation);
 
-
 		/**
-		 * @brief 位置の同期
+		 * @brief 位置を同期するか
 		 *
 		 * @param key エフェクトのキー
 		 */
-		void SyncPosition(const wstring& key);
+		void IsSyncPosition(const wstring& key, bool flg);
 
 		void SetPosition(const wstring& key, const Vec3& position);
 

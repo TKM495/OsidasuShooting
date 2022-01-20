@@ -6,7 +6,7 @@ namespace basecross {
 		class Blinking : public GameObject
 		{
 			//list of private variables
-			shared_ptr<PNTStaticDraw> component;
+			shared_ptr<SmBaseDraw> component;
 
 			float blinkingTime;
 			float timeChecker;
@@ -50,10 +50,10 @@ namespace basecross {
 			void OnUpdate() override;
 
 			//list of normal functions
-			void SetComponent(shared_ptr<PNTStaticDraw>& componentValue);
+			void SetComponent(shared_ptr<SmBaseDraw>& componentValue);
 			void SetShowHideTime(float showTime, float hideTime, float blinkTime);
 			void SetFadeInOutTime(float fadeInTime, float fadeOutTime, float blinkTime);
-			shared_ptr<PNTStaticDraw> GetLoanedComponent()
+			shared_ptr<SmBaseDraw> GetLoanedComponent()
 			{
 				return component;
 			}

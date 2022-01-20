@@ -2,12 +2,11 @@
 #include "Project.h"
 
 namespace basecross {
-
 	void CountDown::OnCreate() {
 
 		redColor = Col4(1.0f, 0.0f, 0.0f, 1.0f);
 		m_warningTime = 110.0f;
-		expansionMaxRate = 10;//—áA6%
+		expansionMaxRate = 10;//ä¾‹ã€6%
 		initialTime = 111;//temporary
 
 		auto stage = GetStage();
@@ -21,22 +20,22 @@ namespace basecross {
 
 		CountDownSpriteCreate();
 
-		//“_–Å—p
+		//ç‚¹æ»…ç”¨
 		m_blinkTime = 0.0f;
 		m_blinkTimeChecker = m_blinkTime;
 		m_fadeInTime = 0.5f;
 		m_fadeOutTime = 0.5f;
-		//“_–Å—p..I—¹
+		//ç‚¹æ»…ç”¨..çµ‚äº†
 	}
 
-	// ƒ^ƒCƒ}[‚Ì”Žš‚ðˆê•¶Žš‚¸‚Âì¬
+	// ã‚¿ã‚¤ãƒžãƒ¼ã®æ•°å­—ã‚’ä¸€æ–‡å­—ãšã¤ä½œæˆ
 	void CountDown::CountDownSpriteCreate() {
-		m_numbersOffset = 0;			// •ª‚©•b‚©”»•Ê—p
-		m_isMinutes = false;			// •ª‚©•b‚©
-		m_setOffset = Vec3(-102.5f, 360, 0);	// ˆê•¶Žš–Ú‚ÌƒIƒuƒWƒFƒNƒg
-		m_addOffset = Vec3(45.0f, 0, 0);	// ˆê•¶Žš‚Ì‘å‚«‚³
-		m_spaceOffset = Vec3(20.0f, 0, 0);	// •ª‚Æ•b‚Å•ª‚¯‚é‚Æ‚«‚ÌƒXƒy[ƒX
-		m_posOffset = m_setOffset;		// ƒIƒbƒtƒZƒbƒg
+		m_numbersOffset = 0;			// åˆ†ã‹ç§’ã‹åˆ¤åˆ¥ç”¨
+		m_isMinutes = false;			// åˆ†ã‹ç§’ã‹
+		m_setOffset = Vec3(-102.5f, 360, 0);	// ä¸€æ–‡å­—ç›®ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+		m_addOffset = Vec3(45.0f, 0, 0);	// ä¸€æ–‡å­—ã®å¤§ãã•
+		m_spaceOffset = Vec3(20.0f, 0, 0);	// åˆ†ã¨ç§’ã§åˆ†ã‘ã‚‹ã¨ãã®ã‚¹ãƒšãƒ¼ã‚¹
+		m_posOffset = m_setOffset;		// ã‚ªãƒƒãƒ•ã‚»ãƒƒãƒˆ
 
 		m_scaleValue = 0.7f; 
 		m_cur_scaleValue = m_scaleValue;
@@ -44,7 +43,7 @@ namespace basecross {
 
 		m_scaleOffset = Vec3(m_scaleValue, m_scaleValue, m_scaleValue);
 
-		m_numbers.resize(4);			// •ª‚Æ•b‚Å4•¶Žš‚¸‚Â
+		m_numbers.resize(4);			// åˆ†ã¨ç§’ã§4æ–‡å­—ãšã¤
 		for (auto& number : m_numbers) {
 			++m_numbersOffset;
 
@@ -107,21 +106,21 @@ namespace basecross {
 			currentTime -= deltaTime;
 		}
 
-		// •bA•ªAŽžŠÔ‚Ì”’l‚ð‹‚ß‚é
+		// ç§’ã€åˆ†ã€æ™‚é–“ã®æ•°å€¤ã‚’æ±‚ã‚ã‚‹
 		minutes = (int)(currentTime / 60);
 		
 		hour = (int)(minutes / 60);
 		minutes -= hour * 60;
 		seconds = (int)currentTime - (hour * 60 + minutes) * 60;
 
-		// ˆê‚Â‚É‚Ü‚Æ‚ß‚é
+		// ä¸€ã¤ã«ã¾ã¨ã‚ã‚‹
 		m_timerNumbers = minutes * 100 + seconds;
 		/*
-		—áA
-		current time is = 10•b ... ‚Â‚Ü‚è@‚O•ª10•b
+		ä¾‹ã€
+		current time is = 10ç§’ ... ã¤ã¾ã‚Šã€€ï¼åˆ†10ç§’
 		m_timerNumbers = 0010
 
-		current time is = 110•b ... ‚Â‚Ü‚è@1•ª50•b
+		current time is = 110ç§’ ... ã¤ã¾ã‚Šã€€1åˆ†50ç§’
 		m_timerNumbers = 0150
 		*/
 
@@ -146,7 +145,6 @@ namespace basecross {
 				colon->SetColor(redColor);
 			}
 
-
 			float alpha = blinking->GetAdjustedAlpha();
 			Col4 color = blinking->GetAdjustedColor();
 			Vec3 scale = blinking->GetAdjustedScale();
@@ -156,7 +154,7 @@ namespace basecross {
 				alpha = 0.1;
 			}
 
-			if (m_timerNumbers<=0)
+			if (m_timerNumbers <= 0)
 			{
 				alpha = 1;
 				blinking->StopBlinking();
@@ -178,7 +176,7 @@ namespace basecross {
 				transform->SetPosition(position);
 			}
 
-			//colon—p
+			//colonç”¨
 			colon->SetAlpha(alpha);
 			colon->SetColor(color);
 			auto transform = colon->GetComponent<Transform>();
@@ -189,7 +187,7 @@ namespace basecross {
 
 			transform->SetScale(scale);
 			transform->SetPosition(position);
-			//colon—p
+			//colonç”¨
 		}
 	}
 

@@ -10,18 +10,18 @@ namespace basecross {
 	class FreamSprite : public GameObject {
 		wstring m_textureKey;
 		Vec3 m_setPosition;
-		float m_varScale;
+		Vec3 m_setScale;
 	public:
 		FreamSprite(
 			const shared_ptr<Stage>& stage,
 			const wstring& TextureKey,
 			Vec3 setPosition,
-			float varScale
+			Vec3 setScale
 		) :
 			GameObject(stage),
 			m_textureKey(TextureKey),
 			m_setPosition(setPosition),
-			m_varScale(varScale)
+			m_setScale(setScale)
 		{}
 
 		virtual ~FreamSprite() {};
