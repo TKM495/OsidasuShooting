@@ -94,8 +94,11 @@ namespace basecross {
 		float setPosY = 0;
 
 		auto allPlayer = PlayerManager::GetInstance()->GetSortedAllPlayer();
-		int loopCount = 0; // for
-		int drawPlayer = 0;
+		int loopCount = 0;	// for
+		int drawPlayer = 0;	// 
+		int resultRank = 0;	// ‡ˆÊ‚ðŒˆ‚ß‚é
+		int draw = 0;		// ˆø‚«•ª‚¯
+		// ‡ˆÊ‚ª‚‚¢‡‚Éˆ—‚³‚ê‚é
 		for (auto player : allPlayer) {
 			str = L"";
 			switch (player->GetPlayerNumber())
@@ -136,7 +139,7 @@ namespace basecross {
 			//Debug::GetInstance()->Log(player->GetCountKilledPlayer());
 
 			AddResultSprites(Vec3(400 + addVec, 250 + setPosY, 0), 
-				(UINT)m_playersNumber + 1, m_playersScore, m_playersDead,loopCount);
+				(UINT)m_playersNumber + 1, m_playersScore, m_playersDead, loopCount);
 			addVec += 12.5f;
 			setPosY -= 170;
 
@@ -150,12 +153,15 @@ namespace basecross {
 				m_playerTopDead = m_playersDead;
 				m_playerTopColor = m_playerColor;
 				m_isTopOnly = true;
+				resultRank += draw;
+				draw = 0;
 			}
 			else if (drawDead) {
 				m_playerDraw[drawPlayer] = m_playersNumber;
 				m_isPlayerDraw[drawPlayer] = true;
 				m_isTopOnly = false;
 				drawPlayer++;
+				//draw++;
 			}
 			loopCount++;
 		}
@@ -192,7 +198,7 @@ namespace basecross {
 				}
 			}
 
-			auto resultPosX = resultDrawPlayer;
+			auto resultPosX = -resultDrawPlayer;
 			auto setPosX = 0.75f;
 			auto setPosZ = (float)resultDrawPlayer;
 			auto setScale = Vec3(0.75f) * (1 - 0.1f * (resultDrawPlayer * 1.25f)); 
@@ -203,7 +209,7 @@ namespace basecross {
 
 			for (int i = 0; i < maxDrawPlayer; i++) {
 				if (m_isPlayerDraw[i] == true) {
-					resultPosX -= 2;
+					resultPosX += 2;
 					auto drawPlayer = AddGameObject<ResultPlayer>(
 						TransformData(Vec3(resultPosX * setPosX, 1.0f, setPosZ), setScale, Vec3(0, XMConvertToRadians(180.0f), 0)),
 						m_playerDraw[i], StageManager::GetInstance()->GetPlayerType(m_playerDraw[i]));

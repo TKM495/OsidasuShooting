@@ -24,8 +24,10 @@ namespace basecross {
 		int  m_playerTopDead;
 		Col4 m_playerTopColor;
 
-		PlayerNumber m_playerDraw[3];
-		bool m_isPlayerDraw[3];
+		PlayerNumber m_playerDraw[3];	// トップと同点のプレイヤー
+		bool m_isPlayerDraw[3];			// トップと同店ならtrue
+
+		int m_playersRank[4];			// プレイヤー
 
 		bool m_isTopOnly; // トップのプレイヤーが一人かどうか
 
