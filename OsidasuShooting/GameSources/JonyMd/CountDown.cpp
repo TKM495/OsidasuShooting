@@ -6,9 +6,8 @@ namespace basecross {
 	void CountDown::OnCreate() {
 
 		redColor = Col4(1.0f, 0.0f, 0.0f, 1.0f);
-		m_warningTime = 110.0f;
-		expansionMaxRate = 10;//—áA6%
-		initialTime = 111;//temporary
+		m_warningTime = 10.0f;
+		expansionMaxRate = 10;//—áA10%
 
 		auto stage = GetStage();
 		auto blinking = stage->AddGameObject<Blinking>();
