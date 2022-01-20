@@ -1,6 +1,6 @@
 #pragma once
 
-// 蝓ｺ譛ｬ
+// ステージ
 #include "Scene.h"
 #include "Stage/DebugStage.h"
 #include "Stage/GameStage.h"
