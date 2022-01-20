@@ -55,5 +55,6 @@ namespace basecross {
 			:PlayerBase(stage, transformData, playerNumber, playerType),
 			m_controller(playerNumber)
 		{}
+		void OnCreate()override;
 	};
 }
