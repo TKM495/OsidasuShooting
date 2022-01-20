@@ -42,7 +42,9 @@ namespace basecross {
 		//“_–Å‚Ìˆ—
 		if (blinkTimeChecker == blinkTime)
 		{
-			blinking->SetFadeInOutTime(fadeInTime, fadeOutTime, blinkTime);			
+			blinking->SetToggleTime(fadeInTime, fadeOutTime, blinkTime);
+			blinking->SetFading();
+			blinking->StartBlinking();
 		}
 		//“_–Å‚Ìˆ—..I—¹
 
