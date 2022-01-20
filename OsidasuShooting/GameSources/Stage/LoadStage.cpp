@@ -91,6 +91,8 @@ namespace basecross {
 		app->RegisterTexture(L"DeadIcon", path + L"DeadIcon.png");
 		app->RegisterTexture(L"Kill", path + L"Kill.png");
 		app->RegisterTexture(L"Dead", path + L"Dead.png");
+		app->RegisterTexture(L"RRUIs", path + L"ResultRankUI256x256.png");
+
 
 		app->RegisterTexture(L"BombBack", path + L"BombBackGround.png");
 		app->RegisterTexture(L"GaugeBackGround", path + L"GaugeBackGround.png");
