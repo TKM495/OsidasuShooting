@@ -49,23 +49,26 @@ namespace basecross
 
 
 	void BattlePlayersUIs::PlayersIconUICreate(int value) {
-		// ‰æ‘œ‚Ì‡”Ô‚ª‚ß‚ñ‚Ç‚­‚³‚¢‚±‚Æ‚É‚È‚Á‚½‚Ì‚Å‚±‚±‚Åˆµ‚¢‚â‚·‚­‚·‚é
 		auto pNum = value;
-		if(pNum == 0) { // PlayerNumCirecle
-			pNum = 0;
-			m_objIconSize = 0.55f;
-		}
-		else if (pNum >= 1 && pNum <= 4) {	// Player1~4P
-			pNum += 3;
-			m_objIconSize = 0.5f;
-		}
-		else if(pNum == 5) {			// CPUPlayer
-			pNum = 3;
-			m_objIconSize = 0.5f;
-		}
-		else if (pNum == 6) { // Crown
-			pNum = 2;
-			m_objIconSize = 0.43f;
+		m_objIconSize = 0.55f;
+		// ‰æ‘œ‚Ì‡”Ô‚ª‚ß‚ñ‚Ç‚­‚³‚¢‚±‚Æ‚É‚È‚Á‚½‚Ì‚Å‚±‚±‚Åˆµ‚¢‚â‚·‚­‚·‚é
+		if (m_textureKey == L"BPsUIs") {
+			if (pNum == 0) {					// PlayerNumCirecle
+				pNum = 0;
+				m_objIconSize = 0.55f;
+			}
+			else if (pNum >= 1 && pNum <= 4) {	// Player1~4P
+				pNum += 3;
+				m_objIconSize = 0.5f;
+			}
+			else if (pNum == 5) {				// CPUPlayer
+				pNum = 3;
+				m_objIconSize = 0.5f;
+			}
+			else if (pNum == 6) { // Crown
+				pNum = 2;
+				m_objIconSize = 0.43f;
+			}
 		}
 		SetPlayerNumValue(pNum);
 	}

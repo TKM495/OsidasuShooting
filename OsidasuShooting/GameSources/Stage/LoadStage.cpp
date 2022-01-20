@@ -75,7 +75,7 @@ namespace basecross {
 		app->RegisterTexture(L"PushAButton", path + L"PushAButton.png");
 		app->RegisterTexture(L"Number", path + L"Number.png");
 		app->RegisterTexture(L"BPsUIs", path + L"BattlePlayersUI256x256.png");	// ゲーム中のアイコン
-		app->RegisterTexture(L"BPsUIs", path + L"BattlePlayersUI256x256_2.png");//
+		app->RegisterTexture(L"BPsUIs2", path + L"BattlePlayersUI256x256_2.png");//
 		app->RegisterTexture(L"BomberUI", path + L"BomberUI.png");				// ゲージ下の爆弾数アイコン
 		app->RegisterTexture(L"CircleGauge", path + L"CircleGauge.png");
 		app->RegisterTexture(L"BarGauge", path + L"BarGauge.png");
