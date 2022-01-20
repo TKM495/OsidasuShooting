@@ -1,6 +1,6 @@
 #pragma once
 
-// ã‚¹ãƒ†ãƒ¼ã‚¸
+// ƒXƒe[ƒW
 #include "Scene.h"
 #include "Stage/DebugStage.h"
 #include "Stage/GameStage.h"
@@ -12,7 +12,7 @@
 #include "Stage/LoadStage.h"
 #include "Stage/WatanabeStage.h"
 #include "Stage/WatanabeStage2.h"
-// ãã®ä»–
+// ‚»‚Ì‘¼
 #include "DebugClass/Debug.h"
 #include "Effekseer/EfkEffect.h"
 #include "Utility/BaseSingleton.h"
@@ -26,7 +26,7 @@
 #include "Utility/DataExtracter.h"
 #include "Utility/GameController.h"
 #include "Utility/PlayerStatus.h"
-// ã‚¹ãƒ†ãƒ¼ã‚¸ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+// ƒXƒe[ƒWƒIƒuƒWƒFƒNƒg
 #include "SpecialCamera/SpCamera.h"
 #include "StageObject/AdvancedGameObject.h"
 #include "StageObject/Block.h"
@@ -72,23 +72,23 @@
 #include "UIs/GameStartAndFinish.h"
 //#include "UIs/CountDown_.h"
 #include "UIs/OneShotUI.h"
-// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
+// ƒRƒ“ƒ|[ƒlƒ“ƒg
 #include "Component/FadeComponent.h"
 #include "Component/LifeSpan.h"
 #include "Component/MySpriteBaseDraw.h"
 #include "Component/PCTGaugeSprite.h"
 #include "Component/PhysicalBehavior.h"
 #include "Component/CircleShadow.h"
-// ãƒ¡ãƒ‹ãƒ¥ãƒ¼
+// ƒƒjƒ…[
 #include "UIs/Menu/BaseMenu.h"
-// ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼
+// ƒ}ƒl[ƒWƒƒ[
 #include "Manager/PlayerManager.h"
 #include "Manager/SoundManager.h"
 #include "Manager/StageManager.h"
 #include "Manager/PlayerBuilder.h"
 #include "Manager/SpecialSkillManager.h"
 
-// ã‚«ãƒ¡ãƒ©
+// ƒJƒƒ‰
 #include "Camera/GameCamera.h"
 #include "Camera/TitleCamera.h"
 

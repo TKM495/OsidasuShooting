@@ -113,6 +113,7 @@ namespace basecross {
 		CSVLoad::GetInstance()->RegisterFile(L"PlayerInfo", path + L"PlayerInfo.csv");
 		CSVLoad::GetInstance()->RegisterFile(L"PlayerFollowUI", path + L"PlayerFollowUI.csv");
 		CSVLoad::GetInstance()->RegisterFile(L"Camera", path + L"Camera.csv");
+		CSVLoad::GetInstance()->RegisterFile(L"ModelAnimationData", path + L"ModelAnimationData.csv");
 
 		//XMLファイル
 		path = dir + L"XML/";
@@ -123,16 +124,14 @@ namespace basecross {
 		path = dir + L"Models/LaserCharacter/";
 		for (int i = 0; i < 4; i++) {
 			auto number = Util::IntToWStr(i + 1);
-			auto modelMesh = MultiMeshResource::CreateStaticModelMultiMesh(path + L"Player" + number + L"/", L"LaserPlayer" + number + L".bmf");
+			auto modelMesh = MultiMeshResource::CreateBoneModelMultiMesh(path + L"Player" + number + L"/", L"LaserPlayer" + number + L".bmf");
 			app->RegisterResource(L"LaserPlayer" + number, modelMesh);
 		}
 		// Missile
 		path = dir + L"Models/MissileCharacter/";
 		for (int i = 0; i < 4; i++) {
-			// まだ1Pのみのモデルなので強制的に1
-			auto number = Util::IntToWStr(1);
-			auto modelMesh = MultiMeshResource::CreateStaticModelMultiMesh(path + L"Player" + number + L"/", L"TankPlayer" + number + L".bmf");
-			number = Util::IntToWStr(i + 1);
+			auto number = Util::IntToWStr(i + 1);
+			auto modelMesh = MultiMeshResource::CreateBoneModelMultiMesh(path + L"Player" + number + L"/", L"TankPlayer" + number + L".bmf");
 			app->RegisterResource(L"MissilePlayer" + number, modelMesh);
 		}
 

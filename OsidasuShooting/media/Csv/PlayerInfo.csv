@@ -1,7 +1,7 @@
 name,PosX,PosY,PosZ,ScaleX,ScaleY,ScaleZ,RotX, RotY, RotZ
-EnergyGauge,46,-24,0,0.38,0.2,0.3,0,0,0
+EnergyGauge,17,-24,0,0.38,0.2,0.3,0,0,0
 BattlePlayersUIs,-150,0,0,0.4,0.4,0.4,0,0,0
-BattlePlayersUIs,-150,0,0,0.4,0.4,0.4,0,0,0
-Back,46,-24,0,0.8,0.5,0.6,0,0,0
+BattlePlayersUIs,-142,-17,0,0.35,0.35,0.35,0,0,0
+Back,17,-24,0,0.8,0.5,0.6,0,0,0
 BombBack,-30,-65,0,0.25,0.25,0.25,0,0,0
 BombCount,-20,-23,0,0.3,0.3,0.3,0,0,0
