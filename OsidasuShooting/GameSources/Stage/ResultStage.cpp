@@ -144,6 +144,7 @@ namespace basecross {
 			}
 			else if (drawDead) {
 				m_playerDraw[drawPlayer] = m_playersNumber;
+				m_isPlayerDraw[loopCount] = true;
 				m_isTopOnly = false;
 				drawPlayer++;
 			}
@@ -170,11 +171,24 @@ namespace basecross {
 			auto topPlayer = AddGameObject<ResultPlayer>(
 				TransformData(Vec3(0.0f, 1.0f, 0.0f), Vec3(0.75f), Vec3(0, XMConvertToRadians(180.0f), 0)),
 				m_playerTop, StageManager::GetInstance()->GetPlayerType(m_playerTop));
-			//topPlayer->GetComponent<Gravity>()->SetGravityZero();
 			//auto PlayerPos = topPlayer->GetComponent<Transform>()->GetPosition();
 		}
 		else {
+			auto topPlayer = AddGameObject<ResultPlayer>(
+				TransformData(Vec3(0.0f, 1.0f, 0.0f), Vec3(0.75f), Vec3(0, XMConvertToRadians(180.0f), 0)),
+				m_playerTop, StageManager::GetInstance()->GetPlayerType(m_playerTop));
+			auto PlayerPos = topPlayer->GetComponent<Transform>()->GetPosition();
 
+			auto maxDrawPlayer = 3;
+			for (int i = 0; i < maxDrawPlayer; i++) {
+				if (m_isPlayerDraw[i] == true) {
+					auto drawPlayer = AddGameObject<ResultPlayer>(
+						TransformData(Vec3(0.0f, 1.0f, 0.0f), Vec3(0.75f), Vec3(0, XMConvertToRadians(180.0f), 0)),
+						m_playerTop, StageManager::GetInstance()->GetPlayerType(m_playerTop));
+					auto PlayerPos = topPlayer->GetComponent<Transform>()->GetPosition();
+
+				}
+			}
 		}
 		AddGameObject<Block>(TransformData(Vec3(0, -1, 0), Vec3(100, 1, 100)));
 	}
