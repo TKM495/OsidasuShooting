@@ -143,6 +143,11 @@ namespace basecross {
 		T Clamp(T value, T low, T high) {
 			return min(max(value, low), high);
 		}
+
+		/**
+		 * @brief ƒŠƒ}ƒbƒv
+		 */
+		float Remap(float val, float inMin, float inMax, float outMin, float outMax);
 	}
 }
 //end basecross

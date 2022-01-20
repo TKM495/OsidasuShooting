@@ -14,9 +14,13 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Camera\GameCamera.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\CircleShadow.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Camera\TitleCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Blinking.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\PlayerCharaPicture.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Blinking_.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Confetti.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BackPlanet.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\area.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Fencing.h" />
@@ -57,6 +61,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\PlayerModel.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\LoadStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\GameStartAndFinish.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\OneShotUI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\ResultScore.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\ResultSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Scene.h" />
@@ -109,9 +114,13 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\XMLLoad.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Camera\GameCamera.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\CircleShadow.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Camera\TitleCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Blinking.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\PlayerCharaPicture.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Blinking_.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Confetti.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BackPlanet.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\area.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Fencing.cpp" />
@@ -150,6 +159,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\PlayerModel.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\LoadStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\GameStartAndFinish.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\OneShotUI.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\ResultScore.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\ResultSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Scene.cpp" />

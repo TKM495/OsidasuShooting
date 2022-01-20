@@ -6,6 +6,7 @@ namespace basecross {
 	class Blinking : public GameObject
 	{
 		//list of private variables
+	private:
 		shared_ptr<BcPNTStaticDraw> component;
 
 		float blinkingTime;
@@ -24,9 +25,10 @@ namespace basecross {
 		float fadeInOutSpeed;
 		float fadeInOutStay;
 		Col4 originalColor;
+		Col4 changedColor;
+		float changedAlpha;
 
 		//list of private variables...end
-
 
 		//private enum
 		enum Toggle
@@ -39,7 +41,8 @@ namespace basecross {
 
 
 		//list of private functions
-		void SetIsBlinking(float blinkTime);
+		void StartBlinking(float blinkTime);
+
 		void ProgressOfHideShow();
 
 		void ProgressOfFadeInOut();
@@ -55,11 +58,14 @@ namespace basecross {
 		//list of normal functions
 		void SetComponent(shared_ptr<BcPNTStaticDraw>& componentValue);
 		void SetShowHideTime(float showTime, float hideTime, float blinkTime);
+
 		void SetFadeInOutTime(float fadeInTime, float fadeOutTime, float blinkTime);
-		shared_ptr<BcPNTStaticDraw> GetLoanedComponent()
-		{
-			return component;
-		}
+		void SetOriginalColor(Col4 color);
+		Col4 GetAdjustedColor();
+		float GetAdjustedAlpha();
+
+		void StopBlinking();
+
 	};
 
 }

@@ -17,7 +17,9 @@ namespace basecross {
 
 		auto stage = GetStage();
 		blinking = stage->AddGameObject<Blinking>();
-		blinking->SetComponent(drawComp);
+		blinking->SetOriginalColor(drawComp->GetDiffuse());
+		blinking->SetOriginalColor(Col4(1,0,0,0));
+
 	}
 
 
@@ -40,8 +42,7 @@ namespace basecross {
 		//“_–Å‚Ìˆ—
 		if (blinkTimeChecker == blinkTime)
 		{
-			blinking->SetFadeInOutTime(fadeInTime, fadeOutTime, blinkTime);
-			
+			blinking->SetFadeInOutTime(fadeInTime, fadeOutTime, blinkTime);			
 		}
 		//“_–Å‚Ìˆ—..I—¹
 
@@ -54,6 +55,9 @@ namespace basecross {
 			GetStage()->RemoveGameObject<Item>(GetThis<Item>());
 		}
 
+
+		Col4 color = blinking->GetAdjustedColor();
+		drawComp->SetDiffuse(color);
 
 
 	}

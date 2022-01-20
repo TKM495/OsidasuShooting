@@ -3,6 +3,14 @@
 
 namespace basecross {
 	void CountDown::OnCreate() {
+		redColor = Col4(1.0f, 0.0f, 0.0f, 0.0f);
+		m_warningTime = 10.0f;
+
+		auto stage = GetStage();
+		auto blinking = stage->AddGameObject<Blinking>();
+		stage->SetSharedGameObject(L"BlinkForCountDown", blinking);
+		blinking->SetOriginalColor(redColor);
+
 		currentTime = initialTime;
 
 		auto transComp = GetComponent<Transform>();
@@ -11,6 +19,13 @@ namespace basecross {
 		//transComp->SetPosition(pos);
 
 		CountDownSpriteCreate();
+
+		//点滅用
+		m_blinkTime = 0.0f;
+		m_blinkTimeChecker = m_blinkTime;
+		m_fadeInTime = 0.5f;
+		m_fadeOutTime = 0.5f;
+		//点滅用..終了
 	}
 
 	// タイマーの数字を一文字ずつ作成
@@ -45,6 +60,7 @@ namespace basecross {
 
 	void CountDown::AddTimerColonSpriteCreate(Vec3 posValue, Vec3 scaleValue) {
 		auto colon = GetStage()->AddGameObject<Number>(10);
+		GetStage()->SetSharedGameObject(L"ColonForCountDown", colon);
 		auto colonTrans = colon->GetComponent<Transform>();
 		auto posSetting(-m_spaceOffset * 1.6f);
 		colonTrans->SetPosition(posValue + posSetting);
@@ -96,7 +112,7 @@ namespace basecross {
 		seconds = (int)currentTime - (hour * 60 + minutes) * 60;
 
 		// 一つにまとめる
-		m_timerNumbers = minutes * 100 + seconds;
+		m_timerNumbers = minutes * 60 + seconds;
 
 		//clocks = L"";
 		//if (hour <= 9)
@@ -123,6 +139,36 @@ namespace basecross {
 		//m_timerNumbers = minutes * 100 + seconds;
 
 		SetTimerNumbers();
+
+		if (m_timerNumbers <= m_warningTime)
+		{
+			auto blinking = GetStage()->GetSharedGameObject<Blinking>(L"BlinkForCountDown");
+			auto colon = GetStage()->GetSharedGameObject<Number>(L"ColonForCountDown");
+			if (m_blinkTime == m_blinkTimeChecker)
+			{
+				m_blinkTime = m_warningTime;
+				blinking->SetFadeInOutTime(m_fadeInTime, m_fadeOutTime, m_blinkTime);
+
+				for (auto& number : m_numbers) {
+					number->SetColor(redColor);
+				}
+				colon->SetColor(redColor);
+			}
+
+			float alpha = blinking->GetAdjustedAlpha();
+
+			if (m_timerNumbers <= 0)
+			{
+				//color = redColor;
+				alpha = 1;
+				blinking->StopBlinking();
+			}
+
+			for (auto& number : m_numbers) {
+				number->SetAlpha(alpha);
+			}
+			colon->SetAlpha(alpha);
+		}
 	}
 
 	void CountDown::OnDraw() {

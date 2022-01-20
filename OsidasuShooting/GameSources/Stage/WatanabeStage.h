@@ -13,6 +13,9 @@ namespace basecross {
 		GameController m_controller;
 		//ビューの作成
 		void CreateViewLight();
+		// アイテム生成オブジェクト
+		shared_ptr<modifiedClass::ItemCreation> m_itemCreation;
+
 	public:
 		//構築と破棄
 		WatanabeStage() :Stage(), m_controller(PlayerNumber::P1) {}

@@ -40,7 +40,7 @@ namespace basecross {
 			}
 		}
 
-		void Blinking::SetComponent(shared_ptr<PNTStaticDraw>& componentValue)
+		void Blinking::SetComponent(shared_ptr<SmBaseDraw>& componentValue)
 		{
 			component = componentValue;
 		}

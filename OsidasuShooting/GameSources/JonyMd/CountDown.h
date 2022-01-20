@@ -14,6 +14,17 @@ namespace basecross {
 
 		int m_timerNumbers;
 		float m_timeCount;
+		float m_warningTime;
+		Col4 redColor;
+
+		//点滅用
+		//全　数字　は秒として表示されています。
+		float m_blinkTime;//　物体の点滅する時間
+		float m_blinkTimeChecker = m_blinkTime;//　物体の点滅する時間
+
+		float m_fadeInTime;
+		float m_fadeOutTime;
+		//点滅用..終了
 		vector<std::shared_ptr<Number>> m_numbers;
 
 		//OffSet

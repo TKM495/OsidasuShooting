@@ -99,9 +99,11 @@ namespace basecross {
 		app->RegisterTexture(L"Planet", path + L"Planet.png");
 		app->RegisterTexture(L"BackGround00", path + L"BackGround00.png");
 
-		app->RegisterTexture(L"BombItem", path + L"BombItem.png");
-		app->RegisterTexture(L"EnergyItem", path + L"EnergyItem.png");
-		app->RegisterTexture(L"RandomItem", path + L"RandomItem.png");
+		app->RegisterTexture(L"BombPlus", path + L"BombPlus.png");
+		app->RegisterTexture(L"EnergyPlus", path + L"EnergyPlus.png");
+
+		app->RegisterTexture(L"ImpactPoint", path + L"ImpactPoint.png");
+		app->RegisterTexture(L"CircleShadow", path + L"CircleShadow.png");
 
 		// テスト用スプライト
 		app->RegisterTexture(L"Test", path + L"test.png");
@@ -138,6 +140,13 @@ namespace basecross {
 		path = dir + L"Models/Bumper/";
 		auto modelMesh = MeshResource::CreateStaticModelMesh(path, L"Bumper.bmf");
 		app->RegisterResource(L"Bumper", modelMesh);
+
+		// アイテム
+		path = dir + L"Models/Item/";
+		modelMesh = MeshResource::CreateStaticModelMesh(path, L"Energy.bmf");
+		app->RegisterResource(L"EnergyItemModel", modelMesh);
+		modelMesh = MeshResource::CreateStaticModelMesh(path, L"Bomb.bmf");
+		app->RegisterResource(L"BombItemModel", modelMesh);
 
 		// 効果音
 		path = dir + L"Sound/SE/";
@@ -200,10 +209,9 @@ namespace basecross {
 		EfkEffectResource::RegisterEffectResource(L"Bomb", path + L"Bomb.efk");
 		EfkEffectResource::RegisterEffectResource(L"Smoke", path + L"Smoke.efk");
 		EfkEffectResource::RegisterEffectResource(L"Laser", path + L"Laser.efk");
-		EfkEffectResource::RegisterEffectResource(L"BombPlus", path + L"BombPlus.efk");
-		EfkEffectResource::RegisterEffectResource(L"EnergyPlus", path + L"EnergyPlus.efk");
 		EfkEffectResource::RegisterEffectResource(L"Respawn", path + L"Respawn.efk");
 		EfkEffectResource::RegisterEffectResource(L"BreakBlock", path + L"BreakBlock.efk");
+		EfkEffectResource::RegisterEffectResource(L"Confetti", path + L"Confetti.efk");
 
 		//他のリソースを読み込むスレッドのスタート
 		thread LoadThread(LoadResourceFunc);

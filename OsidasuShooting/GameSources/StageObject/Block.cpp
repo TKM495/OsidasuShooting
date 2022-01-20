@@ -79,7 +79,7 @@ namespace basecross {
 		auto drawComp = AddComponent<PNTStaticModelDraw>();
 		drawComp->SetMeshResource(L"Bumper");
 		drawComp->SetOwnShadowActive(true);
-		drawComp->SetDiffuse(Col4(1, 0, 0, 1));
+		//drawComp->SetDiffuse(Col4(1, 0, 0, 1));
 
 		auto collComp = AddComponent<CollisionObb>();
 		collComp->SetFixed(true);

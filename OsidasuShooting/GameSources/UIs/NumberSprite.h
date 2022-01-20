@@ -50,6 +50,29 @@ namespace basecross
 			drawComp->UpdateVertices(vertices);
 		}
 
+
+		void SetAlpha(float alpha)
+		{
+			for (int i = 0; i < vertices.size() - 1; i++)
+			{
+				vertices[i].color.w = alpha;
+			}
+			auto drawComp = GetComponent<PCTSpriteDraw>();
+			auto color = drawComp->GetDiffuse();
+			color.w = alpha;
+			drawComp->SetDiffuse(color);
+		}
+		
+		void SetColor(Col4 color)
+		{
+			for (int i = 0; i < vertices.size() - 1; i++)
+			{
+				vertices[i].color = color;
+			}
+			auto drawComp = GetComponent<PCTSpriteDraw>();
+			drawComp->SetDiffuse(color);
+		}
+
 		void OnCreate() override;
 		void OnUpdate() {};
 	};

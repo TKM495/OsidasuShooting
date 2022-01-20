@@ -9,29 +9,10 @@
 
 namespace basecross {
 	void WatanabeStage::CreateViewLight() {
-		wstring DataDir;
-		App::GetApp()->GetDataDirectory(DataDir);
-		CSVLoad::GetInstance()->RegisterFile(L"Camera", DataDir + L"CSV/" + L"Camera.csv");
-		auto line = CSVLoad::GetInstance()->GetData(L"Camera");
-		auto data = DataExtracter::DelimitData(line[1]);
-		const Vec3 eye = Vec3(
-			(float)_wtof(data[1].c_str()),
-			(float)_wtof(data[2].c_str()),
-			(float)_wtof(data[3].c_str())
-		);
-		const Vec3 at = Vec3(
-			(float)_wtof(data[4].c_str()),
-			(float)_wtof(data[5].c_str()),
-			(float)_wtof(data[6].c_str())
-		);
-		//const Vec3 eye(0.0f, 25.0f, -30.0f);
-		//const Vec3 at(0.0f, 0.0f, -7.0f);
 		auto PtrView = CreateView<SingleView>();
 		//ビューのカメラの設定
-		auto PtrCamera = ObjectFactory::Create<Camera>();
+		auto PtrCamera = ObjectFactory::Create<GameCamera>();
 		PtrView->SetCamera(PtrCamera);
-		PtrCamera->SetEye(eye);
-		PtrCamera->SetAt(at);
 		//マルチライトの作成
 		auto PtrMultiLight = CreateLight<MultiLight>();
 		//デフォルトのライティングを指定
@@ -52,7 +33,6 @@ namespace basecross {
 			EfkEffectResource::RegisterEffectResource(L"Bomb", TestEffectStr + L"Bomb.efk");
 			EfkEffectResource::RegisterEffectResource(L"Smoke", TestEffectStr + L"Smoke.efk");
 			EfkEffectResource::RegisterEffectResource(L"Laser", TestEffectStr + L"Laser.efk");
-			EfkEffectResource::RegisterEffectResource(L"BombPlus", TestEffectStr + L"BombPlus.efk");
 			EfkEffectResource::RegisterEffectResource(L"Respawn", TestEffectStr + L"Respawn.efk");
 			EfkEffectResource::RegisterEffectResource(L"BreakBlock", TestEffectStr + L"BreakBlock.efk");			//ビューとライトの作成
 
@@ -63,6 +43,8 @@ namespace basecross {
 			//XMLファイル
 			XMLLoad::GetInstance()->RegisterFile(L"PlayerStatus", DataDir + L"XML/" + L"PlayerStatus.xml");
 			CSVLoad::GetInstance()->RegisterFile(L"PlayerInfo", DataDir + L"CSV/" + L"PlayerInfo.csv");
+
+			PlayerStatus::GetInstance()->DataExtraction();
 
 			GameObjecttCSVBuilder builder;
 			builder.Register<Block>(L"Block");
@@ -78,6 +60,8 @@ namespace basecross {
 			builder.Build(GetThis<Stage>(), path + L"Stage1.csv");
 			AddGameObject<CurrentFirst>();
 			AddGameObject<SimpleSprite>(L"BackGround00")->SetDrawLayer(-1);
+
+			m_itemCreation = AddGameObject<modifiedClass::ItemCreation>();
 		}
 		catch (...) {
 			throw;
@@ -89,9 +73,17 @@ namespace basecross {
 		const auto& con = App::GetApp()->GetInputDevice().GetControlerVec()[0];
 		if (keyState.m_bPressedKeyTbl['R'] || con.wPressedButtons & XINPUT_GAMEPAD_Y)
 			PostEvent(0.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToWatanabeStage");
+		if (con.wPressedButtons & XINPUT_GAMEPAD_X) {
+			auto item = AddGameObject<modifiedClass::Item>(modifiedClass::ItemType::Bomb, false);
+			item->GetComponent<Transform>()->SetPosition(Vec3(0, 5, 0));
+		}
+		if (keyState.m_bPressedKeyTbl['W']) {
+			m_itemCreation->RandomlySpawn();
+		}
 	}
 
 	void WatanabeStage::OnDestroy() {
 		m_controller.ResetVibration();
+		PlayerManager::GetInstance()->DeleteInstance();
 	}
 }
