@@ -40,43 +40,52 @@ namespace basecross {
 		else AddGameObject<ResultWinOrDrowSprite>(Vec3(-190, -220, 0), m_isTopOnly);
 	}
 
-	void ResultStage::AddResultSprites(Vec3 pos, int playerNum, int score, int dead)
+	void ResultStage::AddResultSprites(Vec3 pos, int playerNum, int score, int dead,int rank)
 	{
+		// フレームを配置
 		auto fream = AddGameObject<FreamSprite>(L"Fream", pos, Vec3(1.2f));
 		auto freamTrans = fream->GetComponent<Transform>();
 		auto freamPos = freamTrans->GetPosition();
 		fream->SetDrawLayer(1);
-		//freamTrans->SetPosition(resultPos);
 
+		// カラー取得
 		auto playerColor = PlayerStatus::GetInstance()->GetPlayerColor(playerNum);
-		auto playerNumPos = pos;
+		// 設置するポジション
+		auto playerNumPos = pos + Vec3(-200.0f, 115.0f, 0.0f);
+		// プレイヤーのナンバーを表示する
 		auto playerNumber = AddGameObject<BattlePlayersUIs>(L"BPsUIs", playerNum, Vec3(0));
+		// ナンバーに色を付ける
 		playerNumber->GetComponent<PCTSpriteDraw>()->SetDiffuse(playerColor);
+
 		auto playUIsTrans = playerNumber->GetComponent<Transform>();
-		playerNumPos.x -= 200.0f;
-		playerNumPos.y += 130.0f;
 		playUIsTrans->SetPosition(playerNumPos);
 		playUIsTrans->SetScale(Vec3(0.4f));
 		playerNumber->SetDrawLayer(2);
 
-		auto scorePos = pos;
-		scorePos.x += 50.0f;
-		scorePos.y += 65.0f;	
+		RankingPlayerSet(pos,rank);
+
+		auto scorePos = pos + Vec3(50.0f,65.0f,1.0f);
 		m_score = AddGameObject<ResultScore>(score, scorePos);
 		m_score->SetDrawLayer(2);
 		scorePos.y -= 60.0f;
 		auto deadPos = scorePos;
 
-		scorePos.x -= 50;
-		scorePos.y += 24;
+		scorePos += Vec3(-50.0f,24.0f,0.0f);
 		AddGameObject<KillIcon>(scorePos)->SetDrawLayer(2);
 
 		m_dead = AddGameObject<ResultScore>(dead, deadPos);
 		m_dead->SetDrawLayer(2);
-		deadPos.x -= 50;
-		deadPos.y -= 36;
+		deadPos += Vec3(-50.0f,-36.0f,0.0f);
 		AddGameObject<DeadIcon>(deadPos)->SetDrawLayer(2);
 		
+	}
+
+	void ResultStage::RankingPlayerSet(Vec3 pos,int value) {
+		auto playerRank = AddGameObject<BattlePlayersUIs>(L"RRUIs", value, Vec3(0));
+		auto rankIconPos = pos + Vec3(-165.0f, 75.0f, 0.0f);
+		auto rankIconTrans = playerRank->GetComponent<Transform>();
+		rankIconTrans->SetPosition(rankIconPos);
+
 	}
 
 
@@ -96,28 +105,28 @@ namespace basecross {
 				m_playersNumber = player->GetPlayerNumber();
 				m_playersScore = player->GetCountKilledPlayer();
 				m_playersDead = player->GetDeadCount();
-				m_playerColor = PlayerStatus::GetInstance()->GetPlayerColor(loopCount + 1);
+				m_playerColor = PlayerStatus::GetInstance()->GetPlayerColor(PlayerNumber::P1);
 				break;
 			case PlayerNumber::P2:
 				str = L"P2";
 				m_playersNumber = player->GetPlayerNumber();
 				m_playersScore = player->GetCountKilledPlayer();
 				m_playersDead = player->GetDeadCount();
-				m_playerColor = PlayerStatus::GetInstance()->GetPlayerColor(loopCount + 1);
+				m_playerColor = PlayerStatus::GetInstance()->GetPlayerColor(PlayerNumber::P2);
 				break;
 			case PlayerNumber::P3:
 				str = L"P3";
 				m_playersNumber = player->GetPlayerNumber();
 				m_playersScore = player->GetCountKilledPlayer();
 				m_playersDead = player->GetDeadCount();
-				m_playerColor = PlayerStatus::GetInstance()->GetPlayerColor(loopCount + 1);
+				m_playerColor = PlayerStatus::GetInstance()->GetPlayerColor(PlayerNumber::P3);
 				break;
 			case PlayerNumber::P4:
 				str = L"P4";
 				m_playersNumber = player->GetPlayerNumber();
 				m_playersScore = player->GetCountKilledPlayer();
 				m_playersDead = player->GetDeadCount();
-				m_playerColor = PlayerStatus::GetInstance()->GetPlayerColor(loopCount + 1);
+				m_playerColor = PlayerStatus::GetInstance()->GetPlayerColor(PlayerNumber::P4);
 				break;
 			default:
 				break;
@@ -127,7 +136,7 @@ namespace basecross {
 			//Debug::GetInstance()->Log(player->GetCountKilledPlayer());
 
 			AddResultSprites(Vec3(400 + addVec, 250 + setPosY, 0), 
-				(UINT)m_playersNumber + 1, m_playersScore, m_playersDead);
+				(UINT)m_playersNumber + 1, m_playersScore, m_playersDead,loopCount);
 			addVec += 12.5f;
 			setPosY -= 170;
 

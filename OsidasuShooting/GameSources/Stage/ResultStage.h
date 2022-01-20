@@ -64,7 +64,8 @@ namespace basecross {
 
 		void AddWinnwe();
 		void AddWinnerSprite(int player);
-		void AddResultSprites(Vec3 pos, int playerNum, int score, int dead);
+		void AddResultSprites(Vec3 pos, int playerNum, int score, int dead,int rank);
+		void RankingPlayerSet(Vec3 pos ,int value);
 		void BattlePlayerUISet(int value) {} ;
 	};
 }
