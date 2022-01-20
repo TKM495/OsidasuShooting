@@ -19,6 +19,9 @@ namespace basecross {
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる
 			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToLoadStage");
+			// Defaultだと見切れてしまうため2倍に
+			Shadowmap::SetViewWidth(Shadowmap::GetViewWidth() * 2);
+			Shadowmap::SetViewHeight(Shadowmap::GetViewHeight() * 2);
 		}
 		catch (...) {
 			throw;
