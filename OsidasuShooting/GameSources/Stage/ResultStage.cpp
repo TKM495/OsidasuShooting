@@ -37,7 +37,44 @@ namespace basecross {
 			playUIsTrans->SetPosition(winnerUIsPos - Vec3(-412.0f, -27.0f, 0));
 			playUIsTrans->SetScale(Vec3(1.1f));
 		}
-		else AddGameObject<ResultWinOrDrowSprite>(Vec3(-190, -220, 0), m_isTopOnly);
+		else {
+			auto posX = -160.0f;
+			auto drawUIs = AddGameObject<ResultWinOrDrowSprite>(Vec3(posX, -120, 0), m_isTopOnly);
+			auto drawUIsTrans = drawUIs->GetComponent<Transform>();
+			auto drawUIsPos = drawUIsTrans->GetPosition();
+
+			auto maxDrawPlayer = 3;
+			auto resultDrawPlayer = 1;
+			for (int i = 0; i < maxDrawPlayer; i++) {
+				if (m_isPlayerDraw[i] == true) {
+					resultDrawPlayer++;
+				}
+			}
+
+			auto playerNum = 0;
+			auto resultPosX = resultDrawPlayer;
+			auto setPosX = posX * 2.25f / resultDrawPlayer;
+			auto setPosition = Vec3(posX * 2.175f, -170.0f, 1.0f);
+			auto setScale = Vec3(0.75f) * (1 - 0.1f * (resultDrawPlayer * 1.1f));
+
+			auto playerNumber = AddGameObject<BattlePlayersUIs>(L"BPsUIs", player, Vec3(0));
+			playerNumber->GetComponent<PCTSpriteDraw>()->SetDiffuse(m_playerColor[playerNum]);
+			auto playUIsTrans = playerNumber->GetComponent<Transform>();
+			playUIsTrans->SetPosition(setPosition);
+			playUIsTrans->SetScale(Vec3(setScale));
+
+			for (int i = 0; i < maxDrawPlayer; i++) {
+				playerNum++;
+				if (m_isPlayerDraw[i] == true) {
+					setPosition.x -= setPosX;
+					auto playerNumber = AddGameObject<BattlePlayersUIs>(L"BPsUIs", player + playerNum, Vec3(0));
+					playerNumber->GetComponent<PCTSpriteDraw>()->SetDiffuse(m_playerColor[playerNum]);
+					auto playUIsTrans = playerNumber->GetComponent<Transform>();
+					playUIsTrans->SetPosition(setPosition);
+					playUIsTrans->SetScale(Vec3(setScale));
+				}
+			}
+		}
 	}
 
 	void ResultStage::AddResultSprites(Vec3 pos, int playerNum, int score, int dead,int rank)
@@ -94,9 +131,10 @@ namespace basecross {
 		float setPosY = 0;
 
 		auto allPlayer = PlayerManager::GetInstance()->GetSortedAllPlayer();
-		int loopCount = 0;	// for
-		int drawPlayer = 0;	// 
-		int draw = 0;		// 引き分け
+		int  loopCount = 0;	// for
+		int  drawPlayer = 0;	// 
+		int  draw = 0;		// 引き分け
+		bool isDraw = false;
 		// 順位が高い順に処理される
 		for (auto player : allPlayer) {
 			str = L"";
@@ -107,28 +145,28 @@ namespace basecross {
 				m_playersNumber = player->GetPlayerNumber();
 				m_playersScore = player->GetCountKilledPlayer();
 				m_playersDead = player->GetDeadCount();
-				m_playerColor = PlayerStatus::GetInstance()->GetPlayerColor(PlayerNumber::P1);
+				m_playerColor[loopCount] = PlayerStatus::GetInstance()->GetPlayerColor(PlayerNumber::P1);
 				break;
 			case PlayerNumber::P2:
 				str = L"P2";
 				m_playersNumber = player->GetPlayerNumber();
 				m_playersScore = player->GetCountKilledPlayer();
 				m_playersDead = player->GetDeadCount();
-				m_playerColor = PlayerStatus::GetInstance()->GetPlayerColor(PlayerNumber::P2);
+				m_playerColor[loopCount] = PlayerStatus::GetInstance()->GetPlayerColor(PlayerNumber::P2);
 				break;
 			case PlayerNumber::P3:
 				str = L"P3";
 				m_playersNumber = player->GetPlayerNumber();
 				m_playersScore = player->GetCountKilledPlayer();
 				m_playersDead = player->GetDeadCount();
-				m_playerColor = PlayerStatus::GetInstance()->GetPlayerColor(PlayerNumber::P3);
+				m_playerColor[loopCount] = PlayerStatus::GetInstance()->GetPlayerColor(PlayerNumber::P3);
 				break;
 			case PlayerNumber::P4:
 				str = L"P4";
 				m_playersNumber = player->GetPlayerNumber();
 				m_playersScore = player->GetCountKilledPlayer();
 				m_playersDead = player->GetDeadCount();
-				m_playerColor = PlayerStatus::GetInstance()->GetPlayerColor(PlayerNumber::P4);
+				m_playerColor[loopCount] = PlayerStatus::GetInstance()->GetPlayerColor(PlayerNumber::P4);
 				break;
 			default:
 				break;
@@ -136,15 +174,16 @@ namespace basecross {
 
 			// プレイヤーの順位の処理 
 			auto top		 = player->GetCountKilledPlayer() > m_playerTopScore;
-			auto deadWin	 = player->GetCountKilledPlayer() == m_playerTopScore && player->GetDeadCount() < m_playerTopDead;
+			auto topDeadWin	 = player->GetCountKilledPlayer() == m_playerTopScore && player->GetDeadCount() < m_playerTopDead;
+			auto deadWin	 = m_previousScore == m_playersScore && m_previousDead < m_playersDead;
 			auto topDrawDead = player->GetCountKilledPlayer() == m_playerTopScore && player->GetDeadCount() == m_playerTopDead;
 			auto drawDead	 = m_previousScore == m_playersScore && m_previousDead == m_playersDead;
 
-			if (loopCount == 0 || top || deadWin) {
+			if (loopCount == 0 || top || topDeadWin || deadWin) {
 				m_playerTop = m_playersNumber;
 				m_playerTopScore = m_playersScore;
 				m_playerTopDead = m_playersDead;
-				m_playerTopColor = m_playerColor;
+				m_playerTopColor = m_playerColor[loopCount];
 				m_isTopOnly = true;
 			}
 			else if (topDrawDead || drawDead) {
@@ -154,11 +193,18 @@ namespace basecross {
 					m_isPlayerDraw[drawPlayer] = true;
 				drawPlayer++;
 				draw++;
+				isDraw = true;
 			}
+			else {
+				draw = 0;
+			}
+			auto rankingNum	 = loopCount - draw;
 
 			// プレイヤーの結果を表示する
 			AddResultSprites(Vec3(400 + addVec, 250 + setPosY, 0), 
-				(UINT)m_playersNumber + 1, m_playersScore, m_playersDead, loopCount - draw);
+				(UINT)m_playersNumber + 1, m_playersScore, m_playersDead, rankingNum);
+
+			Debug::GetInstance()->Log(draw);
 			addVec += 12.5f;
 			setPosY -= 170;
 
@@ -251,8 +297,8 @@ namespace basecross {
 
 			AddWinnerSprite((UINT)m_playerTop + 1);
 
-			Debug::GetInstance()->Log(L"Button A : CharacterSelect");
-			Debug::GetInstance()->Log(L"Button B : Title");
+			//Debug::GetInstance()->Log(L"Button A : CharacterSelect");
+			//Debug::GetInstance()->Log(L"Button B : Title");
 
 			SoundManager::GetInstance()->PlayLoop(L"ResultBGM");
 

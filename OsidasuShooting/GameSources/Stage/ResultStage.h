@@ -17,7 +17,7 @@ namespace basecross {
 		PlayerNumber m_playersNumber;
 		int  m_playersScore;
 		int  m_playersDead;
-		Col4 m_playerColor;
+		Col4 m_playerColor[4];
 
 		int  m_previousScore;
 		int  m_previousDead;
