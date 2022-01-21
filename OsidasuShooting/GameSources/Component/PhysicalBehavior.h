@@ -19,15 +19,13 @@ namespace basecross {
 		Vec3 m_velocity;
 		// しきい値（移動速度がこの値より小さい場合0とみなす）
 		float m_threshold;
+		// ノックバックの最大高度
+		float m_knockBackMaxY;
 		// 接地判定クラス
 		unique_ptr<GroundingDecision> m_groundingDecision;
 	public:
 		// コンストラクタ
-		PhysicalBehavior(const shared_ptr<GameObject>& gameObjectPtr)
-			:Component(gameObjectPtr),
-			m_velocity(Vec3(0.0f)), m_groundDrag(3.0f), m_airDrag(1.0f),
-			m_maxSpeed(200.0f), m_threshold(0.05f)
-		{}
+		PhysicalBehavior(const shared_ptr<GameObject>& gameObjectPtr);
 
 		// コンポーネントの生成
 		void OnCreate()override;

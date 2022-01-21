@@ -7,6 +7,12 @@
 #include "Project.h"
 
 namespace basecross {
+	PhysicalBehavior::PhysicalBehavior(const shared_ptr<GameObject>& gameObjectPtr)
+		:Component(gameObjectPtr),
+		m_velocity(Vec3(0.0f)), m_groundDrag(3.0f), m_airDrag(1.0f),
+		m_maxSpeed(200.0f), m_threshold(0.05f), m_knockBackMaxY(7.0f)
+	{}
+
 	void PhysicalBehavior::OnCreate() {
 		m_groundingDecision.reset(new GroundingDecision(GetGameObject()->GetComponent<Transform>()->GetScale()));
 		m_groundingDecision->AddNotDecisionTag(L"Bomb");
@@ -56,7 +62,14 @@ namespace basecross {
 	}
 
 	void PhysicalBehavior::Impact(const Vec3& force) {
-		m_velocity += force;
+		auto _force = force;
+		// 長さを求める
+		auto power = _force.length();
+		// 高さをクランプ
+		_force.y = Utility::Clamp(_force.y, 0.0f, m_knockBackMaxY);
+		// クランプしたものを元の長さに戻す
+		// (戻すときに高さがm_knockBackMaxYより大きくなる)
+		m_velocity += Utility::ChangeVectorLength(_force, power);
 	}
 
 	void PhysicalBehavior::Impact(const Vec3& direction, float force) {
