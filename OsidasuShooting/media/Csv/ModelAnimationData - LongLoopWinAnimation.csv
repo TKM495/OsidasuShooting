@@ -1,0 +1,7 @@
+CharName,AnimName,Start,End,Loop
+Laser,Wait,0,40,TRUE
+Laser,Win_Start,50,170,FALSE
+Laser,Win_Loop,90,170,TRUE
+Missile,Wait,0,10,TRUE
+Missile,Win_Start,20,124,FALSE
+Missile,Win_Loop,76,124,TRUE
