@@ -250,7 +250,7 @@ namespace basecross {
 			auto resultPosX = -resultDrawPlayer;
 			auto setPosX = 0.75f;
 			auto setPosZ = (float)resultDrawPlayer;
-			auto setScale = Vec3(0.75f) * (1 - 0.1f * (resultDrawPlayer * 1.25f)); 
+			auto setScale = Vec3(0.65f) * (1 - 0.1f * (resultDrawPlayer * 1.25f)); 
 
 			auto topPlayer = AddGameObject<ResultPlayer>(
 				TransformData(Vec3(resultPosX * setPosX, 1.0f, setPosZ), setScale, Vec3(0, XMConvertToRadians(180.0f), 0)),
@@ -281,6 +281,7 @@ namespace basecross {
 			EfkEffectResource::RegisterEffectResource(L"Jump", efkpath + L"Jump.efk");
 			EfkEffectResource::RegisterEffectResource(L"Hover", efkpath + L"Hover.efk");
 			EfkEffectResource::RegisterEffectResource(L"Bomb", efkpath + L"Bomb.efk");
+			EfkEffectResource::RegisterEffectResource(L"Smoke", efkpath + L"Smoke.efk");
 			EfkEffectResource::RegisterEffectResource(L"Smoke", efkpath + L"Smoke.efk");
 
 			//ビューとライトの作成
