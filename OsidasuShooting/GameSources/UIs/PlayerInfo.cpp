@@ -22,7 +22,8 @@ namespace basecross {
 		tokens = DataExtracter::DelimitData(data[2]);
 		transData = DataExtracter::TransformDataExtraction(tokens);
 
-		auto t = ObjectFactory::Create<BattlePlayersUIs>(GetStage(), L"BPsUIs", 0, Vec3(0));
+		auto playerType = (int)m_owner->GetPlayerType();
+		auto t = ObjectFactory::Create<BattlePlayersUIs>(GetStage(), L"BPsUIs2", playerType, Vec3(0));
 		t->GetTransform()->SetPosition(transData.Position);
 		t->GetTransform()->SetScale(transData.Scale);
 		t->GetTransform()->SetParent(GetThis<PlayerInfo>());

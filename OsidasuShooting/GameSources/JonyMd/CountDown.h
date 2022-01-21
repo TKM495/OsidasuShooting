@@ -20,6 +20,7 @@ namespace basecross {
 		//点滅用
 		//全　数字　は秒として表示されています。
 		float m_blinkTime;//　物体の点滅する時間
+		float m_cur_blinkTime = 0;
 		float m_blinkTimeChecker = m_blinkTime;//　物体の点滅する時間
 
 		float m_fadeInTime;
@@ -37,6 +38,10 @@ namespace basecross {
 
 		float m_scaleValue;				// スケール
 		Vec3 m_scaleOffset;				// スケールオフセット
+		float m_max_scaleValue;
+		float m_cur_scaleValue;
+		bool isIncreasion = true;
+		float expansionMaxRate;
 
 	public:
 		CountDown(const shared_ptr <Stage>& stage,

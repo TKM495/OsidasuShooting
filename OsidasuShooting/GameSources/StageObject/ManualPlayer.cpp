@@ -41,4 +41,9 @@ namespace basecross {
 	void ManualPlayer::OnStopHover() {
 		m_controller.StopVibration(L"Hover");
 	}
+
+	void ResultPlayer::OnCreate() {
+		PlayerBase::OnCreate();
+		m_model.lock()->StartWinAnimation();
+	}
 }

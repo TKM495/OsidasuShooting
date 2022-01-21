@@ -9,6 +9,7 @@ namespace basecross {
 	public:
 		CircleShadow(const shared_ptr<GameObject>& gameObjectPtr,
 			float scale);
+		CircleShadow(const shared_ptr<GameObject>& gameObjectPtr);
 
 		void OnCreate()override;
 		void OnUpdate()override;

@@ -14,7 +14,7 @@ namespace basecross {
 		:AdvancedGameObject(stage), m_owner(owner),
 		m_direction(direction),
 		m_speed(25.0f), m_lifeSpan(5.0f),
-		m_power(power), m_timer(0.1f)
+		m_power(power), m_timer(0.1f), m_isHeavyAttack(false)
 	{
 		m_transformData.Position = owner->GetTransform()->GetPosition();
 		m_transformData.Scale = Vec3(0.5f);
@@ -38,15 +38,16 @@ namespace basecross {
 
 		// エフェクト
 		auto effectTrans = m_transformData;
-		effectTrans.Position = Vec3(0.0f);
+		effectTrans.Position = Vec3(0.0f, 0.0f, 0.5f);
 		auto efkComp = AddComponent<EfkComponent>();
 		efkComp->SetEffectResource(L"Bullet", effectTrans);
+		efkComp->IsSyncPosition(L"Bullet", true);
 		efkComp->SetEffectResource(L"Hit", effectTrans);
+		efkComp->SetEffectResource(L"HeavyHit", effectTrans);
 		efkComp->Play(L"Bullet");
 
 		// 影
-		auto shadow = AddComponent<Shadowmap>();
-		shadow->SetMeshResource(L"DEFAULT_SPHERE");
+		AddComponent<CircleShadow>();
 
 		AddTag(L"Bullet");
 	}
@@ -58,8 +59,6 @@ namespace basecross {
 
 		transPos += m_direction.normalize() * m_speed * deltaTime;
 		GetTransform()->SetPosition(transPos);
-		// 位置を同期
-		GetComponent<EfkComponent>()->SyncPosition(L"Bullet");
 		m_timer.Count();
 	}
 
@@ -68,7 +67,10 @@ namespace basecross {
 		// ヒット時のエフェクトを再生
 		auto efkComp = GetComponent<EfkComponent>();
 		efkComp->Stop(L"Bullet");
-		efkComp->Play(L"Hit");
+		if (m_isHeavyAttack)
+			efkComp->Play(L"HeavyHit");
+		else
+			efkComp->Play(L"Hit");
 	}
 
 	void Bullet::Reflect(shared_ptr<GameObject>& reflect) {
@@ -129,7 +131,8 @@ namespace basecross {
 							m_direction, m_power, m_owner
 						);
 						// ノックバック
-						ptr->KnockBack(data);
+						// 結果が1.5より大きい場合は重撃になる
+						m_isHeavyAttack = ptr->KnockBack(data) > 1.5f;
 					}
 					else {
 						return;

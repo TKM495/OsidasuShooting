@@ -123,8 +123,6 @@ namespace basecross {
 		int m_countKilledPlayer;
 		// 死んだ回数
 		int m_deadCount;
-		// プレイヤーのモデル
-		weak_ptr<PlayerModel> m_model;
 
 		// 前回の正面方向
 		Vec3 m_lastFrontDirection;
@@ -246,6 +244,9 @@ namespace basecross {
 		float m_correctAngle;
 		// シールドが使えるエネルギーの割合
 		float m_shieldRate;
+		// プレイヤーのモデル
+		weak_ptr<PlayerModel> m_model;
+
 		// 入力データ
 		PlayerInputData m_inputData;
 		// 入力の更新
@@ -264,7 +265,7 @@ namespace basecross {
 		void OnCollisionEnter(shared_ptr<GameObject>& other) override;
 
 		// ノックバック
-		void KnockBack(const KnockBackData& data);
+		float KnockBack(const KnockBackData& data);
 		// 死亡
 		void Died();
 

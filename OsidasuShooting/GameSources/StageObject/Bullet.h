@@ -21,6 +21,8 @@ namespace basecross {
 		TimeCounter m_timer;
 		// 移動方向
 		Vec3 m_direction;
+		// 重撃か
+		bool m_isHeavyAttack;
 		// オーナー
 		weak_ptr<PlayerBase> m_owner;
 	public:

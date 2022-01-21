@@ -3,6 +3,15 @@
 
 namespace basecross {
 
+	void Blinking::OnCreate()
+	{
+		originalColor = Col4(1.0f, 0.0f, 0.0f, 1.0f);
+
+		togglingInTime = togglingOutTime = 0.5f;
+		toggleStayingTime = 0.0f;
+		blinkingTime = 10.0f;
+	}
+
 	void Blinking::OnUpdate()
 	{
 
@@ -25,16 +34,19 @@ namespace basecross {
 
 		timeChecker += deltaTime;
 
-		switch (toggle)
+		if (isHideShow)
 		{
-		case Blinking::HideAndShow:
 			ProgressOfHideShow();
-			break;
-		case Blinking::FadeInOut:
-			ProgressOfFadeInOut();
-			break;
-		default:
-			break;
+		}
+
+		if (isFadeInOut)
+		{
+			ProgressOfFading();
+		}
+
+		if (isAlterSize)
+		{
+			ProgressOfScaling();
 		}
 
 	}
@@ -57,10 +69,21 @@ namespace basecross {
 	{
 		return changedColor;
 	}
-
-	void Blinking::StartBlinking(float blinkTime)
+	Vec3 Blinking::GetAdjustedScale()
 	{
-		blinkingTime = blinkTime;
+		Vec3 scale = Vec3(currentSizeValue, currentSizeValue, currentSizeValue);
+		return scale;
+	}
+
+	void Blinking::StartBlinking()
+	{
+		if (!isFadeInOut && isAlterSize && isHideShow)
+		{
+			isFadeInOut = true;// default
+		}
+
+		timeChecker = 0;
+
 		SetUpdateActive(true);
 		isBlinking = true;
 	}
@@ -68,33 +91,49 @@ namespace basecross {
 	{
 		SetUpdateActive(false);
 		isBlinking = false;
+		isHideShow = false;
+		isFadeInOut = false;
+		isAlterSize = false;
 	}
 
 
 
-	void Blinking::SetShowHideTime(float showTime, float hideTime, float blinkTime)
+	void Blinking::SetToggleTime(float inTime, float outTime, float blinkTime)
 	{
-		showingTime = showTime;
-		hidingTime = showingTime + hideTime;
-		toggle = Blinking::Toggle::HideAndShow;
-		timeChecker = 0;//showingTime　から始まる
+		float stayTime = 0.0;
+		SetToggleTime(inTime, outTime, blinkTime, stayTime);
+	}
+	void Blinking::SetToggleTime(float inTime, float outTime, float blinkTime, float stayTime)
+	{
+		if (stayTime < 0)
+		{
+			stayTime = 0.0;
+		}
+		togglingInTime = inTime;
+		toggleStayingTime = inTime + stayTime;
+		togglingOutTime = inTime + stayTime+ outTime;
+		blinkingTime = blinkTime;
+	}
 
-		StartBlinking(blinkTime);
+	void Blinking::SetShowHide()
+	{
+		isHideShow = true;
 	}
 	
-	void Blinking::SetFadeInOutTime(float fadeInTime, float fadeOutTime, float blinkTime)
+	void Blinking::SetFading()
 	{
-		fadingInTime = fadeInTime;
-		fadingOutTime = fadingInTime + fadeOutTime;
-		//fadeInOutSpeed = 0.002f;
-		fadeInOutSpeed = 0.0f;
-		fadeInOutStay = 0.01f;
-		timeChecker = fadingInTime + fadeInOutStay; //fadingOutTime　から始まる	
+		isFadeInOut = true;
+	}
+	
+	void Blinking::SetScaling(float scaleValue, float maxScaleValue)
+	{
+		sizeValue = scaleValue;
+		maxSizeValue = maxScaleValue;
 
-		//originalColor = component->GetDiffuse();
-		toggle = Blinking::Toggle::FadeInOut;
+		isAlterSize = true;
 
-		StartBlinking(blinkTime);
+		currentSizeValue = sizeValue;
+
 	}
 
 
@@ -102,78 +141,47 @@ namespace basecross {
 	void Blinking::ProgressOfHideShow()
 	{
 
-		if (timeChecker < showingTime)
+		if (timeChecker < togglingInTime)
 		{
 			component->SetDrawActive(true);
 		}
-		else if (timeChecker < hidingTime)
+		else if (timeChecker < togglingOutTime)
 		{
 			component->SetDrawActive(false);
 		}
 		else
 		{
 			timeChecker = 0;
-
-			//速度増えるため
-			if (showingTime >= hidingTime - showingTime)
-			{
-				showingTime -= showingTime * 10 / 100;
-				hidingTime -= hidingTime * 1 / 100;
-			}
-			else
-			{
-				hidingTime -= hidingTime * 10 / 100;
-				showingTime -= showingTime * 1 / 100;
-
-			}
 		}
 	}
 
-	void Blinking::ProgressOfFadeInOut()
+	void Blinking::ProgressOfFading()
 	{
-
 		float colorAdjustment;
-
-		if (timeChecker < fadingInTime)
+		if (timeChecker < togglingInTime)
 		{
-			colorAdjustment = timeChecker / fadingInTime;
+			colorAdjustment = 1 - (timeChecker / togglingInTime);
 		}
-		else if (timeChecker < (fadingInTime + fadeInOutStay))
+		else if (timeChecker < toggleStayingTime)
 		{
-			colorAdjustment = 1.0f;
+			colorAdjustment = 0.0f;
 		}
-		else if (timeChecker < (fadingOutTime + fadeInOutStay))
+		else if (timeChecker < togglingOutTime)
 		{
-			colorAdjustment = 1.0f - (timeChecker - (fadingInTime + fadeInOutStay)) / fadingOutTime;
+			colorAdjustment = (timeChecker / togglingOutTime);
 		}
 		else
 		{
 			timeChecker = 0;
-			colorAdjustment = 0.0f;
-			if (fadeInOutSpeed > 0)
-			{
-				fadeInOutSpeed += fadeInOutSpeed * 5 / 100;
-				fadingInTime -= fadeInOutSpeed;
-				fadingOutTime -= fadeInOutSpeed;
-
-				if (fadingInTime < 0)
-				{
-					fadingInTime = fadeInOutSpeed;
-				}
-				if (fadingOutTime < 0)
-				{
-					fadingOutTime = fadeInOutSpeed;
-				}
-			}
+			colorAdjustment = 1.0f;
 		}
-
 		SetAdjustColor(colorAdjustment);
-
 	}
+
 
 	void Blinking::SetAdjustColor(float colorValue)
 	{
-		Col4 color = Col4(colorValue, colorValue, colorValue, 0.0f);
+		Col4 color = Col4(colorValue, colorValue, colorValue, 1.0f);
 		
 		if (originalColor.x != originalColor.y || originalColor.x != originalColor.z)
 		{
@@ -194,5 +202,29 @@ namespace basecross {
 		
 		changedColor = color;
 		changedAlpha = colorValue;
+	}
+
+
+	void Blinking::ProgressOfScaling()
+	{
+
+		if (timeChecker < togglingInTime)
+		{
+			currentSizeValue = sizeValue + ((maxSizeValue - sizeValue) * timeChecker / togglingInTime);
+		}
+		else if (timeChecker < toggleStayingTime)
+		{
+			currentSizeValue = maxSizeValue;
+		}
+		else if (timeChecker < togglingOutTime)
+		{
+			currentSizeValue = maxSizeValue - ((maxSizeValue - sizeValue) * timeChecker / togglingOutTime);
+		}
+		else
+		{
+			timeChecker = 0;
+			currentSizeValue = sizeValue;
+		}
+
 	}
 }

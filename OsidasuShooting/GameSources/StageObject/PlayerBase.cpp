@@ -56,8 +56,11 @@ namespace basecross {
 		auto efkComp = AddComponent<EfkComponent>();
 		efkComp->SetEffectResource(L"Jump", TransformData(Vec3(0.0f, -0.5f, 0.0f), m_transformData.Scale));
 		efkComp->SetEffectResource(L"Hover", TransformData(Vec3(0.0f, -0.5f, 0.0f), m_transformData.Scale));
+		efkComp->IsSyncPosition(L"Hover", true);
 		efkComp->SetEffectResource(L"Smoke", TransformData(Vec3(0.0f, -0.5f, 0.0f), m_transformData.Scale), true);
 		efkComp->SetEffectResource(L"Respawn", TransformData(Vec3(0.0f, -0.5f, 0.0f)));
+		efkComp->SetEffectResource(L"Shield", TransformData(Vec3(0, 0.2f, 0), m_transformData.Scale));
+		efkComp->IsSyncPosition(L"Shield", true);
 
 		// 武器ステートマシンの構築と設定
 		m_weaponStateMachine.reset(new StateMachine<PlayerBase>(GetThis<PlayerBase>()));
@@ -193,9 +196,6 @@ namespace basecross {
 		auto efkComp = GetComponent<EfkComponent>();
 		if (!efkComp->IsPlaying(L"Hover")) {
 			efkComp->Play(L"Hover");
-		}
-		else {
-			efkComp->SyncPosition(L"Hover");
 		}
 		SoundManager::GetInstance()->PlayOverlap(L"HoverSE", 0.4f);
 	}
@@ -349,10 +349,10 @@ namespace basecross {
 		m_isBombMode = false;
 	}
 
-	void PlayerBase::KnockBack(const KnockBackData& data) {
+	float PlayerBase::KnockBack(const KnockBackData& data) {
 		// 無敵の場合無視
 		if (m_isInvincible)
-			return;
+			return 0;
 		// 加害者が自分自身の場合（自分の攻撃に自分があたった場合）は無視
 		if (data.Aggriever.lock() != GetThis<PlayerBase>()) {
 			m_aggriever = data.Aggriever;
@@ -366,8 +366,6 @@ namespace basecross {
 		float knockBackCorrection = 1;
 		float inverseEnergyRate = (1 - GetEnergyRate());
 		knockBackCorrection += (inverseEnergyRate * 2) * (inverseEnergyRate * 2);
-		//	1.0f - resistanceToPush;
-		//knockBackCorrection *= 1 - Utility::Remap(GetEnergyRate(), 0, 1, 0, 0.5f);
 
 		// ダメージ判定
 		switch (data.Type) {
@@ -385,6 +383,8 @@ namespace basecross {
 		}
 		GetComponent<PhysicalBehavior>()->Impact(
 			data.Direction, data.Amount * knockBackCorrection);
+		GetComponent<EfkComponent>()->Play(L"Shield");
+		return knockBackCorrection;
 	}
 
 	void PlayerBase::SetActive(bool flg) {
@@ -538,6 +538,9 @@ namespace basecross {
 				GetThis<PlayerBase>(),
 				0.5f, L"EnergyPlus", TransformData(Vec3(0, 25, 0), Vec3(0.1f))
 				);
+		}
+		if (keyState.m_bPressedKeyTbl['8']) {
+			GetComponent<EfkComponent>()->Play(L"Shield");
 		}
 	}
 
