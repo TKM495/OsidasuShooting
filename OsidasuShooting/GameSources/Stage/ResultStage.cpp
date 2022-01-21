@@ -175,11 +175,11 @@ namespace basecross {
 			// ƒvƒŒƒCƒ„[‚Ì‡ˆÊ‚Ìˆ— 
 			auto top		 = player->GetCountKilledPlayer() > m_playerTopScore;
 			auto topDeadWin	 = player->GetCountKilledPlayer() == m_playerTopScore && player->GetDeadCount() < m_playerTopDead;
-			auto deadWin	 = m_previousScore == m_playersScore && m_previousDead < m_playersDead;
+			//auto deadWin	 = m_previousScore == m_playersScore && m_previousDead < m_playersDead;
 			auto topDrawDead = player->GetCountKilledPlayer() == m_playerTopScore && player->GetDeadCount() == m_playerTopDead;
 			auto drawDead	 = m_previousScore == m_playersScore && m_previousDead == m_playersDead;
 
-			if (loopCount == 0 || top || topDeadWin || deadWin) {
+			if (loopCount == 0 || top || topDeadWin) {
 				m_playerTop = m_playersNumber;
 				m_playerTopScore = m_playersScore;
 				m_playerTopDead = m_playersDead;
