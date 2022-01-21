@@ -3,8 +3,6 @@
 
 namespace basecross {
 	void TitleCamera::OnCreate() {
-		AddComponent<PNTStaticDraw>()->SetMeshResource(L"DEFAULT_CUBE");
-
 		wstring DataDir;
 		App::GetApp()->GetDataDirectory(DataDir);
 		CSVLoad::GetInstance()->RegisterFile(L"Camera", DataDir + L"CSV/" + L"Camera.csv");
@@ -20,8 +18,12 @@ namespace basecross {
 			(float)_wtof(data[5].c_str()),
 			(float)_wtof(data[6].c_str())
 		);
-		GetTransform()->SetPosition(eye);
-		GetTransform()->SetRotation(at);
+		SetEye(eye);
+		SetAt(at);
+		auto degAngle = (float)_wtof(data[7].c_str());
+		SetFovY(XMConvertToRadians(degAngle));
+
+		SetUp(Vec3(0.2f, 0.9f, 0).normalize());
 	}
 	void TitleCamera::OnUpdate() {
 	}

@@ -8,14 +8,10 @@
 
 namespace basecross {
 	void TitleStage::CreateViewLight() {
-		const Vec3 eye(0.0f, 5.0f, -5.0f);
-		const Vec3 at(0.0f);
 		auto PtrView = CreateView<SingleView>();
 		//ビューのカメラの設定
-		auto PtrCamera = ObjectFactory::Create<Camera>();
+		auto PtrCamera = ObjectFactory::Create<TitleCamera>();
 		PtrView->SetCamera(PtrCamera);
-		PtrCamera->SetEye(eye);
-		PtrCamera->SetAt(at);
 		//マルチライトの作成
 		auto PtrMultiLight = CreateLight<MultiLight>();
 		//デフォルトのライティングを指定
@@ -37,11 +33,22 @@ namespace basecross {
 		try {
 			//ビューとライトの作成
 			CreateViewLight();
-			AddGameObject<Debug>();
-			Debug::GetInstance()->Log(L"CurrentStage : TitleStage");
-			Debug::GetInstance()->Log(L"A : CharacterSelect");
-			Debug::GetInstance()->Log(L"B : Exit");
+			//AddGameObject<Debug>();
+			//Debug::GetInstance()->Log(L"CurrentStage : TitleStage");
+			//Debug::GetInstance()->Log(L"A : CharacterSelect");
+			//Debug::GetInstance()->Log(L"B : Exit");
 
+			GameObjecttCSVBuilder builder;
+			builder.Register<Block>(L"Block");
+			builder.Register<Bumper>(L"Bumper");
+			builder.Register<ReflectorBlock>(L"Reflector");
+			builder.Register<BreakBlock>(L"BreakableBlock");
+			builder.Register<PlayerBuilder>(L"Player");
+			builder.Register<FallDecision>(L"FallDecision");
+			builder.Register<MoveBlock>(L"MovingBlock");
+			auto dir = App::GetApp()->GetDataDirWString();
+			auto path = dir + L"Csv/Stage/";
+			builder.Build(GetThis<Stage>(), path + L"TitleStage.csv");
 			// 背景
 			AddGameObject<SimpleSprite>(L"BackGround00")->SetDrawLayer(-1);
 

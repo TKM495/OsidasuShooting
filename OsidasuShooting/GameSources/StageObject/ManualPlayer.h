@@ -38,7 +38,6 @@ namespace basecross {
 
 	// リザルト用のプレイヤー
 	class ResultPlayer :public PlayerBase {
-		GameController m_controller;
 		void InputUpdate() {};
 	public:
 		/**
@@ -52,9 +51,28 @@ namespace basecross {
 			const TransformData& transformData,
 			PlayerNumber playerNumber = PlayerNumber::P1,
 			PlayerType playerType = PlayerType::Laser)
-			:PlayerBase(stage, transformData, playerNumber, playerType),
-			m_controller(playerNumber)
+			:PlayerBase(stage, transformData, playerNumber, playerType)
 		{}
 		void OnCreate()override;
+	};
+
+	// タイトル用のプレイヤー
+	class TitlePlayer : public PlayerBase {
+		void InputUpdate() {};
+	public:
+		/**
+		 * @brief コンストラクタ
+		 *
+		 * @param stage ステージへのポインタ
+		 * @param transformData トランスフォームデータ
+		 * @param playerNumber プレイヤーの番号
+		 */
+		TitlePlayer(const shared_ptr<Stage>& stage,
+			const TransformData& transformData,
+			PlayerNumber playerNumber = PlayerNumber::P1,
+			PlayerType playerType = PlayerType::Laser)
+			:PlayerBase(stage, transformData, playerNumber, playerType)
+		{}
+		//void OnCreate()override;
 	};
 }
