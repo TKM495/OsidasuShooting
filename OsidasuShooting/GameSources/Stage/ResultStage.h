@@ -19,6 +19,9 @@ namespace basecross {
 		int  m_playersDead;
 		Col4 m_playerColor;
 
+		int  m_previousScore;
+		int  m_previousDead;
+
 		PlayerNumber m_playerTop;
 		int  m_playerTopScore;
 		int  m_playerTopDead;
@@ -40,6 +43,8 @@ namespace basecross {
 			m_playersScore(),
 			m_playersDead(),
 			m_playerColor(),
+			m_previousScore(),
+			m_previousDead(),
 			m_playerTop(),
 			m_playerTopScore(),
 			m_playerTopDead(),
@@ -68,6 +73,7 @@ namespace basecross {
 		void AddWinnerSprite(int player);
 		void AddResultSprites(Vec3 pos, int playerNum, int score, int dead,int rank);
 		void RankingPlayerSet(Vec3 pos ,int value);
+		void WinOrDraw(shared_ptr<PlayerBase> player, int loop, int drawPlayer);
 		void BattlePlayerUISet(int value) {} ;
 	};
 }

@@ -96,7 +96,6 @@ namespace basecross {
 		auto allPlayer = PlayerManager::GetInstance()->GetSortedAllPlayer();
 		int loopCount = 0;	// for
 		int drawPlayer = 0;	// 
-		int resultRank = 0;	// 順位を決める
 		int draw = 0;		// 引き分け
 		// 順位が高い順に処理される
 		for (auto player : allPlayer) {
@@ -135,35 +134,39 @@ namespace basecross {
 				break;
 			}
 
-			//Debug::GetInstance()->Log(str);
-			//Debug::GetInstance()->Log(player->GetCountKilledPlayer());
+			// プレイヤーの順位の処理 
+			auto top		 = player->GetCountKilledPlayer() > m_playerTopScore;
+			auto deadWin	 = player->GetCountKilledPlayer() == m_playerTopScore && player->GetDeadCount() < m_playerTopDead;
+			auto topDrawDead = player->GetCountKilledPlayer() == m_playerTopScore && player->GetDeadCount() == m_playerTopDead;
+			auto drawDead	 = m_previousScore == m_playersScore && m_previousDead == m_playersDead;
 
-			AddResultSprites(Vec3(400 + addVec, 250 + setPosY, 0), 
-				(UINT)m_playersNumber + 1, m_playersScore, m_playersDead, loopCount);
-			addVec += 12.5f;
-			setPosY -= 170;
-
-			auto winer	  = player->GetCountKilledPlayer() > m_playerTopScore;
-			auto deadWin  = player->GetCountKilledPlayer() == m_playerTopScore && player->GetDeadCount() < m_playerTopDead;
-			auto drawDead = player->GetCountKilledPlayer() == m_playerTopScore && player->GetDeadCount() == m_playerTopDead;
-
-			if (loopCount == 0 || winer || deadWin) {
+			if (loopCount == 0 || top || deadWin) {
 				m_playerTop = m_playersNumber;
 				m_playerTopScore = m_playersScore;
 				m_playerTopDead = m_playersDead;
 				m_playerTopColor = m_playerColor;
 				m_isTopOnly = true;
-				resultRank += draw;
-				draw = 0;
 			}
-			else if (drawDead) {
+			else if (topDrawDead || drawDead) {
 				m_playerDraw[drawPlayer] = m_playersNumber;
-				m_isPlayerDraw[drawPlayer] = true;
 				m_isTopOnly = false;
+				if(topDrawDead)
+					m_isPlayerDraw[drawPlayer] = true;
 				drawPlayer++;
-				//draw++;
+				draw++;
 			}
+
+			// プレイヤーの結果を表示する
+			AddResultSprites(Vec3(400 + addVec, 250 + setPosY, 0), 
+				(UINT)m_playersNumber + 1, m_playersScore, m_playersDead, loopCount - draw);
+			addVec += 12.5f;
+			setPosY -= 170;
+
 			loopCount++;
+			
+			// 比較用に別の関数に代入
+			m_previousScore = m_playersScore; 
+			m_previousDead = m_playersDead;
 		}
 
 		// トップのプレイヤー
