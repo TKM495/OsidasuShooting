@@ -41,14 +41,14 @@ namespace basecross {
 
 	void SatoStage::AddWinnerSprite()
 	{
-		auto winnerUIs = AddGameObject<ResultWinnerSprite>(L"Winner");
-		auto winnerUIsTrans = winnerUIs->GetComponent<Transform>();
-		auto winnerUIsPos = winnerUIsTrans->GetPosition();
+		//auto winnerUIs = AddGameObject<ResultWinOrDrowSprite>(L"Winner");
+		//auto winnerUIsTrans = winnerUIs->GetComponent<Transform>();
+		//auto winnerUIsPos = winnerUIsTrans->GetPosition();
 
-		auto playerNumber = AddGameObject<BattlePlayersUIs>(L"BPsUIs", 1,Vec3(0));
-		auto playUIsTrans = playerNumber->GetComponent<Transform>();
-		playUIsTrans->SetPosition(winnerUIsPos - Vec3(-412.0f,-27.0f,0));
-		playUIsTrans->SetScale(Vec3(1.1f));
+		//auto playerNumber = AddGameObject<BattlePlayersUIs>(L"BPsUIs", 1,Vec3(0));
+		//auto playUIsTrans = playerNumber->GetComponent<Transform>();
+		//playUIsTrans->SetPosition(winnerUIsPos - Vec3(-412.0f,-27.0f,0));
+		//playUIsTrans->SetScale(Vec3(1.1f));
 
 	}
 
@@ -75,14 +75,14 @@ namespace basecross {
 
 	void SatoStage::OnCreate() {
 		try {
-			// 爆弾アイコン(確認用)
-			AddGameObject<BombIcon>(Vec3(-0, -0, 0))->SetDrawLayer(99);
+			//// 爆弾アイコン(確認用)
+			//AddGameObject<BombIcon>(Vec3(-0, -0, 0))->SetDrawLayer(99);
 
-			AddGameObject<EfkInterface>();
-			wstring DataDir;
-			App::GetApp()->GetDataDirectory(DataDir);
-			wstring TestEffectStr = DataDir + L"Effects\\";
-			EfkEffectResource::RegisterEffectResource(L"Bullet", TestEffectStr + L"Bullet.efk");
+			//AddGameObject<EfkInterface>();
+			//wstring DataDir;
+			//App::GetApp()->GetDataDirectory(DataDir);
+			//wstring TestEffectStr = DataDir + L"Effects\\";
+			//EfkEffectResource::RegisterEffectResource(L"Bullet", TestEffectStr + L"Bullet.efk");
 
 			//ビューとライトの作成
 			CreateViewLight();
@@ -102,19 +102,19 @@ namespace basecross {
 
 			//BattlePlayerUISet(6);
 			
-			auto Player1 =  AddGameObject<ManualPlayer>(TransformData(Vec3(0), Vec3(1), Vec3(0,0,1)), PlayerNumber::P1);
-			Player1->GetComponent<Gravity>()->SetGravityZero();
-			auto PlayerPos = Player1->GetComponent<Transform>()->GetPosition();
-			
-			auto Laser = AddGameObject<SpecialLaser>(Player1, Vec3(0,0,0), Vec3(0, 0, 0));
+			//auto Player1 =  AddGameObject<ManualPlayer>(TransformData(Vec3(0), Vec3(1), Vec3(0,0,1)), PlayerNumber::P1);
+			//Player1->GetComponent<Gravity>()->SetGravityZero();
+			//auto PlayerPos = Player1->GetComponent<Transform>()->GetPosition();
+			//
+			//auto Laser = AddGameObject<SpecialLaser>(Player1, Vec3(0,0,0), Vec3(0, 0, 0));
 
-			AddGameObject<Block>(TransformData(Vec3(0,-1,0),Vec3(100,1,100)));
+			//AddGameObject<Block>(TransformData(Vec3(0,-1,0),Vec3(100,1,100)));
 			//auto LaserPos->GetPositino();
 			//LaserPos.z *= -1;
 			//Laser->GetTransform()->SetPosition(LaserPos);
 			//
 
-			AddWinnerSprite();
+			//AddWinnerSprite();
 
 			//float addVec = 0;
 			//float setPosY = 0;
@@ -135,7 +135,7 @@ namespace basecross {
 	void SatoStage::OnUpdate() {
 		try 
 		{
-			JMDSeitchSystem();
+			//JMDSeitchSystem();
 		}
 		catch (...)
 		{
