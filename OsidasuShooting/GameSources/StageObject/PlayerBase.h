@@ -123,8 +123,6 @@ namespace basecross {
 		int m_countKilledPlayer;
 		// 死んだ回数
 		int m_deadCount;
-		// プレイヤーのモデル
-		weak_ptr<PlayerModel> m_model;
 
 		// 前回の正面方向
 		Vec3 m_lastFrontDirection;
@@ -224,9 +222,9 @@ namespace basecross {
 		// リスポーン時の初期化処理
 		void RespawnInit();
 		// アイテムの効果の処理
-		void ItemEffect(modifiedClass::ItemType type);
-		// アイテムを取得したときのエフェクトをプレイヤーに追従させる
-		void ItemGetEffectSync();
+		bool ItemEffect(modifiedClass::ItemType type);
+		// レイの判定
+		Vec3 RayHitPosition(const Vec3& pos);
 	protected:
 		// 移動速度（どちらかというとかける力）
 		float m_moveSpeed;
@@ -244,6 +242,11 @@ namespace basecross {
 		float m_bombAimMovingDistance;
 		// 補正する角度（弾の照準）
 		float m_correctAngle;
+		// シールドが使えるエネルギーの割合
+		float m_shieldRate;
+		// プレイヤーのモデル
+		weak_ptr<PlayerModel> m_model;
+
 		// 入力データ
 		PlayerInputData m_inputData;
 		// 入力の更新
@@ -262,7 +265,7 @@ namespace basecross {
 		void OnCollisionEnter(shared_ptr<GameObject>& other) override;
 
 		// ノックバック
-		void KnockBack(const KnockBackData& data);
+		float KnockBack(const KnockBackData& data);
 		// 死亡
 		void Died();
 

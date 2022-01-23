@@ -8,6 +8,23 @@
 #include "LinePoint.h"
 
 namespace basecross {
+	PredictionLine::PredictionLine(
+		const shared_ptr<Stage>& stage,
+		int pointCount,
+		float flightTime,
+		float gravity)
+		:stages(stage), m_pointCount(pointCount),
+		m_flightTime(flightTime), m_gravity(gravity),
+		m_type(Type::Bullet)
+	{
+		for (int i = 0; i < m_pointCount + 1; i++)
+			CreateLinePoint();
+		m_impactPoint =
+			stage->AddGameObject<BoardPoly>(
+				L"ImpactPoint",
+				TransformData(Vec3(0), Vec3(2.0f)));
+	}
+
 	vector<Vec3> PredictionLine::BulletCalculate(const Vec3& startPoint, const Vec3& endPoint) {
 		vector<Vec3> points;
 		// 方向を計算
@@ -33,6 +50,7 @@ namespace basecross {
 		}
 		// 終点座標へ補正
 		points.push_back(endPoint);
+		m_impactPoint->GetTransform()->SetPosition(endPoint);
 		return points;
 	}
 
@@ -43,7 +61,10 @@ namespace basecross {
 		auto vn = (diffY - m_gravity * 0.5f * m_flightTime * m_flightTime) / m_flightTime;
 
 		// 水平方向の座標を求める (x,z座標)
-		auto p = Lerp::CalculateLerp(startPoint, endPoint, 0.0f, 1.0f, time / m_flightTime, Lerp::rate::Linear);
+		// Easingクラスを使用し(time / m_flightTime)が1以上のときも計算する
+		Easing<Vec3> horizontal;
+		auto _endPoint = endPoint;
+		auto p = horizontal.Linear(startPoint, _endPoint, time / m_flightTime, 1.0f);
 		// 鉛直方向の座標 y
 		p.y = startPoint.y + vn * time + 0.5f * m_gravity * time * time;
 		return p;
@@ -60,18 +81,23 @@ namespace basecross {
 		{
 		case Type::Bullet:
 			points = BulletCalculate(startPoint, endPoint);
+
 			break;
 		case Type::Bomb:
 			points = BombCalculate(startPoint, endPoint);
 			break;
 		}
+		m_impactPoint->SetDrawActive(type == Type::Bomb);
 
 		auto direction = endPoint - startPoint;
+		direction.normalize();
+		auto rad = atan2f(-direction.z, direction.x) + XM_PIDIV2;
+		auto IPRot = m_impactPoint->GetTransform()->GetRotation();
+		Vec3 rot(0.0f, rad, 0.0f);
+		m_impactPoint->GetTransform()->SetRotation(rot);
+
 		for (int i = 0; i < points.size(); i++) {
 			m_linePoints[i]->GetTransform()->SetPosition(points[i]);
-			direction.normalize();
-			auto rad = atan2f(-direction.z, direction.x) + XM_PIDIV2;
-			Vec3 rot(0.0f, rad, 0.0f);
 			m_linePoints[i]->GetTransform()->SetRotation(rot);
 		}
 		SetActive(direction != Vec3(0));

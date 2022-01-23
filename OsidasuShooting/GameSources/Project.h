@@ -1,11 +1,6 @@
-/*!
-@file Project.h
-@brief 繧ｳ繝ｳ繝・Φ繝・畑縺ｮ繝倥ャ繝繧偵∪縺ｨ繧√ｋ
-*/
-
 #pragma once
 
-// 蝓ｺ譛ｬ
+// ステージ
 #include "Scene.h"
 #include "Stage/DebugStage.h"
 #include "Stage/GameStage.h"
@@ -49,6 +44,7 @@
 #include "StageObject/Item_.h"
 #include "StageObject/ItemCreation_.h"
 #include "StageObject/Blinking_.h"
+#include "StageObject/Confetti.h"
 //UI
 #include "UIs/InfoGauge.h"
 #include "UIs/BackPlanet.h"
@@ -57,13 +53,14 @@
 #include "UIs/BombReloadTimeGauge.h"
 #include "UIs/BombRemainingCount.h"
 #include "UIs/Canvas.h"
-#include "UIs/CharaSelectUILetter.h"
+#include "UIs/CharaSelectUIs.h"
 #include "UIs/CharaSelectUISprites.h"
 #include "UIs/CurrentFirst.h"
 #include "UIs/FreamSprite.h"
 #include "UIs/NumberSprite.h"
 #include "UIs/PlayerFollowUI.h"
 #include "UIs/PlayerInfo.h"
+#include "UIs/PlayerCharaPicture.h"
 #include "UIs/ResultScore.h"
 #include "UIs/ResultSprite.h"
 #include "UIs/SimpleSprite.h"
@@ -74,12 +71,14 @@
 #include "UIs/TransitionSprite.h"
 #include "UIs/GameStartAndFinish.h"
 //#include "UIs/CountDown_.h"
+#include "UIs/OneShotUI.h"
 // コンポーネント
 #include "Component/FadeComponent.h"
 #include "Component/LifeSpan.h"
 #include "Component/MySpriteBaseDraw.h"
 #include "Component/PCTGaugeSprite.h"
 #include "Component/PhysicalBehavior.h"
+#include "Component/CircleShadow.h"
 // メニュー
 #include "UIs/Menu/BaseMenu.h"
 // マネージャー
@@ -88,6 +87,10 @@
 #include "Manager/StageManager.h"
 #include "Manager/PlayerBuilder.h"
 #include "Manager/SpecialSkillManager.h"
+
+// カメラ
+#include "Camera/GameCamera.h"
+#include "Camera/TitleCamera.h"
 
 //JonyMd Folder
 //Empty GameObject

@@ -8,26 +8,10 @@
 
 namespace basecross {
 	void GameStage::CreateViewLight() {
-		auto line = CSVLoad::GetInstance()->GetData(L"Camera");
-		auto data = DataExtracter::DelimitData(line[1]);
-		const Vec3 eye = Vec3(
-			(float)_wtof(data[1].c_str()),
-			(float)_wtof(data[2].c_str()),
-			(float)_wtof(data[3].c_str())
-		);
-		const Vec3 at = Vec3(
-			(float)_wtof(data[4].c_str()),
-			(float)_wtof(data[5].c_str()),
-			(float)_wtof(data[6].c_str())
-		);
-		//const Vec3 eye(0.0f, 25.0f, -30.0f);
-		//const Vec3 at(0.0f, 0.0f, -7.0f);
 		auto PtrView = CreateView<SingleView>();
 		//ビューのカメラの設定
-		auto PtrCamera = ObjectFactory::Create<Camera>();
+		auto PtrCamera = ObjectFactory::Create<GameCamera>();
 		PtrView->SetCamera(PtrCamera);
-		PtrCamera->SetEye(eye);
-		PtrCamera->SetAt(at);
 		//マルチライトの作成
 		auto PtrMultiLight = CreateLight<MultiLight>();
 		//デフォルトのライティングを指定
@@ -57,12 +41,12 @@ namespace basecross {
 			auto dir = App::GetApp()->GetDataDirWString();
 			auto path = dir + L"Csv/Stage/";
 			builder.Build(GetThis<Stage>(), path + L"StageBase.csv");
-			builder.Build(GetThis<Stage>(), path + L"Stage4.csv");
+			builder.Build(GetThis<Stage>(), path + L"Stage1.csv");
 
 			AddGameObject<CurrentFirst>();
 			AddGameObject<modifiedClass::Area>(TransformData(Vec3(0, 0, -6), Vec3(27, 1, 21)));
 
-			auto m_countDown = AddGameObject<CountDown>(90.0f);
+			auto m_countDown = AddGameObject<CountDown>(30.0f);
 			SetSharedGameObject(L"ForCountDown", m_countDown);
 			m_startCountDown = AddGameObject<StartCountDown>(TransformData());
 			m_itemCreation = AddGameObject<modifiedClass::ItemCreation>();
@@ -93,7 +77,6 @@ namespace basecross {
 			break;
 		case GameState::STAY:
 			if (m_startCountDown->GetTimer().IsTimeUp()) {
-				
 				m_countDown->Start();
 				Debug::GetInstance()->Log(L"GameStart！！！！！");
 				ChangeGameState(GameState::PLAYING);

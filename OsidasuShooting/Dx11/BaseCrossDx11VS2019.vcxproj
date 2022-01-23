@@ -129,6 +129,14 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Update="D:\新相撲ゲーム\OshidasuSyu-thingu\OsidasuShooting\GameSources\UIs\CharaSelectUIs.cpp">
+      <FileType>Document</FileType>
+    </ClCompile>
+    <ClCompile Update="D:\新相撲ゲーム\OshidasuSyu-thingu\OsidasuShooting\GameSources\UIs\CharaSelectUIscpp">
+      <FileType>Document</FileType>
+    </ClCompile>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

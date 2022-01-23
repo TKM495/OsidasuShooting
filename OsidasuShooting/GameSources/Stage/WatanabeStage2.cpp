@@ -9,14 +9,16 @@
 
 namespace basecross {
 	void WatanabeStage2::CreateViewLight() {
-		const Vec3 eye(0.0f, 5.0f, -5.0f);
+		const Vec3 eye(0.0f, 20.0f, -20.0f);
 		const Vec3 at(0.0f);
 		auto PtrView = CreateView<SingleView>();
 		//ビューのカメラの設定
-		auto PtrCamera = ObjectFactory::Create<DebugCamera>(10.0f, 5.0f);
+		auto PtrCamera = ObjectFactory::Create<Camera>();
 		PtrView->SetCamera(PtrCamera);
 		PtrCamera->SetEye(eye);
 		PtrCamera->SetAt(at);
+		PtrCamera->SetFovY(XMConvertToRadians(90));
+		//PtrCamera->set
 		//マルチライトの作成
 		auto PtrMultiLight = CreateLight<MultiLight>();
 		//デフォルトのライティングを指定
@@ -37,29 +39,24 @@ namespace basecross {
 			CSVLoad::GetInstance()->RegisterFile(L"PlayerInfo", path + L"PlayerInfo.csv");
 			CSVLoad::GetInstance()->RegisterFile(L"PlayerFollowUI", path + L"PlayerFollowUI.csv");
 
-			//AddGameObject<LinePoint>(TransformData(Vec3(0.0f), Vec3(3.0f)));
+			PlayerStatus::GetInstance()->DataExtraction();
 
-			//AddGameObject<Block>(TransformData(Vec3(10.0f, 0.0f, 0.0f)));
-			//AddGameObject<Block>(TransformData(Vec3(0.0f, 0.0f, 10.0f)));
-			//AddGameObject<Block>(TransformData(Vec3(10.0f, 0.0f, 10.0f)));
+			GameObjecttCSVBuilder builder;
+			builder.Register<Block>(L"Block");
+			builder.Register<Bumper>(L"Bumper");
+			builder.Register<ReflectorBlock>(L"Reflector");
+			builder.Register<BreakBlock>(L"BreakableBlock");
+			builder.Register<PlayerBuilder>(L"Player");
+			builder.Register<FallDecision>(L"FallDecision");
+			builder.Register<MoveBlock>(L"MovingBlock");
+			dir = App::GetApp()->GetDataDirWString();
+			path = dir + L"Csv/Stage/";
+			builder.Build(GetThis<Stage>(), path + L"TitleStage.csv");
+			AddGameObject<SimpleSprite>(L"BackGround00")->SetDrawLayer(-1);
 
-			auto b = AddGameObject<Block>(TransformData(Vec3(0.0f, -1.0f, 0.0f), Vec3(5.0f, 1.0f, 5.0f), Vec3(0.0f, XMConvertToRadians(90.0f), 0.0f)));
-			auto player = AddGameObject<ManualPlayer>(TransformData(Vec3(0.0f, 2.0f, 0.0f), Vec3(1.0f)), PlayerNumber::P1);
-			AddGameObject<PlayerInfo>(player, TransformData());
-			//AddGameObject<PlayerFollowUI>(player, TransformData());
-			//AddGameObject<BattlePlayersUIs>(L"BPsUIs", 6, Vec3(0));
-			//PlayerManager::GetInstance()->AddPlayer(player);
-
-			AddGameObject<SimpleSprite>(L"Test", TransformData(Vec3(0.0f), Vec3(0.4f)))->SetDrawLayer(0);
-			//unique_ptr<XmlDocReader> m_XmlDocReader;
-			//m_XmlDocReader.reset(new XmlDocReader(dir + L"XML/PlayerStatus.xml"));
-			//auto CellmapNode = m_XmlDocReader->GetSelectSingleNode(L"PlayerStatus");
-			////内容の文字列を取得
-			//wstring MapStr = XmlDocReader::GetText(CellmapNode);
-			//vector<wstring> tokens;
-			//Util::WStrToTokenVector(tokens, MapStr, L' ');
-			//Debug::GetInstance()->Log(tokens[1]);
-			AddGameObject<TransitionSprite>()->FadeOut();
+			GetView()->GetTargetCamera()->SetCameraObject(AddGameObject<TitleCamera>());
+			GetView()->GetTargetCamera()->SetUp(Vec3(0.2f, 0.9f, 0).normalize());
+			m_confetti = AddGameObject<Confetti>(TransformData(Vec3(0, 5, 0)));
 		}
 		catch (...) {
 			throw;
@@ -71,5 +68,8 @@ namespace basecross {
 		const auto& cont = App::GetApp()->GetInputDevice().GetControlerVec()[0];
 		if (cont.wPressedButtons & XINPUT_GAMEPAD_Y || keyState.m_bPressedKeyTbl['R'])
 			PostEvent(0.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToWatanabeStage2");
+		if (keyState.m_bPressedKeyTbl['W']) {
+			m_confetti->GetComponent<EfkComponent>()->Play(L"Hit");
+		}
 	}
 }

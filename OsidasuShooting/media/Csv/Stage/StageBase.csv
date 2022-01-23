@@ -1,7 +1,7 @@
 name, PosX, PosY, PosZ, ScaleX, ScaleY, ScaleZ, RotX, RotY, RotZ
-FallDecision,0,-40,0,100,5,100,0,0,0
-FallDecision,0,40,0,100,5,100,0,0,0
-FallDecision,-40,0,0,50,5,50,0,0,-90
-FallDecision,40,0,0,50,5,50,0,0,90
-FallDecision,0,0,-40,100,5,50,-90,0,0
-FallDecision,0,0,40,100,5,50,90,0,0
+FallDecision,0,-40,0,120,10,120,0,0,0
+FallDecision,0,40,0,120,10,120,0,0,0
+FallDecision,-40,0,0,70,10,70,0,0,-90
+FallDecision,40,0,0,70,10,70,0,0,90
+FallDecision,0,0,-40,120,10,70,-90,0,0
+FallDecision,0,0,40,120,10,70,90,0,0

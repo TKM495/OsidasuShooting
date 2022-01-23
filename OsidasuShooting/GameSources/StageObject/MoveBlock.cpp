@@ -95,7 +95,6 @@ namespace basecross {
 		m_startPosition = ptrTrans->GetPosition();
 
 		m_moveRoot = m_startPosition - m_markPosition; // 距離の取得
-		m_moveRoot.normalize(); // 正規化
 		m_waitTime = 0;
 		m_isWait = true;
 
@@ -105,6 +104,17 @@ namespace basecross {
 		//setPos.y = -1;
 		//GetTransform()->SetPosition(setPos);
 		//ApplyTransform();
+
+		// LinePointオブジェクトをintervalの間隔で配置
+		auto interval = 1.0f;
+		auto count = m_moveRoot.length() / interval;
+		for (int i = 0; i < count + 1; i++) {
+			auto point = InstantiateGameObject<LinePoint>(TransformData(Vec3(0), Vec3(0.25f)));
+			point->SetColor(Col4(1, 0, 0, 0.1f));
+			point->GetTransform()->SetPosition(
+				m_startPosition + ((-m_moveRoot.normalize() * (float)i) * interval)
+			);
+		}
 
 		AddTag(L"MoveBlock");
 	}

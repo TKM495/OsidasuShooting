@@ -36,6 +36,12 @@ namespace basecross {
 		common.BulletAimLineLength = status[3];
 		common.DefaultBombCount = status[4];
 		common.GravityMagnification = status[5];
+		common.EnergyUseInBulletShot = status[6];
+		common.UseEnergyInHover = status[7];
+		common.EnergyRecoveryAmount = status[8];
+		common.BombPowerDiameter = status[9];
+		common.ShieldPerformanceIsDownEnergyRate = status[10];
+
 		m_commonStatus = common;
 
 		for (int i = 0; i < 2; i++) {
@@ -66,14 +72,10 @@ namespace basecross {
 			StatusByPlayer byPlayer = {};
 			byPlayer.MoveSpeed = status[0];
 			byPlayer.JumpAmount = status[1];
-			byPlayer.EnergyUseInBulletShot = status[2];
-			byPlayer.UseEnergyInHover = status[3];
-			byPlayer.EnergyRecoveryAmount = status[4];
-			byPlayer.BulletPower = status[5];
-			byPlayer.BombPower = status[6];
-			byPlayer.BulletRateOfFire = status[7];
-			byPlayer.BombReloadSpeed = status[8];
-			byPlayer.Weight = status[9];
+			byPlayer.Power = status[2];
+			byPlayer.BulletRateOfFire = status[3];
+			byPlayer.BombReloadSpeed = status[4];
+			byPlayer.Weight = status[5];
 			m_statusByPlayer[PlayerType(i)] = byPlayer;
 		}
 	}
@@ -93,16 +95,16 @@ namespace basecross {
 		player->m_bulletAimLineLength = m_commonStatus.BulletAimLineLength;
 		auto defaultGravity = player->GetComponent<Gravity>()->GetGravity();
 		player->GetComponent<Gravity>()->SetGravity(defaultGravity * m_commonStatus.GravityMagnification);
-
+		player->m_energyRequiredInBulletLaunch = m_commonStatus.EnergyUseInBulletShot;
+		player->m_energyRequiredInHover = m_commonStatus.UseEnergyInHover;
+		player->m_energyRecoveryAmount = m_commonStatus.EnergyRecoveryAmount;
+		player->m_shieldRate = m_commonStatus.ShieldPerformanceIsDownEnergyRate;
 		const auto& data = m_statusByPlayer[player->GetPlayerType()];
 
 		player->m_moveSpeed = data.MoveSpeed;
 		player->m_jumpVerocity = Vec3(0, data.JumpAmount, 0);
-		player->m_energyRequiredInBulletLaunch = data.EnergyUseInBulletShot;
-		player->m_energyRequiredInHover = data.UseEnergyInHover;
-		player->m_energyRecoveryAmount = data.EnergyRecoveryAmount;
-		player->m_bulletPower = data.BulletPower;
-		player->m_bombPower = data.BombPower;
+		player->m_bulletPower = data.Power;
+		player->m_bombPower = data.Power * m_commonStatus.BombPowerDiameter;
 		player->m_bulletTimer.SetIntervalTime(data.BulletRateOfFire, true);
 		player->m_bombCoolTimeTimer.SetIntervalTime(data.BombReloadSpeed, true);
 		player->m_weight = data.Weight;

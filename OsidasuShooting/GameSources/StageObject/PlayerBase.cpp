@@ -25,7 +25,7 @@ namespace basecross {
 		m_armorZeroWhenKnockBackMagnification(5), m_energyRecoveryAmount(10),
 		m_bombAimMovingDistance(20), m_respawnTimer(3.0f), m_isActive(true),
 		m_tackleTimer(0.5f, true), m_isDuringTackle(false), m_weight(1),
-		m_bulletAimLineLength(3)
+		m_bulletAimLineLength(3), m_shieldRate(0.5f)
 	{
 		m_transformData = transData;
 		m_transformData.Scale *= 2.0f;
@@ -56,10 +56,11 @@ namespace basecross {
 		auto efkComp = AddComponent<EfkComponent>();
 		efkComp->SetEffectResource(L"Jump", TransformData(Vec3(0.0f, -0.5f, 0.0f), m_transformData.Scale));
 		efkComp->SetEffectResource(L"Hover", TransformData(Vec3(0.0f, -0.5f, 0.0f), m_transformData.Scale));
+		efkComp->IsSyncPosition(L"Hover", true);
 		efkComp->SetEffectResource(L"Smoke", TransformData(Vec3(0.0f, -0.5f, 0.0f), m_transformData.Scale), true);
 		efkComp->SetEffectResource(L"Respawn", TransformData(Vec3(0.0f, -0.5f, 0.0f)));
-		efkComp->SetEffectResource(L"BombPlus", TransformData(Vec3(0), m_transformData.Scale));
-		efkComp->SetEffectResource(L"EnergyPlus", TransformData(Vec3(0), m_transformData.Scale));
+		efkComp->SetEffectResource(L"Shield", TransformData(Vec3(0, 0.2f, 0), m_transformData.Scale));
+		efkComp->IsSyncPosition(L"Shield", true);
 
 		// 武器ステートマシンの構築と設定
 		m_weaponStateMachine.reset(new StateMachine<PlayerBase>(GetThis<PlayerBase>()));
@@ -131,7 +132,6 @@ namespace basecross {
 		m_bombCoolTimeTimer.Count();
 		// 吹っ飛びエフェクトの描画
 		KnockBackEffectDrawing();
-		ItemGetEffectSync();
 	}
 
 	void PlayerBase::Move() {
@@ -196,9 +196,6 @@ namespace basecross {
 		auto efkComp = GetComponent<EfkComponent>();
 		if (!efkComp->IsPlaying(L"Hover")) {
 			efkComp->Play(L"Hover");
-		}
-		else {
-			efkComp->SyncPosition(L"Hover");
 		}
 		SoundManager::GetInstance()->PlayOverlap(L"HoverSE", 0.4f);
 	}
@@ -276,8 +273,31 @@ namespace basecross {
 	void PlayerBase::BombAim() {
 		auto delta = App::GetApp()->GetElapsedTime();
 		m_bombPoint += m_inputData.BombAim * delta * m_bombAimMovingDistance;
+		m_bombPoint = RayHitPosition(m_bombPoint);
 		m_predictionLine.Update(GetTransform()->GetPosition(), m_bombPoint, PredictionLine::Type::Bomb);
 		TurnFrontToDirection(m_bombPoint - GetTransform()->GetPosition());
+	}
+
+	Vec3 PlayerBase::RayHitPosition(const Vec3& pos) {
+		// ステージ上のすべてのゲームオブジェクトを取得
+		auto objs = App::GetApp()->GetScene<Scene>()->GetActiveStage()->GetGameObjectVec();
+		for (auto obj : objs) {
+			// CollisionObbコンポーネントがある場合
+			auto ColObb = obj->GetComponent<CollisionObb>(false);
+			if (ColObb) {
+				auto Obb = ColObb->GetObb();
+				// OBBと線分の衝突判定
+				if (HitTest::SEGMENT_OBB(pos - Vec3(0, 10, 0), pos + Vec3(0, 10, 0), Obb))
+				{
+					auto half = Obb.m_Size.y;
+					auto _pos = pos;
+					_pos.y = Obb.m_Center.y + half;
+					_pos.y += 0.01f;
+					return _pos;
+				}
+			}
+		}
+		return pos;
 	}
 
 	void PlayerBase::BombLaunch() {
@@ -329,37 +349,42 @@ namespace basecross {
 		m_isBombMode = false;
 	}
 
-	void PlayerBase::KnockBack(const KnockBackData& data) {
+	float PlayerBase::KnockBack(const KnockBackData& data) {
 		// 無敵の場合無視
 		if (m_isInvincible)
-			return;
+			return 0;
+		// 加害者が自分自身の場合（自分の攻撃に自分があたった場合）は無視
+		if (data.Aggriever.lock() != GetThis<PlayerBase>()) {
+			m_aggriever = data.Aggriever;
+			m_isDuringReturn = true;
+			m_returnTimer.Reset();
+		}
 
-		m_aggriever = data.Aggriever;
-		m_isDuringReturn = true;
-		m_returnTimer.Reset();
-		// ノックバック倍率
-		float knockBackCorrection = 1.0f;
-		//// アーマーが回復中でない　かつ　アーマーが0より大きい
-		//if (m_currentArmorPoint > 0 && !m_isRestoreArmor) {
-		//	knockBackCorrection = 1.0f;
-		//}
-		//else {
-		//	knockBackCorrection = m_armorZeroWhenKnockBackMagnification;
-		//	m_isRestoreArmor = true;
-		//}
+		// 押されにくさ（重いほど押されにくい）
+		auto resistanceToPush = (m_weight - 1) * 0.1f;
+		// ノックバック倍率（最小で0.5f倍）
+		float knockBackCorrection = 1;
+		float inverseEnergyRate = (1 - GetEnergyRate());
+		knockBackCorrection += (inverseEnergyRate * 2) * (inverseEnergyRate * 2);
+
 		// ダメージ判定
 		switch (data.Type) {
 		case KnockBackData::Category::Bullet:
-			DecrementEnergy(10);
-			break;
+		{
+			DecrementEnergy(data.Amount * 3);
+		}
+		break;
 		case KnockBackData::Category::Bomb:
+		{
 			DecrementEnergy(5);
-			break;
+		}
 		default:
 			break;
 		}
 		GetComponent<PhysicalBehavior>()->Impact(
 			data.Direction, data.Amount * knockBackCorrection);
+		GetComponent<EfkComponent>()->Play(L"Shield");
+		return knockBackCorrection;
 	}
 
 	void PlayerBase::SetActive(bool flg) {
@@ -440,35 +465,34 @@ namespace basecross {
 		}
 	}
 
-	void PlayerBase::ItemEffect(modifiedClass::ItemType type) {
+	bool PlayerBase::ItemEffect(modifiedClass::ItemType type) {
 		switch (type)
 		{
 		case modifiedClass::ItemType::Bomb:
 			if (m_bombCount < 9) {
 				// 爆弾の残弾を増やす
 				m_bombCount++;
-				GetComponent<EfkComponent>()->Play(L"BombPlus");
+				InstantiateGameObject<OneShotUI>(
+					GetThis<PlayerBase>(),
+					0.5f, L"BombPlus", TransformData(Vec3(0, 25, 0), Vec3(0.1f))
+					);
+				return true;
 			}
-			break;
+			return false;
 		case modifiedClass::ItemType::Energy:
 			m_currentEnergy += m_defaultEnergy * 0.5f;
 			// デフォルトを超える場合はクランプ
 			if (m_currentEnergy > m_defaultEnergy) {
 				m_currentEnergy = m_defaultEnergy;
 			}
-			GetComponent<EfkComponent>()->Play(L"EnergyPlus");
-			break;
-			//case modifiedClass::ItemType::Debuff:
-				//Debug::GetInstance()->Log(L"Debuff");
-				//break;
+			InstantiateGameObject<OneShotUI>(
+				GetThis<PlayerBase>(),
+				0.5f, L"EnergyPlus", TransformData(Vec3(0, 25, 0), Vec3(0.1f))
+				);
+			return true;
 		default:
 			break;
 		}
-	}
-
-	void PlayerBase::ItemGetEffectSync() {
-		GetComponent<EfkComponent>()->SyncPosition(L"BombPlus");
-		GetComponent<EfkComponent>()->SyncPosition(L"EnergyPlus");
 	}
 
 	void PlayerBase::TestFanc() {
@@ -481,53 +505,74 @@ namespace basecross {
 
 		if (keyState.m_bPressedKeyTbl['1'] &&
 			m_playerNumber == PlayerNumber::P1) {
-			m_countKilledPlayer += 10;
+			KilledPlayer();
 			Debug::GetInstance()->Log(L"P1 +10Kill");
 		}
 
 		if (keyState.m_bPressedKeyTbl['2'] &&
 			m_playerNumber == PlayerNumber::P2) {
-			m_countKilledPlayer += 10;
+			KilledPlayer();
 			Debug::GetInstance()->Log(L"P2 +10Kill");
 		}
 		if (keyState.m_bPressedKeyTbl['3'] &&
 			m_playerNumber == PlayerNumber::P3) {
-			m_countKilledPlayer += 10;
+			KilledPlayer();
 			Debug::GetInstance()->Log(L"P3 +10Kill");
 		}
 		if (keyState.m_bPressedKeyTbl['4'] &&
 			m_playerNumber == PlayerNumber::P4) {
-			m_countKilledPlayer += 10;
+			KilledPlayer();
 			Debug::GetInstance()->Log(L"P4 +10Kill");
 		}
 		if (keyState.m_bPressedKeyTbl['5']) {
 			GetComponent<EfkComponent>()->Play(L"Respawn");
 		}
 		if (keyState.m_bPressedKeyTbl['6']) {
-			GetComponent<EfkComponent>()->Play(L"BombPlus");
+			InstantiateGameObject<OneShotUI>(
+				GetThis<PlayerBase>(),
+				0.5f, L"BombPlus", TransformData(Vec3(0, 25, 0), Vec3(0.1f))
+				);
 		}
 		if (keyState.m_bPressedKeyTbl['7']) {
-			GetComponent<EfkComponent>()->Play(L"EnergyPlus");
+			InstantiateGameObject<OneShotUI>(
+				GetThis<PlayerBase>(),
+				0.5f, L"EnergyPlus", TransformData(Vec3(0, 25, 0), Vec3(0.1f))
+				);
+		}
+		if (keyState.m_bPressedKeyTbl['8']) {
+			GetComponent<EfkComponent>()->Play(L"Shield");
 		}
 	}
 
 	void PlayerBase::OnCollisionEnter(shared_ptr<GameObject>& other) {
-		// 衝突したオブジェクトがプレイヤーの場合
+		// 衝突したオブジェクトがバンパーの場合
 		auto bumperPtr = dynamic_pointer_cast<Bumper>(other);
 		if (bumperPtr) {
 			auto gravity = GetComponent<Gravity>()->GetGravityVelocity();
 			auto totalVelocity = GetVelocity() + gravity;
-			//Debug::GetInstance()->Log(gravity);
+
+			// 自身の位置からバンパーの位置に向かうベクトルを作成
+
+			auto myPos = GetTransform()->GetPosition() + totalVelocity * 0.01f;
+			auto bumperPos = bumperPtr->GetTransform()->GetPosition();
+			auto dir = myPos - bumperPos;
+
+			// 動いていないときはバンパーから見たプレイヤーの方に飛ばす
+			auto impactDir =
+				totalVelocity == Vec3(0) ?
+				dir.normalize() : totalVelocity.reflect(dir).normalize();
 			// ノックバック
-			GetComponent<PhysicalBehavior>()->Impact(-totalVelocity * 4);
+			GetComponent<PhysicalBehavior>()->Impact(
+				impactDir, totalVelocity.length() + 25);
 		}
 
 		// アイテムの場合
 		auto itemPtr = dynamic_pointer_cast<modifiedClass::Item>(other);
 		if (itemPtr) {
-			// 効果音の再生
-			SoundManager::GetInstance()->Play(L"GetItemSE", 0, 0.3f);
-			ItemEffect(itemPtr->GetItemType());
+			if (ItemEffect(itemPtr->GetItemType())) {
+				// 効果音の再生
+				SoundManager::GetInstance()->Play(L"GetItemSE", 0, 0.3f);
+			}
 			GetStage()->RemoveGameObject<GameObject>(other);
 		}
 	}

@@ -334,7 +334,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\FreamSprite.cpp">
       <Filter>UI\Fream</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUILetter.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUIs.cpp">
       <Filter>UI\CharacterSelectUI</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUISprites.cpp">
@@ -388,11 +388,36 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Fencing.cpp">
       <Filter>StageObject\JonyMd</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\PlayerCharaPicture.cpp">
+      <Filter>UI\PlayerCharaPict</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Camera\GameCamera.cpp">
+      <Filter>Camera\GameCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\OneShotUI.cpp">
+      <Filter>UI\OneShotUI</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Blinking_.cpp">
+      <Filter>StageObject\Blinking</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\CircleShadow.cpp">
+      <Filter>Component\CircleShadow</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Camera\TitleCamera.cpp">
+      <Filter>Camera\TitleCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Confetti.cpp">
+      <Filter>StageObject\Confetti</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Blinking_.cpp">
+      <Filter>StageObject\Blinking</Filter>
+    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Blinking.cpp">
       <Filter>StageObject\JonyMd</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Blinking_.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\PlayerStatus.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility\PlayerStatus.cpp">
+      <Filter>Utility\PlayerStatus</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -607,7 +632,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\FreamSprite.h">
       <Filter>UI\Fream</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUILetter.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUIs.h">
       <Filter>UI\CharacterSelectUI</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUISprites.h">
@@ -661,11 +686,36 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Fencing.h">
       <Filter>StageObject\JonyMd</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\PlayerCharaPicture.h">
+      <Filter>UI\PlayerCharaPict</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Camera\GameCamera.h">
+      <Filter>Camera\GameCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\OneShotUI.h">
+      <Filter>UI\OneShotUI</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Blinking_.h">
+      <Filter>StageObject\Blinking</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\CircleShadow.h">
+      <Filter>Component\CircleShadow</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Camera\TitleCamera.h">
+      <Filter>Camera\TitleCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Confetti.h">
+      <Filter>StageObject\Confetti</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Blinking_.h">
+      <Filter>StageObject\Blinking</Filter>
+    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Blinking.h">
       <Filter>StageObject\JonyMd</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Blinking_.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\PlayerStatus.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility\PlayerStatus.h">
+      <Filter>Utility\PlayerStatus</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
@@ -945,6 +995,24 @@
     </Filter>
     <Filter Include="StageObject\Blinking">
       <UniqueIdentifier>{cd05b88f-797f-405d-9e2b-b8d1d93323d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\PlayerCharaPict">
+      <UniqueIdentifier>{98ded540-2bdc-4d60-8608-af2647705f88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Camera\GameCamera">
+      <UniqueIdentifier>{74bfcd5b-6cbd-4d7b-9096-034e5e5b92d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\OneShotUI">
+      <UniqueIdentifier>{068997fc-aa6c-4da4-987d-532302d1d5c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\CircleShadow">
+      <UniqueIdentifier>{4bc56232-3ea8-42fd-9942-7040508e898b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Camera\TitleCamera">
+      <UniqueIdentifier>{64334581-2937-49a2-9fb7-5b19c3cb1524}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StageObject\Confetti">
+      <UniqueIdentifier>{ee740187-bfde-4202-89a3-2d84421d7bcf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

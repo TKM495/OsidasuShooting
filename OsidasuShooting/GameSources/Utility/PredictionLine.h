@@ -6,6 +6,7 @@
 #pragma once
 #include "stdafx.h"
 #include "LinePoint.h"
+#include "UIs/SimpleSprite.h"
 
 namespace basecross {
 	class PredictionLine {
@@ -26,6 +27,8 @@ namespace basecross {
 		float m_flightTime;
 		// 予測線表示のためのオブジェクト
 		vector<shared_ptr<LinePoint>> m_linePoints;
+		// 爆弾の着弾地点スプライト
+		shared_ptr<BoardPoly> m_impactPoint;
 		// ステージへのポインタ
 		const shared_ptr<Stage>& stages;
 		// 弾の予測線の計算
@@ -47,14 +50,7 @@ namespace basecross {
 			const shared_ptr<Stage>& stage,
 			int pointCount,
 			float flightTime,
-			float gravity = -9.8f)
-			:stages(stage), m_pointCount(pointCount),
-			m_flightTime(flightTime), m_gravity(gravity),
-			m_type(Type::Bullet)
-		{
-			for (int i = 0; i < m_pointCount + 1; i++)
-				CreateLinePoint();
-		}
+			float gravity = -9.8f);
 
 		/**
 		 * @brief 予測線の更新

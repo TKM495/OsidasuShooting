@@ -34,10 +34,31 @@ namespace basecross {
 		app->RegisterTexture(L"OK", path + L"OK.png");
 		app->RegisterTexture(L"PushAButton", path + L"PushAButton.png");
 
+		app->RegisterTexture(L"SelectCursor", path + L"SelectCursor.png");
+
+		app->RegisterTexture(L"Power", path + L"Power.png");
+		app->RegisterTexture(L"Speed", path + L"Speed.png");
+		app->RegisterTexture(L"Weight", path + L"Weight.png");
+
+		// 3Way
 		app->RegisterTexture(L"3WayIcon", path + L"3WayIcon.png");
+
+		// LaserUI/Icon
 		app->RegisterTexture(L"LaserIcon", path + L"LaserIcon.png");
+		app->RegisterTexture(L"LaserPicture1", path + L"LaserPicture1.png");
+		app->RegisterTexture(L"LaserPicture2", path + L"LaserPicture2.png");
+		app->RegisterTexture(L"LaserPicture3", path + L"LaserPicture3.png");
+		app->RegisterTexture(L"LaserPicture4", path + L"LaserPicture4.png");
+
+		// Missile
 		app->RegisterTexture(L"MissileIcon", path + L"MissileIcon.png");
+
+		// TankUI/Icon
 		app->RegisterTexture(L"TankIcon", path + L"Tank.png");
+		app->RegisterTexture(L"TankPicture1", path + L"TankPicture1.png");
+		app->RegisterTexture(L"TankPicture2", path + L"TankPicture2.png");
+		app->RegisterTexture(L"TankPicture3", path + L"TankPicture3.png");
+		app->RegisterTexture(L"TankPicture4", path + L"TankPicture4.png");
 
 		app->RegisterTexture(L"CharacterSelect", path + L"CharacterSelect.png");
 		app->RegisterTexture(L"ReTriangle", path + L"ReTriangle.png");
@@ -53,8 +74,9 @@ namespace basecross {
 		app->RegisterTexture(L"Title", path + L"Title.png");
 		app->RegisterTexture(L"PushAButton", path + L"PushAButton.png");
 		app->RegisterTexture(L"Number", path + L"Number.png");
-		app->RegisterTexture(L"BPsUIs", path + L"BattlePlayersUI256x256.png");
-		app->RegisterTexture(L"BomberUI", path + L"BomberUI.png");
+		app->RegisterTexture(L"BPsUIs", path + L"BattlePlayersUI256x256.png");	// ゲーム中のアイコン
+		app->RegisterTexture(L"BPsUIs2", path + L"BattlePlayersUI256x256_2.png");//
+		app->RegisterTexture(L"BomberUI", path + L"BomberUI.png");				// ゲージ下の爆弾数アイコン
 		app->RegisterTexture(L"CircleGauge", path + L"CircleGauge.png");
 		app->RegisterTexture(L"BarGauge", path + L"BarGauge.png");
 		app->RegisterTexture(L"GaugeColor", path + L"GaugeColor.png");
@@ -77,9 +99,11 @@ namespace basecross {
 		app->RegisterTexture(L"Planet", path + L"Planet.png");
 		app->RegisterTexture(L"BackGround00", path + L"BackGround00.png");
 
-		app->RegisterTexture(L"BombItem", path + L"BombItem.png");
-		app->RegisterTexture(L"EnergyItem", path + L"EnergyItem.png");
-		app->RegisterTexture(L"RandomItem", path + L"RandomItem.png");
+		app->RegisterTexture(L"BombPlus", path + L"BombPlus.png");
+		app->RegisterTexture(L"EnergyPlus", path + L"EnergyPlus.png");
+
+		app->RegisterTexture(L"ImpactPoint", path + L"ImpactPoint.png");
+		app->RegisterTexture(L"CircleShadow", path + L"CircleShadow.png");
 
 		// テスト用スプライト
 		app->RegisterTexture(L"Test", path + L"test.png");
@@ -89,6 +113,7 @@ namespace basecross {
 		CSVLoad::GetInstance()->RegisterFile(L"PlayerInfo", path + L"PlayerInfo.csv");
 		CSVLoad::GetInstance()->RegisterFile(L"PlayerFollowUI", path + L"PlayerFollowUI.csv");
 		CSVLoad::GetInstance()->RegisterFile(L"Camera", path + L"Camera.csv");
+		CSVLoad::GetInstance()->RegisterFile(L"ModelAnimationData", path + L"ModelAnimationData.csv");
 
 		//XMLファイル
 		path = dir + L"XML/";
@@ -99,16 +124,14 @@ namespace basecross {
 		path = dir + L"Models/LaserCharacter/";
 		for (int i = 0; i < 4; i++) {
 			auto number = Util::IntToWStr(i + 1);
-			auto modelMesh = MultiMeshResource::CreateStaticModelMultiMesh(path + L"Player" + number + L"/", L"LaserPlayer" + number + L".bmf");
+			auto modelMesh = MultiMeshResource::CreateBoneModelMultiMesh(path + L"Player" + number + L"/", L"LaserPlayer" + number + L".bmf");
 			app->RegisterResource(L"LaserPlayer" + number, modelMesh);
 		}
 		// Missile
 		path = dir + L"Models/MissileCharacter/";
 		for (int i = 0; i < 4; i++) {
-			// まだ1Pのみのモデルなので強制的に1
-			auto number = Util::IntToWStr(1);
-			auto modelMesh = MultiMeshResource::CreateStaticModelMultiMesh(path + L"Player" + number + L"/", L"TankPlayer" + number + L".bmf");
-			number = Util::IntToWStr(i + 1);
+			auto number = Util::IntToWStr(i + 1);
+			auto modelMesh = MultiMeshResource::CreateBoneModelMultiMesh(path + L"Player" + number + L"/", L"TankPlayer" + number + L".bmf");
 			app->RegisterResource(L"MissilePlayer" + number, modelMesh);
 		}
 
@@ -116,6 +139,13 @@ namespace basecross {
 		path = dir + L"Models/Bumper/";
 		auto modelMesh = MeshResource::CreateStaticModelMesh(path, L"Bumper.bmf");
 		app->RegisterResource(L"Bumper", modelMesh);
+
+		// アイテム
+		path = dir + L"Models/Item/";
+		modelMesh = MeshResource::CreateStaticModelMesh(path, L"Energy.bmf");
+		app->RegisterResource(L"EnergyItemModel", modelMesh);
+		modelMesh = MeshResource::CreateStaticModelMesh(path, L"Bomb.bmf");
+		app->RegisterResource(L"BombItemModel", modelMesh);
 
 		// 効果音
 		path = dir + L"Sound/SE/";
@@ -173,15 +203,16 @@ namespace basecross {
 		EfkEffectResource::RegisterEffectResource(L"Explosion", path + L"Explosion.efk");
 		EfkEffectResource::RegisterEffectResource(L"Death", path + L"fire.efk");
 		EfkEffectResource::RegisterEffectResource(L"Hit", path + L"Hit.efk");
+		EfkEffectResource::RegisterEffectResource(L"HeavyHit", path + L"HeavyHit.efk");
 		EfkEffectResource::RegisterEffectResource(L"Jump", path + L"Jump.efk");
 		EfkEffectResource::RegisterEffectResource(L"Hover", path + L"Hover.efk");
 		EfkEffectResource::RegisterEffectResource(L"Bomb", path + L"Bomb.efk");
 		EfkEffectResource::RegisterEffectResource(L"Smoke", path + L"Smoke.efk");
 		EfkEffectResource::RegisterEffectResource(L"Laser", path + L"Laser.efk");
-		EfkEffectResource::RegisterEffectResource(L"BombPlus", path + L"BombPlus.efk");
-		EfkEffectResource::RegisterEffectResource(L"EnergyPlus", path + L"EnergyPlus.efk");
 		EfkEffectResource::RegisterEffectResource(L"Respawn", path + L"Respawn.efk");
 		EfkEffectResource::RegisterEffectResource(L"BreakBlock", path + L"BreakBlock.efk");
+		EfkEffectResource::RegisterEffectResource(L"Confetti", path + L"Confetti.efk");
+		EfkEffectResource::RegisterEffectResource(L"Shield", path + L"Shield.efk");
 
 		//他のリソースを読み込むスレッドのスタート
 		thread LoadThread(LoadResourceFunc);
