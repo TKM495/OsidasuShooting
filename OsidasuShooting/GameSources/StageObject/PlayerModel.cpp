@@ -27,7 +27,7 @@ namespace basecross {
 		// 描画コンポーネントの追加
 		auto drawComp = AddComponent<PNTBoneModelDraw>();
 		drawComp->SetMultiMeshResource(modelKey);
-		drawComp->SetOwnShadowActive(true);
+		//drawComp->SetOwnShadowActive(true);
 
 		auto data = CSVLoad::GetInstance()->GetData(L"ModelAnimationData");
 

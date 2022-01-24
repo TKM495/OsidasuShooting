@@ -422,6 +422,8 @@ namespace basecross {
 		if (m_isDuringReturn && m_aggriever.lock() != nullptr) {
 			m_aggriever.lock()->KilledPlayer();
 		}
+		// ホバーの停止
+		StopHover();
 		// 復帰判定の初期化
 		m_isDuringReturn = false;
 		// 死亡回数を増やす
