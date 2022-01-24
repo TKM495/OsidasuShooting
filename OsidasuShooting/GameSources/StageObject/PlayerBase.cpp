@@ -362,16 +362,29 @@ namespace basecross {
 
 		// 押されにくさ（重いほど押されにくい）
 		auto resistanceToPush = (m_weight - 1) * 0.1f;
-		// ノックバック倍率（最小で0.5f倍）
-		float knockBackCorrection = 1;
-		float inverseEnergyRate = (1 - GetEnergyRate());
-		knockBackCorrection += (inverseEnergyRate * 2) * (inverseEnergyRate * 2);
+		// ノックバックの倍率
+		float knockBackCorrection = 0;
+		// エネルギーに対して20%以下のときは1倍
+		// 80%以上は0.2倍
+		// 20%以上80%以下は1～0.2を補完する形
+		if (GetEnergyRate() < 0.2f) {
+			knockBackCorrection = 1;
+		}
+		else if (GetEnergyRate() > 0.8f) {
+			knockBackCorrection = 0.2f;
+		}
+		else {
+			auto remapRate = Utility::Remap(GetEnergyRate(), 0.2f, 0.8f, 0, 1);
+			knockBackCorrection = Lerp::CalculateLerp(1.0f, 0.2f, 0, 1, remapRate, Lerp::rate::Linear);
+		}
+		Debug::GetInstance()->Log(knockBackCorrection);
+		Debug::GetInstance()->Log(GetEnergyRate());
 
 		// ダメージ判定
 		switch (data.Type) {
 		case KnockBackData::Category::Bullet:
 		{
-			DecrementEnergy(data.Amount * 3);
+			DecrementEnergy(data.Amount * 1.5f);
 		}
 		break;
 		case KnockBackData::Category::Bomb:
@@ -541,6 +554,13 @@ namespace basecross {
 		}
 		if (keyState.m_bPressedKeyTbl['8']) {
 			GetComponent<EfkComponent>()->Play(L"Shield");
+		}
+		if (keyState.m_bPressedKeyTbl['9'] &&
+			m_playerNumber == PlayerNumber::P1) {
+			KnockBackData data(
+				KnockBackData::Category::Bullet, Vec3(-1, 0, 0), m_bulletPower, GetThis<PlayerBase>()
+			);
+			KnockBack(data);
 		}
 	}
 

@@ -31,7 +31,7 @@
         <!--ジャンプ量-->
         <JumpAmount>12</JumpAmount>
         <!--威力-->
-        <Power>10</Power>
+        <Power>20</Power>
         <!--弾の発射速度-->
         <BulletRateOfFire>0.1</BulletRateOfFire>
         <!--爆弾のリロード速度-->
