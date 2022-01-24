@@ -305,7 +305,7 @@ namespace basecross
 			m_nowCharaNum(),
 			m_beforeStatus(),
 			m_easingTime(0),
-			m_easingAllTime(0.5f)
+			m_easingAllTime(0.25f)
 		{}
 		void OnCreate() override;
 		void OnUpdate() {};
