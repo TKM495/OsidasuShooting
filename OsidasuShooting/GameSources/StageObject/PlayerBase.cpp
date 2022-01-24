@@ -25,7 +25,7 @@ namespace basecross {
 		m_armorZeroWhenKnockBackMagnification(5), m_energyRecoveryAmount(10),
 		m_bombAimMovingDistance(20), m_respawnTimer(3.0f), m_isActive(true),
 		m_tackleTimer(0.5f, true), m_isDuringTackle(false), m_weight(1),
-		m_bulletAimLineLength(3), m_shieldRate(0.5f)
+		m_bulletAimLineLength(3), m_shieldRate(0.5f), m_debug(true)
 	{
 		m_transformData = transData;
 		m_transformData.Scale *= 2.0f;
@@ -273,9 +273,23 @@ namespace basecross {
 	void PlayerBase::BombAim() {
 		auto delta = App::GetApp()->GetElapsedTime();
 		m_bombPoint += m_inputData.BombAim * delta * m_bombAimMovingDistance;
-		m_bombPoint = RayHitPosition(m_bombPoint);
-		m_predictionLine.Update(GetTransform()->GetPosition(), m_bombPoint, PredictionLine::Type::Bomb);
-		TurnFrontToDirection(m_bombPoint - GetTransform()->GetPosition());
+		auto pos = GetTransform()->GetPosition();
+
+		if (m_debug) {
+			if (m_bombPoint.lengthSqr() >= 20 * 20)
+				m_bombPoint = Utility::ChangeVectorLength(m_bombPoint, 20);
+			m_bombPoint = RayHitPosition(pos + m_bombPoint) - pos;
+			m_predictionLine.Update(pos, pos + m_bombPoint, PredictionLine::Type::Bomb);
+			TurnFrontToDirection(m_bombPoint);
+		}
+		else {
+			auto dir = m_bombPoint - pos;
+			if (dir.lengthSqr() >= 20 * 20)
+				m_bombPoint = Utility::ChangeVectorLength(dir, 20) + pos;
+			m_bombPoint = RayHitPosition(m_bombPoint);
+			m_predictionLine.Update(pos, m_bombPoint, PredictionLine::Type::Bomb);
+			TurnFrontToDirection(m_bombPoint - pos);
+		}
 	}
 
 	Vec3 PlayerBase::RayHitPosition(const Vec3& pos) {
@@ -303,8 +317,14 @@ namespace basecross {
 	void PlayerBase::BombLaunch() {
 		if (m_bombCount > 0 && m_bombCoolTimeTimer.IsTimeUp()) {
 			m_bombCoolTimeTimer.Reset();
-			InstantiateGameObject<Bomb>(GetThis<PlayerBase>(),
-				m_predictionLine, GetTransform()->GetPosition(), m_bombPoint, m_bombPower);
+			if (m_debug) {
+				InstantiateGameObject<Bomb>(GetThis<PlayerBase>(),
+					m_predictionLine, GetTransform()->GetPosition(), GetTransform()->GetPosition() + m_bombPoint, m_bombPower);
+			}
+			else {
+				InstantiateGameObject<Bomb>(GetThis<PlayerBase>(),
+					m_predictionLine, GetTransform()->GetPosition(), m_bombPoint, m_bombPower);
+			}
 			// Žc’e‚ðŒ¸‚ç‚·
 			m_bombCount--;
 			SoundManager::GetInstance()->Play(L"ThrowBombSE", 0, 0.3f);
@@ -506,7 +526,7 @@ namespace basecross {
 				);
 			return true;
 		default:
-			break;
+			return false;
 		}
 	}
 
@@ -659,6 +679,10 @@ namespace basecross {
 	}
 	void PlayerBase::PlayerBombModeState::Enter(const shared_ptr<PlayerBase>& Obj) {
 		Obj->m_isBombMode = true;
+		Obj->m_bombPoint = Utility::ChangeVectorLength(Obj->m_lastFrontDirection, 10);
+		if (!Obj->m_debug) {
+			Obj->m_bombPoint += Obj->GetTransform()->GetPosition();
+		}
 	}
 	void PlayerBase::PlayerBombModeState::Execute(const shared_ptr<PlayerBase>& Obj) {
 		// ”š’e‚ÌÆ€
@@ -673,6 +697,7 @@ namespace basecross {
 		if (!Obj->m_inputData.IsSwitchBombMode) {
 			Obj->m_weaponStateMachine->ChangeState(PlayerBulletModeState::Instance());
 		}
+		auto pos = Obj->GetTransform()->GetPosition();
 	}
 	void PlayerBase::PlayerBombModeState::Exit(const shared_ptr<PlayerBase>& Obj) {
 		Obj->m_isBombMode = false;

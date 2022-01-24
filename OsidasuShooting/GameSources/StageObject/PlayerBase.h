@@ -127,6 +127,8 @@ namespace basecross {
 		// 前回の正面方向
 		Vec3 m_lastFrontDirection;
 
+		bool m_debug;
+
 		// 爆弾モードか
 		bool m_isBombMode;
 		// ホバーモードか

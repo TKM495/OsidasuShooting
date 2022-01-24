@@ -50,7 +50,7 @@ namespace basecross {
 		}
 		// I“_À•W‚Ö•â³
 		points.push_back(endPoint);
-		m_impactPoint->GetTransform()->SetPosition(endPoint);
+		m_impactPoint->GetTransform()->SetPosition(endPoint + Vec3(0, 0.01f, 0));
 		return points;
 	}
 
@@ -100,7 +100,10 @@ namespace basecross {
 			m_linePoints[i]->GetTransform()->SetPosition(points[i]);
 			m_linePoints[i]->GetTransform()->SetRotation(rot);
 		}
-		SetActive(direction != Vec3(0));
+
+		for (auto point : m_linePoints) {
+			point->SetDrawActive(direction != Vec3(0));
+		}
 	}
 
 	void PredictionLine::SetColor(const Col4& color) {
