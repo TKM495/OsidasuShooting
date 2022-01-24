@@ -41,11 +41,19 @@ namespace basecross {
 		case OperationType::Manual:
 		{
 			auto playerType = StageManager::GetInstance()->GetPlayerType(m_playerNumber);
-			auto player = InstantiateGameObject<ManualPlayer>(m_transformData, m_playerNumber, playerType);
-			InstantiateGameObject<PlayerInfo>(player, TransformData(UIPosMap.at(m_playerNumber)));
-			InstantiateGameObject<PlayerFollowUI>(player, TransformData());
-			InstantiateGameObject<PlayerPositionUI>(player, TransformData());
-			PlayerManager::GetInstance()->AddPlayer(player);
+			shared_ptr<PlayerBase> player;
+			auto titleStage = GetTypeStage<TitleStage>(false);
+			auto debug = GetTypeStage<WatanabeStage2>(false);
+			if (titleStage || debug) {
+				player = InstantiateGameObject<TitlePlayer>(m_transformData, m_playerNumber, playerType);
+			}
+			else {
+				player = InstantiateGameObject<ManualPlayer>(m_transformData, m_playerNumber, playerType);
+				InstantiateGameObject<PlayerInfo>(player, TransformData(UIPosMap.at(m_playerNumber)));
+				InstantiateGameObject<PlayerFollowUI>(player, TransformData());
+				InstantiateGameObject<PlayerPositionUI>(player, TransformData());
+				PlayerManager::GetInstance()->AddPlayer(player);
+			}
 		}
 		break;
 		case OperationType::CPU:

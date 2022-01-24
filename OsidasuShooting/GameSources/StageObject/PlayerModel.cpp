@@ -2,6 +2,16 @@
 #include "Project.h"
 
 namespace basecross {
+	PlayerModel::PlayerModel(const shared_ptr<Stage>& stage,
+		const shared_ptr<PlayerBase>& gameObject,
+		const TransformData& transformData)
+		:AdvancedGameObject(stage), m_owner(gameObject),
+		m_offsetPos(Vec3(0.0f))
+	{
+		m_transformData = transformData;
+		m_offsetPos.y += -0.5f * m_transformData.Scale.y;
+	}
+
 	void PlayerModel::OnCreate() {
 		auto number = Util::IntToWStr((int)m_owner->GetPlayerNumber() + 1);
 		wstring typeKey;

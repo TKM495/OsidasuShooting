@@ -9,15 +9,10 @@
 
 namespace basecross {
 	void WatanabeStage2::CreateViewLight() {
-		const Vec3 eye(0.0f, 20.0f, -20.0f);
-		const Vec3 at(0.0f);
 		auto PtrView = CreateView<SingleView>();
 		//ビューのカメラの設定
-		auto PtrCamera = ObjectFactory::Create<Camera>();
+		auto PtrCamera = ObjectFactory::Create<TitleCamera>();
 		PtrView->SetCamera(PtrCamera);
-		PtrCamera->SetEye(eye);
-		PtrCamera->SetAt(at);
-		PtrCamera->SetFovY(XMConvertToRadians(90));
 		//PtrCamera->set
 		//マルチライトの作成
 		auto PtrMultiLight = CreateLight<MultiLight>();
@@ -55,9 +50,9 @@ namespace basecross {
 			builder.Build(GetThis<Stage>(), path + L"TitleStage.csv");
 			AddGameObject<SimpleSprite>(L"BackGround00")->SetDrawLayer(-1);
 
-			GetView()->GetTargetCamera()->SetCameraObject(AddGameObject<TitleCamera>());
-			GetView()->GetTargetCamera()->SetUp(Vec3(0.2f, 0.9f, 0).normalize());
-			m_confetti = AddGameObject<Confetti>(TransformData(Vec3(0, 5, 0)));
+			//m_confetti = AddGameObject<Confetti>(TransformData(Vec3(0, 5, 0)));
+			AddGameObject<TitleSprite>(L"Title");
+			AddGameObject<PushAButtonSprite>(L"PushAButton");
 		}
 		catch (...) {
 			throw;
@@ -70,7 +65,7 @@ namespace basecross {
 		if (cont.wPressedButtons & XINPUT_GAMEPAD_Y || keyState.m_bPressedKeyTbl['R'])
 			PostEvent(0.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToWatanabeStage2");
 		if (keyState.m_bPressedKeyTbl['W']) {
-			m_confetti->GetComponent<EfkComponent>()->Play(L"Hit");
+			//m_confetti->GetComponent<EfkComponent>()->Play(L"Hit");
 		}
 	}
 }

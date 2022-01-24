@@ -1,13 +1,10 @@
 #pragma once
 #include "stdafx.h"
-#include "StageObject/AdvancedGameObject.h"
 
 namespace basecross {
-	class TitleCamera :public AdvancedGameObject {
+	class TitleCamera :public Camera {
 	public:
-		TitleCamera(const shared_ptr<Stage>& stage)
-			:AdvancedGameObject(stage)
-		{}
+		TitleCamera() :Camera() {}
 		void OnCreate()override;
 		void OnUpdate()override;
 	};
