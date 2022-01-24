@@ -396,21 +396,7 @@ namespace basecross
 	// ステータスを表示するための情報
 	void StatusGauge::OnCreate() {
 		auto texture = L"Gauge";
-		//auto color = Col4{};	
-		//switch (m_spriteNumber)
-		//{
-		//case 0:
-		//	break;
 
-		//case 1:
-		//	break;
-
-		//case 2:
-		//	break;
-
-		//default:
-		//	break;
-		//}
 		auto ptrTrans = GetComponent<Transform>();
 		auto pos = ptrTrans->GetPosition();
 		ptrTrans->SetPosition(m_setPos);
@@ -419,71 +405,102 @@ namespace basecross
 		BaseSprite::SettingScale(Vec3(0.8675f, 0.55f, 1.0f)* 0.75f);
 
 		m_defaultGauge = ptrTrans->GetScale().x;
+		m_setScale = ptrTrans->GetScale();
 		//BaseSprite::SettingPositionSenter(m_setPos);
 	}
 
 	void StatusGauge::GetCharaStutas(int charaNumber, int stutasNumber) {
-		switch (charaNumber) {
-		case 0:
-			m_setScale = GetLaserStutas(stutasNumber);
-			break;
-
-		case 1:
-			m_setScale = GetTankStutas(stutasNumber);
-			break;
-		}
+		const auto& app = App::GetApp();
+		const auto& delta = app->GetElapsedTime();
 
 		auto ptrTrans = GetComponent<Transform>();
-		auto gauge = ptrTrans->GetScale();
-		auto scl = m_setScale;
-		ptrTrans->SetScale(scl);
+
+		// 前の情報を渡す
+		if (charaNumber != m_nowCharaNum) {
+			// 時間を初期化
+			m_easingTime = 0;
+		
+			// 今のナンバーを渡す
+			m_nowCharaNum = charaNumber;
+
+			// 今のゲージの数値を代入
+			m_beforeStatus = ptrTrans->GetScale().x;
+		}
+
+		// イージングが完了した時
+		if (m_easingTime >= m_easingAllTime) {
+			// 今の数値を代入
+			m_beforeStatus = m_setStutas;
+		}
+		else m_easingTime += delta;
+
+
+		// キャラクターの各ステータスを取得する
+		switch (charaNumber) {
+		case 0: // レーザー
+			m_setStutas = GetLaserStutas(stutasNumber);
+			break;
+
+		case 1: // タンク
+			m_setStutas = GetTankStutas(stutasNumber);
+			break;
+		}
+
+		// イージング処理
+		Easing <float> easingGauge;	
+		 
+		//auto gauge = ptrTrans->GetScale();
+		auto setGauge =  easingGauge.EaseInOut(EasingType::Exponential, m_beforeStatus, m_setStutas, m_easingTime,m_easingAllTime);
+
+		m_setScale.x = setGauge;
+		ptrTrans->SetScale(m_setScale);
 
 	}
 
-	Vec3 StatusGauge::GetLaserStutas(int stutasNumber) {
+	float StatusGauge::GetLaserStutas(int stutasNumber) {
 		auto gauge = GetComponent<Transform>()->GetScale();
 		switch (stutasNumber) {
 		case 0:
-			m_power = Vec3(m_defaultGauge * 0.5f, gauge.y, gauge.z);
+			m_power = m_defaultGauge * 0.5f;
 			return m_power;
 			break;
 		case 1:
-			m_speed = Vec3(m_defaultGauge * 0.5f, gauge.y, gauge.z);
+			m_speed = m_defaultGauge * 0.5f;
 			return m_speed;
 			break;
 		case 2:
-			m_weight = Vec3(m_defaultGauge * 0.5f, gauge.y, gauge.z);
+			m_weight = m_defaultGauge * 0.5f;
 			return m_weight;
 			break;
 		}
 	}
 
-	Vec3 StatusGauge::GetTankStutas(int stutasNumber) {
+	float StatusGauge::GetTankStutas(int stutasNumber) {
 		auto gauge = GetComponent<Transform>()->GetScale();
 		switch (stutasNumber) {
 		case 0:
-			m_power = Vec3(m_defaultGauge * 0.75f, gauge.y, gauge.z);
+			m_power = m_defaultGauge * 0.9f;
 			return m_power;
 			break;
 		case 1:
-			m_speed = Vec3(m_defaultGauge * 0.25f, gauge.y, gauge.z);
+			m_speed = m_defaultGauge * 0.25f;
 			return m_speed;
 			break;
 		case 2:
-			m_weight = Vec3(m_defaultGauge * 0.75f, gauge.y, gauge.z);
+			m_weight = m_defaultGauge * 0.75f;
 			return m_weight;
 			break;
 		}
 	}
 
-	void StatusGauge::SetCharaStutas(float power, float speed, float weight) {
-		//m_power = power;
-		//m_speed = speed;
-		//m_weight = weight;
-	}
+	//void StatusGauge::SetCharaStutas(float power, float speed, float weight) {
+	//	//m_power = power;
+	//	//m_speed = speed;
+	//	//m_weight = weight;
+	//}
 
-	void StatusGauge::OnUpdate() {
-	}
+	//void StatusGauge::OnUpdate() {
+	//}
 
 	//-----------------------------------------------------------------//
 
