@@ -93,7 +93,6 @@ namespace basecross {
 		app->RegisterTexture(L"Dead", path + L"Dead.png");
 		app->RegisterTexture(L"RRUIs", path + L"ResultRankingUI256x256.png");
 
-
 		app->RegisterTexture(L"BombBack", path + L"BombBackGround.png");
 		app->RegisterTexture(L"GaugeBackGround", path + L"GaugeBackGround.png");
 
@@ -141,12 +140,12 @@ namespace basecross {
 
 		// バンパー
 		path = dir + L"Models/Bumper/";
-		auto modelMesh = MeshResource::CreateStaticModelMesh(path, L"Bumper.bmf");
-		app->RegisterResource(L"Bumper", modelMesh);
+		auto bumperMesh = MultiMeshResource::CreateBoneModelMultiMesh(path, L"Bumper.bmf");
+		app->RegisterResource(L"Bumper", bumperMesh);
 
 		// アイテム
 		path = dir + L"Models/Item/";
-		modelMesh = MeshResource::CreateStaticModelMesh(path, L"Energy.bmf");
+		auto modelMesh = MeshResource::CreateStaticModelMesh(path, L"Energy.bmf");
 		app->RegisterResource(L"EnergyItemModel", modelMesh);
 		modelMesh = MeshResource::CreateStaticModelMesh(path, L"Bomb.bmf");
 		app->RegisterResource(L"BombItemModel", modelMesh);

@@ -75,17 +75,48 @@ namespace basecross {
 	}
 
 	void Bumper::OnCreate() {
+		auto key = L"Bumper";
 		// 描画コンポーネントの追加
-		auto drawComp = AddComponent<PNTStaticModelDraw>();
-		drawComp->SetMeshResource(L"Bumper");
-		drawComp->SetOwnShadowActive(true);
-		//drawComp->SetDiffuse(Col4(1, 0, 0, 1));
+		auto drawComp = AddComponent<PNTBoneModelDraw>();
+		drawComp->SetMultiMeshResource(key);
+		//drawComp->SetOwnShadowActive(true);
+
+		auto data = CSVLoad::GetInstance()->GetData(L"ModelAnimationData");
+
+		for (auto line : data) {
+			auto c = DataExtracter::DelimitData(line);
+			if (c[0] == key) {
+				auto name = c[1];
+				auto start = (int)_wtof(c[2].c_str());
+				auto end = (int)_wtof(c[3].c_str());
+				auto loop = c[4] == L"TRUE";
+				drawComp->AddAnimation(name, start, end - start, loop);
+			}
+		}
 
 		auto collComp = AddComponent<CollisionObb>();
 		collComp->SetFixed(true);
 		//collComp->SetDrawActive(true);
 
 		auto shadowComp = AddComponent<Shadowmap>();
-		shadowComp->SetMeshResource(L"Bumper");
+		shadowComp->SetMultiMeshResource(key);
+	}
+
+	void Bumper::OnUpdate() {
+		if (!m_isAnimation)
+			return;
+
+		auto delta = App::GetApp()->GetElapsedTime();
+		auto drawComp = GetComponent<PNTBoneModelDraw>();
+		drawComp->UpdateAnimation(delta);
+		if (drawComp->IsTargetAnimeEnd()) {
+			m_isAnimation = false;
+		}
+	}
+
+	void Bumper::PlayAnimation() {
+		m_isAnimation = true;
+		auto drawComp = GetComponent<PNTBoneModelDraw>();
+		drawComp->ChangeCurrentAnimation(L"Move");
 	}
 }

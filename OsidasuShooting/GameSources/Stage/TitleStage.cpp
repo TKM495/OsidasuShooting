@@ -38,6 +38,11 @@ namespace basecross {
 			//Debug::GetInstance()->Log(L"A : CharacterSelect");
 			//Debug::GetInstance()->Log(L"B : Exit");
 
+			StageManager::GetInstance()->SetPlayerType(1, PlayerType::Laser);
+			StageManager::GetInstance()->SetPlayerType(2, PlayerType::Laser);
+			StageManager::GetInstance()->SetPlayerType(3, PlayerType::Laser);
+			StageManager::GetInstance()->SetPlayerType(4, PlayerType::Laser);
+
 			GameObjecttCSVBuilder builder;
 			builder.Register<Block>(L"Block");
 			builder.Register<Bumper>(L"Bumper");

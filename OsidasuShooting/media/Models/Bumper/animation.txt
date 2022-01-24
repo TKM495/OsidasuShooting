@@ -1,0 +1,2 @@
+Move 1F～8F
+Wait 0F or 8F

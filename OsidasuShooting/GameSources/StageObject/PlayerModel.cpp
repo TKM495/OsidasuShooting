@@ -45,8 +45,8 @@ namespace basecross {
 			auto c = DataExtracter::DelimitData(line);
 			if (c[0] == typeKey) {
 				auto name = c[1];
-				auto start = (float)_wtof(c[2].c_str());
-				auto end = (float)_wtof(c[3].c_str());
+				auto start = (int)_wtof(c[2].c_str());
+				auto end = (int)_wtof(c[3].c_str());
 				auto loop = c[4] == L"TRUE";
 				drawComp->AddAnimation(name, start, end - start, loop);
 			}

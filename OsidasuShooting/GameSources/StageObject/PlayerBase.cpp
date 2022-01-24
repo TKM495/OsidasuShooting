@@ -606,6 +606,7 @@ namespace basecross {
 			// ノックバック
 			GetComponent<PhysicalBehavior>()->Impact(
 				impactDir, totalVelocity.length() + 25);
+			bumperPtr->PlayAnimation();
 		}
 
 		// アイテムの場合

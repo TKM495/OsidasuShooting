@@ -5,3 +5,4 @@ Laser,Win_Loop,130,170,TRUE
 Missile,Wait,0,10,TRUE
 Missile,Win_Start,20,100,FALSE
 Missile,Win_Loop,100,124,TRUE
+Bumper,Move,0,8,FALSE

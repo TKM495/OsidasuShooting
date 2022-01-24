@@ -23,10 +23,11 @@ namespace basecross {
 	};
 
 	class Bumper :public AdvancedGameObject {
+		bool m_isAnimation;
 	public:
 		// 手動追加用コンストラクタ
 		Bumper(const shared_ptr<Stage>& stage, const TransformData& transData)
-			:AdvancedGameObject(stage)
+			:AdvancedGameObject(stage), m_isAnimation(false)
 		{
 			m_transformData = transData;
 		}
@@ -34,5 +35,8 @@ namespace basecross {
 		Bumper(const shared_ptr<Stage>& stage, const wstring& line);
 
 		void OnCreate()override;
+		void OnUpdate()override;
+
+		void PlayAnimation();
 	};
 }

@@ -31,6 +31,7 @@ namespace basecross {
 				return false;
 			}
 		}
+		return true;
 	}
 
 	CONTROLER_STATE GameController::GetControler() {
