@@ -113,5 +113,6 @@ namespace basecross {
 		for (auto point : m_linePoints) {
 			point->SetDrawActive(flg);
 		}
+		m_impactPoint->SetDrawActive(flg);
 	}
 }

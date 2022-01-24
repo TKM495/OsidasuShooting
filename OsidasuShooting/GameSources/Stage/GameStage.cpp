@@ -37,10 +37,10 @@ namespace basecross {
 			builder.Register<BreakBlock>(L"BreakableBlock");
 			builder.Register<PlayerBuilder>(L"Player");
 			builder.Register<FallDecision>(L"FallDecision");
+			builder.Register<CameraArea>(L"CameraArea");
 			builder.Register<MoveBlock>(L"MovingBlock");
 			auto dir = App::GetApp()->GetDataDirWString();
 			auto path = dir + L"Csv/Stage/";
-			builder.Build(GetThis<Stage>(), path + L"StageBase.csv");
 			builder.Build(GetThis<Stage>(), path + L"Stage1.csv");
 
 			AddGameObject<CurrentFirst>();

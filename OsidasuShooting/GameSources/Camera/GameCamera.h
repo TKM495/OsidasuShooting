@@ -31,6 +31,8 @@ namespace basecross {
 		float m_minimumY;
 		// 現在のステート
 		State m_state;
+		// 移動できる範囲
+		Vec2 m_area;
 		// 初期化処理
 		void Init();
 		// 更新処理
@@ -70,6 +72,10 @@ namespace basecross {
 
 		void OnCreate() override;
 		void OnUpdate() override;
+
+		void SetArea(const Vec2& area) {
+			m_area = area;
+		}
 	};
 }
 
