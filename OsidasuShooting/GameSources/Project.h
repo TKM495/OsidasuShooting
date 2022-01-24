@@ -45,6 +45,7 @@
 #include "StageObject/ItemCreation_.h"
 #include "StageObject/Blinking_.h"
 #include "StageObject/Confetti.h"
+#include "StageObject/CameraArea.h"
 //UI
 #include "UIs/InfoGauge.h"
 #include "UIs/BackPlanet.h"

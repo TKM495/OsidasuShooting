@@ -100,6 +100,13 @@ namespace basecross {
 		 * @param data バイブレーションデータ
 		 */
 		void ActiveVibrationThread(const wstring& key, const VibrationData& data);
+
+		/**
+		 * @brief 入力を受け付けるか
+		 *
+		 * @return trueなら受け付ける
+		 */
+		bool IsAcceptInput();
 	public:
 		/**
 		 * @brief コンストラクタ

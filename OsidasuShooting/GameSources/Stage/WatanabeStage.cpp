@@ -55,9 +55,9 @@ namespace basecross {
 			builder.Register<PlayerBuilder>(L"Player");
 			builder.Register<FallDecision>(L"FallDecision");
 			builder.Register<MoveBlock>(L"MovingBlock");
+			builder.Register<CameraArea>(L"CameraArea");
 			auto dir = App::GetApp()->GetDataDirWString();
 			auto path = dir + L"Csv/Stage/";
-			builder.Build(GetThis<Stage>(), path + L"StageBase.csv");
 			builder.Build(GetThis<Stage>(), path + L"Stage1.csv");
 			AddGameObject<CurrentFirst>();
 			AddGameObject<SimpleSprite>(L"BackGround00")->SetDrawLayer(-1);
