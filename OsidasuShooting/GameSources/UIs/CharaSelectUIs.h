@@ -265,16 +265,25 @@ namespace basecross
 
 	// ステータス項目のゲージ
 	class StatusGauge : public BaseSprite {
-		Vec3 m_setPos;
-		Vec3 m_setScale;
-		int m_gamePadID;
-		int m_spriteNumber;
-		float m_defaultGauge;
-		Vec3 m_power;
-		Vec3 m_speed;
-		Vec3 m_weight;
+		Vec3 m_setPos;			// 配置位置
+		Vec3 m_setScale;		// ゲージを動かす
+		int m_gamePadID;		// 何番目のプレイヤーのゲージかを判別するための物
+		int m_spriteNumber;		// どの項目かパワー、スピード、ウェイトの順
+		float m_defaultGauge;	// ゲージの1割
+		float m_setStutas;		// 選択中のキャラクターのステータスを対応させる
+		float m_power;			// 一撃の威力
+		float m_speed;			// 移動速度と射撃速度
+		float m_weight;			// 落下速度と耐久力
 
-		shared_ptr<SelectCursor> m_selectCursor;
+		//Easing(エージングに使用する変数)
+		Vec3 m_beforeScale;		// 前のスケール
+		int m_beforeCharaNum;	// 比較用
+		int m_nowCharaNum;		//
+		float m_beforeStatus;	// 前のステータス
+		float m_easingTime;		// イージングの経過時間
+		float m_easingAllTime;	// イージングの終了時間
+
+		//shared_ptr<SelectCursor> m_selectCursor; // カーソル
 	public:
 		StatusGauge(
 			const shared_ptr<Stage>& stage,
@@ -288,15 +297,28 @@ namespace basecross
 			m_gamePadID(gamePadID),
 			m_spriteNumber(spriteNumber),
 			m_defaultGauge(),
-			m_power(),m_speed(),m_weight()
+			m_setStutas(),
+			m_power(), m_speed(), m_weight(),
+			
+			m_beforeScale(),
+			m_beforeCharaNum(),
+			m_nowCharaNum(),
+			m_beforeStatus(),
+			m_easingTime(0),
+			m_easingAllTime(0.25f)
 		{}
 		void OnCreate() override;
-		void OnUpdate() override;
+		void OnUpdate() {};
 
+		// キャラクターのステータス
 		void GetCharaStutas(int charaNumber, int stutasNumber);
-		Vec3 GetLaserStutas(int stutasNumber);
-		Vec3 GetTankStutas (int stutasNumber);
-		void SetCharaStutas(float power, float speed, float weight);
+
+		// レーザーのステータス
+		float GetLaserStutas(int stutasNumber);
+		// タンクのステータス
+		float GetTankStutas (int stutasNumber);
+		// 未使用
+		//void SetCharaStutas(float power, float speed, float weight);
 
 	};
 
