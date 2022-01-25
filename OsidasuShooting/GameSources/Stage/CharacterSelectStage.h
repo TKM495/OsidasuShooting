@@ -2,6 +2,7 @@
 #include "stdafx.h"
 #include "UIs/CharaSelectUIs.h"
 #include "UIs/CharaSelectUISprites.h"
+#include "UIs/FreamSprite.h"
 #include "UIs/PlayerCharaPicture.h"
 #include "UIs/SimpleSprite.h"
 
@@ -27,7 +28,6 @@ namespace basecross {
 		//shared_ptr<CharacterIcon> m_Icons[12];		// キャラ数 * プレイヤー数
 		//shared_ptr<SelectTriangle> m_Triangle[8];	// 三角1セット * プレイヤー数
 		
-		// キャラ数
 		shared_ptr<CharaIcon> m_Icons[2];				// キャラ数
 		shared_ptr<PlayerCharaPicture> m_Picture[8];	// キャラ数 * プレイヤー数
 		int m_pictureNum;								// 2 * gamePadID
