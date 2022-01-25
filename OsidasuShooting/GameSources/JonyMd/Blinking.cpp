@@ -51,11 +51,11 @@ namespace basecross {
 
 	}
 
-
-	void Blinking::SetComponent(shared_ptr<BcPNTStaticDraw>& componentValue)
+	bool Blinking::GetShowHideStatus()
 	{
-		component = componentValue;
+		return showHideStatus;
 	}
+
 	void Blinking::SetOriginalColor(Col4 color)
 	{
 		originalColor = color;
@@ -143,11 +143,11 @@ namespace basecross {
 
 		if (timeChecker < togglingInTime)
 		{
-			component->SetDrawActive(true);
+			showHideStatus = true;
 		}
-		else if (timeChecker < togglingOutTime)
+		else if (timeChecker < (togglingOutTime-toggleStayingTime))
 		{
-			component->SetDrawActive(false);
+			showHideStatus = false;
 		}
 		else
 		{

@@ -32,7 +32,8 @@ namespace basecross {
 			CreateViewLight();
 			CreateStageArea();
 
-			//AddGameObject<Debug>();
+			AddGameObject<Debug>();
+
 
 			//AddGameObject<Fencing>();
 
@@ -58,10 +59,11 @@ namespace basecross {
 		auto& app = App::GetApp();
 		auto& keyState = app->GetInputDevice().GetKeyState();
 
-		if (keyState.m_bPressedKeyTbl[VK_SPACE]) 
+		if (keyState.m_bPressedKeyTbl[VK_SPACE])
 		{
 			auto itemCreation = GetSharedGameObject<ItemCreation>(L"ItemCreation");
-			itemCreation->RandomlySpawn();
+			itemCreation->SpawnInRandPosition();
+
 		}
 		
 	}
@@ -76,7 +78,7 @@ namespace basecross {
 
 		GameObjecttCSVBuilder builder;
 		builder.Register<Block>(L"Block");
-		auto path = dir + L"Csv/Stage/Stage1_Before";
+		auto path = dir + L"Csv/Stage/Stage1";
 		path += L".csv";
 		builder.Build(GetThis<Stage>(), path);
 		

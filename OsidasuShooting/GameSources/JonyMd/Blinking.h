@@ -7,7 +7,7 @@ namespace basecross {
 	{
 		//list of private variables
 	private:
-		shared_ptr<BcPNTStaticDraw> component;
+		bool showHideStatus = true;
 
 		float blinkingTime;
 		float timeChecker;
@@ -55,11 +55,11 @@ namespace basecross {
 		void OnUpdate() override;
 
 		//list of normal functions
-		void SetComponent(shared_ptr<BcPNTStaticDraw>& componentValue);
 		void SetToggleTime(float inTime, float outTime, float blinkTime, float stayTime);
 		void SetToggleTime(float inTime, float outTime, float blinkTime);
 
 		void SetShowHide();
+		bool GetShowHideStatus();
 
 		void SetFading();
 		void SetOriginalColor(Col4 color);
