@@ -80,6 +80,11 @@ namespace basecross {
 			auto pictureNum = i + (gamePadID * m_loopForIcon);
 			m_Picture[pictureNum] = AddGameObject<PlayerCharaPicture>(picturePos,i, gamePadID);
 			m_Picture[pictureNum]->SetDrawLayer(1);
+			auto OKPos = m_Picture[pictureNum]->GetComponent<Transform>()->GetPosition();
+			OKPos += Vec3(-5.0f, +10.0f, 0.0f);
+			m_SelectOK[gamePadID] = AddGameObject<OKSpriteUI>(OKPos);
+			m_SelectOK[gamePadID]->SetDrawLayer(2);
+			m_SelectOK[gamePadID]->SetDrawActive(false);
 		}
 
 		auto player = AddGameObject<BattlePlayersUIs>(L"BPsUIs", gamePadID + 1, Vec3(0));
@@ -195,6 +200,7 @@ namespace basecross {
 
 			if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_A) {
 				m_isDecisionPlayer[gamePadID] = true;
+				m_SelectOK[gamePadID]->SetDrawActive(true);
 
 				m_SelectCursor[gamePadID]->SetDrawActive(false);
 				m_SelectCursor[gamePadID]->SetUpdateActive(false);
@@ -204,6 +210,7 @@ namespace basecross {
 			}
 			if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_B) {
 				m_isDecisionPlayer[gamePadID] = false;
+				m_SelectOK[gamePadID]->SetDrawActive(false);
 				
 				m_SelectCursor[gamePadID]->SetDrawActive(true);
 				m_SelectCursor[gamePadID]->SetUpdateActive(true);
@@ -334,6 +341,7 @@ namespace basecross {
 				m_isDecisionPlayer[i] = true;
 				m_SelectCursor[i]->SetDrawActive(false);
 				m_SelectCursor[i]->SetUpdateActive(false);
+				m_SelectOK[i]->SetDrawActive(true);
 			}
 		}
 		CheckSelectedPlayers();
