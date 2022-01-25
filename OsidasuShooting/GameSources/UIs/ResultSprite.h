@@ -5,22 +5,26 @@
 
 #pragma once
 #include "stdafx.h"
+#include "UIs/CharaSelectUIs.h"
 
 namespace basecross {
 
-	class ResultWinnerSprite : public GameObject {
-		wstring m_textureKey;
+	class ResultWinOrDrowSprite : public BaseSprite {
+		Vec3 m_setPos;
+		bool m_win;
 
 	public:
-		ResultWinnerSprite(
-			const shared_ptr<Stage>& stage, 
-			const wstring& TextureKey
+		ResultWinOrDrowSprite(
+			const shared_ptr<Stage>& stage,
+			Vec3 position,
+			bool win
 		) :
-			GameObject(stage),
-			m_textureKey(TextureKey)
+			BaseSprite(stage, position),
+			m_setPos(position),
+			m_win(win)
 		{}
 
-		virtual ~ResultWinnerSprite() {};
+		virtual ~ResultWinOrDrowSprite() {};
 
 		void OnCreate() override;
 		void OnUpdate() {};

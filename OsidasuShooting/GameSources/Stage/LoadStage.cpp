@@ -67,6 +67,8 @@ namespace basecross {
 		app->RegisterTexture(L"ReadyToFight", path + L"ReadyToFight.png");
 
 		app->RegisterTexture(L"Winner", path + L"Winner.png");
+		app->RegisterTexture(L"Draw", path + L"Draw.png");
+
 		app->RegisterTexture(L"BombBack", path + L"BombBackGround.png");
 		app->RegisterTexture(L"GaugeBackGround", path + L"GaugeBackGround.png");
 		app->RegisterTexture(L"Gauge", path + L"Gauge.png");
@@ -89,6 +91,7 @@ namespace basecross {
 		app->RegisterTexture(L"DeadIcon", path + L"DeadIcon.png");
 		app->RegisterTexture(L"Kill", path + L"Kill.png");
 		app->RegisterTexture(L"Dead", path + L"Dead.png");
+		app->RegisterTexture(L"RRUIs", path + L"ResultRankingUI256x256.png");
 
 		app->RegisterTexture(L"BombBack", path + L"BombBackGround.png");
 		app->RegisterTexture(L"GaugeBackGround", path + L"GaugeBackGround.png");
@@ -113,6 +116,7 @@ namespace basecross {
 		CSVLoad::GetInstance()->RegisterFile(L"PlayerInfo", path + L"PlayerInfo.csv");
 		CSVLoad::GetInstance()->RegisterFile(L"PlayerFollowUI", path + L"PlayerFollowUI.csv");
 		CSVLoad::GetInstance()->RegisterFile(L"Camera", path + L"Camera.csv");
+		CSVLoad::GetInstance()->RegisterFile(L"ModelAnimationData", path + L"ModelAnimationData.csv");
 
 		//XMLファイル
 		path = dir + L"XML/";
@@ -123,27 +127,25 @@ namespace basecross {
 		path = dir + L"Models/LaserCharacter/";
 		for (int i = 0; i < 4; i++) {
 			auto number = Util::IntToWStr(i + 1);
-			auto modelMesh = MultiMeshResource::CreateStaticModelMultiMesh(path + L"Player" + number + L"/", L"LaserPlayer" + number + L".bmf");
+			auto modelMesh = MultiMeshResource::CreateBoneModelMultiMesh(path + L"Player" + number + L"/", L"LaserPlayer" + number + L".bmf");
 			app->RegisterResource(L"LaserPlayer" + number, modelMesh);
 		}
 		// Missile
 		path = dir + L"Models/MissileCharacter/";
 		for (int i = 0; i < 4; i++) {
-			// まだ1Pのみのモデルなので強制的に1
-			auto number = Util::IntToWStr(1);
-			auto modelMesh = MultiMeshResource::CreateStaticModelMultiMesh(path + L"Player" + number + L"/", L"TankPlayer" + number + L".bmf");
-			number = Util::IntToWStr(i + 1);
+			auto number = Util::IntToWStr(i + 1);
+			auto modelMesh = MultiMeshResource::CreateBoneModelMultiMesh(path + L"Player" + number + L"/", L"TankPlayer" + number + L".bmf");
 			app->RegisterResource(L"MissilePlayer" + number, modelMesh);
 		}
 
 		// バンパー
 		path = dir + L"Models/Bumper/";
-		auto modelMesh = MeshResource::CreateStaticModelMesh(path, L"Bumper.bmf");
-		app->RegisterResource(L"Bumper", modelMesh);
+		auto bumperMesh = MultiMeshResource::CreateBoneModelMultiMesh(path, L"Bumper.bmf");
+		app->RegisterResource(L"Bumper", bumperMesh);
 
 		// アイテム
 		path = dir + L"Models/Item/";
-		modelMesh = MeshResource::CreateStaticModelMesh(path, L"Energy.bmf");
+		auto modelMesh = MeshResource::CreateStaticModelMesh(path, L"Energy.bmf");
 		app->RegisterResource(L"EnergyItemModel", modelMesh);
 		modelMesh = MeshResource::CreateStaticModelMesh(path, L"Bomb.bmf");
 		app->RegisterResource(L"BombItemModel", modelMesh);

@@ -70,6 +70,26 @@ namespace basecross
 				m_objIconSize = 0.43f;
 			}
 		}
+
+		if (m_textureKey == L"RRUIs") {
+			switch (pNum)
+			{
+			case 0:
+				m_objIconSize = 0.5f;
+
+			case 1:
+				m_objIconSize = 0.53f;
+
+			case 2:
+				m_objIconSize = 0.55f;
+
+			case 3:
+				m_objIconSize = 0.6f;
+
+			default:
+				break;
+			}
+		}
 		SetPlayerNumValue(pNum);
 	}
 

@@ -16,27 +16,29 @@ namespace basecross {
 		ResetVibration();
 	}
 
-	CONTROLER_STATE GameController::GetControler() {
-		const auto& cntlPadVec = App::GetApp()->GetInputDevice().GetControlerVec();
+	bool GameController::IsAcceptInput() {
 		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
 		auto gameStage = dynamic_pointer_cast<GameStage>(stage);
-		// 0以下の場合強制的に0にする
-		auto index = (UINT)m_playerNumber < 0 ? 0 : (UINT)m_playerNumber;
-		CONTROLER_STATE cntlPad = cntlPadVec[index];
+
 		// 現在のステージがGameStage
 		if (gameStage) {
 			switch (gameStage->GetCurrentGameState())
 			{
 			case GameStage::GameState::PLAYING:
-				break;
-				// ゲーム中以外の場合
+				return true;
 			default:
-				// 入力を受け付けないようにするため
-				// 強制的に変更
-				cntlPad.bConnected = false;
-				break;
+				// 入力を受け付けない
+				return false;
 			}
 		}
+		return true;
+	}
+
+	CONTROLER_STATE GameController::GetControler() {
+		const auto& cntlPadVec = App::GetApp()->GetInputDevice().GetControlerVec();
+		// 0以下の場合強制的に0にする
+		auto index = (UINT)m_playerNumber < 0 ? 0 : (UINT)m_playerNumber;
+		CONTROLER_STATE cntlPad = cntlPadVec[index];
 		return cntlPad;
 	}
 
@@ -51,7 +53,7 @@ namespace basecross {
 
 	Vec2 GameController::GetStickVec(Direction direction) {
 		const auto& cntlPad = GetControler();
-		if (!cntlPad.bConnected)
+		if (!IsAcceptInput())
 			return Vec2(0.0f);
 
 		float fThumbX = 0.0f;
@@ -85,7 +87,7 @@ namespace basecross {
 
 	bool GameController::GetTrigger(Direction direction) {
 		const auto& cntlPad = GetControler();
-		if (!cntlPad.bConnected)
+		if (!IsAcceptInput())
 			return false;
 
 		// Directionに応じたトリガーを判定
@@ -137,18 +139,28 @@ namespace basecross {
 	}
 
 	bool GameController::GetButtons(ControllerButton button) {
+		if (!IsAcceptInput())
+			return false;
 		return GetControler().wButtons & GetButtonConstants(button);
 	}
 	bool GameController::GetNowUpdateButtons(ControllerButton button) {
+		if (!IsAcceptInput())
+			return false;
 		return GetControler().wNowUpdateButtons & GetButtonConstants(button);
 	}
 	bool GameController::GetPressedButtons(ControllerButton button) {
+		if (!IsAcceptInput())
+			return false;
 		return GetControler().wPressedButtons & GetButtonConstants(button);
 	}
 	bool GameController::GetReleasedButtons(ControllerButton button) {
+		if (!IsAcceptInput())
+			return false;
 		return GetControler().wReleasedButtons & GetButtonConstants(button);
 	}
 	bool GameController::GetLastButtons(ControllerButton button) {
+		if (!IsAcceptInput())
+			return false;
 		return GetControler().wLastButtons & GetButtonConstants(button);
 	}
 

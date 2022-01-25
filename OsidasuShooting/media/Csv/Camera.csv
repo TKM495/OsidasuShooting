@@ -1,3 +1,3 @@
 name,EyeX,EyeY,EyeZ,AtX,AtY,AtZ,
 GameCamera,0,35,-30,0,1,-5,
-TitleCamera,6.2,3.5,-6.3,8,-48,-18.5,90
+TitleCamera,6.2,4,-6.3,0,5,0,100

@@ -418,6 +418,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\PlayerStatus.cpp">
       <Filter>Utility\PlayerStatus</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\CameraArea.cpp">
+      <Filter>StageObject\CameraArea</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -716,6 +719,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\PlayerStatus.h">
       <Filter>Utility\PlayerStatus</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\CameraArea.h">
+      <Filter>StageObject\CameraArea</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
@@ -1013,6 +1019,9 @@
     </Filter>
     <Filter Include="StageObject\Confetti">
       <UniqueIdentifier>{ee740187-bfde-4202-89a3-2d84421d7bcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StageObject\CameraArea">
+      <UniqueIdentifier>{4f46fe71-6635-4f5a-9965-41aa65f1e499}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

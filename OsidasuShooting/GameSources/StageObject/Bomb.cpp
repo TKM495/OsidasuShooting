@@ -7,6 +7,22 @@
 #include "Project.h"
 
 namespace basecross {
+	Bomb::Bomb(const shared_ptr<Stage>& stage,
+		const shared_ptr<PlayerBase>& owner,
+		const PredictionLine& predictionLine,
+		const Vec3& startPoint,
+		const Vec3& endPoint,
+		float power)
+		:AdvancedGameObject(stage), m_owner(owner),
+		m_predictionLine(predictionLine),
+		m_delta(0.0f), m_startPoint(startPoint), m_endPoint(endPoint),
+		m_timeRate(2.0f), m_minimumRadius(4.0f), m_maxRadius(7.0f), m_power(power), m_lifeSpan(5.0f),
+		m_isExploded(false)
+	{
+		m_transformData.Position = m_startPoint;
+		m_transformData.Scale = Vec3(0.5f);
+	}
+
 	void Bomb::OnCreate() {
 		//auto drawComp = AddComponent<PNTStaticDraw>();
 		//drawComp->SetMeshResource(L"DEFAULT_CUBE");

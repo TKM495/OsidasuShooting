@@ -6,7 +6,7 @@ namespace basecross {
 
 		redColor = Col4(1.0f, 0.0f, 0.0f, 1.0f);
 		m_warningTime = 10.0f;
-		expansionMaxRate = 10;//例、10%
+		expansionMaxRate = 10;//��A10%
 
 		auto stage = GetStage();
 		auto blinking = stage->AddGameObject<Blinking>();

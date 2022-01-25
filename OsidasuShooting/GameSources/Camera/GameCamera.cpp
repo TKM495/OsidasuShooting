@@ -10,7 +10,7 @@ namespace basecross {
 	GameCamera::GameCamera()
 		:Camera(), m_state(State::Init), m_followUpVelocity(2.0f),
 		m_minZoom(50), m_maxZoom(20), m_zoomLimiter(35),
-		m_minimumY(-3.0f)
+		m_minimumY(0.0f), m_area(10, 10)
 	{}
 
 	void GameCamera::OnCreate() {
@@ -121,10 +121,12 @@ namespace basecross {
 			m_followUpVelocity * delta,
 			Lerp::rate::Linear
 		);
+		auto halfArea = m_area / 2.0f;
+		Vec3 minVec(-halfArea.x, m_minimumY, -halfArea.y);
+		Vec3 maxVec(halfArea.x, INFINITY, halfArea.y);
+		_at = Utility::ClampVector3(_at, minVec, maxVec);
 		// At‚ÆEye‚ðƒZƒbƒg
-		_at.y = Utility::Clamp(_at.y, m_minimumY, INFINITY);
 		SetAt(_at);
-
 		SetEye(GetAt() + m_defaultLocalEye);
 	}
 }

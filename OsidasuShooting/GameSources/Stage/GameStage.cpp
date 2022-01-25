@@ -37,17 +37,18 @@ namespace basecross {
 			builder.Register<BreakBlock>(L"BreakableBlock");
 			builder.Register<PlayerBuilder>(L"Player");
 			builder.Register<FallDecision>(L"FallDecision");
+			builder.Register<CameraArea>(L"CameraArea");
 			builder.Register<MoveBlock>(L"MovingBlock");
 			auto dir = App::GetApp()->GetDataDirWString();
 			auto path = dir + L"Csv/Stage/";
-			builder.Build(GetThis<Stage>(), path + L"StageBase.csv");
 			builder.Build(GetThis<Stage>(), path + L"Stage1.csv");
 
 			AddGameObject<CurrentFirst>();
 			AddGameObject<modifiedClass::Area>(TransformData(Vec3(0, 0, -6), Vec3(27, 1, 21)));
 
-			auto m_countDown = AddGameObject<CountDown>(30.0f);
-			SetSharedGameObject(L"ForCountDown", m_countDown);
+			auto countDown = AddGameObject<CountDown>(30.0f);
+			SetSharedGameObject(L"ForCountDown", countDown);
+			countDown->SetDrawLayer(1);
 			m_startCountDown = AddGameObject<StartCountDown>(TransformData());
 			m_itemCreation = AddGameObject<modifiedClass::ItemCreation>();
 

@@ -80,6 +80,11 @@ namespace basecross {
 			auto pictureNum = i + (gamePadID * m_loopForIcon);
 			m_Picture[pictureNum] = AddGameObject<PlayerCharaPicture>(picturePos,i, gamePadID);
 			m_Picture[pictureNum]->SetDrawLayer(1);
+			auto OKPos = m_Picture[pictureNum]->GetComponent<Transform>()->GetPosition();
+			OKPos += Vec3(-5.0f, +10.0f, 0.0f);
+			m_SelectOK[gamePadID] = AddGameObject<OKSpriteUI>(OKPos);
+			m_SelectOK[gamePadID]->SetDrawLayer(2);
+			m_SelectOK[gamePadID]->SetDrawActive(false);
 		}
 
 		auto player = AddGameObject<BattlePlayersUIs>(L"BPsUIs", gamePadID + 1, Vec3(0));
@@ -155,6 +160,11 @@ namespace basecross {
 			m_BackGround = AddGameObject<SimpleSprite>(L"BackGround00");
 			m_BackGround->SetDrawLayer(-1);
 
+			auto scale = Vec3(10.0f, 1.5f, 1.0f);
+			auto fream = AddGameObject<FreamSprite>(L"GaugeBackGround", Vec3(0), scale);
+			auto ptrDraw = fream->GetComponent<PCTSpriteDraw>();
+			ptrDraw->SetDiffuse(Col4(1.0f,1.0f,1.0f,0.5f));
+
 			SetCharaName();
 			auto side = 280.0f;
 			auto higth = 170.0f;
@@ -162,7 +172,6 @@ namespace basecross {
 			PlayerFreamPosition(Vec3( side,  higth, 0), 1);
 			PlayerFreamPosition(Vec3(-side, -higth, 0), 2);
 			PlayerFreamPosition(Vec3( side, -higth, 0), 3);
-
 			PlayerCharacterSelect(Vec3(-50.0f, 0.0f, 0.0f));
 			UIsSet();
 
@@ -191,6 +200,7 @@ namespace basecross {
 
 			if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_A) {
 				m_isDecisionPlayer[gamePadID] = true;
+				m_SelectOK[gamePadID]->SetDrawActive(true);
 
 				m_SelectCursor[gamePadID]->SetDrawActive(false);
 				m_SelectCursor[gamePadID]->SetUpdateActive(false);
@@ -200,6 +210,7 @@ namespace basecross {
 			}
 			if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_B) {
 				m_isDecisionPlayer[gamePadID] = false;
+				m_SelectOK[gamePadID]->SetDrawActive(false);
 				
 				m_SelectCursor[gamePadID]->SetDrawActive(true);
 				m_SelectCursor[gamePadID]->SetUpdateActive(true);
@@ -287,27 +298,31 @@ namespace basecross {
 		}
 
 		auto color = m_BackGround->GetComponent<PCTSpriteDraw>();
+		auto rgba = color->GetDiffuse();
 		if (m_isDecisionPlayer[0] && m_isDecisionPlayer[1] &&
 			m_isDecisionPlayer[2] && m_isDecisionPlayer[3])
 		{
+			//m_CharaSelectFream->SetDrawActive(false);
 			m_Ready->SetDrawActive(true);
 			m_Ready->SetUpdateActive(true);
-			auto rgba = color->GetDiffuse();
 			rgba.x = 0.5f;
 			rgba.y = 0.5f;
 			rgba.z = 0.5f;
-			color->SetDiffuse(rgba);
 		}
 		else if (m_isDecisionPlayer[0] || m_isDecisionPlayer[1] ||
 			m_isDecisionPlayer[2] || m_isDecisionPlayer[3])
 		{
+			//m_CharaSelectFream->SetDrawActive(true);
 			m_Ready->SetDrawActive(false);
 			m_Ready->SetUpdateActive(false);
-			auto rgba = color->GetDiffuse();
 			rgba.x = 1;
 			rgba.y = 1;
 			rgba.z = 1;
-			color->SetDiffuse(rgba);
+		}
+		color->SetDiffuse(rgba);
+		for (int i = 0; i < m_loopForIcon; i++) {
+			auto ptrDraw = m_Icons[i]->GetComponent<PCTSpriteDraw>();
+			ptrDraw->SetDiffuse(rgba);
 		}
 	}
 
@@ -326,6 +341,7 @@ namespace basecross {
 				m_isDecisionPlayer[i] = true;
 				m_SelectCursor[i]->SetDrawActive(false);
 				m_SelectCursor[i]->SetUpdateActive(false);
+				m_SelectOK[i]->SetDrawActive(true);
 			}
 		}
 		CheckSelectedPlayers();
