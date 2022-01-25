@@ -32,6 +32,7 @@ namespace basecross {
 		shared_ptr<PlayerCharaPicture> m_Picture[8];	// キャラ数 * プレイヤー数
 		int m_pictureNum;								// 2 * gamePadID
 		shared_ptr<SelectCursor> m_SelectCursor[4];		// プレイヤー数
+		shared_ptr<OKSpriteUI> m_SelectOK[4];		// プレイヤー数
 		shared_ptr<ReadyToFightUI> m_Ready;				// 
 		shared_ptr<SimpleSprite> m_BackGround;			//
 		shared_ptr<StatusGauge> m_Gauge[12];			// キャラ数 * ゲージ数

@@ -174,8 +174,8 @@ namespace basecross
 		ptrTrans->SetPosition(m_setPos);
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
-		BaseSprite::SettingScale(Vec3(0.75f));
-		BaseSprite::SettingPositionSenter(m_setPos);
+		BaseSprite::SettingScale(Vec3(0.65f));
+		//BaseSprite::SettingPositionSenter(m_setPos);
 	}
 
 	//-----------------------------------------------------------------//
