@@ -21,6 +21,8 @@ namespace basecross {
 		float m_threshold;
 		// ノックバックの最大高度
 		float m_knockBackMaxY;
+		// 時間倍率
+		float m_timeScale;
 		// 接地判定クラス
 		unique_ptr<GroundingDecision> m_groundingDecision;
 	public:
@@ -77,6 +79,10 @@ namespace basecross {
 		 */
 		void SetVelocityZero() {
 			m_velocity = Vec3(0);
+		}
+
+		void SetTimeScale(float scale) {
+			m_timeScale = scale;
 		}
 	};
 }

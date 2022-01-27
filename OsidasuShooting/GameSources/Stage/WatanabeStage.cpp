@@ -38,14 +38,16 @@ namespace basecross {
 			EfkEffectResource::RegisterEffectResource(L"Shield", TestEffectStr + L"Shield.efk");
 
 			CreateViewLight();
-			AddGameObject<Debug>();
-			Debug::GetInstance()->Log(L"CurrentStage : WatanabeStage");
+			//AddGameObject<Debug>();
+			//Debug::GetInstance()->Log(L"CurrentStage : WatanabeStage");
 
 			//XMLƒtƒ@ƒCƒ‹
 			XMLLoad::GetInstance()->RegisterFile(L"PlayerStatus", DataDir + L"XML/" + L"PlayerStatus.xml");
 			CSVLoad::GetInstance()->RegisterFile(L"PlayerInfo", DataDir + L"CSV/" + L"PlayerInfo.csv");
 
 			PlayerStatus::GetInstance()->DataExtraction();
+
+			//StageManager::GetInstance()->SetPlayerType(1, PlayerType::Missile);
 
 			GameObjecttCSVBuilder builder;
 			builder.Register<Block>(L"Block");
@@ -58,7 +60,7 @@ namespace basecross {
 			builder.Register<CameraArea>(L"CameraArea");
 			auto dir = App::GetApp()->GetDataDirWString();
 			auto path = dir + L"Csv/Stage/";
-			builder.Build(GetThis<Stage>(), path + L"Stage1.csv");
+			builder.Build(GetThis<Stage>(), path + L"TestStage.csv");
 			AddGameObject<CurrentFirst>();
 			AddGameObject<SimpleSprite>(L"BackGround00")->SetDrawLayer(-1);
 

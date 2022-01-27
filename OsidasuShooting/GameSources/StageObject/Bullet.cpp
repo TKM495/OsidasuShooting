@@ -13,7 +13,7 @@ namespace basecross {
 		float power)
 		:AdvancedGameObject(stage), m_owner(owner),
 		m_direction(direction),
-		m_speed(25.0f), m_lifeSpan(5.0f),
+		m_speed(30.0f), m_lifeSpan(5.0f),
 		m_power(power), m_timer(0.1f), m_isHeavyAttack(false)
 	{
 		m_transformData.Position = owner->GetTransform()->GetPosition();
@@ -53,9 +53,14 @@ namespace basecross {
 	}
 
 	void Bullet::OnUpdate() {
-		auto transPos = GetTransform()->GetPosition(); //(x,y,z)
+		auto timeScale = 1.0f;
+		auto gameStage = GetTypeStage<GameStage>(false);
+		if (gameStage) {
+			timeScale = gameStage->GetTimeScale();
+		}
 
-		float deltaTime = App::GetApp()->GetElapsedTime();
+		auto transPos = GetTransform()->GetPosition(); //(x,y,z)
+		float deltaTime = App::GetApp()->GetElapsedTime() * timeScale;
 
 		transPos += m_direction.normalize() * m_speed * deltaTime;
 		GetTransform()->SetPosition(transPos);
@@ -132,7 +137,7 @@ namespace basecross {
 						);
 						// ノックバック
 						// 結果が1.5より大きい場合は重撃になる
-						m_isHeavyAttack = ptr->KnockBack(data) > 1.5f;
+						m_isHeavyAttack = ptr->KnockBack(data) > 0.75f;
 					}
 					else {
 						return;

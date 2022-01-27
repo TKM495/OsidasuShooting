@@ -35,13 +35,15 @@ namespace basecross {
 		bool m_bOnceItem;
 		// 汎用的なタイマー
 		TimeCounter m_utilTimer;
+		// 時間倍率
+		float m_timeScale;
 		// ビューの作成
 		void CreateViewLight();
 		void ItemGeneration();
 	public:
 		GameStage()
 			: Stage(), m_gameState(GameState::FADEOUT), m_utilTimer(0.0f),
-			m_bOnceItem(false)
+			m_bOnceItem(false), m_timeScale(1.0f)
 		{}
 		~GameStage() {}
 
@@ -64,6 +66,10 @@ namespace basecross {
 
 		shared_ptr<modifiedClass::ItemCreation> GetItemCreation() {
 			return m_itemCreation;
+		}
+
+		float GetTimeScale() {
+			return m_timeScale;
 		}
 	};
 }
