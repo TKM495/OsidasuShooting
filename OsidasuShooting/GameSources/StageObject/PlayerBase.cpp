@@ -467,7 +467,7 @@ namespace basecross {
 		auto gameStage = GetTypeStage<GameStage>(false);
 		// アイテムをスポーン
 		if (gameStage)
-			gameStage->GetItemCreation()->SpawnItem(modifiedClass::ItemType::Bomb);
+			gameStage->GetItemCreation()->SpawnInRandPosition(modifiedClass::ItemType::Bomb);
 		// 初期位置に戻る
 		GetTransform()->SetPosition(m_initialPosition);
 	}

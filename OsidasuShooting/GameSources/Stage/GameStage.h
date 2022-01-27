@@ -7,7 +7,6 @@
 #include "stdafx.h"
 #include "Effekseer/EfkInterface.h"
 #include "Utility/TimeCounter.h"
-#include "UIs/CountDown_.h"
 #include "StageObject/ItemCreation_.h"
 #include "UIs/GameStartAndFinish.h"
 
@@ -26,8 +25,6 @@ namespace basecross {
 	private:
 		//現在のステート
 		GameState m_gameState;
-		// タイマーの表示オブジェクト
-		//shared_ptr<CountDown> m_countDown;
 		// スタート時のカウントダウン
 		shared_ptr<StartCountDown> m_startCountDown;
 		// アイテム生成オブジェクト

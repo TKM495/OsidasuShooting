@@ -109,6 +109,8 @@ namespace basecross {
 		app->RegisterTexture(L"CircleShadow", path + L"CircleShadow.png");
 		app->RegisterTexture(L"StartEffect", path + L"StartEffect.png");
 
+		app->RegisterTexture(L"ColorOut", path + L"ColorOut.png");
+
 		// テスト用スプライト
 		app->RegisterTexture(L"Test", path + L"test.png");
 

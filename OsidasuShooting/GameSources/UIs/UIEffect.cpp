@@ -49,7 +49,7 @@ namespace basecross {
 		//Debug::GetInstance()->Log(m_pieceIndex);
 		vector<VertexPositionColorTexture> newVertices;
 		uint32_t pieceX = m_pieceIndex % (int)m_divisionCount.x;
-		uint32_t pieceY = m_pieceIndex / m_divisionCount.x;
+		uint32_t pieceY = uint32_t(m_pieceIndex / m_divisionCount.x);
 		float pieceWidth = 1.0f / (float)m_divisionCount.x;
 		float pieceHeight = 1.0f / (float)m_divisionCount.y;
 

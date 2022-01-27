@@ -19,8 +19,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Camera\TitleCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Blinking.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\CameraArea.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\ColorOut.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\PlayerCharaPicture.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Blinking_.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Confetti.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BackPlanet.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\area.h" />
@@ -32,7 +32,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\BreakBlock.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\MoveBlock.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\ReflectorBlock.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\area_.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Item_.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\ItemCreation_.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUIs.h" />
@@ -57,7 +56,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUISprites.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CountDown_.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\FreamSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\PlayerModel.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stage\LoadStage.h" />
@@ -121,8 +119,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Camera\TitleCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Blinking.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\CameraArea.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\ColorOut.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\PlayerCharaPicture.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Blinking_.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Confetti.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BackPlanet.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\area.cpp" />
@@ -134,7 +132,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\BreakBlock.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\MoveBlock.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\ReflectorBlock.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\area_.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Item_.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\ItemCreation_.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUIs.cpp" />
@@ -157,7 +154,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\PlayerBuilder.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CharaSelectUISprites.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CountDown_.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\FreamSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\PlayerModel.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Stage\LoadStage.cpp" />

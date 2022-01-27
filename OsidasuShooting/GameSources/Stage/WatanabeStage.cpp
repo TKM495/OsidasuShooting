@@ -65,7 +65,7 @@ namespace basecross {
 			AddGameObject<SimpleSprite>(L"BackGround00")->SetDrawLayer(-1);
 
 			m_itemCreation = AddGameObject<modifiedClass::ItemCreation>();
-			AddGameObject<UIEffect>(L"StartEffect", Vec2(5, 7), 30);
+			AddGameObject<ColorOut>()->SetActive(true);
 		}
 		catch (...) {
 			throw;
@@ -78,11 +78,11 @@ namespace basecross {
 		if (keyState.m_bPressedKeyTbl['R'] || con.wPressedButtons & XINPUT_GAMEPAD_Y)
 			PostEvent(0.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToWatanabeStage");
 		if (con.wPressedButtons & XINPUT_GAMEPAD_X) {
-			auto item = AddGameObject<modifiedClass::Item>(modifiedClass::ItemType::Bomb, false);
+			auto item = AddGameObject<modifiedClass::Item>(modifiedClass::ItemType::Bomb);
 			item->GetComponent<Transform>()->SetPosition(Vec3(0, 5, 0));
 		}
 		if (keyState.m_bPressedKeyTbl['W']) {
-			m_itemCreation->RandomlySpawn();
+			m_itemCreation->SpawnInRandPosition();
 		}
 	}
 

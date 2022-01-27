@@ -44,7 +44,6 @@ namespace basecross {
 			builder.Build(GetThis<Stage>(), path + L"Stage1.csv");
 
 			AddGameObject<CurrentFirst>();
-			AddGameObject<modifiedClass::Area>(TransformData(Vec3(0, 0, -6), Vec3(27, 1, 21)));
 
 			auto countDown = AddGameObject<CountDown>(11.0f);
 			SetSharedGameObject(L"ForCountDown", countDown);
@@ -119,7 +118,7 @@ namespace basecross {
 		auto m_countDown = GetSharedGameObject<CountDown>(L"ForCountDown");
 		auto flg = (int)m_countDown->GetTime() % 3 == 0;
 		if (flg && !m_bOnceItem) {
-			m_itemCreation->RandomlySpawn();
+			m_itemCreation->SpawnInRandPosition();
 			m_bOnceItem = true;
 		}
 		if (!flg) {
