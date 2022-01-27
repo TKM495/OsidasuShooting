@@ -44,6 +44,11 @@ namespace basecross {
 
 	void ResultPlayer::OnCreate() {
 		PlayerBase::OnCreate();
+	}
+	void ResultPlayer::PlayWait() {
+		m_model.lock()->StartWaitAnimation();
+	}
+	void ResultPlayer::PlayWin() {
 		m_model.lock()->StartWinAnimation();
 	}
 }

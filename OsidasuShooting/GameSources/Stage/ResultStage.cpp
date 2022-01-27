@@ -77,7 +77,7 @@ namespace basecross {
 		}
 	}
 
-	void ResultStage::AddResultSprites(Vec3 pos, int playerNum, int score, int dead,int rank)
+	void ResultStage::AddResultSprites(Vec3 pos, int playerNum, int score, int dead, int rank)
 	{
 		// フレームを配置
 		auto fream = AddGameObject<FreamSprite>(L"Fream", pos, Vec3(1.2f));
@@ -99,32 +99,29 @@ namespace basecross {
 		playUIsTrans->SetScale(Vec3(0.4f));
 		playerNumber->SetDrawLayer(2);
 
-		RankingPlayerSet(pos,rank);
+		RankingPlayerSet(pos, rank);
 
-		auto scorePos = pos + Vec3(50.0f,65.0f,1.0f);
+		auto scorePos = pos + Vec3(50.0f, 65.0f, 1.0f);
 		m_score = AddGameObject<ResultScore>(score, scorePos);
 		m_score->SetDrawLayer(2);
 		scorePos.y -= 60.0f;
 		auto deadPos = scorePos;
 
-		scorePos += Vec3(-50.0f,24.0f,0.0f);
+		scorePos += Vec3(-50.0f, 24.0f, 0.0f);
 		AddGameObject<KillIcon>(scorePos)->SetDrawLayer(2);
 
 		m_dead = AddGameObject<ResultScore>(dead, deadPos);
 		m_dead->SetDrawLayer(2);
-		deadPos += Vec3(-50.0f,-36.0f,0.0f);
+		deadPos += Vec3(-50.0f, -36.0f, 0.0f);
 		AddGameObject<DeadIcon>(deadPos)->SetDrawLayer(2);
-		
 	}
 
-	void ResultStage::RankingPlayerSet(Vec3 pos,int value) {
+	void ResultStage::RankingPlayerSet(Vec3 pos, int value) {
 		auto playerRank = AddGameObject<BattlePlayersUIs>(L"RRUIs", value, Vec3(0));
 		auto rankIconPos = pos + Vec3(-165.0f, 75.0f, 0.0f);
 		auto rankIconTrans = playerRank->GetComponent<Transform>();
 		rankIconTrans->SetPosition(rankIconPos);
-
 	}
-
 
 	void ResultStage::PlayersResult() {
 		float addVec = 0;
@@ -132,7 +129,7 @@ namespace basecross {
 
 		auto allPlayer = PlayerManager::GetInstance()->GetSortedAllPlayer();
 		int  loopCount = 0;	// for
-		int  drawPlayer = 0;	// 
+		int  drawPlayer = 0;	//
 		int  draw = 0;		// 引き分け
 		bool isDraw = false;
 		// 順位が高い順に処理される
@@ -172,11 +169,11 @@ namespace basecross {
 				break;
 			}
 
-			// プレイヤーの順位の処理 
-			auto top		 = player->GetCountKilledPlayer() > m_playerTopScore;
-			auto topDeadWin	 = player->GetCountKilledPlayer() == m_playerTopScore && player->GetDeadCount() < m_playerTopDead;
+			// プレイヤーの順位の処理
+			auto top = player->GetCountKilledPlayer() > m_playerTopScore;
+			auto topDeadWin = player->GetCountKilledPlayer() == m_playerTopScore && player->GetDeadCount() < m_playerTopDead;
 			auto topDrawDead = player->GetCountKilledPlayer() == m_playerTopScore && player->GetDeadCount() == m_playerTopDead;
-			auto drawDead	 = m_previousScore == m_playersScore && m_previousDead == m_playersDead;
+			auto drawDead = m_previousScore == m_playersScore && m_previousDead == m_playersDead;
 
 			if (loopCount == 0 || top || topDeadWin) {
 				m_playerTop = m_playersNumber;
@@ -198,10 +195,10 @@ namespace basecross {
 			else {
 				draw = 0;
 			}
-			auto rankingNum	 = loopCount - draw;
+			auto rankingNum = loopCount - draw;
 
 			// プレイヤーの結果を表示する
-			AddResultSprites(Vec3(400 + addVec, 250 + setPosY, 0), 
+			AddResultSprites(Vec3(400 + addVec, 250 + setPosY, 0),
 				(UINT)m_playersNumber + 1, m_playersScore, m_playersDead, rankingNum);
 
 			Debug::GetInstance()->Log(draw);
@@ -209,9 +206,9 @@ namespace basecross {
 			setPosY -= 170;
 
 			loopCount++;
-			
+
 			// 比較用に別の関数に代入
-			m_previousScore = m_playersScore; 
+			m_previousScore = m_playersScore;
 			m_previousDead = m_playersDead;
 		}
 
@@ -236,6 +233,7 @@ namespace basecross {
 			auto topPlayer = AddGameObject<ResultPlayer>(
 				TransformData(Vec3(0.0f, 1.0f, 0.0f), Vec3(0.75f), Vec3(0, XMConvertToRadians(180.0f), 0)),
 				m_playerTop, StageManager::GetInstance()->GetPlayerType(m_playerTop));
+			topPlayer->PlayWin();
 		}
 		else {
 			auto maxDrawPlayer = 3;
@@ -250,7 +248,7 @@ namespace basecross {
 			auto resultPosX = -resultDrawPlayer;
 			auto setPosX = 0.75f;
 			auto setPosZ = (float)resultDrawPlayer;
-			auto setScale = Vec3(0.65f) * (1 - 0.1f * (resultDrawPlayer * 1.25f)); 
+			auto setScale = Vec3(0.65f) * (1 - 0.1f * (resultDrawPlayer * 1.25f));
 
 			auto topPlayer = AddGameObject<ResultPlayer>(
 				TransformData(Vec3(resultPosX * setPosX, 1.0f, setPosZ), setScale, Vec3(0, XMConvertToRadians(180.0f), 0)),
@@ -266,7 +264,6 @@ namespace basecross {
 					resultDrawPlayer++;
 				}
 			}
-
 		}
 		AddGameObject<Block>(TransformData(Vec3(0, -1, 0), Vec3(100, 1, 100)));
 	}
