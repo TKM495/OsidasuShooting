@@ -13,7 +13,7 @@ namespace basecross {
 		PlayerType playerType)
 		: AdvancedGameObject(stage), m_playerType(playerType),
 		m_initialPosition(0.0f),
-		m_moveSpeed(20.0f), m_predictionLine(stage, 10, 2.0f),
+		m_moveSpeed(20.0f), m_predictionLine(stage, 10, 1.0f),
 		m_bombPoint(Vec3(0.0f)), m_jumpVerocity(Vec3(0.0f, 11.0f, 0.0f)),
 		m_defaultEnergy(100.0f), m_currentEnergy(0.0f),
 		m_bulletTimer(0.1f, true), m_bombCoolTimeTimer(1, true),
@@ -25,7 +25,7 @@ namespace basecross {
 		m_armorZeroWhenKnockBackMagnification(5), m_energyRecoveryAmount(10),
 		m_bombAimMovingDistance(20), m_respawnTimer(3.0f), m_isActive(true),
 		m_tackleTimer(0.5f, true), m_isDuringTackle(false), m_weight(1),
-		m_bulletAimLineLength(3), m_shieldRate(0.5f), m_debug(true)
+		m_bulletAimLineLength(3), m_shieldRate(0.5f), m_debug(false)
 	{
 		m_transformData = transData;
 		m_transformData.Scale *= 2.0f;
@@ -101,17 +101,13 @@ namespace basecross {
 			}
 		}
 
-		// auto gameStage = GetTypeStage<GameStage>(false);
-		//// 現在のステージがGameStage
-		// if (gameStage) {
-		//	switch (gameStage->GetCurrentGameState())
-		//	{
-		//	case GameStage::GameState::PLAYING:
-		//		// 入力の更新
-		//		InputUpdate();
-		//		break;
-		//	}
-		// }
+		auto gameStage = GetTypeStage<GameStage>(false);
+		// 現在のステージがGameStage
+		if (gameStage) {
+			auto timeScale = gameStage->GetTimeScale();
+			auto grav = GetComponent<Gravity>();
+			grav->SetGravity(grav->GetGravity() * timeScale);
+		}
 
 		InputUpdate();
 
@@ -283,10 +279,8 @@ namespace basecross {
 			TurnFrontToDirection(m_bombPoint);
 		}
 		else {
-			auto dir = m_bombPoint - pos;
-			if (dir.lengthSqr() >= 20 * 20)
-				m_bombPoint = Utility::ChangeVectorLength(dir, 20) + pos;
-			m_bombPoint = RayHitPosition(m_bombPoint);
+			auto aim = BulletAimCorrection(m_inputData.BombAim.normalize());
+			m_bombPoint = RayHitPosition(pos + aim * 15);
 			m_predictionLine.Update(pos, m_bombPoint, PredictionLine::Type::Bomb);
 			TurnFrontToDirection(m_bombPoint - pos);
 		}
@@ -337,7 +331,17 @@ namespace basecross {
 	Vec3 PlayerBase::TurnFrontToDirection(const Vec3& direction) {
 		Vec3 rot(0.0f);
 		// directionがVec3(0.0f)だったら前回の方向のまま維持
-		Vec3 _direction = direction != Vec3(0.0f) ? direction : m_lastFrontDirection;
+		Vec3 dir = direction != Vec3(0.0f) ? direction : m_lastFrontDirection;
+
+		//auto _direction = Lerp::CalculateLerp(
+		//	m_lastFrontDirection, dir,
+		//	0, 1,
+		//	2 * App::GetApp()->GetElapsedTime(),
+		//	Lerp::rate::Linear
+		//);
+
+		auto _direction = dir;
+
 		_direction.y = 0;
 		// 方向に正面を向ける
 		auto rad = atan2f(-_direction.z, _direction.x) - XM_PIDIV2;
@@ -380,8 +384,6 @@ namespace basecross {
 			m_returnTimer.Reset();
 		}
 
-		// 押されにくさ（重いほど押されにくい）
-		auto resistanceToPush = (m_weight - 1) * 0.1f;
 		// ノックバックの倍率
 		float knockBackCorrection = 0;
 		// エネルギーに対して20%以下のときは1倍
@@ -397,8 +399,10 @@ namespace basecross {
 			auto remapRate = Utility::Remap(GetEnergyRate(), 0.2f, 0.8f, 0, 1);
 			knockBackCorrection = Lerp::CalculateLerp(1.0f, 0.2f, 0, 1, remapRate, Lerp::rate::Linear);
 		}
-		Debug::GetInstance()->Log(knockBackCorrection);
-		Debug::GetInstance()->Log(GetEnergyRate());
+
+		// 押されにくさ（重いほど押されにくい）
+		auto resistanceToPush = (m_weight - 2) * 0.1f;
+		knockBackCorrection -= resistanceToPush;
 
 		// ダメージ判定
 		switch (data.Type) {
@@ -409,7 +413,7 @@ namespace basecross {
 		break;
 		case KnockBackData::Category::Bomb:
 		{
-			DecrementEnergy(5);
+			DecrementEnergy(20);
 		}
 		default:
 			break;
@@ -533,7 +537,8 @@ namespace basecross {
 	void PlayerBase::TestFanc() {
 		const auto& keyState = App::GetApp()->GetInputDevice().GetKeyState();
 		// アーマーを0にする
-		if (keyState.m_bPressedKeyTbl['0']) {
+		if (keyState.m_bPressedKeyTbl['0'] &&
+			m_playerNumber == PlayerNumber::P2) {
 			m_currentEnergy = 0.0f;
 			Debug::GetInstance()->Log(L"Test:Energy0");
 		}
@@ -680,10 +685,7 @@ namespace basecross {
 	}
 	void PlayerBase::PlayerBombModeState::Enter(const shared_ptr<PlayerBase>& Obj) {
 		Obj->m_isBombMode = true;
-		Obj->m_bombPoint = Utility::ChangeVectorLength(Obj->m_lastFrontDirection, 10);
-		if (!Obj->m_debug) {
-			Obj->m_bombPoint += Obj->GetTransform()->GetPosition();
-		}
+		Obj->m_bombPoint = Utility::ChangeVectorLength(Obj->m_lastFrontDirection, 20);
 	}
 	void PlayerBase::PlayerBombModeState::Execute(const shared_ptr<PlayerBase>& Obj) {
 		// 爆弾の照準
