@@ -25,7 +25,7 @@ namespace basecross {
 		m_armorZeroWhenKnockBackMagnification(5), m_energyRecoveryAmount(10),
 		m_bombAimMovingDistance(20), m_respawnTimer(3.0f), m_isActive(true),
 		m_tackleTimer(0.5f, true), m_isDuringTackle(false), m_weight(1),
-		m_bulletAimLineLength(3), m_shieldRate(0.5f), m_debug(false)
+		m_bulletAimLineLength(3), m_shieldRate(0.5f), m_debug(true)
 	{
 		m_transformData = transData;
 		m_transformData.Scale *= 2.0f;
@@ -685,7 +685,7 @@ namespace basecross {
 	}
 	void PlayerBase::PlayerBombModeState::Enter(const shared_ptr<PlayerBase>& Obj) {
 		Obj->m_isBombMode = true;
-		Obj->m_bombPoint = Utility::ChangeVectorLength(Obj->m_lastFrontDirection, 20);
+		Obj->m_bombPoint = Utility::ChangeVectorLength(Obj->m_lastFrontDirection, 10);
 	}
 	void PlayerBase::PlayerBombModeState::Execute(const shared_ptr<PlayerBase>& Obj) {
 		// îöíeÇÃè∆èÄ

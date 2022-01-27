@@ -86,7 +86,7 @@ namespace basecross {
 		case GameState::PLAYING:
 			// ƒAƒCƒeƒ€‚Ì¶¬
 			ItemGeneration();
-			if (m_countDown->GetTime() <= 0.0f) {
+			if (m_countDown->GetTime() <= 1.0f) {
 				m_countDown->Stop();
 				m_utilTimer.Reset(2.0f);
 				AddGameObject<FinishSprite>(TransformData());

@@ -30,20 +30,23 @@ namespace basecross {
 		auto ptrDraw = AddComponent<PCTSpriteDraw>(vertices, indices);
 		ptrDraw->SetTextureResource(m_textureKey);
 
+		AddComponent<FadeComponent>();
+
 		SetAlphaActive(true);
-		m_timer.SetIntervalTime(m_maxIndex / (float)m_frameRate);
+		m_timer.SetIntervalTime(m_maxPiece / (float)m_frameRate);
+		SetUpdateActive(false);
 	}
 
 	void UIEffect::OnUpdate() {
 		m_timer.Count();
 
 		//Debug::GetInstance()->Log(m_timer.GetElaspedTime());
-		m_pieceIndex = int(m_timer.GetElaspedTime() / m_displayTime);
-		if (m_pieceIndex >= m_maxIndex) {
+		m_pieceIndex = int(m_timer.GetElaspedTime() / (1 / (float)m_frameRate));
+		if (m_pieceIndex >= m_maxPiece && m_isLoop) {
 			m_pieceIndex = 0;
 			m_timer.Reset();
 		}
-		Debug::GetInstance()->Log(m_pieceIndex);
+		//Debug::GetInstance()->Log(m_pieceIndex);
 		vector<VertexPositionColorTexture> newVertices;
 		uint32_t pieceX = m_pieceIndex % (int)m_divisionCount.x;
 		uint32_t pieceY = m_pieceIndex / m_divisionCount.x;
