@@ -73,6 +73,7 @@
 #include "UIs/GameStartAndFinish.h"
 //#include "UIs/CountDown_.h"
 #include "UIs/OneShotUI.h"
+#include "UIs/UIEffect.h"
 // コンポーネント
 #include "Component/FadeComponent.h"
 #include "Component/LifeSpan.h"

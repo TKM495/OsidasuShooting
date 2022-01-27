@@ -94,6 +94,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\PlayerInfo.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\TransitionSprite.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\UIEffect.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\AdvancedMeshUtil.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\BaseSingleton.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\DataExtracter.h" />
@@ -193,6 +194,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\PlayerInfo.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\TransitionSprite.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\UIEffect.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\AdvancedMeshUtil.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\GameController.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\PlayerStatus.cpp" />

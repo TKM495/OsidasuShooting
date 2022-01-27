@@ -38,8 +38,8 @@ namespace basecross {
 			EfkEffectResource::RegisterEffectResource(L"Shield", TestEffectStr + L"Shield.efk");
 
 			CreateViewLight();
-			//AddGameObject<Debug>();
-			//Debug::GetInstance()->Log(L"CurrentStage : WatanabeStage");
+			AddGameObject<Debug>();
+			Debug::GetInstance()->Log(L"CurrentStage : WatanabeStage");
 
 			//XMLƒtƒ@ƒCƒ‹
 			XMLLoad::GetInstance()->RegisterFile(L"PlayerStatus", DataDir + L"XML/" + L"PlayerStatus.xml");
@@ -65,6 +65,7 @@ namespace basecross {
 			AddGameObject<SimpleSprite>(L"BackGround00")->SetDrawLayer(-1);
 
 			m_itemCreation = AddGameObject<modifiedClass::ItemCreation>();
+			AddGameObject<UIEffect>(L"StartEffect", Vec2(5, 7), 30);
 		}
 		catch (...) {
 			throw;

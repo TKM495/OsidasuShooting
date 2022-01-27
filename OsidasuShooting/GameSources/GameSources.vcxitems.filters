@@ -421,6 +421,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\CameraArea.cpp">
       <Filter>StageObject\CameraArea</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\UIEffect.cpp">
+      <Filter>UI\UIEffect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -722,6 +725,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\CameraArea.h">
       <Filter>StageObject\CameraArea</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\UIEffect.h">
+      <Filter>UI\UIEffect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
@@ -1022,6 +1028,9 @@
     </Filter>
     <Filter Include="StageObject\CameraArea">
       <UniqueIdentifier>{4f46fe71-6635-4f5a-9965-41aa65f1e499}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\UIEffect">
+      <UniqueIdentifier>{90f51329-e614-4fa0-8b98-2c0550ccaac1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
