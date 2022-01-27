@@ -40,8 +40,13 @@ namespace basecross {
 		Vec3 m_scaleOffset;				// スケールオフセット
 		float m_max_scaleValue;
 		float m_cur_scaleValue;
-		bool isIncreasion = true;
+		bool isContinuousIncreasion = false;
 		float expansionMaxRate;
+
+
+		bool doAdjustAlpha = false;
+		bool doAdjustColor = false;
+		bool doAdjustScale = false;
 
 	public:
 		CountDown(const shared_ptr <Stage>& stage,
