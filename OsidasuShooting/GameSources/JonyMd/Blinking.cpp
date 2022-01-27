@@ -7,8 +7,9 @@ namespace basecross {
 	{
 		originalColor = Col4(1.0f, 0.0f, 0.0f, 1.0f);
 
-		togglingInTime = togglingOutTime = 0.5f;
+		togglingInTime = 0.5f;
 		toggleStayingTime = 0.0f;
+		togglingOutTime = togglingInTime + toggleStayingTime + 0.5f;
 		blinkingTime = 10.0f;
 	}
 
@@ -85,15 +86,21 @@ namespace basecross {
 		timeChecker = 0;
 
 		SetUpdateActive(true);
+		changedColor = originalColor;
+		changedAlpha = 0.01f;
 		isBlinking = true;
 	}
 	void Blinking::StopBlinking()
 	{
 		SetUpdateActive(false);
-		isBlinking = false;
 		isHideShow = false;
 		isFadeInOut = false;
 		isAlterSize = false;
+
+		changedColor = originalColor;
+		changedAlpha = 1.0f;
+
+		isBlinking = false;
 	}
 
 
@@ -113,6 +120,7 @@ namespace basecross {
 		toggleStayingTime = inTime + stayTime;
 		togglingOutTime = inTime + stayTime+ outTime;
 		blinkingTime = blinkTime;
+
 	}
 
 	void Blinking::SetShowHide()

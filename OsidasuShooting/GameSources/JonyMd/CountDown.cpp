@@ -13,6 +13,9 @@ namespace basecross {
 		stage->SetSharedGameObject(L"BlinkForCountDown", blinking);
 		blinking->SetOriginalColor(redColor);
 
+		initialTime = 11;
+
+
 		currentTime = initialTime;
 
 		Vec3 pos(200.0f, 400.0f, 0.0f);
@@ -125,10 +128,12 @@ namespace basecross {
 
 		SetTimerNumbers();
 
-		if (currentTime <= m_warningTime)
+		auto blinking = GetStage()->GetSharedGameObject<Blinking>(L"BlinkForCountDown");
+		auto colon = GetStage()->GetSharedGameObject<Number>(L"ColonForCountDown");
+
+
+		if (currentTime <= m_warningTime && m_warningTime>0)
 		{
-			auto blinking = GetStage()->GetSharedGameObject<Blinking>(L"BlinkForCountDown");
-			auto colon = GetStage()->GetSharedGameObject<Number>(L"ColonForCountDown");
 			
 			if (m_blinkTime == m_blinkTimeChecker)
 			{
@@ -140,53 +145,93 @@ namespace basecross {
 
 				for (auto& number : m_numbers) {
 					number->SetColor(redColor);
+					number->GetComponent<Transform>()->SetScale(Vec3(m_scaleValue, m_scaleValue, m_scaleValue));
 				}
 				colon->SetColor(redColor);
+				colon->GetComponent<Transform>()->SetScale(Vec3(m_scaleValue, m_scaleValue, m_scaleValue));
 			}
 
+
+			if (m_timerNumbers <= 0)
+			{
+				blinking->StopBlinking();
+				isContinuousIncreasion = true;
+				m_warningTime = 0;
+			}
+			else
+			{
+				doAdjustAlpha = true;
+				doAdjustColor = true;
+				doAdjustScale = true;
+			}
+
+		}
+
+		if (m_timerNumbers == 0 && !isContinuousIncreasion && !doAdjustScale)
+		{
+			blinking->SetToggleTime(m_fadeInTime, m_fadeOutTime, m_blinkTime);
+			blinking->SetScaling(m_scaleValue, m_max_scaleValue);
+			blinking->StartBlinking();
+
+			doAdjustScale = true;
+		}
+
+
+		if (doAdjustAlpha|| doAdjustColor|| doAdjustScale)
+		{
 			float alpha = blinking->GetAdjustedAlpha();
 			Col4 color = blinking->GetAdjustedColor();
 			Vec3 scale = blinking->GetAdjustedScale();
 
 			if (alpha <= 0)
 			{
-				alpha = 0.1;
+				alpha = 0.01;
 			}
-
-			if (m_timerNumbers <= 0)
-			{
-				alpha = 1;
-				blinking->StopBlinking();
-				scale = Vec3(m_scaleValue, m_scaleValue, m_scaleValue);
-			}
-
 
 			for (auto& number : m_numbers) {
-				number->SetAlpha(alpha);
-				number->SetColor(color);
-				auto transform = number->GetComponent<Transform>();
+				if (doAdjustAlpha) { number->SetAlpha(alpha); }
+				if (doAdjustColor) { number->SetColor(color); }
+
+
+				if (doAdjustScale)
+				{
+					auto transform = number->GetComponent<Transform>();
+					auto curPosition = transform->GetPosition();
+					auto curScale = transform->GetScale();
+
+					Vec3 position = curPosition;
+					position.x = curPosition.x / curScale.x * scale.x;
+
+					transform->SetScale(scale);
+					transform->SetPosition(position);
+				}
+			}
+
+			//colon用
+			if (doAdjustAlpha) { colon->SetAlpha(alpha); }
+			if (doAdjustColor) { colon->SetColor(color); }
+
+			if (doAdjustScale)
+			{
+				auto transform = colon->GetComponent<Transform>();
 				auto curPosition = transform->GetPosition();
 				auto curScale = transform->GetScale();
-
 				Vec3 position = curPosition;
 				position.x = curPosition.x / curScale.x * scale.x;
 
 				transform->SetScale(scale);
 				transform->SetPosition(position);
 			}
-
 			//colon用
-			colon->SetAlpha(alpha);
-			colon->SetColor(color);
-			auto transform = colon->GetComponent<Transform>();
-			auto curPosition = transform->GetPosition();
-			auto curScale = transform->GetScale();
-			Vec3 position = curPosition;
-			position.x = curPosition.x / curScale.x * scale.x;
 
-			transform->SetScale(scale);
-			transform->SetPosition(position);
-			//colon用
+
+			if (isContinuousIncreasion)
+			{
+				isContinuousIncreasion = false;
+				doAdjustAlpha = false;
+				doAdjustColor = false;
+				doAdjustScale = false;
+			}
 		}
 	}
 

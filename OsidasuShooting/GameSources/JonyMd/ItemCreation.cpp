@@ -38,7 +38,7 @@ namespace basecross {
 		auto itemTransform = item->GetComponent<Transform>();
 		itemTransform->SetPosition(position);
 
-		areaPositionList.erase(areaPositionList.begin());
+		areaPositionList.erase(areaPositionList.begin()+ randVal);
 
 	}
 
