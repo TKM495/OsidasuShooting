@@ -36,9 +36,9 @@ namespace basecross
 
 		vector<VertexPositionColorTexture> vertices = {
 			{Vec3(m_zeroSize, m_zeroSize, m_zeroSize), color, Vec2(m_zeroSize, m_zeroSize)},
-			{Vec3(m_sideSize, m_zeroSize, m_zeroSize), color, Vec2( m_oneSize, m_zeroSize)},
+			{Vec3(m_sideSize, m_zeroSize, m_zeroSize), color, Vec2(m_oneSize, m_zeroSize)},
 			{Vec3(m_zeroSize, m_highSize, m_zeroSize), color, Vec2(m_zeroSize,  m_oneSize)},
-			{Vec3(m_sideSize, m_highSize, m_zeroSize), color, Vec2( m_oneSize,  m_oneSize)}
+			{Vec3(m_sideSize, m_highSize, m_zeroSize), color, Vec2(m_oneSize,  m_oneSize)}
 		};
 
 		vector<uint16_t> indeces = {
@@ -53,8 +53,8 @@ namespace basecross
 		SetAlphaActive(true);
 	}
 
-	void BaseSprite::SettingScale(Vec3 sizes) {
-		m_scale = sizes;
+	void BaseSprite::SettingScale(Vec3 scale) {
+		m_scale = scale;
 		auto ptrTrans = GetComponent<Transform>();
 		auto scl = m_scale;
 		ptrTrans->SetScale(scl);
@@ -72,8 +72,15 @@ namespace basecross
 		pos.y = (pos.y - senterPos.y * m_scale.y) + position.y;
 		ptrTrans->SetPosition(pos);
 	}
-	
 
+	// ピボットポイント設定
+	void BaseSprite::SettingPivot() {
+		auto ptrTrans = GetComponent<Transform>();
+		auto xPivot = m_sideSize * m_helfSize;
+		auto yPivot = m_highSize * m_helfSize;
+		ptrTrans->SetPivot(Vec3(xPivot, -yPivot, 1.0f));
+		//ptrTrans->SetPivot(GetComponent<Transform>()->GetPosition());
+	}
 
 	//-----------------------------------------------------------------//
 
@@ -89,7 +96,7 @@ namespace basecross
 	//-----------------------------------------------------------------//
 
 	// ケッテイ(決定)と書かれたスプライトを表示するための情報
-	void DecisionSpriteUI::OnCreate(){
+	void DecisionSpriteUI::OnCreate() {
 		auto texture = L"Decision";
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
@@ -190,7 +197,7 @@ namespace basecross
 			break;
 
 		case 1:
-			texture = L"LaserMark";
+			texture = L"TankMark";
 			break;
 
 		default:
@@ -201,9 +208,15 @@ namespace basecross
 		auto pos = ptrTrans->GetPosition();
 		ptrTrans->SetPosition(m_setPos);
 
-		BaseSprite::CreateSprite(texture, NULL, NULL);
+		BaseSprite::CreateSprite(texture, NULL, NULL); 
 		BaseSprite::SettingScale(Vec3(0.675f));
-		BaseSprite::SettingPositionSenter(m_setPos);
+		//BaseSprite::SettingPositionSenter(m_setPos);
+	}
+
+	void CharaIcon::OnUpdate() {
+		//auto ptrTrans = GetComponent<Transform>();
+		//auto scl = ptrTrans->GetScale();
+		//ptrTrans->SetScale(scl * 1.01f);
 	}
 
 	//-----------------------------------------------------------------//
@@ -506,6 +519,71 @@ namespace basecross
 		BaseSprite::CreateSprite(texture, NULL, NULL);
 		BaseSprite::SettingScale(Vec3(0.675f, 0.5f, 1.0f));
 		//BaseSprite::SettingPositionSenter(m_setPos);
+	}
+
+	//-----------------------------------------------------------------//
+	
+	// 三角形を表示するための情報
+	void TriangleSprite::OnCreate() {
+		auto texture = L"";
+		texture = L"Triangle";
+
+		auto ptrTrans = GetComponent<Transform>();
+		auto pos = ptrTrans->GetPosition();
+		ptrTrans->SetPosition(m_setPos);
+
+		BaseSprite::CreateSprite(texture, NULL, NULL);
+
+		BaseSprite::SettingScale(Vec3(0.675f));
+		BaseSprite::SettingPositionSenter(m_setPos);
+
+		pos = ptrTrans->GetPosition();
+		m_defPos = pos.x;
+	}
+
+	void TriangleSprite::CharacterSelectingAnimation(const CONTROLER_STATE& getStick,bool stick, bool left, bool right,int gamePadID) {
+		const auto& ctrlVec = App::GetApp()->GetInputDevice().GetControlerVec()[gamePadID];
+		auto ctrlX = 0.0f;
+		if (ctrlVec.bConnected) {
+			ctrlX = ctrlVec.fThumbLX;
+		}
+
+		auto trans = GetComponent<Transform>();
+		auto transPos = trans->GetPosition();
+		auto moveLeft = ctrlX <= -1.0f || ctrlVec.wPressedButtons & XINPUT_GAMEPAD_DPAD_LEFT;
+		auto moveRight = ctrlX >= 1.0f || ctrlVec.wPressedButtons & XINPUT_GAMEPAD_DPAD_RIGHT;
+
+		auto ptrTrans = GetComponent<Transform>();
+		auto pos = ptrTrans->GetPosition();
+
+		// 左へ
+		if (!m_isReTriangle && moveLeft) {
+			auto move = m_defPos - m_movePos;
+			pos.x = move;
+		}
+		// 右へ
+		else if (m_isReTriangle && moveRight) {
+			auto move = m_defPos + m_movePos;
+			pos.x = move;
+		}
+
+		if (pos.x != m_defPos)
+		{
+			if (!m_isReTriangle) {
+				pos.x += 1;
+				if (m_defPos <= pos.x) {
+					pos.x = m_defPos;
+				}
+			}
+			else {
+				pos.x -= 1;
+				if (m_defPos >= pos.x) {
+					pos.x = m_defPos;
+				}
+			}
+		}
+		ptrTrans->SetPosition(pos);
+			
 	}
 
 	//-----------------------------------------------------------------//

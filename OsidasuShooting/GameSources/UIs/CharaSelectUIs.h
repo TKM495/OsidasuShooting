@@ -43,8 +43,9 @@ namespace basecross
 		{}
 
 		virtual void CreateSprite(wstring textureKey,float sideSize,float highSize);
-		virtual void SettingScale(Vec3 sizes);
+		virtual void SettingScale(Vec3 scale);
 		virtual void SettingPositionSenter(Vec3 position);
+		virtual void SettingPivot();
 
 	};
 
@@ -189,6 +190,7 @@ namespace basecross
 			m_iconNumber(iconNumber)
 		{}
 		void OnCreate() override;
+		void OnUpdate() override;
 	};
 
 	// SelectCursorのスプライト
@@ -334,5 +336,31 @@ namespace basecross
 			m_setPos(setPosition)
 		{}
 		void OnCreate() override;
+	};
+
+	// 
+	class TriangleSprite : public BaseSprite {
+		Vec3 m_setPos;
+		float m_defPos;
+
+		const float m_movePos;
+
+		bool m_filstLoad;
+		bool m_isReTriangle;
+	public:
+		TriangleSprite(
+			const shared_ptr<Stage>& stage,
+			const Vec3 setPosition,
+			bool isReTriangle
+		) :
+			BaseSprite(stage, setPosition),
+			m_setPos(setPosition),
+			m_defPos(),
+			m_movePos(9),
+			m_isReTriangle(isReTriangle),
+			m_filstLoad(false)
+		{}
+		void OnCreate() override;
+		void CharacterSelectingAnimation(const CONTROLER_STATE& getStick,bool stick, bool left, bool right,int gamePadID);
 	};
 }
