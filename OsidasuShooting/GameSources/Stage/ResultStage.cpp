@@ -36,6 +36,7 @@ namespace basecross {
 			auto playUIsTrans = playerNumber->GetComponent<Transform>();
 			playUIsTrans->SetPosition(winnerUIsPos - Vec3(-412.0f, -27.0f, 0));
 			playUIsTrans->SetScale(Vec3(1.1f));
+
 		}
 		else {
 			auto posX = -160.0f;
@@ -236,6 +237,11 @@ namespace basecross {
 			auto topPlayer = AddGameObject<ResultPlayer>(
 				TransformData(Vec3(0.0f, 1.0f, 0.0f), Vec3(0.75f), Vec3(0, XMConvertToRadians(180.0f), 0)),
 				m_playerTop, StageManager::GetInstance()->GetPlayerType(m_playerTop));
+
+			auto playerPos = topPlayer->GetComponent<Transform>()->GetPosition();
+			playerPos.x -= 1.0f;
+			playerPos.y += 2.0f;
+			auto confetti = AddGameObject<Confetti>(playerPos);
 		}
 		else {
 			auto maxDrawPlayer = 3;
