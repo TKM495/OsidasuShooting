@@ -33,11 +33,11 @@
         <!--重さ-->
         <Weight>1</Weight>
         <!--弾の発射に使用するエネルギー(1発あたり)-->
-        <EnergyUseInBulletShot>25</EnergyUseInBulletShot>
+        <EnergyUseInBulletShot>20</EnergyUseInBulletShot>
         <!--ホバーで消費するエネルギー(毎秒)-->
         <UseEnergyInHover>60</UseEnergyInHover>
         <!--エネルギーの回復速度-->
-        <EnergyRecoveryAmount>45</EnergyRecoveryAmount>
+        <EnergyRecoveryAmount>40</EnergyRecoveryAmount>
     </LaserStatus>
     <MissileStatus>
         <!--移動速度-->

@@ -49,14 +49,10 @@ namespace basecross {
 		bool m_isDisplayForCount;
 		// ”wŒi‚ğ•\¦‚·‚é‚©
 		bool m_isShowBackground;
+		// —LŒø‚©‚Ç‚¤‚©
+		bool m_isActive;
 	public:
-		Debug(const shared_ptr<Stage>& stage)
-			:BaseSingletonGameObject(stage), m_displayLogFirstIndex(0),
-			// ˆÈ‰ºİ’è
-			m_maxLogCount(18),
-			m_isDisplayForCount(true),
-			m_isShowBackground(false)
-		{}
+		Debug(const shared_ptr<Stage>& stage);
 		void OnCreate();
 		void OnUpdate();
 

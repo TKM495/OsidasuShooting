@@ -20,7 +20,7 @@ namespace basecross {
 
 	void TitleStage::AddTitleSprite()
 	{
-		AddGameObject<TitleSprite>(L"Title"/*, false,
+		auto titleSprite = AddGameObject<TitleSprite>(L"Title"/*, false,
 			Vec2(256.0f, 50.0f), Vec2(0.0f, 50.0f)*/);
 	}
 	void TitleStage::AddPushAButtonSprite()
@@ -40,9 +40,9 @@ namespace basecross {
 
 			// タイトルにおけるプレイヤーのタイプ
 			StageManager::GetInstance()->SetPlayerType(1, PlayerType::Laser);
-			StageManager::GetInstance()->SetPlayerType(2, PlayerType::Laser);
+			StageManager::GetInstance()->SetPlayerType(2, PlayerType::Missile);
 			StageManager::GetInstance()->SetPlayerType(3, PlayerType::Laser);
-			StageManager::GetInstance()->SetPlayerType(4, PlayerType::Laser);
+			StageManager::GetInstance()->SetPlayerType(4, PlayerType::Missile);
 
 			GameObjecttCSVBuilder builder;
 			builder.Register<Block>(L"Block");

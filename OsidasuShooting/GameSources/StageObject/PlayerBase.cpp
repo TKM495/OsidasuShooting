@@ -116,7 +116,7 @@ namespace basecross {
 		// 移動処理
 		Move();
 		// テストコード
-		TestFanc();
+		//TestFanc();
 
 		// 無敵処理
 		Invincible();
@@ -475,8 +475,8 @@ namespace basecross {
 		OnRespawn();
 
 		// アイテムをスポーン
-		if (gameStage)
-			gameStage->GetItemCreation()->SpawnInRandPosition(modifiedClass::ItemType::Bomb);
+		//if (gameStage)
+			//gameStage->GetItemCreation()->SpawnInRandPosition(modifiedClass::ItemType::Bomb);
 		// 初期位置に戻る
 		GetTransform()->SetPosition(m_initialPosition);
 	}

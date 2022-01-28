@@ -45,7 +45,7 @@ namespace basecross {
 
 			AddGameObject<CurrentFirst>();
 
-			auto countDown = AddGameObject<CountDown>(120.0f);
+			auto countDown = AddGameObject<CountDown>(90.0f);
 			SetSharedGameObject(L"ForCountDown", countDown);
 			countDown->SetDrawLayer(1);
 			m_startCountDown = AddGameObject<StartCountDown>(TransformData());
