@@ -1,6 +1,6 @@
 /*!
 @file   ResultStage.cpp
-@brief  ƒŠƒUƒ‹ƒgƒXƒe[ƒWÀ‘Ì
+@brief  ãƒªã‚¶ãƒ«ãƒˆã‚¹ãƒ†ãƒ¼ã‚¸å®Ÿä½“
 */
 
 #include "stdafx.h"
@@ -13,14 +13,14 @@ namespace basecross {
 		const Vec3 eye(0.0f, 0.0f, -4.0f);
 		const Vec3 at(0.4f, 0.0f, -2.0f);
 		auto PtrView = CreateView<SingleView>();
-		//ƒrƒ…[‚ÌƒJƒƒ‰‚Ìİ’è
+		//ãƒ“ãƒ¥ãƒ¼ã®ã‚«ãƒ¡ãƒ©ã®è¨­å®š
 		auto PtrCamera = ObjectFactory::Create<Camera>();
 		PtrView->SetCamera(PtrCamera);
 		PtrCamera->SetEye(eye);
 		PtrCamera->SetAt(at);
-		//ƒ}ƒ‹ƒ`ƒ‰ƒCƒg‚Ìì¬
+		//ãƒãƒ«ãƒãƒ©ã‚¤ãƒˆã®ä½œæˆ
 		auto PtrMultiLight = CreateLight<MultiLight>();
-		//ƒfƒtƒHƒ‹ƒg‚Ìƒ‰ƒCƒeƒBƒ“ƒO‚ğw’è
+		//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®ãƒ©ã‚¤ãƒ†ã‚£ãƒ³ã‚°ã‚’æŒ‡å®š
 		PtrMultiLight->SetDefaultLighting();
 	}
 
@@ -36,6 +36,7 @@ namespace basecross {
 			auto playUIsTrans = playerNumber->GetComponent<Transform>();
 			playUIsTrans->SetPosition(winnerUIsPos - Vec3(-412.0f, -27.0f, 0));
 			playUIsTrans->SetScale(Vec3(1.1f));
+
 		}
 		else {
 			auto posX = -160.0f;
@@ -79,19 +80,19 @@ namespace basecross {
 
 	void ResultStage::AddResultSprites(Vec3 pos, int playerNum, int score, int dead, int rank)
 	{
-		// ƒtƒŒ[ƒ€‚ğ”z’u
+		// ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’é…ç½®
 		auto fream = AddGameObject<FreamSprite>(L"Fream", pos, Vec3(1.2f));
 		auto freamTrans = fream->GetComponent<Transform>();
 		auto freamPos = freamTrans->GetPosition();
 		fream->SetDrawLayer(1);
 
-		// ƒJƒ‰[æ“¾
+		// ã‚«ãƒ©ãƒ¼å–å¾—
 		auto playerColor = PlayerStatus::GetInstance()->GetPlayerColor(playerNum);
-		// İ’u‚·‚éƒ|ƒWƒVƒ‡ƒ“
+		// è¨­ç½®ã™ã‚‹ãƒã‚¸ã‚·ãƒ§ãƒ³
 		auto playerNumPos = pos + Vec3(-200.0f, 115.0f, 0.0f);
-		// ƒvƒŒƒCƒ„[‚Ìƒiƒ“ƒo[‚ğ•\¦‚·‚é
+		// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒŠãƒ³ãƒãƒ¼ã‚’è¡¨ç¤ºã™ã‚‹
 		auto playerNumber = AddGameObject<BattlePlayersUIs>(L"BPsUIs", playerNum, Vec3(0));
-		// ƒiƒ“ƒo[‚ÉF‚ğ•t‚¯‚é
+		// ãƒŠãƒ³ãƒãƒ¼ã«è‰²ã‚’ä»˜ã‘ã‚‹
 		playerNumber->GetComponent<PCTSpriteDraw>()->SetDiffuse(playerColor);
 
 		auto playUIsTrans = playerNumber->GetComponent<Transform>();
@@ -130,9 +131,9 @@ namespace basecross {
 		auto allPlayer = PlayerManager::GetInstance()->GetSortedAllPlayer();
 		int  loopCount = 0;	// for
 		int  drawPlayer = 0;	//
-		int  draw = 0;		// ˆø‚«•ª‚¯
+		int  draw = 0;		// å¼•ãåˆ†ã‘
 		bool isDraw = false;
-		// ‡ˆÊ‚ª‚‚¢‡‚Éˆ—‚³‚ê‚é
+		// é †ä½ãŒé«˜ã„é †ã«å‡¦ç†ã•ã‚Œã‚‹
 		for (auto player : allPlayer) {
 			str = L"";
 			switch (player->GetPlayerNumber())
@@ -169,7 +170,7 @@ namespace basecross {
 				break;
 			}
 
-			// ƒvƒŒƒCƒ„[‚Ì‡ˆÊ‚Ìˆ—
+			// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®é †ä½ã®å‡¦ç†
 			auto top = player->GetCountKilledPlayer() > m_playerTopScore;
 			auto topDeadWin = player->GetCountKilledPlayer() == m_playerTopScore && player->GetDeadCount() < m_playerTopDead;
 			auto topDrawDead = player->GetCountKilledPlayer() == m_playerTopScore && player->GetDeadCount() == m_playerTopDead;
@@ -197,7 +198,7 @@ namespace basecross {
 			}
 			auto rankingNum = loopCount - draw;
 
-			// ƒvƒŒƒCƒ„[‚ÌŒ‹‰Ê‚ğ•\¦‚·‚é
+			// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®çµæœã‚’è¡¨ç¤ºã™ã‚‹
 			AddResultSprites(Vec3(400 + addVec, 250 + setPosY, 0),
 				(UINT)m_playersNumber + 1, m_playersScore, m_playersDead, rankingNum);
 
@@ -207,12 +208,12 @@ namespace basecross {
 
 			loopCount++;
 
-			// ”äŠr—p‚É•Ê‚ÌŠÖ”‚É‘ã“ü
+			// æ¯”è¼ƒç”¨ã«åˆ¥ã®é–¢æ•°ã«ä»£å…¥
 			m_previousScore = m_playersScore;
 			m_previousDead = m_playersDead;
 		}
 
-		// ƒgƒbƒv‚ÌƒvƒŒƒCƒ„[
+		// ãƒˆãƒƒãƒ—ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
 		//m_playerTop = allPlayer[0]->GetPlayerNumber();
 	}
 
@@ -233,6 +234,11 @@ namespace basecross {
 			auto topPlayer = AddGameObject<ResultPlayer>(
 				TransformData(Vec3(0.0f, 1.0f, 0.0f), Vec3(0.75f), Vec3(0, XMConvertToRadians(180.0f), 0)),
 				m_playerTop, StageManager::GetInstance()->GetPlayerType(m_playerTop));
+
+			auto playerPos = topPlayer->GetComponent<Transform>()->GetPosition();
+			playerPos.x -= 1.0f;
+			playerPos.y += 2.0f;
+			auto confetti = AddGameObject<Confetti>(playerPos);
 			topPlayer->PlayWin();
 		}
 		else {
@@ -281,7 +287,7 @@ namespace basecross {
 			EfkEffectResource::RegisterEffectResource(L"Smoke", efkpath + L"Smoke.efk");
 			EfkEffectResource::RegisterEffectResource(L"Smoke", efkpath + L"Smoke.efk");
 
-			//ƒrƒ…[‚Æƒ‰ƒCƒg‚Ìì¬
+			//ãƒ“ãƒ¥ãƒ¼ã¨ãƒ©ã‚¤ãƒˆã®ä½œæˆ
 			CreateViewLight();
 			//AddGameObject<Debug>();
 			//Debug::GetInstance()->Log(L"CurrentStage : ResultStage");
