@@ -15,9 +15,6 @@ namespace basecross {
 		float BulletAimLineLength;  // 弾の照準線の長さ
 		int DefaultBombCount;       // デフォルトの爆弾の所持数
 		float GravityMagnification; // 重力
-		float EnergyUseInBulletShot;// 弾の発射に使用するエネルギー(1発あたり)
-		float UseEnergyInHover;     // ホバーで消費するエネルギー(毎秒)
-		float EnergyRecoveryAmount; // エネルギーの回復速度
 		float BombPowerDiameter;//爆弾の威力倍率
 		float ShieldPerformanceIsDownEnergyRate; //シールドの性能が落ちるエネルギーの割合
 	};
@@ -27,10 +24,13 @@ namespace basecross {
 	struct StatusByPlayer {
 		float MoveSpeed;            // 移動速度
 		float JumpAmount;           // ジャンプ量
-		float Power;          // 威力
+		float Power;				// 威力
 		float BulletRateOfFire;     // 弾の発射速度
 		float BombReloadSpeed;      // 爆弾のリロード速度
 		float Weight;               // 重さ
+		float EnergyUseInBulletShot;// 弾の発射に使用するエネルギー(1発あたり)
+		float UseEnergyInHover;     // ホバーで消費するエネルギー(毎秒)
+		float EnergyRecoveryAmount; // エネルギーの回復速度
 	};
 
 	class PlayerStatus :public BaseSingleton<PlayerStatus> {

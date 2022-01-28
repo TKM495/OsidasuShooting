@@ -36,11 +36,8 @@ namespace basecross {
 		common.BulletAimLineLength = status[3];
 		common.DefaultBombCount = (int)status[4];
 		common.GravityMagnification = status[5];
-		common.EnergyUseInBulletShot = status[6];
-		common.UseEnergyInHover = status[7];
-		common.EnergyRecoveryAmount = status[8];
-		common.BombPowerDiameter = status[9];
-		common.ShieldPerformanceIsDownEnergyRate = status[10];
+		common.BombPowerDiameter = status[6];
+		common.ShieldPerformanceIsDownEnergyRate = status[7];
 
 		m_commonStatus = common;
 
@@ -76,6 +73,9 @@ namespace basecross {
 			byPlayer.BulletRateOfFire = status[3];
 			byPlayer.BombReloadSpeed = status[4];
 			byPlayer.Weight = status[5];
+			byPlayer.EnergyUseInBulletShot = status[6];
+			byPlayer.UseEnergyInHover = status[7];
+			byPlayer.EnergyRecoveryAmount = status[8];
 			m_statusByPlayer[PlayerType(i)] = byPlayer;
 		}
 	}
@@ -95,9 +95,6 @@ namespace basecross {
 		player->m_bulletAimLineLength = m_commonStatus.BulletAimLineLength;
 		auto defaultGravity = player->GetComponent<Gravity>()->GetGravity();
 		player->GetComponent<Gravity>()->SetGravity(defaultGravity * m_commonStatus.GravityMagnification);
-		player->m_energyRequiredInBulletLaunch = m_commonStatus.EnergyUseInBulletShot;
-		player->m_energyRequiredInHover = m_commonStatus.UseEnergyInHover;
-		player->m_energyRecoveryAmount = m_commonStatus.EnergyRecoveryAmount;
 		player->m_shieldRate = m_commonStatus.ShieldPerformanceIsDownEnergyRate;
 		const auto& data = m_statusByPlayer[player->GetPlayerType()];
 
@@ -108,5 +105,8 @@ namespace basecross {
 		player->m_bulletTimer.SetIntervalTime(data.BulletRateOfFire, true);
 		player->m_bombCoolTimeTimer.SetIntervalTime(data.BombReloadSpeed, true);
 		player->m_weight = data.Weight;
+		player->m_energyRequiredInBulletLaunch = data.EnergyUseInBulletShot;
+		player->m_energyRequiredInHover = data.UseEnergyInHover;
+		player->m_energyRecoveryAmount = data.EnergyRecoveryAmount;
 	}
 }

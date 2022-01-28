@@ -6,7 +6,7 @@ namespace basecross {
 		void ItemCreation::OnCreate()
 		{
 			positionX = 0.0f;
-			positionY = 10.0f;
+			positionY = 30.0f;
 			positionZ = 0.0f;
 
 			isRandPosX = true;

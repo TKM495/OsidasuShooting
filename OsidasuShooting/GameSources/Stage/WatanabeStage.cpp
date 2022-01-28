@@ -47,8 +47,6 @@ namespace basecross {
 
 			PlayerStatus::GetInstance()->DataExtraction();
 
-			//StageManager::GetInstance()->SetPlayerType(1, PlayerType::Missile);
-
 			GameObjecttCSVBuilder builder;
 			builder.Register<Block>(L"Block");
 			builder.Register<Bumper>(L"Bumper");
@@ -60,12 +58,12 @@ namespace basecross {
 			builder.Register<CameraArea>(L"CameraArea");
 			auto dir = App::GetApp()->GetDataDirWString();
 			auto path = dir + L"Csv/Stage/";
-			builder.Build(GetThis<Stage>(), path + L"TestStage.csv");
+			builder.Build(GetThis<Stage>(), path + L"Stage1.csv");
 			AddGameObject<CurrentFirst>();
 			AddGameObject<SimpleSprite>(L"BackGround00")->SetDrawLayer(-1);
 
 			m_itemCreation = AddGameObject<modifiedClass::ItemCreation>();
-			AddGameObject<ColorOut>()->SetActive(true);
+			//AddGameObject<ColorOut>()->SetActive(true);
 		}
 		catch (...) {
 			throw;
@@ -83,6 +81,14 @@ namespace basecross {
 		}
 		if (keyState.m_bPressedKeyTbl['W']) {
 			m_itemCreation->SpawnInRandPosition();
+		}
+		if (keyState.m_bPressedKeyTbl['D']) {
+			StageManager::GetInstance()->SetPlayerType(1, PlayerType::Missile);
+			PostEvent(0.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToWatanabeStage");
+		}
+		if (keyState.m_bPressedKeyTbl['A']) {
+			StageManager::GetInstance()->SetPlayerType(1, PlayerType::Laser);
+			PostEvent(0.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToWatanabeStage");
 		}
 	}
 
