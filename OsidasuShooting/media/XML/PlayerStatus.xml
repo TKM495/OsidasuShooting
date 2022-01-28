@@ -11,15 +11,9 @@
         <!--弾の照準線の長さ-->
         <BulletAimLineLength>3</BulletAimLineLength>
         <!--デフォルトの爆弾の所持数-->
-        <DefaultBombCount>9</DefaultBombCount>
+        <DefaultBombCount>5</DefaultBombCount>
         <!--重力-->
         <GravityMagnification>3</GravityMagnification>
-        <!--弾の発射に使用するエネルギー(1発あたり)-->
-        <EnergyUseInBulletShot>10</EnergyUseInBulletShot>
-        <!--ホバーで消費するエネルギー(毎秒)-->
-        <UseEnergyInHover>60</UseEnergyInHover>
-        <!--エネルギーの回復速度-->
-        <EnergyRecoveryAmount>40</EnergyRecoveryAmount>
         <!--爆弾の威力倍率-->
         <BombPowerDiameter>2.5</BombPowerDiameter>
         <!--シールドの性能が落ちるエネルギーの割合-->
@@ -27,7 +21,7 @@
     </CommonStatus>
     <LaserStatus>
         <!--移動速度-->
-        <MoveSpeed>30</MoveSpeed>
+        <MoveSpeed>35</MoveSpeed>
         <!--ジャンプ量-->
         <JumpAmount>14</JumpAmount>
         <!--威力-->
@@ -38,20 +32,32 @@
         <BombReloadSpeed>1</BombReloadSpeed>
         <!--重さ-->
         <Weight>1</Weight>
+        <!--弾の発射に使用するエネルギー(1発あたり)-->
+        <EnergyUseInBulletShot>25</EnergyUseInBulletShot>
+        <!--ホバーで消費するエネルギー(毎秒)-->
+        <UseEnergyInHover>60</UseEnergyInHover>
+        <!--エネルギーの回復速度-->
+        <EnergyRecoveryAmount>45</EnergyRecoveryAmount>
     </LaserStatus>
     <MissileStatus>
         <!--移動速度-->
-        <MoveSpeed>23</MoveSpeed>
+        <MoveSpeed>25</MoveSpeed>
         <!--ジャンプ量-->
-        <JumpAmount>12</JumpAmount>
+        <JumpAmount>14</JumpAmount>
         <!--威力-->
         <Power>30</Power>
         <!--弾の発射速度-->
-        <BulletRateOfFire>0.4</BulletRateOfFire>
+        <BulletRateOfFire>0.5</BulletRateOfFire>
         <!--爆弾のリロード速度-->
         <BombReloadSpeed>1</BombReloadSpeed>
         <!--重さ-->
         <Weight>3</Weight>
+        <!--弾の発射に使用するエネルギー(1発あたり)-->
+        <EnergyUseInBulletShot>35</EnergyUseInBulletShot>
+        <!--ホバーで消費するエネルギー(毎秒)-->
+        <UseEnergyInHover>70</UseEnergyInHover>
+        <!--エネルギーの回復速度-->
+        <EnergyRecoveryAmount>40</EnergyRecoveryAmount>
     </MissileStatus>
     <!--プレイヤーの色（0 ～ 255のRGBA）-->
     <PlayerColor>
