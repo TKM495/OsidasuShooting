@@ -61,6 +61,8 @@ namespace basecross {
 		efkComp->SetEffectResource(L"Respawn", TransformData(Vec3(0.0f, -0.5f, 0.0f)));
 		efkComp->SetEffectResource(L"Shield", TransformData(Vec3(0, 0.2f, 0), m_transformData.Scale));
 		efkComp->IsSyncPosition(L"Shield", true);
+		efkComp->SetEffectResource(L"NumberOne", TransformData(Vec3(0), m_transformData.Scale));
+		efkComp->IsSyncPosition(L"NumberOne", true);
 
 		// 武器ステートマシンの構築と設定
 		m_weaponStateMachine.reset(new StateMachine<PlayerBase>(GetThis<PlayerBase>()));
@@ -450,8 +452,16 @@ namespace basecross {
 		StopHover();
 		// 復帰判定の初期化
 		m_isDuringReturn = false;
-		// 死亡回数を増やす
-		m_deadCount++;
+
+		// 現在のステージがGameStageの場合
+		auto gameStage = GetTypeStage<GameStage>(false);
+		if (gameStage) {
+			if (gameStage->GetCurrentGameState() == GameStage::GameState::PLAYING) {
+				// 死亡回数を増やす
+				m_deadCount++;
+			}
+		}
+
 		// 爆弾の残弾をへらす
 		if (m_bombCount > 0)
 			m_bombCount--;
@@ -463,8 +473,7 @@ namespace basecross {
 		// 効果音の再生
 		SoundManager::GetInstance()->Play(L"FallSE", 0, 0.3f);
 		OnRespawn();
-		// 現在のステージがGameStageの場合
-		auto gameStage = GetTypeStage<GameStage>(false);
+
 		// アイテムをスポーン
 		if (gameStage)
 			gameStage->GetItemCreation()->SpawnInRandPosition(modifiedClass::ItemType::Bomb);
@@ -580,7 +589,7 @@ namespace basecross {
 				);
 		}
 		if (keyState.m_bPressedKeyTbl['8']) {
-			GetComponent<EfkComponent>()->Play(L"Shield");
+			GetComponent<EfkComponent>()->PlayLoop(L"NumberOne");
 		}
 		if (keyState.m_bPressedKeyTbl['9'] &&
 			m_playerNumber == PlayerNumber::P1) {

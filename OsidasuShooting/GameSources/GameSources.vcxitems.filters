@@ -55,9 +55,6 @@
     <Filter Include="Stage\ResultStage">
       <UniqueIdentifier>{fba10ab4-90e4-4631-a2d0-bafda26cb34f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Setting">
-      <UniqueIdentifier>{1e986d81-5165-4176-8b67-2176ae11a0f4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Camera">
       <UniqueIdentifier>{e087748a-aaa5-4b76-a7e9-2d358afb8684}</UniqueIdentifier>
     </Filter>
@@ -159,9 +156,6 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\Canvas.cpp">
       <Filter>UI\Canvas</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.cpp">
-      <Filter>Setting</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\CountDown.cpp">
       <Filter>JonyMd</Filter>
@@ -400,9 +394,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Confetti.cpp">
       <Filter>StageObject\Confetti</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Blinking_.cpp">
-      <Filter>StageObject\Blinking</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Blinking.cpp">
       <Filter>StageObject\JonyMd</Filter>
     </ClCompile>
@@ -483,9 +474,6 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.h">
       <Filter>UI\TitleSprite</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.h">
-      <Filter>Setting</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\GroundingDecision.h">
       <Filter>Utility\GroundingDecision</Filter>
@@ -698,9 +686,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Confetti.h">
       <Filter>StageObject\Confetti</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Blinking_.h">
-      <Filter>StageObject\Blinking</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Blinking.h">
       <Filter>StageObject\JonyMd</Filter>
     </ClInclude>
@@ -772,9 +757,6 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.cpp">
       <Filter>Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.cpp">
-      <Filter>Setting</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\GroundingDecision.cpp">
       <Filter>Utility\GroundingDecision</Filter>
@@ -867,7 +849,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Scene.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Block.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Bomb.h" />

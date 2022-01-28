@@ -64,7 +64,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\ResultScore.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\ResultSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Scene.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\AdvancedGameObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Block.h" />
@@ -162,7 +161,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\ResultScore.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\ResultSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Scene.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\AdvancedGameObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Block.cpp" />

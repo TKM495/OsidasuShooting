@@ -219,6 +219,7 @@ namespace basecross {
 		EfkEffectResource::RegisterEffectResource(L"BreakBlock", path + L"BreakBlock.efk");
 		EfkEffectResource::RegisterEffectResource(L"Confetti", path + L"Confetti.efk");
 		EfkEffectResource::RegisterEffectResource(L"Shield", path + L"Shield.efk");
+		EfkEffectResource::RegisterEffectResource(L"NumberOne", path + L"NumberOne.efk");
 
 		//他のリソースを読み込むスレッドのスタート
 		thread LoadThread(LoadResourceFunc);
