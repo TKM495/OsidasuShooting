@@ -80,6 +80,7 @@ namespace basecross {
 		void CharacterSelectedPlayers(int gamePadID);
 		void CharacterStetusGauge(int gamePadID);
 
+		void CharacterSelectingAnimation(const CONTROLER_STATE& stick,bool left ,bool right, int gamePadID);
 
 		void CheckSelectedPlayers();
 
