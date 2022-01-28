@@ -43,8 +43,9 @@ namespace basecross
 		{}
 
 		virtual void CreateSprite(wstring textureKey,float sideSize,float highSize);
-		virtual void SettingScale(Vec3 sizes);
+		virtual void SettingScale(Vec3 scale);
 		virtual void SettingPositionSenter(Vec3 position);
+		virtual void SettingPivot();
 
 	};
 
@@ -189,61 +190,62 @@ namespace basecross
 			m_iconNumber(iconNumber)
 		{}
 		void OnCreate() override;
+		void OnUpdate() override;
 	};
 
 	// SelectCursorのスプライト
-	class SelectCursor : public BaseSprite {
-		Vec3 m_setPos;		// 初期位置
-		Vec3 m_nowPos;		// 今カーソルがあるポジション
-		Vec3 m_iconPos[2];	// アイコンの位置
+	//class SelectCursor : public BaseSprite {
+	//	Vec3 m_setPos;		// 初期位置
+	//	Vec3 m_nowPos;		// 今カーソルがあるポジション
+	//	Vec3 m_iconPos[2];	// アイコンの位置
 
-		int m_gamePadID;	// 操作するゲームパッドの番号
-		int m_iconNumber;	// 今カーソルがあるアイコンのナンバー
-		int m_iconMaxNumber;// アイコンの最大値 
+	//	int m_gamePadID;	// 操作するゲームパッドの番号
+	//	int m_iconNumber;	// 今カーソルがあるアイコンのナンバー
+	//	int m_iconMaxNumber;// アイコンの最大値 
 
-		float m_moveTime;	// 次のアイコンに移動するまでにかかった時間
-		float m_moveSpeed;  // 移動時間
+	//	float m_moveTime;	// 次のアイコンに移動するまでにかかった時間
+	//	float m_moveSpeed;  // 移動時間
 
-		bool m_isRightStick;// スティックが右に倒されているかどうか
-		bool m_isSetStick;	// スティックが倒されているかどうか
+	//	bool m_isRightStick;// スティックが右に倒されているかどうか
+	//	bool m_isSetStick;	// スティックが倒されているかどうか
 
-		bool m_waitAnime;
+	//	bool m_waitAnime;
 
-	public:
-		SelectCursor(
-			const shared_ptr<Stage>& stage,
-			const Vec3 setPosition,
-			int gamePadID
-		) :
-			BaseSprite(stage, setPosition),
-			m_setPos(setPosition),
-			m_iconPos{},
-			m_gamePadID(gamePadID),
-			m_iconNumber(),
-			m_iconMaxNumber(),
-			m_moveTime(),
-			m_moveSpeed(4.0f),
-			m_isRightStick(false),
-			m_isSetStick(false),
-			m_waitAnime(false)
-		{}
-		void OnCreate() override;
-		void OnUpdate() override;
+	//public:
+	//	SelectCursor(
+	//		const shared_ptr<Stage>& stage,
+	//		const Vec3 setPosition,
+	//		int gamePadID
+	//	) :
+	//		BaseSprite(stage, setPosition),
+	//		m_setPos(setPosition),
+	//		m_iconPos{},
+	//		m_gamePadID(gamePadID),
+	//		m_iconNumber(),
+	//		m_iconMaxNumber(),
+	//		m_moveTime(),
+	//		m_moveSpeed(4.0f),
+	//		m_isRightStick(false),
+	//		m_isSetStick(false),
+	//		m_waitAnime(false)
+	//	{}
+	//	void OnCreate() override;
+	//	void OnUpdate() override;
 
-		// コントローラの入力
-		void CursorController();// 入力
-		void CursorControl();	// 処理
-		// アイコンのそれぞれの位置とアイコンの最大値
-		void GetIconDatas(int number,Vec3 pos);
-		// カーソルを移動させる
-		void MoveCursor();
-		// アニメーション
-		void WaitAnimetion();
-		void NotMoveAnimetion();
-		//
-		int SetCharacterID();
-		Vec3 GetIconPos(int number);
-	};
+	//	// コントローラの入力
+	//	void CursorController();// 入力
+	//	void CursorControl();	// 処理
+	//	// アイコンのそれぞれの位置とアイコンの最大値
+	//	void GetIconDatas(int number,Vec3 pos);
+	//	// カーソルを移動させる
+	//	void MoveCursor();
+	//	// アニメーション
+	//	void WaitAnimetion();
+	//	void NotMoveAnimetion();
+	//	//
+	//	int SetCharacterID();
+	//	Vec3 GetIconPos(int number);
+	//};
 
 	// ステータス項目の画像
 	class StatusSpriteUI : public BaseSprite {
@@ -334,5 +336,31 @@ namespace basecross
 			m_setPos(setPosition)
 		{}
 		void OnCreate() override;
+	};
+
+	// 
+	class TriangleSprite : public BaseSprite {
+		Vec3 m_setPos;
+		float m_defPos;
+
+		const float m_movePos;
+
+		bool m_filstLoad;
+		bool m_isReTriangle;
+	public:
+		TriangleSprite(
+			const shared_ptr<Stage>& stage,
+			const Vec3 setPosition,
+			bool isReTriangle
+		) :
+			BaseSprite(stage, setPosition),
+			m_setPos(setPosition),
+			m_defPos(),
+			m_movePos(9),
+			m_isReTriangle(isReTriangle),
+			m_filstLoad(false)
+		{}
+		void OnCreate() override;
+		void CharacterSelectingAnimation(const CONTROLER_STATE& getStick,bool stick, bool left, bool right,int gamePadID);
 	};
 }

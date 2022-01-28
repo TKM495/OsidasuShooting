@@ -36,9 +36,9 @@ namespace basecross
 
 		vector<VertexPositionColorTexture> vertices = {
 			{Vec3(m_zeroSize, m_zeroSize, m_zeroSize), color, Vec2(m_zeroSize, m_zeroSize)},
-			{Vec3(m_sideSize, m_zeroSize, m_zeroSize), color, Vec2( m_oneSize, m_zeroSize)},
+			{Vec3(m_sideSize, m_zeroSize, m_zeroSize), color, Vec2(m_oneSize, m_zeroSize)},
 			{Vec3(m_zeroSize, m_highSize, m_zeroSize), color, Vec2(m_zeroSize,  m_oneSize)},
-			{Vec3(m_sideSize, m_highSize, m_zeroSize), color, Vec2( m_oneSize,  m_oneSize)}
+			{Vec3(m_sideSize, m_highSize, m_zeroSize), color, Vec2(m_oneSize,  m_oneSize)}
 		};
 
 		vector<uint16_t> indeces = {
@@ -53,8 +53,8 @@ namespace basecross
 		SetAlphaActive(true);
 	}
 
-	void BaseSprite::SettingScale(Vec3 sizes) {
-		m_scale = sizes;
+	void BaseSprite::SettingScale(Vec3 scale) {
+		m_scale = scale;
 		auto ptrTrans = GetComponent<Transform>();
 		auto scl = m_scale;
 		ptrTrans->SetScale(scl);
@@ -72,8 +72,15 @@ namespace basecross
 		pos.y = (pos.y - senterPos.y * m_scale.y) + position.y;
 		ptrTrans->SetPosition(pos);
 	}
-	
 
+	// ピボットポイント設定
+	void BaseSprite::SettingPivot() {
+		auto ptrTrans = GetComponent<Transform>();
+		auto xPivot = m_sideSize * m_helfSize;
+		auto yPivot = m_highSize * m_helfSize;
+		ptrTrans->SetPivot(Vec3(xPivot, -yPivot, 1.0f));
+		//ptrTrans->SetPivot(GetComponent<Transform>()->GetPosition());
+	}
 
 	//-----------------------------------------------------------------//
 
@@ -89,7 +96,7 @@ namespace basecross
 	//-----------------------------------------------------------------//
 
 	// ケッテイ(決定)と書かれたスプライトを表示するための情報
-	void DecisionSpriteUI::OnCreate(){
+	void DecisionSpriteUI::OnCreate() {
 		auto texture = L"Decision";
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
@@ -186,11 +193,11 @@ namespace basecross
 		switch (m_iconNumber)
 		{
 		case 0:
-			texture = L"LaserIcon";
+			texture = L"LaserMark";
 			break;
 
 		case 1:
-			texture = L"TankIcon";
+			texture = L"TankMark";
 			break;
 
 		default:
@@ -201,140 +208,146 @@ namespace basecross
 		auto pos = ptrTrans->GetPosition();
 		ptrTrans->SetPosition(m_setPos);
 
-		BaseSprite::CreateSprite(texture, NULL, NULL);
+		BaseSprite::CreateSprite(texture, NULL, NULL); 
 		BaseSprite::SettingScale(Vec3(0.675f));
-		BaseSprite::SettingPositionSenter(m_setPos);
+		//BaseSprite::SettingPositionSenter(m_setPos);
+	}
+
+	void CharaIcon::OnUpdate() {
+		//auto ptrTrans = GetComponent<Transform>();
+		//auto scl = ptrTrans->GetScale();
+		//ptrTrans->SetScale(scl * 1.01f);
 	}
 
 	//-----------------------------------------------------------------//
 
 	// カーソルスプライトを表示するための情報
-	void SelectCursor::OnCreate() {
-		auto texture = L"SelectCursor";
+	//void SelectCursor::OnCreate() {
+	//	auto texture = L"SelectCursor";
 
-		auto ptrTrans = GetComponent<Transform>();
-		auto pos = ptrTrans->GetPosition();
-		ptrTrans->SetPosition(m_setPos);
+	//	auto ptrTrans = GetComponent<Transform>();
+	//	auto pos = ptrTrans->GetPosition();
+	//	ptrTrans->SetPosition(m_setPos);
 
-		BaseSprite::CreateSprite(texture, NULL, NULL);
-		BaseSprite::SettingScale(Vec3(0.675f));
-	}
+	//	BaseSprite::CreateSprite(texture, NULL, NULL);
+	//	BaseSprite::SettingScale(Vec3(0.675f));
+	//}
 
-	// アイコンのそれぞれの位置とアイコンの最大値
-	void SelectCursor::GetIconDatas(int number,Vec3 pos) {
-		m_iconPos[number] = pos;
-		m_iconMaxNumber = number;
-	}
+	//// アイコンのそれぞれの位置とアイコンの最大値
+	//void SelectCursor::GetIconDatas(int number,Vec3 pos) {
+	//	m_iconPos[number] = pos;
+	//	m_iconMaxNumber = number;
+	//}
 
-	void SelectCursor::OnUpdate() {
-		CursorController();
-		auto ptrTrans = GetComponent<Transform>();
-		auto pos = ptrTrans->GetPosition();
+	//void SelectCursor::OnUpdate() {
+	//	CursorController();
+	//	auto ptrTrans = GetComponent<Transform>();
+	//	auto pos = ptrTrans->GetPosition();
 
-		//MoveCursor();
-		WaitAnimetion();
-	}
+	//	//MoveCursor();
+	//	WaitAnimetion();
+	//}
 
-	void SelectCursor::CursorController() {
-		// スティック、方向パッド
-		const auto& ctrlVec = 
-			App::GetApp()->GetInputDevice().GetControlerVec()[m_gamePadID];
-		auto ctrlX = 0.0f;
-		//auto ctrlY = 0.0f;
-		if (ctrlVec.bConnected) {
-			ctrlX = ctrlVec.fThumbLX;
-			//ctrlY = ctrlVec.fThumbLY;
-		}
-		auto trans = GetComponent<Transform>();
-		auto transPos  = trans->GetPosition();
-		auto moveRight = ctrlX >=  1.0f || ctrlVec.wPressedButtons & XINPUT_GAMEPAD_DPAD_RIGHT;
-		auto moveLeft  = ctrlX <= -1.0f || ctrlVec.wPressedButtons & XINPUT_GAMEPAD_DPAD_LEFT;
-		//auto moveDown  = ctrlY <= -1.0f || ctrlVec.wPressedButtons & XINPUT_GAMEPAD_DPAD_DOWN;
-		//auto moveUp	   = ctrlY >=  1.0f || ctrlVec.wPressedButtons & XINPUT_GAMEPAD_DPAD_UP;	
+	//void SelectCursor::CursorController() {
+	//	// スティック、方向パッド
+	//	const auto& ctrlVec = 
+	//		App::GetApp()->GetInputDevice().GetControlerVec()[m_gamePadID];
+	//	auto ctrlX = 0.0f;
+	//	//auto ctrlY = 0.0f;
+	//	if (ctrlVec.bConnected) {
+	//		ctrlX = ctrlVec.fThumbLX;
+	//		//ctrlY = ctrlVec.fThumbLY;
+	//	}
+	//	auto trans = GetComponent<Transform>();
+	//	auto transPos  = trans->GetPosition();
+	//	auto moveRight = ctrlX >=  1.0f || ctrlVec.wPressedButtons & XINPUT_GAMEPAD_DPAD_RIGHT;
+	//	auto moveLeft  = ctrlX <= -1.0f || ctrlVec.wPressedButtons & XINPUT_GAMEPAD_DPAD_LEFT;
+	//	//auto moveDown  = ctrlY <= -1.0f || ctrlVec.wPressedButtons & XINPUT_GAMEPAD_DPAD_DOWN;
+	//	//auto moveUp	   = ctrlY >=  1.0f || ctrlVec.wPressedButtons & XINPUT_GAMEPAD_DPAD_UP;	
 
-		if (!m_isSetStick) {
-			m_moveTime = 0; // 初期化
-			// 右へ
-			if (moveRight) {
-				m_isSetStick = true;
-				if (m_iconNumber < m_iconMaxNumber) {
-					m_iconNumber++;
-					SoundManager::GetInstance()->Play(L"CharacterSelectingSE");
-					//m_nowPos = GetComponent<Transform>()->GetPosition();
-				}
-				else NotMoveAnimetion();
-			}
-			// 左へ
-			else if(moveLeft) {
-				m_isSetStick = true;
-				if (m_iconNumber > 0) {
-					m_iconNumber--;
-					SoundManager::GetInstance()->Play(L"CharacterSelectingSE");
-					//m_nowPos = GetComponent<Transform>()->GetPosition();
-				}
-				else NotMoveAnimetion();
-			}
-		}
-		else if (!moveLeft && !moveRight) m_isSetStick = false;
-		//MoveCursor();
-		GetComponent<Transform>()->SetPosition(m_iconPos[m_iconNumber]);
-	}
+	//	if (!m_isSetStick) {
+	//		m_moveTime = 0; // 初期化
+	//		// 右へ
+	//		if (moveRight) {
+	//			m_isSetStick = true;
+	//			if (m_iconNumber < m_iconMaxNumber) {
+	//				m_iconNumber++;
+	//				SoundManager::GetInstance()->Play(L"CharacterSelectingSE");
+	//				//m_nowPos = GetComponent<Transform>()->GetPosition();
+	//			}
+	//			else NotMoveAnimetion();
+	//		}
+	//		// 左へ
+	//		else if(moveLeft) {
+	//			m_isSetStick = true;
+	//			if (m_iconNumber > 0) {
+	//				m_iconNumber--;
+	//				SoundManager::GetInstance()->Play(L"CharacterSelectingSE");
+	//				//m_nowPos = GetComponent<Transform>()->GetPosition();
+	//			}
+	//			else NotMoveAnimetion();
+	//		}
+	//	}
+	//	else if (!moveLeft && !moveRight) m_isSetStick = false;
+	//	//MoveCursor();
+	//	GetComponent<Transform>()->SetPosition(m_iconPos[m_iconNumber]);
+	//}
 
-	void SelectCursor::CursorControl() {}
+	//void SelectCursor::CursorControl() {}
 
-	void SelectCursor::WaitAnimetion() {
-		const auto& app = App::GetApp();
-		const auto& delta = app->GetElapsedTime();
+	//void SelectCursor::WaitAnimetion() {
+	//	const auto& app = App::GetApp();
+	//	const auto& delta = app->GetElapsedTime();
 
-		auto ptrDraw = GetComponent<PCTSpriteDraw>();
-		auto color = ptrDraw->GetDiffuse();
+	//	auto ptrDraw = GetComponent<PCTSpriteDraw>();
+	//	auto color = ptrDraw->GetDiffuse();
 
-		auto ptrTrans = GetComponent<Transform>();
-		auto scale = ptrTrans->GetScale();
-		auto pos = ptrTrans->GetPosition();
+	//	auto ptrTrans = GetComponent<Transform>();
+	//	auto scale = ptrTrans->GetScale();
+	//	auto pos = ptrTrans->GetPosition();
 
-		if (color.w <= 0)  m_waitAnime = true;
-		else if (color.w >= 1) m_waitAnime = false;
+	//	if (color.w <= 0)  m_waitAnime = true;
+	//	else if (color.w >= 1) m_waitAnime = false;
 
-		if (m_waitAnime) {
-			color.w += delta;
-			scale -= delta * 0.005f;
-			//pos.x += delta;
-			//pos.y -= delta ;
-		}
-		else{
-			color.w -= delta;
-			scale += delta * 0.005f;
-			//pos.x -= delta * 2;
-			//pos.y += delta * 2;
-		}
+	//	if (m_waitAnime) {
+	//		color.w += delta;
+	//		scale -= delta * 0.005f;
+	//		//pos.x += delta;
+	//		//pos.y -= delta ;
+	//	}
+	//	else{
+	//		color.w -= delta;
+	//		scale += delta * 0.005f;
+	//		//pos.x -= delta * 2;
+	//		//pos.y += delta * 2;
+	//	}
 
-		ptrDraw->SetDiffuse(color);
-		//ptrTrans->SetScale(scale);
-		//ptrTrans->SetPosition(pos);
-	}
+	//	ptrDraw->SetDiffuse(color);
+	//	//ptrTrans->SetScale(scale);
+	//	//ptrTrans->SetPosition(pos);
+	//}
 
-	void SelectCursor::NotMoveAnimetion() {}
+	//void SelectCursor::NotMoveAnimetion() {}
 
-	void SelectCursor::MoveCursor() {
-		//if (m_moveTime >= m_moveSpeed) {
-		//	const auto& app = App::GetApp();
-		//	const auto& delta = app->GetElapsedTime();
+	//void SelectCursor::MoveCursor() {
+	//	//if (m_moveTime >= m_moveSpeed) {
+	//	//	const auto& app = App::GetApp();
+	//	//	const auto& delta = app->GetElapsedTime();
 
-		//	m_moveTime += delta;
-		//}
+	//	//	m_moveTime += delta;
+	//	//}
 
-		//if (m_nowPos != m_iconPos[m_iconNumber]) {
-		//	Vec3 easPos;
-		//	Easing<Vec3> easing;
-		//	easPos = easing.EaseInOut(EasingType::Quadratic, m_nowPos, m_iconPos[m_iconNumber], m_moveTime, m_moveSpeed);
-		//	GetComponent<Transform>()->SetPosition(easPos);
-		//}
-	}
+	//	//if (m_nowPos != m_iconPos[m_iconNumber]) {
+	//	//	Vec3 easPos;
+	//	//	Easing<Vec3> easing;
+	//	//	easPos = easing.EaseInOut(EasingType::Quadratic, m_nowPos, m_iconPos[m_iconNumber], m_moveTime, m_moveSpeed);
+	//	//	GetComponent<Transform>()->SetPosition(easPos);
+	//	//}
+	//}
 
-	int SelectCursor::SetCharacterID() { return m_iconNumber; }
+	//int SelectCursor::SetCharacterID() { return m_iconNumber; }
 
-	Vec3 SelectCursor::GetIconPos(int iconNum) { return m_iconPos[iconNum]; }
+	//Vec3 SelectCursor::GetIconPos(int iconNum) { return m_iconPos[iconNum]; }
 
 	//-----------------------------------------------------------------//
 
@@ -493,15 +506,6 @@ namespace basecross
 		}
 	}
 
-	//void StatusGauge::SetCharaStutas(float power, float speed, float weight) {
-	//	//m_power = power;
-	//	//m_speed = speed;
-	//	//m_weight = weight;
-	//}
-
-	//void StatusGauge::OnUpdate() {
-	//}
-
 	//-----------------------------------------------------------------//
 
 	// ゲージの後ろを表示するための情報
@@ -515,6 +519,71 @@ namespace basecross
 		BaseSprite::CreateSprite(texture, NULL, NULL);
 		BaseSprite::SettingScale(Vec3(0.675f, 0.5f, 1.0f));
 		//BaseSprite::SettingPositionSenter(m_setPos);
+	}
+
+	//-----------------------------------------------------------------//
+	
+	// 三角形を表示するための情報
+	void TriangleSprite::OnCreate() {
+		auto texture = L"";
+		texture = L"Triangle";
+
+		auto ptrTrans = GetComponent<Transform>();
+		auto pos = ptrTrans->GetPosition();
+		ptrTrans->SetPosition(m_setPos);
+
+		BaseSprite::CreateSprite(texture, NULL, NULL);
+
+		BaseSprite::SettingScale(Vec3(0.675f));
+		BaseSprite::SettingPositionSenter(m_setPos);
+
+		pos = ptrTrans->GetPosition();
+		m_defPos = pos.x;
+	}
+
+	void TriangleSprite::CharacterSelectingAnimation(const CONTROLER_STATE& getStick,bool stick, bool left, bool right,int gamePadID) {
+		const auto& ctrlVec = App::GetApp()->GetInputDevice().GetControlerVec()[gamePadID];
+		auto ctrlX = 0.0f;
+		if (ctrlVec.bConnected) {
+			ctrlX = ctrlVec.fThumbLX;
+		}
+
+		auto trans = GetComponent<Transform>();
+		auto transPos = trans->GetPosition();
+		auto moveLeft = ctrlX <= -1.0f || ctrlVec.wPressedButtons & XINPUT_GAMEPAD_DPAD_LEFT;
+		auto moveRight = ctrlX >= 1.0f || ctrlVec.wPressedButtons & XINPUT_GAMEPAD_DPAD_RIGHT;
+
+		auto ptrTrans = GetComponent<Transform>();
+		auto pos = ptrTrans->GetPosition();
+
+		// 左へ
+		if (!m_isReTriangle && moveLeft) {
+			auto move = m_defPos - m_movePos;
+			pos.x = move;
+		}
+		// 右へ
+		else if (m_isReTriangle && moveRight) {
+			auto move = m_defPos + m_movePos;
+			pos.x = move;
+		}
+
+		if (pos.x != m_defPos)
+		{
+			if (!m_isReTriangle) {
+				pos.x += 1;
+				if (m_defPos <= pos.x) {
+					pos.x = m_defPos;
+				}
+			}
+			else {
+				pos.x -= 1;
+				if (m_defPos >= pos.x) {
+					pos.x = m_defPos;
+				}
+			}
+		}
+		ptrTrans->SetPosition(pos);
+			
 	}
 
 	//-----------------------------------------------------------------//

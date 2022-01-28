@@ -45,6 +45,8 @@ namespace basecross {
 
 		// LaserUI/Icon
 		app->RegisterTexture(L"LaserIcon", path + L"LaserIcon.png");
+		app->RegisterTexture(L"LaserMark", path + L"LaserMark.png");
+		app->RegisterTexture(L"LaserName", path + L"LaserName.png");
 		app->RegisterTexture(L"LaserPicture1", path + L"LaserPicture1.png");
 		app->RegisterTexture(L"LaserPicture2", path + L"LaserPicture2.png");
 		app->RegisterTexture(L"LaserPicture3", path + L"LaserPicture3.png");
@@ -54,7 +56,9 @@ namespace basecross {
 		app->RegisterTexture(L"MissileIcon", path + L"MissileIcon.png");
 
 		// TankUI/Icon
-		app->RegisterTexture(L"TankIcon", path + L"Tank.png");
+		app->RegisterTexture(L"TankIcon", path + L"TankIcon.png");
+		app->RegisterTexture(L"TankMark", path + L"TankMark.png");
+		app->RegisterTexture(L"TankName", path + L"TankName.png");
 		app->RegisterTexture(L"TankPicture1", path + L"TankPicture1.png");
 		app->RegisterTexture(L"TankPicture2", path + L"TankPicture2.png");
 		app->RegisterTexture(L"TankPicture3", path + L"TankPicture3.png");
