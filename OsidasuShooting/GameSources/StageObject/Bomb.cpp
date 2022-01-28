@@ -48,10 +48,16 @@ namespace basecross {
 	}
 
 	void Bomb::OnUpdate() {
+		auto timeScale = 1.0f;
+		auto gameStage = GetTypeStage<GameStage>(false);
+		if (gameStage) {
+			timeScale = gameStage->GetTimeScale();
+		}
+
 		auto pos = m_predictionLine.ParabolaCalculate(
 			m_startPoint, m_endPoint, m_delta * m_timeRate);
 		GetTransform()->SetPosition(pos);
-		m_delta += App::GetApp()->GetElapsedTime();
+		m_delta += App::GetApp()->GetElapsedTime() * timeScale;
 	}
 
 	void Bomb::OnDestroy() {
@@ -66,7 +72,20 @@ namespace basecross {
 
 		// 爆弾によるノックバック処理
 		GetComponent<EfkComponent>()->Play(L"Explosion");
-		SoundManager::GetInstance()->Play(L"ExplosionSE", 0, 0.1f);
+		SoundManager::GetInstance()->Play(L"ExplosionSE", 0, 0.5f);
+
+		//// プレイヤーに直撃した場合
+		//auto player = dynamic_pointer_cast<PlayerBase>(other);
+		//if (player) {
+		//	auto pos = player->GetTransform()->GetPosition();
+		//	auto myPos = GetTransform()->GetPosition();
+		//	KnockBackData data(
+		//		KnockBackData::Category::Bomb,
+		//		pos - myPos, m_power * 2, m_owner
+		//	);
+		//	// ノックバック
+		//	player->KnockBack(data);
+		//}
 
 		// 爆風の処理
 		auto gameObjects = GetStage()->GetGameObjectVec();

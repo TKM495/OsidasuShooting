@@ -34,7 +34,7 @@ namespace basecross {
 		common.CorrectAngle = status[1];
 		common.BombAimMovingDistance = status[2];
 		common.BulletAimLineLength = status[3];
-		common.DefaultBombCount = status[4];
+		common.DefaultBombCount = (int)status[4];
 		common.GravityMagnification = status[5];
 		common.EnergyUseInBulletShot = status[6];
 		common.UseEnergyInHover = status[7];

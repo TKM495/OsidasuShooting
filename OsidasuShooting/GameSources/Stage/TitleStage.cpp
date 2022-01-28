@@ -38,6 +38,7 @@ namespace basecross {
 			//Debug::GetInstance()->Log(L"A : CharacterSelect");
 			//Debug::GetInstance()->Log(L"B : Exit");
 
+			// タイトルにおけるプレイヤーのタイプ
 			StageManager::GetInstance()->SetPlayerType(1, PlayerType::Laser);
 			StageManager::GetInstance()->SetPlayerType(2, PlayerType::Laser);
 			StageManager::GetInstance()->SetPlayerType(3, PlayerType::Laser);
@@ -77,11 +78,11 @@ namespace basecross {
 				m_sceneChangeBlock = true;
 			}
 			// ゲーム終了
-			if (cntlPad.wPressedButtons & XINPUT_GAMEPAD_B) {
-				SoundManager::GetInstance()->Play(L"CancelSE");
-				PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToExit");
-				m_sceneChangeBlock = true;
-			}
+			//if (cntlPad.wPressedButtons & XINPUT_GAMEPAD_B) {
+			//	SoundManager::GetInstance()->Play(L"CancelSE");
+			//	PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToExit");
+			//	m_sceneChangeBlock = true;
+			//}
 		}
 	}
 	void TitleStage::OnDestroy() {

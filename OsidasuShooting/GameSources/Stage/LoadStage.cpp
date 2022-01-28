@@ -107,6 +107,9 @@ namespace basecross {
 
 		app->RegisterTexture(L"ImpactPoint", path + L"ImpactPoint.png");
 		app->RegisterTexture(L"CircleShadow", path + L"CircleShadow.png");
+		app->RegisterTexture(L"StartEffect", path + L"StartEffect.png");
+
+		app->RegisterTexture(L"ColorOut", path + L"ColorOut.png");
 
 		// テスト用スプライト
 		app->RegisterTexture(L"Test", path + L"test.png");
@@ -157,7 +160,6 @@ namespace basecross {
 		app->RegisterWav(L"CancelSE", path + L"Cancel.wav");
 		app->RegisterWav(L"CharacterDecisionSE", path + L"CharacterDecision.wav");
 		app->RegisterWav(L"CharacterSelectingSE", path + L"CharacterSelecting.wav");
-		app->RegisterWav(L"FightSE", path + L"Fight.wav");
 		app->RegisterWav(L"ExplosionSE", path + L"Explosion.wav");
 		app->RegisterWav(L"FallSE", path + L"Fall.wav");
 		app->RegisterWav(L"HoverSE", path + L"Hover.wav");
@@ -166,6 +168,7 @@ namespace basecross {
 		app->RegisterWav(L"ThrowBombSE", path + L"ThrowBomb.wav");
 		app->RegisterWav(L"WarningSE", path + L"Warning.wav");
 		app->RegisterWav(L"GetItemSE", path + L"GetItem.wav");
+		app->RegisterWav(L"BumperSE", path + L"Bumper.wav");
 
 		// BGM
 		path = dir + L"Sound/BGM/";
@@ -216,6 +219,7 @@ namespace basecross {
 		EfkEffectResource::RegisterEffectResource(L"BreakBlock", path + L"BreakBlock.efk");
 		EfkEffectResource::RegisterEffectResource(L"Confetti", path + L"Confetti.efk");
 		EfkEffectResource::RegisterEffectResource(L"Shield", path + L"Shield.efk");
+		EfkEffectResource::RegisterEffectResource(L"NumberOne", path + L"NumberOne.efk");
 
 		//他のリソースを読み込むスレッドのスタート
 		thread LoadThread(LoadResourceFunc);

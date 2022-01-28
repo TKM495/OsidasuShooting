@@ -36,8 +36,9 @@ namespace basecross {
 			AddComponent<PhysicalBehavior>();
 
 			auto stage = GetStage();
-			blinking = stage->AddGameObject<modifiedClass::Blinking>();
-			blinking->SetComponent(GetDynamicComponent<SmBaseDraw>());
+			blinking = stage->AddGameObject<Blinking>();
+			blinking->SetOriginalColor(drawComp->GetDiffuse());
+			blinking->SetOriginalColor(Col4(1, 0, 0, 0));
 
 			GetComponent<Transform>()->SetScale(Vec3(2));
 		}
@@ -57,7 +58,9 @@ namespace basecross {
 			//“_–Å‚Ìˆ—
 			if (blinkTimeChecker == blinkTime)
 			{
-				blinking->SetFadeInOutTime(fadeInTime, fadeOutTime, blinkTime);
+				blinking->SetToggleTime(fadeInTime, fadeOutTime, blinkTime);
+				blinking->SetFading();
+				blinking->StartBlinking();
 			}
 			//“_–Å‚Ìˆ—..I—¹
 
@@ -67,6 +70,24 @@ namespace basecross {
 			{
 				GetStage()->RemoveGameObject<Blinking>(blinking);
 				GetStage()->RemoveGameObject<Item>(GetThis<Item>());
+			}
+
+			Col4 color = blinking->GetAdjustedColor();
+			auto drawComp = GetComponent<PNTStaticModelDraw>();
+			drawComp->SetDiffuse(color);
+		}
+
+		void Item::OnDestroy()
+		{
+			auto objs = GetStage()->GetGameObjectVec();
+
+			for (auto obj : objs)
+			{
+				auto blinkingObj = dynamic_pointer_cast<Blinking>(obj);
+				if (blinkingObj == blinking)
+				{
+					GetStage()->RemoveGameObject<Blinking>(blinking);
+				}
 			}
 		}
 	}

@@ -118,5 +118,6 @@ namespace basecross {
 		m_isAnimation = true;
 		auto drawComp = GetComponent<PNTBoneModelDraw>();
 		drawComp->ChangeCurrentAnimation(L"Move");
+		SoundManager::GetInstance()->Play(L"BumperSE");
 	}
 }

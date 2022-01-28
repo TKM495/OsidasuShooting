@@ -328,7 +328,15 @@ namespace basecross {
 		 * @brief ƒvƒŒƒCƒ„[‚ğ“|‚µ‚½
 		 */
 		void KilledPlayer() {
-			m_countKilledPlayer++;
+			auto gameStage = GetTypeStage<GameStage>(false);
+			if (gameStage) {
+				if (gameStage->GetCurrentGameState() == GameStage::GameState::PLAYING) {
+					m_countKilledPlayer++;
+				}
+			}
+			else {
+				m_countKilledPlayer++;
+			}
 		}
 
 		/**
