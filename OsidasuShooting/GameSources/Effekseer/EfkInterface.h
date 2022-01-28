@@ -40,6 +40,8 @@ namespace basecross {
 		Effekseer::ManagerRef GetManager() {
 			return m_Manager;
 		}
+
+		void SetTimeScale(float scale);
 	};
 }
 //end basecross

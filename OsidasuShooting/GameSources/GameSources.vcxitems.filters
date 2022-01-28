@@ -55,9 +55,6 @@
     <Filter Include="Stage\ResultStage">
       <UniqueIdentifier>{fba10ab4-90e4-4631-a2d0-bafda26cb34f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Setting">
-      <UniqueIdentifier>{1e986d81-5165-4176-8b67-2176ae11a0f4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Camera">
       <UniqueIdentifier>{e087748a-aaa5-4b76-a7e9-2d358afb8684}</UniqueIdentifier>
     </Filter>
@@ -159,9 +156,6 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\Canvas.cpp">
       <Filter>UI\Canvas</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.cpp">
-      <Filter>Setting</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\CountDown.cpp">
       <Filter>JonyMd</Filter>
@@ -355,12 +349,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\area.cpp">
       <Filter>StageObject\JonyMd</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CountDown_.cpp">
-      <Filter>UI\CountDownTimer</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\area_.cpp">
-      <Filter>StageObject\Item</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Item_.cpp">
       <Filter>StageObject\Item</Filter>
     </ClCompile>
@@ -397,9 +385,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\OneShotUI.cpp">
       <Filter>UI\OneShotUI</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Blinking_.cpp">
-      <Filter>StageObject\Blinking</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\CircleShadow.cpp">
       <Filter>Component\CircleShadow</Filter>
     </ClCompile>
@@ -409,9 +394,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Confetti.cpp">
       <Filter>StageObject\Confetti</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Blinking_.cpp">
-      <Filter>StageObject\Blinking</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Blinking.cpp">
       <Filter>StageObject\JonyMd</Filter>
     </ClCompile>
@@ -420,6 +402,12 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\CameraArea.cpp">
       <Filter>StageObject\CameraArea</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\UIEffect.cpp">
+      <Filter>UI\UIEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\ColorOut.cpp">
+      <Filter>UI\ColorOut</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -486,9 +474,6 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\TitleSprite.h">
       <Filter>UI\TitleSprite</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.h">
-      <Filter>Setting</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\GroundingDecision.h">
       <Filter>Utility\GroundingDecision</Filter>
@@ -659,12 +644,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\area.h">
       <Filter>StageObject\JonyMd</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CountDown_.h">
-      <Filter>UI\CountDownTimer</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\area_.h">
-      <Filter>StageObject\Item</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Item_.h">
       <Filter>StageObject\Item</Filter>
     </ClInclude>
@@ -698,9 +677,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\OneShotUI.h">
       <Filter>UI\OneShotUI</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Blinking_.h">
-      <Filter>StageObject\Blinking</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\CircleShadow.h">
       <Filter>Component\CircleShadow</Filter>
     </ClInclude>
@@ -710,9 +686,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Confetti.h">
       <Filter>StageObject\Confetti</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Blinking_.h">
-      <Filter>StageObject\Blinking</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Blinking.h">
       <Filter>StageObject\JonyMd</Filter>
     </ClInclude>
@@ -721,6 +694,12 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\CameraArea.h">
       <Filter>StageObject\CameraArea</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\UIEffect.h">
+      <Filter>UI\UIEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\ColorOut.h">
+      <Filter>UI\ColorOut</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -778,9 +757,6 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.cpp">
       <Filter>Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.cpp">
-      <Filter>Setting</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\GroundingDecision.cpp">
       <Filter>Utility\GroundingDecision</Filter>
@@ -873,7 +849,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Manager\PlayerManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Scene.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Setting\CommonSetting.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SpecialCamera\SpCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Block.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Bomb.h" />
@@ -987,9 +962,6 @@
     <Filter Include="UI\PlayerInfo">
       <UniqueIdentifier>{f612adde-52c8-447e-8bc5-849448ad1fe8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="UI\CountDownTimer">
-      <UniqueIdentifier>{e406b862-d96c-4dd6-afad-2591ad7be52c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="StageObject\Item">
       <UniqueIdentifier>{9d9f93b8-7e24-4920-ac6a-fc8b17ccdd48}</UniqueIdentifier>
     </Filter>
@@ -998,9 +970,6 @@
     </Filter>
     <Filter Include="Utility\PlayerStatus">
       <UniqueIdentifier>{b665db82-243e-481c-b9a4-5dc69d9bf16c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="StageObject\Blinking">
-      <UniqueIdentifier>{cd05b88f-797f-405d-9e2b-b8d1d93323d8}</UniqueIdentifier>
     </Filter>
     <Filter Include="UI\PlayerCharaPict">
       <UniqueIdentifier>{98ded540-2bdc-4d60-8608-af2647705f88}</UniqueIdentifier>
@@ -1022,6 +991,12 @@
     </Filter>
     <Filter Include="StageObject\CameraArea">
       <UniqueIdentifier>{4f46fe71-6635-4f5a-9965-41aa65f1e499}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\UIEffect">
+      <UniqueIdentifier>{90f51329-e614-4fa0-8b98-2c0550ccaac1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\ColorOut">
+      <UniqueIdentifier>{308ee185-c1f7-48e7-89a7-5cd331d38e9a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

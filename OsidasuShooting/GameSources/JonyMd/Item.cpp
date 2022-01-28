@@ -22,6 +22,19 @@ namespace basecross {
 
 	}
 
+	void Item::OnDestroy()
+	{
+		auto objs = GetStage()->GetGameObjectVec();
+
+		for (auto obj : objs)
+		{
+			auto blinkingObj = dynamic_pointer_cast<Blinking>(obj);
+			if (blinkingObj == blinking)
+			{
+				GetStage()->RemoveGameObject<Blinking>(blinking);
+			}
+		}
+	}
 
 
 	void Item::OnUpdate()

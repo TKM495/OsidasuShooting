@@ -5,275 +5,154 @@ namespace basecross {
 	namespace modifiedClass {
 		void ItemCreation::OnCreate()
 		{
-			YPosition = 30.0f;
-			isUniquePosition = false;
-			spawnArea = SpawnArea::Block;
+			positionX = 0.0f;
+			positionY = 30.0f;
+			positionZ = 0.0f;
+
+			isRandPosX = true;
+			isRandPosY = false;
+			isRandPosZ = true;
+
+			auto item = GetStage()->AddGameObject<Item>(modifiedClass::ItemType::Bomb);
+			auto itemTransform = item->GetComponent<Transform>();
+			targetScale = itemTransform->GetScale() / 2;
+
+			GetStage()->RemoveGameObject<Item>(item);
 		}
 
-		void ItemCreation::SpawnItem(ItemType type, bool isRandom) {
-			if (areaPositionList.size() < 1)
-			{
-				SetArea();
-			}
-
-			if (spawnScale != Vec3(0, 0, 0) && isUniquePosition && YPosition == 0.0f)
-			{
-				AdjustingAreaPosition();
-			}
-
-			//setting random position
-			srand(time(0));
-			int index = rand() % areaPositionList.size();
-			//setting random position...end
-
-			//spawn on that position
-			auto spawn = GetStage()->AddGameObject<modifiedClass::Item>(type, isRandom);
-			spawn->GetComponent<Transform>()->SetPosition(areaPositionList[index]);
-			if (spawnScale == Vec3(0, 0, 0))
-			{
-				spawnScale = spawn->GetComponent<Transform>()->GetScale();
-			}
-			//spawn on that position...end
-
-			//changing Shape according enum value
-			//auto currentItem = spawn->spawnItem;
-			//auto component = spawn->GetComponent<BcPNTStaticDraw>();
-
-			//switch (currentItem)
-			//{
-			//case Item::ItemType::Cube:
-			//	component->SetMeshResource(L"DEFAULT_CUBE");
-			//	break;
-			//case Item::ItemType::Sphere:
-			//	component->SetMeshResource(L"DEFAULT_SPHERE");
-			//default:
-			//	break;
-			//}
-			//changing Shape according enum value...end
-
-			//for not to repeat purposes
-			auto it = areaPositionList.begin();
-			auto position = areaPositionList[index];
-			while (it != areaPositionList.end()) {
-				if (position == *it)
-				{
-					it = areaPositionList.erase(it); // deleting area which has empty value
-				}
-				else {
-					it++;
-				}
-			}
-			//for not to repeat purposes...end
-		}
-
-		void ItemCreation::RandomlySpawn()
-		{
+		void ItemCreation::SpawnInRandPosition() {
 			//for the enum class ItemType
-			int totalItems = (int)ItemType::totalItems; //last enum member used as total members
-			srand(time(0));
+			int totalItems = (int)modifiedClass::ItemType::totalItems; //last enum member used as total members
+			srand((UINT)time(NULL));
 			int randItems = rand() % totalItems;
-			auto itemType = static_cast<ItemType>(randItems); //assigning random value to the enum to set the current enum member
+			auto itemType = static_cast<modifiedClass::ItemType>(randItems); //assigning random value to the enum to set the current enum member
 			//for the enum class ItemType ...end
 
-			SpawnItem(itemType, true);
+			SpawnInRandPosition(itemType);
 		}
 
-		void ItemCreation::AdjustingAreaPosition()
+		void ItemCreation::SpawnInRandPosition(modifiedClass::ItemType type)
 		{
-			auto objs = GetStage()->GetGameObjectVec();
-
-			for (auto& obj : objs)
-			{
-				auto it = areaPositionList.begin();
-				while (it != areaPositionList.end()) {
-					auto position = obj->GetComponent<Transform>()->GetPosition();
-					auto relativePosition = *it - position;
-					auto distance = relativePosition.length();
-
-					if ((distance <= spawnScale.x + space) || (distance <= spawnScale.z + space))
-					{
-						it = areaPositionList.erase(it); // deleting area which has empty value
-					}
-					else {
-						it++;
-					}
-				}
-			}
+			srand((UINT)time(NULL));
 
 			if (areaPositionList.size() < 1)
 			{
-				return;
+				CreatePositionLists();
 			}
+			random_shuffle(areaPositionList.begin(), areaPositionList.end());
+			int randVal = rand() % areaPositionList.size();
+
+			Vec3 position = areaPositionList[randVal];
+
+			auto item = GetStage()->AddGameObject<modifiedClass::Item>(type);
+			auto itemTransform = item->GetComponent<Transform>();
+			itemTransform->SetPosition(position);
+
+			areaPositionList.erase(areaPositionList.begin());
 		}
 
-		void ItemCreation::SetArea()
+		void ItemCreation::CreatePositionLists()
 		{
 			auto stage = GetStage();
+
 			auto objs = stage->GetGameObjectVec();
 
-			bool isBlockFound = false;
+			random_shuffle(objs.begin(), objs.end());
 
-			int srandval = 0;
-
-			Vec3 position;
-			Vec3 scale;
-
-			shared_ptr<Block> block;
-			shared_ptr<Area> area;
-			//Step 2 //Total Step 3, //Current Step is 2, //search for Step 3
-			for (auto& obj : objs)
+			for (auto obj : objs)
 			{
-				bool doRandomCal = false;
-
-				switch (spawnArea)
+				auto blockObj = dynamic_pointer_cast<Block>(obj);
+				if (blockObj)
 				{
-				case SpawnArea::Area:
-					area = dynamic_pointer_cast<Area>(obj);
-					if (area)
+					auto transform = blockObj->GetComponent<Transform>();
+
+					Vec3 position = transform->GetPosition();
+					Vec3 scale = transform->GetScale() / 2;
+
+					Vec3 rotation = transform->GetBeforeRotation();
+
+					scale = CheckingRotation(scale, rotation);
+
+					Vec3 minPosition = position - scale;
+					Vec3 maxPosition = position + scale;
+
+					if (isRandPosX && !isRandPosY && !isRandPosZ)
 					{
-						position = area->GetComponent<Transform>()->GetPosition();
-						scale = area->GetComponent<Transform>()->GetScale();
-						doRandomCal = true;
+						for (float x = minPosition.x + targetScale.x; x <= maxPosition.x - targetScale.x; x += 0.7f)
+						{
+							areaPositionList.push_back(Vec3(x, positionY, positionZ));
+						}
 					}
-					break;
-				case SpawnArea::Block:
-					block = dynamic_pointer_cast<Block>(obj);
-					if (block)
+					else if (isRandPosX && isRandPosY && !isRandPosZ)
 					{
-						position = block->GetComponent<Transform>()->GetPosition();
-						scale = block->GetComponent<Transform>()->GetScale();
-						doRandomCal = true;
-					}
-					break;
-
-					//Step 3 //Total Step 3, //Current Step is 3, //search for Step 1
-				default:
-					break;
-				}
-
-				if (doRandomCal)
-				{
-					isBlockFound = true;
-
-					scale /= 2;
-					position.y = YPosition;
-
-					for (int i = 0; i < 2; i++)
-					{
-						float val;
-						float min;
-						float max;
-
-						if (i == 0)
+						for (float x = minPosition.x + targetScale.x; x <= maxPosition.x - targetScale.x; x += 0.7f)
 						{
-							val = position.x;
-							min = val - scale.x;
-							max = val + scale.x;
-						}
-						else if (i == 1)
-						{
-							val = position.z;
-							min = val - scale.z;
-							max = val + scale.z;
-						}
-
-						float positiveMin = min;
-						float positiveMax = max;
-
-						if (min < 0)
-						{
-							positiveMin *= -1;
-						}
-						if (max < 0)
-						{
-							positiveMax *= -1;
-						}
-
-						int lowerVal = (int)positiveMin;
-						int higherVal = (int)positiveMax;
-						if (lowerVal > higherVal)
-						{
-							lowerVal = (int)positiveMax;
-							higherVal = (int)positiveMin;
-						}
-
-						int modulo;
-						float adjustVal;
-
-						srand(time(0));
-						float randval;
-						float randDecimal = rand() % 99;
-						randDecimal = randDecimal / 100;
-
-						if (min < 0 && max < 0)
-						{
-							modulo = higherVal - lowerVal;
-							adjustVal = (float)lowerVal;
-							randval = rand() % modulo + adjustVal;
-
-							randval *= -1;
-							randDecimal *= -1;
-						}
-						else if (min < 0 && max == 0)
-						{
-							modulo = higherVal;
-							randval = rand() % modulo;
-
-							if (randval > 0) {
-								randval *= -1;
-								randDecimal *= -1;
+							for (float y = minPosition.y + targetScale.y; y <= maxPosition.y - targetScale.y; y += 0.7f)
+							{
+								areaPositionList.push_back(Vec3(x, y, positionZ));
 							}
 						}
-						else if (min > 0 && max > 0)
+					}
+					else if (isRandPosX && !isRandPosY && isRandPosZ)
+					{
+						for (float x = minPosition.x + targetScale.x; x <= maxPosition.x - targetScale.x; x += 0.7f)
 						{
-							modulo = higherVal - lowerVal;
-							adjustVal = (float)lowerVal;
-							randval = rand() % modulo + adjustVal;
+							for (float z = minPosition.z + targetScale.z; z <= maxPosition.z - targetScale.z; z += 0.7f)
+							{
+								areaPositionList.push_back(Vec3(x, positionY, z));
+							}
 						}
-						else if (min == 0 && max > 0)
+					}
+					else if (isRandPosX && isRandPosY && isRandPosZ)
+					{
+						for (float x = minPosition.x + targetScale.x; x <= maxPosition.x - targetScale.x; x += 0.7f)
 						{
-							modulo = higherVal;
-							randval = rand() % modulo;
-						}
-						else
-						{
-							modulo = higherVal;
-							if (higherVal == lowerVal) {
-								randval = rand() % modulo;
-
-								int randSign = rand() % 2;
-								if (randSign == 1) // suppose, Negative Number
+							for (float y = minPosition.y + targetScale.y; y <= maxPosition.y - targetScale.y; y += 0.7f)
+							{
+								for (float z = minPosition.z + targetScale.z; z <= maxPosition.z - targetScale.z; z += 0.7f)
 								{
-									randval *= -1;
+									areaPositionList.push_back(Vec3(x, y, z));
 								}
 							}
-							else
-							{
-								adjustVal = lowerVal;
-								randval = rand() % modulo + adjustVal;
-								randval = min + randval;
-							}
-						}
-						randval += randDecimal;
-
-						if (i == 0)
-						{
-							position.x = randval;
-						}
-						else if (i == 1)
-						{
-							position.z = randval;
 						}
 					}
-
-					areaPositionList.push_back(position);
+					else if (!isRandPosX && isRandPosY && !isRandPosZ)
+					{
+						for (float y = minPosition.y + targetScale.y; y <= maxPosition.y - targetScale.y; y += 0.7f)
+						{
+							areaPositionList.push_back(Vec3(positionX, y, positionZ));
+						}
+					}
+					else if (!isRandPosX && !isRandPosY && isRandPosZ)
+					{
+						for (float z = minPosition.z + targetScale.z; z <= maxPosition.z - targetScale.z; z += 0.7f)
+						{
+							areaPositionList.push_back(Vec3(positionX, positionY, z));
+						}
+					}
+					else if (!isRandPosX && isRandPosY && isRandPosZ)
+					{
+						for (float y = minPosition.y + targetScale.y; y <= maxPosition.y - targetScale.y; y += 0.7f)
+						{
+							for (float z = minPosition.z + targetScale.z; z <= maxPosition.z - targetScale.z; z += 0.7f)
+							{
+								areaPositionList.push_back(Vec3(positionX, y, z));
+							}
+						}
+					}
 				}
 			}
+		}//CreateRandomTransforms...end
 
-			if (!isBlockFound)
+		Vec3 ItemCreation::CheckingRotation(Vec3 scale, Vec3 rotation)
+		{
+			if (Util::FloatToWStr(XMConvertToDegrees(rotation.y)) == L"90")
 			{
-				return;
+				float tempZ = scale.z;
+				scale.z = scale.x;
+				scale.x = tempZ;
 			}
-		}
+			return scale;
+		}//CheckingRotation...end
 	}
 }

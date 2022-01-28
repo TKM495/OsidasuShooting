@@ -44,9 +44,8 @@ namespace basecross {
 			builder.Build(GetThis<Stage>(), path + L"Stage1.csv");
 
 			AddGameObject<CurrentFirst>();
-			AddGameObject<modifiedClass::Area>(TransformData(Vec3(0, 0, -6), Vec3(27, 1, 21)));
 
-			auto countDown = AddGameObject<CountDown>(30.0f);
+			auto countDown = AddGameObject<CountDown>(120.0f);
 			SetSharedGameObject(L"ForCountDown", countDown);
 			countDown->SetDrawLayer(1);
 			m_startCountDown = AddGameObject<StartCountDown>(TransformData());
@@ -86,7 +85,7 @@ namespace basecross {
 		case GameState::PLAYING:
 			// ƒAƒCƒeƒ€‚Ì¶¬
 			ItemGeneration();
-			if (m_countDown->GetTime() <= 0.0f) {
+			if (m_countDown->GetTime() <= 1.0f) {
 				m_countDown->Stop();
 				m_utilTimer.Reset(2.0f);
 				AddGameObject<FinishSprite>(TransformData());
@@ -95,6 +94,7 @@ namespace basecross {
 			}
 			break;
 		case GameState::CLEAR:
+			//m_timeScale = 0.2f;
 			if (m_utilTimer.Count()) {
 				TransitionSprite::GetInstance()->FadeIn();
 				ChangeGameState(GameState::FADEIN);
@@ -116,9 +116,9 @@ namespace basecross {
 
 	void GameStage::ItemGeneration() {
 		auto m_countDown = GetSharedGameObject<CountDown>(L"ForCountDown");
-		auto flg = (int)m_countDown->GetTime() % 5 == 0;
+		auto flg = (int)m_countDown->GetTime() % 3 == 0;
 		if (flg && !m_bOnceItem) {
-			m_itemCreation->RandomlySpawn();
+			m_itemCreation->SpawnInRandPosition();
 			m_bOnceItem = true;
 		}
 		if (!flg) {

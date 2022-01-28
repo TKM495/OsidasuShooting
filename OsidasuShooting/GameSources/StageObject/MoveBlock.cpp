@@ -125,9 +125,15 @@ namespace basecross {
 	}
 
 	void MoveBlock::MovingBlock() {
+		auto timeScale = 1.0f;
+		auto gameStage = GetTypeStage<GameStage>(false);
+		if (gameStage) {
+			timeScale = gameStage->GetTimeScale();
+		}
+
 		// デルタタイム取得
 		const auto& app = App::GetApp();
-		const auto delta = app->GetElapsedTime();
+		const auto delta = app->GetElapsedTime() * timeScale;
 
 		// 現在のポジション
 		auto ptrTrans = GetTransform();

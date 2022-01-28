@@ -3,6 +3,7 @@
 #include "BaseUI.h"
 #include "UIs/NumberSprite.h"
 #include "UIs/SimpleSprite.h"
+#include "UIEffect.h"
 #include "Utility/TimeCounter.h"
 
 namespace basecross {
@@ -11,6 +12,8 @@ namespace basecross {
 		shared_ptr<Number> m_number;
 		// スタート時のスプライト
 		shared_ptr<SimpleSprite> m_startSprite;
+		// エフェクトオブジェクト
+		shared_ptr<UIEffect> m_uiEffect;
 		// スタート時のカウントダウンタイマー
 		TimeCounter m_countDownTimer;
 		// スタート文字の表示タイマー
@@ -37,6 +40,8 @@ namespace basecross {
 
 	class FinishSprite :public BaseUI {
 		shared_ptr<SimpleSprite> m_finishSprite;
+		// エフェクトオブジェクト
+		shared_ptr<UIEffect> m_uiEffect;
 	public:
 		FinishSprite(const shared_ptr<Stage>& stage,
 			const TransformData& data)

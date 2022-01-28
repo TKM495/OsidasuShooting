@@ -54,6 +54,8 @@ namespace basecross {
 			:PlayerBase(stage, transformData, playerNumber, playerType)
 		{}
 		void OnCreate()override;
+		void PlayWait();
+		void PlayWin();
 	};
 
 	// タイトル用のプレイヤー

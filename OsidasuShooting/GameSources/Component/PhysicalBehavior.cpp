@@ -10,7 +10,7 @@ namespace basecross {
 	PhysicalBehavior::PhysicalBehavior(const shared_ptr<GameObject>& gameObjectPtr)
 		:Component(gameObjectPtr),
 		m_velocity(Vec3(0.0f)), m_groundDrag(3.0f), m_airDrag(1.0f),
-		m_maxSpeed(200.0f), m_threshold(0.05f), m_knockBackMaxY(7.0f)
+		m_maxSpeed(200.0f), m_threshold(0.05f), m_knockBackMaxY(7.0f), m_timeScale(1.0f)
 	{}
 
 	void PhysicalBehavior::OnCreate() {
@@ -22,7 +22,7 @@ namespace basecross {
 		// トランスフォームコンポーネントの取得
 		auto transComp = GetGameObject()->GetComponent<Transform>();
 		// 前回のターンからの時間を取得
-		float delta = App::GetApp()->GetElapsedTime();
+		float delta = App::GetApp()->GetElapsedTime() * m_timeScale;
 		// 現在の位置に速度分を加える
 		auto pos = transComp->GetPosition();
 		pos += m_velocity * delta;
