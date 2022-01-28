@@ -273,6 +273,10 @@ namespace basecross {
 
 				move = 1;
 				SoundManager::GetInstance()->Play(L"CharacterSelectingSE");
+
+				auto loopForTri = 2;
+				auto tri = move + gamePadID * loopForTri;
+				m_Triangle[tri]->CharacterSelectingAnimation(ctrlVec, m_isSetStick[gamePadID], moveLeft, moveRight, gamePadID);
 			}
 			// ¶‚Ö
 			else if (moveLeft) {
@@ -285,10 +289,11 @@ namespace basecross {
 
 				move = 0;
 				SoundManager::GetInstance()->Play(L"CharacterSelectingSE");
+
+				auto loopForTri = 2;
+				auto tri = move + gamePadID * loopForTri;
+				m_Triangle[tri]->CharacterSelectingAnimation(ctrlVec,m_isSetStick[gamePadID], moveLeft, moveRight,gamePadID);
 			}
-		//	auto loopForTri = 2;
-		//	auto tri = move + gamePadID * loopForTri;
-		//	m_Triangle[tri]->CharacterSelectingAnimation(ctrlVec,m_isSetStick[gamePadID], moveLeft, moveRight,gamePadID);
 		}
 		else if (!moveLeft && !moveRight) m_isSetStick[gamePadID] = false;
 

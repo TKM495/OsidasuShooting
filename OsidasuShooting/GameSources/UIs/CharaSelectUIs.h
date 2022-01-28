@@ -361,6 +361,8 @@ namespace basecross
 			m_filstLoad(false)
 		{}
 		void OnCreate() override;
+		void OnUpdate() override;
+
 		void CharacterSelectingAnimation(const CONTROLER_STATE& getStick,bool stick, bool left, bool right,int gamePadID);
 	};
 }

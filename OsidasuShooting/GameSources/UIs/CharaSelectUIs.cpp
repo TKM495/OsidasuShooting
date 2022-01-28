@@ -548,8 +548,6 @@ namespace basecross
 			ctrlX = ctrlVec.fThumbLX;
 		}
 
-		auto trans = GetComponent<Transform>();
-		auto transPos = trans->GetPosition();
 		auto moveLeft = ctrlX <= -1.0f || ctrlVec.wPressedButtons & XINPUT_GAMEPAD_DPAD_LEFT;
 		auto moveRight = ctrlX >= 1.0f || ctrlVec.wPressedButtons & XINPUT_GAMEPAD_DPAD_RIGHT;
 
@@ -557,15 +555,23 @@ namespace basecross
 		auto pos = ptrTrans->GetPosition();
 
 		// ¶‚Ö
-		if (!m_isReTriangle && moveLeft) {
+		if (moveLeft) {
 			auto move = m_defPos - m_movePos;
 			pos.x = move;
 		}
 		// ‰E‚Ö
-		else if (m_isReTriangle && moveRight) {
+		else if (moveRight) {
 			auto move = m_defPos + m_movePos;
 			pos.x = move;
 		}
+
+		ptrTrans->SetPosition(pos);
+			
+	}
+
+	void TriangleSprite::OnUpdate() {
+		auto ptrTrans = GetComponent<Transform>();
+		auto pos = ptrTrans->GetPosition();
 
 		if (pos.x != m_defPos)
 		{
@@ -583,7 +589,6 @@ namespace basecross
 			}
 		}
 		ptrTrans->SetPosition(pos);
-			
 	}
 
 	//-----------------------------------------------------------------//
