@@ -116,7 +116,7 @@ namespace basecross {
 		// 移動処理
 		Move();
 		// テストコード
-		//TestFanc();
+		TestFanc();
 
 		// 無敵処理
 		Invincible();

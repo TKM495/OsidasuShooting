@@ -20,7 +20,7 @@ namespace basecross {
 
 	void TitleStage::AddTitleSprite()
 	{
-		auto titleSprite = AddGameObject<TitleSprite>(L"Title"/*, false,
+		AddGameObject<TitleSprite>(L"Title"/*, false,
 			Vec2(256.0f, 50.0f), Vec2(0.0f, 50.0f)*/);
 	}
 	void TitleStage::AddPushAButtonSprite()

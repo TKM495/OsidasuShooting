@@ -249,7 +249,7 @@ namespace basecross {
 		case State::FadeOut:
 			if (!TransitionSprite::GetInstance()->GetFade()->IsFadeActive()) {
 				//フェードが完了したらタイトルステージに移行
-				PostEvent(0.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
+				PostEvent(0.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToDebugStage");
 			}
 			break;
 		}
