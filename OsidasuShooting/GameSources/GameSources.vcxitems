@@ -19,6 +19,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Camera\TitleCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Blinking.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\CameraArea.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Fencing_.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\ColorOut.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\PlayerCharaPicture.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Confetti.h" />
@@ -118,6 +119,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Camera\TitleCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Blinking.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\CameraArea.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Fencing_.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\ColorOut.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\PlayerCharaPicture.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Confetti.cpp" />

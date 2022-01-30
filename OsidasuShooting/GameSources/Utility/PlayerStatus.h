@@ -31,6 +31,7 @@ namespace basecross {
 		float EnergyUseInBulletShot;// 弾の発射に使用するエネルギー(1発あたり)
 		float UseEnergyInHover;     // ホバーで消費するエネルギー(毎秒)
 		float EnergyRecoveryAmount; // エネルギーの回復速度
+		float BulletSize;			// 弾のサイズ
 	};
 
 	class PlayerStatus :public BaseSingleton<PlayerStatus> {
@@ -49,5 +50,6 @@ namespace basecross {
 		Col4 GetPlayerColor(PlayerNumber number);
 		Col4 GetPlayerColor(int number);
 		void SetPlayerData(const shared_ptr<PlayerBase>& player);
+		shared_ptr<StatusByPlayer> GetStatusByPlayer(PlayerType type);
 	};
 }

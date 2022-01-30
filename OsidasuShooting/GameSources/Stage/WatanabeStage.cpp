@@ -58,12 +58,16 @@ namespace basecross {
 			builder.Register<CameraArea>(L"CameraArea");
 			auto dir = App::GetApp()->GetDataDirWString();
 			auto path = dir + L"Csv/Stage/";
-			builder.Build(GetThis<Stage>(), path + L"TestStage.csv");
+			builder.Build(GetThis<Stage>(), path + L"Stage1.csv");
 			AddGameObject<CurrentFirst>();
 			AddGameObject<SimpleSprite>(L"BackGround00")->SetDrawLayer(-1);
 
 			m_itemCreation = AddGameObject<modifiedClass::ItemCreation>();
-			//AddGameObject<ColorOut>()->SetActive(true);
+			auto out = AddGameObject<ColorOut>();
+			out->SetActive(true);
+			out->SetColor(Col4(1, 1, 0, 0.5f));
+			out->SetRange(0.2f, 0.1f);
+			out->SetRate(4.0f);
 		}
 		catch (...) {
 			throw;
