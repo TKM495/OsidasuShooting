@@ -2,40 +2,31 @@
 #include "Project.h"
 
 namespace basecross {
-	void CountDown::OnCreate() {
+	void CountDown::OnCreate() 
+	{
 		redColor = Col4(1.0f, 0.0f, 0.0f, 1.0f);
 		m_warningTime = 10.0f;
-		expansionMaxRate = 10; //??A10%
+		expansionMaxRate = 10;//è“ä¹10%
 
-		auto stage = GetStage();
-		auto blinking = stage->AddGameObject<Blinking>();
-		stage->SetSharedGameObject(L"BlinkForCountDown", blinking);
-		blinking->SetOriginalColor(redColor);
-
-		//initialTime = 11;
-
+		initialTime = 32; //temporary
 		currentTime = initialTime;
 
 		Vec3 pos(200.0f, 400.0f, 0.0f);
 
 		CountDownSpriteCreate();
 
-		//“_–Å—p
-		m_blinkTime = 0.0f;
-		m_blinkTimeChecker = m_blinkTime;
-		m_fadeInTime = 0.5f;
-		m_fadeOutTime = 0.5f;
-		//“_–Å—p..I—¹
+		BlinkingCreation();
+		RemainingSpriteCreation();
 	}
 
-	// ƒ^ƒCƒ}[‚Ì”Žš‚ðˆê•¶Žš‚¸‚Âì¬
+	// ã‚¿ã‚¤ãƒžãƒ¼ã®æ•°å­—ã‚’ä¸€æ–‡å­—ãšã¤ä½œæˆ
 	void CountDown::CountDownSpriteCreate() {
-		m_numbersOffset = 0;                 // •ª‚©•b‚©”»•Ê—p
-		m_isMinutes = false;                 // •ª‚©•b‚©
-		m_setOffset = Vec3(-102.5f, 360, 0); // ˆê•¶Žš–Ú‚ÌƒIƒuƒWƒFƒNƒg
-		m_addOffset = Vec3(45.0f, 0, 0);     // ˆê•¶Žš‚Ì‘å‚«‚³
-		m_spaceOffset = Vec3(20.0f, 0, 0);   // •ª‚Æ•b‚Å•ª‚¯‚é‚Æ‚«‚ÌƒXƒy[ƒX
-		m_posOffset = m_setOffset;           // ƒIƒbƒtƒZƒbƒg
+		m_numbersOffset = 0;                 // åˆ†ã‹ç§’ã‹åˆ¤åˆ¥ç”¨
+		m_isMinutes = false;                 // åˆ†ã‹ç§’ã‹
+		m_setOffset = Vec3(-102.5f, 360, 0); // ä¸€æ–‡å­—ç›®ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+		m_addOffset = Vec3(45.0f, 0, 0);     // ä¸€æ–‡å­—ã®å¤§ãã•
+		m_spaceOffset = Vec3(20.0f, 0, 0);   // åˆ†ã¨ç§’ã§åˆ†ã‘ã‚‹ã¨ãã®ã‚¹ãƒšãƒ¼ã‚¹
+		m_posOffset = m_setOffset;           // ã‚ªãƒƒãƒ•ã‚»ãƒƒãƒˆ
 
 		m_scaleValue = 0.7f;
 		m_cur_scaleValue = m_scaleValue;
@@ -43,7 +34,7 @@ namespace basecross {
 
 		m_scaleOffset = Vec3(m_scaleValue, m_scaleValue, m_scaleValue);
 
-		m_numbers.resize(4); // •ª‚Æ•b‚Å4•¶Žš‚¸‚Â
+		m_numbers.resize(4); // åˆ†ã¨ç§’ã§4æ–‡å­—ãšã¤
 		for (auto& number : m_numbers) {
 			++m_numbersOffset;
 
@@ -89,13 +80,8 @@ namespace basecross {
 		auto& app = App::GetApp();
 		float deltaTime = app->GetElapsedTime();
 
-		int minutes;
-		int hour;
-		int seconds;
-
-		wstring clocks = L"00:00:00";
-
-		if (reset) {
+		if (reset)
+		{
 			currentTime = initialTime;
 			reset = false;
 		}
@@ -104,31 +90,156 @@ namespace basecross {
 			currentTime -= deltaTime;
 		}
 
-		// •bA•ªAŽžŠÔ‚Ì”’l‚ð‹‚ß‚é
+		UpdatingTimers();
+		SetTimerNumbers();
+
+		BlinkingProcess();
+
+		RemainingSpriteShowing();
+	}
+
+	void CountDown::OnDraw()
+	{
+		GameObject::OnDraw();
+		for (auto& number : m_numbers) {
+			number->OnDraw();
+		}
+	}
+
+	void CountDown::UpdatingTimers()
+	{
+		int minutes;
+		int hour;
+		int seconds;
+
+		// é˜åµâˆï¿½ç¸²âˆµå‡¾é«¢è–™ï¿½è¬¨ï½°è›Ÿï½¤ç¹§å‘ˆï½±ã‚…ï½ç¹§
 		minutes = (int)(currentTime / 60);
 
 		hour = (int)(minutes / 60);
 		minutes -= hour * 60;
 		seconds = (int)currentTime - (hour * 60 + minutes) * 60;
 
-		// ˆê‚Â‚É‚Ü‚Æ‚ß‚é
+		// ä¸€ã¤ã«ã¾ã¨ã‚ã‚‹
 		m_timerNumbers = minutes * 100 + seconds;
 		/*
-		—áA
-		current time is = 10•b ... ‚Â‚Ü‚è@‚O•ª10•b
+		ä¾‹ã€
+		current time is = 10ç§’ ... ã¤ã¾ã‚Šã€€ï¼åˆ†10ç§’
 		m_timerNumbers = 0010
 
-		current time is = 110•b ... ‚Â‚Ü‚è@1•ª50•b
+		current time is = 110ç§’ ... ã¤ã¾ã‚Šã€€1åˆ†50ç§’
 		m_timerNumbers = 0150
 		*/
 
-		SetTimerNumbers();
+	}//UpdatingTimers...end
+
+
+
+	void CountDown::RemainingSpriteCreation()
+	{
+		remaining10sec = GetStage()->AddGameObject<SimpleSprite>(L"Remaining10Sec");
+		remaining20sec = GetStage()->AddGameObject<SimpleSprite>(L"Remaining20Sec");
+		remaining30sec = GetStage()->AddGameObject<SimpleSprite>(L"Remaining30Sec");
+
+		float screenHeight = 360;
+		auto numberSize = Utility::GetTextureSize(L"Number");
+		auto objs = GetStage()->GetGameObjectVec();
+
+		float newScale = m_scaleValue * 2.0f;
+		numberSize = (numberSize * newScale) / 2;
+		Vec3 scale = Vec3(newScale, newScale, newScale);
+		for (auto& obj : objs)
+		{
+			auto remaining = dynamic_pointer_cast<SimpleSprite>(obj);
+			if (remaining == remaining10sec || remaining == remaining20sec || remaining == remaining30sec)
+			{
+				auto drawing = remaining->GetComponent<PCTSpriteDraw>();
+				redColor.w = 0.5;
+				drawing->SetDiffuse(redColor);
+
+
+				remaining->SetDrawActive(false);
+				auto transform = remaining->AddComponent<Transform>();
+				transform->SetScale(scale);
+				Vec3 position = transform->GetPosition();
+
+				auto halfSize = remaining->GetHalfSize();
+				//position.y = screenHeight - halfSize.y - numberSize.y;
+				transform->SetPosition(position);
+			}
+
+		}
+	}//RemainingSpriteCreation...end
+
+
+	void CountDown::RemainingSpriteShowing()
+	{
+		remaining30sec->SetDrawActive(false);
+		remaining20sec->SetDrawActive(false);
+		remaining10sec->SetDrawActive(false);
+		if (currentTime <= 30.999 && currentTime >= 28)
+		{
+			remaining30sec->SetDrawActive(true);
+		}
+		else if (currentTime <= 20.999 && currentTime >= 18)
+		{
+			remaining20sec->SetDrawActive(true);
+		}
+		else if (currentTime <= 10.999 && currentTime >= 8)
+		{
+			remaining10sec->SetDrawActive(true);
+		}
+	}//RemainingSpriteShowing...end
+
+
+	void CountDown::BlinkingCreation()
+	{
+		auto stage = GetStage();
+		auto blinking = stage->AddGameObject<Blinking>();
+		stage->SetSharedGameObject(L"BlinkForCountDown", blinking);
+		blinking->SetOriginalColor(redColor);
+
+
+		//è½¤ï½¹è²Šï¿½ç•‘
+		m_blinkTime = 0.0f;
+		m_blinkTimeChecker = m_blinkTime;
+		m_fadeInTime = 0.5f;
+		m_fadeOutTime = 0.5f;
+		//è½¤ï½¹è²Šï¿½ç•‘..é‚¨ã‚†ï½º
+
+	}//BlinkingCreation...end
+
+	void CountDown::BlinkingProcess()
+	{
 
 		auto blinking = GetStage()->GetSharedGameObject<Blinking>(L"BlinkForCountDown");
 		auto colon = GetStage()->GetSharedGameObject<Number>(L"ColonForCountDown");
 
-		if (currentTime <= m_warningTime && m_warningTime > 0) {
-			if (m_blinkTime == m_blinkTimeChecker) {
+		BlinkingProcessStart();
+
+		if (m_timerNumbers == 0 && !isContinuousIncreasion && !doAdjustScale)
+		{
+			blinking->SetToggleTime(m_fadeInTime, m_fadeOutTime, m_blinkTime);
+			blinking->SetScaling(m_scaleValue, m_max_scaleValue);
+			blinking->StartBlinking();
+
+			doAdjustScale = true;
+		}
+
+		BlinkingProcessContinuation();
+
+	}//BlinkingProcess...end
+
+
+
+	void CountDown::BlinkingProcessStart()
+	{
+		auto blinking = GetStage()->GetSharedGameObject<Blinking>(L"BlinkForCountDown");
+		auto colon = GetStage()->GetSharedGameObject<Number>(L"ColonForCountDown");
+		if (currentTime <= m_warningTime && m_warningTime > 0)
+		{
+
+			if (m_blinkTime == m_blinkTimeChecker)
+			{
 				m_blinkTime = m_warningTime;
 				blinking->SetToggleTime(m_fadeInTime, m_fadeOutTime, m_blinkTime);
 				blinking->SetFading();
@@ -154,16 +265,15 @@ namespace basecross {
 				doAdjustScale = true;
 			}
 		}
+	}//BlinkingProcessStart...end
 
-		if (m_timerNumbers == 0 && !isContinuousIncreasion && !doAdjustScale) {
-			blinking->SetToggleTime(m_fadeInTime, m_fadeOutTime, m_blinkTime);
-			blinking->SetScaling(m_scaleValue, m_max_scaleValue);
-			blinking->StartBlinking();
+	void CountDown::BlinkingProcessContinuation()
+	{
+		auto blinking = GetStage()->GetSharedGameObject<Blinking>(L"BlinkForCountDown");
+		auto colon = GetStage()->GetSharedGameObject<Number>(L"ColonForCountDown");
 
-			doAdjustScale = true;
-		}
-
-		if (doAdjustAlpha || doAdjustColor || doAdjustScale) {
+		if (doAdjustAlpha || doAdjustColor || doAdjustScale)
+		{
 			float alpha = blinking->GetAdjustedAlpha();
 			Col4 color = blinking->GetAdjustedColor();
 			Vec3 scale = blinking->GetAdjustedScale();
@@ -193,7 +303,7 @@ namespace basecross {
 				}
 			}
 
-			// colonç”¨
+			// coloné€•ï½¨
 			if (doAdjustAlpha) {
 				colon->SetAlpha(alpha);
 			}
@@ -211,7 +321,7 @@ namespace basecross {
 				transform->SetScale(scale);
 				transform->SetPosition(position);
 			}
-			// colonç”¨
+			// coloné€•ï½¨
 
 			if (isContinuousIncreasion) {
 				isContinuousIncreasion = false;
@@ -220,12 +330,6 @@ namespace basecross {
 				doAdjustScale = false;
 			}
 		}
-	}
 
-	void CountDown::OnDraw() {
-		GameObject::OnDraw();
-		for (auto& number : m_numbers) {
-			number->OnDraw();
-		}
-	}
+	}//BlinkingProcessContinuation...end
 }

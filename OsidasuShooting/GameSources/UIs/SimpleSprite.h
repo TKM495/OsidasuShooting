@@ -5,6 +5,7 @@
 namespace basecross {
 	class SimpleSprite :public BaseUI {
 		wstring m_textureKey;
+		Flt2 halfSize;
 	public:
 		SimpleSprite(const shared_ptr<Stage>& stage, const wstring& textureKey,
 			const TransformData& transformData = TransformData())
@@ -12,6 +13,11 @@ namespace basecross {
 		{}
 
 		void OnCreate()override;
+
+		Flt2 GetHalfSize()
+		{
+			return halfSize;
+		}
 	};
 
 	class BoardPoly :public AdvancedGameObject {
