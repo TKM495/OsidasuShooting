@@ -38,6 +38,8 @@
         <UseEnergyInHover>60</UseEnergyInHover>
         <!--エネルギーの回復速度-->
         <EnergyRecoveryAmount>40</EnergyRecoveryAmount>
+        <!--弾のサイズ-->
+        <BulletSize>0.5</BulletSize>
     </LaserStatus>
     <MissileStatus>
         <!--移動速度-->
@@ -58,6 +60,8 @@
         <UseEnergyInHover>70</UseEnergyInHover>
         <!--エネルギーの回復速度-->
         <EnergyRecoveryAmount>40</EnergyRecoveryAmount>
+        <!--弾のサイズ-->
+        <BulletSize>0.8</BulletSize>
     </MissileStatus>
     <!--プレイヤーの色（0 ～ 255のRGBA）-->
     <PlayerColor>

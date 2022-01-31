@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Project.h"
+#include "flatbuffers/util.h"
 
 namespace basecross {
 	// インスタンスの初期化
@@ -76,6 +77,7 @@ namespace basecross {
 			byPlayer.EnergyUseInBulletShot = status[6];
 			byPlayer.UseEnergyInHover = status[7];
 			byPlayer.EnergyRecoveryAmount = status[8];
+			byPlayer.BulletSize = status[9];
 			m_statusByPlayer[PlayerType(i)] = byPlayer;
 		}
 	}
@@ -85,6 +87,10 @@ namespace basecross {
 	}
 	Col4 PlayerStatus::GetPlayerColor(int number) {
 		return GetPlayerColor(PlayerNumber(number - 1));
+	}
+
+	shared_ptr<StatusByPlayer> PlayerStatus::GetStatusByPlayer(PlayerType type) {
+		return make_shared<StatusByPlayer>(m_statusByPlayer[type]);
 	}
 
 	void PlayerStatus::SetPlayerData(const shared_ptr<PlayerBase>& player) {

@@ -63,6 +63,10 @@ namespace basecross {
 		efkComp->IsSyncPosition(L"Shield", true);
 		efkComp->SetEffectResource(L"NumberOne", TransformData(Vec3(0), m_transformData.Scale));
 		efkComp->IsSyncPosition(L"NumberOne", true);
+		efkComp->SetEffectResource(L"Buff", TransformData(Vec3(0), m_transformData.Scale));
+		efkComp->IsSyncPosition(L"Buff", true);
+		efkComp->SetEffectResource(L"Debuff", TransformData(Vec3(0), m_transformData.Scale));
+		efkComp->IsSyncPosition(L"Debuff", true);
 
 		// 武器ステートマシンの構築と設定
 		m_weaponStateMachine.reset(new StateMachine<PlayerBase>(GetThis<PlayerBase>()));
@@ -130,6 +134,20 @@ namespace basecross {
 		m_bombCoolTimeTimer.Count();
 		// 吹っ飛びエフェクトの描画
 		KnockBackEffectDrawing();
+		auto countDown = GetStage()->GetSharedGameObject<CountDown>(L"ForCountDown", false);
+		if (countDown) {
+			if (countDown->GetTime() < 31) {
+				auto efkComp = GetComponent<EfkComponent>();
+				if (PlayerManager::GetInstance()->GetSortedAllPlayer()[0] == GetThis<PlayerBase>()) {
+					if (!efkComp->IsPlaying(L"NumberOne")) {
+						efkComp->PlayLoop(L"NumberOne");
+					}
+				}
+				else {
+					efkComp->Stop(L"NumberOne");
+				}
+			}
+		}
 	}
 
 	void PlayerBase::Move() {
@@ -589,7 +607,7 @@ namespace basecross {
 				);
 		}
 		if (keyState.m_bPressedKeyTbl['8']) {
-			GetComponent<EfkComponent>()->PlayLoop(L"NumberOne");
+			GetComponent<EfkComponent>()->PlayLoop(L"Debuff");
 		}
 		if (keyState.m_bPressedKeyTbl['9'] &&
 			m_playerNumber == PlayerNumber::P1) {
@@ -761,6 +779,9 @@ namespace basecross {
 		if (Obj->m_inputData.IsJumpOrHover) {
 			// 遷移時に入力があった場合ホバーを行わない（一度離す必要がある）
 			if (!Obj->m_isInput) {
+				Obj->Hover();
+			}
+			if (Obj->GetComponent<Gravity>()->GetGravityVelocity().y < 0) {
 				Obj->Hover();
 			}
 		}

@@ -80,8 +80,10 @@ namespace basecross {
 	}
 
 	void EfkComponent::Stop(const wstring& key) {
-		if (IsPlaying(key))
+		if (IsPlaying(key)) {
+			m_effectDataMap[key].IsLoop = false;
 			m_manager->StopEffect(m_effectDataMap[key].Handle);
+		}
 	}
 	void EfkComponent::Pause(const wstring& key) {
 		auto handle = m_effectDataMap[key].Handle;

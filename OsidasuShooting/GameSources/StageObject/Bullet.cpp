@@ -17,17 +17,8 @@ namespace basecross {
 		m_power(power), m_timer(0.1f), m_isHeavyAttack(false)
 	{
 		m_transformData.Position = owner->GetTransform()->GetPosition();
-		switch (m_owner.lock()->GetPlayerType())
-		{
-		case PlayerType::Laser:
-			m_transformData.Scale = Vec3(0.5f);
-			break;
-		case PlayerType::Missile:
-			m_transformData.Scale = Vec3(0.8f);
-			break;
-		default:
-			break;
-		}
+		auto data = PlayerStatus::GetInstance()->GetStatusByPlayer(m_owner.lock()->GetPlayerType());
+		m_transformData.Scale = Vec3(data->BulletSize);
 	}
 
 	void Bullet::OnCreate()

@@ -1,6 +1,6 @@
 /*!
 @file   ResultStage.cpp
-@brief  ãƒªã‚¶ãƒ«ãƒˆã‚¹ãƒ†ãƒ¼ã‚¸å®Ÿä½“
+@brief  ƒŠƒUƒ‹ƒgƒXƒe[ƒWÀ‘Ì
 */
 
 #include "stdafx.h"
@@ -13,14 +13,14 @@ namespace basecross {
 		const Vec3 eye(0.0f, 0.0f, -4.0f);
 		const Vec3 at(0.4f, 0.0f, -2.0f);
 		auto PtrView = CreateView<SingleView>();
-		//ãƒ“ãƒ¥ãƒ¼ã®ã‚«ãƒ¡ãƒ©ã®è¨­å®š
+		//ƒrƒ…[‚ÌƒJƒƒ‰‚Ìİ’è
 		auto PtrCamera = ObjectFactory::Create<Camera>();
 		PtrView->SetCamera(PtrCamera);
 		PtrCamera->SetEye(eye);
 		PtrCamera->SetAt(at);
-		//ãƒãƒ«ãƒãƒ©ã‚¤ãƒˆã®ä½œæˆ
+		//ƒ}ƒ‹ƒ`ƒ‰ƒCƒg‚Ìì¬
 		auto PtrMultiLight = CreateLight<MultiLight>();
-		//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®ãƒ©ã‚¤ãƒ†ã‚£ãƒ³ã‚°ã‚’æŒ‡å®š
+		//ƒfƒtƒHƒ‹ƒg‚Ìƒ‰ƒCƒeƒBƒ“ƒO‚ğw’è
 		PtrMultiLight->SetDefaultLighting();
 	}
 
@@ -80,19 +80,19 @@ namespace basecross {
 
 	void ResultStage::AddResultSprites(Vec3 pos, int playerNum, int score, int dead, int rank)
 	{
-		// ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’é…ç½®
+		// ƒtƒŒ[ƒ€‚ğ”z’u
 		auto fream = AddGameObject<FreamSprite>(L"Fream", pos, Vec3(1.2f));
 		auto freamTrans = fream->GetComponent<Transform>();
 		auto freamPos = freamTrans->GetPosition();
 		fream->SetDrawLayer(1);
 
-		// ã‚«ãƒ©ãƒ¼å–å¾—
+		// ƒJƒ‰[æ“¾
 		auto playerColor = PlayerStatus::GetInstance()->GetPlayerColor(playerNum);
-		// è¨­ç½®ã™ã‚‹ãƒã‚¸ã‚·ãƒ§ãƒ³
+		// İ’u‚·‚éƒ|ƒWƒVƒ‡ƒ“
 		auto playerNumPos = pos + Vec3(-200.0f, 115.0f, 0.0f);
-		// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒŠãƒ³ãƒãƒ¼ã‚’è¡¨ç¤ºã™ã‚‹
+		// ƒvƒŒƒCƒ„[‚Ìƒiƒ“ƒo[‚ğ•\¦‚·‚é
 		auto playerNumber = AddGameObject<BattlePlayersUIs>(L"BPsUIs", playerNum, Vec3(0));
-		// ãƒŠãƒ³ãƒãƒ¼ã«è‰²ã‚’ä»˜ã‘ã‚‹
+		// ƒiƒ“ƒo[‚ÉF‚ğ•t‚¯‚é
 		playerNumber->GetComponent<PCTSpriteDraw>()->SetDiffuse(playerColor);
 
 		auto playUIsTrans = playerNumber->GetComponent<Transform>();
@@ -131,9 +131,9 @@ namespace basecross {
 		auto allPlayer = PlayerManager::GetInstance()->GetSortedAllPlayer();
 		int  loopCount = 0;	// for
 		int  drawPlayer = 0;	//
-		int  draw = 0;		// å¼•ãåˆ†ã‘
+		int  draw = 0;		// ˆø‚«•ª‚¯
 		bool isDraw = false;
-		// é †ä½ãŒé«˜ã„é †ã«å‡¦ç†ã•ã‚Œã‚‹
+		// ‡ˆÊ‚ª‚‚¢‡‚Éˆ—‚³‚ê‚é
 		for (auto player : allPlayer) {
 			str = L"";
 			switch (player->GetPlayerNumber())
@@ -170,7 +170,7 @@ namespace basecross {
 				break;
 			}
 
-			// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®é †ä½ã®å‡¦ç†
+			// ƒvƒŒƒCƒ„[‚Ì‡ˆÊ‚Ìˆ—
 			auto top = player->GetCountKilledPlayer() > m_playerTopScore;
 			auto topDeadWin = player->GetCountKilledPlayer() == m_playerTopScore && player->GetDeadCount() < m_playerTopDead;
 			auto topDrawDead = player->GetCountKilledPlayer() == m_playerTopScore && player->GetDeadCount() == m_playerTopDead;
@@ -198,7 +198,7 @@ namespace basecross {
 			}
 			auto rankingNum = loopCount - draw;
 
-			// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®çµæœã‚’è¡¨ç¤ºã™ã‚‹
+			// ƒvƒŒƒCƒ„[‚ÌŒ‹‰Ê‚ğ•\¦‚·‚é
 			AddResultSprites(Vec3(400 + addVec, 250 + setPosY, 0),
 				(UINT)m_playersNumber + 1, m_playersScore, m_playersDead, rankingNum);
 
@@ -208,12 +208,12 @@ namespace basecross {
 
 			loopCount++;
 
-			// æ¯”è¼ƒç”¨ã«åˆ¥ã®é–¢æ•°ã«ä»£å…¥
+			// ”äŠr—p‚É•Ê‚ÌŠÖ”‚É‘ã“ü
 			m_previousScore = m_playersScore;
 			m_previousDead = m_playersDead;
 		}
 
-		// ãƒˆãƒƒãƒ—ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
+		// ƒgƒbƒv‚ÌƒvƒŒƒCƒ„[
 		//m_playerTop = allPlayer[0]->GetPlayerNumber();
 	}
 
@@ -287,7 +287,7 @@ namespace basecross {
 			EfkEffectResource::RegisterEffectResource(L"Smoke", efkpath + L"Smoke.efk");
 			EfkEffectResource::RegisterEffectResource(L"Smoke", efkpath + L"Smoke.efk");
 
-			//ãƒ“ãƒ¥ãƒ¼ã¨ãƒ©ã‚¤ãƒˆã®ä½œæˆ
+			//ƒrƒ…[‚Æƒ‰ƒCƒg‚Ìì¬
 			CreateViewLight();
 			//AddGameObject<Debug>();
 			//Debug::GetInstance()->Log(L"CurrentStage : ResultStage");

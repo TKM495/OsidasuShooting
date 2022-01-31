@@ -409,6 +409,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\ColorOut.cpp">
       <Filter>UI\ColorOut</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Fencing_.cpp">
+      <Filter>StageObject\Block</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -700,6 +703,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\ColorOut.h">
       <Filter>UI\ColorOut</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Fencing_.h">
+      <Filter>StageObject\Block</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
