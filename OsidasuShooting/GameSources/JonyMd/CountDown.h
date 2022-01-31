@@ -57,8 +57,8 @@ namespace basecross {
 		void BlinkingProcessStart();
 		void BlinkingProcessContinuation();
 
-		void RemainingSpriteShowing();
 		void RemainingSpriteCreation();
+		void RemainingSpriteShowing();
 
 		void UpdatingTimers();
 	public:

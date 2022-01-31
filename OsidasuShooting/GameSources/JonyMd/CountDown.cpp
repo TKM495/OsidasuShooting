@@ -154,16 +154,16 @@ namespace basecross {
 			if (remaining == remaining10sec || remaining == remaining20sec || remaining == remaining30sec)
 			{
 				auto drawing = remaining->GetComponent<PCTSpriteDraw>();
+				auto transform = remaining->AddComponent<Transform>();
+
 				redColor.w = 0.5;
 				drawing->SetDiffuse(redColor);
 
-
 				remaining->SetDrawActive(false);
-				auto transform = remaining->AddComponent<Transform>();
 				transform->SetScale(scale);
-				Vec3 position = transform->GetPosition();
 
-				auto halfSize = remaining->GetHalfSize();
+				Vec3 position = transform->GetPosition();
+				//auto halfSize = remaining->GetHalfSize();
 				//position.y = screenHeight - halfSize.y - numberSize.y;
 				transform->SetPosition(position);
 			}
