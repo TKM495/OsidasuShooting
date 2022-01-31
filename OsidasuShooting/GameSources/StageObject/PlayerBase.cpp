@@ -63,6 +63,10 @@ namespace basecross {
 		efkComp->IsSyncPosition(L"Shield", true);
 		efkComp->SetEffectResource(L"NumberOne", TransformData(Vec3(0), m_transformData.Scale));
 		efkComp->IsSyncPosition(L"NumberOne", true);
+		efkComp->SetEffectResource(L"Buff", TransformData(Vec3(0), m_transformData.Scale));
+		efkComp->IsSyncPosition(L"Buff", true);
+		efkComp->SetEffectResource(L"Debuff", TransformData(Vec3(0), m_transformData.Scale));
+		efkComp->IsSyncPosition(L"Debuff", true);
 
 		// 武器ステートマシンの構築と設定
 		m_weaponStateMachine.reset(new StateMachine<PlayerBase>(GetThis<PlayerBase>()));
@@ -603,7 +607,7 @@ namespace basecross {
 				);
 		}
 		if (keyState.m_bPressedKeyTbl['8']) {
-			GetComponent<EfkComponent>()->PlayLoop(L"NumberOne");
+			GetComponent<EfkComponent>()->PlayLoop(L"Debuff");
 		}
 		if (keyState.m_bPressedKeyTbl['9'] &&
 			m_playerNumber == PlayerNumber::P1) {
