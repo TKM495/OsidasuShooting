@@ -29,7 +29,6 @@ namespace basecross {
 
 		void SetColor(const Col4 color) {
 			GetComponent<PCTSpriteDraw>()->SetDiffuse(color);
-			GetComponent<FadeComponent>()->SetFadeColor(color);
 		}
 	};
 }

@@ -38,7 +38,6 @@ namespace basecross {
 
 		SetAlphaActive(true); // 透明をサポートする&両面描画になる
 		SetDrawLayer(2);
-		SetUpdateActive(false);
 	}
 
 	void BoardPoly::OnCreate() {

@@ -30,25 +30,27 @@ namespace basecross {
 
 		if (m_delta >= 0 && m_delta <= m_fadeTime) {
 			// フェードの処理
-			auto alpha = (m_delta / m_fadeTime);
-			m_color.w = alpha;
-			draw->SetDiffuse(m_color);
+			auto alpha = Lerp::CalculateLerp(m_minAlpha, m_maxAlpha, 0, m_fadeTime, m_delta, Lerp::rate::Linear);
+			auto color = draw->GetDiffuse();
+			color.w = alpha;
+			draw->SetDiffuse(color);
 		}
 		else // フェード終了後
 		{
+			auto color = draw->GetDiffuse();
 			// 方向に応じて値をクランプ
 			switch (m_dir)
 			{
 			case Direction::FadeIn:
-				m_color.w = 1.0f;
+				color.w = 1.0f;
 				break;
 			case Direction::FadeOut:
-				m_color.w = 0.0f;
+				color.w = 0.0f;
 				break;
 			default:
 				break;
 			}
-			draw->SetDiffuse(m_color);
+			draw->SetDiffuse(color);
 			m_bActive = false;
 			m_delta = 0.0f;
 		}
