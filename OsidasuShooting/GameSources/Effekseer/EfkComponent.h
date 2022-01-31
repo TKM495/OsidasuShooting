@@ -40,15 +40,18 @@ namespace basecross {
 			bool NoStopLastEffect;
 			// 位置を同期するか
 			bool IsSync;
+			// ループさせるか
+			bool IsLoop;
 			EfkData()
-				:EfkData(nullptr, TransformData(), false, false)
+				:EfkData(nullptr, TransformData(), false, false, false)
 			{}
-			EfkData(const Effekseer::EffectRef& data, const TransformData& offset, bool flg, bool syncFlg) {
+			EfkData(const Effekseer::EffectRef& data, const TransformData& offset, bool flg, bool syncFlg, bool loopFlg) {
 				this->EffectData = data;
 				this->Handle = -1;
 				this->Offset = offset;
 				this->NoStopLastEffect = flg;
 				this->IsSync = syncFlg;
+				this->IsLoop = loopFlg;
 			}
 		};
 		// キー,エフェクトデータのマップ
@@ -139,6 +142,8 @@ namespace basecross {
 		 * @return 再生している:true/再生していない:false
 		 */
 		bool IsPlaying(const wstring& key);
+
+		void PlayLoop(const wstring& key);
 
 		/**
 		 * @brief コンポーネントに登録されているすべてのエフェクトが再生中か

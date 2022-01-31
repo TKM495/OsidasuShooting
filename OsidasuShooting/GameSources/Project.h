@@ -40,10 +40,8 @@
 #include "StageObject/PlayerModel.h"
 #include "StageObject/ReflectorBlock.h"
 #include "StageObject/SpecialSkill.h"
-#include "StageObject/area_.h"
 #include "StageObject/Item_.h"
 #include "StageObject/ItemCreation_.h"
-#include "StageObject/Blinking_.h"
 #include "StageObject/Confetti.h"
 #include "StageObject/CameraArea.h"
 //UI
@@ -71,8 +69,9 @@
 #include "UIs/CurrentFirst.h"
 #include "UIs/TransitionSprite.h"
 #include "UIs/GameStartAndFinish.h"
-//#include "UIs/CountDown_.h"
+#include "UIs/ColorOut.h"
 #include "UIs/OneShotUI.h"
+#include "UIs/UIEffect.h"
 // コンポーネント
 #include "Component/FadeComponent.h"
 #include "Component/LifeSpan.h"

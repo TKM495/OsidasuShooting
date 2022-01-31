@@ -27,7 +27,7 @@ namespace basecross {
 		m_isDecisionPlayer[gamePadID] = false;
 
 		// フレームの生成
-		auto scale = Vec3(2.0f,1.5f,1.0f);
+		auto scale = Vec3(2.0f,2.0f,1.0f);
 		auto fream = AddGameObject<FreamSprite>(L"Fream", pos, scale);
 		auto freamTrans = fream->GetComponent<Transform>();
 		m_freamPos[gamePadID] = freamTrans->GetPosition();
@@ -37,13 +37,13 @@ namespace basecross {
 		// ステータス項目の生成
 		auto stutase = 3;
 		Vec3 stutasePos = pos;
-		if (gamePadID % 2 == 0)
+		if (gamePadID % 2 == 0) // 左か右か
 			 stutasePos.x = pos.x + 62.0f;
 		else stutasePos.x = pos.x - 220.0f;
 
-		if (gamePadID > 1)
-			 stutasePos.y = pos.y + 110.0f;
-		else stutasePos.y = pos.y - 60.0f;
+		if (gamePadID < 2) // 上か下
+			 stutasePos.y = pos.y - 40;
+		else stutasePos.y = pos.y + 110.0f;
 
 		// ゲージ配置
 		auto gaugePos = stutasePos;
@@ -69,14 +69,14 @@ namespace basecross {
 		}
 		
 		// キャラクターの画像
-		auto pictchar = m_loopForIcon; // キャラ数 = キャラアイコン数
 		auto picturePos = stutasePos;
 
 		picturePos.x = pos.x + 82.0f;
-		if (gamePadID > 1)
-			 picturePos.y += -40.0f;
-		else picturePos.y += +140.0f;
-		for (int i = 0; i < pictchar; i++) {
+		if (gamePadID < 2)
+			 picturePos.y += +140.0f;
+		else picturePos.y += - 10.0f;
+
+		for (int i = 0; i < m_loopForIcon; i++) {
 			auto pictureNum = i + (gamePadID * m_loopForIcon);
 			m_Picture[pictureNum] = AddGameObject<PlayerCharaPicture>(picturePos,i, gamePadID);
 			m_Picture[pictureNum]->SetDrawLayer(1);
@@ -87,6 +87,9 @@ namespace basecross {
 			m_SelectOK[gamePadID]->SetDrawActive(false);
 		}
 
+		PlayerCharacterSelect(gamePadID, stutasePos);
+
+		// プレイヤーのナンバーアイコンの配置
 		auto player = AddGameObject<BattlePlayersUIs>(L"BPsUIs", gamePadID + 1, Vec3(0));
 		player->GetComponent<PCTSpriteDraw>()->SetDiffuse(playerNum);
 		auto playerTrans = player->GetComponent<Transform>();
@@ -94,19 +97,54 @@ namespace basecross {
 		if (gamePadID % 2 == 0)
 			 pos.x += -315;
 		else pos.x += 186;
-		if(gamePadID < 2)
-			 pos.y += 157;
-		else pos.y += -28;
+
+		if (gamePadID < 2)
+			pos.y += 175;
+		else pos.y += -45;
 		playerTrans->SetPosition(pos);
 	}
 	
-	// アイコン設置
-	void CharacterSelectStage::PlayerCharacterSelect(Vec3 pos) {
-		auto addPosX = 100;
-		for (int i = 0; i < m_loopForIcon; i++) {
-			m_Icons[i] = AddGameObject<CharaIcon>(pos,i);
-			pos.x += addPosX;
+	 //アイコン設置
+	void CharacterSelectStage::PlayerCharacterSelect(int gamePadID,Vec3 pos) {
+		// 三角配置
+		auto triPos = pos + Vec3(21, -105, 0);
+		auto loopForTri = 2;
+		auto tri = gamePadID * loopForTri;
+
+		auto addPosX = 200.f;
+		for (int i = 0; i < loopForTri; i++) {
+			auto reTri = false;
+			if (i == 1) reTri = true;
+
+			m_Triangle[i + tri] = AddGameObject<TriangleSprite>(triPos, reTri);
+			auto ptrTrans = m_Triangle[i + tri]->GetComponent<Transform>();
+			m_Triangle[i + tri]->SetDrawLayer(1);
+
+			auto setScale = Vec3(0.2f);
+			if (reTri) setScale.x *= -1;
+			ptrTrans->SetScale(setScale);
+			
+			triPos.x += addPosX;
 		}
+
+		// 左の三角から右の三角までの長さを取る
+		auto triPosL = m_Triangle[0 + tri]->GetComponent<Transform>()->GetPosition(); // 左の三角
+		auto triPosR = m_Triangle[1 + tri]->GetComponent<Transform>()->GetPosition(); // 右の三角
+		auto triPosD = (triPosR - triPosL) / ((float)m_loopForIcon + 1);
+
+		// アイコン設置
+		addPosX = addPosX * 0.1f * 1.5f;
+		auto iconPos = Vec3(triPosL.x - addPosX, triPosL.y + 7, pos.z + 0);
+		auto icons = gamePadID * m_loopForIcon;
+		addPosX = triPosD.x;
+		for (int i = 0; i < m_loopForIcon; i++) {
+			iconPos.x += addPosX;
+			m_Icons[i + icons] = AddGameObject<CharaIcon>(iconPos,i);
+			auto ptrTrans = m_Icons[i + icons]->GetComponent<Transform>();
+			ptrTrans->SetScale(Vec3(0.25f));
+			ptrTrans->SetPivot(ptrTrans->GetPosition());
+		}
+
 	}
 
 	// UIの設置、OnCreateで使用する関数
@@ -119,34 +157,33 @@ namespace basecross {
 		m_Ready = AddGameObject<ReadyToFightUI>(Vec3(0, 0, 0));
 
 		m_Ready->SetDrawActive(false);
+		m_Ready->SetDrawLayer(5);
 		m_Ready->SetUpdateActive(false);
 	}
 
-	void CharacterSelectStage::PlayerCursorCreate(int gamePadID){
-		// カラーの取得
-		auto playerNum = PlayerStatus::GetInstance()->GetPlayerColor(gamePadID + 1);
-		// 初期位置
-		auto defaultPos = m_Icons[0]->GetComponent<Transform>()->GetPosition();
-		// カーソル生成
-		m_SelectCursor[gamePadID] = AddGameObject<SelectCursor>(defaultPos, gamePadID);
-		// カラー変更
-		m_SelectCursor[gamePadID]->GetComponent<PCTSpriteDraw>()->SetDiffuse(playerNum);
-		// アイコンの数だけループ
-		for (int i = 0; i < m_loopForIcon; i++) {
-			// 各アイコンのポジションを取得
-			auto iconPos = m_Icons[i]->GetComponent<Transform>()->GetPosition();
-			m_SelectCursor[gamePadID]->GetIconDatas(i,iconPos);
-		}
-	}
+	//void CharacterSelectStage::PlayerCursorCreate(int gamePadID){
+	//	// カラーの取得
+	//	auto playerNum = PlayerStatus::GetInstance()->GetPlayerColor(gamePadID + 1);
+	//	// 初期位置
+	//	auto defaultPos = m_Icons[0]->GetComponent<Transform>()->GetPosition();
+	//	// カーソル生成
+	//	m_SelectCursor[gamePadID] = AddGameObject<SelectCursor>(defaultPos, gamePadID);
+	//	// カラー変更
+	//	m_SelectCursor[gamePadID]->GetComponent<PCTSpriteDraw>()->SetDiffuse(playerNum);
+	//	// アイコンの数だけループ
+	//	for (int i = 0; i < m_loopForIcon; i++) {
+	//		// 各アイコンのポジションを取得
+	//		auto iconPos = m_Icons[i]->GetComponent<Transform>()->GetPosition();
+	//		m_SelectCursor[gamePadID]->GetIconDatas(i,iconPos);
+	//	}
+	//}
 
-	void CharacterSelectStage::SetCharaName() {
-		//m_charaName[i] = cvs;
+	//void CharacterSelectStage::SetCharaName() {
+	//	//m_charaName[i] = cvs;
 
-		m_charaName[0] = (L"LaserIcon");
-		m_charaName[1] = (L"TankIcon");
-		//m_charaName[2] = (L"3WayIcon");
-		//m_charaName[3] = (L"MissileIcon");
-	}
+	//	m_charaName[0] = (L"LaserIcon");
+	//	m_charaName[1] = (L"TankIcon");
+	//}
 
 	void CharacterSelectStage::OnCreate() {
 		try {
@@ -160,24 +197,22 @@ namespace basecross {
 			m_BackGround = AddGameObject<SimpleSprite>(L"BackGround00");
 			m_BackGround->SetDrawLayer(-1);
 
-			auto scale = Vec3(10.0f, 1.5f, 1.0f);
-			auto fream = AddGameObject<FreamSprite>(L"GaugeBackGround", Vec3(0), scale);
-			auto ptrDraw = fream->GetComponent<PCTSpriteDraw>();
-			ptrDraw->SetDiffuse(Col4(1.0f,1.0f,1.0f,0.5f));
+			//auto scale = Vec3(10.0f, 1.5f, 1.0f);
+			//auto fream = AddGameObject<FreamSprite>(L"GaugeBackGround", Vec3(0), scale);
+			//auto ptrDraw = fream->GetComponent<PCTSpriteDraw>();
+			//ptrDraw->SetDiffuse(Col4(1.0f,1.0f,1.0f,0.5f));
 
-			SetCharaName();
+			//SetCharaName();
 			auto side = 280.0f;
-			auto higth = 170.0f;
+			auto higth = 150.0f;
 			PlayerFreamPosition(Vec3(-side,  higth, 0), 0);
 			PlayerFreamPosition(Vec3( side,  higth, 0), 1);
 			PlayerFreamPosition(Vec3(-side, -higth, 0), 2);
 			PlayerFreamPosition(Vec3( side, -higth, 0), 3);
-			PlayerCharacterSelect(Vec3(-50.0f, 0.0f, 0.0f));
 			UIsSet();
 
 			for (int i = 0; i < m_loopForPlayer; i++) {
-
-				PlayerCursorCreate(i);
+				m_charaID[i] = 0;
 			}
 			//auto addIcons = AddGameObject<CharacterIcon>(L"MissileIcon");
 			//Debug::GetInstance()->Log(m_shiftMovePos);
@@ -202,18 +237,12 @@ namespace basecross {
 				m_isDecisionPlayer[gamePadID] = true;
 				m_SelectOK[gamePadID]->SetDrawActive(true);
 
-				m_SelectCursor[gamePadID]->SetDrawActive(false);
-				m_SelectCursor[gamePadID]->SetUpdateActive(false);
-
 				if (!m_sceneChangeBlock)
 					SoundManager::GetInstance()->Play(L"CharacterDecisionSE");
 			}
 			if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_B) {
 				m_isDecisionPlayer[gamePadID] = false;
 				m_SelectOK[gamePadID]->SetDrawActive(false);
-				
-				m_SelectCursor[gamePadID]->SetDrawActive(true);
-				m_SelectCursor[gamePadID]->SetUpdateActive(true);
 
 				if(!m_sceneChangeBlock)
 					SoundManager::GetInstance()->Play(L"CancelSE");
@@ -221,10 +250,58 @@ namespace basecross {
 		}
 	}
 
+	void CharacterSelectStage::GetCharacterID(int gamePadID) {
+		// スティック、方向パッド
+		const auto& app = App::GetApp();
+		const auto& ctrlVec = app->GetInputDevice().GetControlerVec()[gamePadID];
+		auto ctrlX = 0.0f;
+		if (ctrlVec.bConnected) {
+			ctrlX = ctrlVec.fThumbLX;
+		}
+		auto moveRight = ctrlX >= 1.0f || ctrlVec.wPressedButtons & XINPUT_GAMEPAD_DPAD_RIGHT;
+		auto moveLeft = ctrlX <= -1.0f || ctrlVec.wPressedButtons & XINPUT_GAMEPAD_DPAD_LEFT;	
+		auto move = 0; // 右なら1、左なら0
+		if (!m_isSetStick[gamePadID]) {
+			// 右へ
+			if (moveRight) {
+				m_isSetStick[gamePadID] = true;
+				if (m_charaID[gamePadID] < m_iconMaxID) {
+					m_charaID[gamePadID]++;
+					//m_nowPos = GetComponent<Transform>()->GetPosition();
+				}
+				else m_charaID[gamePadID] = 0;
+
+				move = 1;
+				SoundManager::GetInstance()->Play(L"CharacterSelectingSE");
+
+				auto loopForTri = 2;
+				auto tri = move + gamePadID * loopForTri;
+				m_Triangle[tri]->CharacterSelectingAnimation(ctrlVec, m_isSetStick[gamePadID], moveLeft, moveRight, gamePadID);
+			}
+			// 左へ
+			else if (moveLeft) {
+				m_isSetStick[gamePadID] = true;
+				if (m_charaID[gamePadID] > 0) {
+					m_charaID[gamePadID]--;
+					//m_nowPos = GetComponent<Transform>()->GetPosition();
+				}
+				else m_charaID[gamePadID] = m_iconMaxID;
+
+				move = 0;
+				SoundManager::GetInstance()->Play(L"CharacterSelectingSE");
+
+				auto loopForTri = 2;
+				auto tri = move + gamePadID * loopForTri;
+				m_Triangle[tri]->CharacterSelectingAnimation(ctrlVec,m_isSetStick[gamePadID], moveLeft, moveRight,gamePadID);
+			}
+		}
+		else if (!moveLeft && !moveRight) m_isSetStick[gamePadID] = false;
+
+	}
+
 	void CharacterSelectStage::SelectCharacter(int gamePadID){
-		int charaID = m_SelectCursor[gamePadID]->SetCharacterID();
-		auto setGamePadID = gamePadID + 1;
-		switch (charaID)
+		auto setGamePadID = gamePadID + 1; // プレイヤー取得
+		switch (m_charaID[gamePadID])
 		{
 		case 0:
 			StageManager::GetInstance()->SetPlayerType(setGamePadID, PlayerType::Laser);
@@ -237,42 +314,50 @@ namespace basecross {
 		default:
 			break;
 		}
-		CharacterStetusGauge(gamePadID);
-		DrawCharaPicture(gamePadID);
 	}
 
 	// キャラクターのステータスを表示する
 	void CharacterSelectStage::CharacterStetusGauge(int gamePadID) {
-		int charaID = m_SelectCursor[gamePadID]->SetCharacterID();
 		auto stutasNum = 3;
 		for (int i = 0; i < stutasNum; i++) {
 			auto controlNum = i + gamePadID * stutasNum;
-			m_Gauge[controlNum]->GetCharaStutas(charaID,i);
+			m_Gauge[controlNum]->GetCharaStutas(m_charaID[gamePadID],i);
 		}
 	}
 
 	// 表示するキャラクターの画像
 	void CharacterSelectStage::DrawCharaPicture(int gamePadID) {
+		auto icons = gamePadID * m_loopForIcon;
 		for (int i = 0; i < m_loopForIcon; i++) {
 			auto pictureNum = i + (gamePadID * m_loopForIcon);
 			m_Picture[pictureNum]->SetDrawActive(false);
-		}
 
-		int charaID = m_SelectCursor[gamePadID]->SetCharacterID();
-		auto pictureNum = charaID + (gamePadID * m_loopForIcon);
+			// 選んでいるアイコンは明るく表示する
+			auto iconComp = m_Icons[i + icons]->GetComponent<PCTSpriteDraw>();
+			auto rgba = iconComp->GetDiffuse();
+			if (m_charaID[gamePadID] == i) {
+				rgba.x = 1;
+				rgba.y = 1;
+				rgba.z = 1;
+			}
+			else {
+				rgba.x = 0.5f;
+				rgba.y = 0.5f;
+				rgba.z = 0.5f;
+			}
+			iconComp->SetDiffuse(rgba);
+
+		}
+		auto pictureNum = m_charaID[gamePadID] + (gamePadID * m_loopForIcon);
 		m_Picture[pictureNum]->SetDrawActive(true);
 	}
 
-	// キャラクターの選択が完了、コントローラが繋がれていない場合はカーソルを非表示
+	// キャラクターの選択が完了
 	void CharacterSelectStage::CharacterSelectedPlayers(int gamePadID) {
 		if (m_isDecisionPlayer[gamePadID]) {
-			m_SelectCursor[gamePadID]->SetDrawActive(false);
-			m_SelectCursor[gamePadID]->SetUpdateActive(false);
 
 		}
 		else {
-			m_SelectCursor[gamePadID]->SetDrawActive(true);
-			m_SelectCursor[gamePadID]->SetUpdateActive(true);
 
 		}
 	}
@@ -282,18 +367,23 @@ namespace basecross {
 		auto& app = App::GetApp();
 		for (int i = 0; i < m_loopForPlayer; i++) {
 			const auto& ctrlVec = app->GetInputDevice().GetControlerVec()[i];
-			if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_A 
-				&& !m_sceneChangeBlock && m_Ready->GetUpdateActive()) {
-				PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToGameStage");
-				m_sceneChangeBlock = true;
-			}
-			if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_B
-				&& !m_sceneChangeBlock && !m_Ready->GetUpdateActive()) {
-				if (m_isBPushPlayer[i]) {
-					PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToTitleStage");
+
+			if (ctrlVec.bConnected) {
+				if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_A
+					&& !m_sceneChangeBlock && m_Ready->GetUpdateActive()) {
+
+					PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToGameStage");
 					m_sceneChangeBlock = true;
 				}
-				else m_isBPushPlayer[i] = true;
+				if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_B
+					&& !m_sceneChangeBlock && !m_Ready->GetUpdateActive()) {
+
+					if (m_isBPushPlayer[i]) {
+						PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToTitleStage");
+						m_sceneChangeBlock = true;
+					}
+					else m_isBPushPlayer[i] = true;
+				}
 			}
 		}
 
@@ -302,7 +392,6 @@ namespace basecross {
 		if (m_isDecisionPlayer[0] && m_isDecisionPlayer[1] &&
 			m_isDecisionPlayer[2] && m_isDecisionPlayer[3])
 		{
-			//m_CharaSelectFream->SetDrawActive(false);
 			m_Ready->SetDrawActive(true);
 			m_Ready->SetUpdateActive(true);
 			rgba.x = 0.5f;
@@ -312,7 +401,6 @@ namespace basecross {
 		else if (m_isDecisionPlayer[0] || m_isDecisionPlayer[1] ||
 			m_isDecisionPlayer[2] || m_isDecisionPlayer[3])
 		{
-			//m_CharaSelectFream->SetDrawActive(true);
 			m_Ready->SetDrawActive(false);
 			m_Ready->SetUpdateActive(false);
 			rgba.x = 1;
@@ -320,16 +408,15 @@ namespace basecross {
 			rgba.z = 1;
 		}
 		color->SetDiffuse(rgba);
-		for (int i = 0; i < m_loopForIcon; i++) {
-			auto ptrDraw = m_Icons[i]->GetComponent<PCTSpriteDraw>();
-			ptrDraw->SetDiffuse(rgba);
-		}
 	}
 
 	void CharacterSelectStage::OnUpdate() {
 		auto& app = App::GetApp();
 		for (int i = 0; i < m_loopForPlayer; i++) {
 			CharacterSelectingPlayers(i);
+			CharacterStetusGauge(i);
+			DrawCharaPicture(i);
+			if(!m_isDecisionPlayer[i]) GetCharacterID(i);
 
 			const auto& ctrlVec = app->GetInputDevice().GetControlerVec()[i];
 			if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_A) {
@@ -339,8 +426,6 @@ namespace basecross {
 			if (!ctrlVec.bConnected) {
 				m_ifEntryPlayer[i] = false;
 				m_isDecisionPlayer[i] = true;
-				m_SelectCursor[i]->SetDrawActive(false);
-				m_SelectCursor[i]->SetUpdateActive(false);
 				m_SelectOK[i]->SetDrawActive(true);
 			}
 		}

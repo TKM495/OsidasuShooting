@@ -81,5 +81,9 @@ namespace basecross {
 		m_Renderer->SetCameraMatrix(v);
 		m_Renderer->SetProjectionMatrix(p);
 	}
+
+	void EfkInterface::SetTimeScale(float scale) {
+		//m_Manager->SetGroupMask
+	}
 }
 // end basecross

@@ -6,7 +6,7 @@ namespace basecross {
 	{
 		redColor = Col4(1.0f, 0.0f, 0.0f, 1.0f);
 		m_warningTime = 10.0f;
-		expansionMaxRate = 10;//例　10%
+		expansionMaxRate = 10;//萓九10%
 
 		initialTime = 32; //temporary
 		currentTime = initialTime;
@@ -21,20 +21,20 @@ namespace basecross {
 
 	// タイマーの数字を一文字ずつ作成
 	void CountDown::CountDownSpriteCreate() {
-		m_numbersOffset = 0;			// 分か秒か判別用
-		m_isMinutes = false;			// 分か秒か
-		m_setOffset = Vec3(-102.5f, 360, 0);	// 一文字目のオブジェクト
-		m_addOffset = Vec3(45.0f, 0, 0);	// 一文字の大きさ
-		m_spaceOffset = Vec3(20.0f, 0, 0);	// 分と秒で分けるときのスペース
-		m_posOffset = m_setOffset;		// オッフセット
+		m_numbersOffset = 0;                 // 分か秒か判別用
+		m_isMinutes = false;                 // 分か秒か
+		m_setOffset = Vec3(-102.5f, 360, 0); // 一文字目のオブジェクト
+		m_addOffset = Vec3(45.0f, 0, 0);     // 一文字の大きさ
+		m_spaceOffset = Vec3(20.0f, 0, 0);   // 分と秒で分けるときのスペース
+		m_posOffset = m_setOffset;           // オッフセット
 
-		m_scaleValue = 0.7f; 
+		m_scaleValue = 0.7f;
 		m_cur_scaleValue = m_scaleValue;
 		m_max_scaleValue = m_scaleValue + m_scaleValue * expansionMaxRate / 100;
 
 		m_scaleOffset = Vec3(m_scaleValue, m_scaleValue, m_scaleValue);
 
-		m_numbers.resize(4);			// 分と秒で4文字ずつ
+		m_numbers.resize(4); // 分と秒で4文字ずつ
 		for (auto& number : m_numbers) {
 			++m_numbersOffset;
 
@@ -86,8 +86,7 @@ namespace basecross {
 			reset = false;
 		}
 
-		if (start)
-		{
+		if (start) {
 			currentTime -= deltaTime;
 		}
 
@@ -113,7 +112,7 @@ namespace basecross {
 		int hour;
 		int seconds;
 
-		// 秒、分、時間の数値を求める
+		// 遘偵∝�縲∵凾髢薙�謨ｰ蛟､繧呈ｱゅａ繧
 		minutes = (int)(currentTime / 60);
 
 		hour = (int)(minutes / 60);
@@ -200,12 +199,12 @@ namespace basecross {
 		blinking->SetOriginalColor(redColor);
 
 
-		//点滅用
+		//轤ｹ貊�畑
 		m_blinkTime = 0.0f;
 		m_blinkTimeChecker = m_blinkTime;
 		m_fadeInTime = 0.5f;
 		m_fadeOutTime = 0.5f;
-		//点滅用..終了
+		//轤ｹ貊�畑..邨ゆｺ
 
 	}//BlinkingCreation...end
 
@@ -255,20 +254,16 @@ namespace basecross {
 				colon->GetComponent<Transform>()->SetScale(Vec3(m_scaleValue, m_scaleValue, m_scaleValue));
 			}
 
-
-			if (m_timerNumbers <= 0)
-			{
+			if (m_timerNumbers <= 0) {
 				blinking->StopBlinking();
 				isContinuousIncreasion = true;
 				m_warningTime = 0;
 			}
-			else
-			{
+			else {
 				doAdjustAlpha = true;
 				doAdjustColor = true;
 				doAdjustScale = true;
 			}
-
 		}
 	}//BlinkingProcessStart...end
 
@@ -283,18 +278,19 @@ namespace basecross {
 			Col4 color = blinking->GetAdjustedColor();
 			Vec3 scale = blinking->GetAdjustedScale();
 
-			if (alpha <= 0)
-			{
+			if (alpha <= 0) {
 				alpha = 0.01;
 			}
 
 			for (auto& number : m_numbers) {
-				if (doAdjustAlpha) { number->SetAlpha(alpha); }
-				if (doAdjustColor) { number->SetColor(color); }
+				if (doAdjustAlpha) {
+					number->SetAlpha(alpha);
+				}
+				if (doAdjustColor) {
+					number->SetColor(color);
+				}
 
-
-				if (doAdjustScale)
-				{
+				if (doAdjustScale) {
 					auto transform = number->GetComponent<Transform>();
 					auto curPosition = transform->GetPosition();
 					auto curScale = transform->GetScale();
@@ -307,12 +303,15 @@ namespace basecross {
 				}
 			}
 
-			//colon用
-			if (doAdjustAlpha) { colon->SetAlpha(alpha); }
-			if (doAdjustColor) { colon->SetColor(color); }
+			// colon逕ｨ
+			if (doAdjustAlpha) {
+				colon->SetAlpha(alpha);
+			}
+			if (doAdjustColor) {
+				colon->SetColor(color);
+			}
 
-			if (doAdjustScale)
-			{
+			if (doAdjustScale) {
 				auto transform = colon->GetComponent<Transform>();
 				auto curPosition = transform->GetPosition();
 				auto curScale = transform->GetScale();
@@ -322,11 +321,9 @@ namespace basecross {
 				transform->SetScale(scale);
 				transform->SetPosition(position);
 			}
-			//colon用
+			// colon逕ｨ
 
-
-			if (isContinuousIncreasion)
-			{
+			if (isContinuousIncreasion) {
 				isContinuousIncreasion = false;
 				doAdjustAlpha = false;
 				doAdjustColor = false;

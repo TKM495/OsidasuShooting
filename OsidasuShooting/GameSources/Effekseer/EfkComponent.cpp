@@ -22,9 +22,15 @@ namespace basecross {
 		for (auto map : m_effectDataMap) {
 			auto key = map.first;
 			auto data = map.second;
+			// 位置を同期させるか
 			if (data.IsSync) {
 				auto parentPosition = GetGameObjectPosition() + data.Offset.Position;
 				SetPosition(key, parentPosition);
+			}
+
+			// ループフラグがON
+			if (data.IsLoop && !IsPlaying(key)) {
+				Play(key);
 			}
 		}
 	}
@@ -32,7 +38,7 @@ namespace basecross {
 	void EfkComponent::SetEffectResource(const wstring& key, const TransformData& offset, bool noStopLastEffect) {
 		auto effectRes = App::GetApp()->GetResource<EfkEffectResource>(key + EfkKey);
 		auto data = effectRes->GetEffectData();
-		m_effectDataMap[key] = EfkData(data, offset, noStopLastEffect, false);
+		m_effectDataMap[key] = EfkData(data, offset, noStopLastEffect, false, false);
 	}
 
 	void EfkComponent::SetEffectResource(const wstring& key, const TransformData& offset) {
@@ -124,6 +130,11 @@ namespace basecross {
 
 	void EfkComponent::IsSyncPosition(const wstring& key, bool flg) {
 		m_effectDataMap[key].IsSync = flg;
+	}
+
+	void EfkComponent::PlayLoop(const wstring& key) {
+		m_effectDataMap[key].IsLoop = true;
+		Play(key);
 	}
 
 	Vec3 EfkComponent::GetGameObjectPosition() {

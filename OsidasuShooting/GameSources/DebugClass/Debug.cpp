@@ -8,6 +8,15 @@
 #include <time.h>
 
 namespace basecross {
+	Debug::Debug(const shared_ptr<Stage>& stage)
+		:BaseSingletonGameObject(stage), m_displayLogFirstIndex(0),
+		// 以下設定
+		m_maxLogCount(18),
+		m_isDisplayForCount(true),
+		m_isShowBackground(false),
+		m_isActive(true)
+	{}
+
 	// 静的メンバ変数の実体
 	shared_ptr<Debug> Debug::m_ownInstance = nullptr;
 
@@ -25,6 +34,8 @@ namespace basecross {
 		// 文字列表示領域のサイズを変更
 		m_ssComp->SetTextRect(Rect2D<float>(10, 10, 500, 400));
 		m_ssComp->SetText(L"");
+		SetUpdateActive(m_isActive);
+		SetDrawActive(m_isActive);
 	}
 
 	void Debug::OnUpdate() {
@@ -80,7 +91,8 @@ namespace basecross {
 	}
 
 	void Debug::RegisterLog(const wstring& text) {
-		m_logData.push_back(GetNowTimeString() + L" " + text + L"\n");
+		if (m_isActive)
+			m_logData.push_back(GetNowTimeString() + L" " + text + L"\n");
 	}
 
 	void Debug::ClearLog() {

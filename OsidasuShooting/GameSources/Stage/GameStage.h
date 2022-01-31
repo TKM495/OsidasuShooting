@@ -7,7 +7,6 @@
 #include "stdafx.h"
 #include "Effekseer/EfkInterface.h"
 #include "Utility/TimeCounter.h"
-#include "UIs/CountDown_.h"
 #include "StageObject/ItemCreation_.h"
 #include "UIs/GameStartAndFinish.h"
 
@@ -26,8 +25,6 @@ namespace basecross {
 	private:
 		//現在のステート
 		GameState m_gameState;
-		// タイマーの表示オブジェクト
-		//shared_ptr<CountDown> m_countDown;
 		// スタート時のカウントダウン
 		shared_ptr<StartCountDown> m_startCountDown;
 		// アイテム生成オブジェクト
@@ -35,13 +32,15 @@ namespace basecross {
 		bool m_bOnceItem;
 		// 汎用的なタイマー
 		TimeCounter m_utilTimer;
+		// 時間倍率
+		float m_timeScale;
 		// ビューの作成
 		void CreateViewLight();
 		void ItemGeneration();
 	public:
 		GameStage()
 			: Stage(), m_gameState(GameState::FADEOUT), m_utilTimer(0.0f),
-			m_bOnceItem(false)
+			m_bOnceItem(false), m_timeScale(1.0f)
 		{}
 		~GameStage() {}
 
@@ -64,6 +63,10 @@ namespace basecross {
 
 		shared_ptr<modifiedClass::ItemCreation> GetItemCreation() {
 			return m_itemCreation;
+		}
+
+		float GetTimeScale() {
+			return m_timeScale;
 		}
 	};
 }
