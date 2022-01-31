@@ -6,6 +6,10 @@ namespace basecross {
 	class CountDown : public GameObject
 	{
 	private:
+		shared_ptr<SimpleSprite> remaining10sec;
+		shared_ptr<SimpleSprite> remaining20sec;
+		shared_ptr<SimpleSprite> remaining30sec;
+
 		bool start;
 		bool reset;
 
@@ -48,6 +52,15 @@ namespace basecross {
 		bool doAdjustColor = false;
 		bool doAdjustScale = false;
 
+		void BlinkingCreation();
+		void BlinkingProcess();
+		void BlinkingProcessStart();
+		void BlinkingProcessContinuation();
+
+		void RemainingSpriteShowing();
+		void RemainingSpriteCreation();
+
+		void UpdatingTimers();
 	public:
 		CountDown(const shared_ptr <Stage>& stage,
 			float time = 60.0f)

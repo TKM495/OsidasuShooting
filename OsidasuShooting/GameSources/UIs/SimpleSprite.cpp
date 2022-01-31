@@ -12,7 +12,7 @@ namespace basecross {
 			origin + Vec2(0.0f, size.y),
 			origin + size
 		};
-		auto halfSize = size / 2.0f;
+		halfSize = size / 2.0f;
 		// テクスチャ座標からUV座標に変換
 		Utility::ConvertToUVCoordinates(uv, m_textureKey, uvs);
 		Col4 color(1.0f);
