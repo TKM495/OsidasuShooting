@@ -130,6 +130,20 @@ namespace basecross {
 		m_bombCoolTimeTimer.Count();
 		// 吹っ飛びエフェクトの描画
 		KnockBackEffectDrawing();
+		auto countDown = GetStage()->GetSharedGameObject<CountDown>(L"ForCountDown", false);
+		if (countDown) {
+			if (countDown->GetTime() < 31) {
+				auto efkComp = GetComponent<EfkComponent>();
+				if (PlayerManager::GetInstance()->GetSortedAllPlayer()[0] == GetThis<PlayerBase>()) {
+					if (!efkComp->IsPlaying(L"NumberOne")) {
+						efkComp->PlayLoop(L"NumberOne");
+					}
+				}
+				else {
+					efkComp->Stop(L"NumberOne");
+				}
+			}
+		}
 	}
 
 	void PlayerBase::Move() {
@@ -761,6 +775,9 @@ namespace basecross {
 		if (Obj->m_inputData.IsJumpOrHover) {
 			// 遷移時に入力があった場合ホバーを行わない（一度離す必要がある）
 			if (!Obj->m_isInput) {
+				Obj->Hover();
+			}
+			if (Obj->GetComponent<Gravity>()->GetGravityVelocity().y < 0) {
 				Obj->Hover();
 			}
 		}
