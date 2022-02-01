@@ -54,4 +54,22 @@ namespace basecross {
 		void OnUpdate()override;
 		void OnDraw()override;
 	};
+
+	class CountDown10Sec :public BaseUI {
+		vector<shared_ptr<Number>> m_numbers;
+		// カウントダウンタイマー
+		TimeCounter m_countDownTimer;
+		int m_countTime;
+		wstring m_textureKey;
+		vector<VertexPositionColorTexture> vertices;
+
+	public:
+		CountDown10Sec(const shared_ptr<Stage>& stage,
+			const TransformData& data)
+			:BaseUI(stage, data), m_countDownTimer(1, true),
+			m_countTime(0), m_textureKey(L"CountDownNumber")
+		{}
+		void OnCreate()override;
+		void OnUpdate()override;
+	};
 }

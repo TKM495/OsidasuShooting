@@ -110,6 +110,7 @@ namespace basecross {
 		app->RegisterTexture(L"StartEffect", path + L"StartEffect.png");
 
 		app->RegisterTexture(L"ColorOut", path + L"ColorOut.png");
+		app->RegisterTexture(L"CountDownNumber", path + L"CountDownNumber.png");
 
 		//Žc‚èŽžŠÔ
 		app->RegisterTexture(L"Remaining30Sec", path + L"Remaining30Sec.png");

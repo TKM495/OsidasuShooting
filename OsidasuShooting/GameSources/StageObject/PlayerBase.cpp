@@ -721,7 +721,7 @@ namespace basecross {
 	}
 	void PlayerBase::PlayerBombModeState::Enter(const shared_ptr<PlayerBase>& Obj) {
 		Obj->m_isBombMode = true;
-		Obj->m_bombPoint = Utility::ChangeVectorLength(Obj->m_lastFrontDirection, 10);
+		Obj->m_bombPoint = Utility::ChangeVectorLength(Obj->m_lastFrontDirection, 2);
 	}
 	void PlayerBase::PlayerBombModeState::Execute(const shared_ptr<PlayerBase>& Obj) {
 		// ”š’e‚ÌÆ€

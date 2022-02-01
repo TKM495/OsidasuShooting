@@ -64,6 +64,13 @@ namespace basecross {
 					Remaining30Sec();
 				}
 			);
+			trigger->SetFunction(
+				L"Remaining10Sec",
+				[this] {
+					SoundManager::GetInstance()->Play(L"WarningSE");
+					AddGameObject<CountDown10Sec>(TransformData());
+				}
+			);
 		}
 		catch (...) {
 			throw;
@@ -95,6 +102,10 @@ namespace basecross {
 				m_isTurnOff30Sec = true;
 				auto trigger = GetSharedGameObject<OnceTriggerObject>(L"OnceTriggerObject");
 				trigger->LaunchFunction(L"Remaining30Sec");
+			}
+			if (m_countDown->GetTime() < 11.0f) {
+				auto trigger = GetSharedGameObject<OnceTriggerObject>(L"OnceTriggerObject");
+				trigger->LaunchFunction(L"Remaining10Sec");
 			}
 
 			if (m_countDown->GetTime() <= 1.0f) {
