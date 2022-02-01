@@ -30,20 +30,24 @@ namespace basecross {
 		transform->SetScale(scale);
 
 		auto stage = GetStage();
-		auto blinking = stage->AddGameObject<Blinking>();
-		stage->SetSharedGameObject(L"BlinkForFencing", blinking);
+		blinking = stage->AddGameObject<Blinking>();
 	}
 
 	void Fencing::OnUpdate()
 	{
-		
 		auto& app = App::GetApp();
 		auto deltaTime = app->GetElapsedTime();
 
 		timeChecker -= deltaTime;
 
-		auto blinking = GetStage()->GetSharedGameObject<Blinking>(L"BlinkForFencing");
+		/*
 		if (status == Fencing::Status::Hiding || status == Fencing::Status::Showing)
+		{
+			bool showHideStatus = blinking->GetShowHideStatus();
+			SetDrawActive(showHideStatus);
+		}
+		*/
+		if (status == Fencing::Status::Hiding)
 		{
 			bool showHideStatus = blinking->GetShowHideStatus();
 			SetDrawActive(showHideStatus);
