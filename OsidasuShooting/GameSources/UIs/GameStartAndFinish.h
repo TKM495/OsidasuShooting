@@ -20,13 +20,15 @@ namespace basecross {
 		TimeCounter m_startDisplayTimer;
 		// ナンバーのオフセット位置
 		Vec3 m_offsetPos;
+		int m_lastValue;
 	public:
 		StartCountDown(const shared_ptr<Stage>& stage,
 			const TransformData& data)
 			:BaseUI(stage, data),
 			m_countDownTimer(3.0f),
 			m_startDisplayTimer(1.0f),
-			m_offsetPos(Vec3(-32.0f, 64.0f, 0.0f))
+			m_offsetPos(Vec3(-32.0f, 64.0f, 0.0f)),
+			m_lastValue(0)
 		{}
 
 		void OnCreate()override;

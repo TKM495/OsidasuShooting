@@ -56,7 +56,7 @@ namespace basecross {
 			out->SetColor(Col4(1, 0.5f, 0, 0));
 			out->SetRange(1.0f, 0.99999f);
 			out->SetRate(4.0f);
-			auto trigger = AddGameObject<OnceTrigger>();
+			auto trigger = AddGameObject<OnceTriggerObject>();
 			trigger->SetFunction(
 				L"ColorOut",
 				[=]() {
@@ -92,7 +92,7 @@ namespace basecross {
 
 			if (m_countDown->GetTime() < 31.0f) {
 				m_isTurnOff30Sec = true;
-				auto trigger = GetSharedGameObject<OnceTrigger>(L"OnceTrigger");
+				auto trigger = GetSharedGameObject<OnceTriggerObject>(L"OnceTriggerObject");
 				//trigger->LaunchFunction(L"ColorOut");
 			}
 

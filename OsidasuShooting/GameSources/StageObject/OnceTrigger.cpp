@@ -2,19 +2,23 @@
 #include "Project.h"
 
 namespace basecross {
-	void OnceTrigger::OnCreate() {
-		GetStage()->SetSharedGameObject(L"OnceTrigger", GetThis<OnceTrigger>());
+	void OnceTriggerObject::OnCreate() {
+		GetStage()->SetSharedGameObject(L"OnceTriggerObject", GetThis<OnceTriggerObject>());
+		AddComponent<OnceTrigger>();
 	}
-	void OnceTrigger::OnUpdate() {
-		for (auto& m : m_funcMap) {
-			auto& data = m.second;
-			if (data.bOnce) {
-				if (data.Function) {
-					data.Function();
-					data.bOnce = false;
-				}
-			}
-		}
+	void OnceTriggerObject::OnUpdate() {
+	}
+
+	void OnceTriggerObject::SetFunction(const wstring& key, Func func) {
+		GetComponent<OnceTrigger>()->SetFunction(key, func);
+	}
+
+	void OnceTriggerObject::LaunchFunction(const wstring& key) {
+		GetComponent<OnceTrigger>()->LaunchFunction(key);
+	}
+
+	void OnceTriggerObject::ResetFunction(const wstring& key) {
+		GetComponent<OnceTrigger>()->ResetFunction(key);
 	}
 
 	void OnceTrigger::SetFunction(const wstring& key, Func func) {
@@ -29,10 +33,13 @@ namespace basecross {
 			throw BaseException(
 				L"指定されたキーがありません",
 				L"m_funcMap.count(key) == 0",
-				L"void OnceTrigger::LaunchFunction()"
+				L"void OnceTriggerObject::LaunchFunction()"
 			);
 		}
-		m_funcMap[key].bOnce = true;
+		if (!m_funcMap[key].bOnce) {
+			m_funcMap[key].Function();
+			m_funcMap[key].bOnce = true;
+		}
 	}
 
 	void OnceTrigger::ResetFunction(const wstring& key) {
@@ -40,7 +47,7 @@ namespace basecross {
 			throw BaseException(
 				L"指定されたキーがありません",
 				L"m_funcMap.count(key) == 0",
-				L"void OnceTrigger::ResetFunction()"
+				L"void OnceTriggerObject::ResetFunction()"
 			);
 		}
 		m_funcMap[key].bOnce = false;

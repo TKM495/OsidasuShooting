@@ -173,6 +173,9 @@ namespace basecross {
 		app->RegisterWav(L"WarningSE", path + L"Warning.wav");
 		app->RegisterWav(L"GetItemSE", path + L"GetItem.wav");
 		app->RegisterWav(L"BumperSE", path + L"Bumper.wav");
+		app->RegisterWav(L"CountDownSE", path + L"CountDown.wav");
+		app->RegisterWav(L"FinishSE", path + L"Finish.wav");
+		app->RegisterWav(L"StartSE", path + L"Start.wav");
 
 		// BGM
 		path = dir + L"Sound/BGM/";

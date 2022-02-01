@@ -93,6 +93,9 @@ namespace basecross {
 			StageManager::GetInstance()->SetPlayerType(1, PlayerType::Laser);
 			PostEvent(0.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToWatanabeStage");
 		}
+		if (keyState.m_bPressedKeyTbl['P']) {
+			SoundManager::GetInstance()->Play(L"StartSE");
+		}
 	}
 
 	void WatanabeStage::OnDestroy() {

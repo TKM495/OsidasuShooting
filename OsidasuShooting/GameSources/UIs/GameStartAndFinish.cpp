@@ -12,14 +12,29 @@ namespace basecross {
 
 		m_startSprite = ObjectFactory::Create<SimpleSprite>(
 			GetStage(), L"Start", TransformData(Vec3(0), Vec3(1.2f)));
+
+		auto trigger = AddComponent<OnceTrigger>();
+		trigger->SetFunction(L"Start",
+			[] {
+				SoundManager::GetInstance()->Play(L"StartSE");
+			}
+		);
 	}
 	void StartCountDown::OnUpdate() {
+		auto trigger = GetComponent<OnceTrigger>();
+
 		if (!m_countDownTimer.Count()) {
-			m_number->SetValue((int)(m_countDownTimer.GetLeftTime() + 1.0f));
+			auto number = (int)(m_countDownTimer.GetLeftTime() + 1.0f);
+			m_number->SetValue(number);
+			if (number != m_lastValue && number != 0) {
+				SoundManager::GetInstance()->Play(L"CountDownSE");
+			}
+			m_lastValue = number;
 		}
 		if (m_countDownTimer.IsTimeUp()) {
 			m_uiEffect->OnUpdate();
 			m_uiEffect->SetUpdateActive(true);
+			trigger->LaunchFunction(L"Start");
 		}
 	}
 
@@ -49,6 +64,7 @@ namespace basecross {
 			L"StartEffect", Vec2(5, 6), 30);
 		m_uiEffect->GetTransform()->SetScale(Vec3(2));
 		m_uiEffect->SetUpdateActive(true);
+		SoundManager::GetInstance()->Play(L"FinishSE");
 	}
 
 	void FinishSprite::OnUpdate() {
