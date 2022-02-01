@@ -180,6 +180,7 @@ namespace basecross {
 		// BGM
 		path = dir + L"Sound/BGM/";
 		app->RegisterWav(L"Game1BGM", path + L"Game1.wav");
+		app->RegisterWav(L"GameLastSpurtBGM", path + L"GameLastSpurt.wav");
 		app->RegisterWav(L"Game2BGM", path + L"Game2.wav");
 		app->RegisterWav(L"ResultBGM", path + L"Result.wav");
 		app->RegisterWav(L"SelectBGM", path + L"Select.wav");
