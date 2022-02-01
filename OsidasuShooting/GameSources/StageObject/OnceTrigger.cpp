@@ -23,6 +23,7 @@ namespace basecross {
 		data.bOnce = false;
 		m_funcMap[key] = data;
 	}
+
 	void OnceTrigger::LaunchFunction(const wstring& key) {
 		if (m_funcMap.count(key) == 0) {
 			throw BaseException(
@@ -32,5 +33,16 @@ namespace basecross {
 			);
 		}
 		m_funcMap[key].bOnce = true;
+	}
+
+	void OnceTrigger::ResetFunction(const wstring& key) {
+		if (m_funcMap.count(key) == 0) {
+			throw BaseException(
+				L"éwíËÇ≥ÇÍÇΩÉLÅ[Ç™Ç†ÇËÇ‹ÇπÇÒ",
+				L"m_funcMap.count(key) == 0",
+				L"void OnceTrigger::ResetFunction()"
+			);
+		}
+		m_funcMap[key].bOnce = false;
 	}
 }

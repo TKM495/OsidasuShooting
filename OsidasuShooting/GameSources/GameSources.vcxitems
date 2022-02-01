@@ -87,7 +87,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\InfoGauge.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BombReloadTimeGauge.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BombRemainingCount.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CurrentFirst.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CurrentRank.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\PlayerFollowUI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\PlayerInfo.h" />
@@ -186,7 +186,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\InfoGauge.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BombReloadTimeGauge.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BombRemainingCount.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CurrentFirst.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CurrentRank.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\PlayerFollowUI.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\PlayerInfo.cpp" />

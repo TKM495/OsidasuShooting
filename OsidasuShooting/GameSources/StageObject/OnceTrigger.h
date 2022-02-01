@@ -32,5 +32,12 @@ namespace basecross {
 		 * @param key 実行する関数のキー
 		 */
 		void LaunchFunction(const wstring& key);
+
+		/**
+		 * @brief 関数のリセット
+		 *
+		 * @param key キー
+		 */
+		void ResetFunction(const wstring& key);
 	};
 }

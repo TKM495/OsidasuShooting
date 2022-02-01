@@ -43,8 +43,6 @@ namespace basecross {
 			auto path = dir + L"Csv/Stage/";
 			builder.Build(GetThis<Stage>(), path + L"Stage1.csv");
 
-			AddGameObject<CurrentFirst>();
-
 			auto countDown = AddGameObject<CountDown>(31.0f);
 			SetSharedGameObject(L"ForCountDown", countDown);
 			countDown->SetDrawLayer(1);
@@ -54,14 +52,9 @@ namespace basecross {
 			AddGameObject<TransitionSprite>()->FadeOut();
 			SoundManager::GetInstance()->PlayLoop(L"Game1BGM");
 
-			//AddGameObject<ReflectorBlock>(TransformData(Vec3(0,1,-5), Vec3(2)));
-			//AddGameObject<BreakBlock>(TransformData(Vec3(0,1,2), Vec3(2)),5,3);
-			//AddGameObject<MoveBlock>(TransformData(Vec3(5, 2, -4), Vec3(2)),Vec3(-9,2,-8));
-			//AddGameObject<MoveBlock>(TransformData(Vec3(-13, 2, -4), Vec3(2)),Vec3(13,2,-8));
-			//AddGameObject<MoveBlock>(TransformData(Vec3(0, 2, 9), Vec3(2)),Vec3(0,2,-8));
 			auto out = AddGameObject<ColorOut>();
-			out->SetColor(Col4(1, 1, 0, 0.5f));
-			out->SetRange(0.2f, 0.1f);
+			out->SetColor(Col4(1, 0.5f, 0, 0));
+			out->SetRange(1.0f, 0.99999f);
 			out->SetRate(4.0f);
 			auto trigger = AddGameObject<OnceTrigger>();
 			trigger->SetFunction(
@@ -97,9 +90,10 @@ namespace basecross {
 			// ƒAƒCƒeƒ€‚Ì¶¬
 			ItemGeneration();
 
-			if (m_countDown->GetTime() <= 30.0f) {
+			if (m_countDown->GetTime() < 31.0f) {
+				m_isTurnOff30Sec = true;
 				auto trigger = GetSharedGameObject<OnceTrigger>(L"OnceTrigger");
-				trigger->LaunchFunction(L"ColorOut");
+				//trigger->LaunchFunction(L"ColorOut");
 			}
 
 			if (m_countDown->GetTime() <= 1.0f) {

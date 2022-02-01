@@ -30,6 +30,8 @@ namespace basecross {
 		// アイテム生成オブジェクト
 		shared_ptr<modifiedClass::ItemCreation> m_itemCreation;
 		bool m_bOnceItem;
+		// 残り時間が30秒切ったか
+		bool m_isTurnOff30Sec;
 		// 汎用的なタイマー
 		TimeCounter m_utilTimer;
 		// 時間倍率
@@ -40,7 +42,7 @@ namespace basecross {
 	public:
 		GameStage()
 			: Stage(), m_gameState(GameState::FADEOUT), m_utilTimer(0.0f),
-			m_bOnceItem(false), m_timeScale(1.0f)
+			m_bOnceItem(false), m_timeScale(1.0f), m_isTurnOff30Sec(false)
 		{}
 		~GameStage() {}
 
@@ -67,6 +69,10 @@ namespace basecross {
 
 		float GetTimeScale() {
 			return m_timeScale;
+		}
+
+		bool IsTurnOff30Sec() {
+			return m_isTurnOff30Sec;
 		}
 	};
 }

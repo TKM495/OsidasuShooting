@@ -95,6 +95,22 @@ namespace basecross {
 
 	void PlayerBase::OnUpdate() {
 		m_respawnStateMachine->Update();
+
+		// 一位を目立たせるエフェクト再生処理
+		auto gameStage = GetTypeStage<GameStage>(false);
+		if (gameStage) {
+			if (gameStage->IsTurnOff30Sec()) {
+				auto efkComp = GetComponent<EfkComponent>();
+				if (PlayerManager::GetInstance()->GetSortedAllPlayer()[0] == GetThis<PlayerBase>()) {
+					if (!efkComp->IsPlaying(L"NumberOne")) {
+						efkComp->PlayLoop(L"NumberOne");
+					}
+				}
+				else {
+					efkComp->Stop(L"NumberOne");
+				}
+			}
+		}
 	}
 
 	void PlayerBase::NormalUpdate() {
@@ -134,20 +150,6 @@ namespace basecross {
 		m_bombCoolTimeTimer.Count();
 		// 吹っ飛びエフェクトの描画
 		KnockBackEffectDrawing();
-		auto countDown = GetStage()->GetSharedGameObject<CountDown>(L"ForCountDown", false);
-		if (countDown) {
-			if (countDown->GetTime() < 31) {
-				auto efkComp = GetComponent<EfkComponent>();
-				if (PlayerManager::GetInstance()->GetSortedAllPlayer()[0] == GetThis<PlayerBase>()) {
-					if (!efkComp->IsPlaying(L"NumberOne")) {
-						efkComp->PlayLoop(L"NumberOne");
-					}
-				}
-				else {
-					efkComp->Stop(L"NumberOne");
-				}
-			}
-		}
 	}
 
 	void PlayerBase::Move() {
@@ -540,7 +542,7 @@ namespace basecross {
 				m_bombCount++;
 				InstantiateGameObject<OneShotUI>(
 					GetThis<PlayerBase>(),
-					0.5f, L"BombPlus", TransformData(Vec3(0, 25, 0), Vec3(0.1f))
+					0.5f, L"BombPlus", TransformData(Vec3(0, 30, 0), Vec3(0.13f))
 					);
 				return true;
 			}
@@ -553,7 +555,7 @@ namespace basecross {
 			}
 			InstantiateGameObject<OneShotUI>(
 				GetThis<PlayerBase>(),
-				0.5f, L"EnergyPlus", TransformData(Vec3(0, 25, 0), Vec3(0.1f))
+				0.5f, L"EnergyPlus", TransformData(Vec3(0, 30, 0), Vec3(0.13f))
 				);
 			return true;
 		default:

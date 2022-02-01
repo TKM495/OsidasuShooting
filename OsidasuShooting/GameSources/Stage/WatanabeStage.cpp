@@ -59,7 +59,6 @@ namespace basecross {
 			auto dir = App::GetApp()->GetDataDirWString();
 			auto path = dir + L"Csv/Stage/";
 			builder.Build(GetThis<Stage>(), path + L"Stage1.csv");
-			AddGameObject<CurrentFirst>();
 			AddGameObject<SimpleSprite>(L"BackGround00")->SetDrawLayer(-1);
 
 			m_itemCreation = AddGameObject<modifiedClass::ItemCreation>();
