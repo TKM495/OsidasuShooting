@@ -61,8 +61,7 @@ namespace basecross {
 				L"Remaining30Sec",
 				[=]() {
 					out->SetActive(true);
-					SoundManager::GetInstance()->Stop(L"Game1BGM");
-					SoundManager::GetInstance()->Play(L"GameLastSpurtBGM");
+					Remaining30Sec();
 				}
 			);
 		}
@@ -145,5 +144,21 @@ namespace basecross {
 
 	GameStage::GameState GameStage::GetCurrentGameState() {
 		return m_gameState;
+	}
+
+	void GameStage::Remaining30Sec() {
+		SoundManager::GetInstance()->Stop(L"Game1BGM");
+		SoundManager::GetInstance()->Play(L"GameLastSpurtBGM");
+
+		const int count[4] = {
+			0,5,10,20
+		};
+
+		auto sortedPlayers = PlayerManager::GetInstance()->GetSortedAllPlayer();
+		int index = 0;
+		for (auto player : sortedPlayers) {
+			player->AddBombCount(count[index]);
+			index++;
+		}
 	}
 }

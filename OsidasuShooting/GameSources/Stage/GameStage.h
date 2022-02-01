@@ -74,5 +74,7 @@ namespace basecross {
 		bool IsTurnOff30Sec() {
 			return m_isTurnOff30Sec;
 		}
+
+		void Remaining30Sec();
 	};
 }

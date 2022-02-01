@@ -105,6 +105,8 @@ namespace basecross {
 		TimeCounter m_bombCoolTimeTimer;
 		// 爆弾の個数
 		int m_bombCount;
+		// 爆弾の最大個数
+		int m_maxBombCount;
 		// ジャンプ＆ホバーステート用の連続押し検出用フラグ
 		// (Stateはシングルトンであり状態が共有されてしまうため)
 		bool m_isInput;
@@ -313,6 +315,17 @@ namespace basecross {
 		 */
 		int GetBombCount() {
 			return m_bombCount;
+		}
+
+		/**
+		 * @brief 爆弾の残弾を追加する
+		 *
+		 * @param num 追加する残弾数
+		 */
+		void AddBombCount(int num) {
+			m_bombCount += num;
+			if (m_maxBombCount < m_bombCount)
+				m_bombCount = m_maxBombCount;
 		}
 
 		/**

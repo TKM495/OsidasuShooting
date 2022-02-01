@@ -25,7 +25,8 @@ namespace basecross {
 		m_armorZeroWhenKnockBackMagnification(5), m_energyRecoveryAmount(10),
 		m_bombAimMovingDistance(20), m_respawnTimer(3.0f), m_isActive(true),
 		m_tackleTimer(0.5f, true), m_isDuringTackle(false), m_weight(1),
-		m_bulletAimLineLength(3), m_shieldRate(0.5f), m_debug(true)
+		m_bulletAimLineLength(3), m_shieldRate(0.5f), m_debug(true),
+		m_maxBombCount(20)
 	{
 		m_transformData = transData;
 		m_transformData.Scale *= 2.0f;
@@ -93,11 +94,6 @@ namespace basecross {
 		m_groundingDecision.SetRadius(GetTransform()->GetScale());
 
 		auto trigger = AddComponent<OnceTrigger>();
-		trigger->SetFunction(L"Remain30",
-			[=] {
-				m_bombCount += 20;
-			}
-		);
 		trigger->SetFunction(L"EmptyBomb",
 			[] {
 				SoundManager::GetInstance()->Play(L"EmptyBombSE", 0, 0.3f);
@@ -121,7 +117,6 @@ namespace basecross {
 				else {
 					efkComp->Stop(L"NumberOne");
 				}
-				GetComponent<OnceTrigger>()->LaunchFunction(L"Remain30");
 			}
 		}
 	}
@@ -497,9 +492,6 @@ namespace basecross {
 			}
 		}
 
-		// 爆弾の残弾をへらす
-		if (m_bombCount > 0)
-			m_bombCount--;
 		// 各種パラメータを初期化
 		ParameterReset();
 		// 速度を0に
@@ -552,7 +544,7 @@ namespace basecross {
 		switch (type)
 		{
 		case modifiedClass::ItemType::Bomb:
-			if (m_bombCount < 20) {
+			if (m_bombCount < m_maxBombCount) {
 				// 爆弾の残弾を増やす
 				m_bombCount++;
 				InstantiateGameObject<OneShotUI>(
