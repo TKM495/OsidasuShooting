@@ -14,7 +14,7 @@ namespace basecross {
 		m_maxLogCount(18),
 		m_isDisplayForCount(true),
 		m_isShowBackground(false),
-		m_isActive(false)
+		m_isActive(true)
 	{}
 
 	// Ã“Iƒƒ“ƒo•Ï”‚ÌÀ‘Ì

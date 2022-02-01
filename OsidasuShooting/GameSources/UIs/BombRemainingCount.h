@@ -7,7 +7,7 @@
 namespace basecross {
 	class BombRemainingCount :public BaseUI {
 		shared_ptr<PlayerBase> m_player;
-		shared_ptr<Number> m_number;
+		vector<shared_ptr<Number>> m_numbers;
 	public:
 		BombRemainingCount(const shared_ptr<Stage>& stage,
 			const shared_ptr<PlayerBase>& player,

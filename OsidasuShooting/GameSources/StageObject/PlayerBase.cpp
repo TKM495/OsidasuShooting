@@ -91,6 +91,18 @@ namespace basecross {
 		SoundManager::GetInstance()->InitPlayOverlap(L"HoverSE", 0.06f);
 		// Ú’n”»’è‚Ìî•ñ‚ð‰Šú‰»
 		m_groundingDecision.SetRadius(GetTransform()->GetScale());
+
+		auto trigger = AddComponent<OnceTrigger>();
+		trigger->SetFunction(L"Remain30",
+			[=] {
+				m_bombCount += 20;
+			}
+		);
+		trigger->SetFunction(L"EmptyBomb",
+			[] {
+				SoundManager::GetInstance()->Play(L"EmptyBombSE", 0, 0.3f);
+			}
+		);
 	}
 
 	void PlayerBase::OnUpdate() {
@@ -109,6 +121,7 @@ namespace basecross {
 				else {
 					efkComp->Stop(L"NumberOne");
 				}
+				GetComponent<OnceTrigger>()->LaunchFunction(L"Remain30");
 			}
 		}
 	}
@@ -331,22 +344,24 @@ namespace basecross {
 	}
 
 	void PlayerBase::BombLaunch() {
-		if (m_bombCount > 0 && m_bombCoolTimeTimer.IsTimeUp()) {
-			m_bombCoolTimeTimer.Reset();
-			if (m_debug) {
-				InstantiateGameObject<Bomb>(GetThis<PlayerBase>(),
-					m_predictionLine, GetTransform()->GetPosition(), GetTransform()->GetPosition() + m_bombPoint, m_bombPower);
+		if (m_bombCount > 0) {
+			if (m_bombCoolTimeTimer.IsTimeUp()) {
+				m_bombCoolTimeTimer.Reset();
+				if (m_debug) {
+					InstantiateGameObject<Bomb>(GetThis<PlayerBase>(),
+						m_predictionLine, GetTransform()->GetPosition(), GetTransform()->GetPosition() + m_bombPoint, m_bombPower);
+				}
+				else {
+					InstantiateGameObject<Bomb>(GetThis<PlayerBase>(),
+						m_predictionLine, GetTransform()->GetPosition(), m_bombPoint, m_bombPower);
+				}
+				// Žc’e‚ðŒ¸‚ç‚·
+				m_bombCount--;
+				SoundManager::GetInstance()->Play(L"ThrowBombSE", 0, 0.3f);
 			}
-			else {
-				InstantiateGameObject<Bomb>(GetThis<PlayerBase>(),
-					m_predictionLine, GetTransform()->GetPosition(), m_bombPoint, m_bombPower);
-			}
-			// Žc’e‚ðŒ¸‚ç‚·
-			m_bombCount--;
-			SoundManager::GetInstance()->Play(L"ThrowBombSE", 0, 0.3f);
 		}
 		else {
-			//SoundManager::GetInstance()->Play(L"EmptyBombSE", 0, 0.3f);
+			GetComponent<OnceTrigger>()->LaunchFunction(L"EmptyBomb");
 		}
 	}
 
@@ -537,7 +552,7 @@ namespace basecross {
 		switch (type)
 		{
 		case modifiedClass::ItemType::Bomb:
-			if (m_bombCount < 9) {
+			if (m_bombCount < 20) {
 				// ”š’e‚ÌŽc’e‚ð‘‚â‚·
 				m_bombCount++;
 				InstantiateGameObject<OneShotUI>(
@@ -725,6 +740,10 @@ namespace basecross {
 			// ”š’e‚ð”­ŽË
 			Obj->BombLaunch();
 		}
+		else {
+			Obj->GetComponent<OnceTrigger>()->ResetFunction(L"EmptyBomb");
+		}
+
 		// ”š’eƒ‚[ƒh‚ðI—¹i’eƒ‚[ƒh‚Ö‘JˆÚj
 		if (!Obj->m_inputData.IsSwitchBombMode) {
 			Obj->m_weaponStateMachine->ChangeState(PlayerBulletModeState::Instance());

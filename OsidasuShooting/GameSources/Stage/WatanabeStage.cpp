@@ -46,6 +46,10 @@ namespace basecross {
 			CSVLoad::GetInstance()->RegisterFile(L"PlayerInfo", DataDir + L"CSV/" + L"PlayerInfo.csv");
 
 			PlayerStatus::GetInstance()->DataExtraction();
+			auto dir_ = App::GetApp()->GetDataDirWString();
+			auto path_ = dir_ + L"Csv/";
+			CSVLoad::GetInstance()->RegisterFile(L"PlayerInfo", path_ + L"PlayerInfo.csv");
+			CSVLoad::GetInstance()->RegisterFile(L"PlayerFollowUI", path_ + L"PlayerFollowUI.csv");
 
 			GameObjecttCSVBuilder builder;
 			builder.Register<Block>(L"Block");
@@ -63,7 +67,7 @@ namespace basecross {
 
 			m_itemCreation = AddGameObject<modifiedClass::ItemCreation>();
 			auto out = AddGameObject<ColorOut>();
-			out->SetActive(true);
+			//out->SetActive(true);
 			out->SetColor(Col4(1, 0, 0, 0.5f));
 			out->SetRange(1.0f, 0.95f);
 			out->SetRate(4.0f);
