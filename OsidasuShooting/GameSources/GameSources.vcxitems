@@ -20,6 +20,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Blinking.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\CameraArea.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Fencing_.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\OnceTrigger.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\ColorOut.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\PlayerCharaPicture.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Confetti.h" />
@@ -86,7 +87,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\InfoGauge.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BombReloadTimeGauge.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BombRemainingCount.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CurrentFirst.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CurrentRank.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\PlayerFollowUI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\PlayerInfo.h" />
@@ -120,6 +121,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Blinking.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\CameraArea.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Fencing_.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\OnceTrigger.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\ColorOut.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\PlayerCharaPicture.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Confetti.cpp" />
@@ -184,7 +186,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\InfoGauge.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BombReloadTimeGauge.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BombRemainingCount.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CurrentFirst.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CurrentRank.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\NumberSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\PlayerFollowUI.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\PlayerInfo.cpp" />

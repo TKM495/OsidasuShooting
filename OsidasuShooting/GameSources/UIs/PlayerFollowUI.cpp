@@ -33,6 +33,11 @@ namespace basecross {
 		bombCount->GetTransform()->SetParent(GetThis<PlayerFollowUI>());
 		m_objectsData.push_back(ObjectData(UIType::Bomb, bombCount));
 
+		auto rank = ObjectFactory::Create<CurrentRank>(GetStage(),
+			m_owner, TransformData());
+		rank->GetTransform()->SetParent(GetThis<PlayerFollowUI>());
+		m_objectsData.push_back(ObjectData(UIType::Rank, rank));
+
 		ApplyTransform();
 	}
 	void PlayerFollowUI::OnUpdate() {
@@ -59,6 +64,15 @@ namespace basecross {
 				if (m_owner->IsBombMode())
 					uiObject.UIObject->OnDraw();
 				break;
+			case UIType::Rank:
+			{
+				auto gameStage = GetTypeStage<GameStage>(false);
+				if (gameStage)
+					if (gameStage->IsTurnOff30Sec())
+						break;
+				uiObject.UIObject->OnDraw();
+			}
+			break;
 			default:
 				break;
 			}

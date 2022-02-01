@@ -21,8 +21,8 @@ namespace basecross {
 		float m_fadeTime;
 		// 時間計測用
 		float m_delta;
-		// 色
-		Col4 m_color;
+		float m_maxAlpha;
+		float m_minAlpha;
 	public:
 		/**
 		 * @brief コンストラクタ
@@ -35,18 +35,21 @@ namespace basecross {
 			m_bActive(false),
 			m_fadeTime(1.0f),
 			m_delta(0.0f),
-			m_color(Col4(0.0f))
+			m_maxAlpha(1),
+			m_minAlpha(0)
 		{}
 		virtual void OnUpdate()override;
-		virtual void OnDraw()override{}
+		virtual void OnDraw()override {}
 
 		/**
-		 * @brief フェード時の色の設定
+		 * @brief フェード時のアルファの範囲
 		 *
-		 * @param color 設定する色
+		 * @param max 最大
+		 * @param min 最小
 		 */
-		void SetFadeColor(Col4 color) {
-			m_color = color;
+		void SetFadeRange(float max, float min) {
+			m_maxAlpha = max;
+			m_minAlpha = min;
 		}
 
 		/**
@@ -86,6 +89,5 @@ namespace basecross {
 			return m_bActive;
 		}
 	};
-
 }
 //end basecross

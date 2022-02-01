@@ -1,6 +1,6 @@
 name,PosX,PosY,PosZ,ScaleX,ScaleY,ScaleZ,RotX, RotY, RotZ
 HoverTimeGauge,30,10,0,0.1,0.1,0.1,0,0,90
-BombReloadTimeGauge,-40,20,0,0.1,0.1,0.1,0,0,0
-BombRemainingCount,-25,18,0,0.25,0.25,0.25,0,0,0
-BattlePlayersUIs,-25,60,0,0.2,0.2,0.2,0,0,0
-BombBackGround,-40,20,0,0.2,0.2,0.2,0,0,0
+BombReloadTimeGauge,-40,20,0,0.11,0.11,0.11,0,0,0
+BombRemainingCount,-23,17,0,0.22,0.22,0.22,0,0,0
+BattlePlayersUIs,-25,60,0,0.22,0.22,0.22,0,0,0
+BombBackGround,-40,20,0,0.22,0.22,0.22,0,0,0

@@ -20,13 +20,15 @@ namespace basecross {
 		TimeCounter m_startDisplayTimer;
 		// ナンバーのオフセット位置
 		Vec3 m_offsetPos;
+		int m_lastValue;
 	public:
 		StartCountDown(const shared_ptr<Stage>& stage,
 			const TransformData& data)
 			:BaseUI(stage, data),
 			m_countDownTimer(3.0f),
 			m_startDisplayTimer(1.0f),
-			m_offsetPos(Vec3(-32.0f, 64.0f, 0.0f))
+			m_offsetPos(Vec3(-32.0f, 64.0f, 0.0f)),
+			m_lastValue(0)
 		{}
 
 		void OnCreate()override;
@@ -51,5 +53,23 @@ namespace basecross {
 		void OnCreate()override;
 		void OnUpdate()override;
 		void OnDraw()override;
+	};
+
+	class CountDown10Sec :public BaseUI {
+		vector<shared_ptr<Number>> m_numbers;
+		// カウントダウンタイマー
+		TimeCounter m_countDownTimer;
+		int m_countTime;
+		wstring m_textureKey;
+		vector<VertexPositionColorTexture> vertices;
+
+	public:
+		CountDown10Sec(const shared_ptr<Stage>& stage,
+			const TransformData& data)
+			:BaseUI(stage, data), m_countDownTimer(1, true),
+			m_countTime(0), m_textureKey(L"CountDownNumber")
+		{}
+		void OnCreate()override;
+		void OnUpdate()override;
 	};
 }

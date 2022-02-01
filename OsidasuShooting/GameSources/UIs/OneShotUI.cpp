@@ -46,7 +46,6 @@ namespace basecross {
 		AddComponent<LifeSpan>(m_lifeSpan + 0.5f);
 		auto fadeComp = AddComponent<FadeComponent>();
 		fadeComp->SetFadeTime(0.25f);
-		fadeComp->SetFadeColor(Col4(1));
 		fadeComp->FadeIn();
 	}
 

@@ -46,6 +46,10 @@ namespace basecross {
 			CSVLoad::GetInstance()->RegisterFile(L"PlayerInfo", DataDir + L"CSV/" + L"PlayerInfo.csv");
 
 			PlayerStatus::GetInstance()->DataExtraction();
+			auto dir_ = App::GetApp()->GetDataDirWString();
+			auto path_ = dir_ + L"Csv/";
+			CSVLoad::GetInstance()->RegisterFile(L"PlayerInfo", path_ + L"PlayerInfo.csv");
+			CSVLoad::GetInstance()->RegisterFile(L"PlayerFollowUI", path_ + L"PlayerFollowUI.csv");
 
 			GameObjecttCSVBuilder builder;
 			builder.Register<Block>(L"Block");
@@ -59,14 +63,13 @@ namespace basecross {
 			auto dir = App::GetApp()->GetDataDirWString();
 			auto path = dir + L"Csv/Stage/";
 			builder.Build(GetThis<Stage>(), path + L"Stage1.csv");
-			AddGameObject<CurrentFirst>();
 			AddGameObject<SimpleSprite>(L"BackGround00")->SetDrawLayer(-1);
 
 			m_itemCreation = AddGameObject<modifiedClass::ItemCreation>();
 			auto out = AddGameObject<ColorOut>();
-			out->SetActive(true);
-			out->SetColor(Col4(1, 1, 0, 0.5f));
-			out->SetRange(0.2f, 0.1f);
+			//out->SetActive(true);
+			out->SetColor(Col4(1, 0, 0, 0.5f));
+			out->SetRange(1.0f, 0.95f);
 			out->SetRate(4.0f);
 		}
 		catch (...) {
@@ -93,6 +96,9 @@ namespace basecross {
 		if (keyState.m_bPressedKeyTbl['A']) {
 			StageManager::GetInstance()->SetPlayerType(1, PlayerType::Laser);
 			PostEvent(0.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToWatanabeStage");
+		}
+		if (keyState.m_bPressedKeyTbl['P']) {
+			SoundManager::GetInstance()->Play(L"StartSE");
 		}
 	}
 

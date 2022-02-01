@@ -92,7 +92,7 @@ namespace basecross {
 		drawComp->SetDepthStencilState(DepthStencilState::Read);
 
 		auto fade = AddComponent<FadeComponent>();
-		fade->SetFadeColor(m_color);
+		fade->SetFadeRange(m_color.w, 0);
 
 		SetAlphaActive(true); // 透明をサポートする&両面描画になる
 		SetDrawLayer(2);

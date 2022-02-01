@@ -25,7 +25,8 @@ namespace basecross {
 		m_armorZeroWhenKnockBackMagnification(5), m_energyRecoveryAmount(10),
 		m_bombAimMovingDistance(20), m_respawnTimer(3.0f), m_isActive(true),
 		m_tackleTimer(0.5f, true), m_isDuringTackle(false), m_weight(1),
-		m_bulletAimLineLength(3), m_shieldRate(0.5f), m_debug(true)
+		m_bulletAimLineLength(3), m_shieldRate(0.5f), m_debug(true),
+		m_maxBombCount(20)
 	{
 		m_transformData = transData;
 		m_transformData.Scale *= 2.0f;
@@ -91,10 +92,33 @@ namespace basecross {
 		SoundManager::GetInstance()->InitPlayOverlap(L"HoverSE", 0.06f);
 		// 接地判定の情報を初期化
 		m_groundingDecision.SetRadius(GetTransform()->GetScale());
+
+		auto trigger = AddComponent<OnceTrigger>();
+		trigger->SetFunction(L"EmptyBomb",
+			[] {
+				SoundManager::GetInstance()->Play(L"EmptyBombSE", 0, 0.3f);
+			}
+		);
 	}
 
 	void PlayerBase::OnUpdate() {
 		m_respawnStateMachine->Update();
+
+		// 一位を目立たせるエフェクト再生処理
+		auto gameStage = GetTypeStage<GameStage>(false);
+		if (gameStage) {
+			if (gameStage->IsTurnOff30Sec()) {
+				auto efkComp = GetComponent<EfkComponent>();
+				if (PlayerManager::GetInstance()->GetSortedAllPlayer()[0] == GetThis<PlayerBase>()) {
+					if (!efkComp->IsPlaying(L"NumberOne")) {
+						efkComp->PlayLoop(L"NumberOne");
+					}
+				}
+				else {
+					efkComp->Stop(L"NumberOne");
+				}
+			}
+		}
 	}
 
 	void PlayerBase::NormalUpdate() {
@@ -134,20 +158,6 @@ namespace basecross {
 		m_bombCoolTimeTimer.Count();
 		// 吹っ飛びエフェクトの描画
 		KnockBackEffectDrawing();
-		auto countDown = GetStage()->GetSharedGameObject<CountDown>(L"ForCountDown", false);
-		if (countDown) {
-			if (countDown->GetTime() < 31) {
-				auto efkComp = GetComponent<EfkComponent>();
-				if (PlayerManager::GetInstance()->GetSortedAllPlayer()[0] == GetThis<PlayerBase>()) {
-					if (!efkComp->IsPlaying(L"NumberOne")) {
-						efkComp->PlayLoop(L"NumberOne");
-					}
-				}
-				else {
-					efkComp->Stop(L"NumberOne");
-				}
-			}
-		}
 	}
 
 	void PlayerBase::Move() {
@@ -329,22 +339,24 @@ namespace basecross {
 	}
 
 	void PlayerBase::BombLaunch() {
-		if (m_bombCount > 0 && m_bombCoolTimeTimer.IsTimeUp()) {
-			m_bombCoolTimeTimer.Reset();
-			if (m_debug) {
-				InstantiateGameObject<Bomb>(GetThis<PlayerBase>(),
-					m_predictionLine, GetTransform()->GetPosition(), GetTransform()->GetPosition() + m_bombPoint, m_bombPower);
+		if (m_bombCount > 0) {
+			if (m_bombCoolTimeTimer.IsTimeUp()) {
+				m_bombCoolTimeTimer.Reset();
+				if (m_debug) {
+					InstantiateGameObject<Bomb>(GetThis<PlayerBase>(),
+						m_predictionLine, GetTransform()->GetPosition(), GetTransform()->GetPosition() + m_bombPoint, m_bombPower);
+				}
+				else {
+					InstantiateGameObject<Bomb>(GetThis<PlayerBase>(),
+						m_predictionLine, GetTransform()->GetPosition(), m_bombPoint, m_bombPower);
+				}
+				// 残弾を減らす
+				m_bombCount--;
+				SoundManager::GetInstance()->Play(L"ThrowBombSE", 0, 0.3f);
 			}
-			else {
-				InstantiateGameObject<Bomb>(GetThis<PlayerBase>(),
-					m_predictionLine, GetTransform()->GetPosition(), m_bombPoint, m_bombPower);
-			}
-			// 残弾を減らす
-			m_bombCount--;
-			SoundManager::GetInstance()->Play(L"ThrowBombSE", 0, 0.3f);
 		}
 		else {
-			//SoundManager::GetInstance()->Play(L"EmptyBombSE", 0, 0.3f);
+			GetComponent<OnceTrigger>()->LaunchFunction(L"EmptyBomb");
 		}
 	}
 
@@ -480,9 +492,6 @@ namespace basecross {
 			}
 		}
 
-		// 爆弾の残弾をへらす
-		if (m_bombCount > 0)
-			m_bombCount--;
 		// 各種パラメータを初期化
 		ParameterReset();
 		// 速度を0に
@@ -493,8 +502,8 @@ namespace basecross {
 		OnRespawn();
 
 		// アイテムをスポーン
-		//if (gameStage)
-			//gameStage->GetItemCreation()->SpawnInRandPosition(modifiedClass::ItemType::Bomb);
+		if (gameStage)
+			gameStage->GetItemCreation()->SpawnInRandPosition(modifiedClass::ItemType::Bomb);
 		// 初期位置に戻る
 		GetTransform()->SetPosition(m_initialPosition);
 	}
@@ -535,12 +544,12 @@ namespace basecross {
 		switch (type)
 		{
 		case modifiedClass::ItemType::Bomb:
-			if (m_bombCount < 9) {
+			if (m_bombCount < m_maxBombCount) {
 				// 爆弾の残弾を増やす
 				m_bombCount++;
 				InstantiateGameObject<OneShotUI>(
 					GetThis<PlayerBase>(),
-					0.5f, L"BombPlus", TransformData(Vec3(0, 25, 0), Vec3(0.1f))
+					0.5f, L"BombPlus", TransformData(Vec3(0, 30, 0), Vec3(0.13f))
 					);
 				return true;
 			}
@@ -553,7 +562,7 @@ namespace basecross {
 			}
 			InstantiateGameObject<OneShotUI>(
 				GetThis<PlayerBase>(),
-				0.5f, L"EnergyPlus", TransformData(Vec3(0, 25, 0), Vec3(0.1f))
+				0.5f, L"EnergyPlus", TransformData(Vec3(0, 30, 0), Vec3(0.13f))
 				);
 			return true;
 		default:
@@ -712,7 +721,7 @@ namespace basecross {
 	}
 	void PlayerBase::PlayerBombModeState::Enter(const shared_ptr<PlayerBase>& Obj) {
 		Obj->m_isBombMode = true;
-		Obj->m_bombPoint = Utility::ChangeVectorLength(Obj->m_lastFrontDirection, 10);
+		Obj->m_bombPoint = Utility::ChangeVectorLength(Obj->m_lastFrontDirection, 2);
 	}
 	void PlayerBase::PlayerBombModeState::Execute(const shared_ptr<PlayerBase>& Obj) {
 		// 爆弾の照準
@@ -723,6 +732,10 @@ namespace basecross {
 			// 爆弾を発射
 			Obj->BombLaunch();
 		}
+		else {
+			Obj->GetComponent<OnceTrigger>()->ResetFunction(L"EmptyBomb");
+		}
+
 		// 爆弾モードを終了（弾モードへ遷移）
 		if (!Obj->m_inputData.IsSwitchBombMode) {
 			Obj->m_weaponStateMachine->ChangeState(PlayerBulletModeState::Instance());

@@ -110,11 +110,11 @@ namespace basecross {
 		app->RegisterTexture(L"StartEffect", path + L"StartEffect.png");
 
 		app->RegisterTexture(L"ColorOut", path + L"ColorOut.png");
+		app->RegisterTexture(L"CountDownNumber", path + L"CountDownNumber.png");
 
 		//残り時間
-		app->RegisterTexture(L"Remaining10Sec", path + L"Remaining10Sec.png");
-		app->RegisterTexture(L"Remaining20Sec", path + L"Remaining20Sec.png");
 		app->RegisterTexture(L"Remaining30Sec", path + L"Remaining30Sec.png");
+		app->RegisterTexture(L"Remaining60Sec", path + L"Remaining60Sec.png");
 
 		// テスト用スプライト
 		app->RegisterTexture(L"Test", path + L"test.png");
@@ -174,10 +174,14 @@ namespace basecross {
 		app->RegisterWav(L"WarningSE", path + L"Warning.wav");
 		app->RegisterWav(L"GetItemSE", path + L"GetItem.wav");
 		app->RegisterWav(L"BumperSE", path + L"Bumper.wav");
+		app->RegisterWav(L"CountDownSE", path + L"CountDown.wav");
+		app->RegisterWav(L"FinishSE", path + L"Finish.wav");
+		app->RegisterWav(L"StartSE", path + L"Start.wav");
 
 		// BGM
 		path = dir + L"Sound/BGM/";
 		app->RegisterWav(L"Game1BGM", path + L"Game1.wav");
+		app->RegisterWav(L"GameLastSpurtBGM", path + L"GameLastSpurt.wav");
 		app->RegisterWav(L"Game2BGM", path + L"Game2.wav");
 		app->RegisterWav(L"ResultBGM", path + L"Result.wav");
 		app->RegisterWav(L"SelectBGM", path + L"Select.wav");

@@ -6,9 +6,8 @@ namespace basecross {
 	class CountDown : public GameObject
 	{
 	private:
-		shared_ptr<SimpleSprite> remaining10sec;
-		shared_ptr<SimpleSprite> remaining20sec;
 		shared_ptr<SimpleSprite> remaining30sec;
+		shared_ptr<SimpleSprite> remaining60sec;
 
 		bool start;
 		bool reset;
@@ -46,7 +45,6 @@ namespace basecross {
 		float m_cur_scaleValue;
 		bool isContinuousIncreasion = false;
 		float expansionMaxRate;
-
 
 		bool doAdjustAlpha = false;
 		bool doAdjustColor = false;

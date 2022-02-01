@@ -130,9 +130,6 @@
     <Filter Include="Utility\BaseSingleton">
       <UniqueIdentifier>{ceb7806d-c494-437b-a221-eb7a4db6c0c2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="UI\CurrentFirst">
-      <UniqueIdentifier>{569781e7-47e0-407f-a42d-311bda4d21c3}</UniqueIdentifier>
-    </Filter>
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\Menu\BaseMenu.cpp">
       <Filter>Menu\BaseMenu</Filter>
     </ClCompile>
@@ -277,8 +274,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BombRemainingCount.cpp">
       <Filter>UI\BombRemainingCount</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CurrentFirst.cpp">
-      <Filter>UI\CurrentFirst</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\CurrentRank.cpp">
+      <Filter>UI\CurrentRank</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\PlayerFollowUI.cpp">
       <Filter>UI\PlayerFollowUI</Filter>
@@ -411,6 +408,9 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Fencing_.cpp">
       <Filter>StageObject\Block</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\OnceTrigger.cpp">
+      <Filter>StageObject\OnceTrigger</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -572,8 +572,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BombRemainingCount.h">
       <Filter>UI\BombRemainingCount</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CurrentFirst.h">
-      <Filter>UI\CurrentFirst</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\CurrentRank.h">
+      <Filter>UI\CurrentRank</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\PlayerFollowUI.h">
       <Filter>UI\PlayerFollowUI</Filter>
@@ -706,6 +706,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Fencing_.h">
       <Filter>StageObject\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\OnceTrigger.h">
+      <Filter>StageObject\OnceTrigger</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1003,6 +1006,12 @@
     </Filter>
     <Filter Include="UI\ColorOut">
       <UniqueIdentifier>{308ee185-c1f7-48e7-89a7-5cd331d38e9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StageObject\OnceTrigger">
+      <UniqueIdentifier>{c70c5c3e-2800-45cb-8e08-00049e3c478e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\CurrentRank">
+      <UniqueIdentifier>{569781e7-47e0-407f-a42d-311bda4d21c3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -43,9 +43,7 @@ namespace basecross {
 			auto path = dir + L"Csv/Stage/";
 			builder.Build(GetThis<Stage>(), path + L"Stage1.csv");
 
-			AddGameObject<CurrentFirst>();
-
-			auto countDown = AddGameObject<CountDown>(90.0f);
+			auto countDown = AddGameObject<CountDown>(40.0f);
 			SetSharedGameObject(L"ForCountDown", countDown);
 			countDown->SetDrawLayer(1);
 			m_startCountDown = AddGameObject<StartCountDown>(TransformData());
@@ -54,11 +52,25 @@ namespace basecross {
 			AddGameObject<TransitionSprite>()->FadeOut();
 			SoundManager::GetInstance()->PlayLoop(L"Game1BGM");
 
-			//AddGameObject<ReflectorBlock>(TransformData(Vec3(0,1,-5), Vec3(2)));
-			//AddGameObject<BreakBlock>(TransformData(Vec3(0,1,2), Vec3(2)),5,3);
-			//AddGameObject<MoveBlock>(TransformData(Vec3(5, 2, -4), Vec3(2)),Vec3(-9,2,-8));
-			//AddGameObject<MoveBlock>(TransformData(Vec3(-13, 2, -4), Vec3(2)),Vec3(13,2,-8));
-			//AddGameObject<MoveBlock>(TransformData(Vec3(0, 2, 9), Vec3(2)),Vec3(0,2,-8));
+			auto out = AddGameObject<ColorOut>();
+			out->SetColor(Col4(1, 0.5f, 0, 0));
+			out->SetRange(0.3f, 0.1f);
+			out->SetRate(4.0f);
+			auto trigger = AddGameObject<OnceTriggerObject>();
+			trigger->SetFunction(
+				L"Remaining30Sec",
+				[=]() {
+					out->SetActive(true);
+					Remaining30Sec();
+				}
+			);
+			trigger->SetFunction(
+				L"Remaining10Sec",
+				[this] {
+					SoundManager::GetInstance()->Play(L"WarningSE");
+					AddGameObject<CountDown10Sec>(TransformData());
+				}
+			);
 		}
 		catch (...) {
 			throw;
@@ -85,6 +97,17 @@ namespace basecross {
 		case GameState::PLAYING:
 			// ƒAƒCƒeƒ€‚Ì¶¬
 			ItemGeneration();
+
+			if (m_countDown->GetTime() < 31.0f) {
+				m_isTurnOff30Sec = true;
+				auto trigger = GetSharedGameObject<OnceTriggerObject>(L"OnceTriggerObject");
+				trigger->LaunchFunction(L"Remaining30Sec");
+			}
+			if (m_countDown->GetTime() < 11.0f) {
+				auto trigger = GetSharedGameObject<OnceTriggerObject>(L"OnceTriggerObject");
+				trigger->LaunchFunction(L"Remaining10Sec");
+			}
+
 			if (m_countDown->GetTime() <= 1.0f) {
 				m_countDown->Stop();
 				m_utilTimer.Reset(2.0f);
@@ -132,5 +155,21 @@ namespace basecross {
 
 	GameStage::GameState GameStage::GetCurrentGameState() {
 		return m_gameState;
+	}
+
+	void GameStage::Remaining30Sec() {
+		SoundManager::GetInstance()->Stop(L"Game1BGM");
+		SoundManager::GetInstance()->Play(L"GameLastSpurtBGM");
+
+		const int count[4] = {
+			0,5,10,20
+		};
+
+		auto sortedPlayers = PlayerManager::GetInstance()->GetSortedAllPlayer();
+		int index = 0;
+		for (auto player : sortedPlayers) {
+			player->AddBombCount(count[index]);
+			index++;
+		}
 	}
 }
