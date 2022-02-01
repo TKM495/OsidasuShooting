@@ -5,9 +5,6 @@ namespace basecross {
 
 	class Item : public GameObject
 	{
-		shared_ptr<Blinking> blinking;
-
-
 		// (ˆê’èŠÔ)•b‚Æ‚µ‚Ä•\¦‚³‚ê‚Ä‚¢‚Ü‚·B
 		float stayTime = 3.0f;//@•¨‘Ì‚Ì”‘‚Ü‚éŠÔ
 
@@ -27,7 +24,6 @@ namespace basecross {
 
 		void OnCreate() override;
 		void OnUpdate() override;
-		void OnDestroy() override;
 
 
 		enum class ItemType {

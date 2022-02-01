@@ -193,9 +193,7 @@ namespace basecross {
 
 	void CountDown::BlinkingCreation()
 	{
-		auto stage = GetStage();
-		auto blinking = stage->AddGameObject<Blinking>();
-		stage->SetSharedGameObject(L"BlinkForCountDown", blinking);
+		auto blinking = AddComponent<Blinking>();
 		blinking->SetOriginalColor(redColor);
 
 
@@ -211,7 +209,7 @@ namespace basecross {
 	void CountDown::BlinkingProcess()
 	{
 
-		auto blinking = GetStage()->GetSharedGameObject<Blinking>(L"BlinkForCountDown");
+		auto blinking = GetComponent<Blinking>();
 		auto colon = GetStage()->GetSharedGameObject<Number>(L"ColonForCountDown");
 
 		BlinkingProcessStart();
@@ -233,7 +231,7 @@ namespace basecross {
 
 	void CountDown::BlinkingProcessStart()
 	{
-		auto blinking = GetStage()->GetSharedGameObject<Blinking>(L"BlinkForCountDown");
+		auto blinking = GetComponent<Blinking>();
 		auto colon = GetStage()->GetSharedGameObject<Number>(L"ColonForCountDown");
 		if (currentTime <= m_warningTime && m_warningTime > 0)
 		{
@@ -269,7 +267,7 @@ namespace basecross {
 
 	void CountDown::BlinkingProcessContinuation()
 	{
-		auto blinking = GetStage()->GetSharedGameObject<Blinking>(L"BlinkForCountDown");
+		auto blinking = GetComponent<Blinking>();
 		auto colon = GetStage()->GetSharedGameObject<Number>(L"ColonForCountDown");
 
 		if (doAdjustAlpha || doAdjustColor || doAdjustScale)

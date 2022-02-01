@@ -70,6 +70,7 @@ namespace basecross {
 				Vec3 minPosition = position - scale;
 				Vec3 maxPosition = position + scale;
 
+				//For push_back
 				if (isRandPosX && !isRandPosY && !isRandPosZ)
 				{
 					for (float x = minPosition.x + targetScale.x; x <= maxPosition.x - targetScale.x; x += 0.7f)
@@ -132,6 +133,7 @@ namespace basecross {
 
 					}
 				}
+				//For push_back..end
 
 			}
 		}

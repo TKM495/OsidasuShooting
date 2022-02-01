@@ -3,7 +3,7 @@
 
 namespace basecross {
 
-	class Blinking : public GameObject
+	class Blinking : public Component
 	{
 		//list of private variables
 	private:
@@ -46,13 +46,14 @@ namespace basecross {
 		void ProgressOfFading();
 		void SetAdjustColor(float colorValue);
 	public:
-		Blinking(const shared_ptr<Stage>& stage)
-			:GameObject(stage)
+		Blinking(const shared_ptr<GameObject>& gameObjectPtr)
+			:Component(gameObjectPtr)
 		{}
 
 		//override functions
 		void OnCreate() override;
 		void OnUpdate() override;
+		void OnDraw() override {}
 
 		//list of normal functions
 		void SetToggleTime(float inTime, float outTime, float blinkTime, float stayTime);
