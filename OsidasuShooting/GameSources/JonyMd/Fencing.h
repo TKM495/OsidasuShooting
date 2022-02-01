@@ -13,8 +13,6 @@ namespace basecross {
 		};
 
 		Status status = Fencing::Status::Showing;
-
-		shared_ptr<Blinking> blinking;
 		float blinkingTime;
 		float blinkShowTime;
 		float blinkHideTime;
@@ -28,11 +26,6 @@ namespace basecross {
 		Fencing(const shared_ptr<Stage>& stage)
 			:GameObject(stage)
 		{}
-
-		~Fencing()
-		{
-			GetStage()->RemoveGameObject<Blinking>(blinking);
-		}
 
 		void OnCreate() override;
 		void OnUpdate() override;

@@ -29,14 +29,14 @@ namespace basecross {
 		transform->SetPosition(position);
 		transform->SetScale(scale);
 
-		auto stage = GetStage();
-		blinking = stage->AddGameObject<Blinking>();
+		AddComponent<Blinking>();
 	}
 
 	void Fencing::OnUpdate()
 	{
 		auto& app = App::GetApp();
 		auto deltaTime = app->GetElapsedTime();
+		auto blinking = GetComponent<Blinking>();
 
 		timeChecker -= deltaTime;
 
