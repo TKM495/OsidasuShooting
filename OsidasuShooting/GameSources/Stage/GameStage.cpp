@@ -45,7 +45,7 @@ namespace basecross {
 
 			AddGameObject<CurrentFirst>();
 
-			auto countDown = AddGameObject<CountDown>(90.0f);
+			auto countDown = AddGameObject<CountDown>(31.0f);
 			SetSharedGameObject(L"ForCountDown", countDown);
 			countDown->SetDrawLayer(1);
 			m_startCountDown = AddGameObject<StartCountDown>(TransformData());
@@ -59,6 +59,17 @@ namespace basecross {
 			//AddGameObject<MoveBlock>(TransformData(Vec3(5, 2, -4), Vec3(2)),Vec3(-9,2,-8));
 			//AddGameObject<MoveBlock>(TransformData(Vec3(-13, 2, -4), Vec3(2)),Vec3(13,2,-8));
 			//AddGameObject<MoveBlock>(TransformData(Vec3(0, 2, 9), Vec3(2)),Vec3(0,2,-8));
+			auto out = AddGameObject<ColorOut>();
+			out->SetColor(Col4(1, 1, 0, 0.5f));
+			out->SetRange(0.2f, 0.1f);
+			out->SetRate(4.0f);
+			auto trigger = AddGameObject<OnceTrigger>();
+			trigger->SetFunction(
+				L"ColorOut",
+				[=]() {
+					out->SetActive(true);
+				}
+			);
 		}
 		catch (...) {
 			throw;
@@ -85,6 +96,12 @@ namespace basecross {
 		case GameState::PLAYING:
 			// ƒAƒCƒeƒ€‚Ì¶¬
 			ItemGeneration();
+
+			if (m_countDown->GetTime() <= 30.0f) {
+				auto trigger = GetSharedGameObject<OnceTrigger>(L"OnceTrigger");
+				trigger->LaunchFunction(L"ColorOut");
+			}
+
 			if (m_countDown->GetTime() <= 1.0f) {
 				m_countDown->Stop();
 				m_utilTimer.Reset(2.0f);

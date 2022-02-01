@@ -4,7 +4,7 @@
 namespace basecross {
 	void CountDown::OnCreate()
 	{
-		redColor = Col4(1.0f, 0.0f, 0.0f, 0.5f);
+		redColor = Col4(1.0f, 0.0f, 0.0f, 1.0f);
 		m_warningTime = 10.0f;
 		expansionMaxRate = 10;
 
@@ -136,15 +136,15 @@ namespace basecross {
 		remaining60sec = GetStage()->AddGameObject<SimpleSprite>(L"Remaining60Sec");
 
 		auto fade30 = remaining30sec->AddComponent<FadeComponent>();
-		fade30->SetFadeRange(redColor.w, 0);
+		fade30->SetFadeRange(0.5f, 0);
 		auto fade60 = remaining60sec->AddComponent<FadeComponent>();
-		fade60->SetFadeRange(redColor.w, 0);
+		fade60->SetFadeRange(0.5f, 0);
 
 		float screenHeight = 360;
 		auto numberSize = Utility::GetTextureSize(L"Number");
 		auto objs = GetStage()->GetGameObjectVec();
 
-		float newScale = m_scaleValue * 2.0f;
+		float newScale = m_scaleValue * 3.0f;
 		numberSize = (numberSize * newScale) / 2;
 		Vec3 scale = Vec3(newScale, newScale, newScale);
 		for (auto& obj : objs)
@@ -153,7 +153,7 @@ namespace basecross {
 			if (remaining == remaining30sec || remaining == remaining60sec)
 			{
 				auto drawing = remaining->GetComponent<PCTSpriteDraw>();
-				drawing->SetDiffuse(redColor);
+				drawing->SetDiffuse(Col4(1, 1, 1, 0.5f));
 
 				remaining->SetDrawActive(false);
 				auto transform = remaining->AddComponent<Transform>();

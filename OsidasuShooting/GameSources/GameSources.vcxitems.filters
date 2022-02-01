@@ -412,6 +412,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Fencing_.cpp">
       <Filter>StageObject\Block</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\OnceTrigger.cpp">
+      <Filter>StageObject\OnceTrigger</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -706,6 +709,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Fencing_.h">
       <Filter>StageObject\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\OnceTrigger.h">
+      <Filter>StageObject\OnceTrigger</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1003,6 +1009,9 @@
     </Filter>
     <Filter Include="UI\ColorOut">
       <UniqueIdentifier>{308ee185-c1f7-48e7-89a7-5cd331d38e9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StageObject\OnceTrigger">
+      <UniqueIdentifier>{c70c5c3e-2800-45cb-8e08-00049e3c478e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

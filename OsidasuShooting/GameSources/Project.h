@@ -45,6 +45,7 @@
 #include "StageObject/Confetti.h"
 #include "StageObject/CameraArea.h"
 #include "StageObject/Fencing_.h"
+#include "StageObject/OnceTrigger.h"
 //UI
 #include "UIs/InfoGauge.h"
 #include "UIs/BackPlanet.h"

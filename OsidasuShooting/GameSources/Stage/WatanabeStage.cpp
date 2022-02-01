@@ -65,8 +65,8 @@ namespace basecross {
 			m_itemCreation = AddGameObject<modifiedClass::ItemCreation>();
 			auto out = AddGameObject<ColorOut>();
 			out->SetActive(true);
-			out->SetColor(Col4(1, 1, 0, 0.5f));
-			out->SetRange(0.2f, 0.1f);
+			out->SetColor(Col4(1, 0, 0, 0.5f));
+			out->SetRange(1.0f, 0.95f);
 			out->SetRate(4.0f);
 		}
 		catch (...) {
