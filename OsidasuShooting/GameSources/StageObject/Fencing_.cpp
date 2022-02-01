@@ -42,8 +42,7 @@ namespace basecross {
 			shadowComp->SetMeshResource(L"DEFAULT_CUBE");
 
 			auto stage = GetStage();
-			auto blinking = stage->AddGameObject<Blinking>();
-			stage->SetSharedGameObject(L"BlinkForFencing", blinking);
+			auto blinking = AddComponent<Blinking>();
 		}
 
 		void Fencing::OnUpdate()
@@ -53,7 +52,7 @@ namespace basecross {
 
 			timeChecker -= deltaTime;
 
-			auto blinking = GetStage()->GetSharedGameObject<Blinking>(L"BlinkForFencing");
+			auto blinking = GetComponent<Blinking>();
 			if (status == Fencing::Status::Hiding || status == Fencing::Status::Showing)
 			{
 				bool showHideStatus = blinking->GetShowHideStatus();

@@ -36,7 +36,7 @@ namespace basecross {
 			AddComponent<PhysicalBehavior>();
 
 			auto stage = GetStage();
-			blinking = stage->AddGameObject<Blinking>();
+			blinking = AddComponent<Blinking>();
 			blinking->SetOriginalColor(drawComp->GetDiffuse());
 			blinking->SetOriginalColor(Col4(1, 0, 0, 0));
 
@@ -68,7 +68,6 @@ namespace basecross {
 			blinkTime -= deltaTime;
 			if (blinkTime < 0)
 			{
-				GetStage()->RemoveGameObject<Blinking>(blinking);
 				GetStage()->RemoveGameObject<Item>(GetThis<Item>());
 			}
 
@@ -79,16 +78,6 @@ namespace basecross {
 
 		void Item::OnDestroy()
 		{
-			auto objs = GetStage()->GetGameObjectVec();
-
-			for (auto obj : objs)
-			{
-				auto blinkingObj = dynamic_pointer_cast<Blinking>(obj);
-				if (blinkingObj == blinking)
-				{
-					GetStage()->RemoveGameObject<Blinking>(blinking);
-				}
-			}
 		}
 	}
 }
