@@ -84,6 +84,12 @@ namespace basecross {
 		case GameState::FADEOUT:
 			// フェードが終了したら
 			if (!TransitionSprite::GetInstance()->GetFade()->IsFadeActive()) {
+				m_startCountDown->IsStart(true);
+				auto allPlayer = PlayerManager::GetInstance()->GetAllPlayer();
+				for (auto player : allPlayer) {
+					player->SetActive(true);
+					player->GetComponent<EfkComponent>()->Play(L"Respawn");
+				}
 				ChangeGameState(GameState::STAY);
 			}
 			break;

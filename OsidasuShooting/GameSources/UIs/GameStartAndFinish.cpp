@@ -21,6 +21,9 @@ namespace basecross {
 		);
 	}
 	void StartCountDown::OnUpdate() {
+		if (!m_isStart)
+			return;
+
 		auto trigger = GetComponent<OnceTrigger>();
 
 		if (!m_countDownTimer.Count()) {
@@ -39,6 +42,9 @@ namespace basecross {
 	}
 
 	void StartCountDown::OnDraw() {
+		if (!m_isStart)
+			return;
+
 		if (!m_countDownTimer.IsTimeUp()) {
 			m_number->OnDraw();
 		}

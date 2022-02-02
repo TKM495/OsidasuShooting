@@ -109,6 +109,11 @@ namespace basecross {
 				m_bulletTimer.SetIntervalTime(nowInterval * 0.5f);
 			}
 		);
+
+		auto gameStage = GetTypeStage<GameStage>(false);
+		if (gameStage) {
+			SetActive(false);
+		}
 	}
 
 	void PlayerBase::OnUpdate() {
