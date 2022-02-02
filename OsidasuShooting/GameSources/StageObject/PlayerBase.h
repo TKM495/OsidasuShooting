@@ -170,6 +170,9 @@ namespace basecross {
 		// アクティブかどうか
 		bool m_isActive;
 
+		// 現在の重力
+		float m_currentGravity;
+
 		// 移動
 		void Move();
 		// 弾の照準発射

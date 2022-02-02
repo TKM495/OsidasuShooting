@@ -26,7 +26,7 @@ namespace basecross {
 		m_bombAimMovingDistance(20), m_respawnTimer(3.0f), m_isActive(true),
 		m_tackleTimer(0.5f, true), m_isDuringTackle(false), m_weight(1),
 		m_bulletAimLineLength(3), m_shieldRate(0.5f), m_debug(true),
-		m_maxBombCount(20)
+		m_maxBombCount(20), m_currentGravity(1)
 	{
 		m_transformData = transData;
 		m_transformData.Scale *= 2.0f;
@@ -85,6 +85,8 @@ namespace basecross {
 		// ステータスのセット
 		PlayerStatus::GetInstance()->SetPlayerData(GetThis<PlayerBase>());
 
+		m_currentGravity = GetComponent<Gravity>()->GetGravity().y;
+
 		// 各値の初期化
 		ParameterReset();
 		m_bombCount = m_defaultBombCount;
@@ -103,6 +105,8 @@ namespace basecross {
 			[this] {
 				auto nowInterval = m_bombCoolTimeTimer.GetIntervalTime();
 				m_bombCoolTimeTimer.SetIntervalTime(nowInterval * 0.5f);
+				nowInterval = m_bulletTimer.GetIntervalTime();
+				m_bulletTimer.SetIntervalTime(nowInterval * 0.5f);
 			}
 		);
 	}
@@ -223,7 +227,10 @@ namespace basecross {
 			StopHover();
 			return;
 		}
-		GetComponent<Gravity>()->SetGravityVerocityZero();
+
+		auto gravity = GetComponent<Gravity>();
+		gravity->SetGravityVerocityZero();
+		gravity->SetGravityZero();
 
 		// ホバーエフェクト
 		auto efkComp = GetComponent<EfkComponent>();
@@ -231,6 +238,7 @@ namespace basecross {
 			efkComp->Play(L"Hover");
 		}
 		SoundManager::GetInstance()->PlayOverlap(L"HoverSE", 0.4f);
+		Debug::GetInstance()->Log(L"Hover");
 	}
 
 	void PlayerBase::Tackle() {
@@ -403,6 +411,9 @@ namespace basecross {
 	void PlayerBase::StopHover() {
 		m_isHoverMode = false;
 		GetComponent<EfkComponent>()->Stop(L"Hover");
+		GetComponent<Gravity>()->SetGravity(Vec3(0, m_currentGravity, 0));
+		Debug::GetInstance()->Log(L"StopHover");
+
 		OnStopHover();
 	}
 
@@ -798,10 +809,9 @@ namespace basecross {
 	void PlayerBase::PlayerHoverState::Execute(const shared_ptr<PlayerBase>& Obj) {
 		if (Obj->m_inputData.IsJumpOrHover) {
 			// 遷移時に入力があった場合ホバーを行わない（一度離す必要がある）
-			if (!Obj->m_isInput) {
-				Obj->Hover();
-			}
-			if (Obj->GetComponent<Gravity>()->GetGravityVelocity().y < 0) {
+			if (!Obj->m_isInput ||
+				Obj->GetComponent<Gravity>()->GetGravityVelocity().y < 0 ||
+				Obj->m_isHoverMode) {
 				Obj->Hover();
 			}
 		}

@@ -35,7 +35,7 @@
         <!--弾の発射に使用するエネルギー(1発あたり)-->
         <EnergyUseInBulletShot>20</EnergyUseInBulletShot>
         <!--ホバーで消費するエネルギー(毎秒)-->
-        <UseEnergyInHover>60</UseEnergyInHover>
+        <UseEnergyInHover>55</UseEnergyInHover>
         <!--エネルギーの回復速度-->
         <EnergyRecoveryAmount>40</EnergyRecoveryAmount>
         <!--弾のサイズ-->
@@ -57,7 +57,7 @@
         <!--弾の発射に使用するエネルギー(1発あたり)-->
         <EnergyUseInBulletShot>35</EnergyUseInBulletShot>
         <!--ホバーで消費するエネルギー(毎秒)-->
-        <UseEnergyInHover>70</UseEnergyInHover>
+        <UseEnergyInHover>55</UseEnergyInHover>
         <!--エネルギーの回復速度-->
         <EnergyRecoveryAmount>40</EnergyRecoveryAmount>
         <!--弾のサイズ-->
