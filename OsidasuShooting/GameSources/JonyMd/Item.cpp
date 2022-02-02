@@ -35,9 +35,19 @@ namespace basecross {
 		{
 			auto transform = GetComponent<Transform>();
 			float maxDegree = 360.0f;
+			float minDegree = 0.0f;
 
 			rotationProcess += deltaTime;
-			float rotationY = rotationProcess * maxDegree / timePerRotation; // result is 0 to maxDegree within the time
+
+			float rotationY;
+			if (rotationProcess > timePerRotation)
+			{
+				rotationY = maxDegree;
+				rotationProcess = minDegree;
+			}else
+			{
+				rotationY = rotationProcess * maxDegree / timePerRotation; // result is minDegree to maxDegree within the time
+			}
 			rotationY = XMConvertToRadians(rotationY);
 
 			transform->SetRotation(Vec3(0.0f, rotationY, 0.0f));
