@@ -99,6 +99,12 @@ namespace basecross {
 				SoundManager::GetInstance()->Play(L"EmptyBombSE", 0, 0.3f);
 			}
 		);
+		trigger->SetFunction(L"ParamUp",
+			[this] {
+				auto nowInterval = m_bombCoolTimeTimer.GetIntervalTime();
+				m_bombCoolTimeTimer.SetIntervalTime(nowInterval * 0.5f);
+			}
+		);
 	}
 
 	void PlayerBase::OnUpdate() {
@@ -117,6 +123,7 @@ namespace basecross {
 				else {
 					efkComp->Stop(L"NumberOne");
 				}
+				GetComponent<OnceTrigger>()->LaunchFunction(L"ParamUp");
 			}
 		}
 	}

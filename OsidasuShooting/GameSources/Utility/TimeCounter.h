@@ -121,6 +121,15 @@ namespace basecross {
 		float GetElaspedTime() {
 			return m_elaspedTime;
 		}
+
+		/**
+		 * @brief Œv‘ªŠÔ‚ğæ“¾
+		 *
+		 * @return Œv‘ªŠÔ
+		 */
+		float GetIntervalTime() {
+			return m_intervalTime;
+		}
 	};
 }
 //end basecross

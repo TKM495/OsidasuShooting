@@ -43,7 +43,7 @@ namespace basecross {
 			auto path = dir + L"Csv/Stage/";
 			builder.Build(GetThis<Stage>(), path + L"Stage1.csv");
 
-			auto countDown = AddGameObject<CountDown>(40.0f);
+			auto countDown = AddGameObject<CountDown>(35.0f);
 			SetSharedGameObject(L"ForCountDown", countDown);
 			countDown->SetDrawLayer(1);
 			m_startCountDown = AddGameObject<StartCountDown>(TransformData());
@@ -110,7 +110,7 @@ namespace basecross {
 
 			if (m_countDown->GetTime() <= 1.0f) {
 				m_countDown->Stop();
-				m_utilTimer.Reset(2.0f);
+				m_utilTimer.Reset(3.0f);
 				AddGameObject<FinishSprite>(TransformData());
 				Debug::GetInstance()->Log(L"Finish!!!!!!");
 				ChangeGameState(GameState::CLEAR);
@@ -160,6 +160,7 @@ namespace basecross {
 	void GameStage::Remaining30Sec() {
 		SoundManager::GetInstance()->Stop(L"Game1BGM");
 		SoundManager::GetInstance()->Play(L"GameLastSpurtBGM");
+		SoundManager::GetInstance()->Play(L"WarningSE");
 
 		const int count[4] = {
 			0,5,10,20

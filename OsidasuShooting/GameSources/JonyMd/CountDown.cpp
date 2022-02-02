@@ -149,7 +149,7 @@ namespace basecross {
 				drawing->SetDiffuse(Col4(1, 1, 1, 0.5f));
 
 				remaining->SetDrawActive(false);
-				auto transform = GetComponent<Transform>();
+				auto transform = remaining->GetComponent<Transform>();
 				transform->SetScale(scale);
 
 				Vec3 position = transform->GetPosition();
