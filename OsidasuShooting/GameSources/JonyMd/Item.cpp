@@ -19,6 +19,9 @@ namespace basecross {
 		blinking->SetOriginalColor(drawComp->GetDiffuse());
 		blinking->SetOriginalColor(Col4(1,0,0,0));
 
+		//m_groundingDecision.SetRadius(transform->GetScale());
+		timePerRotation = 1.0f; // 0 to 360 degree will be happens within the defined second
+
 	}
 
 
@@ -26,6 +29,20 @@ namespace basecross {
 	{
 		auto& app = App::GetApp();
 		float deltaTime = app->GetElapsedTime();
+
+		//Rotation
+		if (doRotation)
+		{
+			auto transform = GetComponent<Transform>();
+			float maxDegree = 360.0f;
+
+			rotationProcess += deltaTime;
+			float rotationY = rotationProcess * maxDegree / timePerRotation; // result is 0 to maxDegree within the time
+			rotationY = XMConvertToRadians(rotationY);
+
+			transform->SetRotation(Vec3(0.0f, rotationY, 0.0f));
+		}
+		//Rotation...end
 
 		auto blinking = GetComponent<Blinking>();
 		if (stayTime > 0)
@@ -60,5 +77,12 @@ namespace basecross {
 		drawComp->SetDiffuse(color);
 
 
+
 	}//OnUpdate...end
+
+	void Item::OnCollisionEnter(shared_ptr<GameObject>& Other)
+	{
+		doRotation = true;
+
+	}
 }
