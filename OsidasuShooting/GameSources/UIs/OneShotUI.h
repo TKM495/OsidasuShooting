@@ -18,6 +18,8 @@ namespace basecross {
 		wstring m_textureKey;
 		TimeCounter m_timer;
 		shared_ptr<GameObject> m_owner;
+		// “®‚­•ûŒü
+		Vec3 m_movingDirection;
 	public:
 		OneShotUI(const shared_ptr<Stage>& stage,
 			const shared_ptr<GameObject>& owner,
@@ -29,6 +31,10 @@ namespace basecross {
 
 		void SetColor(const Col4 color) {
 			GetComponent<PCTSpriteDraw>()->SetDiffuse(color);
+		}
+
+		void SetMovingDirection(const Vec3& dir) {
+			m_movingDirection = dir;
 		}
 	};
 }

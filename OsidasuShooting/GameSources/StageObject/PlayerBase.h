@@ -170,6 +170,13 @@ namespace basecross {
 		// アクティブかどうか
 		bool m_isActive;
 
+		// 現在の重力
+		float m_currentGravity;
+
+		// アイテムを取得したときに呼ばれる関数
+		function<void(modifiedClass::ItemType)> m_itemCallback;
+		function<void(int)> m_addBombForRemainCB;
+
 		// 移動
 		void Move();
 		// 弾の照準発射
@@ -219,6 +226,8 @@ namespace basecross {
 		 * @brief 吹っ飛びのエフェクト描画
 		 */
 		void KnockBackEffectDrawing();
+		// 通常時の更新処理
+		void NormalInit();
 		// 通常時の更新処理
 		void NormalUpdate();
 		// 死んだときの初期化処理
@@ -322,11 +331,7 @@ namespace basecross {
 		 *
 		 * @param num 追加する残弾数
 		 */
-		void AddBombCount(int num) {
-			m_bombCount += num;
-			if (m_maxBombCount < m_bombCount)
-				m_bombCount = m_maxBombCount;
-		}
+		void AddBombCountForRemain30(int num);
 
 		/**
 		 * @brief 爆弾のクールタイムの割合を取得
@@ -421,6 +426,19 @@ namespace basecross {
 		 */
 		Vec3 GetVelocity() {
 			return GetComponent<PhysicalBehavior>()->GetVelocity();
+		}
+
+		/**
+		 * @brief アイテム取得時のコールバックを設定
+		 *
+		 * @param func 関数
+		 */
+		void SetItemCallback(function<void(modifiedClass::ItemType)> func) {
+			m_itemCallback = func;
+		}
+
+		void SetAddBombForRemainCB(function<void(int)> func) {
+			m_addBombForRemainCB = func;
 		}
 
 	private:

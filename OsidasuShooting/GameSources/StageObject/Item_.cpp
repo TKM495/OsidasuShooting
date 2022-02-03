@@ -41,6 +41,7 @@ namespace basecross {
 			blinking->SetOriginalColor(Col4(1, 0, 0, 0));
 
 			GetComponent<Transform>()->SetScale(Vec3(2));
+			AddTag(L"Item");
 		}
 
 		void Item::OnUpdate()

@@ -94,6 +94,9 @@ namespace basecross {
 
 	void EfkComponent::StopAll() {
 		m_manager->StopAllEffects();
+		for (auto& data : m_effectDataMap) {
+			data.second.IsLoop = false;
+		}
 	}
 
 	//void EfkComponent::SetPlaySpeed(float speed) {

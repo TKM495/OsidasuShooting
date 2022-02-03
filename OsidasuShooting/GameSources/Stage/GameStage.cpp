@@ -39,6 +39,7 @@ namespace basecross {
 			builder.Register<FallDecision>(L"FallDecision");
 			builder.Register<CameraArea>(L"CameraArea");
 			builder.Register<MoveBlock>(L"MovingBlock");
+			builder.Register<modifiedClass::Fencing>(L"Fencing");
 			auto dir = App::GetApp()->GetDataDirWString();
 			auto path = dir + L"Csv/Stage/";
 			builder.Build(GetThis<Stage>(), path + L"Stage1.csv");
@@ -84,6 +85,12 @@ namespace basecross {
 		case GameState::FADEOUT:
 			// フェードが終了したら
 			if (!TransitionSprite::GetInstance()->GetFade()->IsFadeActive()) {
+				m_startCountDown->IsStart(true);
+				auto allPlayer = PlayerManager::GetInstance()->GetAllPlayer();
+				for (auto player : allPlayer) {
+					player->SetActive(true);
+					player->GetComponent<EfkComponent>()->Play(L"Respawn");
+				}
 				ChangeGameState(GameState::STAY);
 			}
 			break;
@@ -110,7 +117,7 @@ namespace basecross {
 
 			if (m_countDown->GetTime() <= 1.0f) {
 				m_countDown->Stop();
-				m_utilTimer.Reset(2.0f);
+				m_utilTimer.Reset(3.0f);
 				AddGameObject<FinishSprite>(TransformData());
 				Debug::GetInstance()->Log(L"Finish!!!!!!");
 				ChangeGameState(GameState::CLEAR);
@@ -160,6 +167,7 @@ namespace basecross {
 	void GameStage::Remaining30Sec() {
 		SoundManager::GetInstance()->Stop(L"Game1BGM");
 		SoundManager::GetInstance()->Play(L"GameLastSpurtBGM");
+		SoundManager::GetInstance()->Play(L"WarningSE");
 
 		const int count[4] = {
 			0,5,10,20
@@ -168,8 +176,12 @@ namespace basecross {
 		auto sortedPlayers = PlayerManager::GetInstance()->GetSortedAllPlayer();
 		int index = 0;
 		for (auto player : sortedPlayers) {
-			player->AddBombCount(count[index]);
+			player->AddBombCountForRemain30(count[index]);
 			index++;
 		}
+
+		//auto statusUp = AddGameObject<SimpleSprite>(L"StatusUp");
+		//statusUp->AddComponent<FadeComponent>()->SetFadeRange(0.5f, 0);
+		//statusUp->GetTransform()->SetPosition(Vec3(0, 300, 0));
 	}
 }

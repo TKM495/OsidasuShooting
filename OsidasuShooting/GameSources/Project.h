@@ -81,6 +81,7 @@
 #include "Component/PCTGaugeSprite.h"
 #include "Component/PhysicalBehavior.h"
 #include "Component/CircleShadow.h"
+#include "Component/TangentWave.h"
 // メニュー
 #include "UIs/Menu/BaseMenu.h"
 // マネージャー

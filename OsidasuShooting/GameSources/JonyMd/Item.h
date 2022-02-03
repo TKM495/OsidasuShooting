@@ -5,6 +5,11 @@ namespace basecross {
 
 	class Item : public GameObject
 	{
+
+		GroundingDecision m_groundingDecision;
+		float rotationProcess = 0;
+		float timePerRotation;
+		bool doRotation = false;
 		// (ˆê’èŠÔ)•b‚Æ‚µ‚Ä•\¦‚³‚ê‚Ä‚¢‚Ü‚·B
 		float stayTime = 3.0f;//@•¨‘Ì‚Ì”‘‚Ü‚éŠÔ
 
@@ -24,22 +29,7 @@ namespace basecross {
 
 		void OnCreate() override;
 		void OnUpdate() override;
-
-
-		enum class ItemType {
-			Cube,
-			Sphere,
-			//Bomb,
-			//Energy,
-			//Debuff,
-			totalItems // do not delete , used for randomly get above value
-		};
-		ItemType spawnItem;
-
-		ItemType GetItemType()
-		{
-			return spawnItem;
-		}
+		void OnCollisionEnter(shared_ptr<GameObject>& Other);
 	};
 
 }

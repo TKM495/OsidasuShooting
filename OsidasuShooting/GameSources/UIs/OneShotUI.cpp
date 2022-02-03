@@ -8,7 +8,8 @@ namespace basecross {
 		const TransformData& transformData)
 		:BaseUI(stage, transformData),
 		m_owner(owner), m_lifeSpan(lifeSpan),
-		m_textureKey(texKey), m_state(State::FadeIn), m_timer(lifeSpan)
+		m_textureKey(texKey), m_state(State::FadeIn), m_timer(lifeSpan),
+		m_movingDirection(Vec3(0, 10, 0))
 	{}
 
 	void OneShotUI::OnCreate() {
@@ -76,6 +77,6 @@ namespace basecross {
 			auto uiPos = Utility::ConvertWorldToScreen(GetStage()->GetView(), ownerPos);
 			GetTransform()->SetPosition(uiPos + m_transformData.Position);
 		}
-		m_transformData.Position.y += App::GetApp()->GetElapsedTime() * 10;
+		m_transformData.Position += m_movingDirection * App::GetApp()->GetElapsedTime();
 	}
 }

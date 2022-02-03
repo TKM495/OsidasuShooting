@@ -412,6 +412,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\OnceTrigger.cpp">
       <Filter>StageObject\OnceTrigger</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\TangentWave.cpp">
+      <Filter>Component\TangentWave</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
@@ -709,6 +712,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\OnceTrigger.h">
       <Filter>StageObject\OnceTrigger</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\TangentWave.h">
+      <Filter>Component\TangentWave</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1012,6 +1018,9 @@
     </Filter>
     <Filter Include="UI\CurrentRank">
       <UniqueIdentifier>{569781e7-47e0-407f-a42d-311bda4d21c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\TangentWave">
+      <UniqueIdentifier>{bb01897d-ba39-40dc-9262-132be0c6a355}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
