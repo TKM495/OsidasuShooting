@@ -345,7 +345,7 @@ namespace basecross {
 		for (auto obj : objs) {
 			// CollisionObbコンポーネントがある場合
 			auto ColObb = obj->GetComponent<CollisionObb>(false);
-			if (ColObb) {
+			if (ColObb && obj->GetDrawActive()) {
 				auto Obb = ColObb->GetObb();
 				// OBBと線分の衝突判定
 				if (HitTest::SEGMENT_OBB(pos - Vec3(0, 10, 0), pos + Vec3(0, 10, 0), Obb))

@@ -1,6 +1,7 @@
 #pragma once
 #include "stdafx.h"
 #include "JonyMd/Blinking.h"
+#include "Utility/GroundingDecision.h"
 
 namespace basecross {
 	namespace modifiedClass {
@@ -14,7 +15,10 @@ namespace basecross {
 		class Item : public GameObject
 		{
 			ItemType spawnItem;
-			shared_ptr<Blinking> blinking;
+
+			GroundingDecision m_groundingDecision;
+			float rotationProcess = 0;
+			float timePerRotation;
 
 			// (ˆê’èŠÔ)•b‚Æ‚µ‚Ä•\¦‚³‚ê‚Ä‚¢‚Ü‚·B
 			float stayTime = 10.0f;//@•¨‘Ì‚Ì”‘‚Ü‚éŠÔ
