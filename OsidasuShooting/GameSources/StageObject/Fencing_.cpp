@@ -83,10 +83,10 @@ namespace basecross {
 			case Fencing::Status::Hiding:
 				timeChecker = hideTime - blinkingTime;
 				status = Fencing::Status::BlinkingToShow;
-				SetDrawActive(false);
+				SetActive(false);
 				break;
 			case Fencing::Status::BlinkingToShow:
-				SetDrawActive(true);
+				SetActive(true);
 
 				//blinking->SetToggleTime(blinkShowTime, blinkHideTime, blinkingTime);// showTime and hideTime has been swaped
 				//blinking->SetShowHide();

@@ -39,11 +39,12 @@ namespace basecross {
 			builder.Register<FallDecision>(L"FallDecision");
 			builder.Register<CameraArea>(L"CameraArea");
 			builder.Register<MoveBlock>(L"MovingBlock");
+			builder.Register<modifiedClass::Fencing>(L"Fencing");
 			auto dir = App::GetApp()->GetDataDirWString();
 			auto path = dir + L"Csv/Stage/";
 			builder.Build(GetThis<Stage>(), path + L"Stage1.csv");
 
-			auto countDown = AddGameObject<CountDown>(34.0f);
+			auto countDown = AddGameObject<CountDown>(70.0f);
 			SetSharedGameObject(L"ForCountDown", countDown);
 			countDown->SetDrawLayer(1);
 			m_startCountDown = AddGameObject<StartCountDown>(TransformData());
