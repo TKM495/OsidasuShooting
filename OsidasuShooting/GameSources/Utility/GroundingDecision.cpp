@@ -43,7 +43,8 @@ namespace basecross {
 						break;
 					}
 				}
-				if (hasTag)
+
+				if (hasTag || !obj->IsDrawActive())
 					continue;
 
 				auto Obb = ColObb->GetObb();

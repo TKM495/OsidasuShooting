@@ -26,7 +26,7 @@ namespace basecross {
 		m_bombAimMovingDistance(20), m_respawnTimer(3.0f), m_isActive(true),
 		m_tackleTimer(0.5f, true), m_isDuringTackle(false), m_weight(1),
 		m_bulletAimLineLength(3), m_shieldRate(0.5f), m_debug(true),
-		m_maxBombCount(20)
+		m_maxBombCount(20), m_currentGravity(1)
 	{
 		m_transformData = transData;
 		m_transformData.Scale *= 2.0f;
@@ -66,8 +66,6 @@ namespace basecross {
 		efkComp->IsSyncPosition(L"NumberOne", true);
 		efkComp->SetEffectResource(L"Buff", TransformData(Vec3(0), m_transformData.Scale));
 		efkComp->IsSyncPosition(L"Buff", true);
-		efkComp->SetEffectResource(L"Debuff", TransformData(Vec3(0), m_transformData.Scale));
-		efkComp->IsSyncPosition(L"Debuff", true);
 
 		// 武器ステートマシンの構築と設定
 		m_weaponStateMachine.reset(new StateMachine<PlayerBase>(GetThis<PlayerBase>()));
@@ -85,6 +83,8 @@ namespace basecross {
 		// ステータスのセット
 		PlayerStatus::GetInstance()->SetPlayerData(GetThis<PlayerBase>());
 
+		m_currentGravity = GetComponent<Gravity>()->GetGravity().y;
+
 		// 各値の初期化
 		ParameterReset();
 		m_bombCount = m_defaultBombCount;
@@ -99,26 +99,26 @@ namespace basecross {
 				SoundManager::GetInstance()->Play(L"EmptyBombSE", 0, 0.3f);
 			}
 		);
+		trigger->SetFunction(L"ParamUp",
+			[this] {
+				auto nowInterval = m_bombCoolTimeTimer.GetIntervalTime();
+				m_bombCoolTimeTimer.SetIntervalTime(nowInterval * 0.5f);
+				nowInterval = m_bulletTimer.GetIntervalTime();
+				m_bulletTimer.SetIntervalTime(nowInterval * 0.5f);
+			}
+		);
+
+		auto gameStage = GetTypeStage<GameStage>(false);
+		if (gameStage) {
+			SetActive(false);
+		}
 	}
 
 	void PlayerBase::OnUpdate() {
 		m_respawnStateMachine->Update();
+	}
 
-		// 一位を目立たせるエフェクト再生処理
-		auto gameStage = GetTypeStage<GameStage>(false);
-		if (gameStage) {
-			if (gameStage->IsTurnOff30Sec()) {
-				auto efkComp = GetComponent<EfkComponent>();
-				if (PlayerManager::GetInstance()->GetSortedAllPlayer()[0] == GetThis<PlayerBase>()) {
-					if (!efkComp->IsPlaying(L"NumberOne")) {
-						efkComp->PlayLoop(L"NumberOne");
-					}
-				}
-				else {
-					efkComp->Stop(L"NumberOne");
-				}
-			}
-		}
+	void PlayerBase::NormalInit() {
 	}
 
 	void PlayerBase::NormalUpdate() {
@@ -137,6 +137,26 @@ namespace basecross {
 			auto timeScale = gameStage->GetTimeScale();
 			auto grav = GetComponent<Gravity>();
 			grav->SetGravity(grav->GetGravity() * timeScale);
+
+			// 一位を目立たせるエフェクト再生処理
+			if (gameStage->IsTurnOff30Sec()) {
+				auto efkComp = GetComponent<EfkComponent>();
+				if (PlayerManager::GetInstance()->GetSortedAllPlayer()[0] == GetThis<PlayerBase>()) {
+					if (!efkComp->IsPlaying(L"NumberOne")) {
+						efkComp->PlayLoop(L"NumberOne");
+					}
+				}
+				else {
+					efkComp->Stop(L"NumberOne");
+				}
+
+				if (!efkComp->IsPlaying(L"Buff")) {
+					efkComp->PlayLoop(L"Buff");
+				}
+
+				auto trigger = GetComponent<OnceTrigger>();
+				trigger->LaunchFunction(L"ParamUp");
+			}
 		}
 
 		InputUpdate();
@@ -216,7 +236,10 @@ namespace basecross {
 			StopHover();
 			return;
 		}
-		GetComponent<Gravity>()->SetGravityVerocityZero();
+
+		auto gravity = GetComponent<Gravity>();
+		gravity->SetGravityVerocityZero();
+		gravity->SetGravityZero();
 
 		// ホバーエフェクト
 		auto efkComp = GetComponent<EfkComponent>();
@@ -396,6 +419,8 @@ namespace basecross {
 	void PlayerBase::StopHover() {
 		m_isHoverMode = false;
 		GetComponent<EfkComponent>()->Stop(L"Hover");
+		GetComponent<Gravity>()->SetGravity(Vec3(0, m_currentGravity, 0));
+
 		OnStopHover();
 	}
 
@@ -541,6 +566,9 @@ namespace basecross {
 	}
 
 	bool PlayerBase::ItemEffect(modifiedClass::ItemType type) {
+		if (m_itemCallback)
+			m_itemCallback(type);
+
 		switch (type)
 		{
 		case modifiedClass::ItemType::Bomb:
@@ -568,6 +596,21 @@ namespace basecross {
 		default:
 			return false;
 		}
+	}
+
+	void PlayerBase::AddBombCountForRemain30(int num) {
+		m_bombCount += num;
+		if (m_maxBombCount < m_bombCount)
+			m_bombCount = m_maxBombCount;
+
+		if (num != 0) {
+			InstantiateGameObject<OneShotUI>(
+				GetThis<PlayerBase>(),
+				0.5f, L"BombPlus" + Util::IntToWStr(num), TransformData(Vec3(0, 30, 0), Vec3(0.13f))
+				);
+		}
+		if (m_addBombForRemainCB)
+			m_addBombForRemainCB(num);
 	}
 
 	void PlayerBase::TestFanc() {
@@ -616,7 +659,7 @@ namespace basecross {
 				);
 		}
 		if (keyState.m_bPressedKeyTbl['8']) {
-			GetComponent<EfkComponent>()->PlayLoop(L"Debuff");
+			GetComponent<EfkComponent>()->PlayLoop(L"Buff");
 		}
 		if (keyState.m_bPressedKeyTbl['9'] &&
 			m_playerNumber == PlayerNumber::P1) {
@@ -683,6 +726,10 @@ namespace basecross {
 	void PlayerBase::PlayerDiedState::Enter(const shared_ptr<PlayerBase>& Obj) {
 		Obj->DiedInit();
 		Obj->m_respawnTimer.Reset();
+		// すべてのエフェクトを停止
+		auto efkComp = Obj->GetComponent<EfkComponent>();
+		efkComp->Stop(L"Buff");
+		efkComp->Stop(L"NumberOne");
 	}
 	void PlayerBase::PlayerDiedState::Execute(const shared_ptr<PlayerBase>& Obj) {
 		if (Obj->m_respawnTimer.Count())
@@ -791,10 +838,9 @@ namespace basecross {
 	void PlayerBase::PlayerHoverState::Execute(const shared_ptr<PlayerBase>& Obj) {
 		if (Obj->m_inputData.IsJumpOrHover) {
 			// 遷移時に入力があった場合ホバーを行わない（一度離す必要がある）
-			if (!Obj->m_isInput) {
-				Obj->Hover();
-			}
-			if (Obj->GetComponent<Gravity>()->GetGravityVelocity().y < 0) {
+			if (!Obj->m_isInput ||
+				Obj->GetComponent<Gravity>()->GetGravityVelocity().y < 0 ||
+				Obj->m_isHoverMode) {
 				Obj->Hover();
 			}
 		}

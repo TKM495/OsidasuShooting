@@ -29,6 +29,7 @@ namespace basecross {
 		PtrColl->SetAfterCollision(AfterCollision::None);
 		// オーナーと弾との当たり判定を無視
 		PtrColl->AddExcludeCollisionTag(L"Bullet");
+		PtrColl->AddExcludeCollisionTag(L"Item");
 
 		// 発射方向に正面を向ける
 		auto rad = atan2f(-m_direction.z, m_direction.x) + XM_PIDIV2;

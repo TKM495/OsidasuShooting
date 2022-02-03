@@ -21,6 +21,7 @@ namespace basecross {
 		// ナンバーのオフセット位置
 		Vec3 m_offsetPos;
 		int m_lastValue;
+		bool m_isStart;
 	public:
 		StartCountDown(const shared_ptr<Stage>& stage,
 			const TransformData& data)
@@ -28,7 +29,7 @@ namespace basecross {
 			m_countDownTimer(3.0f),
 			m_startDisplayTimer(1.0f),
 			m_offsetPos(Vec3(-32.0f, 64.0f, 0.0f)),
-			m_lastValue(0)
+			m_lastValue(0), m_isStart(false)
 		{}
 
 		void OnCreate()override;
@@ -37,6 +38,10 @@ namespace basecross {
 
 		TimeCounter GetTimer()const {
 			return m_countDownTimer;
+		}
+
+		void IsStart(bool flg) {
+			m_isStart = flg;
 		}
 	};
 

@@ -132,8 +132,15 @@ namespace basecross {
 
 		auto fade30 = remaining30sec->AddComponent<FadeComponent>();
 		fade30->SetFadeRange(0.5f, 0);
+		auto tan30 = remaining30sec->AddComponent<TangentWave>(XMConvertToRadians(90));
+		tan30->SetMoveDirection(Vec3(1, 0, 0));
+		tan30->SetTimeRate(1.1f);
+
 		auto fade60 = remaining60sec->AddComponent<FadeComponent>();
 		fade60->SetFadeRange(0.5f, 0);
+		auto tan60 = remaining60sec->AddComponent<TangentWave>(XMConvertToRadians(90));
+		tan60->SetMoveDirection(Vec3(1, 0, 0));
+		tan60->SetTimeRate(1.1f);
 
 		float screenHeight = 360;
 		auto numberSize = Utility::GetTextureSize(L"Number");
@@ -148,8 +155,8 @@ namespace basecross {
 				auto drawing = remaining->GetComponent<PCTSpriteDraw>();
 				drawing->SetDiffuse(Col4(1, 1, 1, 0.5f));
 
-				remaining->SetDrawActive(false);
-				auto transform = GetComponent<Transform>();
+				remaining->SetActive(false);
+				auto transform = remaining->GetComponent<Transform>();
 				transform->SetScale(scale);
 
 				Vec3 position = transform->GetPosition();
@@ -162,11 +169,11 @@ namespace basecross {
 
 	void CountDown::RemainingSpriteShowing() {
 		if (currentTime <= 60.999 && currentTime >= 59) {
-			remaining60sec->SetDrawActive(true);
+			remaining60sec->SetActive(true);
 			remaining60sec->GetComponent<FadeComponent>()->FadeOut();
 		}
 		else if (currentTime <= 30.999 && currentTime >= 29) {
-			remaining30sec->SetDrawActive(true);
+			remaining30sec->SetActive(true);
 			remaining30sec->GetComponent<FadeComponent>()->FadeOut();
 		}
 	} // RemainingSpriteShowing...end
