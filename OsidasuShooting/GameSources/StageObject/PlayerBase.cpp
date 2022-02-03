@@ -564,6 +564,9 @@ namespace basecross {
 	}
 
 	bool PlayerBase::ItemEffect(modifiedClass::ItemType type) {
+		if (m_itemCallback)
+			m_itemCallback(type);
+
 		switch (type)
 		{
 		case modifiedClass::ItemType::Bomb:

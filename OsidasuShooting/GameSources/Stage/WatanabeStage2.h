@@ -12,6 +12,8 @@ namespace basecross {
 		//ƒrƒ…[‚Ìì¬
 		void CreateViewLight();
 		shared_ptr<Confetti> m_confetti;
+		shared_ptr<AdvancedGameObject> m_obj;
+		float m_time = 0;
 	public:
 		//\’z‚Æ”jŠü
 		WatanabeStage2() :Stage() {}

@@ -17,6 +17,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Camera\GameCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\CircleShadow.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Camera\TitleCamera.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\TangentWave.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)JonyMd\Blinking.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\CameraArea.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\Fencing_.h" />
@@ -118,6 +119,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Camera\GameCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\CircleShadow.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Camera\TitleCamera.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\TangentWave.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)JonyMd\Blinking.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\CameraArea.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\Fencing_.cpp" />

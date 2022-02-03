@@ -58,6 +58,10 @@ namespace basecross {
 		ApplyTransform();
 
 		m_lastKillCount = m_owner->GetCountKilledPlayer();
+		m_owner->SetItemCallback([this](modifiedClass::ItemType type) {
+			ItemGet(type);
+			}
+		);
 	}
 	void PlayerInfo::OnUpdate() {
 		for (auto uiObject : m_uiObjects) {
@@ -83,6 +87,34 @@ namespace basecross {
 	void PlayerInfo::OnDraw() {
 		for (auto uiObject : m_uiObjects) {
 			uiObject->OnDraw();
+		}
+	}
+
+	void PlayerInfo::ItemGet(modifiedClass::ItemType type) {
+		auto transData = TransformData(
+			m_transformData.Position + Vec3(40, 10, 0),
+			Vec3(0.2f)
+		);
+		switch (type)
+		{
+		case modifiedClass::ItemType::Bomb:
+		{
+			auto obj = InstantiateGameObject<OneShotUI>(
+				nullptr,
+				1.0f, L"BombPlus", transData
+				);
+		}
+		break;
+		case modifiedClass::ItemType::Energy:
+		{
+			auto obj = InstantiateGameObject<OneShotUI>(
+				nullptr,
+				1.0f, L"EnergyPlus", transData
+				);
+		}
+		break;
+		default:
+			break;
 		}
 	}
 }

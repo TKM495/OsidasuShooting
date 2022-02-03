@@ -98,7 +98,8 @@ namespace basecross {
 			PostEvent(0.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToWatanabeStage");
 		}
 		if (keyState.m_bPressedKeyTbl['P']) {
-			SoundManager::GetInstance()->Play(L"StartSE");
+			SoundManager::GetInstance()->Play(L"FinishSE", 0, 1);
+			Debug::GetInstance()->Log(L"PlaySE");
 		}
 	}
 

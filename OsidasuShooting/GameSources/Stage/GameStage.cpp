@@ -43,7 +43,7 @@ namespace basecross {
 			auto path = dir + L"Csv/Stage/";
 			builder.Build(GetThis<Stage>(), path + L"Stage1.csv");
 
-			auto countDown = AddGameObject<CountDown>(35.0f);
+			auto countDown = AddGameObject<CountDown>(64.0f);
 			SetSharedGameObject(L"ForCountDown", countDown);
 			countDown->SetDrawLayer(1);
 			m_startCountDown = AddGameObject<StartCountDown>(TransformData());

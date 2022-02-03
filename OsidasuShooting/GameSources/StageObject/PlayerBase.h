@@ -173,6 +173,9 @@ namespace basecross {
 		// 現在の重力
 		float m_currentGravity;
 
+		// アイテムを取得したときに呼ばれる関数
+		function<void(modifiedClass::ItemType)> m_itemCallback;
+
 		// 移動
 		void Move();
 		// 弾の照準発射
@@ -424,6 +427,15 @@ namespace basecross {
 		 */
 		Vec3 GetVelocity() {
 			return GetComponent<PhysicalBehavior>()->GetVelocity();
+		}
+
+		/**
+		 * @brief アイテム取得時のコールバックを設定
+		 *
+		 * @param func 関数
+		 */
+		void SetItemCallback(function<void(modifiedClass::ItemType)> func) {
+			m_itemCallback = func;
 		}
 
 	private:

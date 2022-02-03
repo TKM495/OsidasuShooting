@@ -36,23 +36,10 @@ namespace basecross {
 
 			PlayerStatus::GetInstance()->DataExtraction();
 
-			GameObjecttCSVBuilder builder;
-			builder.Register<Block>(L"Block");
-			builder.Register<Bumper>(L"Bumper");
-			builder.Register<ReflectorBlock>(L"Reflector");
-			builder.Register<BreakBlock>(L"BreakableBlock");
-			builder.Register<PlayerBuilder>(L"Player");
-			builder.Register<FallDecision>(L"FallDecision");
-			builder.Register<MoveBlock>(L"MovingBlock");
-			builder.Register<CameraArea>(L"CameraArea");
-			dir = App::GetApp()->GetDataDirWString();
-			path = dir + L"Csv/Stage/";
-			builder.Build(GetThis<Stage>(), path + L"TitleStage.csv");
-			AddGameObject<SimpleSprite>(L"BackGround00")->SetDrawLayer(-1);
-
 			//m_confetti = AddGameObject<Confetti>(TransformData(Vec3(0, 5, 0)));
-			AddGameObject<TitleSprite>(L"Title");
-			AddGameObject<PushAButtonSprite>(L"PushAButton");
+
+			m_obj = AddGameObject<SimpleSprite>(L"Remaining60Sec");
+			m_time = XMConvertToRadians(90);
 		}
 		catch (...) {
 			throw;
@@ -67,5 +54,13 @@ namespace basecross {
 		if (keyState.m_bPressedKeyTbl['W']) {
 			//m_confetti->GetComponent<EfkComponent>()->Play(L"Hit");
 		}
+
+		auto trans = m_obj->GetTransform();
+		auto t = XMConvertToRadians(tanf(m_time)) * 2000;
+		auto pos = Vec3(t, 0, 0);
+		trans->SetPosition(pos);
+		Debug::GetInstance()->Log(t);
+		Debug::GetInstance()->Log(m_time);
+		m_time += App::GetApp()->GetElapsedTime();
 	}
 }
