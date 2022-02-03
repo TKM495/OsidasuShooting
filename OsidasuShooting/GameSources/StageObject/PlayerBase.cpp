@@ -243,7 +243,6 @@ namespace basecross {
 			efkComp->Play(L"Hover");
 		}
 		SoundManager::GetInstance()->PlayOverlap(L"HoverSE", 0.4f);
-		Debug::GetInstance()->Log(L"Hover");
 	}
 
 	void PlayerBase::Tackle() {
@@ -417,7 +416,6 @@ namespace basecross {
 		m_isHoverMode = false;
 		GetComponent<EfkComponent>()->Stop(L"Hover");
 		GetComponent<Gravity>()->SetGravity(Vec3(0, m_currentGravity, 0));
-		Debug::GetInstance()->Log(L"StopHover");
 
 		OnStopHover();
 	}
@@ -594,6 +592,21 @@ namespace basecross {
 		default:
 			return false;
 		}
+	}
+
+	void PlayerBase::AddBombCountForRemain30(int num) {
+		m_bombCount += num;
+		if (m_maxBombCount < m_bombCount)
+			m_bombCount = m_maxBombCount;
+
+		if (num != 0) {
+			InstantiateGameObject<OneShotUI>(
+				GetThis<PlayerBase>(),
+				0.5f, L"BombPlus" + Util::IntToWStr(num), TransformData(Vec3(0, 30, 0), Vec3(0.13f))
+				);
+		}
+		if (m_addBombForRemainCB)
+			m_addBombForRemainCB(num);
 	}
 
 	void PlayerBase::TestFanc() {

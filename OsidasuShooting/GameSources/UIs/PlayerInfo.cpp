@@ -62,6 +62,10 @@ namespace basecross {
 			ItemGet(type);
 			}
 		);
+		m_owner->SetAddBombForRemainCB([this](int num) {
+			AddBombForRemain30(num);
+			}
+		);
 	}
 	void PlayerInfo::OnUpdate() {
 		for (auto uiObject : m_uiObjects) {
@@ -92,8 +96,8 @@ namespace basecross {
 
 	void PlayerInfo::ItemGet(modifiedClass::ItemType type) {
 		auto transData = TransformData(
-			m_transformData.Position + Vec3(40, 10, 0),
-			Vec3(0.2f)
+			m_transformData.Position + Vec3(0, 0, 0),
+			Vec3(0.13f)
 		);
 		switch (type)
 		{
@@ -116,5 +120,20 @@ namespace basecross {
 		default:
 			break;
 		}
+	}
+
+	void PlayerInfo::AddBombForRemain30(int num) {
+		if (num == 0)
+			return;
+		auto transData = TransformData(
+			m_transformData.Position + Vec3(0, 20, 0),
+			Vec3(0.2f)
+		);
+
+		auto texKey = L"BombPlus" + Util::IntToWStr(num);
+		auto obj = InstantiateGameObject<OneShotUI>(
+			nullptr,
+			1.0f, texKey, transData
+			);
 	}
 }

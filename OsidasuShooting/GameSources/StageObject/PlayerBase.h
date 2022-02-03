@@ -175,6 +175,7 @@ namespace basecross {
 
 		// アイテムを取得したときに呼ばれる関数
 		function<void(modifiedClass::ItemType)> m_itemCallback;
+		function<void(int)> m_addBombForRemainCB;
 
 		// 移動
 		void Move();
@@ -328,11 +329,7 @@ namespace basecross {
 		 *
 		 * @param num 追加する残弾数
 		 */
-		void AddBombCount(int num) {
-			m_bombCount += num;
-			if (m_maxBombCount < m_bombCount)
-				m_bombCount = m_maxBombCount;
-		}
+		void AddBombCountForRemain30(int num);
 
 		/**
 		 * @brief 爆弾のクールタイムの割合を取得
@@ -436,6 +433,10 @@ namespace basecross {
 		 */
 		void SetItemCallback(function<void(modifiedClass::ItemType)> func) {
 			m_itemCallback = func;
+		}
+
+		void SetAddBombForRemainCB(function<void(int)> func) {
+			m_addBombForRemainCB = func;
 		}
 
 	private:

@@ -116,6 +116,10 @@ namespace basecross {
 		app->RegisterTexture(L"Remaining30Sec", path + L"Remaining30Sec.png");
 		app->RegisterTexture(L"Remaining60Sec", path + L"Remaining60Sec.png");
 
+		app->RegisterTexture(L"BombPlus5", path + L"BombPlus5.png");
+		app->RegisterTexture(L"BombPlus10", path + L"BombPlus10.png");
+		app->RegisterTexture(L"BombPlus20", path + L"BombPlus20.png");
+
 		// テスト用スプライト
 		app->RegisterTexture(L"Test", path + L"test.png");
 

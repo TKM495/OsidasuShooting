@@ -43,7 +43,7 @@ namespace basecross {
 			auto path = dir + L"Csv/Stage/";
 			builder.Build(GetThis<Stage>(), path + L"Stage1.csv");
 
-			auto countDown = AddGameObject<CountDown>(64.0f);
+			auto countDown = AddGameObject<CountDown>(34.0f);
 			SetSharedGameObject(L"ForCountDown", countDown);
 			countDown->SetDrawLayer(1);
 			m_startCountDown = AddGameObject<StartCountDown>(TransformData());
@@ -175,7 +175,7 @@ namespace basecross {
 		auto sortedPlayers = PlayerManager::GetInstance()->GetSortedAllPlayer();
 		int index = 0;
 		for (auto player : sortedPlayers) {
-			player->AddBombCount(count[index]);
+			player->AddBombCountForRemain30(count[index]);
 			index++;
 		}
 	}
