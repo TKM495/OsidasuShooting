@@ -56,6 +56,7 @@
 #include "UIs/Canvas.h"
 #include "UIs/CharaSelectUIs.h"
 #include "UIs/CharaSelectUISprites.h"
+#include "UIs/CreateUISprite.h"
 #include "UIs/CurrentRank.h"
 #include "UIs/FreamSprite.h"
 #include "UIs/NumberSprite.h"
