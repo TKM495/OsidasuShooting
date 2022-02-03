@@ -66,8 +66,6 @@ namespace basecross {
 		efkComp->IsSyncPosition(L"NumberOne", true);
 		efkComp->SetEffectResource(L"Buff", TransformData(Vec3(0), m_transformData.Scale));
 		efkComp->IsSyncPosition(L"Buff", true);
-		efkComp->SetEffectResource(L"Debuff", TransformData(Vec3(0), m_transformData.Scale));
-		efkComp->IsSyncPosition(L"Debuff", true);
 
 		// 武器ステートマシンの構築と設定
 		m_weaponStateMachine.reset(new StateMachine<PlayerBase>(GetThis<PlayerBase>()));
@@ -101,6 +99,11 @@ namespace basecross {
 				SoundManager::GetInstance()->Play(L"EmptyBombSE", 0, 0.3f);
 			}
 		);
+		trigger->SetFunction(L"TurnOff30Sec",
+			[this] {
+				NormalInit();
+			}
+		);
 		trigger->SetFunction(L"ParamUp",
 			[this] {
 				auto nowInterval = m_bombCoolTimeTimer.GetIntervalTime();
@@ -123,17 +126,26 @@ namespace basecross {
 		auto gameStage = GetTypeStage<GameStage>(false);
 		if (gameStage) {
 			if (gameStage->IsTurnOff30Sec()) {
-				auto efkComp = GetComponent<EfkComponent>();
-				if (PlayerManager::GetInstance()->GetSortedAllPlayer()[0] == GetThis<PlayerBase>()) {
-					if (!efkComp->IsPlaying(L"NumberOne")) {
-						efkComp->PlayLoop(L"NumberOne");
-					}
-				}
-				else {
-					efkComp->Stop(L"NumberOne");
-				}
-				GetComponent<OnceTrigger>()->LaunchFunction(L"ParamUp");
+				auto trigger = GetComponent<OnceTrigger>();
+				trigger->LaunchFunction(L"TurnOff30Sec");
+				trigger->LaunchFunction(L"ParamUp");
 			}
+		}
+	}
+
+	void PlayerBase::NormalInit() {
+		auto efkComp = GetComponent<EfkComponent>();
+		if (PlayerManager::GetInstance()->GetSortedAllPlayer()[0] == GetThis<PlayerBase>()) {
+			if (!efkComp->IsPlaying(L"NumberOne")) {
+				efkComp->PlayLoop(L"NumberOne");
+			}
+		}
+		else {
+			efkComp->Stop(L"NumberOne");
+		}
+
+		if (!efkComp->IsPlaying(L"Buff")) {
+			efkComp->PlayLoop(L"Buff");
 		}
 	}
 
@@ -655,7 +667,7 @@ namespace basecross {
 				);
 		}
 		if (keyState.m_bPressedKeyTbl['8']) {
-			GetComponent<EfkComponent>()->PlayLoop(L"Debuff");
+			GetComponent<EfkComponent>()->PlayLoop(L"Buff");
 		}
 		if (keyState.m_bPressedKeyTbl['9'] &&
 			m_playerNumber == PlayerNumber::P1) {
@@ -706,7 +718,11 @@ namespace basecross {
 		static shared_ptr<PlayerNormalState> instance(new PlayerNormalState);
 		return instance;
 	}
-	void PlayerBase::PlayerNormalState::Enter(const shared_ptr<PlayerBase>& Obj) {}
+	void PlayerBase::PlayerNormalState::Enter(const shared_ptr<PlayerBase>& Obj) {
+		auto trigger = Obj->GetComponent<OnceTrigger>(false);
+		if (trigger)
+			trigger->ResetFunction(L"TurnOff30Sec");
+	}
 	void PlayerBase::PlayerNormalState::Execute(const shared_ptr<PlayerBase>& Obj) {
 		Obj->NormalUpdate();
 	}
@@ -722,6 +738,10 @@ namespace basecross {
 	void PlayerBase::PlayerDiedState::Enter(const shared_ptr<PlayerBase>& Obj) {
 		Obj->DiedInit();
 		Obj->m_respawnTimer.Reset();
+		// すべてのエフェクトを停止
+		auto efkComp = Obj->GetComponent<EfkComponent>();
+		efkComp->Stop(L"Buff");
+		efkComp->Stop(L"NumberOne");
 	}
 	void PlayerBase::PlayerDiedState::Execute(const shared_ptr<PlayerBase>& Obj) {
 		if (Obj->m_respawnTimer.Count())

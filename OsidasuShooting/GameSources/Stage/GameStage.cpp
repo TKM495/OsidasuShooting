@@ -178,5 +178,9 @@ namespace basecross {
 			player->AddBombCountForRemain30(count[index]);
 			index++;
 		}
+
+		//auto statusUp = AddGameObject<SimpleSprite>(L"StatusUp");
+		//statusUp->AddComponent<FadeComponent>()->SetFadeRange(0.5f, 0);
+		//statusUp->GetTransform()->SetPosition(Vec3(0, 300, 0));
 	}
 }

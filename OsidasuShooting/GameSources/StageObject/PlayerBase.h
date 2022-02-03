@@ -227,6 +227,8 @@ namespace basecross {
 		 */
 		void KnockBackEffectDrawing();
 		// 通常時の更新処理
+		void NormalInit();
+		// 通常時の更新処理
 		void NormalUpdate();
 		// 死んだときの初期化処理
 		void DiedInit();
