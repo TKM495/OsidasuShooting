@@ -1,0 +1,24 @@
+<Credits>
+
+GameEngine
+ BaseCross64 DirectX11
+ URL:https://wizframework.github.io/BaseCross64/
+ GIT:https://github.com/WiZFramework/BaseCross64
+
+
+BGM
+ OtoLogic(CC BY 4.0)
+ URL:https://otologic.jp
+
+ 魔王魂
+ URL:https://maou.audio/
+
+SoundEffect 
+ OtoLogic(CC BY 4.0)
+ URL:https://otologic.jp
+
+ 魔王魂
+ URL:https://maou.audio/
+
+ 効果音ラボ
+ URL:https://soundeffect-lab.info/
