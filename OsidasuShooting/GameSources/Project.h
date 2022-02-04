@@ -65,7 +65,6 @@
 #include "UIs/ResultScore.h"
 #include "UIs/ResultSprite.h"
 #include "UIs/SimpleSprite.h"
-#include "UIs/StringSprite2.h"
 #include "UIs/TitleSprite.h"
 #include "UIs/UIHeader.h"
 #include "UIs/TransitionSprite.h"
@@ -81,8 +80,6 @@
 #include "Component/PhysicalBehavior.h"
 #include "Component/CircleShadow.h"
 #include "Component/TangentWave.h"
-// メニュー
-#include "UIs/Menu/BaseMenu.h"
 // マネージャー
 #include "Manager/PlayerManager.h"
 #include "Manager/SoundManager.h"

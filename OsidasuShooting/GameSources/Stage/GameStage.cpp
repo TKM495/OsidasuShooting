@@ -24,8 +24,8 @@ namespace basecross {
 
 			//ビューとライトの作成
 			CreateViewLight();
-			AddGameObject<Debug>();
-			Debug::GetInstance()->Log(L"CurrentStage : GameStage");
+			//AddGameObject<Debug>();
+			//Debug::GetInstance()->Log(L"CurrentStage : GameStage");
 
 			AddGameObject<SimpleSprite>(L"BackGround00")->SetDrawLayer(-2);
 			AddGameObject<BackPlanet>(L"Planet")->SetDrawLayer(-1);
@@ -44,7 +44,7 @@ namespace basecross {
 			auto path = dir + L"Csv/Stage/";
 			builder.Build(GetThis<Stage>(), path + L"Stage1.csv");
 
-			auto countDown = AddGameObject<CountDown>(40.0f);
+			auto countDown = AddGameObject<CountDown>(90.0f);
 			SetSharedGameObject(L"ForCountDown", countDown);
 			countDown->SetDrawLayer(1);
 			m_startCountDown = AddGameObject<StartCountDown>(TransformData());
@@ -97,7 +97,7 @@ namespace basecross {
 		case GameState::STAY:
 			if (m_startCountDown->GetTimer().IsTimeUp()) {
 				m_countDown->Start();
-				Debug::GetInstance()->Log(L"GameStart！！！！！");
+				//Debug::GetInstance()->Log(L"GameStart！！！！！");
 				ChangeGameState(GameState::PLAYING);
 			}
 			break;
@@ -119,7 +119,7 @@ namespace basecross {
 				m_countDown->Stop();
 				m_utilTimer.Reset(3.0f);
 				AddGameObject<FinishSprite>(TransformData());
-				Debug::GetInstance()->Log(L"Finish!!!!!!");
+				//Debug::GetInstance()->Log(L"Finish!!!!!!");
 				ChangeGameState(GameState::CLEAR);
 			}
 			break;

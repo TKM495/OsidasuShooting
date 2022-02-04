@@ -36,7 +36,6 @@ namespace basecross {
 			auto playUIsTrans = playerNumber->GetComponent<Transform>();
 			playUIsTrans->SetPosition(winnerUIsPos - Vec3(-412.0f, -27.0f, 0));
 			playUIsTrans->SetScale(Vec3(1.1f));
-
 		}
 		else {
 			auto posX = -160.0f;
@@ -202,7 +201,7 @@ namespace basecross {
 			AddResultSprites(Vec3(400 + addVec, 250 + setPosY, 0),
 				(UINT)m_playersNumber + 1, m_playersScore, m_playersDead, rankingNum);
 
-			Debug::GetInstance()->Log(draw);
+			//Debug::GetInstance()->Log(draw);
 			addVec += 12.5f;
 			setPosY -= 170;
 

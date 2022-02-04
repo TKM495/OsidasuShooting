@@ -112,6 +112,8 @@ namespace basecross {
 		if (gameStage) {
 			SetActive(false);
 		}
+
+		TurnFrontToDirection(Vec3(0));
 	}
 
 	void PlayerBase::OnUpdate() {
@@ -164,7 +166,7 @@ namespace basecross {
 		// 移動処理
 		Move();
 		// テストコード
-		TestFanc();
+		//TestFanc();
 
 		// 無敵処理
 		Invincible();
@@ -240,6 +242,8 @@ namespace basecross {
 		auto gravity = GetComponent<Gravity>();
 		gravity->SetGravityVerocityZero();
 		gravity->SetGravityZero();
+
+		GetComponent<PhysicalBehavior>()->SetVelocityYZero();
 
 		// ホバーエフェクト
 		auto efkComp = GetComponent<EfkComponent>();
@@ -431,8 +435,8 @@ namespace basecross {
 	}
 
 	float PlayerBase::KnockBack(const KnockBackData& data) {
-		// 無敵の場合無視
-		if (m_isInvincible)
+		// 無敵あるいは非表示の場合無視
+		if (m_isInvincible || !m_isActive)
 			return 0;
 		// 加害者が自分自身の場合（自分の攻撃に自分があたった場合）は無視
 		if (data.Aggriever.lock() != GetThis<PlayerBase>()) {

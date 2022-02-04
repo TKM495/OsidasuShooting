@@ -67,9 +67,6 @@
     <Filter Include="JonyMd">
       <UniqueIdentifier>{5e611ea7-2f55-439e-be59-ff4b4385e58f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Menu">
-      <UniqueIdentifier>{92d6c959-a3ba-4376-9ed0-3b25b3cfa862}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Utility\CSVLoad">
       <UniqueIdentifier>{7430e74c-1c60-4668-bed4-fd3a96d3d351}</UniqueIdentifier>
     </Filter>
@@ -78,9 +75,6 @@
     </Filter>
     <Filter Include="Utility\TimeCounter">
       <UniqueIdentifier>{aaff4d9c-384e-4374-86a4-c0855d57d8c8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="UI\StringSprite2">
-      <UniqueIdentifier>{039d2856-a65f-4488-8cd0-608b70f6780e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Component\FadeComponent">
       <UniqueIdentifier>{c9d23716-e422-4149-8d26-d4671befcb2c}</UniqueIdentifier>
@@ -130,12 +124,6 @@
     <Filter Include="Utility\BaseSingleton">
       <UniqueIdentifier>{ceb7806d-c494-437b-a221-eb7a4db6c0c2}</UniqueIdentifier>
     </Filter>
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\Menu\BaseMenu.cpp">
-      <Filter>Menu\BaseMenu</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\Menu\Cursor.cpp">
-      <Filter>Menu\Cursor</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BaseUI.cpp">
       <Filter>UI\BaseUI</Filter>
     </ClCompile>
@@ -237,9 +225,6 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)StageObject\SpecialSkill.cpp">
       <Filter>StageObject</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\StringSprite2.cpp">
-      <Filter>UI\StringSprite2</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\TimeCounter.cpp">
       <Filter>Utility\TimeCounter</Filter>
@@ -490,9 +475,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\TimeCounter.h">
       <Filter>Utility\TimeCounter</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\StringSprite2.h">
-      <Filter>UI\StringSprite2</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\FadeComponent.h">
       <Filter>Component\FadeComponent</Filter>
     </ClInclude>
@@ -541,12 +523,6 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\MySpriteBaseDraw.h">
       <Filter>Component\MySpriteBaseDraw</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\Menu\BaseMenu.h">
-      <Filter>Menu\BaseMenu</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\Menu\Cursor.h">
-      <Filter>Menu\Cursor</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StageObject\SpecialSkill.h">
       <Filter>StageObject</Filter>
@@ -896,12 +872,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\Utility.h" />
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Menu\BaseMenu">
-      <UniqueIdentifier>{aabea212-1ec0-4268-a73d-d49b8dd8b355}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Menu\Cursor">
-      <UniqueIdentifier>{43fbf486-1f3d-429e-9980-aeb26eef6335}</UniqueIdentifier>
-    </Filter>
     <Filter Include="UI\Result">
       <UniqueIdentifier>{61c6cba9-72b0-494d-8959-68d460d2a0bb}</UniqueIdentifier>
     </Filter>

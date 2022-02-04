@@ -103,10 +103,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BaseUI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\Canvas.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\Menu\BaseMenu.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\Menu\Cursor.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\SimpleSprite.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\StringSprite2.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\UIHeader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\CSVLoad.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\GroundingDecision.h" />
@@ -201,10 +198,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\BaseUI.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\Canvas.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\Menu\BaseMenu.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\Menu\Cursor.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIs\SimpleSprite.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\StringSprite2.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\CSVLoad.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\GroundingDecision.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\LinePoint.cpp" />

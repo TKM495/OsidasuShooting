@@ -81,6 +81,13 @@ namespace basecross {
 			m_velocity = Vec3(0);
 		}
 
+		/**
+		 * @brief Y•ûŒü‚Ì‘¬“x‚ð0‚É‚·‚é
+		 */
+		void SetVelocityYZero() {
+			m_velocity.y = 0;
+		}
+
 		void SetTimeScale(float scale) {
 			m_timeScale = scale;
 		}

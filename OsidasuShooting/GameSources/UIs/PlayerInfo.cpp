@@ -96,7 +96,7 @@ namespace basecross {
 
 	void PlayerInfo::ItemGet(modifiedClass::ItemType type) {
 		auto transData = TransformData(
-			m_transformData.Position + Vec3(0, 0, 0),
+			m_transformData.Position + Vec3(0, 10, 0),
 			Vec3(0.13f)
 		);
 		switch (type)
