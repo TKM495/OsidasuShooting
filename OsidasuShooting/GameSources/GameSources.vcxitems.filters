@@ -752,20 +752,11 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\GroundingDecision.cpp">
       <Filter>Utility\GroundingDecision</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\Menu\BaseMenu.cpp">
-      <Filter>Menu</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\Menu\Cursor.cpp">
-      <Filter>Menu</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\CSVLoad.cpp">
       <Filter>Utility\CSVLoad</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Utility\TimeCounter.cpp">
       <Filter>Utility\TimeCounter</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIs\StringSprite2.cpp">
-      <Filter>UI\StringSprite2</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\FadeComponent.cpp">
       <Filter>Component\FadeComponent</Filter>
@@ -860,10 +851,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\PredictionLine.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\BaseUI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\Canvas.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\Menu\BaseMenu.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\Menu\Cursor.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\SimpleSprite.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIs\StringSprite2.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIs\UIHeader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\CSVLoad.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility\GroundingDecision.h" />
