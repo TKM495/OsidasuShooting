@@ -7,6 +7,23 @@
 #include "Project.h"
 
 namespace basecross {
+	void ManualPlayer::OnCreate() {
+		PlayerBase::OnCreate();
+		m_knockBackCallback = [this](float strength) {
+			KnockBackVibration(strength);
+		};
+		m_bumperCallback = [this] {
+			m_controller.SetVibration(L"BumperHit",
+				VibrationData(0.7f, 0, 0.1f));
+		};
+	}
+
+	void ManualPlayer::KnockBackVibration(float strength) {
+		float remapStrength = Utility::Remap(strength, 0, 1, 0, 0.7f);
+		m_controller.SetVibration(L"Hit",
+			VibrationData(remapStrength, remapStrength * 0.5f, 0.1f));
+	}
+
 	void ManualPlayer::InputUpdate() {
 		// 直接スティック情報を取得
 		m_inputData.MoveDirection = m_controller.GetLeftStickVec();
@@ -41,6 +58,9 @@ namespace basecross {
 	void ManualPlayer::OnStopHover() {
 		m_controller.StopVibration(L"Hover");
 	}
+
+	// ---------------------------------------------------------------------
+	// ---------------------------------------------------------------------
 
 	void ResultPlayer::OnCreate() {
 		PlayerBase::OnCreate();

@@ -16,6 +16,7 @@ namespace basecross {
 
 	class ManualPlayer :public PlayerBase {
 		GameController m_controller;
+		void KnockBackVibration(float strength);
 		void InputUpdate()override;
 		void OnRespawn()override;
 		void OnStopHover()override;
@@ -34,6 +35,7 @@ namespace basecross {
 			:PlayerBase(stage, transformData, playerNumber, playerType),
 			m_controller(playerNumber)
 		{}
+		void OnCreate()override;
 	};
 
 	// リザルト用のプレイヤー

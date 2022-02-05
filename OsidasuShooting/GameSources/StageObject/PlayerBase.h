@@ -259,7 +259,9 @@ namespace basecross {
 		float m_shieldRate;
 		// プレイヤーのモデル
 		weak_ptr<PlayerModel> m_model;
-
+		// ノックバック時のコールバック
+		function<void(float)> m_knockBackCallback;
+		function<void(void)> m_bumperCallback;
 		// 入力データ
 		PlayerInputData m_inputData;
 		// 入力の更新

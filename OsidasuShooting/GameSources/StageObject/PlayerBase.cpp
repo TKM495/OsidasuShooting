@@ -482,6 +482,10 @@ namespace basecross {
 		GetComponent<PhysicalBehavior>()->Impact(
 			data.Direction, data.Amount * knockBackCorrection);
 		GetComponent<EfkComponent>()->Play(L"Shield");
+
+		if (m_knockBackCallback)
+			m_knockBackCallback(knockBackCorrection);
+
 		return knockBackCorrection;
 	}
 
@@ -695,6 +699,8 @@ namespace basecross {
 			GetComponent<PhysicalBehavior>()->Impact(
 				impactDir, totalVelocity.length() + 25);
 			bumperPtr->PlayAnimation();
+			if (m_bumperCallback)
+				m_bumperCallback();
 		}
 
 		// ÉAÉCÉeÉÄÇÃèÍçá
