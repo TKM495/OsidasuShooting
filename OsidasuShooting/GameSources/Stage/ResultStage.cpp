@@ -24,45 +24,62 @@ namespace basecross {
 		PtrMultiLight->SetDefaultLighting();
 	}
 
+	// WinnerあるいはDrawを表示する
 	void ResultStage::AddWinnerSprite(int player)
 	{
+		// トップが一人の場合
 		if (m_isTopOnly) {
-			auto winnerUIs = AddGameObject<ResultWinOrDrowSprite>(Vec3(-280, -220, 0), m_isTopOnly);
+			// Winnerの位置を設定する
+			Vec3 winnerUIsPos = Vec3(-280, -220, 0); // 位置を設定する
+			auto winnerUIs = AddGameObject<ResultWinOrDrowSprite>(winnerUIsPos, m_isTopOnly);
 			auto winnerUIsTrans = winnerUIs->GetComponent<Transform>();
-			auto winnerUIsPos = winnerUIsTrans->GetPosition();
+			winnerUIsPos = winnerUIsTrans->GetPosition(); // 正確な設置場所に更新
 
+			// プレイヤーナンバーの位置を決定する
 			auto playerNumber = AddGameObject<BattlePlayersUIs>(L"BPsUIs", player, Vec3(0));
-			playerNumber->GetComponent<PCTSpriteDraw>()->SetDiffuse(m_playerTopColor);
+			playerNumber->GetComponent<PCTSpriteDraw>()->SetDiffuse(m_playerTopColor);	// プレイヤーのカラー
 			auto playUIsTrans = playerNumber->GetComponent<Transform>();
-			playUIsTrans->SetPosition(winnerUIsPos - Vec3(-412.0f, -27.0f, 0));
-			playUIsTrans->SetScale(Vec3(1.1f));
+			// プレイヤーのナンバーの場所
+			Vec3 playerNumberPos = winnerUIsPos - Vec3(-412.0f, -27.0f, 0);				// ナンバーの設置場所を設定
+			playUIsTrans->SetPosition(playerNumberPos);
+			Vec3 scale = Vec3(1.1f);
+			playUIsTrans->SetScale(scale);
 		}
+		// トップが二人以上の場合
 		else {
-			auto posX = -160.0f;
-			auto drawUIs = AddGameObject<ResultWinOrDrowSprite>(Vec3(posX, -120, 0), m_isTopOnly);
+			// Drawの文字の表示位置
+			Vec3 drawUIsPos = Vec3(-160, -120, 0);
+			float posX = drawUIsPos.x; // ほかの場所でも使用するので変数にする
+			auto drawUIs = AddGameObject<ResultWinOrDrowSprite>(drawUIsPos, m_isTopOnly);
 			auto drawUIsTrans = drawUIs->GetComponent<Transform>();
-			auto drawUIsPos = drawUIsTrans->GetPosition();
+			drawUIsPos = drawUIsTrans->GetPosition();
 
-			auto maxDrawPlayer = 3;
-			auto resultDrawPlayer = 1;
+			auto resultDrawPlayer = 1;	// 1人以上は確実に表示するため、あらかじめ1を代入
+			auto maxDrawPlayer = 3;		// for文ループ回数、追加で更に最大3人表示するので3を代入
 			for (int i = 0; i < maxDrawPlayer; i++) {
 				if (m_isPlayerDraw[i] == true) {
 					resultDrawPlayer++;
 				}
 			}
 
+			// 順番が早いプレイヤーの表示
 			auto playerNum = 0;
-			auto resultPosX = resultDrawPlayer;
-			auto setPosX = posX * 2.25f / resultDrawPlayer;
-			auto setPosition = Vec3(posX * 2.175f, -170.0f, 1.0f);
-			auto setScale = Vec3(0.75f) * (1 - 0.1f * (resultDrawPlayer * 1.1f));
-
-			auto playerNumber = AddGameObject<BattlePlayersUIs>(L"BPsUIs", player, Vec3(0));
-			playerNumber->GetComponent<PCTSpriteDraw>()->SetDiffuse(m_playerColor[playerNum]);
+			auto playerNumber = AddGameObject<BattlePlayersUIs>(L"BPsUIs", player, Vec3(0));	// 配置
+			playerNumber->GetComponent<PCTSpriteDraw>()->SetDiffuse(m_playerColor[playerNum]);	// カラーをセット
 			auto playUIsTrans = playerNumber->GetComponent<Transform>();
+
+			// ポジション
+			auto setPosition = Vec3(posX * 2.175f, -170.0f, 1.0f);
+			// スケール
+			Vec3 v3Scale = Vec3(0.75f);
+			float fScale = 1.1f;
+			auto setScale = v3Scale * (1 - 0.1f * (resultDrawPlayer * fScale));
+
 			playUIsTrans->SetPosition(setPosition);
 			playUIsTrans->SetScale(Vec3(setScale));
 
+			// それ以降のプレイヤー
+			auto setPosX = posX * 2.25f / resultDrawPlayer;
 			for (int i = 0; i < maxDrawPlayer; i++) {
 				playerNum++;
 				if (m_isPlayerDraw[i] == true) {
@@ -77,10 +94,12 @@ namespace basecross {
 		}
 	}
 
+	// 各プレイヤーの情報を表示
 	void ResultStage::AddResultSprites(Vec3 pos, int playerNum, int score, int dead, int rank)
 	{
 		// フレームを配置
-		auto fream = AddGameObject<FreamSprite>(L"Fream", pos, Vec3(1.2f));
+		Vec3 scale = Vec3(1.2f);
+		auto fream = AddGameObject<FreamSprite>(L"Fream", pos, scale);
 		auto freamTrans = fream->GetComponent<Transform>();
 		auto freamPos = freamTrans->GetPosition();
 		fream->SetDrawLayer(1);
@@ -94,44 +113,55 @@ namespace basecross {
 		// ナンバーに色を付ける
 		playerNumber->GetComponent<PCTSpriteDraw>()->SetDiffuse(playerColor);
 
+		// プレイヤーナンバーの設置
 		auto playUIsTrans = playerNumber->GetComponent<Transform>();
 		playUIsTrans->SetPosition(playerNumPos);
-		playUIsTrans->SetScale(Vec3(0.4f));
+
+		scale = Vec3(0.4f);
+		playUIsTrans->SetScale(scale);
 		playerNumber->SetDrawLayer(2);
 
+		// プレイヤーの順位を表示
 		RankingPlayerSet(pos, rank);
 
-		auto scorePos = pos + Vec3(50.0f, 65.0f, 1.0f);
-		m_score = AddGameObject<ResultScore>(score, scorePos);
+		// プレイヤーのキルスコア
+		auto scorePos = pos + Vec3(50.0f, 65.0f, 1.0f);			// キルスコアのポジション設定
+		m_score = AddGameObject<ResultScore>(score, scorePos);	// 配置
 		m_score->SetDrawLayer(2);
-		scorePos.y -= 60.0f;
-		auto deadPos = scorePos;
+		
+		auto addIconPos = Vec3(-50.0f, -36.0f, 0.0f);
 
-		scorePos += Vec3(-50.0f, 24.0f, 0.0f);
-		AddGameObject<KillIcon>(scorePos)->SetDrawLayer(2);
+		auto killIconPos = scorePos + addIconPos;				// アイコンのポジション
+		AddGameObject<KillIcon>(killIconPos)->SetDrawLayer(2);	// 配置
 
-		m_dead = AddGameObject<ResultScore>(dead, deadPos);
+		// プレイヤーのデススコア
+		auto deadPos = Vec3(scorePos.x, scorePos.y - 60.0f, scorePos.z);	// キルスコアのポジション設定
+		m_dead = AddGameObject<ResultScore>(dead, deadPos);					// 配置
 		m_dead->SetDrawLayer(2);
-		deadPos += Vec3(-50.0f, -36.0f, 0.0f);
-		AddGameObject<DeadIcon>(deadPos)->SetDrawLayer(2);
+		auto deadIconPos = deadPos + addIconPos;							// アイコンのポジション
+		AddGameObject<DeadIcon>(deadIconPos)->SetDrawLayer(2);				// 配置
 	}
 
+	// プレイヤーの順位表示
 	void ResultStage::RankingPlayerSet(Vec3 pos, int value) {
 		auto playerRank = AddGameObject<BattlePlayersUIs>(L"RRUIs", value, Vec3(0));
-		auto rankIconPos = pos + Vec3(-165.0f, 75.0f, 0.0f);
+		Vec3 addPos = Vec3(-165.0f, 75.0f, 0.0f);
+		auto rankIconPos = pos + addPos;
 		auto rankIconTrans = playerRank->GetComponent<Transform>();
 		rankIconTrans->SetPosition(rankIconPos);
 	}
 
+	// プレイヤーの順位
 	void ResultStage::PlayersResult() {
 		float addVec = 0;
 		float setPosY = 0;
 
 		auto allPlayer = PlayerManager::GetInstance()->GetSortedAllPlayer();
-		int  loopCount = 0;	// for
-		int  drawPlayer = 0;	//
+		int  loopCount = 0;	// for文
+		int  drawPlayer = 0;// 表示するプレイヤーの数
 		int  draw = 0;		// 引き分け
 		bool isDraw = false;
+
 		// 順位が高い順に処理される
 		for (auto player : allPlayer) {
 			str = L"";
@@ -170,11 +200,17 @@ namespace basecross {
 			}
 
 			// プレイヤーの順位の処理
-			auto top = player->GetCountKilledPlayer() > m_playerTopScore;
-			auto topDeadWin = player->GetCountKilledPlayer() == m_playerTopScore && player->GetDeadCount() < m_playerTopDead;
-			auto topDrawDead = player->GetCountKilledPlayer() == m_playerTopScore && player->GetDeadCount() == m_playerTopDead;
-			auto drawDead = m_previousScore == m_playersScore && m_previousDead == m_playersDead;
+			auto top = m_playersScore > m_playerTopScore;		// 参照されたプレイヤーのキルスコアが暫定トップより高い場合
+			auto killeDraw = m_playersScore == m_playerTopScore;// 参照されたプレイヤーのキルスコアが暫定トップと同じな場合
+			
+			// トップのデススコア比較
+			auto topDeadWin  = killeDraw && m_playersDead  < m_playerTopDead; // デススコアが暫定トップより少ないとき
+			auto topDrawDead = killeDraw && m_playersDead == m_playerTopDead; // デススコアが暫定トップと同じとき
+			auto drawDead = 
+				 m_previousScore == m_playersScore && m_previousDead == m_playersDead; // デススコアが前の順位のプレイヤーと同じとき
 
+			// 比較
+			// トップになった場合
 			if (loopCount == 0 || top || topDeadWin) {
 				m_playerTop = m_playersNumber;
 				m_playerTopScore = m_playersScore;
@@ -216,30 +252,23 @@ namespace basecross {
 		//m_playerTop = allPlayer[0]->GetPlayerNumber();
 	}
 
+	// 行事するプレイヤー
 	void ResultStage::WinnerPlayer() {
 		PlayersResult();
-		//auto player = PlayerNumber::P1;
-		//if ((int)m_playerTop == 2) {
-		//	player = PlayerNumber::P2;
-		//}
-		//else if ((int)m_playerTop == 3) {
-		//	player = PlayerNumber::P3;
-		//}
-		//else if ((int)m_playerTop == 4) {
-		//	player = PlayerNumber::P4;
-		//}
 
+		// トップが一人のとき
 		if (m_isTopOnly) {
+			auto scale = Vec3(0.75f);
 			auto topPlayer = AddGameObject<ResultPlayer>(
-				TransformData(Vec3(0.0f, 1.0f, 0.0f), Vec3(0.75f), Vec3(0, XMConvertToRadians(180.0f), 0)),
+				TransformData(Vec3(0.0f, 1.0f, 0.0f), scale, Vec3(0, XMConvertToRadians(180.0f), 0)),
 				m_playerTop, StageManager::GetInstance()->GetPlayerType(m_playerTop));
 
 			auto playerPos = topPlayer->GetComponent<Transform>()->GetPosition();
-			playerPos.x -= 1.0f;
-			playerPos.y += 2.0f;
+			playerPos += Vec3(-1.0f, 2.0f,0);
 			auto confetti = AddGameObject<Confetti>(playerPos);
 			topPlayer->PlayWin();
 		}
+		// トップが二人以上のとき
 		else {
 			auto maxDrawPlayer = 3;
 			auto resultDrawPlayer = 0;
@@ -317,17 +346,23 @@ namespace basecross {
 
 	void ResultStage::OnUpdate() {
 		auto& app = App::GetApp();
-		const auto& cntlPad = app->GetInputDevice().GetControlerVec()[0];
-		if (!m_sceneChangeBlock) {
-			if (cntlPad.wPressedButtons & XINPUT_GAMEPAD_A) {
-				SoundManager::GetInstance()->Play(L"DecisionSE");
-				PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToCharacterSelectStage");
-				m_sceneChangeBlock = true;
-			}
-			if (cntlPad.wPressedButtons & XINPUT_GAMEPAD_B) {
-				SoundManager::GetInstance()->Play(L"DecisionSE");
-				PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToTitleStage");
-				m_sceneChangeBlock = true;
+		const auto& cntlPad = app->GetInputDevice().GetControlerVec();
+
+		auto cntl = 4 - 1; // 最大コントローラ数 - 1
+		for (int i = 0; i <= cntl; i++) {
+			if (!m_sceneChangeBlock) {
+				// キャラクターセレクトに戻る
+				if (cntlPad[i].wPressedButtons & XINPUT_GAMEPAD_A) {
+					SoundManager::GetInstance()->Play(L"DecisionSE");
+					PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToCharacterSelectStage");
+					m_sceneChangeBlock = true;
+				}
+				// タイトル画面に戻る
+				if (cntlPad[i].wPressedButtons & XINPUT_GAMEPAD_B) {
+					SoundManager::GetInstance()->Play(L"DecisionSE");
+					PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToTitleStage");
+					m_sceneChangeBlock = true;
+				}
 			}
 		}
 	}

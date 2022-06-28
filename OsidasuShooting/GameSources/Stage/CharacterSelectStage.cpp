@@ -48,17 +48,24 @@ namespace basecross {
 		// ゲージ配置
 		auto gaugePos = stutasePos;
 		for (int i = 0; i < stutase; i++) {
+			// ステータスUI
 			auto statusUI = AddGameObject<StatusSpriteUI>(gaugePos, i);
 			auto stsUIPos = statusUI->GetComponent<Transform>()->GetPosition();
 			statusUI->SetDrawLayer(1);
 
 			stsUIPos.x += 150.0f;
 			stsUIPos.y -= 27.0f;
+
+			// ゲージ
 			auto GaugeBack = AddGameObject<StatusGaugeBack>(stsUIPos);
+			GaugeBack->SetDrawLayer(2);
 			auto GaugePos = GaugeBack->GetComponent<Transform>()->GetPosition();
 			GaugePos += Vec3(3.25f, -2.5f, 0.0f);
 			auto gaugeNum = i + (gamePadID * stutase);
+
+			// ゲージ背景
 			m_Gauge[gaugeNum] = AddGameObject<StatusGauge>(GaugePos, gamePadID, i);
+			m_Gauge[gaugeNum]->SetDrawLayer(3);
 
 			// カラー変更
 			auto color = statusUI->StetusColor();
@@ -76,6 +83,7 @@ namespace basecross {
 			 picturePos.y += +140.0f;
 		else picturePos.y += - 10.0f;
 
+		// OK!のポジション
 		for (int i = 0; i < m_loopForIcon; i++) {
 			auto pictureNum = i + (gamePadID * m_loopForIcon);
 			m_Picture[pictureNum] = AddGameObject<PlayerCharaPicture>(picturePos,i, gamePadID);
@@ -149,41 +157,22 @@ namespace basecross {
 
 	// UIの設置、OnCreateで使用する関数
 	void CharacterSelectStage::UIsSet() {
-		AddGameObject<CharacterStringUI>(Vec3(-380, 320, 0));
-		AddGameObject<DecisionSpriteUI>(Vec3(260, -320, 0));
-		AddGameObject<CancelSpriteUI>(Vec3(-340, -320, 0));
-		AddGameObject<AButtonSpriteUI>(Vec3(410, -320, 0));
-		AddGameObject<BButtonSpriteUI>(Vec3(-190, -320, 0));
+		AddGameObject<CharacterStringUI>(Vec3(-380, 320, 0))->SetDrawLayer(4);
+		AddGameObject<DecisionSpriteUI>(Vec3(260, -320, 0))->SetDrawLayer(4);
+		AddGameObject<CancelSpriteUI>(Vec3(-340, -320, 0))->SetDrawLayer(4);
+		AddGameObject<AButtonSpriteUI>(Vec3(410, -320, 0))->SetDrawLayer(4);
+		AddGameObject<BButtonSpriteUI>(Vec3(-190, -320, 0))->SetDrawLayer(4);
 		m_Ready = AddGameObject<ReadyToFightUI>(Vec3(0, 0, 0));
 
 		m_Ready->SetDrawActive(false);
 		m_Ready->SetDrawLayer(5);
 		m_Ready->SetUpdateActive(false);
+
+		m_GoBackTitleGauge = AddGameObject<GoBackTitleGauge>(Vec3(-426.5f, -285.75f, 0));
+		m_GoBackTitleGauge->SetDrawLayer(3);
+		AddGameObject<GoBackTitleGaugeBack>(Vec3(-428, -285, 0), m_GoBackTitleGauge)->SetDrawLayer(2);
 	}
 
-	//void CharacterSelectStage::PlayerCursorCreate(int gamePadID){
-	//	// カラーの取得
-	//	auto playerNum = PlayerStatus::GetInstance()->GetPlayerColor(gamePadID + 1);
-	//	// 初期位置
-	//	auto defaultPos = m_Icons[0]->GetComponent<Transform>()->GetPosition();
-	//	// カーソル生成
-	//	m_SelectCursor[gamePadID] = AddGameObject<SelectCursor>(defaultPos, gamePadID);
-	//	// カラー変更
-	//	m_SelectCursor[gamePadID]->GetComponent<PCTSpriteDraw>()->SetDiffuse(playerNum);
-	//	// アイコンの数だけループ
-	//	for (int i = 0; i < m_loopForIcon; i++) {
-	//		// 各アイコンのポジションを取得
-	//		auto iconPos = m_Icons[i]->GetComponent<Transform>()->GetPosition();
-	//		m_SelectCursor[gamePadID]->GetIconDatas(i,iconPos);
-	//	}
-	//}
-
-	//void CharacterSelectStage::SetCharaName() {
-	//	//m_charaName[i] = cvs;
-
-	//	m_charaName[0] = (L"LaserIcon");
-	//	m_charaName[1] = (L"TankIcon");
-	//}
 
 	void CharacterSelectStage::OnCreate() {
 		try {
@@ -197,12 +186,7 @@ namespace basecross {
 			m_BackGround = AddGameObject<SimpleSprite>(L"BackGround00");
 			m_BackGround->SetDrawLayer(-1);
 
-			//auto scale = Vec3(10.0f, 1.5f, 1.0f);
-			//auto fream = AddGameObject<FreamSprite>(L"GaugeBackGround", Vec3(0), scale);
-			//auto ptrDraw = fream->GetComponent<PCTSpriteDraw>();
-			//ptrDraw->SetDiffuse(Col4(1.0f,1.0f,1.0f,0.5f));
-
-			//SetCharaName();
+			// フレームのポジション
 			auto side = 280.0f;
 			auto higth = 150.0f;
 			PlayerFreamPosition(Vec3(-side,  higth, 0), 0);
@@ -226,38 +210,50 @@ namespace basecross {
 		}
 	}
 
+	// キャラクターセレクト
 	void CharacterSelectStage::CharacterSelectingPlayers(int gamePadID) {
 		auto& app = App::GetApp();
+		// コントローラを取得
 		const auto& ctrlVec = app->GetInputDevice().GetControlerVec()[gamePadID];
+
+		// 選択中のキャラクターのIDを取得
 		SelectCharacter(gamePadID);
 		if (ctrlVec.bConnected) {
+			// コントローラが接続されていたらtrue
 			m_ifEntryPlayer[gamePadID] = true;
 
+			// 決定した場合
 			if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_A) {
 				m_isDecisionPlayer[gamePadID] = true;
 				m_SelectOK[gamePadID]->SetDrawActive(true);
 
+				// 効果音再生
 				if (!m_sceneChangeBlock)
 					SoundManager::GetInstance()->Play(L"CharacterDecisionSE");
 			}
+			// キャンセルした場合
 			if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_B) {
 				m_isDecisionPlayer[gamePadID] = false;
 				m_SelectOK[gamePadID]->SetDrawActive(false);
 
+				// 効果音再生
 				if(!m_sceneChangeBlock)
 					SoundManager::GetInstance()->Play(L"CancelSE");
 			}
 		}
 	}
 
+	// キャラクターのIDを取得
 	void CharacterSelectStage::GetCharacterID(int gamePadID) {
 		// スティック、方向パッド
 		const auto& app = App::GetApp();
 		const auto& ctrlVec = app->GetInputDevice().GetControlerVec()[gamePadID];
+
 		auto ctrlX = 0.0f;
 		if (ctrlVec.bConnected) {
 			ctrlX = ctrlVec.fThumbLX;
 		}
+
 		auto moveRight = ctrlX >= 1.0f || ctrlVec.wPressedButtons & XINPUT_GAMEPAD_DPAD_RIGHT;
 		auto moveLeft = ctrlX <= -1.0f || ctrlVec.wPressedButtons & XINPUT_GAMEPAD_DPAD_LEFT;	
 		auto move = 0; // 右なら1、左なら0
@@ -274,9 +270,11 @@ namespace basecross {
 				move = 1;
 				SoundManager::GetInstance()->Play(L"CharacterSelectingSE");
 
+				// 三角の向き判別番号 + (コントローラID * 三角の個数) 
 				auto loopForTri = 2;
-				auto tri = move + gamePadID * loopForTri;
-				m_Triangle[tri]->CharacterSelectingAnimation(ctrlVec, m_isSetStick[gamePadID], moveLeft, moveRight, gamePadID);
+				auto tri = move + (gamePadID * loopForTri);
+				// 三角形を移動させる
+				m_Triangle[tri]->CharacterSelectingAnimation(ctrlVec, m_isSetStick[gamePadID],gamePadID);
 			}
 			// 左へ
 			else if (moveLeft) {
@@ -291,14 +289,15 @@ namespace basecross {
 				SoundManager::GetInstance()->Play(L"CharacterSelectingSE");
 
 				auto loopForTri = 2;
-				auto tri = move + gamePadID * loopForTri;
-				m_Triangle[tri]->CharacterSelectingAnimation(ctrlVec,m_isSetStick[gamePadID], moveLeft, moveRight,gamePadID);
+				auto tri = move + (gamePadID * loopForTri);
+				m_Triangle[tri]->CharacterSelectingAnimation(ctrlVec,m_isSetStick[gamePadID], gamePadID);
 			}
 		}
 		else if (!moveLeft && !moveRight) m_isSetStick[gamePadID] = false;
 
 	}
 
+	// キャラクターのIDを元にキャラクターを決める
 	void CharacterSelectStage::SelectCharacter(int gamePadID){
 		auto setGamePadID = gamePadID + 1; // プレイヤー取得
 		switch (m_charaID[gamePadID])
@@ -348,45 +347,23 @@ namespace basecross {
 			iconComp->SetDiffuse(rgba);
 
 		}
+		// 全体の写真を表示する
 		auto pictureNum = m_charaID[gamePadID] + (gamePadID * m_loopForIcon);
 		m_Picture[pictureNum]->SetDrawActive(true);
 	}
 
-	// キャラクターの選択が完了
-	void CharacterSelectStage::CharacterSelectedPlayers(int gamePadID) {
-		if (m_isDecisionPlayer[gamePadID]) {
+	//// キャラクターの選択が完了
+	//void CharacterSelectStage::CharacterSelectedPlayers(int gamePadID) {
+	//	if (m_isDecisionPlayer[gamePadID]) {
 
-		}
-		else {
+	//	}
+	//	else {
 
-		}
-	}
+	//	}
+	//}
 
 	// キャラクターの選択を完了しているか
 	void CharacterSelectStage::CheckSelectedPlayers() {
-		auto& app = App::GetApp();
-		for (int i = 0; i < m_loopForPlayer; i++) {
-			const auto& ctrlVec = app->GetInputDevice().GetControlerVec()[i];
-
-			if (ctrlVec.bConnected) {
-				if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_A
-					&& !m_sceneChangeBlock && m_Ready->GetUpdateActive()) {
-
-					PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToGameStage");
-					m_sceneChangeBlock = true;
-				}
-				if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_B
-					&& !m_sceneChangeBlock && !m_Ready->GetUpdateActive()) {
-
-					if (m_isBPushPlayer[i]) {
-						PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToTitleStage");
-						m_sceneChangeBlock = true;
-					}
-					else m_isBPushPlayer[i] = true;
-				}
-			}
-		}
-
 		auto color = m_BackGround->GetComponent<PCTSpriteDraw>();
 		auto rgba = color->GetDiffuse();
 		if (m_isDecisionPlayer[0] && m_isDecisionPlayer[1] &&
@@ -399,7 +376,7 @@ namespace basecross {
 			rgba.z = 0.5f;
 		}
 		else if (m_isDecisionPlayer[0] || m_isDecisionPlayer[1] ||
-			m_isDecisionPlayer[2] || m_isDecisionPlayer[3])
+				 m_isDecisionPlayer[2] || m_isDecisionPlayer[3])
 		{
 			m_Ready->SetDrawActive(false);
 			m_Ready->SetUpdateActive(false);
@@ -408,6 +385,37 @@ namespace basecross {
 			rgba.z = 1;
 		}
 		color->SetDiffuse(rgba);
+	}
+
+	// ゲームステージへ移動
+	void  CharacterSelectStage::GoToGameStage() {
+		auto& app = App::GetApp();
+		for (int i = 0; i < m_loopForPlayer; i++) {
+			const auto& ctrlVec = app->GetInputDevice().GetControlerVec()[i];
+
+			if (ctrlVec.bConnected) {
+				// ゲーム開始
+				if ( ctrlVec.wPressedButtons & XINPUT_GAMEPAD_A &&	// Aボタンを押す
+					!m_sceneChangeBlock &&							// まだシーン変異イベントを起こしていない
+					 m_Ready->GetUpdateActive()) {					// Ready to Fight!! のスプライトが表示されている
+
+					PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToGameStage");
+					m_sceneChangeBlock = true;
+				}
+			}
+		}
+
+	}
+
+	// タイトルへ戻る
+	void  CharacterSelectStage::GoBackTitle() {
+		auto goBackTitle = m_GoBackTitleGauge->GetGoBackTitle();
+
+		if (goBackTitle) {
+			auto& app = App::GetApp();
+			PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToTitleStage");
+			m_sceneChangeBlock = true;
+		}
 	}
 
 	void CharacterSelectStage::OnUpdate() {
@@ -419,10 +427,6 @@ namespace basecross {
 			if(!m_isDecisionPlayer[i]) GetCharacterID(i);
 
 			const auto& ctrlVec = app->GetInputDevice().GetControlerVec()[i];
-			if (ctrlVec.wPressedButtons & XINPUT_GAMEPAD_A) {
-				m_isBPushPlayer[i] = false;
-			}
-
 			if (!ctrlVec.bConnected) {
 				m_ifEntryPlayer[i] = false;
 				m_isDecisionPlayer[i] = true;
@@ -430,6 +434,7 @@ namespace basecross {
 			}
 		}
 		CheckSelectedPlayers();
+		GoBackTitle();
 	}
 
 	void CharacterSelectStage::OnDestroy() {

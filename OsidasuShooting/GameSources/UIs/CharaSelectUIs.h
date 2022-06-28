@@ -363,6 +363,54 @@ namespace basecross
 		void OnCreate() override;
 		void OnUpdate() override;
 
-		void CharacterSelectingAnimation(const CONTROLER_STATE& getStick,bool stick, bool left, bool right,int gamePadID);
+		void CharacterSelectingAnimation(const CONTROLER_STATE& getStick,bool stick,int gamePadID);
 	};
+
+
+	// タイトルに戻るゲージ
+	class GoBackTitleGauge : public BaseSprite {
+		Vec3 m_setPos;
+		float m_delta;
+		float m_holdButtonTime;			// 長押ししていた時間
+		float m_maxGauge;
+		float m_addGaugeMlt = 0.5f;	// 長押し中に増えるゲージの増加率
+
+		bool m_isGoBackTitle;
+	public:
+		GoBackTitleGauge(
+			const shared_ptr<Stage>& stage,
+			const Vec3 setPosition
+		) :
+			BaseSprite(stage, setPosition),
+			m_setPos(setPosition),
+			m_delta(),
+			m_holdButtonTime(),
+			m_maxGauge(),
+			m_isGoBackTitle(false)
+		{}
+		void OnCreate() override;
+		void OnUpdate() override;
+
+		void GaugeMove();
+		bool GetGoBackTitle();
+	};
+
+	// ゲージの後ろ
+	class GoBackTitleGaugeBack : public BaseSprite {
+		Vec3 m_setPos;
+		shared_ptr<GameObject> m_Gauge;
+	public:
+		GoBackTitleGaugeBack(
+			const shared_ptr<Stage>& stage,
+			const Vec3 setPosition,
+			const shared_ptr<GameObject> gauge
+		) :
+			BaseSprite(stage, setPosition),
+			m_setPos(setPosition),
+			m_Gauge(gauge)
+		{}
+		void OnCreate() override;
+		void OnUpdate() override;
+	};
+
 }

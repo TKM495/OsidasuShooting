@@ -69,21 +69,40 @@ namespace basecross {
 
 	void TitleStage::OnUpdate() {
 		auto& app = App::GetApp();
-		const auto& cntlPad = app->GetInputDevice().GetControlerVec()[0];
+		const auto& cntlPad = app->GetInputDevice().GetControlerVec();
 		// キャラクターセレクトへ
-		if (!m_sceneChangeBlock) {
-			if (cntlPad.wPressedButtons & XINPUT_GAMEPAD_A) {
-				SoundManager::GetInstance()->Play(L"DecisionSE");
-				PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToCharacterSelectStage");
-				m_sceneChangeBlock = true;
-			}
+		//if (!m_sceneChangeBlock) {
+			//auto cntlPadPressedA =
+			//	cntlPad[0].wPressedButtons & XINPUT_GAMEPAD_A ||
+			//	cntlPad[1].wPressedButtons & XINPUT_GAMEPAD_A ||
+			//	cntlPad[2].wPressedButtons & XINPUT_GAMEPAD_A ||
+			//	cntlPad[3].wPressedButtons & XINPUT_GAMEPAD_A;
+
+
+			//if (cntlPadPressedA) {
+			//	SoundManager::GetInstance()->Play(L"DecisionSE");
+			//	PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToCharacterSelectStage");
+			//	m_sceneChangeBlock = true;
+			//}
 			// ゲーム終了
 			//if (cntlPad.wPressedButtons & XINPUT_GAMEPAD_B) {
 			//	SoundManager::GetInstance()->Play(L"CancelSE");
 			//	PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToExit");
 			//	m_sceneChangeBlock = true;
 			//}
-		}
+
+			auto cntl = 4 - 1; // 最大コントローラ数 - 1
+			for (int i = 0; i <= cntl; i++) {
+				if (!m_sceneChangeBlock) {
+					// キャラクターセレクトに戻る
+					if (cntlPad[i].wPressedButtons & XINPUT_GAMEPAD_A) {
+						SoundManager::GetInstance()->Play(L"DecisionSE");
+						PostEvent(0.5f, GetThis<ObjectInterface>(), app->GetScene<Scene>(), L"ToCharacterSelectStage");
+						m_sceneChangeBlock = true;
+					}
+				}
+			}
+		//}
 	}
 	void TitleStage::OnDestroy() {
 		SoundManager::GetInstance()->StopAll();

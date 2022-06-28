@@ -144,6 +144,7 @@ namespace basecross {
 		//auto rootMoving = m_moveRoot * delta * 0.1f;// 移動
 
 		if (!m_isWait) {
+			// 移動先の座標に到着
 			m_totalTime += delta;
 			if (m_totalTime >= 4.0f) {
 				m_totalTime = 0;
@@ -153,7 +154,9 @@ namespace basecross {
 				if (m_isGotoMarkPos) m_isGotoMarkPos = false;
 				else m_isGotoMarkPos = true;
 			}
+			// 座標を格納
 			Vec3 rootMoving;
+			// trueなら目標座標へ、falseなら初期地点へ
 			if (!m_isGotoMarkPos)
 				rootMoving = easing.EaseInOut(
 					EasingType::Quadratic, m_startPosition, m_markPosition, m_totalTime, 4.0f);
@@ -164,9 +167,11 @@ namespace basecross {
 			ptrTrans->SetPosition(rootMoving);
 		}
 		else {
+			// 移動再開
 			if (m_waitTime > m_latency) {
 				m_isWait = false;
 			}
+			// 一旦停止する
 			else {
 				m_waitTime += delta;
 			}

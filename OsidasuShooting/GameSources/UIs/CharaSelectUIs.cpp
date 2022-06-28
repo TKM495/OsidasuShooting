@@ -221,136 +221,6 @@ namespace basecross
 
 	//-----------------------------------------------------------------//
 
-	// カーソルスプライトを表示するための情報
-	//void SelectCursor::OnCreate() {
-	//	auto texture = L"SelectCursor";
-
-	//	auto ptrTrans = GetComponent<Transform>();
-	//	auto pos = ptrTrans->GetPosition();
-	//	ptrTrans->SetPosition(m_setPos);
-
-	//	BaseSprite::CreateSprite(texture, NULL, NULL);
-	//	BaseSprite::SettingScale(Vec3(0.675f));
-	//}
-
-	//// アイコンのそれぞれの位置とアイコンの最大値
-	//void SelectCursor::GetIconDatas(int number,Vec3 pos) {
-	//	m_iconPos[number] = pos;
-	//	m_iconMaxNumber = number;
-	//}
-
-	//void SelectCursor::OnUpdate() {
-	//	CursorController();
-	//	auto ptrTrans = GetComponent<Transform>();
-	//	auto pos = ptrTrans->GetPosition();
-
-	//	//MoveCursor();
-	//	WaitAnimetion();
-	//}
-
-	//void SelectCursor::CursorController() {
-	//	// スティック、方向パッド
-	//	const auto& ctrlVec = 
-	//		App::GetApp()->GetInputDevice().GetControlerVec()[m_gamePadID];
-	//	auto ctrlX = 0.0f;
-	//	//auto ctrlY = 0.0f;
-	//	if (ctrlVec.bConnected) {
-	//		ctrlX = ctrlVec.fThumbLX;
-	//		//ctrlY = ctrlVec.fThumbLY;
-	//	}
-	//	auto trans = GetComponent<Transform>();
-	//	auto transPos  = trans->GetPosition();
-	//	auto moveRight = ctrlX >=  1.0f || ctrlVec.wPressedButtons & XINPUT_GAMEPAD_DPAD_RIGHT;
-	//	auto moveLeft  = ctrlX <= -1.0f || ctrlVec.wPressedButtons & XINPUT_GAMEPAD_DPAD_LEFT;
-	//	//auto moveDown  = ctrlY <= -1.0f || ctrlVec.wPressedButtons & XINPUT_GAMEPAD_DPAD_DOWN;
-	//	//auto moveUp	   = ctrlY >=  1.0f || ctrlVec.wPressedButtons & XINPUT_GAMEPAD_DPAD_UP;	
-
-	//	if (!m_isSetStick) {
-	//		m_moveTime = 0; // 初期化
-	//		// 右へ
-	//		if (moveRight) {
-	//			m_isSetStick = true;
-	//			if (m_iconNumber < m_iconMaxNumber) {
-	//				m_iconNumber++;
-	//				SoundManager::GetInstance()->Play(L"CharacterSelectingSE");
-	//				//m_nowPos = GetComponent<Transform>()->GetPosition();
-	//			}
-	//			else NotMoveAnimetion();
-	//		}
-	//		// 左へ
-	//		else if(moveLeft) {
-	//			m_isSetStick = true;
-	//			if (m_iconNumber > 0) {
-	//				m_iconNumber--;
-	//				SoundManager::GetInstance()->Play(L"CharacterSelectingSE");
-	//				//m_nowPos = GetComponent<Transform>()->GetPosition();
-	//			}
-	//			else NotMoveAnimetion();
-	//		}
-	//	}
-	//	else if (!moveLeft && !moveRight) m_isSetStick = false;
-	//	//MoveCursor();
-	//	GetComponent<Transform>()->SetPosition(m_iconPos[m_iconNumber]);
-	//}
-
-	//void SelectCursor::CursorControl() {}
-
-	//void SelectCursor::WaitAnimetion() {
-	//	const auto& app = App::GetApp();
-	//	const auto& delta = app->GetElapsedTime();
-
-	//	auto ptrDraw = GetComponent<PCTSpriteDraw>();
-	//	auto color = ptrDraw->GetDiffuse();
-
-	//	auto ptrTrans = GetComponent<Transform>();
-	//	auto scale = ptrTrans->GetScale();
-	//	auto pos = ptrTrans->GetPosition();
-
-	//	if (color.w <= 0)  m_waitAnime = true;
-	//	else if (color.w >= 1) m_waitAnime = false;
-
-	//	if (m_waitAnime) {
-	//		color.w += delta;
-	//		scale -= delta * 0.005f;
-	//		//pos.x += delta;
-	//		//pos.y -= delta ;
-	//	}
-	//	else{
-	//		color.w -= delta;
-	//		scale += delta * 0.005f;
-	//		//pos.x -= delta * 2;
-	//		//pos.y += delta * 2;
-	//	}
-
-	//	ptrDraw->SetDiffuse(color);
-	//	//ptrTrans->SetScale(scale);
-	//	//ptrTrans->SetPosition(pos);
-	//}
-
-	//void SelectCursor::NotMoveAnimetion() {}
-
-	//void SelectCursor::MoveCursor() {
-	//	//if (m_moveTime >= m_moveSpeed) {
-	//	//	const auto& app = App::GetApp();
-	//	//	const auto& delta = app->GetElapsedTime();
-
-	//	//	m_moveTime += delta;
-	//	//}
-
-	//	//if (m_nowPos != m_iconPos[m_iconNumber]) {
-	//	//	Vec3 easPos;
-	//	//	Easing<Vec3> easing;
-	//	//	easPos = easing.EaseInOut(EasingType::Quadratic, m_nowPos, m_iconPos[m_iconNumber], m_moveTime, m_moveSpeed);
-	//	//	GetComponent<Transform>()->SetPosition(easPos);
-	//	//}
-	//}
-
-	//int SelectCursor::SetCharacterID() { return m_iconNumber; }
-
-	//Vec3 SelectCursor::GetIconPos(int iconNum) { return m_iconPos[iconNum]; }
-
-	//-----------------------------------------------------------------//
-
 	// 各ステータス項目を表示するための情報
 	void StatusSpriteUI::OnCreate() {
 		auto texture = L"";
@@ -541,7 +411,8 @@ namespace basecross
 		m_defPos = pos.x;
 	}
 
-	void TriangleSprite::CharacterSelectingAnimation(const CONTROLER_STATE& getStick,bool stick, bool left, bool right,int gamePadID) {
+	// 左右いずれかが入力されたときに指定位置に移動する
+	void TriangleSprite::CharacterSelectingAnimation(const CONTROLER_STATE& getStick,bool stick,int gamePadID) {
 		const auto& ctrlVec = App::GetApp()->GetInputDevice().GetControlerVec()[gamePadID];
 		auto ctrlX = 0.0f;
 		if (ctrlVec.bConnected) {
@@ -573,6 +444,7 @@ namespace basecross
 		auto ptrTrans = GetComponent<Transform>();
 		auto pos = ptrTrans->GetPosition();
 
+		// 定位置に戻る
 		if (pos.x != m_defPos)
 		{
 			if (!m_isReTriangle) {
@@ -589,6 +461,91 @@ namespace basecross
 			}
 		}
 		ptrTrans->SetPosition(pos);
+	}
+
+	//-----------------------------------------------------------------//
+
+	// Bボタン長押しで反応するゲージ
+	void GoBackTitleGauge::OnCreate() {
+		auto texture = L"Gauge";
+
+		auto ptrTrans = GetComponent<Transform>();
+		auto pos = ptrTrans->GetPosition();
+		ptrTrans->SetPosition(m_setPos);
+
+		BaseSprite::CreateSprite(texture, NULL, NULL);
+		BaseSprite::SettingScale(Vec3(0.67f, 0.075f, 1.0f));
+		//BaseSprite::SettingPositionSenter(m_setPos);
+
+		auto transComp = GetComponent<Transform>();
+		auto scale = transComp->GetScale();	// スケール取得
+		m_maxGauge = scale.x;				// 最大値取得
+		scale.x = 0;
+		transComp->SetScale(scale);
+
+		m_isGoBackTitle = false;
+	}
+
+	void GoBackTitleGauge::GaugeMove() {
+		auto& app = App::GetApp();
+
+		auto transComp = GetComponent<Transform>();
+		auto scale = transComp->GetScale();
+
+		const auto& ctrlVec = app->GetInputDevice().GetControlerVec();
+
+		// 誰か一人以上Bボタンを押していた場合true
+		auto PushBButton = (
+			(ctrlVec[0].bConnected && ctrlVec[0].wButtons & XINPUT_GAMEPAD_B));
+
+
+		if (!m_isGoBackTitle) {
+			if (PushBButton) {
+				if (m_maxGauge < scale.x) {
+					scale.x = m_maxGauge;
+					PushBButton = false;
+					m_isGoBackTitle = true;
+				}
+
+				scale.x += m_delta * m_maxGauge * m_addGaugeMlt;
+			}
+			else {
+				scale.x = 0;
+			}
+		}
+
+		//SetDrawActive(PushBButton);
+
+		transComp->SetScale(scale);
+	}
+	
+	void GoBackTitleGauge::OnUpdate() {
+		auto& app = App::GetApp();
+		m_delta = app->GetElapsedTime();
+		GaugeMove();
+	}
+
+	bool GoBackTitleGauge::GetGoBackTitle() {
+		return m_isGoBackTitle;
+	}
+
+	//-----------------------------------------------------------------//
+
+	// ゲージの後ろを表示するための情報
+	void GoBackTitleGaugeBack::OnCreate() {
+		auto texture = L"GaugeBackGround";
+
+		auto ptrTrans = GetComponent<Transform>();
+		auto pos = ptrTrans->GetPosition();
+		ptrTrans->SetPosition(m_setPos);
+
+		BaseSprite::CreateSprite(texture, NULL, NULL);
+		BaseSprite::SettingScale(Vec3(0.685f, 0.125f, 1.0f));
+		//BaseSprite::SettingPositionSenter(m_setPos);
+	}
+
+	void GoBackTitleGaugeBack::OnUpdate() {
+		SetDrawActive(m_Gauge->GetDrawActive());
 	}
 
 	//-----------------------------------------------------------------//
