@@ -474,13 +474,13 @@ namespace basecross
 		ptrTrans->SetPosition(m_setPos);
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
-		BaseSprite::SettingScale(Vec3(0.67f, 0.075f, 1.0f));
+		BaseSprite::SettingScale(Vec3(0.685f, 0.075f, 1.0f));
 		//BaseSprite::SettingPositionSenter(m_setPos);
 
 		auto transComp = GetComponent<Transform>();
 		auto scale = transComp->GetScale();	// スケール取得
 		m_maxGauge = scale.x;				// 最大値取得
-		scale.x = 0;
+		scale.x = 0;						// ゲージを0にする
 		transComp->SetScale(scale);
 
 		m_isGoBackTitle = false;
@@ -498,7 +498,7 @@ namespace basecross
 		auto PushBButton = (
 			(ctrlVec[0].bConnected && ctrlVec[0].wButtons & XINPUT_GAMEPAD_B));
 
-
+		// ゲージが最大に達していないとき
 		if (!m_isGoBackTitle) {
 			if (PushBButton) {
 				if (m_maxGauge < scale.x) {
@@ -514,7 +514,7 @@ namespace basecross
 			}
 		}
 
-		//SetDrawActive(PushBButton);
+		SetDrawActive(PushBButton || m_isGoBackTitle);
 
 		transComp->SetScale(scale);
 	}
@@ -540,7 +540,7 @@ namespace basecross
 		ptrTrans->SetPosition(m_setPos);
 
 		BaseSprite::CreateSprite(texture, NULL, NULL);
-		BaseSprite::SettingScale(Vec3(0.685f, 0.125f, 1.0f));
+		BaseSprite::SettingScale(Vec3(0.7f, 0.125f, 1.0f));
 		//BaseSprite::SettingPositionSenter(m_setPos);
 	}
 
