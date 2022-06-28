@@ -362,7 +362,7 @@ namespace basecross {
 	//	}
 	//}
 
-	// キャラクターの選択を完了しているか
+	// 全員がキャラクターの選択を完了しているか
 	void CharacterSelectStage::CheckSelectedPlayers() {
 		auto color = m_BackGround->GetComponent<PCTSpriteDraw>();
 		auto rgba = color->GetDiffuse();
@@ -433,8 +433,11 @@ namespace basecross {
 				m_SelectOK[i]->SetDrawActive(true);
 			}
 		}
-		CheckSelectedPlayers();
-		GoBackTitle();
+
+		// 順番が違うと正常に機能しなくなる
+		GoToGameStage();		// ゲームを開始する
+		GoBackTitle();			// タイトルへ戻る
+		CheckSelectedPlayers(); // 全員がキャラクターを選択したか
 	}
 
 	void CharacterSelectStage::OnDestroy() {
