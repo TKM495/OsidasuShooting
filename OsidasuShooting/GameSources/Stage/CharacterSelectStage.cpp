@@ -352,16 +352,6 @@ namespace basecross {
 		m_Picture[pictureNum]->SetDrawActive(true);
 	}
 
-	//// キャラクターの選択が完了
-	//void CharacterSelectStage::CharacterSelectedPlayers(int gamePadID) {
-	//	if (m_isDecisionPlayer[gamePadID]) {
-
-	//	}
-	//	else {
-
-	//	}
-	//}
-
 	// 全員がキャラクターの選択を完了しているか
 	void CharacterSelectStage::CheckSelectedPlayers() {
 		auto color = m_BackGround->GetComponent<PCTSpriteDraw>();

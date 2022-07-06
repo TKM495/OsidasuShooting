@@ -74,11 +74,11 @@ namespace basecross {
 		void SelectCharacter(int gamePadID);				// キャラクターのIDを元にキャラクターを決める
 		void UIsSet();										// 各UI設置
 
-		void CharacterSelectingPlayers(int gamePadID);
-		void CharacterStetusGauge(int gamePadID);
+		void CharacterSelectingPlayers(int gamePadID);		// キャラクターを決定する
+		void CharacterStetusGauge(int gamePadID);			// キャラクターのステータスゲージを表示する
 
-		void GoToGameStage();
-		void GoBackTitle();
+		void GoToGameStage();	// ゲームを開始する
+		void GoBackTitle();		// タイトルへ戻る
 
 		void CheckSelectedPlayers();
 
